@@ -18,7 +18,8 @@ assets/js/                app.js(ルータ) quiz.js(出題エンジン) store.js
                           analytics.js score.js audio.js charts.js render.js ui.js runtime.js
 assets/js/views/          home drills mocks review analytics settings result exam
 assets/data/topics.js     論点マスタ（37論点）
-assets/data/scenes.js     Part 1 の SVG 場面（28種、模試専用）
+assets/data/scenes.js     Part 1 の SVG 場面（30種、模試専用）。部品系は design/part1/SPEC.md に従う
+design/part1/             Part 1 線画の設計仕様と見本 SVG。線画を触る前に SPEC.md を必ず読む
 assets/data/registry.js   目録と遅延読み込み
 assets/data/drills/*.js   論点別ドリル（23ファイル）
 assets/data/mocks/volN*.js 予想模試（volN.js が集約、volN-xx.js が中身）
@@ -40,7 +41,12 @@ python3 -m http.server 8777     # file:// では ES モジュールが動かな�
 - `tools/smoke.mjs` — Playwright による実ブラウザ通しテスト（27項目）。ポートが他プロセスに占有されて
   いれば自動で隣にずれる
 - `tools/shots.mjs` — 主要画面のスクリーンショット取得
+- `tools/scenecheck.mjs` — Part 1 線画の幾何検査（12項目）。Chromium で実描画し `getCTM()` で
+  transform を解決して座標を測る。`--ref` で `design/part1/*.svg` の見本を検査
 - 作業前後に `node tools/validate.mjs` を実行し、エラー0・警告0を確認すること
+- **線画を変えたら `tools/scenecheck.mjs` に加えて、必ず 544px・light / dark で
+  レンダリングして目視すること。**幾何検査を通っても「読み取れる」とは限らない
+  （輪郭線が無く塗りだけだと `--card-2` と背景の差がわずかで、存在自体が読めない事故が実際に起きた）
 
 ## 問題データの書式
 各ファイルは `export const UNITS = [...]`（模試の分割ファイルは `L1` `R2` などを export し `volN.js` で集約）。
