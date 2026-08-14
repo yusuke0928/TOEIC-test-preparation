@@ -29,7 +29,7 @@ export const L1 = [
       'The lowest shelf has been left empty.',
     ],
     a: 3,
-    e: '棚は上の 3 段に箱が置かれ、最下段だけ何も載っていない。「そこに何が無いか」を述べる選択肢も、写真の通りであれば正解になる。',
+    e: '棚は上の 2 段に箱が置かれ、最下段だけ何も載っていない。「そこに何が無いか」を述べる選択肢も、写真の通りであれば正解になる。',
     w: ['フォークリフトは描かれていない。', 'トラックへの積み込み場面ではない。', 'はしごに登る人物はいない。', '正解。'],
     ja: '(D) 最下段の棚には何も置かれていない。',
   }),
@@ -49,7 +49,7 @@ export const L1 = [
   }),
 
   p1(3, {
-    scene: 'laboratory', sp: 'M-Am', lv: 5,
+    scene: 'laboratory-seated', sp: 'M-Am', lv: 5,
     c: [
       'Safety goggles are being distributed.',
       'Chemicals are being poured into a beaker.',
@@ -65,15 +65,15 @@ export const L1 = [
   p1(4, {
     scene: 'market-stall', sp: 'W-Au', lv: 4,
     c: [
-      'A person is carrying goods away from a stall.',
+      'A person is carrying goods next to a stall.',
       'A vendor is arranging fruit on a table.',
       'An awning is being taken down.',
       'A cart is blocking the walkway.',
     ],
     a: 0,
-    e: '露店から離れる方向へ荷物を抱えて歩いている人物の姿。carry のポーズが写真の動作と一致する。',
+    e: '露店の脇で荷物を抱えている人物の姿。手が箱に掛かっているので carry と言える。日よけをたたむ・台車を置くといった、写真にない要素を足した選択肢は選べない。',
     w: ['正解。', '商品に触れて並べている様子は確認できない。', '日よけを外す動作はない。', '通路をふさぐ台車はない。'],
-    ja: '(A) 人物が露店から品物を持って歩き去っている。',
+    ja: '(A) 人物が露店の脇で品物を抱えている。',
   }),
 
   p1(5, {
