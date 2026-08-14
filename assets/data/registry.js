@@ -29,13 +29,27 @@ export const MOCK_META = [
 export const DRILL_FILES = [
   () => import('./drills/grammar.js'),
   () => import('./drills/grammar2.js'),
+  () => import('./drills/grammar3.js'),
+  () => import('./drills/grammar4.js'),
+  () => import('./drills/grammar5.js'),
+  () => import('./drills/grammar6.js'),
   () => import('./drills/vocab.js'),
   () => import('./drills/vocab2.js'),
+  () => import('./drills/vocab3.js'),
+  () => import('./drills/vocab4.js'),
+  () => import('./drills/vocab5.js'),
   () => import('./drills/context.js'),
+  () => import('./drills/context2.js'),
+  () => import('./drills/context3.js'),
   () => import('./drills/reading.js'),
   () => import('./drills/reading2.js'),
+  () => import('./drills/reading3.js'),
+  () => import('./drills/reading4.js'),
   () => import('./drills/listening.js'),
   () => import('./drills/listening2.js'),
+  () => import('./drills/listening3.js'),
+  () => import('./drills/listening4.js'),
+  () => import('./drills/part1.js'),
 ];
 
 const cache = new Map();
