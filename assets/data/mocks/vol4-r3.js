@@ -1,0 +1,151 @@
+/* =============================================================
+   予想模試 Vol.4 — Part 7 単一文書 後半（No.165–175）
+   語彙難化回。
+   ============================================================= */
+
+const sp = (o) => ({
+  id: `v4-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7detail'],
+  level: o.lv ?? 5, docCount: o.docs.length, docs: o.docs,
+  questions: o.q.map((x, i) => ({
+    id: `v4q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    exp: x.e, why: x.w, topics: x.t || ['p7detail'], tag: x.tag,
+    insertAt: x.insertAt, sentence: x.sentence,
+  })),
+});
+
+export const R3 = [
+
+  /* ── 165–168 オンラインチャット（4名）─────────────── */
+  sp({
+    n: [165, 166, 167, 168], lv: 5, t: ['p7intent'],
+    docs: [{
+      label: 'Online chat discussion',
+      body: [{ t: 'chat', lines: [
+        { who: 'Naledi Khumalo', time: '09:15', text: "The trade-show brochures just arrived and the client's phone number on the back cover is missing a digit." },
+        { who: 'Owen Bellweather', time: '09:16', text: 'How many copies?' },
+        { who: 'Naledi Khumalo', time: '09:17', text: 'All 2,000. The proof had the right number — this must have happened at the print stage.' },
+        { who: 'Marcus Feng', time: '09:19', text: 'Do we have time to reprint before Thursday?' },
+        { who: 'Priya Desai', time: '09:20', text: 'The vendor says a rush reprint of the back cover only, as a sticker insert, could be ready by Wednesday morning.' },
+        { who: 'Owen Bellweather', time: '09:21', text: 'A sticker looks unprofessional for this client. What about a full reprint?' },
+        { who: 'Priya Desai', time: '09:22', text: 'Full reprint is Friday at the earliest — after the show.' },
+        { who: 'Marcus Feng', time: '09:24', text: "Then it's the sticker or nothing. Owen, can you soften the client on the sticker idea, or should we just eat the cost of covering their card table with a printed number instead?" },
+        { who: 'Owen Bellweather', time: '09:26', text: 'Actually, a small printed card on the table might look more deliberate than a sticker on every single brochure.' },
+        { who: 'Naledi Khumalo', time: '09:27', text: 'I like that. Cheaper too — one card, not two thousand stickers.' },
+        { who: 'Marcus Feng', time: '09:28', text: 'Agreed. Priya, cancel the sticker order.' },
+      ] }],
+    }],
+    q: [
+      { tag: '概要', s: 'What problem are the writers discussing?',
+        c: ['A delay in the trade-show venue booking', 'A printing error on brochures for a trade show',
+            'A client\'s cancellation of an order', 'A shortage of printing paper'],
+        a: 1,
+        e: '2,000部のパンフレット全てで、裏表紙の電話番号が1桁欠けているという印刷ミスについて話し合っている。',
+        w: ['会場予約の遅延ではない。', '正解。', '解約の話はない。', '用紙不足には触れていない。'] },
+      { tag: '意図', t: ['p7intent'],
+        s: 'At 09:26, what does Mr. Bellweather most likely mean when he writes, "a small printed card on the table might look more deliberate than a sticker on every single brochure"?',
+        c: ['He thinks the sticker order should be doubled.', 'He wants to delay the decision until after the show.',
+            'He believes the client will not notice the error either way.', 'He is proposing an alternative that would appear more intentional to the client.'],
+        a: 3,
+        e: '直前でマーカスが「シールか、テーブルに番号を印刷したカードを置くか」の二択を提示したことへの応答。カードの方が意図的な演出に見えると提案している。',
+        w: ['注文倍増の提案ではない。', '決定の先延ばしではない。', '気づかれないとは述べていない。', '正解。'] },
+      { tag: '詳細', s: "Why can't the brochures be fully reprinted before the show?",
+        c: ['The vendor has no capacity until next month.', 'The original files have been lost.',
+            'The client has not approved a reprint.', 'A full reprint would not be ready until after the show ends.'],
+        a: 3,
+        e: '「全面再印刷は早くても金曜、つまりショー終了後」と説明されている。',
+        w: ['来月まで空きがないとは述べていない。', 'ファイル紛失の話はない。', '承認の話は出ていない。', '正解。'] },
+      { tag: '詳細', s: 'What will Ms. Desai do?',
+        c: ['Cancel the sticker order', 'Order a full reprint for Friday',
+            'Contact the client directly', 'Design a new printed card'],
+        a: 0,
+        e: '「シールの注文を取り消して」と依頼されている。',
+        w: ['正解。', '金曜の全面再印刷は選ばれていない。', '顧客への連絡は述べていない。', 'カードのデザインは指示されていない。'] },
+    ],
+  }),
+
+  /* ── 169–171 手紙 ─────────────────────────────────── */
+  sp({
+    n: [169, 170, 171], lv: 5,
+    docs: [{
+      label: 'Letter',
+      head: 'Amble & Vance Structural Consultants\nUnit 7, Foundry Court, Leeds\n\n5 September',
+      body: [
+        'Ms. Elspeth Carrow\nCarrow Barn Conversions Ltd',
+        'Dear Ms. Carrow,',
+        'Further to your enquiry of 20 August, I have completed my structural assessment of the main truss in the barn at Higham Grange.',
+        'The condition is better than the initial photographs suggested. The principal oak posts show no significant decay, and the joints at the wall plate are sound throughout — unusual for a structure of this age, and it considerably simplifies the scope of work. What has failed is a single tie beam on the eastern bay, where an old repair using mild steel brackets has caused corrosion staining and some localised splitting in the surrounding timber.',
+        'I would not recommend replacing the full truss at this stage. What the structure needs is a sistered timber alongside the affected tie beam and removal of the corroding brackets, replaced with stainless fixings. That is roughly three days of carpentry work rather than the three weeks a full truss replacement would require.',
+        'I must, however, raise the condition of the roof covering above this bay. Water is tracking along the underside of the existing slates and reaching the tie beam directly, and whatever timber work we carry out will be compromised again within a decade unless the roof in this section is re-felted and the slates relaid. I can provide a written specification for a roofer if that would help you plan the wider project.',
+        'My estimate for the timber and fixings work is £2,940. I have not included the roof specification, which I would provide at no charge.',
+        'Yours sincerely,\nDominic Amble CEng',
+      ],
+    }],
+    q: [
+      { tag: '概要', s: 'Why is Mr. Amble writing?',
+        c: ['To decline a structural inspection commission', 'To report on an assessment and recommend limited repair work',
+            'To request additional photographs of the site', 'To invoice for completed carpentry work'],
+        a: 1,
+        e: '調査結果を報告し、全面的なトラス交換ではなく限定的な補修を勧めている。',
+        w: ['依頼は引き受けている。', '正解。', '写真の追加要請はない。', '未実施の作業の見積もりであり請求書ではない。'] },
+      { tag: '詳細', s: 'What does the letter indicate about the wall-plate joints?',
+        c: ['They are sound throughout.', 'They have been replaced since the barn was built.',
+            'They were removed for inspection.', 'They no longer match the original design.'],
+        a: 0,
+        e: '「壁桁の接合部は全体にわたって健全」と述べられている。',
+        w: ['正解。', '交換の話はない。', '検査のための取り外しには触れていない。', '設計との不一致は述べていない。'] },
+      { tag: '推測', t: ['p7inf'], s: 'Why does the writer mention the condition of the roof covering?',
+        c: ['To warn that the timber repair will not last without further work', 'To explain a delay in the assessment',
+            'To justify a higher estimate for the carpentry', 'To suggest relocating the affected bay'],
+        a: 0,
+        e: '「この区画の屋根を修理しない限り、木部の修理は 10 年で再び損なわれる」と警告している。',
+        w: ['正解。', '遅延の説明ではない。', '見積もりには屋根の工事は含まれていない。', '区画の移設は提案していない。'] },
+    ],
+  }),
+
+  /* ── 172–175 報告（文挿入あり）───────────────────── */
+  sp({
+    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    docs: [{
+      label: 'Report',
+      title: 'Public Refill Stations: Review of the 2023 Fountain Replacement Programme',
+      head: 'Prepared for the Parks & Public Realm Committee',
+      body: [
+        'The programme replaced 86 drinking fountains with combined refill stations over nine months, against a plan of 110. — [[1]] — The 24 outstanding are all in the riverside park and are covered by a separate flood-defence scheme due next year.',
+        'On cost, the programme came in 4 percent under budget. On timing, it finished two weeks late. Neither figure is unusual for work of this kind. — [[2]] —',
+        'The finding that merits the committee\'s attention concerns vandalism. The new refill stations use a reinforced steel spout in place of the previous brass fitting. Replacement spout costs are 45 percent higher per unit. — [[3]] — Across the first year, however, total vandalism-related repair spending fell by 64 percent, because the number of spouts needing replacement fell from 58 to 19.',
+        'Officers had expected a reduction but not one of this scale. Interviews with the maintenance contractor suggest the reason is not only the material but the design: the previous brass spout could be snapped off by hand in seconds, whereas the reinforced fitting requires tools that most casual vandals do not carry. — [[4]] —',
+        'We therefore recommend that the riverside park stations use the same specification, notwithstanding the higher unit cost, and that the committee treat unit price as a poor guide to lifetime cost in this category.',
+      ],
+    }],
+    q: [
+      { tag: '詳細', s: 'Why were 24 fountains not replaced?',
+        c: ['Funding for the programme was withdrawn.', 'They are part of another scheme.',
+            'The fittings were found to be defective.', 'The contractor withdrew from the work.'],
+        a: 1,
+        e: '「残る 24 基は河畔公園にあり、来年予定の別の治水事業に含まれる」とある。',
+        w: ['予算は 4 パーセント下回っている。', '正解。', '不良品の話は出ていない。', '業者の撤退には触れていない。'] },
+      { tag: '詳細', s: 'What is stated about the cost of the replacement spouts?',
+        c: ['The unit price rose but total spending fell.', 'Both unit price and total spending fell.',
+            'The unit price was unchanged.', 'Total spending rose in the first year.'],
+        a: 0,
+        e: '1 基あたりは 45 パーセント高いが、破損件数が 58 → 19 に減ったため総額は 64 パーセント減。',
+        w: ['正解。', '単価は上がっている。', '45 パーセント上昇と明記。', '総額は減少している。'] },
+      { tag: '位置選択', t: ['p7ins'], insertAt: 3,
+        sentence: 'On unit price alone, this looks like an unwise choice.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"On unit price alone, this looks like an unwise choice."',
+        c: ['[1]', '[2]', '[3]', '[4]'],
+        a: 2,
+        e: '挿入文の this は直前の「1 基あたり 45 パーセント高い」を指し、直後の however 以下（総額は 64 パーセント減）と対比される。単価だけ見れば失敗に見える → しかし実際は、という構造が [3] で完成する。',
+        w: ['[1] の前後は基数の話で、単価はまだ出ていない。',
+            '[2] の前後は費用と工期の総括で、部材の単価には触れていない。',
+            '正解。',
+            '[4] の前後は原因の分析で、対比の起点にならない。'] },
+      { tag: '推測', t: ['p7inf'], s: 'What does the report conclude about unit price?',
+        c: ['It should be the primary criterion for future purchases.', 'It is a misleading measure in this category.',
+            'It should be renegotiated with the contractor.', 'It will fall once volumes increase.'],
+        a: 1,
+        e: '「この分野では単価は生涯費用の目安として不適切だと委員会が扱うよう勧告する」とある。',
+        w: ['むしろ主要基準にすべきでないと述べている。', '正解。', '再交渉の勧告はない。', '数量による下落には触れていない。'] },
+    ],
+  }),
+];

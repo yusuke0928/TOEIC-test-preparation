@@ -1,0 +1,151 @@
+/* =============================================================
+   予想模試 Vol.3 — Part 7 単一文書 後半（No.165–175）
+   リーディング高負荷回。
+   ============================================================= */
+
+const sp = (o) => ({
+  id: `v3-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7detail'],
+  level: o.lv ?? 5, docCount: o.docs.length, docs: o.docs,
+  questions: o.q.map((x, i) => ({
+    id: `v3q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    exp: x.e, why: x.w, topics: x.t || ['p7detail'], tag: x.tag,
+    insertAt: x.insertAt, sentence: x.sentence,
+  })),
+});
+
+export const R3 = [
+
+  /* ── 165–168 オンラインチャット（4名）─────────────── */
+  sp({
+    n: [165, 166, 167, 168], lv: 5, t: ['p7intent'],
+    docs: [{
+      label: 'Online chat discussion',
+      body: [{ t: 'chat', lines: [
+        { who: 'Elena Castillo', time: '09:02', text: 'Test lab confirmed it — the magnet in the RiverPlay building blocks can come loose if a child bites down hard enough. We need to pull batch 4471 from shelves.' },
+        { who: 'Dov Kaplan', time: '09:04', text: 'How many units shipped in that batch?' },
+        { who: 'Elena Castillo', time: '09:05', text: '6,200. About 3,900 are still with retailers; the rest have likely sold through.' },
+        { who: 'Marcus Ueda', time: '09:07', text: 'Do we know if any injuries have been reported?' },
+        { who: 'Elena Castillo', time: '09:08', text: 'None so far. This came from our own pre-release stress testing on a later batch, not from a complaint.' },
+        { who: 'Priya Anand', time: '09:10', text: 'Then we get ahead of it. I would rather announce a voluntary recall than have a regulator announce it for us.' },
+        { who: 'Dov Kaplan', time: '09:12', text: 'Agreed. Retailers can pull the 3,900 today if we send the notice by noon.' },
+        { who: 'Marcus Ueda', time: '09:14', text: 'I want one more thing checked before noon — whether batch 4470, the one just before it, used the same magnet supplier.' },
+        { who: 'Elena Castillo', time: '09:16', text: 'I\'ll have that answer within the hour.' },
+        { who: 'Priya Anand', time: '09:18', text: 'Marcus, is there a reason you\'re asking about 4470 specifically rather than just 4471?' },
+        { who: 'Marcus Ueda', time: '09:19', text: 'If it\'s the same supplier, we\'re better off recalling both at once than doing this twice.' },
+        { who: 'Dov Kaplan', time: '09:21', text: 'Makes sense. I\'ll hold the notice until Elena confirms either way.' },
+      ] }],
+    }],
+    q: [
+      { tag: '概要', s: 'What are the writers discussing?',
+        c: ['Whether to switch magnet suppliers', 'Whether to postpone a product launch',
+            'How to price a replacement product', 'How to respond to a safety issue found during testing'],
+        a: 3,
+        e: '社内試験で見つかった安全上の問題（磁石が外れる恐れ）にどう対応するかを話し合っている。',
+        w: ['供給元変更は結論として決まっていない。', '発売延期の話ではない。', '価格設定の話はない。', '正解。'] },
+      { tag: '意図', t: ['p7intent'],
+        s: 'At 09:10, what does Ms. Anand most likely mean when she writes, "I would rather announce a voluntary recall than have a regulator announce it for us"?',
+        c: ['She believes a regulator will not act on this issue.', 'She wants legal approval before proceeding.',
+            'She thinks the recall should be delayed until testing is complete.', 'She wants the company to control the timing and framing of the announcement.'],
+        a: 3,
+        e: '規制当局に先んじて自主的に発表したいという発言で、対応を自社主導で進め、発表の形と時期を管理したいという意図。',
+        w: ['規制当局が動かないとは述べていない。', '法務承認への言及ではない。', '延期の提案ではない。', '正解。'] },
+      { tag: '詳細', s: 'How many units of batch 4471 are still with retailers?',
+        c: ['2,300', '4,471', '6,200', '3,900'],
+        a: 3,
+        e: '出荷 6,200 個のうち、まだ小売店にあるのは約 3,900 個と述べられている。',
+        w: ['本文に記載なし。', 'バッチ番号であり数量ではない。', '出荷総数。', '正解。'] },
+      { tag: '推測', t: ['p7inf'], s: 'Why does Mr. Ueda want to know about batch 4470?',
+        c: ['To check whether it was sold in a different market', 'To determine whether a single combined recall would be more efficient',
+            'To calculate a refund amount', 'To find out who approved the original design'],
+        a: 1,
+        e: '「同じ供給元なら、2 回に分けるより一度に回収する方がよい」と述べている。',
+        w: ['販売市場の話はない。', '正解。', '返金額の話は出ていない。', '承認者には触れていない。'] },
+    ],
+  }),
+
+  /* ── 169–171 手紙 ─────────────────────────────────── */
+  sp({
+    n: [169, 170, 171], lv: 5,
+    docs: [{
+      label: 'Letter',
+      head: 'Fenwick & Voss Organ Conservation\nUnit 3, The Old Malthouse, Norwich\n\n22 October',
+      body: [
+        'The Reverend Alys Trentham\nChurchwardens\' Committee\nSt. Bartholomew\'s, Marsh Compton',
+        'Dear Reverend Trentham,',
+        'Further to your enquiry of 30 September, I have now completed my examination of the organ in the north transept.',
+        'The condition is better than the surveyor\'s report from 2019 suggested. The leather in the bellows is worn but intact in most places, and the pipework itself — some three hundred and forty pipes across four ranks — is largely undamaged. What has failed is the wind trunk connecting the bellows to the main chest, where the wood has split along an old repair joint.',
+        'I would not recommend a full restoration at this stage. What the organ needs is a replacement wind trunk and releathering of the bellows at the two points where air is visibly escaping. That is roughly sixty hours of workshop time rather than the four hundred hours a full restoration would require.',
+        'I must, however, raise the condition of the case. The organ stands against an external wall that shows signs of rising damp, and whatever we repair inside the instrument will be undermined within five years unless the wall is treated and a ventilation gap is created behind the case. I can provide a written specification for a builder if that would help you raise the matter with the diocese.',
+        'My estimate for the wind trunk and releathering is £4,850. I have not included the specification for the wall works, which I would provide at no charge.',
+        'Yours sincerely,\nGriffin Okafor ACR',
+      ],
+    }],
+    q: [
+      { tag: '概要', s: 'Why is Mr. Okafor writing?',
+        c: ['To decline a restoration commission', 'To report on an examination and recommend limited repair work',
+            'To request additional historical photographs', 'To invoice for completed restoration work'],
+        a: 1,
+        e: '調査結果を報告し、全面修復ではなく限定的な修理を勧めている。',
+        w: ['依頼は引き受けている。', '正解。', '写真の追加要請はない。', '未実施の作業の見積もりであり請求書ではない。'] },
+      { tag: '詳細', s: 'What does the letter indicate about the pipework?',
+        c: ['It is largely undamaged.', 'It has been replaced since 2019.',
+            'It was removed for cleaning.', 'It no longer matches the original design.'],
+        a: 0,
+        e: '「パイプ自体はおおむね無傷」と述べられている。',
+        w: ['正解。', '交換の話はない。', '清掃のための取り外しには触れていない。', '設計との不一致は述べていない。'] },
+      { tag: '推測', t: ['p7inf'], s: 'Why does the writer mention the condition of the external wall?',
+        c: ['To warn that the repair will not last without further work', 'To explain a delay in the examination',
+            'To justify a higher estimate for the wind trunk', 'To suggest moving the organ to another building'],
+        a: 0,
+        e: '「壁を処置し、ケース裏に通気の隙間を作らない限り、内部の修理は 5 年で損なわれる」と警告している。',
+        w: ['正解。', '遅延の説明ではない。', '見積もりには壁の工事は含まれていない。', '移設は提案していない。'] },
+    ],
+  }),
+
+  /* ── 172–175 報告（文挿入あり）───────────────────── */
+  sp({
+    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    docs: [{
+      label: 'Report',
+      title: 'Streetlight Retrofit: Review of the 2023 LED Conversion Programme',
+      head: 'Prepared for the Infrastructure Committee',
+      body: [
+        'The programme converted 1,340 sodium streetlights to LED fittings over eleven months, against a plan of 1,600. — [[1]] — The 260 outstanding are all on the eastern ring road and are covered by a separate resurfacing scheme due next year.',
+        'On cost, the programme came in 5 percent under budget. On timing, it finished three weeks late. Neither figure is unusual for infrastructure work of this kind. — [[2]] —',
+        'The finding that merits the committee\'s attention concerns copper theft. The new LED fittings use a sealed, tamper-resistant wiring housing in place of the previous open junction box. Replacement housing costs are 35 percent higher per unit. — [[3]] — Across the first year, however, total theft-related repair spending fell by 68 percent, because the number of fittings targeted for cable theft fell from 214 to 61.',
+        'Officers had expected a reduction but not one of this scale. Interviews with the maintenance contractor suggest the reason is not only the housing design but what a thief actually sees: an open junction box signals accessible copper at a glance, whereas the sealed LED housing gives no such visual cue and requires specialist tools to open, which most opportunistic thieves do not carry. — [[4]] —',
+        'We therefore recommend that the eastern ring road conversion use the same specification, notwithstanding the higher unit cost, and that the committee treat unit price as a poor guide to lifetime cost in this category.',
+      ],
+    }],
+    q: [
+      { tag: '詳細', s: 'Why were 260 streetlights not converted?',
+        c: ['Funding for the programme was withdrawn.', 'They are part of another scheme.',
+            'The fittings were found to be defective.', 'The contractor withdrew from the work.'],
+        a: 1,
+        e: '「残る 260 基は東側環状道路にあり、来年予定の別の舗装事業に含まれる」とある。',
+        w: ['予算は 5 パーセント下回っている。', '正解。', '不良品の話は出ていない。', '業者の撤退には触れていない。'] },
+      { tag: '詳細', s: 'What is stated about the cost of the replacement housings?',
+        c: ['The unit price rose but total spending fell.', 'Both unit price and total spending fell.',
+            'The unit price was unchanged.', 'Total spending rose in the first year.'],
+        a: 0,
+        e: '1 基あたりは 35 パーセント高いが、被害件数が 214 → 61 に減ったため総額は 68 パーセント減。',
+        w: ['正解。', '単価は上がっている。', '35 パーセント上昇と明記。', '総額は減少している。'] },
+      { tag: '位置選択', t: ['p7ins'], insertAt: 3,
+        sentence: 'On unit price alone, this looks like a poor decision.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"On unit price alone, this looks like a poor decision."',
+        c: ['[1]', '[2]', '[3]', '[4]'],
+        a: 2,
+        e: '挿入文の this は直前の「1 基あたり 35 パーセント高い」を指し、直後の however 以下（総額は 68 パーセント減）と対比される。単価だけ見れば失敗に見える → しかし実際は、という構造が [3] で完成する。',
+        w: ['[1] の前後は基数の話で、単価はまだ出ていない。',
+            '[2] の前後は費用と工期の総括で、部材の単価には触れていない。',
+            '正解。',
+            '[4] の前後は原因の分析で、対比の起点にならない。'] },
+      { tag: '推測', t: ['p7inf'], s: 'What does the report conclude about unit price?',
+        c: ['It should be the primary criterion for future purchases.', 'It is a misleading measure in this category.',
+            'It should be renegotiated with the contractor.', 'It will fall once volumes increase.'],
+        a: 1,
+        e: '「この分野では単価は生涯費用の目安として不適切だと委員会が扱うよう勧告する」とある。',
+        w: ['むしろ主要基準にすべきでないと述べている。', '正解。', '再交渉の勧告はない。', '数量による下落には触れていない。'] },
+    ],
+  }),
+];

@@ -1,0 +1,443 @@
+/* =============================================================
+   drills/listening.js — Part 1・Part 2 論点ドリル
+   Part 1 状態と動作 / Part 2 間接応答 / Part 2 疑問文の型
+   音声は端末の音声合成で再生される。選択肢は解答するまで表示されない。
+   ============================================================= */
+
+/* Part 1 の単問 */
+const p1 = (id, o) => ({
+  id: `u-${id}`, part: 1, kind: 'p1', topics: o.t, level: o.lv ?? 4,
+  scene: o.scene, speaker: o.sp || 'W-Am',
+  questions: [{ id, choices: o.c, answer: o.a, exp: o.e, why: o.w, ja: o.ja, vocab: o.v, topics: o.t }],
+});
+
+/* Part 2 の単問 */
+const p2 = (id, o) => ({
+  id: `u-${id}`, part: 2, kind: 'p2', topics: o.t, level: o.lv ?? 5,
+  questions: [{
+    id, prompt: o.p, speakerA: o.sa || 'M-Am', speakerB: o.sb || 'W-Br',
+    choices: o.c, answer: o.a, exp: o.e, why: o.w, ja: o.ja, vocab: o.v, topics: o.t,
+  }],
+});
+
+export const UNITS = [
+
+  /* ══ Part 1 — 状態と動作 ════════════════════════════ */
+  p1('p1v-01', {
+    t: ['p1verb'], lv: 4, scene: 'warehouse', sp: 'M-Am',
+    c: [
+      'Cartons have been stacked on the shelving.',
+      'A worker is assembling a set of shelves.',
+      'Some boxes are being unwrapped.',
+      'A cart is being loaded onto a truck.',
+    ],
+    a: 0,
+    e: '棚に箱が積まれている「状態」を have been stacked（現在完了の受動態）で述べた (A) が正解。is being + 過去分詞は「今まさに人が行っている」動作を表すため、その動作をしている人が写っていなければ誤り。',
+    w: ['正解。積み上げられた状態を表す。',
+        '棚を組み立てている人は写っていない。',
+        '箱を開けている人がいないので is being unwrapped は不可。',
+        'トラックも積み込み作業も写っていない。'],
+    ja: '(A) 段ボール箱が棚に積み上げられている。',
+    v: [['stack', '積み重ねる'], ['unwrap', '包装を解く']],
+  }),
+
+  p1('p1v-02', {
+    t: ['p1verb'], lv: 5, scene: 'construction', sp: 'W-Br',
+    c: [
+      'A ladder is leaning against a wall.',
+      'A worker is climbing a ladder.',
+      'Bricks are being unloaded from a truck.',
+      'Scaffolding is being dismantled.',
+    ],
+    a: 1,
+    e: 'はしごの段に足をかけて上へ向かっている作業員の動作。人が実際に動作しているので進行形が正解。',
+    w: ['はしごは壁に立てかけられておらず、建物から離して立てられている。また人が昇っている最中である。',
+        '正解。人物の動作を進行形で述べている。',
+        'トラックも積み下ろし作業も写っていない。',
+        '足場を解体している人は写っていない。'],
+    ja: '(B) 作業員がはしごを昇っている。',
+    v: [['lean against', '〜に立てかけられる'], ['scaffolding', '足場'], ['dismantle', '解体する']],
+  }),
+
+  p1('p1v-03', {
+    t: ['p1verb'], lv: 5, scene: 'beach', sp: 'M-Br',
+    c: [
+      'Chairs have been arranged near the water.',
+      'A woman is opening a beach umbrella.',
+      'People are sitting under an umbrella.',
+      'Swimmers are entering the sea.',
+    ],
+    a: 0,
+    e: '人が写っていない写真。人物を含む選択肢はすべて誤りになる。椅子が並べられた「状態」を have been arranged で述べた (A) が正解。無人の写真では、状態を表す現在完了の受動態か、there is 構文が正解になりやすい。',
+    w: ['正解。人の写っていない写真で状態を述べている。',
+        '女性は写っていない。',
+        '人は写っていない。',
+        '泳いでいる人も写っていない。'],
+    ja: '(A) 椅子が水辺の近くに並べられている。',
+    v: [['arrange', '並べる'], ['beach umbrella', 'ビーチパラソル']],
+  }),
+
+  p1('p1v-04', {
+    t: ['p1verb'], lv: 4, scene: 'cafe-counter', sp: 'W-Am',
+    c: [
+      'A customer is paying with a card.',
+      'An employee is reaching across a counter.',
+      'Cups are being washed in a sink.',
+      'A menu board is being replaced.',
+    ],
+    a: 1,
+    e: 'カウンター越しに手を伸ばしている店員の動作を進行形で述べた (B)。写真に写っている「人の動作」を最も忠実に描写した選択肢を選ぶ。',
+    w: ['カードは写っておらず、支払い動作も確認できない。',
+        '正解。カウンター越しに手を伸ばしている。',
+        '洗い物をしている人は写っていない。',
+        'メニュー板を交換している人も写っていない。'],
+    ja: '(B) 従業員がカウンター越しに手を伸ばしている。',
+    v: [['reach across', '〜越しに手を伸ばす'], ['sink', '流し']],
+  }),
+
+  p1('p1v-05', {
+    t: ['p1verb'], lv: 5, scene: 'parking-lot', sp: 'M-Cn',
+    c: [
+      'Drivers are getting into their cars.',
+      'A car is being driven out of the lot.',
+      'Vehicles are parked in marked spaces.',
+      'A parking attendant is directing traffic.',
+    ],
+    a: 2,
+    e: '区画線の引かれた駐車場に車が停まっている状態。are parked は「停まっている」という状態を表す。is being driven のような進行形の受動態は、その動作をしている人物が必要。',
+    w: ['人物が写っていない。',
+        '運転している人物が確認できない。',
+        '正解。停車している状態を述べている。',
+        '係員も写っていない。'],
+    ja: '(C) 車両が区画線内に停められている。',
+    v: [['marked space', '区画線の引かれた枠'], ['attendant', '係員']],
+  }),
+
+  p1('p1v-06', {
+    t: ['p1verb'], lv: 5, scene: 'library', sp: 'W-Au',
+    c: [
+      'Books are being sorted into boxes.',
+      'A shelf is being assembled.',
+      'Shelves have been emptied.',
+      'A woman is removing a book from a shelf.',
+    ],
+    a: 3,
+    e: '棚に手を伸ばして本を取り出している人物の動作。「棚が空にされた」という描写は、本が並んでいる写真と矛盾する。状態を表す選択肢でも、内容が写真と合わなければ誤り。',
+    w: ['箱に仕分けている様子はない。',
+        '棚を組み立てている人はいない。',
+        '棚には本が並んでおり、空ではない。',
+        '正解。棚から本を取り出す動作。'],
+    ja: '(D) 女性が棚から本を取り出している。',
+    v: [['sort', '仕分ける'], ['assemble', '組み立てる']],
+  }),
+
+  p1('p1v-07', {
+    t: ['p1verb'], lv: 5, scene: 'waterfront', sp: 'M-Au',
+    c: [
+      'People are boarding a ferry.',
+      'A bridge is under construction.',
+      'Boats are docked along the shore.',
+      'Sails are being lowered.',
+    ],
+    a: 2,
+    e: '岸沿いにボートが停泊している状態。be docked は「停泊している」。人物が写っていないため、乗船や帆を下ろす動作を含む選択肢は選べない。',
+    w: ['人は写っていない。',
+        '橋は完成しており、工事中の様子はない。',
+        '正解。停泊している状態。',
+        '帆を下ろす動作をしている人がいない。'],
+    ja: '(C) ボートが岸沿いに停泊している。',
+    v: [['dock', '停泊する'], ['board', '乗り込む'], ['lower', '下ろす']],
+  }),
+
+  p1('p1v-08', {
+    t: ['p1verb'], lv: 5, scene: 'presentation', sp: 'W-Br',
+    c: [
+      'A projector is being repaired.',
+      'The audience is leaving the room.',
+      'Chairs are being stacked at the back.',
+      'A speaker is pointing at a screen.',
+    ],
+    a: 3,
+    e: '発表者がスクリーンを指している動作。着席した聴衆がいるため、「聴衆が退室している」という描写は矛盾する。',
+    w: ['プロジェクターを修理している人もいない。',
+        '聴衆は着席しており、退室していない。',
+        '椅子を積んでいる人はいない。',
+        '正解。指し示す動作を進行形で述べている。'],
+    ja: '(D) 発表者がスクリーンを指している。',
+    v: [['audience', '聴衆'], ['stack', '積み重ねる']],
+  }),
+
+  /* ══ Part 2 — 間接応答 ══════════════════════════════ */
+  p2('p2i-01', {
+    t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Br',
+    p: 'When will the revised floor plan be ready?',
+    c: [
+      'On the second floor, next to the lift.',
+      'Yes, it was ready last Friday.',
+      'The architect is still waiting on the survey.',
+    ],
+    a: 2,
+    e: 'When で聞かれているが、時期を答えず「建築士がまだ測量結果を待っている（＝だからまだ言えない）」と間接的に応じる。900 帯の失点はこの型に集中する。',
+    w: ['floor（階）という同じ音を使った引っ掛け。時期を答えていない。',
+        'When 疑問文に Yes / No で答えることはできない。',
+        '正解。「まだ決まっていない」を理由で示す間接応答。'],
+    ja: '設問：改訂した平面図はいつ出来上がりますか。→ (C) 建築士がまだ測量結果を待っているところです。',
+    v: [['floor plan', '平面図'], ['survey', '測量'], ['wait on', '〜を待つ']],
+  }),
+
+  p2('p2i-02', {
+    t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    p: 'Who is covering the front desk during the training session?',
+    c: [
+      'At two o\'clock in the conference room.',
+      'It covers about forty pages.',
+      'Check the roster on the staffroom door.',
+    ],
+    a: 2,
+    e: 'Who で聞かれているが、人名ではなく「勤務表を見て」と情報源を示す間接応答。「自分は知らないが、そこに書いてある」というパターンは頻出。',
+    w: ['When / Where への答えであり、Who に対応しない。',
+        'cover の別の意味を使った引っ掛け。人を答えていない。',
+        '正解。情報の在りかを示す間接応答。'],
+    ja: '設問：研修中は誰が受付を担当しますか。→ (C) スタッフルームのドアにある勤務表を確認してください。',
+    v: [['cover', '（人の代わりに）担当する'], ['roster', '勤務表']],
+  }),
+
+  p2('p2i-03', {
+    t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
+    p: 'Shouldn\'t we order more toner before the audit?',
+    c: [
+      'The order was placed in September.',
+      'No, the auditor arrives on Thursday.',
+      'I thought Deepa took care of that yesterday.',
+    ],
+    a: 2,
+    e: '「〜すべきでは？」という提案に対し、「ディーパが昨日やったと思っていたが」と第三者の行動を挙げて応じる間接応答。Yes / No を使わずに実質「もう手配済みのはず」と答えている。',
+    w: ['9 月では監査前という文脈に合わず、時期がずれている。',
+        'No の後の内容が提案への応答になっていない。',
+        '正解。第三者がすでに対応した可能性を示す。'],
+    ja: '設問：監査の前にトナーをもっと注文すべきではないですか。→ (C) ディーパが昨日対応したと思っていました。',
+    v: [['audit', '監査'], ['take care of', '対処する']],
+  }),
+
+  p2('p2i-04', {
+    t: ['p2ind'], lv: 5, sa: 'M-Au', sb: 'W-Am',
+    p: 'Where did you put the signed contracts?',
+    c: [
+      'I signed both of them this morning.',
+      'They should be in the grey folder.',
+      'Because legal needed them urgently.',
+    ],
+    a: 1,
+    e: 'Where に対して場所を答える直接的な応答。Part 2 では素直な答えが正解のこともあるので、間接応答を狙いすぎないこと。(A) は sign の音を反復した典型的な引っ掛け。',
+    w: ['signed の音を反復した引っ掛け。場所を答えていない。',
+        '正解。場所を答えている。',
+        'Why への答え。Where に対応しない。'],
+    ja: '設問：署名済みの契約書はどこに置きましたか。→ (B) グレーのフォルダに入っているはずです。',
+    v: [['contract', '契約書'], ['urgently', '至急']],
+  }),
+
+  p2('p2i-05', {
+    t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
+    p: 'How long does the certification course take?',
+    c: [
+      'The certificate is on my desk.',
+      'Yes, I completed it last spring.',
+      'It depends on which track you choose.',
+    ],
+    a: 2,
+    e: '「どれくらいかかるか」に対し、「選ぶコースによる」と条件付きで返す間接応答。It depends on ... は Part 2 の間接応答の定番。',
+    w: ['certificate という関連語を使った引っ掛け。期間を答えていない。',
+        'How long への Yes / No は不可。',
+        '正解。一概には言えないと条件を示す。'],
+    ja: '設問：その認定講座はどのくらいかかりますか。→ (C) どのコースを選ぶかによります。',
+    v: [['certification', '認定'], ['track', '（学習の）コース']],
+  }),
+
+  p2('p2i-06', {
+    t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Br',
+    p: 'Why was the shipment held at customs?',
+    c: [
+      'It was shipped from Rotterdam.',
+      'No one has told me either.',
+      'Customs closes at six.',
+    ],
+    a: 1,
+    e: '理由を尋ねられて「私も聞いていない」と答える間接応答。I don\'t know 系の応答は Part 2 で頻繁に正解になる。',
+    w: ['ship の音を反復した引っ掛け。理由になっていない。',
+        '正解。「自分も知らない」型の間接応答。',
+        'customs の反復。営業時間は理由ではない。'],
+    ja: '設問：なぜその荷物は税関で止められたのですか。→ (B) 私も誰からも聞いていません。',
+    v: [['customs', '税関'], ['hold', '留め置く']],
+  }),
+
+  p2('p2i-07', {
+    t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
+    p: 'Could you send me the attendance figures for last quarter?',
+    c: [
+      'About three hundred people attended.',
+      'I\'ll need approval from Ms. Duarte first.',
+      'The figures were quite encouraging.',
+    ],
+    a: 1,
+    e: '依頼に対し、「まずデュアルテさんの承認が必要です」と条件を示して事実上の保留を伝える間接応答。承諾でも拒否でもない返しが正解になる典型。',
+    w: ['attend の反復。依頼への応答になっていない。',
+        '正解。依頼に条件を付けて応じている。',
+        'figures の反復。依頼に答えていない。'],
+    ja: '設問：前四半期の参加者数を送っていただけますか。→ (B) まずデュアルテさんの承認が必要です。',
+    v: [['attendance figures', '参加者数'], ['approval', '承認']],
+  }),
+
+  p2('p2i-08', {
+    t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Au',
+    p: 'The new expense system is a lot faster, isn\'t it?',
+    c: [
+      'It arrives faster by rail.',
+      'Yes, we expensed the whole trip.',
+      'I haven\'t had to use it yet.',
+    ],
+    a: 2,
+    e: '同意を求める付加疑問に対し、「まだ使っていないので判断できない」と答える間接応答。感想を求められて「経験がない」と返すのは頻出。',
+    w: ['faster の反復。話題が輸送手段にすり替わっている。',
+        'expense の反復。同意の内容が噛み合っていない。',
+        '正解。判断できる立場にないことを示す。'],
+    ja: '設問：新しい経費システムはずいぶん速いですよね。→ (C) 私はまだ使ったことがありません。',
+    v: [['expense', '経費で処理する'], ['by rail', '鉄道で']],
+  }),
+
+  /* ══ Part 2 — 疑問文の型 ════════════════════════════ */
+  p2('p2w-01', {
+    t: ['p2wh'], lv: 5, sa: 'W-Br', sb: 'M-Am',
+    p: 'Would you rather present on Tuesday or Thursday?',
+    c: [
+      'Yes, I would.',
+      'Either day works for me.',
+      'In the main auditorium.',
+    ],
+    a: 1,
+    e: '選択疑問文（A or B）には原則として Yes / No で答えられない。「どちらでもよい」という応答が定番の正解。',
+    w: ['選択疑問に Yes は不可。',
+        '正解。どちらでも構わないという応答。',
+        '場所を答えており、選択に対応していない。'],
+    ja: '設問：発表は火曜と木曜のどちらがよいですか。→ (B) どちらの日でも大丈夫です。',
+    v: [['would rather', 'むしろ〜したい'], ['auditorium', '講堂']],
+  }),
+
+  p2('p2w-02', {
+    t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    p: 'Haven\'t the samples been sent to the lab yet?',
+    c: [
+      'No, the courier comes at four.',
+      'Yes, the lab is on the third floor.',
+      'They were quite similar.',
+    ],
+    a: 0,
+    e: '否定疑問文への Yes / No は、日本語と逆に「事実そのもの」に対応する。まだ送っていないなら No。「No＋まだ送っていない理由」という自然な流れになっている。',
+    w: ['正解。まだ送っていないので No。',
+        'Yes と答えるなら「送った」内容が続くはずだが、場所の話になっている。',
+        'sample に関連する形容詞だが、質問に答えていない。'],
+    ja: '設問：試料はまだ研究所に送っていないのですか。→ (A) はい（まだです）、宅配業者が 4 時に来ます。',
+    v: [['courier', '宅配業者'], ['sample', '試料']],
+  }),
+
+  p2('p2w-03', {
+    t: ['p2wh'], lv: 5, sa: 'W-Am', sb: 'M-Br',
+    p: 'You booked the meeting room for two hours, didn\'t you?',
+    c: [
+      'It was booked out last week.',
+      'For three, actually.',
+      'Two blocks from the station.',
+    ],
+    a: 1,
+    e: '付加疑問による確認に対し、Yes / No を使わずに「実は 3 時間で」と訂正する応答。数の訂正は頻出パターン。',
+    w: ['book の反復だが、時間数の確認に答えていない。',
+        '正解。時間数を訂正している。',
+        'two の反復。距離の話にすり替わっている。'],
+    ja: '設問：会議室は 2 時間で予約しましたよね。→ (B) 実は 3 時間で取りました。',
+    v: [['book out', '予約で埋まる'], ['block', '街区']],
+  }),
+
+  p2('p2w-04', {
+    t: ['p2wh'], lv: 5, sa: 'M-Au', sb: 'W-Br',
+    p: 'Why don\'t we move the standing meeting to Wednesdays?',
+    c: [
+      'Because it stands in the corner.',
+      'That would suit the Berlin team better.',
+      'It moved last month.',
+    ],
+    a: 1,
+    e: 'Why don\'t we ...? は理由を問う疑問ではなく提案。したがって Because で答えるのは誤り。提案への賛同を示す (B) が正解。',
+    w: ['stand の反復。Why don\'t we を理由の問いと誤解した引っ掛け。',
+        '正解。提案に賛成する応答。',
+        'move の反復。提案に答えていない。'],
+    ja: '設問：定例会議を水曜に移しませんか。→ (B) その方がベルリンのチームには都合がよいでしょう。',
+    v: [['standing meeting', '定例会議'], ['suit', '都合がよい']],
+  }),
+
+  p2('p2w-05', {
+    t: ['p2wh'], lv: 5, sa: 'W-Au', sb: 'M-Cn',
+    p: 'Which of the two suppliers gave the lower quote?',
+    c: [
+      'Neither has replied yet.',
+      'Yes, it was quite low.',
+      'They supply packaging materials.',
+    ],
+    a: 0,
+    e: 'Which で二者択一を問われているが、「どちらもまだ返答していない」と前提そのものを否定する応答。前提を崩す返しは 900 帯で狙われる。',
+    w: ['正解。前提（見積もりが出ている）を否定する。',
+        'Which 疑問文に Yes は不可。',
+        'supply の反復。どちらかを答えていない。'],
+    ja: '設問：2 社のうちどちらが安い見積もりを出しましたか。→ (A) どちらもまだ返答していません。',
+    v: [['quote', '見積もり'], ['supplier', '仕入先']],
+  }),
+
+  p2('p2w-06', {
+    t: ['p2wh'], lv: 5, sa: 'M-Br', sb: 'W-Am',
+    p: 'How about asking Renata to lead the orientation?',
+    c: [
+      'She led it last year, actually.',
+      'About forty new hires.',
+      'In the east wing, I believe.',
+    ],
+    a: 0,
+    e: 'How about doing ...? は提案。それに対し「実は彼女は昨年もやった」と情報を補足しつつ暗に賛同する応答。How を「どのように」と取ると誤る。',
+    w: ['正解。提案に情報を添えて応じている。',
+        'How many への答え。提案に対応しない。',
+        'Where への答え。'],
+    ja: '設問：オリエンテーションはレナータに任せてはどうでしょう。→ (A) 実は昨年も彼女が担当しました。',
+    v: [['orientation', '新人研修'], ['new hire', '新入社員']],
+  }),
+
+  p2('p2w-07', {
+    t: ['p2wh'], lv: 5, sa: 'W-Br', sb: 'M-Au',
+    p: 'Isn\'t Mr. Sorensen supposed to approve these invoices?',
+    c: [
+      'He\'s on leave until the ninth.',
+      'Yes, they were approved.',
+      'The invoice number is 4471.',
+    ],
+    a: 0,
+    e: '否定疑問による確認に対し、「彼は 9 日まで休暇中」と、承認が得られない事情を述べる間接応答。Yes / No を使わない応答が正解になる典型。',
+    w: ['正解。承認できない事情を示す。',
+        'approve の反復。「承認済み」なら質問と噛み合わない。',
+        'invoice の反復。質問に答えていない。'],
+    ja: '設問：これらの請求書はソレンセンさんが承認するはずではないですか。→ (A) 彼は 9 日まで休暇中です。',
+    v: [['be supposed to', '〜することになっている'], ['on leave', '休暇中で']],
+  }),
+
+  p2('p2w-08', {
+    t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    p: 'Do you want the report printed double-sided or single-sided?',
+    c: [
+      'Whichever uses less paper.',
+      'Yes, please print it.',
+      'It was reported on Monday.',
+    ],
+    a: 0,
+    e: '選択疑問に対し「紙の消費が少ない方で」と判断基準を示して選ばせる応答。直接どちらかを選ばなくても正解になる。',
+    w: ['正解。選択の基準を示している。',
+        '選択疑問に Yes は不可。',
+        'report の反復。選択に答えていない。'],
+    ja: '設問：報告書は両面印刷と片面印刷のどちらにしますか。→ (A) 紙の消費が少ない方でお願いします。',
+    v: [['double-sided', '両面の'], ['whichever', 'どちらでも〜する方']],
+  }),
+];
