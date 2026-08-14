@@ -104,8 +104,8 @@ export function recordItem(qid, correct, ms, chosen) {
   it.lastMs = ms || 0;
   if (correct) {
     it.ok += 1;
-    it.streak = Math.min(it.streak + 1, LADDER.length - 1);
-    it.due = Date.now() + LADDER[it.streak] * DAY;
+    it.streak = Math.min(it.streak + 1, LADDER.length);
+    it.due = Date.now() + LADDER[it.streak - 1] * DAY;
   } else {
     it.streak = 0;
     it.due = Date.now() + 20 * 60 * 1000;  // 20分後に再提示

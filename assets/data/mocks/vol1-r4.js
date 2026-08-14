@@ -125,7 +125,7 @@ export const R4 = [
         c: ['Early May', 'Mid-May', 'Early June', 'Mid-June'],
         a: 1,
         e: '第 2 通告は 4 週間の猶予。通知は 4 月 14 日付なので、期限は 5 月中旬。',
-        w: ['4 週間には足りない。', '正解。', '8 週間は第 1 通告の猶予。', '同じく期間が合わない。'] },
+        w: ['4 週間には足りない。', '正解。', '8 週間は第 1 通告の猶予。', '4 週間の猶予には長すぎる。'] },
       { tag: '詳細', s: 'Why has the plot not been cultivated?',
         c: ['The holder moved away from the area.', 'The holder was waiting for committee approval.',
             'The soil was found to be contaminated.', 'The holder has been medically restricted.'],

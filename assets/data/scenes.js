@@ -98,14 +98,16 @@ const frame = (inner, sky = false) =>
 /* ── 場面 ────────────────────────────────────────────── */
 export const SCENES = {
 
-  /* 1. オフィス：机で作業する男性、書類は積まれている */
+  /* 1. オフィス：机で作業する男性、書類は積まれている
+     人物 → 机 → ノート PC の順に描く。机の天板が腰から下を隠すので
+     「机の向こう側に座っている」と読め、手はノート PC のキーボード左端に届く。 */
   'office-desk': frame(`
     ${windowFrame(300, 40, 120, 80)}
+    ${person(150, 192, 1, { pose: 'type' })}
     ${table(120, 170, 210)}
-    ${person(150, 170, 1, { pose: 'type' })}
-    ${laptop(210, 170)}
+    ${laptop(178, 170)}
     ${rect(258, 156, 30, 14, SOFT)}${rect(262, 148, 30, 10, SOFT)}
-    ${plant(400, 200, 1.1)}
+    ${plant(400, 218, 1.1)}
     ${ground()}`),
 
   /* 2. 会議：3 人がテーブルを囲み、1 人が立って画面を指す */
@@ -132,16 +134,17 @@ export const SCENES = {
     ${box(30, 210)}${box(58, 210)}${box(44, 184)}
     ${ground()}`, true),
 
-  /* 4. カフェ：カウンターで注文する客と店員 */
+  /* 4. カフェ：カウンターで注文する客と店員
+     内側の店員はカウンターより先に描いて腰から下を隠す（＝奥）、
+     外側の客はカウンターより後に描いて全身を見せる（＝手前）。 */
   'cafe-counter': frame(`
     ${shelfUnit(280, 50, 150, 90, 3)}
-    ${rect(60, 160, 250, 76, FILL)}
-    ${line(60, 160, 310, 160)}
-    ${person(120, 160, 1, { pose: 'stand' })}
-    ${person(250, 152, 1, { pose: 'reach', c: AI })}
+    ${person(250, 226, 1, { pose: 'reach', c: AI })}
+    ${rect(60, 206, 250, 30, FILL)}
     <g fill="${SOFT}" stroke="${INK}" stroke-width="2">
-      <rect x="180" y="146" width="16" height="14" rx="2"/>
-      <rect x="206" y="148" width="14" height="12" rx="2"/></g>
+      <rect x="180" y="192" width="16" height="14" rx="2"/>
+      <rect x="206" y="194" width="14" height="12" rx="2"/></g>
+    ${person(120, 236, 1, { pose: 'stand' })}
     ${ground()}`),
 
   /* 5. 倉庫：箱が積み重ねられ、作業員が台車を押している */
@@ -179,25 +182,27 @@ export const SCENES = {
     ${plant(400, 190)}
     ${ground()}`),
 
-  /* 8. 実験室：研究者が顕微鏡をのぞいている */
+  /* 8. 実験室：実験台に着席し、顕微鏡に手を掛けている研究者
+     人物 → 実験台 → 器具の順。天板が腰を隠し、右手が顕微鏡のステージ左端に触れる。 */
   'laboratory': frame(`
     ${shelfUnit(290, 40, 140, 100, 3)}
+    ${person(128, 190, 1, { pose: 'sit' })}
     ${table(50, 170, 220)}
-    ${person(96, 170, 1, { pose: 'sit' })}
     <g fill="${SOFT}" stroke="${INK}" stroke-width="2">
       <path d="M150,168 L150,140 L166,132 L166,150"/><rect x="140" y="164" width="30" height="6"/>
       <path d="M200,168 L206,140 L214,140 L220,168 Z"/><path d="M236,168 L240,146 L248,146 L252,168 Z"/></g>
     ${ground()}`),
 
-  /* 9. 空港：荷物を引く旅行者とベンチ */
+  /* 9. 空港：歩く旅行者と、床に立てられたスーツケース、ベンチ
+     スーツケースは誰の手も触れていない。動作主のいない「状態」の写真。 */
   'airport': frame(`
     ${windowFrame(20, 40, 420, 90)}
     ${person(130, 236, 1, { pose: 'walk' })}
     <g fill="${SOFT}" stroke="${INK}" stroke-width="2">
-      <rect x="150" y="196" width="32" height="40" rx="4"/><path d="M166,196 L166,178 L152,178"/>
+      <rect x="170" y="196" width="32" height="40" rx="4"/><path d="M186,196 L186,178 L172,178"/>
       <rect x="250" y="200" width="150" height="10" rx="3"/></g>
     ${line(262, 210, 262, 236)}${line(388, 210, 388, 236)}
-    ${person(300, 200, .95, { pose: 'sit' })}
+    ${person(300, 213, .95, { pose: 'sit' })}
     ${ground()}`),
 
   /* 10. 図書館：棚の前で本を取り出す人 */
@@ -248,26 +253,27 @@ export const SCENES = {
   'presentation': frame(`
     ${rect(240, 40, 190, 110, SOFT)}
     ${line(256, 66, 400, 66)}${line(256, 88, 372, 88)}${line(256, 110, 390, 110)}
-    ${person(190, 180, 1.05, { pose: 'point', c: SHU })}
+    ${person(215, 180, 1.05, { pose: 'point', c: SHU })}
     ${[0, 1, 2, 3].map(i => `${person(50 + i * 44, 236, .8, { pose: 'sit' })}`).join('')}
     ${[0, 1, 2, 3].map(i => rect(36 + i * 44, 214, 26, 6)).join('')}
     ${ground()}`),
 
-  /* 15. ホテルのフロント */
+  /* 15. ホテルのフロント
+     係員はカウンターより先に描く（＝内側）。荷物を抱えた客は後に描く（＝外側）。 */
   'hotel-lobby': frame(`
     ${shelfUnit(300, 40, 130, 80, 3)}
-    ${rect(60, 150, 220, 86, FILL)}${line(60, 150, 280, 150)}
-    ${person(160, 148, 1, { pose: 'stand', c: AI })}
+    ${person(160, 226, 1, { pose: 'stand', c: AI })}
+    ${rect(60, 206, 220, 30, FILL)}
+    <g fill="${SOFT}" stroke="${INK}" stroke-width="2"><rect x="200" y="190" width="30" height="16" rx="2"/></g>
     ${person(330, 236, 1, { pose: 'carry' })}
-    ${plant(40, 236, 1.2)}
-    <g fill="${SOFT}" stroke="${INK}" stroke-width="2"><rect x="200" y="134" width="30" height="16" rx="2"/></g>
+    ${plant(40, 217, 1.2)}
     ${ground()}`),
 
-  /* 16. 駐車場：車が並んで停められている */
+  /* 16. 駐車場：4 区画のうち 3 区画に車。左から 3 番目が空いている */
   'parking-lot': frame(`
     <g stroke="${INK}" stroke-width="1.6" opacity=".5">
       ${[0, 1, 2, 3, 4].map(i => `<path d="M${40 + i * 96},130 L${40 + i * 96},236"/>`).join('')}</g>
-    ${car(90, 190, .9)}${car(230, 190, .9, SOFT)}${car(370, 190, .9)}
+    ${car(91, 190, .9)}${car(187, 190, .9, SOFT)}${car(379, 190, .9)}
     ${rect(0, 40, W, 60, SOFT)}
     ${ground()}`, true),
 
@@ -293,13 +299,13 @@ export const SCENES = {
     ${plant(400, 236)}
     ${ground()}`),
 
-  /* 19. 自転車：自転車が壁に立てかけられている */
+  /* 19. 自転車：壁の前の自転車。しゃがんだ人物が後輪に手を掛けている */
   'bicycle': frame(`
     ${rect(0, 40, W, 150, SOFT)}
     <g fill="none" stroke="${INK}" stroke-width="2.4">
       <circle cx="150" cy="200" r="34"/><circle cx="290" cy="200" r="34"/>
       <path d="M150,200 L196,152 L256,152 L290,200 M196,152 L214,200 L290,200 M256,152 L250,138 L236,138"/></g>
-    ${person(370, 236, 1, { pose: 'crouch', c: SHU })}
+    ${person(320, 236, 1, { pose: 'crouch', c: SHU })}
     ${ground()}`),
 
   /* 20. 駅のホーム：列車と待つ乗客 */
@@ -319,20 +325,21 @@ export const SCENES = {
     <g fill="${SOFT}" stroke="${INK}" stroke-width="1.4">
       ${[0, 1, 2].map(r => [0, 1, 2, 3].map(i =>
         `<rect x="${32 + i * 42}" y="${60 + r * 38}" width="30" height="24"/>`).join('')).join('')}</g>
-    ${person(200, 236, 1, { pose: 'walk' })}
+    ${person(200, 236, 1, { pose: 'point' })}
     <g fill="none" stroke="${INK}" stroke-width="2">
-      <path d="M216,196 L262,196 L256,224 L222,224 Z"/><path d="M216,196 L208,188"/>
+      <path d="M216,196 L262,196 L256,224 L222,224 Z"/><path d="M216,196 L210,190"/>
       <circle cx="228" cy="232" r="5"/><circle cx="252" cy="232" r="5"/></g>
     ${ground()}`),
 
-  /* 22. 受付：診療所のカウンター */
+  /* 22. 受付：診療所のカウンター
+     受付係はカウンターより先に描く（＝内側に立っている）。来院者と長椅子は手前。 */
   'clinic-reception': frame(`
     ${rect(40, 40, 140, 76, SOFT)}${line(110, 52, 110, 104)}${line(70, 78, 150, 78)}
-    ${rect(50, 158, 200, 78, FILL)}${line(50, 158, 250, 158)}
-    ${person(150, 156, 1, { pose: 'stand', c: AI })}
-    ${person(320, 236, 1, { pose: 'stand' })}
-    ${rect(290, 200, 130, 8)}
-    ${plant(430, 236)}
+    ${person(150, 226, 1, { pose: 'stand', c: AI })}
+    ${rect(50, 206, 200, 30, FILL)}
+    ${person(270, 236, 1, { pose: 'stand' })}
+    ${rect(300, 200, 120, 8)}${line(312, 208, 312, 236)}${line(408, 208, 408, 236)}
+    ${plant(430, 220)}
     ${ground()}`),
 
   /* 23. 屋上：太陽光パネルの点検 */
@@ -343,15 +350,17 @@ export const SCENES = {
     ${person(370, 236, 1, { pose: 'crouch', c: SHU })}
     ${ground()}`, true),
 
-  /* 24. 工場：機械の前で作業する人 */
+  /* 24. 工場：ベルトコンベヤの脇に立ち、積まれた箱へ手を伸ばす作業員
+     箱は 3 個＋2 個の二段積み。人物は左右反転させて、伸ばした手が箱の山に届く。 */
   'factory': frame(`
     ${rect(60, 100, 180, 100, SOFT)}${rect(96, 74, 40, 28, SOFT)}
     <g fill="none" stroke="${INK}" stroke-width="2">
       <circle cx="120" cy="150" r="24"/><circle cx="190" cy="150" r="16"/>
       <path d="M144,150 L174,150"/></g>
     ${rect(60, 200, 340, 10)}
-    ${[0, 1, 2, 3].map(i => box(270 + i * 34, 174, 28)).join('')}
-    ${person(280, 236, 1, { pose: 'reach' })}
+    ${box(296, 177, 30)}${box(330, 177, 30)}${box(364, 177, 30)}
+    ${box(313, 154, 30)}${box(347, 154, 30)}
+    <g transform="translate(560,0) scale(-1,1)">${person(280, 236, 1, { pose: 'reach' })}</g>
     ${ground()}`),
 
   /* 25. 塗装：壁を塗っている作業員 */
@@ -372,26 +381,28 @@ export const SCENES = {
     ${person(320, 236, 1, { pose: 'stand', c: AI })}
     ${ground()}`, true),
 
-  /* 27. 荷積み：トラックに箱を積み込む */
+  /* 27. 荷積み：トラックの脇に段ボール箱が積まれ、作業員が箱を運んでいる
+     箱は荷台の中ではなく地面に積む（荷台の中に置くと窓のように見えてしまう）。 */
   'loading-dock': frame(`
     <g fill="${FILL}" stroke="${INK}" stroke-width="2">
-      <rect x="180" y="110" width="230" height="96" rx="4"/>
-      <path d="M180,206 L180,150 L120,150 L96,186 L96,206 Z"/></g>
-    <circle cx="150" cy="212" r="16" fill="${FILL}" stroke="${INK}" stroke-width="2"/>
-    <circle cx="330" cy="212" r="16" fill="${FILL}" stroke="${INK}" stroke-width="2"/>
-    ${box(200, 140, 40)}${box(248, 140, 40)}
-    ${person(60, 236, 1, { pose: 'carry', c: SHU })}
+      <rect x="264" y="110" width="186" height="96" rx="4"/>
+      <path d="M264,206 L264,150 L204,150 L180,186 L180,206 Z"/></g>
+    <circle cx="230" cy="220" r="16" fill="${FILL}" stroke="${INK}" stroke-width="2"/>
+    <circle cx="390" cy="220" r="16" fill="${FILL}" stroke="${INK}" stroke-width="2"/>
+    ${box(96, 210, 34)}${box(134, 210, 34)}${box(115, 183, 34)}
+    ${person(40, 236, 1, { pose: 'carry', c: SHU })}
     ${ground()}`),
 
-  /* 28. 銀行：窓口で書類を渡している */
+  /* 28. 銀行：窓口を挟んで書類を受け渡している
+     行員はカウンターより先に描く（＝内側）。客は後に描く（＝外側）。
+     書類は両者の手の間に置き、双方が触れている状態にする。 */
   'bank-teller': frame(`
     ${windowFrame(280, 44, 150, 84)}
-    ${rect(50, 150, 260, 12)}
-    ${line(50, 162, 50, 236)}${line(300, 162, 300, 236)}
-    ${person(110, 150, 1, { pose: 'reach' })}
-    ${person(240, 150, 1, { pose: 'reach', c: AI })}
-    ${rect(160, 142, 34, 8, SOFT)}
-    ${plant(400, 236)}
+    <g transform="translate(500,0) scale(-1,1)">${person(250, 226, 1, { pose: 'point', c: AI })}</g>
+    ${rect(120, 206, 230, 30, FILL)}
+    ${person(170, 236, 1, { pose: 'point' })}
+    <path d="M186,193 L234,183 L236,191 L188,201 Z" fill="${SOFT}" stroke="${INK}" stroke-width="2"/>
+    ${plant(400, 220)}
     ${ground()}`),
 
   fallback: frame(`
