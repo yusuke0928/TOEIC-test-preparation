@@ -1,0 +1,48 @@
+<svg viewBox="0 0 460 150" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="10" y1="132" x2="450" y2="132" stroke-width="2"></line>
+  <g stroke="var(--ai)" stroke-width="1.2" stroke-dasharray="3 3" data-note="頭頂の高さの基準線">
+    <line x1="40" y1="25" x2="100" y2="25"></line>
+    <line x1="150" y1="41" x2="210" y2="41"></line>
+    <line x1="260" y1="63" x2="320" y2="63"></line>
+    <line x1="370" y1="59" x2="430" y2="59"></line>
+  </g>
+  <g data-part="posture-stand" data-note="立つ：頭頂 y=25／膝ほぼ直線">
+    <circle cx="70" cy="34" r="9" fill="var(--card-2)"></circle>
+    <line x1="70" y1="43" x2="70" y2="50"></line>
+    <path d="M 56 50 L 84 50 L 82 88 L 58 88 Z" fill="var(--card-2)"></path>
+    <polyline points="64,88 62,110 64,132"></polyline>
+    <polyline points="76,88 78,110 76,132"></polyline>
+    <line x1="56" y1="132" x2="70" y2="132" stroke-width="2.5"></line>
+    <line x1="70" y1="132" x2="84" y2="132" stroke-width="2.5"></line>
+    <polyline points="58,54 50,76 52,92"></polyline>
+    <polyline points="82,54 90,76 88,92"></polyline>
+  </g>
+  <g data-part="posture-sit" data-note="座る：頭頂 y=41／腿が水平・支持面あり">
+    <circle cx="180" cy="50" r="9" fill="var(--card-2)"></circle>
+    <line x1="180" y1="59" x2="180" y2="66"></line>
+    <path d="M 166 66 L 194 66 L 194 104 L 168 104 Z" fill="var(--card-2)"></path>
+    <line x1="158" y1="106" x2="204" y2="106" stroke-width="2.5"></line>
+    <line x1="181" y1="106" x2="181" y2="132"></line>
+    <line x1="170" y1="132" x2="192" y2="132"></line>
+    <polyline points="190,100 216,104 218,132"></polyline>
+    <line x1="212" y1="132" x2="226" y2="132" stroke-width="2.5"></line>
+    <polyline points="192,72 208,88 206,100"></polyline>
+  </g>
+  <g data-part="posture-crouch" data-note="しゃがむ：頭頂 y=63／腰が落ち膝が前上">
+    <circle cx="290" cy="72" r="9" fill="var(--card-2)"></circle>
+    <line x1="290" y1="81" x2="290" y2="88"></line>
+    <path d="M 276 88 L 304 88 L 306 114 L 278 114 Z" fill="var(--card-2)"></path>
+    <polyline points="300,110 322,96 316,132"></polyline>
+    <polyline points="286,114 308,104 304,132"></polyline>
+    <line x1="310" y1="132" x2="326" y2="132" stroke-width="2.5"></line>
+    <polyline points="302,94 314,108 312,120"></polyline>
+  </g>
+  <g data-part="posture-bend" data-note="かがむ：頭頂 y=59／膝は伸び胴が60°前傾">
+    <circle cx="366" cy="68" r="9" fill="var(--card-2)"></circle>
+    <path d="M 374 62 L 382 56 L 410 82 L 400 92 Z" fill="var(--card-2)"></path>
+    <polyline points="402,90 404,110 402,132"></polyline>
+    <polyline points="412,88 414,110 412,132"></polyline>
+    <line x1="392" y1="132" x2="406" y2="132" stroke-width="2.5"></line>
+    <polyline points="378,66 380,92 390,104"></polyline>
+  </g>
+</svg>
