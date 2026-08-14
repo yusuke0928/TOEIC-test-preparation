@@ -542,6 +542,13 @@ body{
 }
 .scene svg{width:100%;max-width:34rem;height:auto;border-radius:2px;display:block;margin:0 auto}
 
+/* Part1 場面描写テキスト（desc 方式）。数秒表示して消え、「もう一度見る」で再表示できる。
+   .scene と組み合わせて使い、箱の見た目（border/背景/影）は .scene のものをそのまま流用する。 */
+.descbox{display:flex;align-items:center;justify-content:center;min-height:7rem;text-align:center}
+.descbox__text{font-size:1.05rem;line-height:1.9;color:var(--ink);max-width:38rem}
+.descbox__gone{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.descbox__gone .note{margin:0;max-width:26rem}
+
 /* ── palette (question navigator) ──────────────────────── */
 .palette{display:flex;flex-wrap:wrap;gap:3px}
 .palette__b{

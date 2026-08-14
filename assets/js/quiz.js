@@ -7,7 +7,7 @@
    {
      id, part, kind:'p1'|'p2'|'set'|'single'|'doc',
      topics:[], level:1..5,
-     scene, speaker,                  // p1
+     scene, desc, speaker,            // p1（scene=SVG場面 / desc=描写テキストを数秒表示。どちらか一方）
      script:[{role,text}], graphic,   // set
      docs:[],                         // doc
      questions:[{ id, stem, choices:[], answer, exp, why:[], vocab:[], ja, topics:[] }]
@@ -26,6 +26,14 @@ import {
 import { extrapolate } from './score.js';
 
 const KEYS = ['A', 'B', 'C', 'D'];
+
+/* Part1 描写テキスト（desc 方式）を表示しておく時間。
+   根拠: 25 語程度の英文を黙読する所要時間は、黙読速度の目安 約200語/分 で計算すると約7.5秒。
+   これに本番 Part1 の "Look at the picture marked number N in your test book." という
+   ディレクション読み上げ・写真を探す時間（数秒）を見込んだ余裕を足し、8秒に決め打ちした。
+   本番のように「消えたら二度と見られない」わけではなく、後述の「もう一度見る」で
+   何度でも再表示できる（合成音声非対応環境の代替手段のため必須）。 */
+const DESC_VISIBLE_MS = 8000;
 
 export class Run {
   constructor(cfg) {
@@ -56,6 +64,8 @@ export class Run {
     this._audioOff = null;
     this._playing = false;
     this._played = new Set();
+    this._desc = new Map();                        // p1(desc方式) unit.id → { visible }
+    this._descTimer = null;
 
     this.qIndex = [];                              // グローバル通し番号 → {u, q}
     this.units.forEach((u, ui) => u.questions.forEach((q, qi) =>
@@ -108,6 +118,7 @@ export class Run {
 
   destroy() {
     clearInterval(this._tick);
+    clearTimeout(this._descTimer);
     unbindKeys();
     audio.stop();
     this._audioOff?.();
@@ -236,7 +247,8 @@ export class Run {
     const on = audio.isPlaying();
     p.classList.toggle('is-playing', on);
     const st = p.querySelector('.player__state');
-    if (st) st.textContent = on ? '再生中…' : (this._played.has(this.unit?.id) ? '再生済み' : '未再生');
+    // 音声非対応時は playerBox() が出す「この端末は音声非対応」を上書きしない
+    if (st && audio.supported) st.textContent = on ? '再生中…' : (this._played.has(this.unit?.id) ? '再生済み' : '未再生');
     const ic = p.querySelector('.player__btn svg');
     if (ic) ic.innerHTML = on
       ? '<rect x="4" y="3" width="4.5" height="16" rx="1"/><rect x="13" y="3" width="4.5" height="16" rx="1"/>'
@@ -354,7 +366,10 @@ export class Run {
     </div>`;
   }
 
-  /* Part 1 ─ 写真描写 */
+  /* Part 1 ─ 写真描写
+     scene（SVG場面）を持つユニットは従来どおり描画する（模試30問・挙動不変）。
+     desc（描写テキスト）を持つユニットは renderDesc() で数秒表示→消去→再表示可の
+     テキストボックスを描画する（drills/part1.js の描写テキスト方式）。 */
   renderP1(u) {
     const q = u.questions[0];
     const a = this.answers[q.id];
@@ -362,13 +377,52 @@ export class Run {
     return `<div class="q">
       ${this.header(u)}
       <div class="q__directions">Look at the picture and listen to the four statements. Choose the statement that best describes what you see.</div>
-      <div class="scene">${SCENES[u.scene] || SCENES.fallback}</div>
+      ${u.scene ? `<div class="scene">${SCENES[u.scene] || SCENES.fallback}</div>` : this.renderDesc(u)}
       ${this.playerBox(this.scriptMode
         ? '読んで解くモード：本番では印刷されない選択肢を表示しています。'
         : '選択肢は印刷されません（本番と同じ）。音声を聞いて (A)〜(D) から選んでください。')}
       ${this.choiceList(q, { blind: !revealed && !this.scriptMode })}
       ${revealed ? this.kaisetsu(u, q) : ''}
     </div>`;
+  }
+
+  /* Part 1（desc方式）─ 場面描写テキスト
+     初回表示時に自動的にタイマーを仕掛け、DESC_VISIBLE_MS 後に消す。
+     消えた後は「もう一度見る」で何度でも再表示できる（必須：音声非対応環境では
+     この描写文だけが手がかりなので、二度と見られないと解答不能になる）。 */
+  renderDesc(u) {
+    if (!this._desc.has(u.id)) {
+      this._desc.set(u.id, { visible: true });
+      this.armDescHide(u);
+    }
+    const visible = this._desc.get(u.id).visible;
+    return `<div class="scene descbox">
+      ${visible
+        ? `<p class="descbox__text en">${esc(u.desc)}</p>`
+        : `<div class="descbox__gone">
+            <p class="note">場面描写は一度表示されると自動で消えます（本番で写真を見る時間を模しています）。</p>
+            <button class="btn btn--ghost btn--sm" data-act="desc-show">もう一度見る</button>
+          </div>`}
+    </div>`;
+  }
+
+  /** desc を DESC_VISIBLE_MS 後に隠す。既に別ユニットへ移っていれば再描画しない。 */
+  armDescHide(u) {
+    clearTimeout(this._descTimer);
+    this._descTimer = setTimeout(() => {
+      const st = this._desc.get(u.id);
+      if (!st) return;
+      st.visible = false;
+      if (this.unit?.id === u.id) this.render();
+    }, DESC_VISIBLE_MS);
+  }
+
+  /** 「もう一度見る」ボタン */
+  showDescAgain(u) {
+    if (!u) return;
+    this._desc.set(u.id, { visible: true });
+    this.armDescHide(u);
+    this.render();
   }
 
   /* Part 2 ─ 応答 */
@@ -570,6 +624,7 @@ export class Run {
       });
     });
     el.querySelector('[data-act="play"]')?.addEventListener('click', () => this.togglePlay());
+    el.querySelector('[data-act="desc-show"]')?.addEventListener('click', () => this.showDescAgain(this.unit));
     el.querySelector('[data-act="script"]')?.addEventListener('click', () => {
       state.settings.scriptMode = !state.settings.scriptMode;
       save();
