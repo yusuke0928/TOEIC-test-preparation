@@ -1,8 +1,8 @@
 {
-  "name": "shuki-tools",
+  "name": "toeic-lr900-tools",
   "private": true,
   "type": "module",
-  "description": "朱記の品質管理ツール（アプリ本体はビルド不要。ここだけ Node を使う）",
+  "description": "TOEIC L&R 900 対策アプリの品質管理ツール（アプリ本体はビルド不要。ここだけ Node を使う）",
   "dependencies": {
     "acorn": "^8.18.0",
     "playwright": "^1.62.1"

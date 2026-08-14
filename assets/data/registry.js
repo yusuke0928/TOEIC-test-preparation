@@ -96,7 +96,7 @@ let drillsPromise = null;
 export function loadDrills() {
   if (!drillsPromise) {
     drillsPromise = Promise.all(DRILL_FILES.map(f => f().catch(e => {
-      console.warn('[shuki] ドリルの読み込みに失敗', e);
+      console.warn('[toeic900] ドリルの読み込みに失敗', e);
       return { UNITS: [] };
     }))).then(mods => mods.flatMap(m => m.UNITS || []));
   }
@@ -140,7 +140,7 @@ export function buildIndex() {
         try {
           const mod = await m.loader();
           register(mod.UNITS, m.id);
-        } catch (e) { console.warn(`[shuki] ${m.id} 読み込み失敗`, e); }
+        } catch (e) { console.warn(`[toeic900] ${m.id} 読み込み失敗`, e); }
       }
       return idx;
     })();

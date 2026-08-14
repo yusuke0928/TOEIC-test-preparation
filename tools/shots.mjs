@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =============================================================
-   shots.mjs — 朱記 主要画面のスクリーンショット取得
+   shots.mjs — 主要画面のスクリーンショット取得
    ホーム・ドリル一覧・出題中・解説表示・模試一覧・受験中・結果・分析・設定を
    light（紙）/ dark（墨）の両テーマで tools/out/shots/ に保存する。
 
@@ -67,7 +67,7 @@ async function captureAll(browser, theme, suffix) {
   await context.addInitScript((t) => {
     try { Object.defineProperty(window, 'speechSynthesis', { get: () => undefined, configurable: true }); } catch { /* noop */ }
     try {
-      localStorage.setItem('shuki.v1', JSON.stringify({
+      localStorage.setItem('toeic-lr900.v1', JSON.stringify({
         schema: 1,
         settings: { theme: t, rate: 1, autoPlay: true, autoAdvance: false, voiceMap: {}, drillInstant: true, showTimer: true, dailyGoal: 30, scriptMode: false },
         attempts: [], items: {}, sessions: {}, notes: {}, flags: {},

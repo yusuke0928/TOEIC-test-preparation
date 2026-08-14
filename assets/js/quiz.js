@@ -559,7 +559,7 @@ export class Run {
     const ok = a.chosen === q.answer;
     const topics = [...(q.topics || u.topics || [])];
     return `<div class="kaisetsu ${ok ? 'kaisetsu--ok' : ''}">
-      <div class="kaisetsu__head">朱記
+      <div class="kaisetsu__head">添削
         <span class="kaisetsu__verdict" style="color:${ok ? 'var(--midori)' : 'var(--shu)'}">
           ${ok ? '正解' : `誤答 — 正解は (${KEYS[q.answer]})`}</span>
       </div>

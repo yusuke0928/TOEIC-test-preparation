@@ -3,8 +3,29 @@
    localStorage 単独で完結。サーバ不要 → GitHub Pages でそのまま動く。
    ============================================================= */
 
-const KEY = 'shuki.v1';
+export const KEY = 'toeic-lr900.v1';
+// 旧アプリ名だった頃の localStorage キー。利用者の端末に実際に書き込まれた値
+// そのものなので変更できない。移行のためだけに参照する。
+const OLD_KEY = 'shuki.v1';
 const SCHEMA = 1;
+
+/**
+ * 一度きりの移行: 新キーがまだ無く、旧キー（旧アプリ名時代のキー）にデータが
+ * 残っている場合はそれをそのまま新キーへコピーする。
+ * 旧キーは消さない（万一この移行処理自体に不具合があっても手元にデータが残るように）。
+ */
+function migrateFromOldKey() {
+  try {
+    if (localStorage.getItem(KEY) != null) return;
+    const old = localStorage.getItem(OLD_KEY);
+    if (old == null) return;
+    localStorage.setItem(KEY, old);
+    console.info(`[toeic900] 旧キー "${OLD_KEY}" のデータを "${KEY}" へ移行しました（旧キーは残しています）。`);
+  } catch (e) {
+    console.warn('[toeic900] 旧データの移行に失敗しました。', e);
+  }
+}
+migrateFromOldKey();
 
 const DEFAULTS = {
   schema: SCHEMA,
@@ -62,7 +83,7 @@ function load() {
     if (!raw) return structuredClone(DEFAULTS);
     return sanitize(JSON.parse(raw));
   } catch (e) {
-    console.warn('[shuki] 保存データの読み込みに失敗。初期化します。', e);
+    console.warn('[toeic900] 保存データの読み込みに失敗。初期化します。', e);
     return structuredClone(DEFAULTS);
   }
 }
@@ -76,7 +97,7 @@ export function save() {
     try {
       localStorage.setItem(KEY, JSON.stringify(state));
     } catch (e) {
-      console.error('[shuki] 保存に失敗（容量超過の可能性）', e);
+      console.error('[toeic900] 保存に失敗（容量超過の可能性）', e);
     }
   }, 120);
 }
@@ -198,7 +219,7 @@ export const allSessions = () =>
 
 /* ── 入出力 ──────────────────────────────────────────── */
 export function exportJSON() {
-  return JSON.stringify({ ...state, exportedAt: new Date().toISOString(), app: 'shuki' }, null, 2);
+  return JSON.stringify({ ...state, exportedAt: new Date().toISOString(), app: 'toeic-lr900' }, null, 2);
 }
 export function importJSON(text) {
   const incoming = JSON.parse(text);
