@@ -51,14 +51,14 @@ export const L1 = [
     scene: 'hotel-lobby', sp: 'M-Cn', lv: 4,
     c: [
       'Suitcases are being loaded onto a trolley.',
-      'A person is carrying a box across the lobby.',
+      'A person is carrying a box in the lobby.',
       'A plant is being watered.',
       'The reception counter is unattended.',
     ],
     a: 1,
-    e: '荷物を抱えてロビーを移動している人物の動作。カウンターの内側には係員が立っているため、「無人」とする描写は写真と矛盾する。',
+    e: 'ロビーで箱を抱えている人物の動作。カウンターの内側には係員が立っているため、「無人」とする描写は写真と矛盾する。',
     w: ['台車への積み込み作業は写っていない。', '正解。', '水やりの動作もない。', 'カウンターの内側に係員が立っている。'],
-    ja: '(B) 人物が箱を抱えてロビーを移動している。',
+    ja: '(B) 人物がロビーで箱を抱えている。',
   }),
 
   p1(4, {
