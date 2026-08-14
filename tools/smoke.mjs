@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =============================================================
-   smoke.mjs — 朱記 実ブラウザ通しテスト（27項目）
+   smoke.mjs — 実ブラウザ通しテスト（27項目）
    Playwright で chromium を実際に動かし、アプリを一切変更せずに検証する。
 
    使い方:
@@ -109,7 +109,7 @@ function prepareSubpathRoot() {
   // 前回実行の残骸（古いシンボリックリンク等）を引きずらないよう、毎回作り直す
   try { rmSync(dir, { recursive: true, force: true }); } catch { /* noop */ }
   mkdirSync(dir, { recursive: true });
-  const link = path.join(dir, 'shuki');
+  const link = path.join(dir, 'app');
   symlinkSync(ROOT, link, 'dir');
   return dir;
 }
@@ -186,7 +186,7 @@ async function launchDescDrill(page, base) {
 async function test01({ page }) {
   await page.goto(`${BASE}/index.html`, { waitUntil: 'load' });
   await page.waitForSelector('.phead__title', { timeout: 15000 });
-  assert((await page.title()).includes('朱記'), 'タイトルが想定と違います');
+  assert((await page.title()).includes('TOEIC'), 'タイトルが想定と違います');
   const navCount = await page.locator('#nav .nav__item').count();
   assert(navCount === 6, `ナビ項目が 6 個ではありません（${navCount}）`);
 }
@@ -438,7 +438,7 @@ async function test13({ page }) {
   assert((await page.locator('.kaisetsu').first().innerText()).includes('正解'), '正解を選んだのに「正解」表示になっていません');
 
   const item = await page.evaluate((qid) => {
-    const it = window.shuki.state.items[qid];
+    const it = window.toeic900.state.items[qid];
     return { due: it.due, streak: it.streak, n: it.n };
   }, info.qid);
   const deltaDays = (item.due - Date.now()) / 86400000;
@@ -549,7 +549,7 @@ async function test18({ page }) {
   const filePath = await download.path();
   assert(filePath, 'エクスポートしたファイルのパスが取得できません');
 
-  const before = await page.evaluate(() => window.shuki.state.attempts.length);
+  const before = await page.evaluate(() => window.toeic900.state.attempts.length);
   assert(before >= 1, 'エクスポート前に受験記録が存在しません');
 
   page.once('dialog', d => d.accept());
@@ -557,7 +557,7 @@ async function test18({ page }) {
   await page.waitForTimeout(900);
   await page.waitForLoadState('load');
   await page.waitForSelector('#export', { timeout: 10000 });
-  const afterReset = await page.evaluate(() => window.shuki.state.attempts.length);
+  const afterReset = await page.evaluate(() => window.toeic900.state.attempts.length);
   assert(afterReset === 0, `学習記録の消去後も attempts が残っています（${afterReset} 件）`);
 
   await page.click('#import-merge');
@@ -565,7 +565,7 @@ async function test18({ page }) {
   await page.setInputFiles('#file', filePath);
   await page.waitForTimeout(2200);
   await page.waitForLoadState('load');
-  const afterMerge = await page.evaluate(() => window.shuki.state.attempts.length);
+  const afterMerge = await page.evaluate(() => window.toeic900.state.attempts.length);
   assert(afterMerge >= 1, `「読み込んで合流」の後も attempts が復元されていません（${afterMerge} 件）`);
 }
 
@@ -603,9 +603,9 @@ async function test20({ page }) {
   assert(absHits.length === 0, `絶対パス参照が ${absHits.length} 件あります: ${absHits.slice(0, 5).join(' / ')}`);
 
   const dir = prepareSubpathRoot();
-  const sub = await ensureServer(MAIN_PORT + 1, dir, '/shuki/index.html', '朱記');
+  const sub = await ensureServer(MAIN_PORT + 1, dir, '/app/index.html', 'TOEIC L&R 900');
   console.log(`[smoke] サブパスサーバ: ${sub.url}（port ${sub.port}）${sub.started ? '（このツールが起動）' : '（既存のものを流用）'}`);
-  const url = `${sub.url}/shuki`;
+  const url = `${sub.url}/app`;
 
   await page.goto(`${url}/#/`, { waitUntil: 'load' });
   await page.waitForSelector('.phead__title', { timeout: 15000 });
@@ -796,7 +796,7 @@ const TESTS = [
   ['17_設定：テーマ切替（light/dark）', test17],
   ['18_設定：データの書き出し・読み込み（読み込んで合流）', test18],
   ['19_音声非対応環境：Part3が操作できる（読んで解くモードに自動フォールバック）', test19],
-  ['20_サブパス配信：/shuki/配下でも同一に動作し絶対パス参照が0件', test20],
+  ['20_サブパス配信：/app/配下でも同一に動作し絶対パス参照が0件', test20],
   ['21_キーボード操作：A〜D・矢印・Fキーで操作できる', test21],
   ['22_戻るボタン：ブラウザのhistory操作でアプリが壊れない', test22],
   ['23_中断セッション：ホーム画面に表示され再開・破棄できる', test23],
@@ -864,7 +864,7 @@ async function runOne(browser, name, fn) {
 
 async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
-  const main = await ensureServer(PORT, ROOT, '/index.html', '朱記');
+  const main = await ensureServer(PORT, ROOT, '/index.html', 'TOEIC L&R 900');
   BASE = main.url;
   MAIN_PORT = main.port;
   console.log(`[smoke] サーバ: ${BASE}（port ${main.port}）${main.started ? '（このツールが起動）' : '（既存のものを流用）'}`);

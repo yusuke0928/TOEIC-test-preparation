@@ -1,5 +1,5 @@
 /* =============================================================
-   朱記 SHUKI — TOEIC L&R 900 対策
+   app.css — TOEIC L&R 900 対策 デザイン
    意匠: 学参（学習参考書）× スイス・エディトリアル
    紙 / 藍墨 / 朱の三色。罫線と余白で構成する。
    ============================================================= */
@@ -396,7 +396,7 @@ body{
 .choice.is-correct .choice__mark{color:var(--midori)}
 .choice.is-wrong .choice__mark{color:var(--shu)}
 
-/* 朱記 explanation — 赤ペン添削の体 */
+/* explanation — 赤ペン添削の体 */
 .kaisetsu{
   margin-top:1.15rem;border:1px solid color-mix(in srgb,var(--shu) 32%,transparent);
   border-left:3px solid var(--shu);border-radius:var(--r);

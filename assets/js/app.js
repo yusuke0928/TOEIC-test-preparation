@@ -108,11 +108,11 @@ document.addEventListener('visibilitychange', () => {
 
 audio.loadVoices().then(vs => {
   if (!vs.length && audio.supported) {
-    console.info('[shuki] 英語音声が見つかりません。OS に英語音声を追加してください。');
+    console.info('[toeic900] 英語音声が見つかりません。OS に英語音声を追加してください。');
   }
 });
 
 render();
 
 /* デバッグ用（コンソールから状態を覗けるように） */
-window.shuki = { state, toast };
+window.toeic900 = { state, toast };

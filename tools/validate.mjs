@@ -506,7 +506,7 @@ const errorList = matched.filter(i => i.level === 'ERROR');
 const warnList  = matched.filter(i => i.level === 'WARN');
 const noteList  = matched.filter(i => i.level === 'NOTE');
 
-console.log('朱記 — 整合性チェック' + (filterArg ? `（絞り込み: "${filterArg}"）` : ''));
+console.log('問題データ — 整合性チェック' + (filterArg ? `（絞り込み: "${filterArg}"）` : ''));
 console.log(`検査対象: 模試 ${MOCK_META.length} 回 / ドリル ${DRILL_FILES.length} ファイル${extraArgs.length ? ` / --extra ${extraArgs.length} ファイル` : ''}\n`);
 
 if (filterArg && !targets.some(t => hit(t.key))) {

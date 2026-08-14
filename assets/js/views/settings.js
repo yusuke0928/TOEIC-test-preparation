@@ -2,7 +2,7 @@
    settings.js — 設定・データ管理
    ============================================================= */
 
-import { state, save, setSetting, exportJSON, importJSON, mergeJSON, resetAll, resetProgressOnly } from '../store.js';
+import { state, save, setSetting, exportJSON, importJSON, mergeJSON, resetAll, resetProgressOnly, KEY } from '../store.js';
 import { pageHead, sectionHead, esc, toast, empty } from '../ui.js';
 import * as audio from '../audio.js';
 import * as A from '../analytics.js';
@@ -157,7 +157,7 @@ export default async function settings(el) {
     ${sectionHead('ABOUT', 'このアプリについて', '')}
     <div class="card">
       <p style="line-height:1.9">
-        <b>朱記（しゅき）</b> — TOEIC® L&amp;R 900 到達のための演習・分析アプリ。<br>
+        <b>TOEIC® L&amp;R 900 対策</b> — 900 到達のための演習・分析アプリ。<br>
         収録している設問・文書・音声スクリプトは<b>すべて本アプリのための書き下ろし</b>です。
         TOEIC® の過去問題および公式サンプル問題は ETS が著作権を保有し公開・再配布されていないため、
         公開されている<b>出題形式の仕様のみ</b>に合わせて新規に作成しています。
@@ -210,7 +210,7 @@ export default async function settings(el) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `shuki-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `toeic-lr900-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast('書き出しました');
@@ -260,6 +260,6 @@ export default async function settings(el) {
 }
 
 function sizeKB() {
-  try { return Math.round((localStorage.getItem('shuki.v1') || '').length / 1024); }
+  try { return Math.round((localStorage.getItem(KEY) || '').length / 1024); }
   catch { return 0; }
 }
