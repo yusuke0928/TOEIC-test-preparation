@@ -24,14 +24,14 @@ export const L1 = [
     scene: 'waterfront', sp: 'M-Cn', lv: 3,
     c: [
       'A ramp is being lowered onto a boat.',
-      'Boats have been tied up at the dock.',
+      'A bridge extends across the water.',
       'Fishing nets are hanging out to dry.',
       'A crowd has gathered near the water.',
     ],
     a: 1,
-    e: '桟橋に係留された状態のボート。have been tied up は完了した係留状態を表す。人物の動作を含む選択肢は、その動作が確認できなければ選べない。',
+    e: '水面をまたいで橋が架かっている。人が一人も写っていない写真では、人の動作を含む選択肢はすべて誤りになり、風景そのものを述べた選択肢が残る。',
     w: ['ランプを下ろす作業は確認できない。', '正解。', '網を干している様子はない。', '人だかりは写っていない。'],
-    ja: '(B) ボートが桟橋に係留されている。',
+    ja: '(B) 橋が水面を横切って架かっている。',
   }),
 
   p1(2, {
@@ -65,15 +65,15 @@ export const L1 = [
   p1(4, {
     scene: 'bank-teller', sp: 'W-Au', lv: 4,
     c: [
-      'A clerk is counting cash into a drawer.',
-      'A customer is handing documents across a counter.',
+      'A clerk is unlocking a cash drawer.',
+      'A document is being passed across a counter.',
       'Chairs have been placed in a waiting area.',
       'A vault door is being closed.',
     ],
     a: 1,
-    e: 'カウンター越しに書類を差し出している客の動作。reach のポーズが両者に見られ、書類のやり取りが描かれている。',
-    w: ['現金を数えている様子は確認できない。', '正解。', '待合スペースの椅子は描かれていない。', '金庫の扉は描かれていない。'],
-    ja: '(B) 客がカウンター越しに書類を差し出している。',
+    e: 'カウンターを挟んで両側の人物が同じ書類に手を掛けている。is being + 過去分詞は動作主が写っていて初めて成立するので、(B) は選べるが、動作主も対象も写っていない (D) は選べない。',
+    w: ['引き出しを開ける動作は確認できない。', '正解。', '待合スペースの椅子は描かれていない。', '金庫の扉は描かれていない。'],
+    ja: '(B) 書類がカウンター越しに受け渡されている。',
   }),
 
   p1(5, {
@@ -93,15 +93,15 @@ export const L1 = [
   p1(6, {
     scene: 'parking-lot', sp: 'W-Am', lv: 3,
     c: [
-      'Vehicles have been parked in marked spaces.',
+      'Some parking spaces are unoccupied.',
       'A car is being washed.',
       'A barrier is being raised.',
       'Passengers are boarding a vehicle.',
     ],
     a: 0,
-    e: '区画線の中に車が停められている状態。have been parked は完了した駐車状態を表す。',
-    w: ['正解。', '洗車している様子はない。', '遮断機の操作は確認できない。', '乗車している人物はいない。'],
-    ja: '(A) 車両が区画内に駐車されている。',
+    e: '区画は 4 つあるが車は 3 台で、右寄りの 1 区画が空いている。「何が置かれているか」だけでなく「どこが空いているか」も描写の対象になる。',
+    w: ['正解。', '洗車している様子はない。', '遮断機は描かれていない。', '乗り降りしている人物はいない。'],
+    ja: '(A) 空いている駐車区画がある。',
   }),
 
   /* ══════════ PART 2 ══════════ */

@@ -94,13 +94,13 @@ export const L1 = [
     c: [
       'Passengers are boarding an aircraft.',
       'A bench has been left unoccupied.',
-      'Some luggage is being wheeled along.',
+      'A suitcase is standing upright on the floor.',
       'Departure information is being updated.',
     ],
     a: 2,
-    e: 'スーツケースを引いて歩いている人物の動作。be wheeled along は「転がして運ばれる」で、動作主が写っている。',
-    w: ['搭乗の場面ではない。', 'ベンチには人が座っている。', '正解。', '案内表示の更新は確認できない。'],
-    ja: '(C) 荷物が転がして運ばれている。',
+    e: 'スーツケースは床に立てられたままで、誰も手を掛けていない。この写真で選べるのは状態を述べた (C) だけ。is being + 過去分詞は「今まさに誰かが行っている」ことを表すので、その動作主が写っていなければ選べない。直前の設問と対にして確認しておきたい。',
+    w: ['搭乗の場面ではない。', 'ベンチには人が座っている。', '正解。', '案内表示を更新している人はいない。'],
+    ja: '(C) スーツケースが床に立てて置かれている。',
   }),
 
   /* ══════════ PART 2 ══════════ */
