@@ -567,7 +567,9 @@ export class Run {
       <p${q.prompt ? ' style="margin-top:.7rem"' : ''}>${esc(q.exp || '')}</p>
       ${q.why?.length ? `<h4>選択肢の検討</h4><ul class="kaisetsu__why">
         ${q.why.map((w, i) => `<li><span>(${KEYS[i]})</span><span>${esc(w)}</span></li>`).join('')}</ul>` : ''}
-      ${q.ja ? `<h4>訳</h4><p>${esc(q.ja)}</p>` : ''}
+      ${q.ja ? (Array.isArray(q.ja)
+        ? `<h4>訳</h4>${q.ja.map(j => `<p>${esc(j)}</p>`).join('')}`
+        : `<h4>訳</h4><p>${esc(q.ja)}</p>`) : ''}
       ${!compact && u.script ? `<h4>スクリプト</h4>${renderScript(u.script)}` : ''}
       ${q.vocab?.length ? `<h4>語注</h4>${renderVocab(q.vocab)}` : ''}
       ${topics.length ? `<h4>論点</h4><div class="inline">${topics.map(t =>
