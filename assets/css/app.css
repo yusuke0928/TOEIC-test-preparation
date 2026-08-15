@@ -647,6 +647,13 @@ body{
   .spine__foot{margin-left:auto;padding:0;border-top:0}
   .page{padding-bottom:5.6rem}
   .exambar{margin-left:calc(-1*clamp(1.1rem,3.4vw,3.4rem));margin-right:calc(-1*clamp(1.1rem,3.4vw,3.4rem));top:2.9rem}
+  /* この上書きはタブバーが表示される幅（このメディアクエリの範囲、max-width:880px）でのみ効く。
+     881px以上ではタブバーが display:none になるため、上の基本ルールの bottom:.5rem がそのまま使われる。
+     .examnav は position:sticky で、長い設問（Part3/4のスクリプトなど）をスクロール中は
+     containing block（.exam）の下端に届くまで bottom:.5rem の位置に張り付き続け、
+     fixed の .tabbar（実測高さ 48.34px ≒ 3.02rem）と重なって「次へ」が押せなくなる。
+     3.6rem はそのタブバー高さ 3.02rem に、従来の .5rem と同程度の余白（約9px）を足した値。 */
+  .examnav{bottom:calc(env(safe-area-inset-bottom) + 3.6rem)}
   .tabbar{
     display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;z-index:70;
     background:color-mix(in srgb,var(--card) 95%,transparent);backdrop-filter:blur(14px);
