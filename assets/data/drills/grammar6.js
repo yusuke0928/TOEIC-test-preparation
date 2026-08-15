@@ -141,18 +141,18 @@ export const UNITS = [
   }),
 
   /* ══ 倒置・強調・省略 ═══════════════════════════════ */
-  q('inv-09', {
-    t: ['inv'], lv: 3,
-    s: 'Little ------- the organizing committee anticipate such strong opposition when it announced the venue change last spring.',
-    c: ['does', 'has', 'did', 'was'],
-    a: 2,
-    e: '否定的な意味を持つ little が文頭に出ると、その節は疑問文と同じ語順に倒置される。Little did I know と同じ型。後ろが原形 anticipate であること、および when 節が announced と過去形で last spring を伴うことから、過去の助動詞 did が入る。',
-    w: ['現在形。when 節の announced と last spring が示す過去の時点に合わない。',
-        '現在完了の助動詞。後ろには過去分詞 anticipated が必要で、原形 anticipate とは結び付かない。',
-        '正解。Little did + S + 原形、の倒置。',
-        'be 動詞。時制は過去で合っているが、原形 anticipate を主動詞として続けることはできない。'],
-    ja: 'その運営委員会は、昨春その会場変更を発表した際、これほど強い反発が起きるとは思ってもいなかった。',
-    v: [['anticipate', '予期する'], ['opposition', '反対、反発']],
+  q('inv-17', {
+    t: ['inv'], lv: 4,
+    s: '------- inform the shift supervisor immediately if the emergency exit is blocked, even during a routine drill.',
+    c: ['Do', 'Does', 'Doing', 'To do'],
+    a: 0,
+    e: '命令文の動詞の原形の前に Do を置くと、その命令を強める用法になる（例: Do come in. / Do be careful.）。Does は主語のない命令文に人称変化した形を置くことになり成立しない。Doing（動名詞）や To do（不定詞）も命令文の主動詞の位置には立てない。',
+    w: ['正解。命令文を強める Do + 原形。',
+        '命令文は主語を立てず原形で始まるのが原則で、三人称単数現在の -s 形を置く理由がない。定形動詞としても命令文の頭には立たない。',
+        '動名詞。命令文の主動詞にはならない。',
+        '不定詞。命令文の主動詞にはならない。'],
+    ja: '非常口がふさがれている場合は、それが通常の訓練中であっても、必ずすぐにシフト責任者に知らせてください。',
+    v: [['shift supervisor', 'シフト責任者'], ['emergency exit', '非常口'], ['routine drill', '通常の訓練']],
   }),
 
   q('inv-10', {
@@ -197,18 +197,18 @@ export const UNITS = [
     v: [['punitive', '懲罰的な'], ['remotely', 'リモートで']],
   }),
 
-  q('inv-13', {
-    t: ['inv'], lv: 3,
-    s: 'Not once ------- the vendor missed a delivery deadline in over a decade of partnership.',
-    c: ['did', 'was', 'is', 'has'],
-    a: 3,
-    e: '否定的な回数表現 Not once が文頭に出ると倒置。後ろに過去分詞 missed が続くことと、「10 年以上にわたって」という現在まで続く期間を表すことから、現在完了の has が入る。',
-    w: ['過去分詞 missed ではなく原形 miss を伴う倒置に使う助動詞。',
-        '「was missed」は受動態になり、後ろに目的語 a delivery deadline を続けられない。',
-        'is missed も受動態になり、後ろに目的語 a delivery deadline を続けられない。加えて現在形では「10 年以上」という継続を表せない。',
-        '正解。現在完了の倒置で、過去分詞 missed と結び付く。'],
-    ja: 'そのベンダーは、10 年を超える取引の中で一度も納期を逃したことがない。',
-    v: [['vendor', '業者'], ['deadline', '納期、締切']],
+  q('inv-18', {
+    t: ['inv'], lv: 4,
+    s: '------- not until the auditor flagged the discrepancy that the department reviewed its invoicing procedures.',
+    c: ['It was', 'There was', 'That was', 'What was'],
+    a: 0,
+    e: 'It is / was not until ... that ... の分裂文（強調構文）。not until 以下の時の表現を that の前に置いて焦点化し、「〜になって初めて…した」という意味を表す。この枠は It is / It was に固定されており、there / that / what には置き換えられない。',
+    w: ['正解。It was ... that ... の分裂文の枠。',
+        '存在の there。not until ... that ... という時の焦点化とは結び付かず、この枠には立たない。',
+        '指示代名詞 that。分裂文の主語の位置には it を用いる決まりで、that を主語に立てる形はない。',
+        '関係代名詞 what。疑似分裂構文 What ... is/was とは形が異なり、この枠には立たない。'],
+    ja: '監査人がその食い違いを指摘して初めて、その部署は請求処理の手順を見直した。',
+    v: [['flag', '（問題点などを）指摘する'], ['discrepancy', '食い違い、不一致'], ['invoicing procedures', '請求処理の手順']],
   }),
 
   q('inv-14', {
@@ -239,18 +239,18 @@ export const UNITS = [
     v: [['retain', '保管する'], ['insurance claim', '保険金請求']],
   }),
 
-  q('inv-16', {
-    t: ['inv'], lv: 5,
-    s: 'At no time ------- the safety inspector informed that the scaffolding had been altered without approval.',
-    c: ['did', 'has', 'was', 'is'],
-    a: 2,
-    e: '否定の副詞句 At no time が文頭に出ると倒置。informed は受動態の一部（be動詞＋過去分詞）なので、do/does/did ではなく be 動詞を倒置する。文脈が過去の出来事なので was。',
-    w: ['一般動詞用の倒置。ここでの主動詞は be 動詞（was informed）で、do は使わない。',
-        '現在完了なら been informed という形になるはずで、過去分詞単独の informed とは結び付かない。',
-        '正解。be 動詞の倒置。過去の出来事を表す was。',
-        '現在形。過去の出来事（had been altered）と時制が合わない。'],
-    ja: '足場が無許可で変更されていたことについて、安全検査官は一度も知らされていなかった。',
-    v: [['scaffolding', '足場'], ['alter', '変更する'], ['approval', '承認']],
+  q('inv-19', {
+    t: ['inv'], lv: 4,
+    s: 'Although ------- twice by the ethics committee, the funding application ultimately received approval this quarter.',
+    c: ['rejected', 'was rejected', 'it rejected', 'been rejected'],
+    a: 0,
+    e: '接続詞の後に続く節で、主節の主語と一致する〈主語＋be動詞〉はまとめて省略できる。Although (it was) rejected ... の it was がこの規則で省略されている。was rejected は主語だけを落として be 動詞を残した形で、この省略規則にはない。been は完了の have/has/had の後ろでしか使えない形で、単独では節の述語になれないため、been rejected も正しい省略ではない。it rejected は主語を残したままの能動態で、by the ethics committee という受け身の動作主を示す語句と結び付かない。',
+    w: ['正解。Although の後で主節の主語と一致する it was がまとめて省略された形。',
+        '主語だけを落として be 動詞 was を残した形。接続詞の後で省略できるのは主語＋be動詞のセットであり、主語だけを落とすことはできない。',
+        '主語 it を残した能動態。by the ethics committee という受け身の動作主を示す語句と結び付かず、意味的にも申請書が却下する側になってしまう。',
+        'been は完了の have/has/had の後ろでしか使えない形で、単独では節の述語になれない。'],
+    ja: '倫理委員会に2度却下されたものの、その資金申請は今四半期に最終的に承認された。',
+    v: [['ethics committee', '倫理委員会'], ['funding application', '資金申請'], ['ultimately', '最終的に']],
   }),
 
   /* ══ 態と自他動詞 ═══════════════════════════════════ */
