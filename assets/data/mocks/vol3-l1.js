@@ -122,7 +122,7 @@ export const L1 = [
 
   p2(9, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'How was the site visit yesterday?',
-    c: ['The site is near Doncaster.', 'By car, about an hour.', 'I was not able to go in the end.'],
+    c: ['The site is near Doncaster.', 'By car, about an hour.', 'I wasn\'t able to go in the end.'],
     a: 2,
     e: '感想を求められて「結局行けなかった」と答えられない事情を述べる間接応答。',
     w: ['site の反復。', 'How を手段と誤解した引っ掛け。', '正解。'],
@@ -146,7 +146,7 @@ export const L1 = [
 
   p2(12, { t: ['p2wh'], lv: 4, sa: 'M-Cn', sb: 'W-Br',
     p: 'Weren\'t you going to take the early train?',
-    c: ['Trains run every twenty minutes.', 'Yes, it is quite early.', 'I changed it to the eight fifteen.'],
+    c: ['Trains run every twenty minutes.', 'Yes, it\'s quite early.', 'I changed it to the eight fifteen.'],
     a: 2,
     e: '否定疑問に Yes / No を使わず、変更した事実を述べて答えている。',
     w: ['train の反復。', 'early の反復。', '正解。'],
@@ -154,7 +154,7 @@ export const L1 = [
 
   p2(13, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
     p: 'The photocopier is jamming on double-sided again.',
-    c: ['I copied it twice.', 'Single-sided still works.', 'It is on the second floor.'],
+    c: ['I copied it twice.', 'Single-sided still works.', 'It\'s on the second floor.'],
     a: 1,
     e: '不具合の報告に対し、使える機能を示して当面の対応策を提示する応答。',
     w: ['copy の反復。', '正解。', '場所を答えており、報告への応答になっていない。'],
@@ -170,7 +170,7 @@ export const L1 = [
 
   p2(15, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Who normally orders the laboratory gloves?',
-    c: ['Yes, they were ordered.', 'About four boxes a month.', 'Whoever notices they are low.'],
+    c: ['Yes, they were ordered.', 'About four boxes a month.', 'Whoever notices they\'re low.'],
     a: 2,
     e: '担当者を尋ねられて「気づいた人が」と、決まっていないことを示す間接応答。',
     w: ['Who に Yes は不可。', 'How many への答え。', '正解。'],
@@ -193,8 +193,8 @@ export const L1 = [
     ja: '木曜までに入札書類に目を通していただけますか。→ (B) どれくらいの分量ですか。' }),
 
   p2(18, { t: ['p2wh'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
-    p: 'You are the one who set up the shared calendar, aren\'t you?',
-    c: ['It calendars the whole year.', 'Yes, it is shared with everyone.', 'That was Marcelo, actually.'],
+    p: 'You\'re the one who set up the shared calendar, aren\'t you?',
+    c: ['It calendars the whole year.', 'Yes, it\'s shared with everyone.', 'That was Marcelo, actually.'],
     a: 2,
     e: '付加疑問による確認に対し、事実を訂正する応答。',
     w: ['意味を成さない語の引っ掛け。', 'share の反復。', '正解。'],
@@ -226,7 +226,7 @@ export const L1 = [
 
   p2(22, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'I thought the workshop was fully booked.',
-    c: ['Two people dropped out this morning.', 'The workshop is on the fourth floor.', 'It was fully booked last year.'],
+    c: ['Two people dropped out this morning.', 'The workshop\'s on the fourth floor.', 'It was fully booked last year.'],
     a: 0,
     e: '平叙文による前提に対し、状況が変わったことを伝えて訂正する応答。',
     w: ['正解。', '場所を答えており、前提への応答になっていない。', 'fully booked の反復。'],
@@ -234,7 +234,7 @@ export const L1 = [
 
   p2(23, { t: ['p2wh'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Do you want me to reprint the labels, or will you handle it?',
-    c: ['Yes, please do.', 'If you have the template, go ahead.', 'The printer is out of ink.'],
+    c: ['Yes, please do.', 'If you have the template, go ahead.', 'The printer\'s out of ink.'],
     a: 1,
     e: '選択疑問に対し、条件を付けて一方を選ぶ応答。',
     w: ['選択疑問に Yes は不可。', '正解。', '関連はするが選択に答えていない。'],
@@ -242,7 +242,7 @@ export const L1 = [
 
   p2(24, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'When can we expect the revised quotation?',
-    c: ['The quotation was accepted.', 'They are waiting on a price from their fabricator.', 'By courier, I think.'],
+    c: ['The quotation was accepted.', 'They\'re waiting on a price from their fabricator.', 'By courier, I think.'],
     a: 1,
     e: '時期を尋ねられ、「加工業者からの価格待ち」＝まだわからない理由を答える間接応答。',
     w: ['quotation の反復。時期を答えていない。', '正解。', 'How への答え。'],
@@ -257,8 +257,8 @@ export const L1 = [
     ja: '資料室は土曜も開いているのではないですか。→ (A) 予約制のみです。' }),
 
   p2(26, { t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Au',
-    p: 'These headphones have not been sanitised since the last session.',
-    c: ['The wipes are in the second drawer.', 'I listened to the whole session.', 'They are quite comfortable.'],
+    p: 'These headphones haven\'t been sanitised since the last session.',
+    c: ['The wipes are in the second drawer.', 'I listened to the whole session.', 'They\'re quite comfortable.'],
     a: 0,
     e: '問題の指摘に対し、解決手段の在りかを示す応答。',
     w: ['正解。', 'session の反復。', '感想であって対応になっていない。'],
@@ -266,7 +266,7 @@ export const L1 = [
 
   p2(27, { t: ['p2wh'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'How much notice do we need to give to cancel?',
-    c: ['It is in clause fourteen.', 'We cancelled last time.', 'About two hundred euros.'],
+    c: ['It\'s in clause fourteen.', 'We cancelled last time.', 'About two hundred euros.'],
     a: 0,
     e: '「第 14 条に書いてある」と情報源を示す間接応答。数値そのものは答えていない。',
     w: ['正解。', 'cancel の反復。', 'How much を金額と誤解した引っ掛け。'],
@@ -297,8 +297,8 @@ export const L1 = [
     ja: '見当たらなかった在庫表はどこで見つかったのですか。→ (A) 誰かが違う月のところに綴じていました。' }),
 
   p2(31, { t: ['p2wh'], lv: 5, sa: 'W-Am', sb: 'M-Am',
-    p: 'You have not signed the visitor book yet, have you?',
-    c: ['I did on the way in.', 'Yes, the signature is required.', 'The visitor is in reception.'],
+    p: 'You haven\'t signed the visitor book yet, have you?',
+    c: ['I did on the way in.', 'Yes, the signature\'s required.', 'The visitor\'s in reception.'],
     a: 0,
     e: '付加疑問に対し「入ってくるときに書いた」と事実で答え、実質 No を伝える応答。',
     w: ['正解。', 'sign の反復。', 'visitor の反復。'],

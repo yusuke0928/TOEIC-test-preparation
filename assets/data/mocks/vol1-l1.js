@@ -167,7 +167,7 @@ export const L1 = [
   p2(13, {
     p: 'Would you like me to book a car for the site visit?',
     sa: 'W-Am', sb: 'M-Br', lv: 4,
-    c: ['That would be a big help.', 'The site is quite large.', 'I booked it last spring.'],
+    c: ['That would be a big help.', 'The site\'s quite large.', 'I booked it last spring.'],
     a: 0,
     e: '申し出に対する受諾。That would be a big help. は Part 2 頻出の受諾表現。',
     w: ['正解。', 'site の反復。申し出への応答になっていない。', 'book の反復。時制が噛み合わない。'],
