@@ -100,6 +100,42 @@ const seenQuestionIds = new Map();
    入れ替え後に文意が壊れる。1問ずつ独立して読める文になっているかを見る。 */
 const ADJ_REF_RE = /同上|同じく|同様に|同様の理由|前述のとおり|前述の通り|前掲|上記(?:のとおり|の通り)?|下記|後述|上と同じ|前問と同じ|上に同じ/;
 
+/* ── Part3/4 意図問題: stem の逐語引用が script に存在するか ──
+   意図問題は `What does the man mean when he says, "..."?` の形で発話を
+   逐語引用する。この引用が script と一致していないと、学習者は音声で
+   聞いた発話を探せなくなり設問が成立しない（過去に stem "she asked..."
+   に対し script は she を欠いていた、という不一致が実際に見つかっている）。
+   stem 中の "..." で囲まれた部分を抽出し（曲線引用符 “ ” も拾う）、
+   引用符（ネストした引用符を含む）を取り除いて空白を正規化してから、
+   script の全 text を連結した文字列に含まれるかを見る。
+   引用中の "..."（3 点リーダ相当）は「途中を省略した引用」を表すため、
+   断片に分割し、script 中に「この順序で」現れるかを確認する
+   （断片ごとに含むかだけ見ると、順序が逆でも通ってしまう）。
+   8 文字未満の短い引用は誤検知の元なので対象外にする。            */
+const STEM_QUOTE_RE = /["“]([^"”]+)["”]/g;
+function stripQuoteChars(s) {
+  return s.replace(/["'“”‘’]/g, '');
+}
+function normalizeForQuoteMatch(s) {
+  return stripQuoteChars(s).replace(/\s+/g, ' ').trim();
+}
+function checkIntentQuote(qat, stem, scriptTextNorm) {
+  if (typeof stem !== 'string' || !scriptTextNorm) return;
+  for (const m of stem.matchAll(STEM_QUOTE_RE)) {
+    const raw = m[1];
+    const quote = normalizeForQuoteMatch(raw);
+    if (quote.length < 8) continue;
+    const fragments = quote.split(/\.{3,}/).map(f => f.trim()).filter(Boolean);
+    let from = 0, ok = fragments.length > 0;
+    for (const frag of fragments) {
+      const idx = scriptTextNorm.indexOf(frag, from);
+      if (idx === -1) { ok = false; break; }
+      from = idx + frag.length;
+    }
+    if (!ok) err(qat, `意図問題の引用 "${raw}" が script 中に見つからない（逐語引用が本文と不一致）`);
+  }
+}
+
 /* ── 選択肢の大文字・小文字と空所位置の整合 ────────────────
    固有名詞・I（一人称代名詞）・頭字語（全部大文字）は例外として無視する。
    これは WARN のみのチェックなので、判断に迷うものは検出漏れよりは
@@ -260,12 +296,16 @@ for (const t of targets) {
       if (q0?.speakerB && !ROLES.has(q0.speakerB)) err(at, `speakerB "${q0.speakerB}" が話者ロールの規約外`);
     }
 
+    let scriptTextNorm = null;   // 意図問題の逐語引用照合に使う（下の設問ループで参照）
     if (u.kind === 'set') {
       if (!Array.isArray(u.script) || !u.script.length) err(at, 'script がない');
-      else u.script.forEach((line, i) => {
-        if (!line.role || !line.text) err(at, `script[${i}] に role/text がない`);
-        else if (!ROLES.has(line.role)) err(at, `script[${i}] の role "${line.role}" が話者ロールの規約外`);
-      });
+      else {
+        u.script.forEach((line, i) => {
+          if (!line.role || !line.text) err(at, `script[${i}] に role/text がない`);
+          else if (!ROLES.has(line.role)) err(at, `script[${i}] の role "${line.role}" が話者ロールの規約外`);
+        });
+        scriptTextNorm = normalizeForQuoteMatch(u.script.map(l => l.text || '').join(' '));
+      }
       if (u.questions.length !== 3) warn(at, `セットの設問数が ${u.questions.length}（通常 3）`);
       if (!u.ja) warn(at, '全体訳（ja）がない');
     }
@@ -327,6 +367,9 @@ for (const t of targets) {
     for (const q of u.questions) {
       questionCount++;
       const qat = `${key} / ${q.id ?? '(id なし)'}`;
+
+      /* ── Part3/4 意図問題: stem の逐語引用が script と一致するか ── */
+      if (u.kind === 'set') checkIntentQuote(qat, q.stem, scriptTextNorm);
 
       if (!q.id) err(at, '設問に id がない');
       else if (seenQuestionIds.has(q.id)) err(qat, `設問 id が重複（先出: ${seenQuestionIds.get(q.id)}）`);
@@ -398,6 +441,20 @@ for (const t of targets) {
           const refs = [...new Set([...q.ja.matchAll(/\(([A-D])\)/g)].map(m => m[1]))];
           if (refs.length === 1 && refs[0] !== correctLetter)
             err(qat, `ja が (${refs[0]}) を訳しているが、実際の answer は (${correctLetter})`);
+        }
+        /* ja が配列の場合（Part1 で全選択肢の訳を持たせる形式）は、選択肢と同順・同数で、
+           各要素が対応する記号 (A)〜(D) で始まっているかを見る。ズレは順序ずれの疑い。 */
+        else if (Array.isArray(q.ja)) {
+          if (q.ja.length !== effectiveN)
+            err(qat, `ja（配列）が ${q.ja.length} 個（選択肢 ${effectiveN} 個と不一致）`);
+          else {
+            q.ja.forEach((j, idx) => {
+              if (typeof j !== 'string' || !j.trim())
+                err(qat, `ja[${idx}] が空、または文字列でない`);
+              else if (!j.trim().startsWith(`(${KEYS[idx]})`))
+                err(qat, `ja[${idx}] が (${KEYS[idx]}) で始まっていない — 選択肢の順序とズレている疑い: "${j}"`);
+            });
+          }
         }
       }
 

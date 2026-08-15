@@ -123,7 +123,7 @@ export const UNITS = [
         vocab: [['allow', '（時間的に）許す']] },
 
       { id: 'p3g-03-3', topics: ['p3int'], tag: '意図',
-        stem: "What does the man imply when he says, 'Your knees have other plans, remember?'",
+        stem: 'What does the man imply when he says, "Your knees have other plans, remember?"',
         choices: [
           'He thinks the woman should stop exercising altogether.',
           'He is reminding her to schedule a doctor\'s appointment.',
@@ -293,7 +293,7 @@ export const UNITS = [
     vocab: [['brief', '要点を伝える'], ['block', '（時間を）確保する']],
     questions: [
       { id: 'p3i-03-1', topics: ['p3int'], tag: '意図',
-        stem: "What does the man mean when he says, 'Well, there goes my quiet Friday'?",
+        stem: 'What does the man mean when he says, "Well, there goes my quiet Friday"?',
         choices: [
           'He is glad the schedule finally works.',
           'He is disappointed that Friday will no longer be free.',
@@ -309,7 +309,7 @@ export const UNITS = [
         vocab: [['quiet', '（予定のない）静かな']] },
 
       { id: 'p3i-03-2', topics: ['p3int'], tag: '意図',
-        stem: "Why does the woman say, 'I already told them I'd need to check with you first'?",
+        stem: 'Why does the woman say, "I already told them I\'d need to check with you first"?',
         choices: [
           'She wants the man to contact the client directly.',
           'She forgot to inform the client about the meeting.',
@@ -360,7 +360,7 @@ export const UNITS = [
     vocab: [['ring road', '環状道路'], ['running order', '進行順'], ['crew', '（撮影などの）チーム']],
     questions: [
       { id: 'p3i-04-1', topics: ['p3int'], tag: '意図',
-        stem: "What does the man mean when he says, 'Then I suppose we're improvising the running order'?",
+        stem: 'What does the man mean when he says, "Then I suppose we\'re improvising the running order"?',
         choices: [
           'He expects the schedule will need to change because of the delay.',
           'He wants to replace the photographer with someone else.',
@@ -376,7 +376,7 @@ export const UNITS = [
         vocab: [['improvise', '即興で対応する']] },
 
       { id: 'p3i-04-2', topics: ['p3int'], tag: '意図',
-        stem: "What does the woman imply when she says, 'Someone has to be, with this crew'?",
+        stem: 'What does the woman imply when she says, "Someone has to be, with this crew"?',
         choices: [
           'She thinks the crew is too large for the shoot.',
           'She is requesting more assistants be hired.',
@@ -432,7 +432,7 @@ export const UNITS = [
     vocab: [['allergen panel', 'アレルゲン表示'], ['relabel', 'ラベルを貼り直す'], ['recall notice', '回収告知'], ['audit', '監査、点検']],
     questions: [
       { id: 'p3i-05-2', topics: ['p3int'], tag: '意図',
-        stem: "Why does the woman say, 'A third out is still a third out'?",
+        stem: 'Why does the woman say, "A third out is still a third out"?',
         choices: [
           'She thinks the count of sixty-two hundred is wrong.',
           'She wants the warehouse stock destroyed immediately.',
@@ -448,7 +448,7 @@ export const UNITS = [
         vocab: [['dispute', '異議を唱える']] },
 
       { id: 'p3i-05-3', topics: ['p3int'], tag: '意図',
-        stem: "What does the second man imply when he says, 'Quietly is doing a lot of work in that sentence'?",
+        stem: 'What does the second man imply when he says, "Quietly is doing a lot of work in that sentence"?',
         choices: [
           'He did not hear the plan clearly.',
           'He thinks the recall notice is too quiet in tone.',
@@ -501,7 +501,7 @@ export const UNITS = [
     vocab: [['booth', '展示ブース'], ['dimension', '寸法'], ['branded', 'ブランドロゴ入りの']],
     questions: [
       { id: 'p3i-06-1', topics: ['p3int'], tag: '意図',
-        stem: "What does the man mean when he says, 'Unless you have a better idea'?",
+        stem: 'What does the man mean when he says, "Unless you have a better idea"?',
         choices: [
           'He wants to cancel the booth setup.',
           'He is certain no solution exists.',
