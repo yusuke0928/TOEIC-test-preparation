@@ -139,7 +139,7 @@ export const L1 = [
 
   p2(11, { t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Did the auditors find anything in the inventory records?',
-    c: ['Yes, the records were audited.', 'In the storage room.', 'Their report is due Friday.'],
+    c: ['Yes, the records were audited.', 'In the storage room.', 'Their report\'s due Friday.'],
     a: 2,
     e: '「報告書は金曜提出」＝まだわからない、と間接的に答えている。',
     w: ['audit の反復。質問に答えていない。', 'Where への答え。', '正解。'],
@@ -163,7 +163,7 @@ export const L1 = [
 
   p2(14, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Br',
     p: 'Would you prefer the report as a slide deck or a written summary?',
-    c: ['Yes, I would prefer that.', 'It was written last quarter.', 'Whichever you already have.'],
+    c: ['Yes, I\'d prefer that.', 'It was written last quarter.', 'Whichever you already have.'],
     a: 2,
     e: '選択疑問に「すでにある方で」と条件で答える応答。Yes / No は使えない。',
     w: ['選択疑問に Yes は不可。', 'write の反復。', '正解。'],
@@ -179,7 +179,7 @@ export const L1 = [
 
   p2(16, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Au',
     p: 'Where are the safety data sheets kept?',
-    c: ['Every six months.', 'In the binder by the emergency exit.', 'Yes, they are up to date.'],
+    c: ['Every six months.', 'In the binder by the emergency exit.', 'Yes, they\'re up to date.'],
     a: 1,
     e: 'Where に場所で答えている。',
     w: ['How often への答え。', '正解。', 'Where に Yes は不可。'],
@@ -187,15 +187,15 @@ export const L1 = [
 
   p2(17, { t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Have you had a chance to review my draft?',
-    c: ['It is next on my list.', 'I drew it myself.', 'Yes, the review was helpful.'],
+    c: ['It\'s next on my list.', 'I drew it myself.', 'Yes, the review was helpful.'],
     a: 0,
     e: '「次にやるところです」＝まだ、と間接的に伝える応答。',
     w: ['正解。', 'draft と draw の音の引っ掛け。', 'review の反復。まだ読んでいないので Yes は不自然。'],
     ja: '私の草案に目を通していただけましたか。→ (A) 次にやるところです。' }),
 
   p2(18, { t: ['p2wh'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
-    p: 'You have worked at the Leeds site before, haven\'t you?',
-    c: ['Yes, it works well.', 'Only for two weeks in 2021.', 'The site is quite large.'],
+    p: 'You\'ve worked at the Leeds site before, haven\'t you?',
+    c: ['Yes, it works well.', 'Only for two weeks in 2021.', 'The site\'s quite large.'],
     a: 1,
     e: '付加疑問に「2021 年に 2 週間だけ」と限定して答える応答。全面的な肯定ではない返しが 900 帯で狙われる。',
     w: ['work の反復。', '正解。', 'site の反復。'],
@@ -227,7 +227,7 @@ export const L1 = [
 
   p2(22, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'Could you cover the front desk for twenty minutes?',
-    c: ['I am on a call until half past.', 'It covers three floors.', 'The desk was replaced.'],
+    c: ['I\'m on a call until half past.', 'It covers three floors.', 'The desk was replaced.'],
     a: 0,
     e: '依頼に対し「30 分まで通話中」と事情を述べる間接的な断り。',
     w: ['正解。', 'cover の別の意味を使った引っ掛け。', 'desk の反復。'],
@@ -250,8 +250,8 @@ export const L1 = [
     ja: 'ミラノ支社からは何名の出席を見込んでいますか。→ (B) 今のところ 4 名が確定しています。' }),
 
   p2(25, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
-    p: 'I cannot find the spare key to the storeroom.',
-    c: ['It stores about two hundred boxes.', 'Try the drawer under the kettle.', 'The room is quite warm.'],
+    p: 'I can\'t find the spare key to the storeroom.',
+    c: ['It stores about two hundred boxes.', 'Try the drawer under the kettle.', 'The room\'s quite warm.'],
     a: 1,
     e: '困りごとの表明に対し、解決の手がかりを示す応答。',
     w: ['store の反復。', '正解。', 'room の反復。'],
@@ -267,7 +267,7 @@ export const L1 = [
 
   p2(27, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Where should the new server rack go?',
-    c: ['It weighs about ninety kilos.', 'The electrician has not signed off on the floor loading yet.', 'Yes, it was delivered.'],
+    c: ['It weighs about ninety kilos.', 'The electrician hasn\'t signed off on the floor loading yet.', 'Yes, it was delivered.'],
     a: 1,
     e: '場所を尋ねられて「電気技師の床荷重の承認がまだ」＝決められない、と理由で返す間接応答。',
     w: ['重量は場所の答えになっていない。', '正解。', 'Where に Yes は不可。'],
@@ -290,8 +290,8 @@ export const L1 = [
     ja: '新しい案内表示の予算は承認されましたか。→ (A) 今朝承認が下りました。' }),
 
   p2(30, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
-    p: 'This coffee machine has been broken for a fortnight.',
-    c: ['I break for lunch at one.', 'There is one on the second floor.', 'It makes excellent coffee.'],
+    p: 'This coffee machine\'s been broken for a fortnight.',
+    c: ['I break for lunch at one.', 'There\'s one on the second floor.', 'It makes excellent coffee.'],
     a: 1,
     e: '不満の表明に対し、代替手段を示す応答。',
     w: ['break の別の意味を使った引っ掛け。', '正解。', 'coffee の反復。故障中なので矛盾する。'],
