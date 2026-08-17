@@ -28,8 +28,13 @@
       数値・時刻の正規表現に掛からない）、論点 graphic に属する設問は無条件で除外する
    7. 解説（exp）や why が (A) 等の記号で選択肢を参照している設問も除外する
       （入れ替えると解説が壊れるため）
-   8. ja 訳が "(A) ..." のように正解の記号だけを一意に含む場合は、その記号も
-      新しい正解位置に合わせて書き換える。記号参照が曖昧な場合は安全側で除外する
+   8. ja 訳が "(A) ..." のように正解の記号だけを一意に含む文字列の場合は、その記号も
+      新しい正解位置に合わせて書き換える。記号参照が曖昧な場合は安全側で除外する。
+      ja が choices/why と同じ並びの配列（各要素が "(対応する記号) 訳文" の形。
+      Part 1 の模試30問と一部ドリルが該当）の場合は、choices/why と対で要素ごと
+      入れ替えたうえで、各要素先頭の記号を「その位置に固定の記号」へ振り直す。
+      各要素が自分の位置と同じ記号で始まっている、という前提が崩れている設問は
+      安全側で除外する。
 
    使い方: node balance2.mjs [--write] [--by part|topic] --group <名前> <ファイル…>
    既定は dry-run、既定モードは --by part。--write を付けたときだけファイルを書き換える。
@@ -90,7 +95,7 @@ function extractCandidates(ast) {
     const expNode =
       (props.exp && props.exp.type === 'Literal') ? props.exp :
         (props.e && props.e.type === 'Literal') ? props.e : null;
-    const jaNode = (props.ja && props.ja.type === 'Literal') ? props.ja : null;
+    const jaNode = (props.ja && (props.ja.type === 'Literal' || props.ja.type === 'ArrayExpression')) ? props.ja : null;
     list.push({ objNode: node, choicesNode, answerNode, whyNode, expNode, jaNode });
   });
   list.sort((a, b) => a.objNode.start - b.objNode.start);
@@ -169,7 +174,7 @@ function isOrderedChoices(choices) {
 /* ── 1 設問ぶんの除外判定 ─────────────────────────────────── */
 function classifyEntry(entry, expectedK) {
   const reasons = [];
-  const { choicesArr, whyArr, expText, jaText, answerIdx, topics } = entry;
+  const { choicesArr, whyArr, expText, jaText, jaNode, answerIdx, topics } = entry;
 
   if (expectedK != null && choicesArr.length !== expectedK) {
     reasons.push(`選択肢数(${choicesArr.length})がこのパートの標準(${expectedK})と異なる`);
@@ -196,10 +201,26 @@ function classifyEntry(entry, expectedK) {
     if (letters.length > 0) {
       const oldLetter = LETTERS[answerIdx];
       if (letters.every(l => l === oldLetter)) {
-        jaPlan = { oldLetter };
+        jaPlan = { kind: 'scalar', oldLetter };
       } else {
         reasons.push('ja訳が現在の正解以外の選択肢記号にも言及しており安全に書き換えられない');
       }
+    }
+  } else if (Array.isArray(jaText)) {
+    // 配列形式の ja（choices/why と同じ並びで各要素が "(対応する記号) 訳文" の形。
+    // Part 1 の模試30問とドリルの一部が該当）。choices/why と対で入れ替えたうえで、
+    // 各要素の先頭の記号は「その位置に固定の記号」に振り直す（内容ではなく位置の表示のため）。
+    // 前提（各要素が自分の位置と同じ記号で始まる）が崩れている場合は安全側で除外する。
+    if (jaText.length !== choicesArr.length) {
+      reasons.push('ja訳(配列)の要素数が選択肢数と一致しない');
+    } else if (!jaNode || jaNode.type !== 'ArrayExpression' ||
+      jaNode.elements.length !== jaText.length ||
+      jaNode.elements.some(el => !el || el.type !== 'Literal' || typeof el.value !== 'string')) {
+      reasons.push('ja訳(配列)のソース表現が単純な文字列リテラルの並びではないため安全に書き換えられない');
+    } else if (!jaText.every((t, i) => typeof t === 'string' && t.startsWith(`(${LETTERS[i]})`))) {
+      reasons.push('ja訳(配列)の各要素の記号が対応する選択肢位置と一致しないため安全に書き換えられない');
+    } else {
+      jaPlan = { kind: 'array' };
     }
   }
   return { reasons, jaPlan };
@@ -438,10 +459,19 @@ function applyMoves(source, moves) {
       reps.push({ start: wB.start, end: wB.end, text: source.slice(wA.start, wA.end) });
     }
     reps.push({ start: e.answerNode.start, end: e.answerNode.end, text: String(to) });
-    if (e.jaPlan && e.jaNode) {
+    if (e.jaPlan?.kind === 'scalar' && e.jaNode) {
       const raw = source.slice(e.jaNode.start, e.jaNode.end);
       const newRaw = raw.split(`(${e.jaPlan.oldLetter})`).join(`(${LETTERS[to]})`);
       reps.push({ start: e.jaNode.start, end: e.jaNode.end, text: newRaw });
+    } else if (e.jaPlan?.kind === 'array' && e.jaNode) {
+      // choices/why と同じく position `from`/`to` の要素を丸ごと入れ替えたうえで、
+      // 各要素先頭の記号は「移動後もその位置に固定の記号」に振り直す
+      // （記号は内容ではなく位置を指すため、内容だけ動いて記号は据え置きになる）。
+      const jA = e.jaNode.elements[from], jB = e.jaNode.elements[to];
+      const relabel = (rawLiteral, newLetter) =>
+        rawLiteral.replace(/^(['"`])\([A-D]\)/, (_m, q) => `${q}(${newLetter})`);
+      reps.push({ start: jA.start, end: jA.end, text: relabel(source.slice(jB.start, jB.end), LETTERS[from]) });
+      reps.push({ start: jB.start, end: jB.end, text: relabel(source.slice(jA.start, jA.end), LETTERS[to]) });
     }
   }
   // start 降順で右から左へ適用する（非重複区間なので、この順序なら他の置換のオフセットに影響しない）
@@ -557,6 +587,9 @@ function printHelp() {
     - 図表問題（論点 graphic）の選択肢は図表の値と対応するため無条件で除外する。
     - ja 訳に "(A)" のような記号が単独で含まれる場合は新しい正解位置に合わせて書き換える。
       記号参照が曖昧な場合は安全側で除外する。
+      ja が choices/why と同じ並びの配列（各要素 "(対応する記号) 訳文"）の場合は、
+      choices/why と対で要素ごと入れ替え、各要素先頭の記号は位置に合わせて振り直す。
+      前提（各要素が自分の位置と同じ記号で始まる）が崩れている設問は安全側で除外する。
     - --by topic では、1 設問が複数論点を持つ場合に「動かすと他の論点をより
       悪化させる」入れ替えは行わない（Pareto改善のみを許す貪欲法）。`);
 }

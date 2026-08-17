@@ -25,7 +25,7 @@ import {
 } from './store.js';
 import { extrapolate } from './score.js';
 
-const KEYS = ['A', 'B', 'C', 'D'];
+export const KEYS = ['A', 'B', 'C', 'D'];
 
 /* Part1 描写テキスト（desc 方式）を表示しておく時間。
    根拠: 25 語程度の英文を黙読する所要時間は、黙読速度の目安 約200語/分 で計算すると約7.5秒。
@@ -211,22 +211,7 @@ export class Run {
   prev() { this.goto(this.page - 1); }
 
   /* ── 音声 ────────────────────────────────────────── */
-  audioLines() {
-    const u = this.unit;
-    if (!u) return null;
-    if (u.kind === 'p1') return audio.part1Lines({ ...u.questions[0], no: this.noOf(u.questions[0]), choices: u.questions[0].choices, speaker: u.speaker });
-    if (u.kind === 'p2') {
-      const q = u.questions[0];
-      return audio.part2Lines({ ...q, no: this.noOf(q) });
-    }
-    if (u.kind === 'set') {
-      return audio.setLines({
-        part: u.part, kind: u.kindLabel, script: u.script,
-        questions: u.questions.map(q => ({ no: this.noOf(q), stem: q.stem })),
-      }, { readQuestions: u.part === 3 || u.part === 4, gap: this.mode === 'mock' ? 8000 : 1200 });
-    }
-    return null;
-  }
+  audioLines() { return buildAudioLines(this.unit, (q) => this.noOf(q), this.mode); }
 
   async play() {
     const lines = this.audioLines();
@@ -289,7 +274,7 @@ export class Run {
     const rem = this.remaining();
     const warn = this.timeLimitMs && rem < 5 * 60000;
     return `<div class="exambar">
-      <span class="exambar__id">${esc(this.label)}</span>
+      <span class="exambar__id" title="${esc(this.label)}">${esc(this.label)}</span>
       <div class="exambar__prog">
         ${meter(done / total)}
         <span class="exambar__count">${done}<span style="color:var(--ink-3)">/${total}</span></span>
@@ -526,56 +511,10 @@ export class Run {
   }
 
   /* 選択肢 */
-  choiceList(q, { blind = false, keys = 4 } = {}) {
-    const a = this.answers[q.id];
-    const revealed = a?.revealed;
-    const n = Math.min(q.choices.length, keys);
-    // radiogroup 内でタブ移動の起点になる 1 つだけ tabindex=0 にする（ロービングフォーカス）
-    const focusIdx = revealed ? q.answer : (a?.chosen != null ? a.chosen : 0);
-    return `<div class="choices" role="radiogroup" aria-label="選択肢">
-      ${Array.from({ length: n }, (_, i) => {
-        let cls = '';
-        let mark = '';
-        if (revealed) {
-          if (i === q.answer) { cls = 'is-correct'; mark = '正解'; }
-          else if (i === a.chosen) { cls = 'is-wrong'; mark = '誤答'; }
-          cls += ' is-locked';
-        } else if (a?.chosen === i) cls = 'is-picked';
-        const text = blind && !revealed ? '<span style="color:var(--ink-3)">（音声のみ）</span>' : esc(q.choices[i]);
-        return `<button class="choice ${cls}" data-pick="${i}" data-q="${esc(q.id)}" role="radio"
-          aria-checked="${a?.chosen === i}" tabindex="${i === focusIdx ? 0 : -1}"
-          ${revealed ? 'aria-disabled="true"' : ''}>
-          <span class="choice__k">(${KEYS[i]})</span>
-          <span>${text}</span>
-          ${mark ? `<span class="choice__mark">${mark}</span>` : ''}
-        </button>`;
-      }).join('')}
-    </div>`;
-  }
+  choiceList(q, opts) { return renderChoices(q, this.answers[q.id], opts); }
 
   /* 解説 */
-  kaisetsu(u, q, compact = false) {
-    const a = this.answers[q.id];
-    const ok = a.chosen === q.answer;
-    const topics = [...(q.topics || u.topics || [])];
-    return `<div class="kaisetsu ${ok ? 'kaisetsu--ok' : ''}">
-      <div class="kaisetsu__head">添削
-        <span class="kaisetsu__verdict" style="color:${ok ? 'var(--midori)' : 'var(--shu)'}">
-          ${ok ? '正解' : `誤答 — 正解は (${KEYS[q.answer]})`}</span>
-      </div>
-      ${q.prompt ? `<h4>問いかけ</h4><div class="kaisetsu__script"><div>${esc(q.prompt)}</div></div>` : ''}
-      <p${q.prompt ? ' style="margin-top:.7rem"' : ''}>${esc(q.exp || '')}</p>
-      ${q.why?.length ? `<h4>選択肢の検討</h4><ul class="kaisetsu__why">
-        ${q.why.map((w, i) => `<li><span>(${KEYS[i]})</span><span>${esc(w)}</span></li>`).join('')}</ul>` : ''}
-      ${q.ja ? (Array.isArray(q.ja)
-        ? `<h4>訳</h4>${q.ja.map(j => `<p>${esc(j)}</p>`).join('')}`
-        : `<h4>訳</h4><p>${esc(q.ja)}</p>`) : ''}
-      ${!compact && u.script ? `<h4>スクリプト</h4>${renderScript(u.script)}` : ''}
-      ${q.vocab?.length ? `<h4>語注</h4>${renderVocab(q.vocab)}` : ''}
-      ${topics.length ? `<h4>論点</h4><div class="inline">${topics.map(t =>
-        `<a class="chip chip--shu" href="#/drills/${esc(t)}">${esc(topicNameSafe(t))}</a>`).join('')}</div>` : ''}
-    </div>`;
-  }
+  kaisetsu(u, q, compact = false) { return renderKaisetsu(u, q, this.answers[q.id], compact); }
 
   /* フッタ（ナビ＋パレット） */
   renderFooter() {
@@ -664,7 +603,14 @@ export class Run {
   confirmFinish() {
     const un = this.qIndex.length - this.answeredCount();
     if (un > 0) {
-      if (!confirm(`未解答が ${un} 問あります。採点しますか？`)) return;
+      // 結果画面の一覧は、未解答行を畳んだ状態では正解を伏せる（展開すると見える。
+      // views/result.js）。モードを問わず同じ挙動にしてある。かつては模試だけ畳んだ状態
+      // でも正解を出していたが、模試には「未解答 N 問を解く」ボタンがあり、押すと SRS に
+      // 「正解・1日後」として記録される。畳んだ一覧を読んだだけで答えを知っている状態で
+      // このボタンを押すと、知らなかった設問がそのまま翌日まで隠れてしまう食い違いが
+      // あったため、ドリル・復習と同じ「畳んでいる間は伏せる」扱いに揃えた。
+      const msg = `未解答が ${un} 問あります。採点しますか？（未解答の正解は一覧では伏せられ、開くと見られます）`;
+      if (!confirm(msg)) return;
     } else if (this.mode === 'mock') {
       // 時間制限のある模試では誤タップでの即終了を防ぐ
       if (!confirm('採点して終了します。よろしいですか？')) return;
@@ -682,6 +628,10 @@ export class Run {
     const items = this.qIndex.map(({ unit, q }) => {
       const a = this.answers[q.id] || {};
       const correct = a.chosen != null && a.chosen === q.answer;
+      // 未解答（a.chosen == null）は記録しない。時間切れは「知らなかった」のではなく
+      // 「解く時間が無かった」だけなので、ここで SRS に載せると知識の穴として誤って扱われる
+      // （出題順・正答率が実力より低く見える）。結果画面に「未解答 N 問を解く」ボタンを別に
+      // 置き、そちらで実際に解いたときだけ recordItem() が走るようにする（views/result.js）。
       if (!a.revealed && a.chosen != null) recordItem(q.id, correct, a.ms || 0, a.chosen);
       return {
         qid: q.id, part: unit.part, topics: q.topics || unit.topics || [],
@@ -712,8 +662,100 @@ export class Run {
   }
 }
 
+/* ── 音声行の組み立て（Run から独立させ、結果画面の展開からも再利用する） ──
+   no（通し番号）の解決だけが呼び出し元ごとに違う（Run はセッション内の
+   グローバル通し番号、結果画面は保存済みの q.no が無ければユニット内の位置）ので、
+   その解決関数だけ外から渡す。呼び出す audio.*Lines() 自体・引数の組み立ては
+   Run.audioLines() が元々やっていたものと完全に同じ（挙動不変のためのリファクタ）。 */
+function buildAudioLines(u, noFn, mode) {
+  if (!u) return null;
+  if (u.kind === 'p1') {
+    const q = u.questions[0];
+    return audio.part1Lines({ ...q, no: noFn(q), choices: q.choices, speaker: u.speaker });
+  }
+  if (u.kind === 'p2') {
+    const q = u.questions[0];
+    return audio.part2Lines({ ...q, no: noFn(q) });
+  }
+  if (u.kind === 'set') {
+    return audio.setLines({
+      part: u.part, kind: u.kindLabel, script: u.script,
+      questions: u.questions.map(q => ({ no: noFn(q), stem: q.stem })),
+    }, { readQuestions: u.part === 3 || u.part === 4, gap: mode === 'mock' ? 8000 : 1200 });
+  }
+  return null;
+}
+
+/** 結果画面の誤答展開用。単独の設問しか手元にないため、no はユニット内の位置で代用する
+   （音声のナレーション上の番号読み上げだけに使われ、正誤判定などには影響しない）。 */
+export function audioLinesFor(u) {
+  if (!u) return null;
+  return buildAudioLines(u, (q) => q.no || (u.questions.indexOf(q) + 1), 'drill');
+}
+
 /* 論点名（topics.js は他モジュールを import しないので静的取り込みで安全） */
 const topicNameSafe = (id) => topicName(id);
+
+/* ── 選択肢・解説の描画（Run から独立させ、結果画面の誤答展開からも再利用する） ──
+   a（答案）は { chosen, revealed } の形。Run はセッション中の this.answers[q.id] を渡し、
+   結果画面は保存済みの採点結果から { chosen: it.chosen, revealed: true } を組み立てて渡す。 */
+export function renderChoices(q, a, { blind = false, keys = 4 } = {}) {
+  const revealed = a?.revealed;
+  const n = Math.min(q.choices.length, keys);
+  // radiogroup 内でタブ移動の起点になる 1 つだけ tabindex=0 にする（ロービングフォーカス）
+  const focusIdx = revealed ? q.answer : (a?.chosen != null ? a.chosen : 0);
+  return `<div class="choices" role="radiogroup" aria-label="選択肢">
+    ${Array.from({ length: n }, (_, i) => {
+      let cls = '';
+      let mark = '';
+      if (revealed) {
+        if (i === q.answer) { cls = 'is-correct'; mark = '正解'; }
+        else if (i === a.chosen) { cls = 'is-wrong'; mark = '誤答'; }
+        cls += ' is-locked';
+      } else if (a?.chosen === i) cls = 'is-picked';
+      const text = blind && !revealed ? '<span style="color:var(--ink-3)">（音声のみ）</span>' : esc(q.choices[i]);
+      return `<button class="choice ${cls}" data-pick="${i}" data-q="${esc(q.id)}" role="radio"
+        aria-checked="${a?.chosen === i}" tabindex="${i === focusIdx ? 0 : -1}"
+        ${revealed ? 'aria-disabled="true"' : ''}>
+        <span class="choice__k">(${KEYS[i]})</span>
+        <span>${text}</span>
+        ${mark ? `<span class="choice__mark">${mark}</span>` : ''}
+      </button>`;
+    }).join('')}
+  </div>`;
+}
+
+export function renderKaisetsu(u, q, a, compact = false) {
+  const ok = a.chosen === q.answer;
+  // chosen==null は「未解答のまま採点された」設問（結果画面の誤答・未解答一覧のみで起こる。
+  // 演習画面は revealed=true になる前に必ず chosen が入るため、この分岐には来ない）。
+  const unanswered = a.chosen == null;
+  const topics = [...(q.topics || u.topics || [])];
+  // 会話・トーク全体の語注（u.vocab）と、この設問だけの語注（q.vocab）は別物なので、
+  // 両方出るときは見出しを分けて「語注 / 語注」の連続を防ぐ（結果画面の誤答展開のように
+  // compact=false かつ両方を持つ set ユニットで起こりうる。演習画面の qBlock は常に
+  // compact=true で u.vocab をここで出さないため、両方が揃うのは今のところこの経路だけ）。
+  const unitVocabShown = !compact && u.vocab?.length;
+  return `<div class="kaisetsu ${ok ? 'kaisetsu--ok' : unanswered ? 'kaisetsu--blank' : ''}">
+    <div class="kaisetsu__head">添削
+      <span class="kaisetsu__verdict" style="color:${ok ? 'var(--midori)' : unanswered ? 'var(--kin)' : 'var(--shu)'}">
+        ${ok ? '正解' : unanswered ? `未解答 — 正解は (${KEYS[q.answer]})` : `誤答 — 正解は (${KEYS[q.answer]})`}</span>
+    </div>
+    ${q.prompt ? `<h4>問いかけ</h4><div class="kaisetsu__script"><div>${esc(q.prompt)}</div></div>` : ''}
+    <p${q.prompt ? ' style="margin-top:.7rem"' : ''}>${esc(q.exp || '')}</p>
+    ${q.why?.length ? `<h4>選択肢の検討</h4><ul class="kaisetsu__why">
+      ${q.why.map((w, i) => `<li><span>(${KEYS[i]})</span><span>${esc(w)}</span></li>`).join('')}</ul>` : ''}
+    ${q.ja ? (Array.isArray(q.ja)
+      ? `<h4>訳</h4>${q.ja.map(j => `<p>${esc(j)}</p>`).join('')}`
+      : `<h4>訳</h4><p>${esc(q.ja)}</p>`) : ''}
+    ${!compact && u.script ? `<h4>スクリプト</h4>${renderScript(u.script)}` : ''}
+    ${!compact && u.ja ? `<h4>全体訳</h4><p>${esc(u.ja)}</p>` : ''}
+    ${unitVocabShown ? `<h4>語注</h4>${renderVocab(u.vocab)}` : ''}
+    ${q.vocab?.length ? `<h4>${unitVocabShown ? 'この設問の語注' : '語注'}</h4>${renderVocab(q.vocab)}` : ''}
+    ${topics.length ? `<h4>論点</h4><div class="inline">${topics.map(t =>
+      `<a class="chip chip--shu" href="#/drills/${esc(t)}">${esc(topicNameSafe(t))}</a>`).join('')}</div>` : ''}
+  </div>`;
+}
 
 /* ── ユーティリティ ──────────────────────────────────── */
 export function shuffle(arr, seed = Date.now()) {

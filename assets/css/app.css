@@ -183,6 +183,20 @@ body{
 }
 .phead__sub{color:var(--ink-2);font-size:.86rem;margin-top:.45rem;max-width:46ch}
 .phead__aside{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+/* 結果画面（result.js）の誤答/未解答ボタン直下に注記を添えるための入れ子。
+   最初は .phead__aside の子に直接 flex-basis:100% を試したが効かなかった：
+   .phead__aside 自身は .phead（justify-content:space-between）の中で幅が決まっていない
+   （余り幅ぶんだけ伸縮する）フレックスアイテムのため、子の注記が「1行に収めた自然な幅」を
+   要求すると .phead__aside 自身の内在幅がその分だけ膨らみ、結局ボタンの右にただ並ぶだけに
+   なってしまう（実機 1280px で実測して発覚：ボタンの右、y だけ少しずれた位置に出た）。
+   ボタン列と注記を先にこの1個の縦並びブロックへまとめ、.phead__aside にはブロック1個だけを
+   子として渡すことで、幅の再帰計算そのものを避ける（ブロックの幅は下の max-width で頭打ちに
+   するため、内容に引っ張られて膨らまない）。
+   ページ下端にしか注記が無いと、ページ最上部のこのボタンだけを見て押す利用者に届かない
+   （オブザーバー実測: ボタン y=97px・旧注記 y=12,208px）。 */
+.phead__actions{display:flex;flex-direction:column;align-items:flex-end;gap:.35rem}
+.phead__actions-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.phead__actions .note{margin:0;max-width:24rem}
 
 /* ── section head ──────────────────────────────────────── */
 .shead{
@@ -289,6 +303,68 @@ body{
 .row__s{font-size:.72rem;color:var(--ink-3);margin-top:.1rem}
 .row__r{text-align:right;font-family:var(--f-mono);font-size:.78rem;font-variant-numeric:tabular-nums;white-space:nowrap}
 
+/* ── 誤答一覧の行アコーディオン（結果画面）─────────────────
+   .row と同じ見た目の行を <details><summary> にして展開できるようにしたもの。
+   中身（設問文・選択肢・解説）は quiz.js の renderChoices/renderKaisetsu をそのまま再利用し、
+   演習画面の解説と同じ組版で出す。ネイティブの三角マーカーは使わず、::before で朱色の
+   キャレットを出す（.row と同じ auto/1fr/auto の列構成を summary 自身に持たせるため）。 */
+.wrow{border-bottom:1px solid var(--rule-soft)}
+.wrow:last-child{border-bottom:0}
+.wrow > summary{
+  display:grid;grid-template-columns:1rem auto minmax(0,1fr) auto;gap:.9rem;align-items:center;
+  padding:.8rem 1.2rem;cursor:pointer;list-style:none;transition:background .16s
+}
+.wrow > summary::-webkit-details-marker{display:none}
+.wrow > summary::before{
+  content:"▸";justify-self:center;font-size:.7rem;color:var(--shu);
+  transition:transform .18s ease
+}
+.wrow[open] > summary::before{transform:rotate(90deg)}
+.wrow > summary:hover{background:var(--rule-soft)}
+.wrow__body{padding:.2rem 1.2rem 1.4rem 2.1rem;animation:slideDown .28s cubic-bezier(.2,.8,.3,1) both}
+.wrow__body .scene,.wrow__body .passage{margin-bottom:1rem}
+/* 行内に複製した設問番号（携帯幅だけで見せる）。既定は非表示 */
+.wrow .row__s > .row__no{display:none}
+/* 携帯幅（390px 実測）: caret/No./本文/難度 の 4 列だと中央列の実効幅が約152pxしかなく、
+   No. を足した分だけ row__t/row__s が圧迫されて語中で改行される（2行→3行に増える実測あり）。
+   No. 列を畳んで row__s の先頭に複製を出すことで、caret/本文/難度 の 3 列に戻し、
+   No. を追加する前の行の高さに戻す（難度は残す。No. の追加だけが原因のため）。 */
+@media(max-width:480px){
+  .wrow > summary{grid-template-columns:1rem minmax(0,1fr) auto}
+  .wrow > summary > .row__no{display:none}
+  .wrow .row__s > .row__no{display:inline;margin-right:.35rem}
+  /* row__t（論点名）と row__s（No.＋解答行）はどちらも素の inline span なので、
+     このままだと親の <span> の中で1本の文としてつながって流れ、幅で機械的に折り返される
+     （語や単語の途中でも構わず割れる。実測: 「あなたの解答」が「あなた」／「の解答」に、
+     「未解答」が「未」／「解答」に割れた）。読みやすさを優先し、論点名と解答行を別の行に
+     分ける（番号は row__s の先頭にあるので、これだけで行頭に戻る）。行が1本増える分
+     高さは伸びる（実測 +6px 程度）が、語中で割れるより優先する。 */
+  .wrow .row__t,.wrow .row__s{display:block}
+}
+
+/* ── 誤答展開（Part 6/7）内の本文折りたたみ ──────────────────
+   演習画面の .reading__toggle と見た目をそろえるが、独立したクラスにする。
+   .reading__left はデスクトップ幅で sticky+内部スクロールになる（二列レイアウトで
+   本文を追従させるための仕掛け）が、これは 1 行＝1 設問の展開には意味がなく、
+   複数の展開行が同時に sticky を奪い合って表示が乱れる。ここでは幅を問わず
+   常に開閉できる、素朴な max-height の折りたたみだけを使う。
+   既定は「閉じる」。同じ文書を参照する誤答が複数行あると、全文が行の数だけ
+   繰り返し展開されページが極端に長くなるため（実測値は PROGRESS.md）。 */
+.wrow__doc{margin-bottom:1rem}
+.wrow__doc-toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;width:100%;
+  padding:.6rem .8rem;margin-bottom:.6rem;cursor:pointer;
+  border:1px solid var(--rule);border-radius:var(--r);
+  background:var(--card);box-shadow:var(--shadow);
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;color:var(--ink-2)
+}
+.wrow__doc-toggle-i{color:var(--shu)}
+.wrow__doc.is-collapsed .wrow__doc-body{
+  max-height:8.5rem;overflow:hidden;position:relative;
+  -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);
+  mask-image:linear-gradient(to bottom,#000 55%,transparent)
+}
+
 /* ── table ─────────────────────────────────────────────── */
 .tbl{font-size:.82rem}
 .tbl th{
@@ -308,8 +384,9 @@ body{
 .exambar{
   position:sticky;top:0;z-index:40;margin:calc(var(--sp)*-1) calc(-1*clamp(1.1rem,3.4vw,3.4rem)) 1.5rem;
   padding:.7rem clamp(1.1rem,3.4vw,3.4rem);
-  background:color-mix(in srgb,var(--paper) 88%,transparent);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  /* 不透明（var(--card) 100%）。下の設問文・選択肢が透けて固定バーの文字と
+     二重に見える事故が携帯幅で実際に起きたため、半透明合成はやめた。 */
+  background:var(--card);
   border-bottom:1px solid var(--rule);
   display:flex;align-items:center;gap:1rem;flex-wrap:wrap
 }
@@ -351,10 +428,11 @@ body{
   display:flex;align-items:center;justify-content:space-between;gap:.6rem;
   margin-top:1rem;padding:.55rem .7rem;
   border:1px solid var(--rule);border-radius:var(--r);
-  background:color-mix(in srgb,var(--card) 94%,transparent);
-  box-shadow:var(--shadow);backdrop-filter:blur(6px)
+  /* 不透明（var(--card) 100%）。半透明＋blur だと下の選択肢・解説が透けて
+     「← 前へ」「次へ →」のラベルと二重露光になっていたため、opacity で確実に隠す。 */
+  background:var(--card);
+  box-shadow:var(--shadow)
 }
-@supports not (backdrop-filter:blur(6px)){ .examnav{background:var(--card)} }
 .examhint{
   margin-top:.7rem;text-align:center;font-family:var(--f-mono);
   font-size:.64rem;letter-spacing:.08em;color:var(--ink-3)
@@ -428,6 +506,12 @@ body{
 }
 .kaisetsu--ok .kaisetsu__head{color:var(--midori)}
 .kaisetsu--ok em{color:var(--midori)}
+/* 未解答（結果画面の誤答・未解答一覧のみ）。誤答（朱）でも正解（緑）でもないので金で区別する */
+.kaisetsu--blank{
+  border-color:color-mix(in srgb,var(--kin) 35%,transparent);
+  border-left-color:var(--kin);background:color-mix(in srgb,var(--kin) 10%,transparent)
+}
+.kaisetsu--blank .kaisetsu__head{color:var(--kin)}
 .kaisetsu__script{
   font-family:var(--f-en);font-size:.88rem;line-height:1.8;
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
@@ -638,7 +722,9 @@ body{
   .spine{
     position:sticky;top:0;height:auto;flex-direction:row;align-items:center;
     padding:.5rem .9rem;border-right:0;border-bottom:1px solid var(--rule);z-index:60;
-    background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px)
+    /* 不透明。誤答展開など長い本文がこの下をスクロールしても透けないようにする
+       （半透明+blur だった時期に、結果画面でその下 6px 帯に本文がゴーストする不具合があった）。 */
+    background:var(--card)
   }
   .spine__brand{padding:0;border-bottom:0;display:flex;align-items:baseline;gap:.6rem}
   .spine__kanji{font-size:1.4rem}
@@ -646,17 +732,31 @@ body{
   .nav{display:none}
   .spine__foot{margin-left:auto;padding:0;border-top:0}
   .page{padding-bottom:5.6rem}
-  .exambar{margin-left:calc(-1*clamp(1.1rem,3.4vw,3.4rem));margin-right:calc(-1*clamp(1.1rem,3.4vw,3.4rem));top:2.9rem}
+  .exambar{
+    margin-left:calc(-1*clamp(1.1rem,3.4vw,3.4rem));margin-right:calc(-1*clamp(1.1rem,3.4vw,3.4rem));top:2.9rem;
+    padding:.55rem .8rem;gap:.5rem
+  }
+  /* 携帯幅では情報を削らずに1段へ収める（ID ラベルだけ省略記号で切る。フルテキストは title 属性）。
+     収まりきらない極端に長いラベルは、この下の flex-wrap:wrap により従来どおり2段へ自然にフォールバックする。 */
+  .exambar__id{max-width:6.2rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .exambar__prog{min-width:56px;gap:.4rem}
+  .exambar__timer{padding:.05rem .4rem;font-size:.88rem}
+  .exambar__acts{gap:.3rem}
   /* この上書きはタブバーが表示される幅（このメディアクエリの範囲、max-width:880px）でのみ効く。
      881px以上ではタブバーが display:none になるため、上の基本ルールの bottom:.5rem がそのまま使われる。
      .examnav は position:sticky で、長い設問（Part3/4のスクリプトなど）をスクロール中は
      containing block（.exam）の下端に届くまで bottom:.5rem の位置に張り付き続け、
      fixed の .tabbar（実測高さ 48.34px ≒ 3.02rem）と重なって「次へ」が押せなくなる。
-     3.6rem はそのタブバー高さ 3.02rem に、従来の .5rem と同程度の余白（約9px）を足した値。 */
+     3.6rem はそのタブバー高さ 3.02rem に、従来の .5rem と同程度の余白（約9px）を足した値。
+     演習中は下の body.is-exam ルールでタブバー自体を隠すため、通常はその上書きが効いて .5rem に戻る。
+     この既定値は、万一 is-exam が付け漏れた場合のフォールバックとして残してある（退行防止）。 */
   .examnav{bottom:calc(env(safe-area-inset-bottom) + 3.6rem)}
   .tabbar{
     display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;z-index:70;
-    background:color-mix(in srgb,var(--card) 95%,transparent);backdrop-filter:blur(14px);
+    /* 不透明。演習中は body.is-exam で隠すため気付きにくいが、結果画面など演習外の
+       画面では常時表示されており、半透明+blur だと誤答展開の本文がタブ文字の下に
+       透けて読めてしまっていた（実機 390px・3倍拡大で確認済みの不具合）。 */
+    background:var(--card);
     border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom)
   }
   .tabbar a{
@@ -664,10 +764,24 @@ body{
     font-size:.82rem;letter-spacing:.1em;color:var(--ink-3);border-top:2px solid transparent
   }
   .tabbar a[aria-current="page"]{color:var(--shu);border-top-color:var(--shu)}
+
+  /* 演習中（#/exam）はタブバーを隠す。演習の離脱はヘッダの「中断／終了」があるため冗長。
+     タブバーが無いので、上の .examnav 用の 3.6rem 逃げも不要になり .5rem に戻す（無駄な空きを残さない）。 */
+  body.is-exam .tabbar{display:none}
+  body.is-exam .examnav{bottom:calc(env(safe-area-inset-bottom) + .5rem)}
+  body.is-exam .page{padding-bottom:1.5rem}
 }
 @media(max-width:520px){
   .q__stem{font-size:1.04rem}
   .scorecard__split{gap:1.1rem}
+  /* .shead は flex の1段組みで折り返し制御が無いため、note（右の脚注）と title が
+     同じ行の幅を奪い合うと、はみ出した分だけ title 自身が2行に割れる退行が起きる
+     （実測: 「誤答・未解答一覧」で見出しの高さが 31px→63px。他の見出しは 31px のまま）。
+     note を独立した行（flex-basis:100%）に落として no/title の1行を確保する。
+     .exambar の flex-wrap:wrap と同じ考え方だが、ここは note だけを常に専用行に
+     追い出したいので flex-basis で明示する（no/title 側は縮めずそのまま1行に収める）。 */
+  .shead{flex-wrap:wrap}
+  .shead__note{flex-basis:100%;margin-left:0;margin-top:.2rem}
 }
 @media print{
   .spine,.tabbar,.exambar,.grain,.toast-stack{display:none!important}

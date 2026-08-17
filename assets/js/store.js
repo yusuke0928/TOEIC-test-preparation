@@ -140,13 +140,24 @@ export function recordItem(qid, correct, ms, chosen) {
   return it;
 }
 
+// 記録は必ず recordItem() を通ってできる。recordItem() は呼ばれるたびに n を必ず 1 以上に
+// し、同時に due にも必ず正の未来時刻を入れるため、「記録が存在するか」は n>0 でも due>0 でも
+// 同じ結果になる（itemStat() の既定値 { n:0, due:0, ... } は state.items に書き込まれないので
+// 両者がズレたエントリは生まれない）。due>0 の方を使うのは、次の dueXxx 系がどれも「期限が
+// 来ているか」という due 基準の判定をしており、存在チェックも同じ列で揃えた方が読みやすいため
+// （2台目端末からの mergeJSON() で外部データが混ざっても、崩れているのは古い方の due 側だけを
+// 見ればよく、n との整合を別途気にしなくて済む）。
+const hasRecord = (v) => v.due > 0;
+/** 正答率（n=0 のとき ok/n が NaN になるのを避ける防御。通常の記録では n は必ず 1 以上）*/
+const accOf = (v) => (v.n ? v.ok / v.n : 0);
+
 /** 復習期限が来た設問 ID を、優先度順に返す */
 export function dueItems(limit = 9999) {
   const now = Date.now();
   return Object.entries(state.items)
-    .filter(([, v]) => v.n > 0 && v.due <= now)
+    .filter(([, v]) => hasRecord(v) && v.due <= now)
     .sort((a, b) => {
-      const accA = a[1].ok / a[1].n, accB = b[1].ok / b[1].n;
+      const accA = accOf(a[1]), accB = accOf(b[1]);
       if (accA !== accB) return accA - accB;       // 正答率が低いものを先に
       return a[1].due - b[1].due;
     })
@@ -157,7 +168,7 @@ export function dueItems(limit = 9999) {
 export function dueCount() {
   const now = Date.now();
   let n = 0;
-  for (const v of Object.values(state.items)) if (v.n > 0 && v.due <= now) n++;
+  for (const v of Object.values(state.items)) if (hasRecord(v) && v.due <= now) n++;
   return n;
 }
 
@@ -166,7 +177,7 @@ export function dueTodayCount() {
   const end = new Date(); end.setHours(23, 59, 59, 999);
   const limit = end.getTime();
   let n = 0;
-  for (const v of Object.values(state.items)) if (v.n > 0 && v.due <= limit) n++;
+  for (const v of Object.values(state.items)) if (hasRecord(v) && v.due <= limit) n++;
   return n;
 }
 
