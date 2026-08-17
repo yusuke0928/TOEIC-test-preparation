@@ -47,7 +47,7 @@ export const UNITS = [
   /* p1v-01 と同じ倉庫の無人版（warehouse-b）。什器の座標は 1 単位も動かしていないので、
      人物の有無だけで使える動詞の型がどう変わるかを、同じ絵で対比できる。 */
   p1('p1v-09', {
-    t: ['p1verb'], lv: 4, scene: 'warehouse-b', sp: 'W-Cn',
+    t: ['p1verb'], lv: 5, scene: 'warehouse-b', sp: 'W-Cn',
     c: [
       'Cartons are being loaded onto a pallet.',
       'A carton has been placed on a pallet.',
@@ -68,7 +68,7 @@ export const UNITS = [
   }),
 
   p1('p1v-02', {
-    t: ['p1verb'], lv: 5, scene: 'construction', sp: 'W-Br',
+    t: ['p1verb'], lv: 4, scene: 'construction', sp: 'W-Br',
     c: [
       'A ladder is leaning against a wall.',
       'A worker is climbing a ladder.',
@@ -89,7 +89,7 @@ export const UNITS = [
   }),
 
   p1('p1v-03', {
-    t: ['p1verb'], lv: 5, scene: 'beach', sp: 'M-Br',
+    t: ['p1verb'], lv: 3, scene: 'beach', sp: 'M-Br',
     c: [
       'Chairs have been arranged near the water.',
       'A woman is opening a beach umbrella.',
@@ -131,7 +131,7 @@ export const UNITS = [
   }),
 
   p1('p1v-05', {
-    t: ['p1verb'], lv: 5, scene: 'parking-lot', sp: 'M-Cn',
+    t: ['p1verb'], lv: 3, scene: 'parking-lot', sp: 'M-Cn',
     c: [
       'Drivers are getting into their cars.',
       'A car is being driven out of the lot.',
@@ -152,7 +152,7 @@ export const UNITS = [
   }),
 
   p1('p1v-06', {
-    t: ['p1verb'], lv: 5, scene: 'library', sp: 'W-Au',
+    t: ['p1verb'], lv: 4, scene: 'library', sp: 'W-Au',
     c: [
       'Books are being sorted into boxes.',
       'A shelf is being assembled.',
@@ -173,7 +173,7 @@ export const UNITS = [
   }),
 
   p1('p1v-07', {
-    t: ['p1verb'], lv: 5, scene: 'waterfront', sp: 'M-Au',
+    t: ['p1verb'], lv: 4, scene: 'waterfront', sp: 'M-Au',
     c: [
       'People are boarding a ferry.',
       'A bridge is under construction.',
@@ -194,7 +194,7 @@ export const UNITS = [
   }),
 
   p1('p1v-08', {
-    t: ['p1verb'], lv: 5, scene: 'presentation', sp: 'W-Br',
+    t: ['p1verb'], lv: 4, scene: 'presentation', sp: 'W-Br',
     c: [
       'A projector is being repaired.',
       'The audience is leaving the room.',
@@ -216,7 +216,7 @@ export const UNITS = [
 
   /* ══ Part 2 — 間接応答 ══════════════════════════════ */
   p2('p2i-01', {
-    t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Br',
+    t: ['p2ind'], lv: 4, sa: 'W-Am', sb: 'M-Br',
     p: 'When will the revised floor plan be ready?',
     c: [
       'On the second floor, next to the lift.',
@@ -233,7 +233,7 @@ export const UNITS = [
   }),
 
   p2('p2i-02', {
-    t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    t: ['p2ind'], lv: 4, sa: 'M-Am', sb: 'W-Au',
     p: 'Who is covering the front desk during the training session?',
     c: [
       'At two o\'clock in the conference room.',
@@ -249,25 +249,25 @@ export const UNITS = [
     v: [['cover', '（人の代わりに）担当する'], ['roster', '勤務表']],
   }),
 
-  p2('p2i-03', {
+  p2('p2i-03b', {
     t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Shouldn\'t we order more toner before the audit?',
     c: [
-      'The order was placed in September.',
+      'They\'re in alphabetical order on the shelf.',
       'No, the auditor arrives on Thursday.',
       'I thought Deepa took care of that yesterday.',
     ],
     a: 2,
-    e: '「〜すべきでは？」という提案に対し、「ディーパが昨日やったと思っていたが」と第三者の行動を挙げて応じる間接応答。Yes / No を使わずに実質「もう手配済みのはず」と答えている。',
-    w: ['9 月では監査前という文脈に合わず、時期がずれている。',
-        'No の後の内容が提案への応答になっていない。',
-        '正解。第三者がすでに対応した可能性を示す。'],
+    e: '「〜すべきでは？」という提案に対し、「ディーパが昨日やったと思っていたが」と第三者の行動を挙げて応じる間接応答。Yes / No を使わずに実質「もう手配済みのはず」と答えている。なお「もう注文してある」と既成事実を述べる応答も、この型では正解になりうる。誤答かどうかは「注文すべきか」という提案に情報として答えているかで判断する。',
+    w: ['問いの order（注文する）を「順序」の意味で使った、音の反復による引っ掛け。トナーを注文すべきかという提案には何も答えていない。',
+        'audit → auditor と関連語を重ねた引っ掛け。「監査官は木曜に来る」は監査がまだ先だと示す情報で、「監査の前に注文する」余地がまだあることの裏づけにこそなり、No の理由にならない。「配送が間に合わない」という含みで読もうとすると、この会話に出てこない配送日数を補う必要がある。',
+        '正解。第三者がすでに対応した可能性を示す間接応答。'],
     ja: '設問：監査の前にトナーをもっと注文すべきではないですか。→ (C) ディーパが昨日対応したと思っていました。',
-    v: [['audit', '監査'], ['take care of', '対処する']],
+    v: [['audit', '監査'], ['take care of', '対処する'], ['in alphabetical order', 'アルファベット順に']],
   }),
 
   p2('p2i-04', {
-    t: ['p2ind'], lv: 5, sa: 'M-Au', sb: 'W-Am',
+    t: ['p2ind'], lv: 3, sa: 'M-Au', sb: 'W-Am',
     p: 'Where did you put the signed contracts?',
     c: [
       'I signed both of them this morning.',
@@ -284,7 +284,7 @@ export const UNITS = [
   }),
 
   p2('p2i-05', {
-    t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
+    t: ['p2ind'], lv: 4, sa: 'W-Au', sb: 'M-Am',
     p: 'How long does the certification course take?',
     c: [
       'The certificate is on my desk.',
@@ -301,7 +301,7 @@ export const UNITS = [
   }),
 
   p2('p2i-06', {
-    t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Br',
+    t: ['p2ind'], lv: 3, sa: 'M-Br', sb: 'W-Br',
     p: 'Why was the shipment held at customs?',
     c: [
       'It was shipped from Rotterdam.',
@@ -318,7 +318,7 @@ export const UNITS = [
   }),
 
   p2('p2i-07', {
-    t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
+    t: ['p2ind'], lv: 4, sa: 'W-Am', sb: 'M-Au',
     p: 'Could you send me the attendance figures for last quarter?',
     c: [
       'About three hundred people attended.',
@@ -335,7 +335,7 @@ export const UNITS = [
   }),
 
   p2('p2i-08', {
-    t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Au',
+    t: ['p2ind'], lv: 4, sa: 'M-Cn', sb: 'W-Au',
     p: 'The new expense system is a lot faster, isn\'t it?',
     c: [
       'It arrives faster by rail.',
@@ -353,7 +353,7 @@ export const UNITS = [
 
   /* ══ Part 2 — 疑問文の型 ════════════════════════════ */
   p2('p2w-01', {
-    t: ['p2wh'], lv: 5, sa: 'W-Br', sb: 'M-Am',
+    t: ['p2wh'], lv: 3, sa: 'W-Br', sb: 'M-Am',
     p: 'Would you rather present on Tuesday or Thursday?',
     c: [
       'Yes, I would.',
@@ -370,7 +370,7 @@ export const UNITS = [
   }),
 
   p2('p2w-02', {
-    t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    t: ['p2wh'], lv: 4, sa: 'M-Am', sb: 'W-Au',
     p: 'Haven\'t the samples been sent to the lab yet?',
     c: [
       'No, the courier comes at four.',
@@ -387,7 +387,7 @@ export const UNITS = [
   }),
 
   p2('p2w-03', {
-    t: ['p2wh'], lv: 5, sa: 'W-Am', sb: 'M-Br',
+    t: ['p2wh'], lv: 4, sa: 'W-Am', sb: 'M-Br',
     p: 'You booked the meeting room for two hours, didn\'t you?',
     c: [
       'It was booked out last week.',
@@ -404,7 +404,7 @@ export const UNITS = [
   }),
 
   p2('p2w-04', {
-    t: ['p2wh'], lv: 5, sa: 'M-Au', sb: 'W-Br',
+    t: ['p2wh'], lv: 3, sa: 'M-Au', sb: 'W-Br',
     p: 'Why don\'t we move the standing meeting to Wednesdays?',
     c: [
       'Because it stands in the corner.',
@@ -438,7 +438,7 @@ export const UNITS = [
   }),
 
   p2('p2w-06', {
-    t: ['p2wh'], lv: 5, sa: 'M-Br', sb: 'W-Am',
+    t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',
     p: 'How about asking Renata to lead the orientation?',
     c: [
       'She led it last year, actually.',
@@ -455,7 +455,7 @@ export const UNITS = [
   }),
 
   p2('p2w-07', {
-    t: ['p2wh'], lv: 5, sa: 'W-Br', sb: 'M-Au',
+    t: ['p2wh'], lv: 4, sa: 'W-Br', sb: 'M-Au',
     p: 'Isn\'t Mr. Sorensen supposed to approve these invoices?',
     c: [
       'He\'s on leave until the ninth.',
@@ -472,7 +472,7 @@ export const UNITS = [
   }),
 
   p2('p2w-08', {
-    t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
+    t: ['p2wh'], lv: 4, sa: 'M-Am', sb: 'W-Au',
     p: 'Do you want the report printed double-sided or single-sided?',
     c: [
       'Whichever uses less paper.',

@@ -440,19 +440,40 @@ export const SCENES = {
   })(),
 
   /* 2. 会議室：3 人が着席し、1 人がスクリーンを指しながら立っている
-     （このシーンは38問のどれからも参照されない汎用場面。文言上の制約はない）。 */
+     （このシーンは38問のどれからも参照されない汎用場面。文言上の制約はない）。
+     2026-08-15 の目視で2件の欠陥が見つかり、2026-08-16 の描き直し（天面200・
+     presenter を gx=320 へ）をレビューで 544px 実描画したところ2件が残ったため、
+     さらに直した。数値の意図は次のとおり。
+     - 着席3人はテーブル天面(初版182)が股関節(200)より18単位も高く、胴の大半が
+       隠れて頭だけ浮いて見えた。かといって天面＝股関節y(200)に揃えると、
+       胴の輪郭（trapezoid は fill だけでなく root の stroke を継承するので
+       下辺にも線が出る）が閉じたまま天面線と重なり、今度は**3つの台形が
+       天板の上に置かれている**ように見えた（544px 実描画で確認）。
+       → 天面は股関節より6単位**上**の194に置く。胴38単位のうち32単位が見え、
+       胴の下辺の線は天面の塗りに飲まれて消えるので「天板の向こう側に座って
+       いる」と読める。着席時にテーブルが腿より上に来るのは実物どおりでもある。
+     - 立っているpresenterは、床y=176・天面y=182で「天面に立っている」ように
+       見えた。テーブルの x 範囲(56〜276)の外へ出す必要があるのは初版の
+       とおりだが、gx=320・スクリーン(310〜430, y40〜96)だと真下から
+       スクリーンの下辺を持ち上げているように見えた（＝看板を掲げる姿勢）。
+       → presenter を gx=308 に、スクリーンを右隣(344〜438, y66〜136)へ移し、
+       手はスクリーンの**左辺の中ほど**に触れさせる。横に立って指す構図になる。
+     - テーブル下端は 236 ではなく 238。figure() の足の線は stroke-width 2.5 で
+       接地y(236)の上下に 1.25 ずつ広がるため、什器の下端を接地yに合わせると
+       足先が什器の下辺からわずかにはみ出し、天板の下に黒い小片が3対並ぶ
+       （544px で見える）。1〜2単位下げて完全に飲ませる。 */
   'meeting-room': (() => {
-    const presenter = figure(214, 176, 1, 1, 'stand');
+    const presenter = figure(308, 236, 1, 1, 'stand');
     const a = figure(90, 236, 1, 1, 'sit');
     const b = figure(160, 236, 1, 1, 'sit');
     const c = figure(232, 236, 1, 1, 'sit');
     return composeScene({
-      farGround: line(30, 176, 440, 176, SOFT, 1.5) + rect(36, 52, 120, 66, SOFT),
+      farGround: line(30, 226, 440, 226, SOFT, 1.5) + rect(344, 66, 94, 70, SOFT),
       figure: a.svg + b.svg + c.svg + presenter.svg,
-      nearFace: fixture('table', 56, 182, 220, 54, { topGap: 14, dividers: [70, 140] }),
+      nearFace: fixture('table', 56, 194, 220, 44, { topGap: 14, dividers: [70, 140] }),
       nearAction: contact(
-        limbArm(presenter.shoulder, { x: 192, y: 94 }, { x: 180, y: 92 }),
-        handMark(180, 92),
+        limbArm(presenter.shoulder, { x: 331, y: 124 }, { x: 344, y: 118 }),
+        handMark(344, 118),
       ),
     });
   })(),
@@ -542,17 +563,63 @@ export const SCENES = {
     });
   })(),
 
-  /* 7. 厨房：コンロの前に立ち、鍋の取っ手に手をかけている調理人 */
+  /* 7. 厨房：カウンター上のコンロにかけた鍋の取っ手に手をかけている調理人
+     2026-08-15 の目視で3件の欠陥（棚の線が頭部を貫通／コンロが調理器具に
+     見えず鍋も無い／脚がカウンターの手前に出る）が見つかり、2026-08-16 に
+     描き直したものを、レビューで 544px 実描画したうえでさらに直した。
+     - 棚は幅130→110・高さ74→50に縮めて左へ寄せ(x=30〜140、最下段の線をy=96へ)、
+       頭部(x161〜179 / y110〜128)との隙間を X方向13・Y方向14 単位確保する。
+       空の棚だと「厨房」の手掛かりが弱いので、上段に器を2つ置く。
+     - **コンロは天面が見える三面（box3 と同じ前面＋天面パラレログラム＋右側面）
+       で描く。**正面のみの平面図にすると、バーナーを描く「面」が存在しないため
+       輪をやむなく前面に描くことになり、544px では「箱にボタンが4つ」＝券売機か
+       洗濯機にしか見えなかった（2026-08-16 のレビューで実描画を確認）。
+       天面を見せると、楕円の輪＝バーナーと、その輪の内側に底が収まった鍋、
+       という位置関係が絵として成立する。鍋の底(rx9)は輪(rx15)より細くして、
+       輪の左右が鍋の外にはみ出して見えるようにしてある（＝乗っていることの根拠）。
+     - 鍋は「下すぼまりの台形＋広い縁」だと propCup（カップ）と同一構成になり、
+       しかも figure() の胴と同じ形なので、調理人の胴とそっくりに見えていた。
+       → 直線の胴＋底の楕円弧＋縁の楕円、という円筒形に描き直す。
+     - カウンター天面は 170（立位の股関節176より6単位**上**）。
+       天面＝股関節y(176)に揃えると腿は隠れるが、胴の輪郭（trapezoid は root の
+       stroke を継承するので下辺にも線が出る）が閉じたまま天面線と重なり、
+       調理人が「カウンターの上に置かれた台形」に見えた。6単位上げると胴の下辺が
+       塗りに飲まれ、胴38単位のうち34単位が見えたまま「向こう側に立っている」と読める。
+     - カウンター下端は 236 ではなく 238（figure() の足の線は stroke-width 2.5 で
+       接地y の上下に 1.25 ずつ広がるため、下端を接地yに合わせると足先がはみ出す）。 */
   'kitchen': (() => {
     const cook = figure(170, 236, 1, 1, 'stand');
+    const EDGE = `fill="${FILL}" ${OUTLINE}`;
+    // コンロ本体：前面(200〜286, y160〜170) ＋ 天面(dx14/dy14 のパラレログラム) ＋ 右側面。
+    const hbX = 200, hbY = 160, hbW = 86, hbH = 10, hbDx = 14, hbDy = 14;
+    const hbX2 = hbX + hbW, hbY2 = hbY + hbH;
+    // バーナー＝天面に寝かせた同心の楕円2つ（外輪 rx15/ry5・内輪 rx6/ry2）。
+    // 真円にすると天面のパラレログラムから浮いて「ボタン」に見えるため楕円にする。
+    const burner = (cx, cy) =>
+      `<ellipse cx="${cx}" cy="${cy}" rx="15" ry="5" fill="none" stroke="${INK}" stroke-width="2"/>`
+      + `<ellipse cx="${cx}" cy="${cy}" rx="6" ry="2" fill="none" stroke="${INK}" stroke-width="2"/>`;
+    const knob = (cx) => `<circle cx="${cx}" cy="165" r="3" fill="${FILL}" stroke="${INK}" stroke-width="2"/>`;
+    const stove = `<g data-part="stove">
+      <path d="M ${hbX} ${hbY} L ${hbX2} ${hbY} L ${hbX2} ${hbY2} L ${hbX} ${hbY2} Z" ${EDGE}/>
+      <path d="M ${hbX} ${hbY} L ${hbX + hbDx} ${hbY - hbDy} L ${hbX2 + hbDx} ${hbY - hbDy} L ${hbX2} ${hbY} Z" ${EDGE}/>
+      <path d="M ${hbX2} ${hbY} L ${hbX2 + hbDx} ${hbY - hbDy} L ${hbX2 + hbDx} ${hbY2 - hbDy} L ${hbX2} ${hbY2} Z" ${EDGE}/>
+      ${burner(228, 153)}${burner(268, 153)}
+      ${knob(224)}${knob(242)}${knob(260)}</g>`;
+    // 鍋：手前左のバーナー(228,153)の輪の内側に底を落とす。縁の楕円 → 取っ手の順に
+    // 描くので、取っ手は縁のすぐ下から調理人側へ水平に伸びる。
+    const pot = `<g data-part="pot">
+      <path d="M 219 141 L 219 153 A 9 3 0 0 0 237 153 L 237 141 Z" ${EDGE}/>
+      <ellipse cx="228" cy="141" rx="11.5" ry="4" fill="${FILL}" stroke="${INK}" stroke-width="2"/>
+      ${line(218, 144, 200, 142, INK, 2.5)}</g>`;
     return composeScene({
-      farGround: line(20, 236, 440, 236, SOFT, 1.5) + fixture('shelf-3tier', 40, 46, 130, 74, { tiers: 2 }),
+      farGround: line(20, 236, 440, 236, SOFT, 1.5)
+        + fixture('shelf-3tier', 30, 46, 110, 50, { tiers: 2 })
+        + propCup(50, 57) + propCup(92, 57),
       figure: cook.svg,
-      nearFace: fixture('counter', 90, 182, 260, 54, { topGap: 14, dividers: [190] })
-        + propMachine(200, 150, 60, 32),
+      nearFace: fixture('counter', 90, 170, 260, 68, { topGap: 14, dividers: [190] }) + stove + pot,
       nearAction: contact(
-        limbArm(cook.shoulder, { x: 193, y: 152 }, { x: 202, y: 160 }),
-        handMark(202, 160), cueMark(204, 158),
+        limbArm(cook.shoulder, { x: 186, y: 148 }, { x: 200, y: 142 }),
+        handMark(200, 142), cueMark(202, 140),
       ),
     });
   })(),

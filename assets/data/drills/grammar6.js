@@ -155,34 +155,6 @@ export const UNITS = [
     v: [['shift supervisor', 'シフト責任者'], ['emergency exit', '非常口'], ['routine drill', '通常の訓練']],
   }),
 
-  q('inv-10', {
-    t: ['inv'], lv: 4,
-    s: 'So disruptive ------- the software outage that the entire invoicing schedule had to be delayed.',
-    c: ['were', 'that was', 'was', 'it was'],
-    a: 2,
-    e: '「So + 形容詞」が文頭に出ると、be 動詞＋主語の語順に倒置される。主語 the software outage は単数なので was。',
-    w: ['複数形。主語 the software outage は単数。',
-        'that は後続の結果節で別に使われており、ここに置くと二重になる。',
-        '正解。So + 形容詞 + was + 主語、の倒置。',
-        '倒置された後にさらに it を置くと主語が二重になる。'],
-    ja: 'そのソフトウェア障害はあまりに深刻で、請求処理のスケジュール全体を遅らせざるを得なかった。',
-    v: [['disruptive', '混乱を招く、支障をきたす'], ['invoicing', '請求処理']],
-  }),
-
-  q('inv-11', {
-    t: ['inv'], lv: 4,
-    s: 'Such ------- the delays at the border crossing that several shipments arrived weeks after the holiday deadline.',
-    c: ['was', 'were', 'they were', 'that were'],
-    a: 1,
-    e: '「Such + be動詞 + 主語 + that ...」で「主語があまりに〜だったので…」という倒置構文。主語 the delays は複数なので were。',
-    w: ['単数形。主語 the delays は複数。',
-        '正解。Such + were + 主語、の倒置。',
-        '倒置した後にさらに they を置くと主語が二重になる。',
-        '結果節の that と重複し、この位置には入らない。'],
-    ja: '国境の通関地点での遅延があまりに大きく、いくつかの貨物はホリデー商戦の期限を数週間過ぎて到着した。',
-    v: [['border crossing', '国境の通関地点'], ['shipment', '貨物、出荷品'], ['deadline', '期限']],
-  }),
-
   q('inv-12', {
     t: ['inv'], lv: 5,
     s: 'In no way ------- the revised policy punitive toward employees who choose to work remotely.',
@@ -211,20 +183,6 @@ export const UNITS = [
     v: [['flag', '（問題点などを）指摘する'], ['discrepancy', '食い違い、不一致'], ['invoicing procedures', '請求処理の手順']],
   }),
 
-  q('inv-14', {
-    t: ['inv'], lv: 4,
-    s: 'Had the marketing team secured the venue a month earlier, the conference ------- significantly more attendees than it actually did.',
-    c: ['will attract', 'would attract', 'had attracted', 'would have attracted'],
-    a: 3,
-    e: 'Had + S + 過去分詞は If S had + 過去分詞 の倒置（仮定法過去完了）。文末の than it actually did が、すでに終わった過去の事実を指しているので、帰結節は過去の事実に反する仮定を表す would have + 過去分詞になる。',
-    w: ['未来形。過去の事実に反する仮定の帰結には使わない。',
-        '仮定法過去の帰結節の形で、現在または未来の事実に反する仮定に使う。than it actually did が過去の事実を指しているこの文とは対応しない。',
-        '過去完了。帰結節には would を伴う形が必要。',
-        '正解。仮定法過去完了の帰結節。'],
-    ja: 'マーケティングチームが会場をもう 1 か月早く確保していれば、その会議は実際よりもはるかに多くの参加者を集めていただろう。',
-    v: [['secure', '確保する'], ['attendee', '参加者']],
-  }),
-
   q('inv-15', {
     t: ['inv'], lv: 4,
     s: 'Should the shipment ------- damaged, please retain all packaging for the insurance claim.',
@@ -251,6 +209,62 @@ export const UNITS = [
         'been は完了の have/has/had の後ろでしか使えない形で、単独では節の述語になれない。'],
     ja: '倫理委員会に2度却下されたものの、その資金申請は今四半期に最終的に承認された。',
     v: [['ethics committee', '倫理委員会'], ['funding application', '資金申請'], ['ultimately', '最終的に']],
+  }),
+
+  q('inv-20', {
+    t: ['inv'], lv: 5,
+    s: '------- was the enthusiasm among early testers for the redesigned interface that the release date was moved up by a month.',
+    c: ['So', 'Very', 'Such', 'Too'],
+    a: 2,
+    e: 'Such + be動詞 + 主語 + that ... で「主語があまりに〜だったので…」という意味を表す倒置構文。Such は補語なので、直後には述語動詞（ここでは was）が来て、その後ろに主語となる名詞句（the enthusiasm among early testers for the redesigned interface）が置かれる。同じ意味を表す So + 形容詞 + be動詞 + 主語 の構文と違い、Such は形容詞を挟まずに述語動詞が続く点が識別のポイント。',
+    w: ['So は直後に形容詞や副詞を伴って程度を表し、So great was the enthusiasm that ... のように〈be動詞＋主語〉の倒置を導く。ここは直後が was the enthusiasm と述語動詞＋名詞句で、程度を受ける語がない。「〜もまた同様だ」の So was ... と読むこともできない（受ける先行文がなく、that 節も導けない）。',
+        'very は very high enthusiasm のように形容詞・副詞を強める語で、単独で文頭に立って後ろに〈be動詞＋主語〉の倒置を導く用法はない。',
+        '正解。Such was the enthusiasm ... that ... で「〜があまりに…だったので」という意味になる倒置構文。',
+        'too も程度を表す副詞で、too high an expectation のように形容詞を伴って使う。単独で文頭に置いて〈be動詞＋主語〉の倒置を導く用法はない。'],
+    ja: '刷新されたインターフェースに対する初期テスターの熱意があまりに大きく、リリース日は1か月前倒しになった。',
+    v: [['enthusiasm', '熱意'], ['redesigned interface', '刷新されたインターフェース'], ['move up', '（日程を）前倒しする']],
+  }),
+
+  q('inv-24', {
+    t: ['inv'], lv: 4,
+    s: 'The Chicago team did not finish the audit by the deadline, and neither -------.',
+    c: ['the Denver team did', 'did the Denver team', 'was the Denver team', 'did not the Denver team'],
+    a: 1,
+    e: '否定の内容を受けて neither / nor を節の頭に置き「〜もまた…ない」と続けるときは、その後ろが疑問文と同じ〈助動詞＋主語〉の倒置語順になる。助動詞の後ろは省略されていて、そこに補う述語が前の文脈から復元できることが条件。この文で復元できるのは finish the audit by the deadline だけで、一般動詞の過去形だから did になる。倒置しない語順や、neither にさらに not を重ねる形は取れない。',
+    w: ['〈主語＋助動詞〉の通常の語順のまま。neither が節の頭に出た以上、後ろは〈助動詞＋主語〉の倒置語順でなければならない。なお neither を「どちらの〜も…ない」の限定詞と読むこともできない。限定詞の neither は neither team のように冠詞なしの単数名詞に直接付く語で、the を挟んだ neither the Denver team という形にはならない（その意味なら neither of the teams）。',
+        '正解。neither の後に、前の節の一般動詞・過去形を受ける助動詞 did、続けて主語 the Denver team を置いた倒置の語順。',
+        'be動詞。neither の後ろの助動詞は前の節と同じ語でなくてもよいが（"I never went there." に対する "Neither have I." のように、補う述語が復元できることが条件）、この文には was の後ろに補える内容がなく、前の節を受けられない。',
+        'neither 自体が「〜もまた…ない」という否定を含んでいるので、後ろにさらに not を置くと否定が二重になる。日本語の「〜もまた…ない」に引きずられて not を足してしまう典型的な誤り。'],
+    ja: 'シカゴチームは期限までに監査を終えられず、デンバーチームも同様だった。',
+    v: [['audit', '監査'], ['by the deadline', '期限までに']],
+  }),
+
+  q('inv-22', {
+    t: ['inv'], lv: 5,
+    s: 'The initial inspection, ------- thorough as it was, still overlooked a hairline crack that a senior engineer found weeks later.',
+    c: ['so', 'such', 'too', 'as'],
+    a: 3,
+    e: 'as + 形容詞 + as + S + V で「S がどれほど〜であっても」という譲歩を表す（thorough as it was と同じ意味で、先頭に as を足した形。「〜と同じくらい」の比較ではない）。Such + be動詞 + 主語 + that ... の倒置構文と違い、この譲歩の型では倒置が起こらず as it was という〈主語＋be動詞〉の語順のまま続く。前に出た語が必ず倒置を呼ぶわけではない、という点が識別のポイント。',
+    w: ['so は So thorough was the inspection that ... のように〈so + 形容詞 + be動詞 + 主語 + that ...〉と倒置させて that 節を導く語だが、ここは倒置しておらず that 節もない。so + 形容詞 の後ろに as が続くのは so kind as to help のように as の後ろが to 不定詞のときの形で、as + 主語 + 動詞 の節を従えて譲歩を表す使い方はない。',
+        'such は名詞を伴う語で（such a thorough inspection のように使う）、形容詞 thorough を直接修飾する位置には置けない。such as it was（お粗末なものではあったが）という慣用句はあるが、such と as が直に並ぶ形で、間に形容詞は入らない。',
+        'too + 形容詞は too thorough to overlook のように to 不定詞と結び付く形で、後ろに as 節を続けて譲歩を表す形にはならない。',
+        '正解。as + 形容詞 + as + S + V の譲歩構文。倒置を伴わず as it was という通常の語順のまま続く。'],
+    ja: '最初の検査は、どれほど入念だったとはいえ、上級技術者が数週間後に見つけることになる微細な亀裂を見逃していた。',
+    v: [['thorough', '入念な、徹底的な'], ['overlook', '見落とす'], ['hairline crack', '微細な亀裂'], ['senior engineer', '上級技術者']],
+  }),
+
+  q('inv-23', {
+    t: ['inv'], lv: 4,
+    s: 'Employees are welcome to submit expense reports online, though many still prefer not -------.',
+    c: ['to do', 'doing', 'do', 'to'],
+    a: 3,
+    e: '前に出た to 不定詞句の内容（to submit expense reports online）が文脈から明らかなとき、繰り返しを避けて to だけを残すことができる（代不定詞）。原形以下を丸ごと落として to で止める、という省略の型。',
+    w: ['do は動作を受ける代動詞で、前の内容を受けるには do so / do it のように so か目的語を伴う。so も目的語もない to do では、前の to submit expense reports online を受ける形にならない（イギリス英語の口語には he might do / he has done のように述語を do 一語で受ける用法があるが、これは法助動詞や have・be の後ろに置く形で、不定詞の to の後ろに立てる形は標準的な英語では認められていない）。',
+        '動名詞。prefer は prefer not doing that のように動名詞も取れるが、do は目的語か so を伴わないと前の内容を受けられない。doing だけでは to submit expense reports online を指せない。',
+        'to を欠いた原形動詞。prefer は to 不定詞を取る動詞で、not の直後に原形だけを置く形にはならず、目的語も欠けたままになる。',
+        '正解。前半で述べられた to submit expense reports online を受け、繰り返しを避けて to だけを残した代不定詞。'],
+    ja: '従業員はオンラインで経費報告書を提出してよいことになっているが、いまだに多くの人はそうしないほうを選んでいる。',
+    v: [['expense report', '経費報告書'], ['be welcome to do', '〜してよい、〜するのは歓迎される']],
   }),
 
   /* ══ 態と自他動詞 ═══════════════════════════════════ */

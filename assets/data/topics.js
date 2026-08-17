@@ -25,9 +25,9 @@ export const TOPICS = [
     key: 'by the time / once / as soon as に続く節は未来でも現在形。' },
 
   { id: 'subj', group: 'g-grammar', part: 5, name: '仮定法・要求提案',
-    sub: 'that 節中の原形と、if の倒置',
-    pitfall: 'recommend / insist / mandatory / essential の後ろの that 節は原形。三単現の s を付けた選択肢が必ず並ぶ。',
-    key: 'Should が省略されている、と考えれば全部つながる。' },
+    sub: '要求提案の that 節・仮定法の時制・if なし条件',
+    pitfall: 'recommend / require / essential の後ろの that 節は原形。ただし insist は二義的で、要求の意味なら原形、「事実を強く主張する」の意味なら直説法になる。',
+    key: 'if 節がなくても otherwise / but for / 主語の名詞句が条件を担うことがある。帰結節が would + 原形か would have + 過去分詞かは「いつの話か」で決まる。' },
 
   { id: 'verbal', group: 'g-grammar', part: 5, name: '準動詞',
     sub: '不定詞・動名詞・分詞の選択',
@@ -65,9 +65,9 @@ export const TOPICS = [
     key: 'each / every + 単数名詞 + 単数動詞。all / most + 複数 or 不可算。' },
 
   { id: 'inv', group: 'g-grammar', part: 5, name: '倒置・強調・省略',
-    sub: '否定語句の文頭配置',
-    pitfall: 'Not only / Rarely / Under no circumstances が文頭に出たら疑問文語順。',
-    key: 'Should you need... は If you should need... の倒置。' },
+    sub: '倒置を呼ぶ語・強調構文の枠・復元できる省略',
+    pitfall: '倒置は文頭の語の暗記だけでは足りない。as thorough as it was のように倒置しない型もある。強調・省略も文脈で何を補うかが鍵。',
+    key: 'Not only / Such などが文頭なら倒置、Should / Had は if の省略。強調は it is/was ... that の枠か、命令文を強める Do。省略は主語＋be動詞や代不定詞の to など一意に復元できる要素のみ。' },
 
   { id: 'voice', group: 'g-grammar', part: 5, name: '態と自他動詞',
     sub: '受動態にできない動詞',
@@ -92,8 +92,8 @@ export const TOPICS = [
 
   { id: 'adv', group: 'g-vocab', part: 5, name: '副詞の意味識別',
     sub: '文意を決める副詞',
-    pitfall: 'promptly / readily / respectively / accordingly。品詞は同じなので意味だけで決まる。',
-    key: '全選択肢が副詞なら、文全体を読まないと解けない問題。時間をかけてよい。' },
+    pitfall: '意味の近い副詞が並ぶと、訳し比べだけでは決め手が出ない。hard と hardly、due と duly のように語形が似ていて働きの違う対も落としやすい。',
+    key: '同義に見えたら位置で決める。数量表現の前なら幅を測れる語（well over）、of が続けばその前置詞を取れる語（independently of）、文頭の倒置なら否定的限定の語（Only when）。' },
 
   { id: 'confuse', group: 'g-vocab', part: 5, name: '紛らわしい語',
     sub: '語源が近い派生語の識別',

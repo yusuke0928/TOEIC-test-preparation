@@ -283,22 +283,30 @@ export const UNITS = [
       label: 'Web page', meta: 'fennerpantry.com',
       title: 'Fenner Pantry — Weekly Ingredient Boxes, Delivered Fresh',
       body: [
-        'Fenner Pantry delivers pre-portioned ingredients and a printed recipe card to your door every week, so dinner is ready in thirty minutes with {{1}} planning.',
+        'Fenner Pantry delivers pre-portioned ingredients and a printed recipe card to your door every week. Everything is measured and trimmed before it ships, so dinner is ready in thirty minutes and the planning you have to do beforehand is {{1}}.',
         'Each box includes recipes chosen around what is in season, along with a handful of pantry staples you are unlikely to already have on hand — sumac, harissa paste, or aged balsamic, for example. {{2}} ingredients arrive individually labeled with a use-by date, so nothing gets lost in the crisper drawer.',
         'Subscriptions can be paused, skipped, or canceled at any time through the account dashboard; there is no long-term {{3}} of any kind.',
         'Fenner Pantry now ships to four additional regions, including the Selby Hills area, following a two-year wait for regulatory approval to include fresh seafood in the box. {{4}} approval took longer than expected because seafood delivery requires a separate cold-chain certification that dry and produce items do not.',
       ],
     }],
     questions: [
-      { id: 'p6c3-05-1', topics: ['confuse'],
+      /* id は p6c3-05-1r（本文を差し替えたため新規採番）。旧本文は
+         with {{1}} planning と名詞の直前に空所を置いていたため、with minimum planning
+         （with minimum fuss / with minimum delay と同型）が英語として完全に成立し、
+         minimum が第二の正解になっていた。be 動詞の補語の位置に移し、
+         名詞の直前でしか使わない minimum を排除できるようにした。
+         なお辞書の扱いは一致していない（LDOCE [only before noun]／Cambridge [always before noun]
+         に対し Oxford Learner's は [usually before noun]、M-W・Collins は無標）ので、
+         解説では断定できる LDOCE と Cambridge だけを挙げてある。 */
+      { id: 'p6c3-05-1r', topics: ['confuse'],
         choices: ['minimum', 'minimally', 'minimal', 'minimize'],
         answer: 2,
-        exp: 'planning という名詞を修飾するには形容詞が必要。minimal「ごくわずかな」が「準備がほとんど要らない」という文意に合う。minimum は minimum wage / minimum order のように「規定の最低ライン」を示す語で、程度の小ささを表す語ではない。',
-        why: ['minimum は minimum wage のように「規定の最低ライン」を示す語。ここは基準値ではなく「手間がほとんどかからない」という程度の小ささなので minimal。',
-              '副詞。名詞 planning を修飾できない。',
-              '正解。名詞 planning を修飾する形容詞で、「ほとんど手間がかからない」の意になる。',
-              '動詞。名詞を修飾できない。'],
-        vocab: [['pre-portioned', '小分けにされた']] },
+        exp: '空所は be 動詞の補語の位置にあり、主語 the planning you have to do beforehand の状態を述べる。ここに立てるのは叙述用法を持つ形容詞 minimal「ごくわずかな」で、LDOCE の例文も The cost to taxpayers would be minimal. と補語位置。minimum も「最小限の」を表す形容詞だが、LDOCE は [only before noun]、Cambridge は [always before noun] と、名詞の直前でしか使わない語として立項している。',
+        why: ['形容詞の minimum は名詞の直前で使う語（LDOCE は [only before noun]、Cambridge は [always before noun]）。minimum wage / with minimum planning のように名詞の前なら成立するが、be 動詞の補語には立てない。補語位置で「量がごくわずかだ」と述べるのは minimal の役目（The effect will be minimal.）。名詞として読む場合も a/the が要る（keep it to a minimum）。',
+              '副詞。be 動詞の補語になって主語の状態を述べることはできない（is minimally invasive のように後ろに形容詞・分詞を伴う形でしか使えない）。',
+              '正解。叙述用法を持つ形容詞で、「事前にすべき段取りはごくわずかだ」と主語の状態を述べる。',
+              '動詞の原形。be 動詞の直後に原形は置けない。'],
+        vocab: [['pre-portioned', '小分けにされた'], ['beforehand', '事前に']] },
 
       { id: 'p6c3-05-2', topics: ['quant', 'cohesion'],
         choices: ['Every', 'Each', 'Most', 'All'],
@@ -313,11 +321,11 @@ export const UNITS = [
       { id: 'p6c3-05-3', topics: ['biz'],
         choices: ['compliance', 'obligation', 'commission', 'comment'],
         answer: 1,
-        exp: '「いつでも一時停止・スキップ・解約でき、長期の○○は一切ない」という文脈。長期契約への「拘束」を表す obligation が適切。',
-        why: ['「遵守」。文意に合わない。',
-              '正解。「拘束、義務」。長期契約なしという文脈に合う。',
-              '「委託、歩合」。文意に合わない。',
-              '「意見」。文意に合わない。'],
+        exp: 'セミコロンの前で「いつでも一時停止・スキップ・解約できる」と述べ、後半はそれを言い換えて「利用者が長期にわたって負わされるものは一切ない」と締めている。〈利用者が負う契約上の拘束〉を表す名詞は obligation。',
+        why: ['「（規則・命令に）従うこと」。従う側の行為を指す名詞で、通例 compliance with the rules のように従う対象を伴う。ここには従うべき規則が示されておらず、また前半の「いつでも解約できる」の裏返しになる〈契約上の拘束〉も表さない。',
+              '正解。「（契約上の）義務、拘束」。no long-term obligation は解約自由をうたう定型で、前半の「いつでも一時停止・解約できる」と正確に対応する。',
+              '「（仲介者に払う）手数料・歩合」「委任、委員会」。いずれも仲介者や委任先の存在を前提とする語で、利用者が直接申し込むこのサービスには当てはまらず、利用者を縛る拘束も表さない。',
+              '「意見、論評」。人が口にする発言を指す名詞で、契約上負う拘束を表さない。'],
         vocab: [['dashboard', '(アプリの)管理画面']] },
 
       { id: 'p6c3-05-4', topics: ['cohesion'],
