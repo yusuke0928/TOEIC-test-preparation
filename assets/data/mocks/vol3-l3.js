@@ -5,7 +5,7 @@
 const talk = (o) => ({
   id: `v3-p4-${o.n[0]}`, part: 4, kind: 'set', kindLabel: o.k || 'talk',
   topics: o.t || ['p4type'], level: o.lv ?? 4,
-  script: o.s, graphic: o.g, ja: o.ja, vocab: o.v,
+  script: o.s, graphic: o.graphic, ja: o.ja, vocab: o.v,
   questions: o.q.map((x, i) => ({
     id: `v3q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || o.t || ['p4type'], tag: x.tag,

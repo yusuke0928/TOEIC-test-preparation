@@ -105,8 +105,9 @@ export const L1 = [
       'A platform is being repaired.',
     ],
     a: 2,
-    e: '列車のそばのホームで乗客が待っている位置関係。絵からは列車が動いているかどうかを読み取れないので、動きを断定する選択肢は避ける。',
-    w: ['進入中かどうかは写真から判断できない。', '改札の場面はない。', '正解。', '補修工事の様子はない。'],
+    e: '列車のそばのホームで乗客が待っている位置関係。静止した 1 枚の写真は「いま動いている最中」を写せないので、進行中の移動を断定する選択肢は避ける。列車がホームに入っているという結果の状態なら読み取れる。',
+    w: ['静止した写真から「進行中の移動」は読み取れない。車体はホームに横づけされた状態で写っており、いま進入している途中だと述べる根拠がない。到着し終えた状態（has pulled into）なら写真から読み取れる。',
+        '改札の場面はない。', '正解。', '補修工事の様子はない。'],
     ja: [
       '(A) 列車が駅に進入している。',
       '(B) 改札で切符が確認されているところだ。',
@@ -153,11 +154,11 @@ export const L1 = [
 
   p2(9, { t: ['p2wh'], lv: 4, sa: 'W-Br', sb: 'M-Cn',
     p: 'Where did you leave the master key?',
-    c: ['It opens every door.', 'Yes, I found it.', 'On the hook by the fire exit.'],
-    a: 2,
+    c: ['It opens every door.', 'On the hook by the fire exit.', 'Yes, I found it.'],
+    a: 1,
     e: 'Where に場所で答えている。',
-    w: ['鍵の機能説明で場所ではない。', 'Where に Yes は不可。', '正解。'],
-    ja: 'マスターキーはどこに置きましたか。→ (C) 非常口のそばのフックです。' }),
+    w: ['鍵の機能説明で場所ではない。', '正解。', 'Where に Yes は不可。'],
+    ja: 'マスターキーはどこに置きましたか。→ (B) 非常口のそばのフックです。' }),
 
   /* id は v4q10r（no は模試の通し番号として 10 を維持するが、選択肢を差し替えたため
      設問 id は新規採番。旧 id v4q10 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
@@ -286,11 +287,11 @@ export const L1 = [
 
   p2(24, { t: ['p2ind'], lv: 5, sa: 'M-Au', sb: 'W-Am',
     p: 'The catering order still hasn\'t arrived.',
-    c: ['It caters to large groups.', 'I will call them right now.', 'The order was placed last week.'],
-    a: 1,
+    c: ['It caters to large groups.', 'The order was placed last week.', 'I will call them right now.'],
+    a: 2,
     e: '問題提起に「今すぐ電話する」と対応を約束する応答。',
-    w: ['cater の別の意味を使った引っ掛け。', '正解。', '発注時期は解決策になっていない。'],
-    ja: 'ケータリングの注文がまだ届いていません。→ (B) 今すぐ電話してみます。' }),
+    w: ['cater の別の意味を使った引っ掛け。', '発注時期は解決策になっていない。', '正解。'],
+    ja: 'ケータリングの注文がまだ届いていません。→ (C) 今すぐ電話してみます。' }),
 
   p2(25, { t: ['p2wh'], lv: 3, sa: 'W-Br', sb: 'M-Cn',
     p: 'How much does the annual maintenance plan cost?',

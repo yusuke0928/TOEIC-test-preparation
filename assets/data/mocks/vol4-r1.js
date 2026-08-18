@@ -150,10 +150,10 @@ export const R1 = [
 
   p5(110, { t: ['voice'], lv: 5,
     s: 'The contract ------- by both parties before any work can begin on site.',
-    c: ['sign', 'must sign', 'must be signed', 'signing'],
-    a: 2,
+    c: ['sign', 'must be signed', 'must sign', 'signing'],
+    a: 1,
     e: '契約は「署名される」側なので受動態。義務を表す must を伴う。',
-    w: ['原形。', '能動態。', '正解。', '分詞。'],
+    w: ['原形。', '正解。', '能動態。', '分詞。'],
     ja: '契約は、現場でのいかなる作業も開始される前に、双方によって署名されなければならない。' }),
 
   p5(111, { t: ['rel'], lv: 5,
@@ -459,12 +459,12 @@ export const R1 = [
 
   p5(127, { t: ['biz'], lv: 5,
     s: 'Citing falling demand, the airline announced it would ------- several regional routes next quarter.',
-    c: ['curb', 'curtail', 'curtain', 'curve'],
-    a: 1,
+    c: ['curb', 'curtain', 'curtail', 'curve'],
+    a: 2,
     e: 'curtail「（規模・量・期間を）切り詰める、（サービス・路線を）縮小する」。curtail services / curtail flights のように、提供している事業の一部を打ち切る対象を目的語に取れる。',
     w: ['「（増えすぎて困るものを）抑制する」。curb inflation / curb spending / curb emissions のように、目的語は勢いを抑えるべき量・行為・傾向に限られる。several regional routes は個々の路線という可算の対象で、抑えるべき「勢い」を持たないため目的語にできない。curb には「本数を減らす、廃止する」の語義もない。',
-        '正解。curtail several regional routes「いくつかの地方路線を縮小・廃止する」。',
         '名詞「幕、カーテン」。動詞用法は curtain off「カーテンで仕切る」のように副詞を伴う形で、路線を目的語には取れない。',
+        '正解。curtail several regional routes「いくつかの地方路線を縮小・廃止する」。',
         '「曲げる、湾曲させる」。物理的な形状を変える語で、便数や事業規模を減らす意味は持たない。'],
     ja: '需要の落ち込みを理由に、その航空会社は来四半期にいくつかの地方路線を削減すると発表した。' }),
 

@@ -209,11 +209,11 @@ export const L1 = [
 
   p2(16, { t: ['p2ind'], lv: 4, sa: 'M-Br', sb: 'W-Am',
     p: 'What\'s the fastest way to get to the annex building?',
-    c: ['About two hundred people work there.', 'It was built last year.', 'Through the car park, if the gate\'s open.'],
-    a: 2,
+    c: ['Through the car park, if the gate\'s open.', 'It was built last year.', 'About two hundred people work there.'],
+    a: 0,
     e: '経路を尋ねられ、条件付きで具体的なルートを答えている。',
-    w: ['人数は問いに関係ない。', '建築時期は問いに答えていない。', '正解。'],
-    ja: '別館への一番早い行き方は何ですか。→ (C) 門が開いていれば駐車場を通る道です。' }),
+    w: ['正解。', '建築時期は問いに答えていない。', '人数は問いに関係ない。'],
+    ja: '別館への一番早い行き方は何ですか。→ (A) 門が開いていれば駐車場を通る道です。' }),
 
   p2(17, { t: ['p2wh'], lv: 3, sa: 'W-Br', sb: 'M-Cn',
     p: 'How many boxes are left to unpack?',
@@ -297,11 +297,11 @@ export const L1 = [
 
   p2(27, { t: ['p2ind'], lv: 4, sa: 'W-Br', sb: 'M-Au',
     p: 'Where should visitors sign in?',
-    c: ['Whoever\'s at the front desk will show them.', 'Visitors arrive at nine.', 'The sign was replaced.'],
-    a: 0,
+    c: ['The sign was replaced.', 'Visitors arrive at nine.', 'Whoever\'s at the front desk will show them.'],
+    a: 2,
     e: '場所を尋ねられ、「受付にいる人が案内する」と間接的に答える応答。',
-    w: ['正解。', '到着時刻は問いに答えていない。', 'sign の別の意味（標識）を使った引っ掛け。'],
-    ja: '来訪者はどこで受付をすればよいですか。→ (A) その時フロントにいる人が案内します。' }),
+    w: ['sign の別の意味（標識）を使った引っ掛け。', '到着時刻は問いに答えていない。', '正解。'],
+    ja: '来訪者はどこで受付をすればよいですか。→ (C) その時フロントにいる人が案内します。' }),
 
   p2(28, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
     p: 'Why don\'t we just merge the two spreadsheets?',

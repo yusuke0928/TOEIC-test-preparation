@@ -114,24 +114,45 @@ export const L1 = [
     ],
   }),
 
-  p1(6, {
-    scene: 'laboratory', sp: 'W-Am', lv: 4,
-    c: [
-      'Shelves are being installed above a bench.',
-      'Glassware is being washed at a sink.',
-      'A researcher is adjusting a microscope.',
-      'A technician is pouring liquid into a beaker.',
-    ],
-    a: 2,
-    e: '顕微鏡に向かって操作している人物の動作。「ビーカーに液体を注ぐ」のように具体的すぎる描写は、写真で確認できなければ選べない。',
-    w: ['棚は写っておらず、設置作業も行われていない。', '洗浄している人はいない。', '正解。', '液体を注ぐ動作は確認できない。'],
-    ja: [
-      '(A) 作業台の上に棚が設置されているところだ。',
-      '(B) ガラス器具が流しで洗われているところだ。',
-      '(C) 研究者が顕微鏡を調整している。',
-      '(D) 技術者がビーカーに液体を注いでいる。',
-    ],
-  }),
+  /* id は v1q6r（no は模試の通し番号として 6 を維持するが、正解の選択肢を差し替えたため
+     設問 id は新規採番。旧 id v1q6 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     旧版の正解は 'A researcher is adjusting a microscope.' だったが、laboratory の顕微鏡は
+     「垂直の支柱＋斜めのアーム＋先端の小さな円＋台形の台座」という構成で、544px の
+     light / dark どちらで実描画してもスタンドライトかマイクのブームにしか見えない
+     （2026-08-18 に確認。scenes.js の場面コメントも「microscope / eyepiece / stage など
+     顕微鏡の部位に依存する文は書かないこと」としている）。
+     一方、伸ばした腕の先の手（276,149）は器具のつまみ（円 cx279 cy150 r6）に重なり、
+     朱の接点マーカーも付いている＝接触は SPEC②の基準で確実に読み取れる。器具名を出さず
+     「機器に手を掛けている」とだけ述べる形に改める。
+     p1() ヘルパーは id を no から自動生成し、no を変えずに id だけ変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v1-p1-6r', part: 1, kind: 'p1', topics: ['p1verb'], level: 4,
+    scene: 'laboratory', speaker: 'W-Am',
+    questions: [{
+      id: 'v1q6r', no: 6,
+      choices: [
+        'Shelves are being installed above a bench.',
+        'Glassware is being washed at a sink.',
+        'A researcher has one hand on a piece of equipment.',
+        'A technician is pouring liquid into a beaker.',
+      ],
+      answer: 2,
+      exp: '作業台の奥に立つ人物が腕を伸ばし、台の上の器具に手を掛けている。手と器具が接している位置関係は写真から確実に読み取れる。器具の種類まで特定できる描写ではないので、正解も器具名を挙げず a piece of equipment と述べている。誤答は、写っていない物（棚・流し）と、手が届いていない物（ビーカー）に分かれる。',
+      why: [
+        '棚は写っておらず、設置作業をしている人物も道具もない。',
+        '流しは写っていない。ガラス器具は台の上に置かれたままで、洗っている人もいない。',
+        '正解。伸ばした腕の先の手が、台の上の器具に接している。',
+        'ビーカーは作業台の右端にあり、人物の手からは大きく離れている。液体の入った容器も持っていない。',
+      ],
+      ja: [
+        '(A) 作業台の上に棚が設置されているところだ。',
+        '(B) ガラス器具が流しで洗われているところだ。',
+        '(C) 研究者が機器に手を掛けている。',
+        '(D) 技術者がビーカーに液体を注いでいる。',
+      ],
+      topics: ['p1verb'],
+    }],
+  },
 
   /* ══════════ PART 2 ══════════ */
   p2(7, {

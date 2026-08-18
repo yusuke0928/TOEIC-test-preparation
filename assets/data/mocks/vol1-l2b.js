@@ -6,7 +6,7 @@
 const set = (o) => ({
   id: `v1-p3-${o.n[0]}`, part: 3, kind: 'set', kindLabel: o.k || 'conversation',
   topics: o.t || ['p3detail'], level: o.lv ?? 4,
-  script: o.s, graphic: o.g, ja: o.ja, vocab: o.v,
+  script: o.s, graphic: o.graphic, ja: o.ja, vocab: o.v,
   questions: o.q.map((x, i) => ({
     id: `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || o.t || ['p3detail'], tag: x.tag,

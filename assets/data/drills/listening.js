@@ -88,25 +88,32 @@ export const UNITS = [
     v: [['lean against', '〜に立てかけられる'], ['scaffolding', '足場'], ['dismantle', '解体する']],
   }),
 
-  p1('p1v-03', {
+  /* id は p1v-03r（旧 p1v-03 の正解 'Chairs have been arranged near the water.' を
+     差し替えたため新規採番。旧 id を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     beach の「デッキチェア」は背もたれも脚も無い台形 2 つで、544px の light / dark
+     どちらで実描画しても椅子とは読めない（2026-08-18 に確認。桶か箱に見える）。
+     絵から確実に言えるのは「同じ形・同じ大きさの物が 2 つ、同じ底辺 y=214 の上に
+     間隔 44 を空けて置かれ、その上端 y=190 が水面の帯の下端に接している」ことなので、
+     物の名前を出さない形に改める。 */
+  p1('p1v-03r', {
     t: ['p1verb'], lv: 3, scene: 'beach', sp: 'M-Br',
     c: [
-      'Chairs have been arranged near the water.',
+      'Some objects have been arranged side by side near the water.',
       'A woman is opening a beach umbrella.',
       'People are sitting under an umbrella.',
       'Swimmers are entering the sea.',
     ],
     a: 0,
-    e: '人が写っていない写真。人物を含む選択肢はすべて誤りになる。椅子が並べられた「状態」を have been arranged で述べた (A) が正解。無人の写真では、状態を表す現在完了の受動態か、there is 構文が正解になりやすい。',
-    w: ['正解。人の写っていない写真で状態を述べている。',
+    e: '人が 1 人も写っていない場面。人物を主語にした選択肢はすべて誤りになる。正解は、同じ形・同じ大きさの物が 2 つ、同じ高さに間隔を空けて水際に置かれている状態を have been arranged で述べたもの。無人の場面では、状態を表す現在完了の受動態か、there is 構文が正解になりやすい。',
+    w: ['正解。同じ形・同じ大きさの物が 2 つ、同じ高さに間隔を空けて水際に置かれている。人が写っていなくても、置かれた状態なら現在完了の受動態で述べられる。',
         '女性は写っていない。',
         '人は写っていない。',
         '泳いでいる人も写っていない。'],
-    ja: ['(A) 椅子が水辺の近くに並べられている。',
+    ja: ['(A) いくつかの物が水辺に横に並べて置かれている。',
          '(B) 女性がビーチパラソルを開いている。',
          '(C) 人々がパラソルの下に座っている。',
          '(D) 海水浴客たちが海に入っているところだ。'],
-    v: [['arrange', '並べる'], ['beach umbrella', 'ビーチパラソル']],
+    v: [['arrange', '並べる'], ['side by side', '横に並んで'], ['beach umbrella', 'ビーチパラソル']],
   }),
 
   p1('p1v-04', {
