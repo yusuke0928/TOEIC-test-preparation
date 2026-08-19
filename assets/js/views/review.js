@@ -145,7 +145,9 @@ function dueForecast(days = 14) {
     return { label: i === 0 ? '今日' : `${d.getMonth() + 1}/${d.getDate()}`, value: 0, ts: d.getTime() };
   });
   for (const v of Object.values(state.items)) {
-    if (!v.n) continue;
+    // 存在チェックは due で行う（store.js の hasRecord() と同じ理由・同じ基準。
+    // recordItem() で作られる記録は n と due が必ず対で入るため、n>0 でも同じ結果になる）。
+    if (!v.due) continue;
     if (v.due <= today.getTime()) { out[0].value++; continue; }
     const i = Math.floor((v.due - today.getTime()) / 86400000);
     if (i >= 0 && i < days) out[i].value++;

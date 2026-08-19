@@ -42,16 +42,22 @@ export const R1 = [
     s: 'The warranty is void if the seal is broken, and this condition is clearly stated ------- the packaging.',
     c: ['at', 'of', 'on', 'to'],
     a: 2,
-    e: '「包装に記載されている」は on the packaging。表面への記載を表す前置詞。',
-    w: ['地点を表す at は不適。', 'of は取らない。', '正解。', 'to は取らない。'],
+    e: 'be stated on ...「〜に記載されている」。文字が載っている面を示す前置詞は on（on the label / on the packaging / on page 4）。',
+    w: ['at は「地点」を示す前置詞で、掲示物の面ではなく位置を指す（wait at the entrance）。文字が印刷されている面を示す用法は無い。',
+        'state は「述べる」の意味で of を続けない。of が付くのは名詞の state（the state of the packaging「包装の状態」）で、ここは受動態の述語なのでその読みは取れない。',
+        '正解。stated on the packaging。',
+        'state は伝える相手を to で示せるが（state one\'s position to the committee）、to のあとに来るのは人・組織。the packaging は伝える相手ではなく記載面なので to では受けられない。'],
     ja: '封が破られている場合、保証は無効となり、この条件は包装に明記されている。' }),
 
   p5(104, { t: ['colloc'], lv: 4,
     s: 'The department will ------- a series of workshops to prepare staff for the new reporting system.',
     c: ['detain', 'depart', 'deliver', 'derive'],
     a: 2,
-    e: 'deliver a workshop / deliver training「研修を実施する」が定型。',
-    w: ['「拘留する」。', '「出発する」。', '正解。', '「由来する」。'],
+    e: 'deliver a workshop / deliver training「（研修・講義を）実施する」が定型。deliver は「用意したものを相手に届ける」が中心の語義で、講義・研修・講演を目的語に取れる。',
+    w: ['detain は「（人を）拘束する、引き留める」「（物の引き渡しを）差し止める」で、目的語は人か物。研修という催しを目的語にして「実施する」意味にはならない。',
+        'depart は自動詞で（depart from / depart for）目的語を取らない。他動詞の用法は depart this life のような古い慣用に限られる。',
+        '正解。deliver a series of workshops。',
+        'derive は derive A from B「A を B から得る」の型で、from が無いと文が完結しない。また得られるのは利益・意味・語源などで、開催する催しではない。'],
     ja: '当部門は、新しい報告システムに向けて職員を準備させるため、一連の研修を実施する。' }),
 
   p5(105, { t: ['rel'], lv: 5,
@@ -90,8 +96,11 @@ export const R1 = [
     s: 'The lease grants the tenant the right to ------- the premises with thirty days\' notice.',
     c: ['ventilate', 'validate', 'venture', 'vacate'],
     a: 3,
-    e: 'vacate the premises「建物を明け渡す」。不動産契約の定型語。',
-    w: ['「換気する」。', '「有効にする」。', '「思い切ってやる」。', '正解。'],
+    e: 'vacate the premises「（借りている）建物を明け渡す」。賃貸借契約で「30 日前の通知をもって行使できる権利」として定められるのは、占有をやめる動作。',
+    w: ['ventilate は「換気する」で、建物を目的語に取ること自体はできる。ただし換気は借主が日常的に行える行為であって、事前通知を条件に契約で認める性質の権利ではない。契約が通知期間を定めるのは占有の終了について。',
+        'validate は「（書類・切符・データ・主張の）有効性を認める、裏づける」。論理学の premises（前提）なら validate the premises と言えるが、本問は the lease / the tenant / thirty days\' notice から不動産の premises（建物）であり、建物を validate することはできない。',
+        'venture は他動詞では「（意見・推測を）思い切って口にする」（venture an opinion）、自動詞では venture into / out「危険を冒して進む」。建物を目的語に取って「明け渡す」意味にはならない。',
+        '正解。vacate the premises。'],
     ja: '本賃貸借契約は、30 日前の通知により賃借人が物件を明け渡す権利を認めている。' }),
 
   p5(110, { t: ['comp'], lv: 5,
@@ -114,16 +123,22 @@ export const R1 = [
     s: 'Please ------- the reception desk of any dietary requirements at least a week in advance.',
     c: ['announce', 'report', 'mention', 'inform'],
     a: 3,
-    e: 'inform + 人（部署）+ of + 事柄。announce / mention / report は人を直接目的語に取れない。',
-    w: ['人を直接目的語にできない。', '人を直接目的語にできない。', '人を直接目的語にできない。', '正解。'],
+    e: '空所の直後が the reception desk（知らせる相手）で、その後ろが of any dietary requirements（知らせる内容）。「相手を目的語に取り、内容を of で導く」型を持つのは inform / notify / advise / remind / assure などで、選択肢では inform だけ。他の 3 語は知らせる内容の側を目的語に取り、相手は to で示す型なので、この語順に入らない。',
+    w: ['announce は知らせる内容を目的語に取り、相手は to で示す（announce the changes to the staff）。相手を目的語に置いて of で内容を導く型は無い。',
+        'report も内容の側を目的語に取り、相手は to で示す（report the accident to the safety officer）。report + 人 + to + 人（report him to the supervisor「〜を通報する」）と人を目的語に取る用法はあるが、それは「上位者に苦情を申し立てる」意味で相手を to で示す型であり、of で内容を導くことはできない。',
+        'mention も話題にする内容を目的語に取り、相手は to で示す（mention it to the manager）。人を目的語に置けば「その人に言及する」意味になり、知らせる相手にはならず、of 句も続かない。',
+        '正解。inform + 人 + of + 事。'],
     ja: '食事に関するご要望は、少なくとも 1 週間前までに受付までお知らせください。' }),
 
   p5(113, { t: ['adv'], lv: 5,
     s: 'The two prototypes performed ------- in the drop test, so cost became the deciding factor.',
     c: ['incidentally', 'identically', 'individually', 'intentionally'],
     a: 1,
-    e: '「だから費用が決め手になった」という帰結から、性能に差がなかったとわかる。identically「まったく同じように」。',
-    w: ['「ついでに」。', '正解。', '「個別に」。', '「意図的に」。'],
+    e: '後半の「だから費用が決め手になった」という帰結が、性能に差がつかなかったことを前提にしている。identically「まったく同じように」。',
+    w: ['incidentally は文全体に掛けて「ところで」と話題を転換するか、「（主目的ではなく）付随的に」を表す。落下試験での性能の出方を述べる語ではなく、費用が決め手になった理由も導けない。',
+        '正解。performed identically「まったく同じ結果を示した」。',
+        'individually は「1 つずつ、個別に」で、試験のやり方（別々に試した）を述べるだけの語。2 つの結果が同じだったことは言えないので、後半の「だから費用が決め手になった」につながらない。',
+        'intentionally は「意図的に」で、意志を持つ主体の行為に使う。主語は prototypes（物）なので、意図をもって performed することはできない。'],
     ja: '2 つの試作品は落下試験で同じ結果を示したため、費用が決め手となった。' }),
 
   p5(114, { t: ['pron'], lv: 5,
@@ -150,13 +165,29 @@ export const R1 = [
     w: ['自動詞に受動態は不可。', '正解。', '現在完了は明確な過去時点と併用できない。', '進行形。'],
     ja: 'その不具合は、先週火曜にソフトウェア更新が適用された直後に発生した。' }),
 
-  p5(117, { t: ['confuse'], lv: 5,
-    s: 'The two roles are quite ------- ; one focuses on design and the other on implementation.',
-    c: ['distinct', 'distinguished', 'distinctive', 'distracted'],
-    a: 0,
-    e: 'distinct「はっきり異なる」。セミコロン以下で 2 つの役割の違いが説明されている。',
-    w: ['正解。', '「著名な」。', '「他と区別できる特徴のある」。1 つのものの特徴を表す。', '「気を散らされた」。'],
-    ja: 'その 2 つの職務は明確に異なる。一方は設計に、もう一方は実装に重点を置いている。' }),
+  /* id は v2q117r（no は 117 を維持。stem・選択肢の差し替えのため設問 id は新規採番）。
+     旧 stem 'The two roles are quite ------- ; one focuses on design and the other on
+     implementation.' では空所が補語の位置に置かれるだけで、後続の説明を受けられるかどうかを
+     語義で争うことになり、Merriam-Webster が distinctive の第 1 義に "serving to distinguish"
+     を挙げる以上「distinctive は不可能」と断定できなかった（distinguished も「区別されている」の
+     受動として読む余地が残った）。distinct だけが from 句を従えられることを利用し、
+     be distinct from の枠に変えて、誤答が構造で落ちるようにした。
+     p5() ヘルパーは設問 id を no から自動生成するため、このユニットだけ直接記述する。 */
+  { id: 'v2-p5-117r', part: 5, kind: 'single', topics: ['confuse'], level: 5,
+    questions: [{
+      id: 'v2q117r', no: 117,
+      stem: 'Although the two job titles are often used interchangeably, the coordinator\'s duties are quite ------- from the supervisor\'s.',
+      choices: ['distinct', 'distinctive', 'distinction', 'distracted'],
+      answer: 0,
+      exp: 'be distinct from ...「〜とははっきり別のものである」。LDOCE も The learning needs of the two groups are quite distinct from each other. の形で載せる型で、空所が be 動詞の補語であること、直後に from 句が続くことの両方を満たせるのは distinct だけ。前半の「2 つの職名は同じ意味で使われがちだ」とも呼応する。',
+      why: ['正解。be distinct from ...「〜と明確に異なる、別個である」。',
+            'distinctive は「それと分かる特徴を備えた」で、1 つのものが持つ独自性を言う語（a distinctive sound / distinctive markings）。その特徴が何に属するかを示すときに取る前置詞は of（distinctive of ...）で、from 句は従えない。ここは from the supervisor\'s が続くので入らない。',
+            'distinction は名詞。quite が単数可算名詞に付くには quite a distinction のように冠詞が要るが、この位置に冠詞は無い。名詞の distinction が差の相手を示すときも the distinction between the two roles のように between を使う。',
+            'distracted は「注意がそれた」。be distracted from ... という形自体はあるが、注意を持つ主体すなわち人にしか使えない（She was distracted from her work.）。主語は duties（職務）で注意を持たないため、この受動態の主語になれない。'],
+      ja: 'その 2 つの職名はしばしば同じ意味で使われるが、コーディネーターの職務は監督者の職務とは明確に異なる。',
+      topics: ['confuse'],
+    }],
+  },
 
   p5(118, { t: ['verbal'], lv: 5,
     s: 'The new policy is intended to discourage employees from ------- annual leave until December.',
@@ -178,8 +209,11 @@ export const R1 = [
     s: 'The committee decided to ------- ahead with the pilot despite the shortened timeline.',
     c: ['press', 'pull', 'put', 'pass'],
     a: 0,
-    e: 'press ahead with「（困難があっても）推し進める」。',
-    w: ['正解。', 'pull ahead は「先行する」。', 'put ahead は一般的な句動詞ではない。', 'pass ahead も使わない。'],
+    e: 'press ahead with「（困難があっても）推し進める」。ahead with ＋ 取り組み という型を取れるのは press / push / forge / go / move など「前進」を表す自動詞の系列で、本問の選択肢でこの系列に入るのは press だけ。',
+    w: ['正解。press ahead with「（障害があっても）予定どおり進める」。despite 節と自然に呼応する。',
+        'pull ahead は「（競争相手より）先行する」で、抜く相手は of で示す（pull ahead of its rivals）。取り組みを with で受けて「推し進める」意味にはならない。',
+        'put ahead は「（時計・予定を）早める」（put the clock ahead / put the meeting ahead to Monday）か、put + 人 + ahead「（競争で）優位に立たせる」の型で使う。いずれも ahead の前後に目的語や of 句を要求する型で、ahead with ＋ 取り組み の形は取らない。',
+        'pass ahead という句動詞はない。pass は pass on（伝える）／pass up（見送る）などの型を取る。'],
     ja: '委員会は日程が短縮されたにもかかわらず、試験導入を進めることを決定した。' }),
 
   p5(121, { t: ['pos'], lv: 5,
@@ -202,25 +236,50 @@ export const R1 = [
     s: 'Participation in the mentoring scheme is open ------- all staff who have completed their probation.',
     c: ['for', 'to', 'with', 'at'],
     a: 1,
-    e: 'be open to「〜に開かれている、〜が参加できる」。',
-    w: ['for は取らない。', '正解。', 'with は取らない。', 'at は取らない。'],
+    e: 'be open to ...「〜に開かれている、〜が参加できる」。参加資格の及ぶ相手を示すのは to（open to the public / open to all members）。',
+    w: ['open for は「何のために開いているか」「どれだけの期間開いているか」を示す型で、続くのは活動や期間（open for business / open for applications / open for two weeks）。all staff は活動ではなく参加する人なので、for では受けられない。',
+        '正解。be open to + 人。',
+        'be open with ... は「（人に対して）包み隠さず話す」の意味で実在するが（She has always been open with me.）、この型は主語が人でなければならない。本問の主語は Participation という事柄なので入らない。',
+        'at は場所や時刻を示す前置詞（open at nine / open at the north gate）。参加できる相手を示す用法は無い。'],
     ja: 'メンター制度への参加は、試用期間を終えたすべての職員に開かれている。' }),
 
   p5(124, { t: ['colloc'], lv: 5,
     s: 'The council will ------- public comment on the draft plan for a period of six weeks.',
     c: ['invite', 'inquire', 'insist', 'induce'],
     a: 0,
-    e: 'invite comment / invite applications「意見（応募）を募る」が定型。',
-    w: ['正解。', 'inquire は自動詞的に使い、about を伴う。', 'insist on / that の形。', '「引き起こす」。'],
+    e: 'invite は「差し出してほしいもの」を目的語に取って「募る」意味を作れる（invite comment / applications / tenders / questions）。他の 3 語は public comment を目的語に取る型を持たない。',
+    w: ['正解。invite comment on ... for a period of ...「〜について一定期間、意見を募る」。',
+        'inquire は情報を求める側の動作で、求める内容は about / into、尋ねる相手は of で示す（inquire about the plan / inquire of a passer-by）。名詞を直接目的語に取るのは引用文や wh 節を続けるときだけで、「募集する対象」を目的語には取れない。',
+        'insist は insist on + 名詞/動名詞、または insist that + S + 原形。名詞を直接目的語に取る型が無い。',
+        'induce が目的語に取るのは、説得する相手（induce + 人 + to do）か、引き起こされる生理的・心理的状態（induce labour / sleep / vomiting）。public comment はそのどちらにも当たらず、募集期間を示す for a period of six weeks とも結び付かない。'],
     ja: '議会は素案について、6 週間にわたり市民からの意見を募る。' }),
 
-  p5(125, { t: ['quant'], lv: 5,
-    s: '------- of the two proposals addresses the question of long-term maintenance.',
-    c: ['None', 'Neither', 'Both', 'Any'],
-    a: 1,
-    e: '2 者の全否定は neither。動詞 addresses が単数形であることも neither を裏づける。',
-    w: ['3 者以上の否定。', '正解。', '複数扱いで address になる。', 'any of は疑問文・否定文で使う。'],
-    ja: '2 つの提案のいずれも、長期的な保守の問題に触れていない。' }),
+  /* id は v2q125r（no は 125 を維持。stem・選択肢の差し替えのため設問 id は新規採番）。
+     旧 stem '------- of the two proposals addresses the question of long-term maintenance.'
+     （正解 Neither）は、ドリル grammar2.js の pron-07
+     'Of the three proposals reviewed, ------- addressed the question of long-term maintenance costs.'
+     と語彙も判断過程（2 者なら neither・3 者以上なら none）もほぼ同一で、ドリルを解いた利用者が
+     模試で再会してしまう状態だった。加えて「of the two … + 単数動詞 → neither / each」という型は
+     grammar2.js の quant-04、grammar6.js の quant-15、vol1-r1.js の設問 117 でも使われており、
+     この論点自体が飽和している。数量詞の使い分けという topic は保ったまま、
+     「結果を表す that 節を従えられるのは so だけ」という別の構造に枠を移した。
+     誤答 3 つはいずれも単独では正しい英語で、空所から離れた文末の that 節でのみ排除される。
+     p5() ヘルパーは設問 id を no から自動生成するため、このユニットだけ直接記述する。 */
+  { id: 'v2-p5-125r', part: 5, kind: 'single', topics: ['quant'], level: 5,
+    questions: [{
+      id: 'v2q125r', no: 125,
+      stem: '------- delegates registered for the Thursday workshop that the organizers merged it with the Friday session.',
+      choices: ['Too few', 'So few', 'Very few', 'Fewer'],
+      answer: 1,
+      exp: '文末の that the organizers merged it with the Friday session は、登録者が少なかったことの帰結を述べる節。〈so + few + 複数名詞 … that + 節〉で「あまりに〜が少なかったので…」という程度と結果を結ぶ（so many students applied for admission that the school had a wait list. のように、結果の that 節は動詞の後ろの前置詞句をまたいで文末に置かれる）。選択肢 4 語のうち、この結果の that 節を従える型を持つのは so だけである（同じ型を持つ語は他に such や enough があるが、いずれも選択肢に無い）。too が取るのは to 不定詞、fewer が取るのは than 句で、very は程度を強めるだけで従属節を導かない。空所だけを見れば 4 つとも複数名詞 delegates に付く正しい形なので、決め手は空所から離れた文末の that 節にある。',
+      why: ['too が程度の帰結を受けるときに取るのは非定形の補部だけで、to 不定詞（Too few delegates registered to justify a separate session.「別枠で開くには登録者が少なすぎた」）か、その意味上の主語を for で示した too … for + 人 + to do の形をとる。LDOCE が too に立てる型も too … to do something と too … for somebody (to do something) で、定形節を従える型は無い。したがって Too few を入れると文末の that 節が掛かる先を失う。Too few delegates registered for the Thursday workshop. までなら正しい文で、that 節が続くこの文でだけ成立しない。',
+            '正解。so + few + 複数名詞 … that + 節 で「〜があまりに少なかったので…」という程度と結果を結ぶ。',
+            'very は形容詞・副詞・数量詞の程度を強めるだけの副詞で、従属節を導く働きを持たない。Very few delegates registered for the Thursday workshop. はそれ自体正しい文だが、そこで完結する。very few のあとに that 節が続く形は 2 通りあり、どちらもこの文では成立しない。(1) one of the very few sessions that were cancelled のような名詞修飾の関係詞節——関係詞節なら先行詞 workshop に対応する空所が節の中に要るが、merged の目的語は it で埋まっていて空所が無い。(2) Very few delegates realized that … のような動詞の that 補部——register は「登録する」の意味では for を伴って自動詞で使い that 節を取らず、「（…に）気づく」の意味では for 句を伴わないので、どちらの語義でも that 節を受けられない。程度と結果を結ぶには so が要る。',
+            'fewer は比較級なので、これが導けるのは比較の相手を示す than 句であって（Fewer delegates registered for the Thursday workshop than for the Friday session.）、結果を表す節を従える構文は持たない。than 句を置かなくても Fewer delegates registered this year. のようにそこで文が完結するので、やはり文末の that 節を受けられない。that 節を関係詞節に読む道も、merged の目的語が it で埋まっていて空所が無い以上ふさがっている。'],
+      ja: '木曜のワークショップに登録した参加者があまりに少なかったため、主催者はそれを金曜のセッションと統合した。',
+      topics: ['quant'],
+    }],
+  },
 
   p5(126, { t: ['biz'], lv: 5,
     s: 'Any employee who wishes to ------- a grievance should do so in writing within ten working days.',
@@ -242,8 +301,11 @@ export const R1 = [
     s: 'The trial was halted early, ------- because two participants withdrew in the first week.',
     c: ['largely', 'lately', 'lastly', 'loosely'],
     a: 0,
-    e: 'largely because「主として〜という理由で」。理由の主因を示す副詞。',
-    w: ['正解。', '「最近」。', '「最後に」。', '「大まかに」。'],
+    e: 'largely because ...「主として〜という理由で」。because 節の前に置いて、それが主たる理由であることを示す副詞。',
+    w: ['正解。largely because ...。',
+        'lately は「最近、近ごろ」と時期を表す副詞で、現在完了などと使う（Have you seen her lately?）。because 節に掛けて理由の重みを示す用法は無い。',
+        'lastly は列挙の最後の項目を導く副詞（Firstly ... Lastly ...）。ここには先行する理由の列挙が無いため、「最後の理由」を示すことができない。',
+        'loosely は「大まかに、ゆるく」で、結び付きの厳密さを言う（loosely based on a true story）。理由の主従を示す語ではない。'],
     ja: 'その試験は早期に中止された。主な理由は、最初の週に参加者 2 名が離脱したことである。' }),
 
   p5(129, { t: ['conjprep'], lv: 5,
@@ -255,11 +317,14 @@ export const R1 = [
     ja: '書面で別段の合意がない限り、請求書は 30 日以内にお支払いいただきます。' }),
 
   p5(130, { t: ['vusage'], lv: 5,
-    s: 'The organisers have ------- the venue with an additional exit at their own expense.',
+    s: 'The organizers have ------- the venue with an additional exit at their own expense.',
     c: ['offered', 'donated', 'provided', 'presented'],
     a: 2,
-    e: 'provide A with B「A に B を備え付ける」。空所の直後が the venue with ... という語順なので、この型を取れる provide が入る。',
-    w: ['offer B to A の形。with を取らない。', 'donate B to A の形。with を取らない。', '正解。provide A with B。', 'present A with B は賞や記念品を贈る場合に用い、設備の設置には使わない。'],
+    e: 'provide A with B「A に B を備え付ける、供給する」。空所の直後が the venue with an additional exit という語順なので、場所を目的語に取り、備え付けるものを with で示せる動詞が必要。equip A with B / supply A with B も同型。',
+    w: ['offer は offer B to A（または offer A B）の型で、差し出すもの自体を目的語に取る。offer the venue with ... と並べても with 句は the venue を説明する修飾語にしかならず、「会場に出口を設ける」意味は出ない。',
+        'donate も donate B to A の型で、寄付するものを目的語に取る。寄付先に付ける設備を with で示す用法は無い。',
+        '正解。provide A with B。',
+        'present A with B は実在する型だが、A は受け取る人・組織、B は賞・記念品・書類・（比喩的に）問題など「差し出されるもの」に限られる（present her with an award / present us with a problem）。建物に出口を増設する意味では使えない。'],
     ja: '主催者は自らの費用負担で、会場に追加の出口を設けた。' }),
 
   /* ══════════ PART 6 ══════════ */
@@ -369,8 +434,8 @@ export const R1 = [
       { tag: '語彙', t: ['adjprep'],
         c: ['able', 'capable', 'possible', 'skilled'],
         a: 1,
-        e: 'be capable of + 名詞/動名詞。空所の後ろが of the work なので capable。able は to do を取る。',
-        w: ['be able to do の形。of は取らない。', '正解。', '人を主語に取らない。', 'be skilled at / in の形。'] },
+        e: '空所の後ろが of the work。of + 名詞 を続けられる形容詞は capable だけ（be capable of + 名詞/動名詞）。',
+        w: ['able は be able to do の型で、of は取らない。', '正解。be capable of the work / of doing the work。', 'possible は「事柄」を主語に取る形容詞で（It is possible for them to do the work）、人・組織を主語にして「〜できる」の意味では使えず、of 句も取らない。', 'skilled は be skilled at / in / with の型で、of は取らない。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'The mill last operated commercially in 1981.',

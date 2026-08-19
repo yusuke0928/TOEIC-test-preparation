@@ -20,6 +20,12 @@ const RANGES = [
 let range = 'all';
 let target = '900';
 
+// 迷いの指標（正解時/誤答時の平均解答時間の比較）を断定するのに必要な最小サンプル数。
+// 正解・誤答のどちらかがこれ未満だと平均が1〜2件で決まってしまい、
+// 「誤答が速すぎる」「時間をかけ過ぎ」のような助言が誤って出る。
+// 02 パート別到達度の「データ不足」判定（d.n >= 8）に合わせた値。
+const HES_MIN_N = 8;
+
 export default async function analytics(el) {
   draw(el);
 }
@@ -218,7 +224,9 @@ function draw(el) {
           ${stat('正解時', `${hes.okAvg.toFixed(1)}`, `秒 / ${hes.okN} 問`)}
           ${stat('誤答時', `${hes.ngAvg.toFixed(1)}`, `秒 / ${hes.ngN} 問`, 'stat__v--shu')}
         </div>
-        <p class="note mt2">${hes.ngAvg > hes.okAvg * 1.35
+        <p class="note mt2">${hes.okN < HES_MIN_N || hes.ngN < HES_MIN_N
+          ? `まだ判定できるほどのデータがありません（正解・誤答それぞれ ${HES_MIN_N} 問以上が条件）。`
+          : hes.ngAvg > hes.okAvg * 1.35
           ? '誤答時に時間をかけ過ぎています。<b>20 秒考えて決まらない問題は捨てる</b>判断が、Part 7 の残り時間を守ります。'
           : hes.ngAvg < hes.okAvg * .75
           ? '誤答が速すぎます。読み飛ばしや早合点の可能性。設問の主語と時制を確認する癖をつけてください。'

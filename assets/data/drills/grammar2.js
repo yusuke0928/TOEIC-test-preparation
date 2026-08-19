@@ -15,7 +15,7 @@ export const UNITS = [
 
   /* ══ 接続詞・前置詞・副詞 ═══════════════════════════ */
   q('conjprep-01', {
-    t: ['conjprep'], lv: 4,
+    t: ['conjprep'], lv: 3,
     s: '------- the extended warranty covers parts and labor, it does not include damage caused by misuse.',
     c: ['Despite', 'In spite of', 'Although', 'Nevertheless'],
     a: 2,
@@ -29,7 +29,7 @@ export const UNITS = [
   }),
 
   q('conjprep-02', {
-    t: ['conjprep'], lv: 4,
+    t: ['conjprep'], lv: 3,
     s: 'The ferry service will be suspended ------- the storm warning remains in effect.',
     c: ['during', 'in the course of', 'throughout', 'while'],
     a: 3,
@@ -43,7 +43,7 @@ export const UNITS = [
   }),
 
   q('conjprep-03', {
-    t: ['conjprep'], lv: 5,
+    t: ['conjprep'], lv: 4,
     s: '------- rising material costs, the manufacturer has kept its retail prices unchanged for two years.',
     c: ['Even though', 'Whereas', 'Notwithstanding', 'However'],
     a: 2,
@@ -57,7 +57,7 @@ export const UNITS = [
   }),
 
   q('conjprep-04', {
-    t: ['conjprep'], lv: 5,
+    t: ['conjprep'], lv: 4,
     s: 'Please submit the reimbursement form ------- three weeks of your return, or the claim may be denied.',
     c: ['during', 'by', 'until', 'within'],
     a: 3,
@@ -71,7 +71,7 @@ export const UNITS = [
   }),
 
   q('conjprep-05', {
-    t: ['conjprep'], lv: 5,
+    t: ['conjprep'], lv: 4,
     s: 'The prototype performed well in the lab; -------, it failed the field trial in humid conditions.',
     c: ['therefore', 'so that', 'moreover', 'however'],
     a: 3,
@@ -85,29 +85,29 @@ export const UNITS = [
   }),
 
   q('conjprep-06', {
-    t: ['conjprep'], lv: 5,
+    t: ['conjprep'], lv: 4,
     s: 'Applications will be reviewed on a rolling basis ------- all positions have been filled.',
     c: ['by the time', 'as long as', 'since', 'until'],
     a: 3,
-    e: '「全ポジションが埋まるまで（随時）審査する」という継続の終点。until が入る。',
-    w: ['「〜するころには」。継続の終点を示す文脈に合わない。',
-        '「〜する限り」。条件を表し、終点を示さない。',
-        '「〜以来」。時間の起点で、文意が逆になる。',
-        '正解。継続の終点を表す。'],
+    e: '「随時（on a rolling basis）審査を続け、全ポジションが充足された時点でそれを終える」という継続の終点を示す接続詞が要る。その終点を表すのが until。',
+    w: ['「〜する頃までには」。主節の内容がその時点までに完了していることを述べる表現で、継続の終点は示さない。入れると「全ポジションが埋まる頃には審査が済んでいる」という別の主張になり、随時審査を続けるという前半と噛み合わない。',
+        '「〜する限り／〜する間ずっと」。条件または並行する期間を示す語で、終点を示さない。条件と読めば「全ポジションが充足されていること」が審査の条件となり、応募書類を審査する意味自体が消える。',
+        '接続詞 since には「〜して以来」（時の起点）と「〜だから」（理由）の 2 つの語義があるが、起点なら「充足されて以来ずっと審査する」、理由なら「充足されたから審査する」となり、どちらの読みでも充足後に審査を続けることになって文が破綻する。',
+        '正解。until は継続の終点（〜するまでずっと）を表す。'],
     ja: '応募書類は、全ポジションが充足されるまで随時審査されます。',
     v: [['on a rolling basis', '随時、先着順で']],
   }),
 
   q('conjprep-07', {
-    t: ['conjprep'], lv: 5,
+    t: ['conjprep'], lv: 4,
     s: 'The contract may be terminated by either party ------- ninety days\' written notice.',
     c: ['as of', 'toward', 'upon', 'across'],
     a: 2,
-    e: 'upon + 名詞で「〜と同時に、〜があり次第」。upon receipt / upon arrival / upon notice は契約文書の定型。',
-    w: ['「〜の時点で」。日付を伴う（as of May 1）。',
-        '「〜の方へ」。意味が通らない。',
-        '正解。「〜があり次第」。',
-        '「〜を横切って」。意味が通らない。'],
+    e: 'upon + 名詞で「〜があり次第、〜と同時に」。upon receipt / upon arrival / upon ninety days\' notice は契約文書の定型で、解除が効力を生じる契機を示す。',
+    w: ['「〜の時点で（有効となる）」。as of May 1 / as of today のように時点を表す名詞句を取る前置詞で、ninety days\' written notice（書面通知という行為・文書）は時点ではないため結び付かない。',
+        '方向（〜の方へ）、時刻の接近（toward evening）、費用の充当（$500 toward the cost）を表す前置詞で、行為の契機・条件を示す語義を持たない。',
+        '正解。upon + 名詞で「〜があり次第」。',
+        '空間の横断（across the street）や範囲・期間全体（across three years）に用いる前置詞。取れるのは場所や期間を表す名詞句だが、ここの主要語は notice（通知という行為）であり、契機を示す語義も持たない。'],
     ja: '本契約は、いずれの当事者からも 90 日前の書面通知により解除することができます。',
     v: [['terminate', '解除する'], ['either party', 'いずれの当事者も']],
   }),
@@ -128,7 +128,7 @@ export const UNITS = [
 
   /* ══ 代名詞 ══════════════════════════════════════════ */
   q('pron-01', {
-    t: ['pron'], lv: 4,
+    t: ['pron'], lv: 3,
     s: 'The board members drafted the revised bylaws -------, without hiring outside counsel.',
     c: ['them', 'they', 'themselves', 'their'],
     a: 2,
@@ -142,7 +142,7 @@ export const UNITS = [
   }),
 
   q('pron-02', {
-    t: ['pron'], lv: 5,
+    t: ['pron'], lv: 4,
     s: 'The cost of the imported units is nearly double ------- of the domestically produced ones.',
     c: ['this', 'it', 'those', 'that'],
     a: 3,
@@ -156,7 +156,7 @@ export const UNITS = [
   }),
 
   q('pron-03', {
-    t: ['pron'], lv: 4,
+    t: ['pron'], lv: 3,
     s: '------- who submitted an abstract before the deadline will be notified of the outcome by Friday.',
     c: ['Anyone', 'Whoever', 'Those', 'Them'],
     a: 2,
@@ -170,7 +170,7 @@ export const UNITS = [
   }),
 
   q('pron-04', {
-    t: ['pron'], lv: 5,
+    t: ['pron'], lv: 4,
     s: 'The two candidates have similar credentials, but ------- has managed a team of this size.',
     c: ['either', 'both', 'none', 'neither'],
     a: 3,
@@ -183,22 +183,22 @@ export const UNITS = [
     v: [['credentials', '資格、経歴']],
   }),
 
-  q('pron-05', {
-    t: ['pron'], lv: 5,
-    s: 'Team leaders are expected to keep ------- informed of any change to the delivery schedule.',
-    c: ['the other', 'themselves', 'one another', 'their own'],
+  q('pron-05b', {
+    t: ['pron'], lv: 4,
+    s: 'The four regional managers are expected to review ------- sales forecasts before the quarterly meeting.',
+    c: ['each other', 'themselves', 'one another\'s', 'theirs'],
     a: 2,
-    e: 'keep A informed of B「A に B を知らせ続ける」の A に入るのは、複数のリーダーが互いに知らせ合う関係を表す相互代名詞 one another。',
-    w: ['「もう一方」。2 者のうちの片方を指す語で、複数のリーダー同士の相互関係を表せない。',
-        '再帰代名詞。自分自身に知らせる意になり不自然。',
-        '正解。相互代名詞。',
-        '所有表現。keep の目的語にならない。'],
-    ja: 'チームリーダーは、納品スケジュールの変更について互いに情報を共有し続けることが求められる。',
-    v: [['keep A informed of B', 'A に B を随時知らせる']],
+    e: '空所は名詞 sales forecasts の直前、つまり限定詞の位置。「4 人が互いの予測を検討し合う」という相互関係を名詞の前で表せるのは、相互代名詞の所有格 one another\'s（= each other\'s）だけ。',
+    w: ['相互代名詞ではあるが所有格ではない。名詞 forecasts の前に置くには each other\'s の形にする必要がある。',
+        '再帰代名詞。限定詞の位置には入れない（「自分自身の」を表したいなら their own）。',
+        '正解。相互代名詞の所有格。互いの予測を検討し合う関係を表す。',
+        '所有代名詞。それ自体で名詞句を作る語なので、後ろに名詞を続けられない（their なら可）。'],
+    ja: '4 名の地域統括マネージャーは、四半期会議の前に互いの売上予測に目を通すことになっている。',
+    v: [['one another\'s', '互いの'], ['sales forecast', '売上予測'], ['quarterly', '四半期の']],
   }),
 
   q('pron-06', {
-    t: ['pron'], lv: 4,
+    t: ['pron'], lv: 3,
     s: 'If the shipment arrives damaged, please photograph ------- before contacting the carrier.',
     c: ['its', 'them', 'itself', 'it'],
     a: 3,
@@ -212,7 +212,7 @@ export const UNITS = [
   }),
 
   q('pron-07', {
-    t: ['pron'], lv: 5,
+    t: ['pron'], lv: 4,
     s: 'Of the three proposals reviewed, ------- addressed the question of long-term maintenance costs.',
     c: ['neither', 'either', 'none', 'no one'],
     a: 2,
@@ -226,7 +226,7 @@ export const UNITS = [
   }),
 
   q('pron-08', {
-    t: ['pron'], lv: 5,
+    t: ['pron'], lv: 4,
     s: 'The consultant\'s recommendations were sound, but ------- of them could be implemented within the current budget.',
     c: ['few', 'a few', 'little', 'much'],
     a: 0,
@@ -241,21 +241,21 @@ export const UNITS = [
 
   /* ══ 比較 ════════════════════════════════════════════ */
   q('comp-01', {
-    t: ['comp'], lv: 4,
+    t: ['comp'], lv: 3,
     s: 'Final payment must be received no ------- than the fifteenth of the month following delivery.',
     c: ['late', 'lately', 'latest', 'later'],
     a: 3,
-    e: 'no later than「遅くとも〜までに」は契約・案内文の定型表現。than があるので比較級。',
-    w: ['原級。than と組み合わない。',
-        '副詞「最近」。意味が通らない。',
-        '最上級。than とは結び付かない。',
+    e: 'no later than「遅くとも〜までに」は契約・案内文の定型表現。than と相関できるのは比較級だけなので later が入る。',
+    w: ['原級。than と相関できるのは比較級（-er / more ...）に限られ、no late than という形は作れない。',
+        '副詞 lately は「最近」の意味しかなく比較級でもないため、than と相関しない。「遅く」の意味の副詞は late。',
+        '最上級。比較の範囲は of / in や関係詞節で示すもので、than とは結び付かない。期限を表す定型は at the latest であり、no ... than の枠には入らない。',
         '正解。no later than の定型。'],
     ja: '最終支払いは、納品の翌月 15 日までに着金する必要があります。',
     v: [['no later than', '遅くとも〜までに']],
   }),
 
   q('comp-02', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 4,
     s: 'The new filtration unit removes ------- three times as many particulates as the model it replaces.',
     c: ['very', 'much', 'more', 'nearly'],
     a: 3,
@@ -269,7 +269,7 @@ export const UNITS = [
   }),
 
   q('comp-03', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 3,
     s: 'The ------- the response time, the higher the customer satisfaction score tends to be.',
     c: ['shorter', 'short', 'shortest', 'shortly'],
     a: 0,
@@ -283,7 +283,7 @@ export const UNITS = [
   }),
 
   q('comp-04', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 3,
     s: 'Attendance at this year\'s trade fair was ------- higher than organizers had projected.',
     c: ['very', 'so', 'far', 'too'],
     a: 2,
@@ -297,7 +297,7 @@ export const UNITS = [
   }),
 
   q('comp-05', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 3,
     s: 'Of all the branch offices, the Halifax location reported ------- growth last quarter.',
     c: ['the strongest', 'stronger', 'as strong', 'strongly'],
     a: 0,
@@ -311,7 +311,7 @@ export const UNITS = [
   }),
 
   q('comp-06', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 4,
     s: 'The updated interface is ------- as intuitive as the previous one, according to usability testing.',
     c: ['twice', 'double', 'more', 'many'],
     a: 0,
@@ -339,7 +339,7 @@ export const UNITS = [
   }),
 
   q('comp-08', {
-    t: ['comp'], lv: 5,
+    t: ['comp'], lv: 4,
     s: 'The renovation took three months longer than -------, largely because of permitting delays.',
     c: ['anticipating', 'to anticipate', 'anticipated', 'anticipation'],
     a: 2,
@@ -354,7 +354,7 @@ export const UNITS = [
 
   /* ══ 数量詞と可算性 ═════════════════════════════════ */
   q('quant-01', {
-    t: ['quant'], lv: 4,
+    t: ['quant'], lv: 3,
     s: 'Very ------- laboratory equipment was damaged when the sprinkler system activated.',
     c: ['few', 'a number of', 'many', 'little'],
     a: 3,
@@ -368,7 +368,7 @@ export const UNITS = [
   }),
 
   q('quant-02', {
-    t: ['quant'], lv: 4,
+    t: ['quant'], lv: 3,
     s: '------- employee is required to complete the information-security module before the end of the quarter.',
     c: ['Every', 'All', 'Most', 'Several'],
     a: 0,
@@ -382,7 +382,7 @@ export const UNITS = [
   }),
 
   q('quant-03', {
-    t: ['quant'], lv: 5,
+    t: ['quant'], lv: 3,
     s: 'The consultant provided ------- useful advice on restructuring the department\'s workflow.',
     c: ['many', 'a few', 'a great deal of', 'numerous'],
     a: 2,
@@ -396,7 +396,7 @@ export const UNITS = [
   }),
 
   q('quant-04', {
-    t: ['quant'], lv: 5,
+    t: ['quant'], lv: 4,
     s: '------- of the two shortlisted vendors meets our data-residency requirements, so the search will continue.',
     c: ['None', 'Both', 'Either', 'Neither'],
     a: 3,
@@ -424,7 +424,7 @@ export const UNITS = [
   }),
 
   q('quant-06', {
-    t: ['quant'], lv: 5,
+    t: ['quant'], lv: 4,
     s: 'The archive holds ------- 12,000 photographs, most of which have yet to be digitized.',
     c: ['as much as', 'as many as', 'so many', 'too many'],
     a: 1,
@@ -438,7 +438,7 @@ export const UNITS = [
   }),
 
   q('quant-07', {
-    t: ['quant'], lv: 5,
+    t: ['quant'], lv: 3,
     s: 'Each of the regional managers ------- responsible for submitting a quarterly forecast.',
     c: ['are', 'is', 'were', 'have been'],
     a: 1,
@@ -452,7 +452,7 @@ export const UNITS = [
   }),
 
   q('quant-08', {
-    t: ['quant'], lv: 5,
+    t: ['quant'], lv: 4,
     s: 'There is ------- room in the budget for an additional contractor this fiscal year.',
     c: ['few', 'a few', 'little', 'many'],
     a: 2,
@@ -467,7 +467,7 @@ export const UNITS = [
 
   /* ══ 倒置・強調・省略 ═══════════════════════════════ */
   q('inv-01', {
-    t: ['inv'], lv: 5,
+    t: ['inv'], lv: 4,
     s: 'Not only ------- the deadline, but they also came in under budget.',
     c: ['they met', 'did they meet', 'met they', 'they did meet'],
     a: 1,
@@ -481,7 +481,7 @@ export const UNITS = [
   }),
 
   q('inv-02', {
-    t: ['inv'], lv: 5,
+    t: ['inv'], lv: 4,
     s: 'Rarely ------- a manuscript require so few revisions before publication.',
     c: ['is', 'do', 'it does', 'does'],
     a: 3,
@@ -495,7 +495,7 @@ export const UNITS = [
   }),
 
   q('inv-03', {
-    t: ['inv'], lv: 5,
+    t: ['inv'], lv: 4,
     s: 'Under no circumstances ------- visitors permitted beyond the yellow line without an escort.',
     c: ['being', 'they are', 'are', 'to be'],
     a: 2,
@@ -536,20 +536,6 @@ export const UNITS = [
     v: [['fault', '不具合'], ['reproduce', '再現する']],
   }),
 
-  q('inv-06', {
-    t: ['inv'], lv: 5,
-    s: 'The revised figures were higher than expected, as ------- the projections for the following year.',
-    c: ['they were', 'was', 'did', 'were'],
-    a: 3,
-    e: 'as + 倒置で「〜もまたそうだった」。主語 the projections が複数なので were。前の文の述語が were higher であることにも対応する。',
-    w: ['倒置されていない。',
-        '単数形。projections は複数。',
-        'be 動詞の代用に did は使えない。',
-        '正解。複数主語に一致した倒置。'],
-    ja: '改訂後の数値は予想を上回っており、翌年の見通しも同様だった。',
-    v: [['projection', '見通し、予測値']],
-  }),
-
   q('inv-07', {
     t: ['inv'], lv: 4,
     s: 'It was the packaging redesign, not the advertising campaign, ------- drove the increase in repeat purchases.',
@@ -565,7 +551,7 @@ export const UNITS = [
   }),
 
   q('inv-08', {
-    t: ['inv'], lv: 5,
+    t: ['inv'], lv: 4,
     s: 'Please review the attached summary and, if ------- , forward it to your regional director.',
     c: ['necessary', 'necessity', 'necessarily', 'to necessitate'],
     a: 0,
@@ -584,17 +570,17 @@ export const UNITS = [
     s: 'A discrepancy in the inventory count ------- during the routine audit last Thursday.',
     c: ['arose', 'was arisen', 'was arising', 'has arisen'],
     a: 0,
-    e: 'arise は「生じる」の自動詞で受動態にできない。last Thursday という過去の時点があるので過去形 arose。',
-    w: ['正解。自動詞の過去形。',
-        '自動詞は受動態にできない。',
-        '進行形は瞬間的な発生を表す文脈に合わない。',
-        '現在完了は明確な過去時点と併用できない。'],
+    e: 'arise は主要辞書がそろって自動詞としてのみ載せる動詞（目的語を取る用法が無い）なので、受動態そのものを作れない。last Thursday という明確な過去の時点があるので過去形 arose。',
+    w: ['正解。自動詞 arise の過去形。',
+        '受動態。arise には目的語を取る他動詞用法が無いため、受動態を作れない。',
+        '過去進行形。arise は「（問題・不一致などが）発生する」という一瞬の出来事を表す動詞で、進行形にすると「発生しつつある（まだ起こりきっていない）」の読みになり、監査中に判明した 1 件の不一致という完結した出来事を表せない。',
+        '現在完了。last Thursday のように明確な過去の時点を示す副詞句とは共起できない。'],
     ja: '先週木曜日の定期監査中に、在庫数の不一致が判明した。',
     v: [['discrepancy', '不一致'], ['arise', '生じる'], ['routine audit', '定期監査']],
   }),
 
   q('voice-02', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 3,
     s: 'All maintenance requests ------- through the online portal rather than by telephone.',
     c: ['should submit', 'submitting', 'should be submitted', 'have submitted'],
     a: 2,
@@ -608,7 +594,7 @@ export const UNITS = [
   }),
 
   q('voice-03', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 4,
     s: 'The merger talks ------- for nearly a year before both boards finally approved the terms.',
     c: ['had lasted', 'had been lasted', 'were lasting', 'have lasted'],
     a: 0,
@@ -622,7 +608,7 @@ export const UNITS = [
   }),
 
   q('voice-04', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 3,
     s: 'The delegation ------- at the north gate by a representative from the mayor\'s office.',
     c: ['was greeted', 'greeted', 'has greeted', 'greeting'],
     a: 0,
@@ -636,7 +622,7 @@ export const UNITS = [
   }),
 
   q('voice-05', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 4,
     s: 'Attendees are asked to ------- their badges visible at all times while on the premises.',
     c: ['remain', 'keep', 'stay', 'be kept'],
     a: 1,
@@ -650,7 +636,7 @@ export const UNITS = [
   }),
 
   q('voice-06', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 3,
     s: 'The final report ------- to the steering committee no later than the end of the month.',
     c: ['must circulate', 'must be circulated', 'circulating', 'is circulating'],
     a: 1,
@@ -664,7 +650,7 @@ export const UNITS = [
   }),
 
   q('voice-07', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 3,
     s: 'Several complaints about the noise ------- since construction began in February.',
     c: ['have received', 'have been received', 'received', 'are receiving'],
     a: 1,
@@ -678,7 +664,7 @@ export const UNITS = [
   }),
 
   q('voice-08', {
-    t: ['voice'], lv: 5,
+    t: ['voice'], lv: 4,
     s: 'The training materials ------- of a workbook, a set of case studies, and access to the online forum.',
     c: ['are consisted', 'consist', 'are consisting', 'consisting'],
     a: 1,

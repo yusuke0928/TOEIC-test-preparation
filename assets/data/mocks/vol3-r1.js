@@ -50,8 +50,11 @@ export const R1 = [
     s: 'The institute will ------- an inquiry into the discrepancies identified in last year\'s returns.',
     c: ['lift', 'lodge', 'launch', 'lease'],
     a: 2,
-    e: 'launch an inquiry / launch an investigation「調査を開始する」が定型。',
-    w: ['「解除する、持ち上げる」。', 'lodge a complaint なら可。inquiry とは組みにくい。', '正解。', '「賃貸する」。'],
+    e: 'an inquiry into ...（〜についての調査）を目的語に取れるのは、活動を開始する意味の launch（launch an inquiry / an investigation / a campaign）。他の 3 語はそれぞれ目的語に取れる名詞の種類が決まっており、「調査」はどれにも当てはまらない。',
+    w: ['lift が「解除する」で目的語に取るのは、課されている制限（lift a ban / restrictions / sanctions / a curfew）。調査は解除される制限ではない。',
+        'lodge が目的語に取るのは、正式に提出する申し立て（lodge a complaint / an appeal / an objection / a claim）で、提出先は with で示す。into the discrepancies が付いた an inquiry は「調査という活動」であって提出物ではないため、lodge の目的語にはならない。',
+        '正解。launch an inquiry into ...「〜についての調査を開始する」。',
+        'lease は「賃貸借する」で、目的語は不動産・車両・設備など貸し借りの対象物。'],
     ja: '当研究所は、昨年度の申告に見つかった不一致について調査を開始する。' }),
 
   p5(105, { t: ['ptcp'], lv: 5,
@@ -74,8 +77,11 @@ export const R1 = [
     s: 'The findings are consistent ------- those reported by the Uppsala team last spring.',
     c: ['to', 'of', 'for', 'with'],
     a: 3,
-    e: 'be consistent with「〜と一致する」。',
-    w: ['to は取らない。', 'of は取らない。', 'for は取らない。', '正解。'],
+    e: '「〜と一致する、矛盾しない」の意味の consistent は前置詞 with を固定で取る（be consistent with ...）。この語義で to / of / for を取る型はどの辞書にも無い。consistent が別の前置詞と結び付くのは「一貫している」の意味で in を取るとき（consistent in quality）だけ。',
+    w: ['to を取るのは similar / identical / equivalent など別の形容詞。consistent to という型は無い。',
+        'of を続ける型は無い。consistent の後ろに来るのは照合の相手であって、構成や所属ではない。',
+        'for を続ける型は無い。',
+        '正解。be consistent with「〜と一致する」。'],
     ja: 'その結果は、昨春ウプサラのチームが報告したものと一致している。' }),
 
   p5(108, { t: ['quant'], lv: 4,
@@ -130,8 +136,11 @@ export const R1 = [
     s: 'The two accounts of the incident differ ------- on the question of who gave the instruction.',
     c: ['shortly', 'sharply', 'shabbily', 'sheerly'],
     a: 1,
-    e: 'differ sharply「大きく食い違う」。程度を表す自然なコロケーション。',
-    w: ['「まもなく」。', '正解。', '「みすぼらしく」。', '「まったく」。副詞としてこの文脈では使わない。'],
+    e: 'sharply は差や変化の大きさ・鋭さを表す副詞で、differ / disagree / rise / decline などの程度を修飾する（differ sharply「大きく食い違う」）。他の 3 語は程度を表す副詞ではない。',
+    w: ['shortly が表すのは「まもなく（時期）」「そっけなく（話し方）」「手短に」で、差の大きさは表さない。現在形の differ と組めば「まもなく」の読みも作れない。',
+        '正解。differ sharply on ...「〜の点で大きく食い違う」。',
+        'shabbily が修飾するのは身なり（dressed shabbily）か人の扱い方（treat someone shabbily）。差の程度には使わない。',
+        'sheerly は sheer の副詞形で、用例は「垂直に」「純然と」に限られる。動詞 differ の程度を修飾する用法は辞書に無い。'],
     ja: 'その出来事についての 2 つの説明は、誰が指示を出したのかという点で大きく食い違っている。' }),
 
   p5(115, { t: ['subj'], lv: 5,
@@ -142,13 +151,27 @@ export const R1 = [
     w: ['正解。', '能動。不具合が検知することになる。', '分詞。', '原形の受動。'],
     ja: 'その不具合がもっと早く検知されていれば、ラインが 1 交代分すべて停止することはなかっただろう。' }),
 
-  p5(116, { t: ['confuse'], lv: 5,
-    s: 'The revised timetable is ------- ; the final version will be published in February.',
-    c: ['indicated', 'indicative', 'indication', 'indicatively'],
-    a: 1,
-    e: 'indicative「目安の、暫定的な」。セミコロン以下の「最終版は 2 月に公表」と整合する。',
-    w: ['過去分詞。be indicated では「示されている」となり文意が変わる。', '正解。', '名詞。', '副詞。'],
-    ja: '改訂された日程表は目安であり、最終版は 2 月に公表される。' }),
+  /* id は v3q116r（no は模試の通し番号として 116 を維持するが、選択肢と stem を差し替えたため
+     設問 id は新規採番。旧 id v3q116 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     旧版は誤答に indicated を置いていたが、indicated には形容詞として「（処置などが）適切だ、
+     求められる」の語義があり（The revised timetable is indicated. で成立してしまう）、
+     第二の正解になっていた。p5() ヘルパーは id を no から自動生成し no を変えずに id だけ
+     変える手段がないため、このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v3-p5-116r', part: 5, kind: 'single', topics: ['confuse'], level: 5,
+    questions: [{
+      id: 'v3q116r', no: 116,
+      stem: 'The revised timetable is ------- only; the final version will be published in February.',
+      choices: ['indicating', 'indicative', 'indication', 'indicatively'],
+      answer: 1,
+      exp: 'be 動詞の補語に立ち、直後の only（「あくまで〜にすぎない」）に修飾される形容詞が入る。indicative は「（確定ではなく）目安の、暫定的な」で、figures are indicative only のように使う定型。セミコロン以下の「最終版は 2 月に公表」とも整合する。',
+      why: ['indicate は他動詞で、進行形にするなら示す内容を目的語として続けなければならない（is indicating the new departure times）。空所の後ろは only とセミコロンで、目的語になる要素が無い。自動詞用法は「（車が）方向指示器を出す」の意味だけで、timetable が主語では成り立たない。',
+            '正解。indicative only「あくまで目安」。',
+            '名詞。indication は限定詞を伴い、of 句や that 節で「何のしるしか」を示すのが辞書の用例（a good indication of healthy roots／no indication of his feelings／some indication as to ...）。限定詞も of 句も無い裸の名詞を be の補語に置く形は無く、「日程表＝しるし」という同一関係を作るなら an indication と冠詞が要る。',
+            '副詞。-ly の様態副詞は be の補語位置に立てない（この位置に立てる副詞は here / there / away など場所・時を表すものに限られる）。'],
+      ja: '改訂された日程表はあくまで目安であり、最終版は 2 月に公表される。',
+      topics: ['confuse'],
+    }],
+  },
 
   p5(117, { t: ['inv'], lv: 5,
     s: 'Only after the third inspection ------- the source of the leak identified.',
@@ -162,8 +185,11 @@ export const R1 = [
     s: 'The guidance ------- staff to record the serial number of every device issued.',
     c: ['insists', 'demands', 'requires', 'suggests'],
     a: 2,
-    e: 'require + O + to do の形。insist / demand / suggest は that 節を用い、人 + to do は取らない。',
-    w: ['insist on / that の形。', 'demand that の形。', '正解。', 'suggest that の形。'],
+    e: '空所の直後が staff（人）＋ to record。「人を目的語に取り、その人にさせる行為を to 不定詞で示す」型（V + 人 + to do）を持つのは require だけ。他の 3 語は要求・提案の内容を that 節（節内は原形＝仮定法現在）か動名詞で述べる型しか持たない。',
+    w: ['insist は insist on doing、または insist that + S + 原形。名詞を直接目的語に取る型が無いため staff を続けられない。',
+        'demand は demand + 事（demand an explanation）、demand to do、demand that + S + 原形。人を目的語に置いて to do を続ける型は無く、辞書にも demand somebody to do something は誤りと明記されている。',
+        '正解。require + 人 + to do。',
+        'suggest は suggest that + S + 原形、または suggest doing。人 + to do の型を持たない。'],
     ja: 'その指針は、貸与したすべての機器の製造番号を記録するよう職員に求めている。' }),
 
   p5(119, { t: ['ctense'], lv: 5,
@@ -178,8 +204,11 @@ export const R1 = [
     s: 'The two departments have agreed to ------- down the duplicated reporting to a single monthly return.',
     c: ['pair', 'pare', 'pour', 'peer'],
     a: 1,
-    e: 'pare down「削減する、切り詰める」。同音の pair との識別が要点。',
-    w: ['「組にする」。', '正解。', '「注ぐ」。', '「じっと見る」。'],
+    e: 'pare down A to B「A を B まで切り詰める」。同音の pair / pare の識別が要点で、pare だけが「削って減らす」意味を持つ。',
+    w: ['pair は「組にする」で、down とは句動詞を作らない（pair up / pair off）。pare down の綴り誤りとして頻出するが、pair down という辞書項目は存在しない。',
+        '正解。pare down「（数量・規模を）切り詰める」。pare down the list to five names のように to で到達点を示せる。',
+        'pour down の down は前置詞で、pour A down B（液体を通り道に流す）の型を取る。reporting は流し込む通り道になれず、to a single monthly return も係る先を失う。',
+        'peer は「じっと見る」の自動詞で目的語を取れない（peer down at / into … の形しかない）。'],
     ja: '2 つの部門は、重複していた報告を月 1 回の提出に絞ることで合意した。' }),
 
   p5(121, { t: ['pos'], lv: 5,
@@ -202,8 +231,11 @@ export const R1 = [
     s: 'The auditor was unable to ------- the discrepancy between the two sets of figures.',
     c: ['reconvene', 'reconcile', 'reconsider', 'reconstruct'],
     a: 1,
-    e: 'reconcile a discrepancy「食い違いを整合させる」。会計文書の定型。',
-    w: ['「再招集する」。', '正解。', '「再考する」。', '「再構成する」。'],
+    e: 'reconcile は「食い違う二つを突き合わせて辻褄を合わせる」で、discrepancy / figures / accounts を目的語に取る会計・監査の定型。他の 3 語は re- が付いた形が似ているだけで、目的語に取れるものの種類が違う。',
+    w: ['reconvene の目的語は、いったん散会した会議・法廷・委員会（reconvene the meeting）。discrepancy は再開できる集まりではない。',
+        '正解。reconcile the discrepancy / reconcile the figures。',
+        'reconsider の目的語は、いったん下した判断（reconsider a decision / an application / a position）。discrepancy は判断ではないので再考の対象にならない。',
+        'reconstruct の目的語は、元の形に組み直せるもの（reconstruct a building / reconstruct the sequence of events）。discrepancy は「二つが食い違っている状態」であって組み直す対象ではない。'],
     ja: '監査人は、2 組の数値の間の食い違いを整合させることができなかった。' }),
 
   p5(124, { t: ['conjprep'], lv: 5,
@@ -234,8 +266,11 @@ export const R1 = [
     s: 'The two figures are ------- identical, differing only in the third decimal place.',
     c: ['vaguely', 'virtually', 'variously', 'verbally'],
     a: 1,
-    e: 'virtually identical「ほぼ同一の」。小数第 3 位のみの差という説明と一致する。',
-    w: ['「漠然と」。', '正解。', '「さまざまに」。', '「口頭で」。'],
+    e: 'virtually は「実質的には」で、identical / impossible / certain のような限界を表す語と組み、そこにわずかに届かないことを表す。小数第 3 位だけが違うという後半の説明と正確に対応する。',
+    w: ['vaguely は「かすかに、漠然と」で、輪郭がぼやけていることを表す（vaguely familiar / vaguely aware）。identical は「完全に同一」という限界を指す語なので、ぼやけ具合を表す vaguely とは結び付かない。',
+        '正解。virtually identical「ほぼ同一の」。',
+        'variously は「さまざまに」で、複数のものが別々の形を取ることを表す（variously described as ...）。identical とは意味が正反対になる。',
+        'verbally は「口頭で」（伝達の手段）。一致の度合いを表す副詞ではない。'],
     ja: 'その 2 つの数値はほぼ同一で、小数第 3 位でのみ異なっている。' }),
 
   p5(128, { t: ['vform'], lv: 5,
@@ -250,22 +285,60 @@ export const R1 = [
     s: 'The council must ------- between competing demands on a fixed budget.',
     c: ['adopt', 'adapt', 'arbitrate', 'accumulate'],
     a: 2,
-    e: 'arbitrate between「〜の間を調停する」。競合する要求の調整という文脈。',
-    w: ['「採用する」。between とは組まない。', '「適応させる」。', '正解。', '「蓄積する」。'],
+    e: '空所の直後が between competing demands。対立する二つ（以上）の間に立って裁定することを表し、対立する側を between で示す型を持つのは arbitrate だけ（arbitrate between management and the union / between competing claims）。他の 3 語は between を続ける型を持たない。',
+    w: ['adopt は他動詞で、採用する対象を直接目的語に取る（adopt a policy）。between を続ける型が無い。',
+        'adapt は「適応する」なら to（adapt to the new system）、「作り替える」なら他動詞で目的語を取る。どちらの型でも between は続かない。',
+        '正解。arbitrate between「〜の間を裁定する、調整する」。',
+        'accumulate は「（次第に）たまる・ためる」で、自動詞なら主語自身が増えていく意味（interest accumulates）。between を続ける型が無い。'],
     ja: '議会は、限られた予算をめぐる競合する要求の間を調整しなければならない。' }),
 
   p5(130, { t: ['adjprep'], lv: 5,
     s: 'Access to the archive is contingent ------- prior approval from the collections officer.',
     c: ['upon', 'to', 'in', 'for'],
     a: 0,
-    e: 'be contingent upon / on「〜を条件とする」。',
-    w: ['正解。', 'to は取らない。', 'in は取らない。', 'for は取らない。'],
+    e: 'contingent は「〜次第である」の意味で前置詞 on / upon を固定で取る（be contingent on / upon ...）。この語義で to / in / for を取る型はどの辞書にも無い。',
+    w: ['正解。be contingent upon「〜を条件とする」。on でも同じ。',
+        'to を取るのは subject to ... など別の形容詞。contingent to という型は無い。',
+        'in を続ける型は無い。',
+        'for を続ける型は無い。'],
     ja: '資料室への立ち入りは、収蔵担当者による事前承認を条件とする。' }),
 
   /* ══════════ PART 6 ══════════ */
-  p6({
-    n: [131, 132, 133, 134], lv: 4, t: ['ctense', 'connect'],
-    doc: {
+  /* 設問 134 の id は v3q134r（no は 134 のまま。本文の該当文と選択肢を差し替えたため
+     設問 id を新規採番）。旧 v3q134 は hardly / rarely / arguably / scarcely から
+     arguably を選ばせる型で、旧 why[0] が「hardly the worst month は英語として成立する
+     言い方だが…矛盾する」と明示的に譲歩しており、談話の整合性でしか切れていなかった。
+     May is hardly the worst month（5 月がとりわけ悪い月というわけではない）としたうえで
+     「それでも作付け直後の断水は困る」と読めば前後と両立するので閉じていない。
+     CLAUDE.md の「肯定の副詞 vs 否定の副詞を単文の意味で選ばせる型は閉じられない」に当たる。
+
+     構造で切れる型に作り替えた。新しい空所は as serious as … という原級比較の直前にある。
+     原級比較は「両者に差が無い」ことを述べる形なので、前に置けるのは等しさの見方を言う語に
+     限られる（just / every bit、almost / nearly / nowhere near、twice / half）。
+     a good deal・far・considerably は「どれだけ差があるか」という差の量を測る語で、差そのものを
+     表す比較級 more … than にしか付かない。nowhere near as … as は差の量ではなく
+     「そこまで届かない」という近似なので、この一般化の反例にはならない。
+     裏付け：LDOCE は every bit as important/bad/good etc を句として立項し
+     「used to emphasize that something is equally important, bad etc as something else」
+     と定義、Jodi plays every bit as well as the men. を挙げる。
+     用例：Google Books ngram 1990-2019 平均で every bit as serious as 2.63e-09
+     （every bit as good as 4.28e-08）に対し、far as serious as / considerably as serious as /
+     a good deal as serious as はいずれも 0 件。同じ副詞が比較級に付く形は
+     far more serious than 4.28e-08、considerably more serious than 2.00e-09 と普通に出る。
+     英語版 Wikipedia の insource 完全一致でも every bit as serious as 2 件に対し
+     far as serious as・considerably as serious as・a good deal as serious as は 0 件。
+     選択肢は 2 語のものを 2 つ入れて、語形の長さで正解が見分けられないようにしてある。
+     判断過程の重複確認：adv-05r3（前置詞の目的語の内側で数量を前から修飾できるか）、
+     adv-06r（副詞が of 補語を後ろに取れるか）、v5q106r3（at all の認可）、
+     v1q128r2（定形節か分詞句か）のいずれとも別。同じ vol3 の設問 109 は
+     「比較級を強められる副詞はどれか（much 対 very / so / too）」で、本問はその裏返し、
+     すなわち「比較級を強める副詞は原級比較には付けない」を問う対の関係にある。
+     本文は空所を含む最終段落の 1 文だけを差し替えた。空所 {{1}}〜{{3}} は別の段落にあり、
+     文挿入 133 の根拠（直後の「必要な分だけ汲んでください。給水車の容量は…」）も無傷。
+     p6() ヘルパーは id を no から自動生成し、134 だけ id を変える手段がないため、
+     このユニットはヘルパーを使わず直接記述する。 */
+  { id: 'v3-p6-131', part: 6, kind: 'doc', topics: ['ctense', 'connect'], level: 4, docCount: 1,
+    docs: [{
       label: 'E-mail',
       head: 'To: All allotment holders\nFrom: secretary@brackenhillallotments.org\nDate: 3 May\nSubject: Water supply works, 12–16 May',
       body: [
@@ -273,38 +346,44 @@ export const R1 = [
         'The water main serving the site {{1}} between Monday 12 and Friday 16 May while the supplier replaces a section of failing pipe under the access track.',
         'During those five days there will be no mains water anywhere on the site. {{2}}, we have arranged for a 1,000-litre bowser to be positioned in the car park and refilled each morning.',
         '{{3}} Please take only what you need; the bowser holds roughly a fifth of what the site uses on a warm day.',
-        'The work is being carried out now rather than in autumn because the supplier can only guarantee a five-day window outside the winter programme. We recognise that May is {{4}} the worst month for this from a growing point of view, and we made the case for September, without success.',
+        'The work is being carried out now rather than in autumn because the supplier can only guarantee a five-day window outside the winter programme. We made the case for September, without success. With seedlings only just planted out, five days without mains water in May is {{4}} as serious as a fortnight without it would be in October.',
         'With apologies,\nThe Committee',
       ],
-    },
-    q: [
-      { tag: '態・時制', t: ['ctense', 'voice'],
-        c: ['will shut off', 'shuts off', 'has been shut off', 'will be shut off'],
-        a: 3,
-        e: '水道本管は「止められる」側なので受動態。5 月 12 日からという未来の予定なので未来形。',
-        w: ['能動態。', '現在形。', '現在完了。まだ止まっていない。', '正解。'] },
-      { tag: '接続語', t: ['connect'],
-        c: ['Nevertheless', 'Otherwise', 'Accordingly', 'Likewise'],
-        a: 2,
-        e: '「水が出ない」→「そこで給水車を手配した」という対応の関係。Accordingly。',
-        w: ['逆接。', '「さもなければ」。', '正解。', '並列。'] },
-      { tag: '文挿入', t: ['p6ins'],
-        c: [
+    }],
+    questions: [
+      { id: 'v3q131', no: 131, stem: null,
+        choices: ['will shut off', 'shuts off', 'has been shut off', 'will be shut off'],
+        answer: 3,
+        exp: '水道本管は「止められる」側なので受動態。5 月 12 日からという未来の予定なので未来形。',
+        why: ['能動態。', '現在形。', '現在完了。まだ止まっていない。', '正解。'],
+        topics: ['ctense', 'voice'], tag: '態・時制' },
+      { id: 'v3q132', no: 132, stem: null,
+        choices: ['Nevertheless', 'Otherwise', 'Accordingly', 'Likewise'],
+        answer: 2,
+        exp: '「水が出ない」→「そこで給水車を手配した」という対応の関係。Accordingly。',
+        why: ['逆接。', '「さもなければ」。', '正解。', '並列。'],
+        topics: ['connect'], tag: '接続語' },
+      { id: 'v3q133', no: 133, stem: null,
+        choices: [
           'The car park will be closed to vehicles during the works.',
           'The supplier has apologised for the disruption.',
           'Members are reminded to renew their subscriptions by June.',
           'A tap and two watering cans will be attached to the bowser.',
         ],
-        a: 3,
-        e: '直後が「必要な分だけ汲んでください。給水車の容量は暖かい日の使用量の約 5 分の 1」と続く。給水車から水を汲む手段を先に示す文が自然につながる。',
-        w: ['駐車場閉鎖なら給水車を置けず矛盾する。', '謝罪は次文の「必要な分だけ」につながらない。', '会費は無関係。', '正解。'] },
-      { tag: '語彙', t: ['adv'],
-        c: ['hardly', 'rarely', 'arguably', 'scarcely'],
-        a: 2,
-        e: '「生育の観点からは、おそらく最悪の月」。断定を和らげる arguably が入る。他の 3 語は否定的な意味で、後半の「9 月を主張したが通らなかった」という流れに合わない。',
-        w: ['「ほとんど〜ない」。', '「めったに〜ない」。', '正解。', '「ほとんど〜ない」。'] },
-      ],
-  }),
+        answer: 3,
+        exp: '直後が「必要な分だけ汲んでください。給水車の容量は暖かい日の使用量の約 5 分の 1」と続く。給水車から水を汲む手段を先に示す文が自然につながる。',
+        why: ['駐車場閉鎖なら給水車を置けず矛盾する。', '謝罪は次文の「必要な分だけ」につながらない。', '会費は無関係。', '正解。'],
+        topics: ['p6ins'], tag: '文挿入' },
+      { id: 'v3q134r', no: 134, stem: null,
+        choices: ['a good deal', 'far', 'every bit', 'considerably'],
+        answer: 2,
+        exp: '空所の後ろは as serious as ... という原級比較で、「二つのあいだに差が無い」ことを述べる形。この位置に入れるのは、その等しさをどう見るかを言う語に限られる。具体的には just / every bit（まったく同じだけ）、almost / nearly / nowhere near（そこに届くか届かないか）、twice / half（何倍か）といった語。一方 a good deal・far・considerably は「どれだけ差があるか」という差の量を測る語で、差そのものを表す比較級 more ... than に付く（far more serious than / considerably more serious than）。差がゼロだと述べている原級比較には測るべき差が無いため、この 3 語は空所に立てない。LDOCE は every bit as important/bad/good etc を句として立項し、「used to emphasize that something is equally important, bad etc as something else」と定義して Jodi plays every bit as well as the men. を挙げている。',
+        why: ['「かなり」。程度を測る副詞として使うときに付く先は比較級で（a good deal better / a good deal more expensive）、測っているのは二者の差の大きさ。差が無いと述べる as ... as の前には置けない（名詞を伴う a good deal of time は量を表す別の型）。',
+              'これも差の幅を測る語で、付く先は比較級（far more serious than / far worse）。as ... as は差がゼロであることを述べる形なので、far が測る対象が無い。なお as far as ... は「〜する限り」を表す別の型で、そこでは far が as の後ろに来る。ここは as の前の位置なのでその型にはならない。',
+              '正解。every bit as serious as ...「〜と全く同程度に深刻だ」。LDOCE が every bit as important/bad/good etc の形で立項する強調表現で、原級比較の前に置いて「まったく同程度だ」と念押しする。5 月の 5 日間が 10 月の 2 週間に匹敵するという書き方で、作付け直後の断水の重さを述べている。',
+              '「相当に」。変化や差の大きさを測る語で、掛かる先は比較級か変化を表す動詞・分詞（considerably higher / considerably more difficult / considerably improved）。差がゼロだと述べる原級比較の前には、測る対象が無いので置けない。'],
+        topics: ['adv'], tag: '比較' },
+    ] },
 
   p6({
     n: [135, 136, 137, 138], lv: 5, t: ['cohesion', 'p6ins'],

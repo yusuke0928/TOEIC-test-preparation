@@ -45,7 +45,7 @@ export const UNITS = [
   }),
 
   q('pos-03', {
-    t: ['pos'], lv: 4,
+    t: ['pos'], lv: 3,
     s: 'All laboratory personnel must obtain ------- from the safety officer before operating the autoclave.',
     c: ['authorize', 'authorization', 'authorized', 'authoritative'],
     a: 1,
@@ -59,7 +59,7 @@ export const UNITS = [
   }),
 
   q('pos-04', {
-    t: ['pos'], lv: 4,
+    t: ['pos'], lv: 3,
     s: 'The revised contract is ------- more favorable to subcontractors than the version circulated last quarter.',
     c: ['consider', 'considerable', 'considerably', 'consideration'],
     a: 2,
@@ -73,7 +73,7 @@ export const UNITS = [
   }),
 
   q('pos-05', {
-    t: ['pos'], lv: 5,
+    t: ['pos'], lv: 3,
     s: 'Attendance at the workshop is limited, so early registration is ------- recommended for those hoping to secure a seat.',
     c: ['strong', 'strength', 'strongly', 'stronger'],
     a: 2,
@@ -87,7 +87,7 @@ export const UNITS = [
   }),
 
   q('pos-06', {
-    t: ['pos'], lv: 4,
+    t: ['pos'], lv: 3,
     s: 'Because the two departments work in close -------, duplicated effort has been almost entirely eliminated.',
     c: ['collaborate', 'collaborative', 'collaboration', 'collaboratively'],
     a: 2,
@@ -101,7 +101,7 @@ export const UNITS = [
   }),
 
   q('pos-07', {
-    t: ['pos'], lv: 5,
+    t: ['pos'], lv: 4,
     s: 'The auditors found the accounting records ------- organized, which shortened the review considerably.',
     c: ['meticulous', 'more meticulous', 'meticulousness', 'meticulously'],
     a: 3,
@@ -115,22 +115,22 @@ export const UNITS = [
   }),
 
   q('pos-08', {
-    t: ['pos', 'quant'], lv: 4,
+    t: ['pos', 'quant'], lv: 3,
     s: 'Only applicants with ------- experience in industrial design will be considered for the senior post.',
     c: ['extend', 'extension', 'extensively', 'extensive'],
     a: 3,
     e: '前置詞 with と名詞 experience の間なので形容詞。extensive experience「豊富な経験」は頻出のコロケーション。experience が不可算で使われている点にも注意。',
-    w: ['動詞。前置詞の後に原形は置けない。',
-        '名詞。extension experience と名詞が 2 つ並ぶ形は不自然。',
-        '副詞。名詞を修飾できない。',
-        '正解。名詞 experience を修飾する形容詞。'],
+    w: ['動詞の原形。前置詞 with の目的語になれるのは名詞句（または動名詞）で、原形は置けない。',
+        '名詞。名詞が名詞を修飾する複合名詞自体は作れるが、extension の語義（延長・内線・増築・拡張部分）はどれも experience の種類を限定できず、extension experience という結合は存在しない。ここは経験の量を述べる位置なので形容詞が要る。',
+        '副詞。副詞が修飾するのは動詞・形容詞・副詞・文であり、名詞 experience は修飾できない。',
+        '正解。名詞 experience を修飾する形容詞。extensive experience は頻出のコロケーション。'],
     ja: '工業デザインの豊富な経験を持つ応募者のみが、上級職の選考対象となります。',
     v: [['applicant', '応募者'], ['extensive', '広範な、豊富な'], ['post', '職、地位']],
   }),
 
   /* ══ 動詞の形 ════════════════════════════════════════ */
   q('vform-01', {
-    t: ['vform'], lv: 4,
+    t: ['vform'], lv: 3,
     s: 'By the time the new terminal ------- next spring, the airport will have doubled its passenger capacity.',
     c: ['will have opened', 'will open', 'is opening', 'opens'],
     a: 3,
@@ -144,7 +144,7 @@ export const UNITS = [
   }),
 
   q('vform-02', {
-    t: ['vform'], lv: 4,
+    t: ['vform'], lv: 3,
     s: 'Ms. Bhatt ------- with the Sydney office for six years before she transferred to headquarters last month.',
     c: ['has worked', 'will have worked', 'works', 'had worked'],
     a: 3,
@@ -158,7 +158,7 @@ export const UNITS = [
   }),
 
   q('vform-03', {
-    t: ['vform'], lv: 4,
+    t: ['vform'], lv: 3,
     s: 'Neither the project manager nor the site supervisors ------- aware that the permit had expired.',
     c: ['were', 'was', 'has been', 'is'],
     a: 0,
@@ -172,7 +172,7 @@ export const UNITS = [
   }),
 
   q('vform-04', {
-    t: ['vform'], lv: 5,
+    t: ['vform'], lv: 3,
     s: 'The shipment ------- by courier tomorrow morning, so please ensure someone is available to sign for it.',
     c: ['delivers', 'is delivering', 'will be delivered', 'has delivered'],
     a: 2,
@@ -200,7 +200,7 @@ export const UNITS = [
   }),
 
   q('vform-06', {
-    t: ['vform'], lv: 5,
+    t: ['vform'], lv: 3,
     s: 'Once the software patch ------- to all workstations, the intermittent login errors should disappear.',
     c: ['is applied', 'will apply', 'applies', 'will be applied'],
     a: 0,
@@ -214,7 +214,7 @@ export const UNITS = [
   }),
 
   q('vform-07', {
-    t: ['vform'], lv: 5,
+    t: ['vform'], lv: 4,
     s: 'The number of applications we receive each spring ------- steadily over the past five years.',
     c: ['has risen', 'have risen', 'are rising', 'rise'],
     a: 0,
@@ -243,7 +243,7 @@ export const UNITS = [
 
   /* ══ 仮定法・要求提案 ═══════════════════════════════ */
   q('subj-33', {
-    t: ['subj'], lv: 4,
+    t: ['subj'], lv: 5,
     s: 'If the company had unlimited warehouse space, it ------- inventory every year in advance of seasonal demand, instead of reordering in small batches as it does now.',
     c: ['stocks', 'would have stocked', 'would stock', 'stocked'],
     a: 2,
@@ -257,7 +257,7 @@ export const UNITS = [
   }),
 
   q('subj-02', {
-    t: ['subj'], lv: 4,
+    t: ['subj'], lv: 3,
     s: 'It is essential that every participant ------- a signed waiver before entering the testing area.',
     c: ['submits', 'is submitting', 'submitted', 'submit'],
     a: 3,
@@ -285,7 +285,7 @@ export const UNITS = [
   }),
 
   q('subj-04', {
-    t: ['subj'], lv: 5,
+    t: ['subj'], lv: 3,
     s: 'If the supplier had notified us of the delay earlier, we ------- alternative arrangements.',
     c: ['can make', 'could have made', 'will make', 'had made'],
     a: 1,
@@ -299,7 +299,7 @@ export const UNITS = [
   }),
 
   q('subj-05', {
-    t: ['subj'], lv: 4,
+    t: ['subj'], lv: 3,
     s: 'The board insisted that the audit ------- by an independent firm rather than by internal staff.',
     c: ['is conducted', 'conducts', 'was conducted', 'be conducted'],
     a: 3,
@@ -312,22 +312,8 @@ export const UNITS = [
     v: [['audit', '監査'], ['independent firm', '独立した（第三者の）会社']],
   }),
 
-  q('subj-06', {
-    t: ['subj'], lv: 5,
-    s: '------- the merger to proceed, roughly a fifth of the combined workforce would be redeployed.',
-    c: ['Is', 'Was', 'Been', 'Were'],
-    a: 3,
-    e: 'If the merger were to proceed の if が省略され、were が文頭に出た倒置。were to do は「仮に〜するとしたら」という控えめな仮定を表す。帰結節が would be redeployed であることも手がかり。',
-    w: ['現在形。仮定法の倒置を作れず、後ろの to proceed ともつながらない。',
-        '口語で was が使われることはあるが、if 省略の倒置では were のみを用いる。',
-        '過去分詞。文頭に置いても倒置にならない。',
-        '正解。were to do の were が文頭に出た倒置。'],
-    ja: '仮に合併が進むとすれば、統合後の従業員のおよそ 5 分の 1 が配置転換されることになる。',
-    v: [['merger', '合併'], ['redeploy', '配置転換する']],
-  }),
-
   q('subj-07', {
-    t: ['subj'], lv: 4,
+    t: ['subj'], lv: 3,
     s: 'Company policy requires that all expense reports ------- within thirty days of the trip.',
     c: ['filing', 'are filed', 'be filed', 'to be filed'],
     a: 2,
@@ -341,7 +327,7 @@ export const UNITS = [
   }),
 
   q('subj-08', {
-    t: ['subj'], lv: 5,
+    t: ['subj'], lv: 4,
     s: 'Mr. Adeyemi spoke as though he ------- the presenter himself, though he had only read the summary.',
     c: ['has been', 'will be', 'is', 'were'],
     a: 3,
@@ -356,7 +342,7 @@ export const UNITS = [
 
   /* ══ 準動詞 ══════════════════════════════════════════ */
   q('verbal-01', {
-    t: ['verbal'], lv: 4,
+    t: ['verbal'], lv: 3,
     s: 'The committee postponed ------- on the proposal until the revised budget figures were available.',
     c: ['voting', 'to vote', 'vote', 'to have voted'],
     a: 0,
@@ -370,7 +356,7 @@ export const UNITS = [
   }),
 
   q('verbal-02', {
-    t: ['verbal'], lv: 5,
+    t: ['verbal'], lv: 4,
     s: 'The design team is committed to ------- prototypes until the tolerance falls within specification.',
     c: ['refine', 'refined', 'refining', 'be refined'],
     a: 2,
@@ -384,7 +370,7 @@ export const UNITS = [
   }),
 
   q('verbal-03', {
-    t: ['verbal'], lv: 4,
+    t: ['verbal'], lv: 3,
     s: 'Employees who wish ------- the tuition reimbursement plan should contact the benefits coordinator.',
     c: ['joining', 'joined', 'join', 'to join'],
     a: 3,
@@ -397,22 +383,22 @@ export const UNITS = [
     v: [['tuition reimbursement', '学費補助'], ['benefits coordinator', '福利厚生担当者']],
   }),
 
-  q('verbal-04', {
-    t: ['verbal'], lv: 5,
-    s: 'The technician stopped ------- whether the sensor had been calibrated before restarting the line.',
-    c: ['to verify', 'verifying', 'verified', 'verification'],
+  q('verbal-04d', {
+    t: ['verbal'], lv: 4,
+    s: 'Fire regulations do not permit ------- the stairwell doors open, even during scheduled deliveries.',
+    c: ['propping', 'to prop', 'prop', 'propped'],
     a: 0,
-    e: 'stop to do は「〜するために立ち止まる」、stop doing は「〜するのをやめる」。ここでは「確認するために作業の手を止めた」という文意なので不定詞。',
-    w: ['正解。目的を表す不定詞。',
-        '動名詞だと「確認するのをやめた」となり、その後 before restarting と続く文脈に合わない。',
-        '過去分詞。stop の目的語にならない。',
-        '名詞。stop verification では whether 節が浮く。'],
-    ja: '技術者は、ラインを再稼働させる前にセンサーが校正済みかどうかを確認するために手を止めた。',
-    v: [['calibrate', '校正する'], ['verify', '確認する']],
+    e: 'permit の目的語になれるのは名詞・動名詞であって、to 不定詞ではない。to 不定詞が現れるのは「許される側」を表す目的語の後ろ（permit + 人 + to do、受動なら be permitted to do）に限られる。この文は permit の直後が空所で、その目的語が置かれていないので、目的語の位置に直接入れる動名詞 propping が答えになる。目的語を立てれば Fire regulations do not permit staff to prop the doors open. と to 不定詞が使える。prop A open は「A を開いたまま固定しておく」。allow も同じ二本立て。',
+    w: ['正解。permit の目的語の位置に入る動名詞。permit は許可の対象を名詞でも動名詞でも直接受けられる（permit the use of the hall / permit filming inside the gallery）。この propping が the stairwell doors を目的語に取り、open がその結果の状態を表す。',
+        'permit の to 不定詞は、許される側を表す目的語の後ろにしか置けない（permit + 人 + to do。受動の be permitted to do も、主語がその「許される側」にあたる）。ここは permit の直後で目的語が無く、to 不定詞が付く先がない。permit の目的語そのものになれるのは名詞・動名詞であって to 不定詞ではない。',
+        '原形。目的語の後ろに原形不定詞を取るのは let / make / have などの使役動詞で、permit はその型を取らない。名詞の prop（支柱）と読んでも、可算名詞が限定詞なしの単数のまま目的語にはなれず、the stairwell doors open を支配する語も無くなる。',
+        '過去分詞。分詞が名詞を前から修飾するときは限定詞の後ろに置くので（the propped doors）、propped the stairwell doors という語順は作れない。目的語の後ろに分詞を置く形（leave the doors propped open）とも語順が違い、permit はその型も取らない。'],
+    ja: '防火規定では、搬入作業が予定されている時間帯であっても、階段室の扉を開けたまま固定しておくことは認められていない。',
+    v: [['prop ... open', '〜を開いたまま固定しておく'], ['stairwell', '階段室'], ['fire regulations', '防火規定']],
   }),
 
   q('verbal-05', {
-    t: ['verbal'], lv: 5,
+    t: ['verbal'], lv: 4,
     s: 'Rather than ------- the entire fleet at once, the logistics firm is replacing vehicles in phases.',
     c: ['replacing', 'replacement', 'to replace', 'replaced'],
     a: 0,
@@ -426,7 +412,7 @@ export const UNITS = [
   }),
 
   q('verbal-06', {
-    t: ['verbal'], lv: 4,
+    t: ['verbal'], lv: 3,
     s: 'The grant enables small publishers ------- translation rights they could not otherwise afford.',
     c: ['acquire', 'acquiring', 'to acquire', 'acquisition'],
     a: 2,
@@ -439,22 +425,22 @@ export const UNITS = [
     v: [['grant', '助成金'], ['translation rights', '翻訳権'], ['afford', '（金銭的に）〜する余裕がある']],
   }),
 
-  q('verbal-07', {
-    t: ['verbal'], lv: 5,
-    s: 'We regret ------- you that the position has been filled by an internal candidate.',
-    c: ['informing', 'inform', 'to inform', 'to have informed'],
+  q('verbal-07b', {
+    t: ['verbal'], lv: 4,
+    s: 'The spokesperson now regrets ------- reporters that the merger was essentially settled, because the talks collapsed only two days later.',
+    c: ['to tell', 'told', 'telling', 'tell'],
     a: 2,
-    e: 'regret to do は「残念ながら〜する（これから伝える）」、regret doing は「〜したことを後悔する」。通知文の定型は regret to inform。',
-    w: ['動名詞では「知らせたことを後悔している」となり、通知の文意に合わない。',
-        '原形。regret の目的語にならない。',
-        '正解。これから伝える内容を導く不定詞。',
-        '完了不定詞。既に伝えた行為を指し、この文脈では不自然。'],
-    ja: '恐れ入りますが、当該ポジションは社内候補者により充足されましたことをお知らせいたします。',
-    v: [['internal candidate', '社内候補者'], ['fill a position', '（職を）埋める']],
+    e: 'regret doing は「（すでに）〜したことを後悔する」。now regrets と、発言時を起点にする two days later（その2日後）から、記者への発言は済んだ行為だとわかるので動名詞。なお regret to do は辞書でも say / tell / inform / announce といった伝達動詞とともに挙げられる形で、「残念ながら（これから）〜と申し上げる」と、これから告げる好ましくない知らせを切り出す定型（We regret to inform you that ...）である。',
+    w: ['不定詞。regret to tell は「残念ながらこれからお伝えする」と、これから告げる知らせを導く形。ここは発言が過去に済んでいること（過去を起点にしてはじめて成り立つ two days later があり、その2日後に交渉が決裂している）、告げた内容がその時点では好ましくない知らせではないことの両方から成立しない。',
+        '過去形・過去分詞。regret が目的語に取れるのは名詞・動名詞・that 節と to 不定詞であって、定形動詞や過去分詞は置けない。',
+        '正解。regret doing で「〜したことを後悔する」。',
+        '原形。regret は原形不定詞を目的語に取らない。'],
+    ja: '広報担当者は、合併はほぼ固まったと記者に語ったことを今になって悔やんでいる。交渉はその2日後に決裂したからだ。',
+    v: [['regret doing', '〜したことを後悔する'], ['regret to do', '残念ながら〜と申し上げる（say / tell / inform など伝達動詞とともに使う定型）'], ['collapse', '（交渉が）決裂する']],
   }),
 
   q('verbal-08', {
-    t: ['verbal'], lv: 5,
+    t: ['verbal'], lv: 3,
     s: 'The updated manual is worth ------- even by staff who completed the original training.',
     c: ['to review', 'review', 'reviewed', 'reviewing'],
     a: 3,
@@ -468,22 +454,22 @@ export const UNITS = [
   }),
 
   /* ══ 分詞・分詞構文 ═════════════════════════════════ */
-  q('ptcp-01', {
+  q('ptcp-01b', {
     t: ['ptcp'], lv: 4,
-    s: 'Passengers ------- on the delayed flight will receive a meal voucher at the service counter.',
-    c: ['booked', 'booking', 'to book', 'book'],
+    s: 'Passengers ------- by last night\'s three-hour delay may collect a meal voucher at the service counter.',
+    c: ['inconvenienced', 'inconveniencing', 'to inconvenience', 'inconvenience'],
     a: 0,
-    e: 'Passengers は「予約された」側ではなく「（便に）予約が入っている」状態を表す。be booked on a flight「便に予約が入っている」という受動の慣用表現から、過去分詞 booked が名詞を後置修飾する。',
-    w: ['正解。be booked on の受動表現に基づく後置修飾。',
-        '現在分詞。passengers が予約を取る行為者ととれるが、on the delayed flight と続く形では booked が自然。',
-        '不定詞。「これから予約する乗客」となり、遅延便の補償という文脈に合わない。',
-        '原形。修飾語として置けない。'],
-    ja: '遅延した便に予約が入っているお客様は、サービスカウンターで食事券をお受け取りいただけます。',
-    v: [['voucher', '引換券'], ['be booked on', '（便に）予約が入っている']],
+    e: 'inconvenience は他動詞のみで必ず目的語を取るが、空所の直後は動作主を示す by 句であり目的語が無い。したがって能動形は入らない。Passengers は「迷惑をかけられた」側なので、過去分詞が名詞を後置修飾する（= passengers who were inconvenienced by ...）。',
+    w: ['正解。過去分詞の後置修飾。be inconvenienced by 〜 の受動関係がそのまま名詞に係っている。',
+        '現在分詞。他動詞 inconvenience の能動形なので目的語が要るが、直後は by 句で目的語が置かれていない。',
+        '不定詞。名詞を後ろから修飾する to 不定詞は能動の意味になり、その行為者は by ではなく for で示す。by 句を続けたいなら to be inconvenienced by 〜 と受動にする必要がある。',
+        '原形または名詞。動詞と読めば他動詞なので目的語が要り、また述語動詞は may collect なので定形動詞としても置けない。名詞と読んでも Passengers inconvenience と名詞が 2 つ並ぶだけで、Passengers を後ろから修飾する形にはならない。'],
+    ja: '昨夜の3時間の遅延でご迷惑をおかけしたお客様は、サービスカウンターで食事券をお受け取りいただけます。',
+    v: [['inconvenience', '（動）〜に迷惑をかける'], ['voucher', '引換券'], ['collect', '受け取る']],
   }),
 
   q('ptcp-02', {
-    t: ['ptcp'], lv: 4,
+    t: ['ptcp'], lv: 3,
     s: 'The findings ------- in last month\'s journal have already been cited by three research groups.',
     c: ['publishing', 'to publish', 'publish', 'published'],
     a: 3,
@@ -497,7 +483,7 @@ export const UNITS = [
   }),
 
   q('ptcp-03', {
-    t: ['ptcp'], lv: 5,
+    t: ['ptcp'], lv: 4,
     s: '------- that the venue holds only 200 people, organizers capped online registration at 180.',
     c: ['Give', 'Giving', 'Given', 'To give'],
     a: 2,
@@ -511,7 +497,7 @@ export const UNITS = [
   }),
 
   q('ptcp-04', {
-    t: ['ptcp'], lv: 5,
+    t: ['ptcp'], lv: 4,
     s: '------- the safety inspection, the crew immediately resumed work on the upper floors.',
     c: ['Completed', 'Having completed', 'To complete', 'Being completed'],
     a: 1,
@@ -525,7 +511,7 @@ export const UNITS = [
   }),
 
   q('ptcp-05', {
-    t: ['ptcp'], lv: 4,
+    t: ['ptcp'], lv: 3,
     s: 'The keynote address was so ------- that several attendees stayed afterward to ask questions.',
     c: ['engaged', 'engaging', 'engage', 'engagement'],
     a: 1,
@@ -539,7 +525,7 @@ export const UNITS = [
   }),
 
   q('ptcp-06', {
-    t: ['ptcp'], lv: 5,
+    t: ['ptcp'], lv: 4,
     s: 'With the eastern corridor ------- for repairs, visitors should use the north entrance until June.',
     c: ['closing', 'closed', 'closes', 'to close'],
     a: 1,
@@ -567,22 +553,22 @@ export const UNITS = [
   }),
 
   q('ptcp-08', {
-    t: ['ptcp'], lv: 4,
+    t: ['ptcp'], lv: 3,
     s: 'Anyone ------- in the mentorship program should submit a short statement of interest by Friday.',
     c: ['interesting', 'interested', 'interest', 'to interest'],
     a: 1,
-    e: 'be interested in「関心がある」の受動表現に基づく後置修飾。人が「関心を持たされる」側なので過去分詞。',
-    w: ['現在分詞。「（人が）面白い」の意になり不自然。',
-        '正解。be interested in の後置修飾。',
-        '名詞・動詞。Anyone interest では文が成立しない。',
-        '不定詞。この意味では使わない。'],
+    e: '感情他動詞 interest は「人に興味を持たせる」。人は「持たされる」側なので過去分詞 interested を使い、その補語が in 句になる。be interested in がそのまま Anyone を後置修飾した形。',
+    w: ['現在分詞。interesting は「（物事が）興味を起こさせる」側を表し、人に使うと「その人自身が面白い」の意味になる。しかも interesting は in 句を補語に取らない（「〜に関心がある」は be interested in）。',
+        '正解。be interested in の受動関係がそのまま Anyone を後置修飾している。',
+        '名詞と見れば Anyone interest と名詞が 2 つ並んで成立せず、動詞と見ても他動詞 interest は目的語を要求するため in 句を続ける形にならない。',
+        '不定詞。能動形なので「（誰かに）興味を持たせるための」という逆の意味になり、しかも目的語を欠いている。'],
     ja: 'メンター制度に関心のある方は、金曜日までに志望理由を簡潔にまとめて提出してください。',
     v: [['mentorship program', 'メンター制度'], ['statement of interest', '志望理由書']],
   }),
 
   /* ══ 関係詞 ══════════════════════════════════════════ */
   q('rel-01', {
-    t: ['rel'], lv: 4,
+    t: ['rel'], lv: 3,
     s: 'The vendor ------- proposal we accepted has agreed to begin work in early March.',
     c: ['who', 'whose', 'which', 'whom'],
     a: 1,
@@ -596,7 +582,7 @@ export const UNITS = [
   }),
 
   q('rel-02', {
-    t: ['rel'], lv: 5,
+    t: ['rel'], lv: 4,
     s: 'The archive contains letters ------- historians can reconstruct the founder\'s early career.',
     c: ['which', 'from which', 'that', 'whose'],
     a: 1,
@@ -610,7 +596,7 @@ export const UNITS = [
   }),
 
   q('rel-03', {
-    t: ['rel'], lv: 5,
+    t: ['rel'], lv: 3,
     s: 'Ms. Iwata explained ------- the pilot program had failed to reach its enrollment target.',
     c: ['that which', 'what', 'which', 'why'],
     a: 3,
@@ -652,7 +638,7 @@ export const UNITS = [
   }),
 
   q('rel-06', {
-    t: ['rel'], lv: 5,
+    t: ['rel'], lv: 3,
     s: 'We have relocated to a building ------- there is ample space for the new testing equipment.',
     c: ['which', 'that', 'where', 'whose'],
     a: 2,
@@ -666,7 +652,7 @@ export const UNITS = [
   }),
 
   q('rel-07', {
-    t: ['rel'], lv: 5,
+    t: ['rel'], lv: 4,
     s: 'The delay was caused by a shortage of components, ------- the supplier had warned us about in January.',
     c: ['what', 'which', 'that', 'it'],
     a: 1,
@@ -680,7 +666,7 @@ export const UNITS = [
   }),
 
   q('rel-08', {
-    t: ['rel'], lv: 5,
+    t: ['rel'], lv: 4,
     s: '------- impressed the review panel most was the applicant\'s decision to redesign the study from scratch.',
     c: ['That', 'What', 'It', 'Which'],
     a: 1,

@@ -313,9 +313,9 @@ async function test08({ page }) {
   await gotoHash(page, BASE, '/mocks');
   await page.waitForSelector('.stack .card', { timeout: 15000 });
   const n = await page.locator('.stack .card').count();
-  assert(n === 5, `模試カードが 5 件ではありません（${n} 件）`);
+  assert(n === 6, `模試カードが 6 件ではありません（${n} 件）`);
   const text = await page.locator('.stack').innerText();
-  for (let i = 1; i <= 5; i++) assert(text.includes(`Vol.${i}`), `Vol.${i} のカードが見つかりません`);
+  for (let i = 1; i <= 6; i++) assert(text.includes(`Vol.${i}`), `Vol.${i} のカードが見つかりません`);
 }
 
 /* 09 模試開始 */
@@ -784,7 +784,7 @@ const TESTS = [
   ['05_Part1：SVG場面が描画される', test05],
   ['06_Part6：本文の{{n}}が空所として描画され生文字列が残らない', test06],
   ['07_Part7：[[n]]の文挿入位置が処理され生文字列が残らない', test07],
-  ['08_模試一覧：収録済み5回分が表示される', test08],
+  ['08_模試一覧：収録済み6回分が表示される', test08],
   ['09_模試開始：設問が表示される', test09],
   ['10_模試の中断・再開：解答状態が復元される', test10],
   ['11_採点：リスニング未受験時にリスニング推定値が出ない', test11],

@@ -24,6 +24,10 @@ export const MOCK_META = [
     theme: '総仕上げ回 — 本番と同等かやや難',
     note: '直前期に。ここで 900 が出れば本番も射程。',
     loader: () => import('./mocks/vol5.js') },
+  { id: 'vol6', no: 6, title: '予想模試 Vol.6',
+    theme: '標準回その2 — Vol.1 と同じ難度・同じ配分',
+    note: '素直な出題で構成。Vol.1 との解き比べで伸びを測る。',
+    loader: () => import('./mocks/vol6.js') },
 ];
 
 export const DRILL_FILES = [

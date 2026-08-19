@@ -20,6 +20,18 @@
                                        絞り込みと --extra は併用できる
                                        （--extra より前の引数だけを絞り込みとして扱う）。
                                        パスは cwd 相対 / assets/data 相対 / 絶対のいずれでもよい。
+
+   検査項目（抜粋。詳細は各チェック直上のコメントを参照）:
+     ・パート別問題数、模試の通し番号 no の連番、id 重複
+     ・kind 別の構造（p1 の scene/desc 排他、set の script、doc の Part6 空所・Part7 挿入位置 等）
+     ・選択肢数・answer 範囲・選択肢の重複、why の数と「正解」始まり位置
+     ・意図問題の逐語引用が script に存在するか
+     ・図表（graphic）— topics（ユニット・設問）に "graphic" 論点があるか、
+       設問 tag に「図表」を含むのに、そのユニットが graphic オブジェクトを
+       持っていなければエラー（Vol.1〜3 のヘルパーが `graphic: o.g` と誤記していて
+       17 ユニット・51 問の図表が描画されなかった実際の事故に対応）。
+       あわせて graphic オブジェクトの形（table の head と各 rows の列数が
+       揃っているか、list/kv が空でないか）も検査する。
    ============================================================= */
 
 import fs from 'node:fs';
@@ -191,6 +203,11 @@ const targetStats = new Map();            // key -> { units, questions }
 const mockDist = new Map();               // mockId -> { part -> { letter -> count } }
 const drillDist = new Map();              // topicId -> { letter -> count }
 const drillDistN = new Map();             // topicId -> Set(選択肢数) — Part2 論点(3択)を判別するため
+const mockSeq = new Map();                // mockId -> { part -> [{ no, answerIdx }] } — no昇順の並びを見る循環/連続チェック用
+const extraSeq = new Map();               // --extra の key -> { part -> [{ no, answerIdx }] } — registry.js 未登録ファイル用（下記参照）
+const mockGroups = new Map();             // mockId -> { part -> [bool, ...] } — Part6の1文書(4問)・Part3/4の1セット(3問)ごとに
+                                           // 「正解記号が全部異なるか」を集める（検査E用）
+const extraGroups = new Map();            // --extra の key -> { part -> [bool, ...] } — 上と同じ、registry.js 未登録ファイル用
 
 /* ── 対象ファイルの読み込み ─────────────────────────────
    registry.js の MOCK_META / DRILL_FILES をそのまま使う
@@ -229,7 +246,7 @@ for (const p of extraArgs) {
   try {
     const mod = await import(pathToFileURL(resolved).href);
     if (!Array.isArray(mod.UNITS)) { err(key, 'UNITS が配列でエクスポートされていない（--extra）'); continue; }
-    targets.push({ key, mock: false, units: mod.UNITS });
+    targets.push({ key, mock: false, extra: true, units: mod.UNITS });
   } catch (e) {
     err(key, `--extra 読み込み失敗（指定: "${p}"） — ${e.message}`);
   }
@@ -263,6 +280,47 @@ for (const t of targets) {
     /* ── 論点 ID（ユニット単位） ── */
     for (const tp of (u.topics || [])) {
       if (!TOPIC_IDS.has(tp)) err(at, `未知の論点 ID "${tp}"（ユニット topics）`);
+    }
+
+    /* ── 図表（graphic）── Vol.1〜3 の Part3/4 ヘルパーが `graphic: o.g` と
+       誤記していて（呼び出し側は `graphic:` で渡していた）、17 ユニット・51 問の
+       図表が実行時に描画されない事故が実際に起きた（vol4/5 は `o.graphic` で無事）。
+       topics（ユニット・設問の両方）に "graphic" 論点があるのに graphic オブジェクトを
+       持たない、または設問 tag に「図表」を含むのに graphic が無ければ、
+       "Look at the graphic." という設問なのに図表が表示されず原理的に解けなくなる。 */
+    {
+      const allTopics = new Set(u.topics || []);
+      for (const q of u.questions) for (const tp of (q.topics || [])) allTopics.add(tp);
+      const topicsHaveGraphic = allTopics.has('graphic');
+      const graphicTags = u.questions.filter(q => typeof q.tag === 'string' && q.tag.includes('図表'));
+      if ((topicsHaveGraphic || graphicTags.length) && !u.graphic) {
+        err(at, `図表問題のはずだが graphic オブジェクトがない（topics に graphic 論点: ${topicsHaveGraphic ? 'あり' : 'なし'} / tag「図表」の設問: ${graphicTags.length}問）`);
+      }
+      /* ── graphic オブジェクトの形（head と rows の列数が揃っているか等） ── */
+      if (u.graphic) {
+        const g = u.graphic;
+        if (g.t === 'table') {
+          if (!Array.isArray(g.rows) || !g.rows.length) err(at, 'graphic(table) に rows がない');
+          else {
+            if (Array.isArray(g.head)) {
+              g.rows.forEach((r, ri) => {
+                if (!Array.isArray(r) || r.length !== g.head.length)
+                  err(at, `graphic(table) の rows[${ri}] の列数（${Array.isArray(r) ? r.length : '?'}）が head の列数（${g.head.length}）と不一致`);
+              });
+            }
+            const rowLens = new Set(g.rows.filter(Array.isArray).map(r => r.length));
+            if (rowLens.size > 1) err(at, `graphic(table) の rows の列数が行ごとに揃っていない（${[...rowLens].join(',')}）`);
+          }
+        } else if (g.t === 'list') {
+          if (!Array.isArray(g.items) || !g.items.length) err(at, 'graphic(list) に items がない');
+        } else if (g.t === 'kv') {
+          if (!Array.isArray(g.pairs) || !g.pairs.length) err(at, 'graphic(kv) に pairs がない');
+          else if (g.pairs.some(p => !Array.isArray(p) || p.length !== 2))
+            err(at, 'graphic(kv) の pairs に [key, value] の対になっていない要素がある');
+        } else if (g.t && !['table', 'list', 'kv'].includes(g.t) && !g.text) {
+          warn(at, `graphic.t が未知の型 "${g.t}"（table/list/kv 以外で text も無い — render.js のフォールバック表示になる）`);
+        }
+      }
     }
 
     /* ── kind 別の構造チェック ── */
@@ -466,6 +524,14 @@ for (const t of targets) {
           const byPart = mockDist.get(t.mockId);
           byPart[u.part] = byPart[u.part] || {};
           byPart[u.part][letter] = (byPart[u.part][letter] || 0) + 1;
+
+          /* 循環（周期性）・連続チェック用に no と正解位置の対だけ集めておく（並び替えは後段でまとめて行う） */
+          if (Number.isInteger(q.no)) {
+            if (!mockSeq.has(t.mockId)) mockSeq.set(t.mockId, {});
+            const seqByPart = mockSeq.get(t.mockId);
+            seqByPart[u.part] = seqByPart[u.part] || [];
+            seqByPart[u.part].push({ no: q.no, answerIdx: q.answer });
+          }
         } else {
           for (const tp of effectiveTopics) {
             if (!drillDist.has(tp)) drillDist.set(tp, {});
@@ -474,6 +540,18 @@ for (const t of targets) {
             if (!drillDistN.has(tp)) drillDistN.set(tp, new Set());
             drillDistN.get(tp).add(nWant);
           }
+        }
+
+        /* --extra ファイル用の循環（周期性）・連続チェックの収集。
+           registry.js に未登録のため MOCK_META 由来の mockId を持たず、下の
+           「模試のみ」検査が素通りしてしまう穴を塞ぐ（no を持つユニット群を
+           1つの模試とみなす）。no が無い（＝模試の分割ファイルでない）
+           --extra ファイルはここで何も集まらず、検査もスキップされる。 */
+        if (t.extra && Number.isInteger(q.no)) {
+          if (!extraSeq.has(t.key)) extraSeq.set(t.key, {});
+          const seqByPart = extraSeq.get(t.key);
+          seqByPart[u.part] = seqByPart[u.part] || [];
+          seqByPart[u.part].push({ no: q.no, answerIdx: q.answer });
         }
       }
 
@@ -489,6 +567,30 @@ for (const t of targets) {
       }
 
       PART_LIST.includes(u.part) && (localPart[u.part] = (localPart[u.part] || 0) + 1);
+    }
+
+    /* ── 正解位置：文書・セット単位の記号の使い切り（検査E用の収集） ──
+       Part6 の1ユニット＝1文書＝4問、Part3/4 の1ユニット＝1セット＝3問
+       （p6()/set() ヘルパーの実装で確認済み。ユニット内の設問は既に no 昇順）。
+       ユニットの設問数が想定どおりで、no・answer がすべて揃っているときだけ集計する。
+       模試・--extra のみ対象（ドリルは no を持たないため every() の no チェックで自然に除外される）。 */
+    {
+      const isP6Doc = u.kind === 'doc' && u.part === 6;
+      const isP34Set = u.kind === 'set' && (u.part === 3 || u.part === 4);
+      if ((mock || t.extra) && (isP6Doc || isP34Set)) {
+        const size = isP6Doc ? 4 : 3;
+        if (u.questions.length === size &&
+            u.questions.every(qq => Number.isInteger(qq.no) && Number.isInteger(qq.answer) && qq.answer >= 0 && qq.answer < 4)) {
+          const letters = u.questions.map(qq => KEYS[qq.answer]);
+          const allUnique = new Set(letters).size === size;
+          const dest = mock ? mockGroups : extraGroups;
+          const gKey = mock ? t.mockId : t.key;
+          if (!dest.has(gKey)) dest.set(gKey, {});
+          const g = dest.get(gKey);
+          g[u.part] = g[u.part] || [];
+          g[u.part].push(allUnique);
+        }
+      }
     }
   }
 
@@ -543,6 +645,185 @@ for (const meta of MOCK_META) {
       warn(`mocks/${meta.id}.js`, `Part${p} の正解位置に偏りがある（${letters.map((l, i) => `${l}=${counts[i]}`).join(' ')}）`);
   }
 }
+
+/* ── 正解位置の循環（周期性）・連続（模試のみ・ERROR/WARN） ──
+   件数の平準化だけでは「ABCDABCD…」のような周期的な並びや、同じ記号が
+   何問も続く並びを検出できない（本文を読まなくても正解が当てられてしまう）。
+   パート内で no 昇順に並べたうえで、次の4つを見る:
+     A. 循環（+1）— 隣り合う設問間で「次の正解位置が +1（mod k）」になっている割合。
+        Part2 は3択なので mod 3、それ以外は4択なので mod 4。
+        偶然の水準はそれぞれ約33%・約25%なので、60%以上を機械的な生成パターンの
+        疑いとして ERROR にする（実測: vol6-r1 の旧版は100%だった）。
+     B. 同一位置の連続 — 同じ正解位置が6問以上続いたら WARN。
+     C. 循環（-1・降順）— A の逆方向。「次の正解位置が -1（mod k）」になっている割合。
+        A は +1 の連続しか見ておらず、D→C→B→A→D のような降順の循環を素通りさせていた
+        （実測: 予想模試 Vol.6 の Part5 で52%、他5巻は10〜41%。1問確信できれば次が読めてしまう）。
+        A と同じ閾値（60%以上）で ERROR。A・C は独立に判定し、|+1|と|-1|を合算しない
+        （合算すると「毎回同じ位置」のような無関係なパターンまで拾ってしまう）。
+     A・C 共通の下限：パートの設問数が10問未満なら判定しない。
+        Part1（6問・5組）で確認したところ、ちょうど3/5組が一致するだけで60%に達し、
+        vol1・vol2・vol6 の3巻が「降順循環」として誤検知された。5組は母数として小さすぎ、
+        統計的に有意でない（実際 vol1・vol2 は Part1 に問題ありと報告されていない巻）。
+        Part1 は本番でも6問しかなく構造的に常に対象外になるため、この下限は実質
+        Part1 だけを除外する（Part6 の16問は対象内、他は全パート30問以上で影響なし）。
+     D. 隣接同一率が低すぎる — 「前問と同じ正解位置」の割合。偶然の水準は4択で25%・3択で33%。
+        極端に低い（＝同じ記号を意図的に避け続けている）のも、B とは別の意味で機械的な生成
+        パターンの徴候になる。4択パートに限り 12%未満なら WARN。設問数が20問未満のパートは
+        判定が不安定なのでとばす（Part1・Part6 はこれで自然に対象外になる）。
+   graphic・p7ins のように選択肢が順序を持つ設問も、受験者から見れば同じ並びで
+   目に入るため、ここでは除外しない（balance2.mjs の入れ替え対象外とは別の話）。 */
+for (const meta of MOCK_META) {
+  const byPart = mockSeq.get(meta.id);
+  if (!byPart) continue;
+  for (const p of PART_LIST) {
+    const seq = byPart[p];
+    if (!seq || seq.length < 2) continue;
+    const sorted = [...seq].sort((a, b) => a.no - b.no);
+    const k = p === 2 ? 3 : 4;
+    const letters = p === 2 ? ['A', 'B', 'C'] : KEYS;
+
+    let shiftHits = 0, shiftHitsDown = 0, sameHits = 0, pairs = 0;
+    for (let i = 1; i < sorted.length; i++) {
+      pairs++;
+      if (sorted[i].answerIdx === (sorted[i - 1].answerIdx + 1) % k) shiftHits++;
+      if (sorted[i].answerIdx === (sorted[i - 1].answerIdx - 1 + k) % k) shiftHitsDown++;
+      if (sorted[i].answerIdx === sorted[i - 1].answerIdx) sameHits++;
+    }
+    /* A・C とも、パートの設問数が10問未満なら判定しない（Part1=6問・5組で3/5一致＝60%に
+       達してしまい、母数不足で誤検知するため。上のコメント参照）。 */
+    const ratio = pairs ? shiftHits / pairs : 0;
+    if (sorted.length >= 10 && ratio >= 0.6) {
+      err(`mocks/${meta.id}.js`,
+        `Part${p} の正解位置が周期的にずれている疑い（no昇順で「次の設問の正解が+1シフト」する割合が ${(ratio * 100).toFixed(0)}%／` +
+        `${pairs}組中${shiftHits}組、mod ${k}。本文を読まずに正解できてしまう）`);
+    }
+
+    /* 検査C：降順の循環（-1 mod k）。A（+1）と同じ閾値・下限・独立判定。 */
+    const ratioDown = pairs ? shiftHitsDown / pairs : 0;
+    if (sorted.length >= 10 && ratioDown >= 0.6) {
+      err(`mocks/${meta.id}.js`,
+        `Part${p} の正解位置が降順に周期的にずれている疑い（no昇順で「次の設問の正解が-1シフト」する割合が ${(ratioDown * 100).toFixed(0)}%／` +
+        `${pairs}組中${shiftHitsDown}組、mod ${k}。1問確信できれば次が読めてしまう）`);
+    }
+
+    let runLetter = null, runLen = 0, runStartNo = null;
+    let maxLen = 0, maxLetter = null, maxStartNo = null;
+    for (const item of sorted) {
+      if (item.answerIdx === runLetter) { runLen++; }
+      else { runLetter = item.answerIdx; runLen = 1; runStartNo = item.no; }
+      if (runLen > maxLen) { maxLen = runLen; maxLetter = runLetter; maxStartNo = runStartNo; }
+    }
+    if (maxLen >= 6) {
+      warn(`mocks/${meta.id}.js`,
+        `Part${p} の正解位置が同一選択肢(${letters[maxLetter]})で ${maxLen} 問連続している（no=${maxStartNo} から、no昇順）`);
+    }
+
+    /* 検査D：隣接同一率が低すぎる（4択パート・20問以上のみ判定）。 */
+    if (k === 4 && sorted.length >= 20) {
+      const sameRatio = pairs ? sameHits / pairs : 0;
+      if (sameRatio < 0.12) {
+        warn(`mocks/${meta.id}.js`,
+          `Part${p} の正解位置が「前問と同じ」を避けすぎている疑い（no昇順で隣接一致率 ${(sameRatio * 100).toFixed(0)}%／` +
+          `${pairs}組中${sameHits}組。偶然なら約25%。同じ記号を意図的に避ける生成パターンの疑い）`);
+      }
+    }
+  }
+}
+
+/* ── 正解位置の循環（周期性）・連続（--extra・ERROR/WARN） ──
+   上のチェックは MOCK_META に登録済み（mockId を持つ）模試にしか効かない。
+   予想模試を新規に作る作業は registry.js に登録される前、常に --extra で
+   検査されるため、そのままだと「作業中は一度もこの検査を受けない」
+   穴になる。--extra で渡されたファイルのうち no を持つユニット群を
+   1つの模試相当とみなし、同じ判定をかける（A〜D、内容は上のブロックの
+   コメントを参照）。
+   パート判定は既存と同じくユニットの part を使い、Part2 は3択なので mod 3、
+   それ以外は4択なので mod 4。1パートに設問が8問未満しかない場合は
+   判定が不安定（--extra は模試の分割ファイル1本だけを渡すことが多く、
+   パートが欠けていることが多い）なので検査をとばす。
+   A・C（循環）はさらに、母数10問未満だと5組前後でも60%に達してしまい誤検知するため
+   10問以上を要求する（上のブロックのコメント参照）。D はさらに20問以上を要求する。 */
+for (const [key, byPart] of extraSeq) {
+  for (const p of PART_LIST) {
+    const seq = byPart[p];
+    if (!seq || seq.length < 8) continue;
+    const sorted = [...seq].sort((a, b) => a.no - b.no);
+    const k = p === 2 ? 3 : 4;
+    const letters = p === 2 ? ['A', 'B', 'C'] : KEYS;
+
+    let shiftHits = 0, shiftHitsDown = 0, sameHits = 0, pairs = 0;
+    for (let i = 1; i < sorted.length; i++) {
+      pairs++;
+      if (sorted[i].answerIdx === (sorted[i - 1].answerIdx + 1) % k) shiftHits++;
+      if (sorted[i].answerIdx === (sorted[i - 1].answerIdx - 1 + k) % k) shiftHitsDown++;
+      if (sorted[i].answerIdx === sorted[i - 1].answerIdx) sameHits++;
+    }
+    const ratio = pairs ? shiftHits / pairs : 0;
+    if (sorted.length >= 10 && ratio >= 0.6) {
+      err(key,
+        `Part${p} の正解位置が周期的にずれている疑い（no昇順で「次の設問の正解が+1シフト」する割合が ${(ratio * 100).toFixed(0)}%／` +
+        `${pairs}組中${shiftHits}組、mod ${k}。本文を読まずに正解できてしまう）`);
+    }
+
+    /* 検査C：降順の循環（-1 mod k）。10問未満は判定しない。 */
+    const ratioDown = pairs ? shiftHitsDown / pairs : 0;
+    if (sorted.length >= 10 && ratioDown >= 0.6) {
+      err(key,
+        `Part${p} の正解位置が降順に周期的にずれている疑い（no昇順で「次の設問の正解が-1シフト」する割合が ${(ratioDown * 100).toFixed(0)}%／` +
+        `${pairs}組中${shiftHitsDown}組、mod ${k}。1問確信できれば次が読めてしまう）`);
+    }
+
+    let runLetter = null, runLen = 0, runStartNo = null;
+    let maxLen = 0, maxLetter = null, maxStartNo = null;
+    for (const item of sorted) {
+      if (item.answerIdx === runLetter) { runLen++; }
+      else { runLetter = item.answerIdx; runLen = 1; runStartNo = item.no; }
+      if (runLen > maxLen) { maxLen = runLen; maxLetter = runLetter; maxStartNo = runStartNo; }
+    }
+    if (maxLen >= 6) {
+      warn(key,
+        `Part${p} の正解位置が同一選択肢(${letters[maxLetter]})で ${maxLen} 問連続している（no=${maxStartNo} から、no昇順）`);
+    }
+
+    /* 検査D：隣接同一率が低すぎる（4択パート・20問以上のみ判定）。 */
+    if (k === 4 && sorted.length >= 20) {
+      const sameRatio = pairs ? sameHits / pairs : 0;
+      if (sameRatio < 0.12) {
+        warn(key,
+          `Part${p} の正解位置が「前問と同じ」を避けすぎている疑い（no昇順で隣接一致率 ${(sameRatio * 100).toFixed(0)}%／` +
+          `${pairs}組中${sameHits}組。偶然なら約25%。同じ記号を意図的に避ける生成パターンの疑い）`);
+      }
+    }
+  }
+}
+
+/* ── 正解位置：文書・セット単位の記号の使い切り（検査E・模試/--extra・WARN） ──
+   Part6 は1文書(4問)でA/B/C/Dが1回ずつ、Part3/4は1セット(3問)で正解が全部別文字、
+   という並びは「奇麗すぎる」規則性で、3問埋めれば最後の1問が消去法でわかってしまう
+   （実測: 予想模試Vol.6 で Part6 が4文書中4文書、Part3/4 が23セット中19セット。
+   偶然ならそれぞれ約9.4%・約8.6セット）。
+   母数が小さいと判定が不安定なので、グループ（文書/セット）が4未満のパートはとばす。 */
+function checkGroupUniformity(key, byPart) {
+  for (const p of [3, 4, 6]) {
+    const groups = byPart[p];
+    if (!groups || groups.length < 4) continue;
+    const uniformCount = groups.filter(Boolean).length;
+    const ratio = uniformCount / groups.length;
+    const threshold = p === 6 ? 0.75 : 0.70;
+    if (ratio >= threshold) {
+      const unit = p === 6 ? '文書（4問）' : 'セット（3問）';
+      warn(key,
+        `Part${p} の正解位置が1${unit}ごとにA〜Dを1回ずつ使い切っている疑い（${groups.length}${p === 6 ? '文書' : 'セット'}中${uniformCount}件／` +
+        `${(ratio * 100).toFixed(0)}%、閾値${(threshold * 100).toFixed(0)}%。3問埋めれば最後の1問が消去法でわかってしまう）`);
+    }
+  }
+}
+for (const meta of MOCK_META) {
+  const byPart = mockGroups.get(meta.id);
+  if (byPart) checkGroupUniformity(`mocks/${meta.id}.js`, byPart);
+}
+for (const [key, byPart] of extraGroups) checkGroupUniformity(key, byPart);
+
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
   // ここで KEYS（4文字）固定で判定すると D=0 が恒久的に「偏り」と誤検知されるため、
