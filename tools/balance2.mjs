@@ -36,8 +36,37 @@
       各要素が自分の位置と同じ記号で始まっている、という前提が崩れている設問は
       安全側で除外する。
 
-   使い方: node balance2.mjs [--write] [--by part|topic] --group <名前> <ファイル…>
+   使い方: node balance2.mjs [--write] [--by part|topic|drift] --group <名前> <ファイル…>
    既定は dry-run、既定モードは --by part。--write を付けたときだけファイルを書き換える。
+
+   --by drift（2026-08-25 追加）: 正解位置の「件数」ではなく、no昇順で見た
+   前半・後半の系統的な偏り（validate.mjs の検査Fが検出するもの）を是正する。
+   件数の平準化（--by part）が既に済んでいて max-min<=1 でも、balancePart の
+   旧実装（配列の先頭から選ぶ Array.prototype.find）が「ファイル内で最初に
+   見つかった設問」を優先していたため、多用した記号が前半から順に剥がされて
+   末尾にだけ残り、補充された記号が前半に集まる——という前半・後半の系統的な
+   ドリフトが既に書き込まれてしまっている（候補選択自体は stableHash による
+   決定的な方式に直り済みだが、直る前に書き込まれたドリフトは残ったまま）。
+   このモードは「前半にある正解位置の高い設問」と「後半にある正解位置の低い設問
+   （逆方向のドリフトなら逆）」を対にして、同じ設問の中で choices/why を
+   入れ替える（applyMoves を経由するのは他モードと同じ）。一方が D→A、
+   もう一方が A→D になるので、全体の件数（A/B/C/D それぞれの総数）は変化しない。
+   判定指標は validate.mjs の checkDriftF と同じ z スコア（前半・後半の平均差を
+   一様分布を帰無仮説にしたときの標準偏差で割ったもの、Part2は3択でk=3、
+   他は4択でk=4）。目標は |z|<2.0。
+
+   【2026-08-25 追記】初版は「閾値(2.0)を跨げる入れ替えのうち、跨いだ直後（=是正が
+   最小で済むもの）」を優先していたが、これは同じ part は n・k が全巻共通なので
+   達成可能な z が同じ格子に量子化されており、「境界に一番近い達成可能な点」を
+   選ぶと複数巻が同じ値に収束する——という新しい規則性を生んだ（実測：Part6が
+   5巻とも z=1.79 に一致するなど、21区画が 1.74〜1.96 に集中）。「均等にせよ→
+   輪番」「循環を崩せ→降順」に続く、同じ失敗の3回目（このファイル内では）。
+   そこで「2.0に近い値」ではなく、区画（--group の値＋パート番号）ごとに
+   帰無分布（標準正規）から決定的に引いた目標 z（driftTarget）を用意し、
+   達成可能な値の中でその目標に最も近いものを選ぶ方式に変更した。詳細は
+   driftTarget / fixDriftPart 直上のコメントを参照。
+   除外規則（classifyEntry — p7ins・graphic・数値/日付等の順序付き選択肢・
+   why や exp が記号(A)〜(D)を参照している設問 等）は他モードと共通で、緩めない。
    ============================================================= */
 
 import fs from 'node:fs';
@@ -50,6 +79,44 @@ const PART_NAMES = {
   1: 'Part 1（写真）', 2: 'Part 2（応答）', 3: 'Part 3（会話）', 4: 'Part 4（トーク）',
   5: 'Part 5（単文穴埋め）', 6: 'Part 6（長文穴埋め）', 7: 'Part 7（読解）',
 };
+
+/* ── 候補選択のハッシュ（位置に依存しない決定的選択） ─────────────────
+   balancePart() / balanceByTopic() は、平準化のために「過剰な正解位置を
+   持つ設問」の中から実際に入れ替える1問を選ぶ。以前はどちらも
+   「配列を先頭から走査して最初に条件を満たした要素を返す」実装
+   （Array.prototype.find、および for-of の最初の1件で break）になっていた。
+   配列の並びはソース上の出現順＝ファイル内の設問順（no昇順相当）と一致するため、
+   これは「ファイル内で最も早い設問を選ぶ」という位置依存の選択になっていた。
+   結果、書き手が多用した文字は前半から順に剥がされて末尾にだけ残り、
+   補充された文字は前半に集まる——という系統的な偏りを生んでいた
+   （2026-08-24 実測：vol3 Part3 で no昇順の前半平均2.37・後半平均0.47、差+1.89。
+   validate.mjs の検査Fが検出する）。
+   設問 id の文字列ハッシュで選ぶことで、ファイル中の出現位置（先頭寄り／
+   末尾寄り）から選択を切り離しつつ、実行するたびに同じ結果になる決定性は保つ
+   （「最後から選ぶ」に変えるだけでは逆向きの偏りが生まれるだけで解決にならない）。 */
+function stableHash(str) {
+  let h = 0x811c9dc5;                 // FNV-1a 32bit
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return h >>> 0;
+}
+function candidateKey(e) {
+  // id は validate.mjs が全設問に必須としているため通常は必ず存在するが、
+  // 万一欠けていてもファイル内で一意になるキーへ安全側でフォールバックする。
+  return e.id != null ? String(e.id) : `${e.file}::${e.unitId}::${e.no ?? ''}::${e.answerIdx}`;
+}
+/** 候補（同じ「動かしたい正解位置」を持つ設問の集合）から、ファイル内の
+ *  出現順に依存しない決定的な1件を選ぶ。 */
+function pickCandidate(candidates) {
+  let best = null, bestHash = -1;
+  for (const e of candidates) {
+    const h = stableHash(candidateKey(e));
+    if (best === null || h > bestHash) { best = e; bestHash = h; }
+  }
+  return best;
+}
 
 /* ── 汎用 AST 走査 ─────────────────────────────────────────
    acorn-walk は未導入のため、range 情報を持つノードを総当たりで集め、
@@ -105,6 +172,15 @@ function extractCandidates(ast) {
 /** モジュールの exports から「設問ユニットの配列」を 1 つだけ選ぶ。
  *  ファイルごとに export 名が違う（L1 / L2A / UNITS ...）ため、
  *  配列を値に持つ export を探す。複数見つかった場合は要素数最大のものを採る。 */
+/** ファイルパスから「巻」を判定する（vol1-l3.js → "vol1"）。--by drift が
+ *  複数巻をまたいで正解位置zの衝突（同じ値が複数巻で重複すること）を検出するために使う。
+ *  vol 接頭辞を持たないファイル名（将来の拡張・ドリル等）では null を返し、
+ *  呼び出し側は --group の値にフォールバックする。 */
+function mockGroupOf(filePath) {
+  const m = path.basename(filePath).match(/^(vol\d+)/);
+  return m ? m[1] : null;
+}
+
 function pickArrayExport(mod) {
   const entries = Object.entries(mod).filter(([, v]) => Array.isArray(v));
   if (entries.length === 0) throw new Error('配列の export が見つかりません');
@@ -267,11 +343,12 @@ async function processFile(filePath) {
     };
   }
 
+  const mockGroup = mockGroupOf(filePath);
   const entries = candidates.map((c, i) => {
     const rt = runtimeQs[i];
     const q = rt.q;
     return {
-      file: filePath, source,
+      file: filePath, source, mockGroup,
       part: rt.part, unitId: rt.unitId,
       id: q.id, no: q.no,
       topics: effectiveTopics(q, rt.unitTopics),
@@ -305,7 +382,11 @@ function balancePart(entries, k) {
       if (counts[i] < counts[minPos]) minPos = i;
     }
     if (counts[maxPos] - counts[minPos] <= 1) break; // ほぼ均等になったら終了
-    const cand = entries.find(e => !e.excluded && e.newPos == null && e.answerIdx === maxPos);
+    // 位置に依存しない決定的選択（上のコメント参照）。以前は entries.find で
+    // 「ファイル内で最初に見つかった設問」を選んでおり、これが前半・後半の
+    // 系統的な偏りの原因だった。
+    const candidates = entries.filter(e => !e.excluded && e.newPos == null && e.answerIdx === maxPos);
+    const cand = pickCandidate(candidates);
     if (!cand) break; // 動かせる設問がもう残っていない（残差は「是正不可」として報告）
     cand.newPos = minPos;
     counts[maxPos]--; counts[minPos]++;
@@ -314,6 +395,300 @@ function balancePart(entries, k) {
   return moves;
 }
 
+/* ── 前半・後半ドリフトの是正（--by drift） ──────────────────────
+   validate.mjs の checkDriftF と全く同じ式で z を計算する（判定器と別の指標で
+   最適化すると「直した」つもりでも validate.mjs を通らなくなるため、式を
+   ここに複製するのではなく、コメントで両者の対応を明記して同期を保つ）。
+   k は part===2 のとき3、それ以外は4（validate.mjs と同じ固定値。
+   classifyEntry の除外判定に使う kOfPart は多数決の値で別物）。         */
+function curPos(e) { return e.newPos != null ? e.newPos : e.answerIdx; }
+
+function driftK(part) { return part === 2 ? 3 : 4; }
+
+/** no昇順に並べた entries の前半・後半（validate.mjs の checkDriftF と同じ
+ *  切り出し方：half=floor(n/2)、前半は先頭 half 問、後半は末尾 half 問。
+ *  n が奇数なら中央の1問はどちらにも入れない）から、frontMean/backMean/diff/z を計算する。 */
+function driftStats(front, back, half, k) {
+  const frontSum = front.reduce((a, e) => a + curPos(e), 0);
+  const backSum = back.reduce((a, e) => a + curPos(e), 0);
+  const frontMean = frontSum / half, backMean = backSum / half;
+  const diff = frontMean - backMean;
+  const varUniform = (k * k - 1) / 12;
+  const stdNull = Math.sqrt((2 * varUniform) / half);
+  const z = stdNull > 0 ? diff / stdNull : 0;
+  return { frontMean, backMean, diff, z };
+}
+
+/* ── 検査A〜E（validate.mjs と同じ式）を、入れ替え候補ごとに事前シミュレーションする ──
+   ドリフト是正の入れ替えは「z を最も改善する組」を機械的に選ぶだけだと、たまたま
+   同じ記号が連続している塊（run）の中から1問だけ抜き取ってしまい、検査D（隣接同一率）や
+   検査E（文書/セットの記号使い切り）を新たに発火させることがある（2026-08-25 に実測：
+   vol5 Part4 no.97 を含む「A A A」の連続から中央の1問を動かした結果、隣接同一率が
+   17.2%→10.3% に落ちて検査Dが新たに発火した）。
+   そこで候補を1つ選ぶたびに、そのパートの全設問（no昇順・除外設問も含む）を対象に
+   検査A〜Eをそのままシミュレートし、どれか1つでも新たに発火する候補は採用しない。 */
+function groupByUnit(sortedAll) {
+  const groups = [];
+  let cur = null;
+  for (const e of sortedAll) {
+    if (!cur || cur.unitId !== e.unitId) { cur = { unitId: e.unitId, items: [] }; groups.push(cur); }
+    cur.items.push(e);
+  }
+  return groups;
+}
+function simulateABCDE(sortedAll, part, k) {
+  const n = sortedAll.length;
+  const flags = { A: false, B: false, C: false, D: false, E: false };
+  if (n < 2) return flags;
+  let shiftHits = 0, shiftHitsDown = 0, sameHits = 0, pairs = 0;
+  let runLetter = null, runLen = 0, maxLen = 0;
+  for (let i = 0; i < n; i++) {
+    const pos = curPos(sortedAll[i]);
+    if (pos === runLetter) runLen++; else { runLetter = pos; runLen = 1; }
+    if (runLen > maxLen) maxLen = runLen;
+    if (i > 0) {
+      pairs++;
+      const prev = curPos(sortedAll[i - 1]);
+      if (pos === (prev + 1) % k) shiftHits++;
+      if (pos === (prev - 1 + k) % k) shiftHitsDown++;
+      if (pos === prev) sameHits++;
+    }
+  }
+  const ratioUp = pairs ? shiftHits / pairs : 0;
+  const ratioDown = pairs ? shiftHitsDown / pairs : 0;
+  if (n >= 10 && ratioUp >= 0.6) flags.A = true;
+  if (n >= 10 && ratioDown >= 0.6) flags.C = true;
+  if (maxLen >= 6) flags.B = true;
+  if (k === 4 && n >= 20) {
+    const sameRatio = pairs ? sameHits / pairs : 0;
+    if (sameRatio < 0.12) flags.D = true;
+  }
+  if (part === 3 || part === 4 || part === 6) {
+    const size = part === 6 ? 4 : 3;
+    const groups = groupByUnit(sortedAll).filter(g => g.items.length === size);
+    if (groups.length >= 4) {
+      const uniformCount = groups.filter(g => new Set(g.items.map(e => curPos(e))).size === size).length;
+      const ratio = uniformCount / groups.length;
+      const threshold = part === 6 ? 0.75 : 0.70;
+      if (ratio >= threshold) flags.E = true;
+    }
+  }
+  return flags;
+}
+function isClean(flags) { return !flags.A && !flags.B && !flags.C && !flags.D && !flags.E; }
+
+/* ── 目標 z（帰無分布から決定的に引く） ─────────────────────────
+   2026-08-25 に発覚：「跨げる候補のうち 2.0 に最も近い（＝是正が最小）ものを選ぶ」
+   という方針は、20区画の検査Fを個別には解消したが、代わりに「残差zが2.0未満の
+   決まった値に張り付く」という新しい規則性を生んだ（同じ part は n・k が全巻で
+   共通なので、diff が取りうる値は同じ格子点に量子化されており、「境界に一番近い
+   達成可能な点」を選ぶと複数巻が同じ格子点に収束してしまう。実測：Part6が5巻とも
+   z=1.79 に一致 等、21区画が 1.74〜1.96 に集中）。
+   そこで「2.0 に近づける」のではなく、区画（巻名＋パート）ごとに固定した目標 z を
+   帰無分布（標準正規）から決定的に引き、達成可能な値の中でその目標に最も近いものを
+   選ぶ方式に変更する。目標が区画ごとに異なる値になるため、達成値も自然に分散する。
+   ハッシュの種は「巻名:パート番号」の文字列で、実行するたびに同じ値になる
+   （stableHash は既存の決定的ハッシュをそのまま使う）。
+   Box-Muller で一様乱数2つから標準正規1つを作り、|z|>1.9（境界2.0に寄り過ぎる分）
+   は種をずらして引き直す（最大8回。標準正規で|z|>1.9の確率は約5.7%なので
+   8回で尽きる確率は天文学的に小さい。尽きた場合のみ安全側で0を返す）。
+   salt は「同じ区画に対して別の目標を引き直したい」ときに使う（下記コメント参照。
+   達成可能な格子点が粗いパートでは、別々の巻が独立に同じ目標へ収束し、結果として
+   同じ達成値に複数巻が一致することがある——実測：Part4(半分15問,4択)で
+   vol1・vol3・vol4・vol6 の4区画が z=0.8164965809277264 に厳密一致。
+   salt を変えると全く別の乱数列になるため、同じ区画で「もう一つ別の目標」を
+   決定的に引き直せる）。 */
+function driftTarget(group, part, salt = 0) {
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const seedA = stableHash(`driftTarget:${group}:${part}:${salt}:${attempt}:a`);
+    const seedB = stableHash(`driftTarget:${group}:${part}:${salt}:${attempt}:b`);
+    const u1 = ((seedA >>> 0) + 0.5) / 4294967296;
+    const u2 = ((seedB >>> 0) + 0.5) / 4294967296;
+    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+    if (Math.abs(z) <= 1.9) return z;
+  }
+  return 0;
+}
+
+/** 1パートぶんの前半・後半ドリフト是正に必要な下ごしらえ（no昇順の並べ替え・
+ *  前半/後半への分割・是正要否の判定）を行う。target には依存しないので、
+ *  全区画（複数巻）をまとめて処理する際に「是正が要らない区画の値」を先に
+ *  確定させるのに使う（衝突回避の基準を作るため。fixDriftPart 直上のコメント参照）。
+ *  n<10（validate.mjs の下限。Part1の6問を除外するのと同じ理由）は対象外にして null を返す。 */
+function analyzeDrift(entries, part) {
+  const withNo = entries.filter(e => Number.isInteger(e.no));
+  if (withNo.length < 10) return null;
+  const k = driftK(part);
+  const sortedAll = [...withNo].sort((a, b) => a.no - b.no);   // 除外設問も含む全設問（A〜Eのシミュレーション用）
+  const n = sortedAll.length;
+  const half = Math.floor(n / 2);
+  const front = sortedAll.slice(0, half);
+  const back = sortedAll.slice(n - half);
+  const before = driftStats(front, back, half, k);
+
+  const EXACT_EPS = 0.02;  // これ未満は「きれいすぎる」ため補正対象にする（下記②）
+  const needsFix = Math.abs(before.z) >= 2.0 || Math.abs(before.z) < EXACT_EPS;
+  return { k, half, n, front, back, sortedAll, before, needsFix };
+}
+
+/** 1パートぶんの前半・後半ドリフトを是正する。
+ *  「前半にある正解位置の高い設問」と「後半にある正解位置の低い設問」
+ *  （逆方向のドリフトなら逆）を対にして、それぞれ自分自身の choices/why の
+ *  中で入れ替える（他の設問の中身には触れない）。一方が例えば D→A、
+ *  もう一方が A→D になるため、全体の A〜D の総数は変化しない
+ *  （balancePart が既に均等にした件数を再び崩さない）。
+ *  除外済み（classifyEntry で excluded 済み）・既に他の入れ替えで
+ *  newPos が確定している設問は候補から外す。
+ *
+ *  是正の要否は analyzeDrift が2条件のどちらかで判定する:
+ *    ① |z|>=2.0（検査Fが発火する。必ず是正する）
+ *    ② |z|<0.02（前半・後半の平均が一致に近すぎる「きれいすぎる」値。実例：
+ *       Vol.6 の Part6/Part7 は diff が厳密に 0 だった。是正は必須ではないが、
+ *       これも0への収束という別の規則性なので、目標 z に向けて動かしてよい）。
+ *  上記に該当しない区画（大半の健全な区画）はそのまま何もしない（0件）。
+ *
+ *  usedValues は「これまでに確定した区画の達成値（小数点4桁に丸めたもの）→
+ *  出現回数」の Map。是正の結果、既に2回以上使われている値と一致してしまうと
+ *  「同じ値が3区画以上で繰り返す」という新しい規則性になる（実測：Part4の
+ *  達成可能な格子が粗く、4区画が z=0.8164965809277264 に厳密一致した）。
+ *  そこで目標 z を salt=0,1,2,... と引き直しながら、衝突しない結果が
+ *  得られるまで試す（最大 MAX_SALT 回。全滅した場合は最善の1つを採用し、
+ *  残差として報告する）。usedValues は呼び出し側が「是正不要の区画」を
+ *  先に登録してから渡すことで、処理順に関係なく衝突を検出できるようにする。 */
+function fixDriftPart(analysis, part, group, usedValues) {
+  const { k, half, n, front, back, sortedAll, before, needsFix } = analysis;
+  if (!needsFix) {
+    // 既に健全（|z|<2.0 かつ「きれいすぎ」でもない）区画は一切動かさない。
+    return { part, k, half, n, target: null, before, after: before, moves: [], achieved: true, residualReason: null };
+  }
+
+  const CLOSE_EPS = 0.10;  // 目標とこれ未満の差になったら、それ以上は動かさない
+  function resetMoves() {
+    for (const e of front) e.newPos = null;
+    for (const e of back) e.newPos = null;
+  }
+
+  function attempt(target) {
+    resetMoves();
+    const moves = [];
+    let residualReason = null;
+    let guard = half + 4; // 1回の反復で最大1組（設問2件）を動かす。半分の問題数より多くは動かしようがない
+    while (guard-- > 0) {
+      const cur = driftStats(front, back, half, k);
+      const curDist = Math.abs(cur.z - target);
+      const mustFix = Math.abs(cur.z) >= 2.0;
+      if (!mustFix && curDist <= CLOSE_EPS) break; // 目標に十分近づいた（これ以上は動かさない）
+
+      const wantIncrease = target > cur.z; // z を目標に向けて上げるか下げるか
+      const frontPool = front.filter(e => !e.excluded && e.newPos == null);
+      const backPool = back.filter(e => !e.excluded && e.newPos == null);
+      if (!frontPool.length || !backPool.length) {
+        residualReason = '除外規則（p7ins・graphic・順序付き選択肢・記号参照 等）により、前半または後半に動かせる設問が残っていない';
+        break;
+      }
+
+      const frontSum = front.reduce((a, e) => a + curPos(e), 0);
+      const backSum = back.reduce((a, e) => a + curPos(e), 0);
+      const varUniform = (k * k - 1) / 12;
+      const stdNull = Math.sqrt((2 * varUniform) / half);
+
+      // 実際の設問どうしのペアを列挙する（検査A〜Eは「どの設問を動かすか」で結果が
+      // 変わるため、fv/bv の値ではなく設問単位で候補を作る）。
+      // mustFix（|z|>=2.0）のときは「境界を跨ぐこと」自体は要求しない——1回の入れ替えで
+      // 跨ぎ切れない大きなドリフトもあるため、絶対値が縮む候補は中間状態として許す。
+      const curAbsZ = Math.abs(cur.z);
+      const pairs = [];
+      for (const f of frontPool) {
+        const fv = curPos(f);
+        for (const b of backPool) {
+          const bv = curPos(b);
+          if (fv === bv) continue;
+          if (wantIncrease && !(fv < bv)) continue;   // z を上げる → 前半の低い位置と後半の高い位置を交換
+          if (!wantIncrease && !(fv > bv)) continue;  // z を下げる → その逆
+          const newFrontMean = (frontSum - fv + bv) / half;
+          const newBackMean = (backSum - bv + fv) / half;
+          const diff = newFrontMean - newBackMean;
+          const z = stdNull > 0 ? diff / stdNull : 0;
+          const absZ = Math.abs(z);
+          if (mustFix) {
+            if (absZ >= curAbsZ) continue;            // 絶対値が縮まない候補は候補にしない（単調収束を保証する）
+          } else {
+            if (absZ >= 2.0) continue;                // 既に健全な区画は閾値を超えさせない
+            if (Math.abs(z - target) >= curDist) continue; // 目標に近づかない組は候補にしない
+          }
+          pairs.push({ f, b, fv, bv, z, absZ });
+        }
+      }
+      if (!pairs.length) {
+        residualReason = mustFix
+          ? '除外規則により |z|<2.0 まで是正できない'
+          : '除外規則により、これ以上目標に近づけられない';
+        break;
+      }
+
+      // mustFix のときは、境界(2.0)を跨げる候補があればその中で目標に最も近いものを、
+      // 跨げる候補が無ければ最も絶対値が縮む（跨ぎに近づく）ものを優先する
+      // （跨げない候補も選択肢から外さない——全滅するとその場で「見つからない」扱いに
+      // なってしまうため）。!mustFix のときは単純に目標との差が最も小さいものを優先する。
+      // 同点はハッシュで決定的にタイブレークしつつ、検査A〜Eを壊さない最初の1件が
+      // 見つかるまで、順位を落としながら候補を試す。
+      let ranked;
+      if (mustFix) {
+        ranked = pairs.slice();
+        ranked.sort((a, b) => {
+          const aCross = a.absZ < 2.0, bCross = b.absZ < 2.0;
+          if (aCross !== bCross) return aCross ? -1 : 1;
+          const cmp = aCross ? (Math.abs(a.z - target) - Math.abs(b.z - target)) : (a.absZ - b.absZ);
+          if (cmp !== 0) return cmp;
+          return stableHash(`${candidateKey(b.f)}::${candidateKey(b.b)}`) - stableHash(`${candidateKey(a.f)}::${candidateKey(a.b)}`);
+        });
+      } else {
+        ranked = pairs;
+        ranked.sort((a, b) => {
+          const cmp = Math.abs(a.z - target) - Math.abs(b.z - target);
+          if (cmp !== 0) return cmp;
+          return stableHash(`${candidateKey(b.f)}::${candidateKey(b.b)}`) - stableHash(`${candidateKey(a.f)}::${candidateKey(a.b)}`);
+        });
+      }
+
+      let chosen = null;
+      for (const cand of ranked) {
+        cand.f.newPos = cand.bv; cand.b.newPos = cand.fv;
+        const flags = simulateABCDE(sortedAll, part, k);
+        if (isClean(flags)) { chosen = cand; break; }
+        cand.f.newPos = null; cand.b.newPos = null; // 戻して次の候補を試す
+      }
+
+      if (!chosen) {
+        residualReason = '検査A〜Eを新たに発火させずに目標へ近づける入れ替えが見つからない';
+        break;
+      }
+      moves.push(chosen.f, chosen.b);
+    }
+
+    const after = driftStats(front, back, half, k);
+    const achieved = Math.abs(after.z) < 2.0;
+    return { moves, after, achieved, residualReason: achieved ? residualReason : (residualReason || '反復上限に到達') };
+  }
+
+  const MAX_SALT = 6;
+  const attempts = [];
+  for (let salt = 0; salt < MAX_SALT; salt++) {
+    const target = driftTarget(group, part, salt);
+    const res = attempt(target);
+    attempts.push({ target, res });
+    const rounded = Math.round(res.after.z * 10000) / 10000;
+    const wouldBeThirdOrMore = (usedValues.get(rounded) || 0) >= 2;
+    if (res.achieved && !wouldBeThirdOrMore) break; // 十分：これ以上 salt を試さない
+  }
+  const chosen =
+    attempts.find(a => a.res.achieved && (usedValues.get(Math.round(a.res.after.z * 10000) / 10000) || 0) < 2)
+    || attempts.find(a => a.res.achieved)
+    || attempts[attempts.length - 1];
+
+  const final = attempt(chosen.target); // entries の newPos を確定させるため、採用する target で再実行する
+  return { part, k, half, n, target: chosen.target, before, after: final.after, moves: final.moves, achieved: final.achieved, residualReason: final.residualReason };
+}
 /* ── 論点単位での平準化 ───────────────────────────────────────
    1 設問が複数の論点を持つ場合、その設問を動かすと「巻き込まれる」全ての論点の
    分布が同時に動く。そこで各候補を検討するとき、対象の論点以外の
@@ -380,7 +755,12 @@ function balanceByTopic(entries) {
       if (c[i] < c[minPos]) minPos = i;
     }
 
+    // 位置に依存しない決定的選択（balancePart 直上のコメント参照）。以前は
+    // for-of で最初に条件を満たした設問を選んで即 break していたため、
+    // ここも「ファイル内で最初に見つかった設問」を優先する位置依存の選択に
+    // なっていた。条件を満たす候補をいったん全部集めてからハッシュで選ぶ。
     let chosen = null;
+    const okCandidates = [];
     for (const e of byTopic.get(target)) {
       if (e.excluded || e.newPos != null) continue;
       if (e.answerIdx !== maxPos) continue;
@@ -402,9 +782,9 @@ function balanceByTopic(entries) {
         if (!hadZero2 && willZero2) { bad = true; break; }              // 他論点に新たに 0 回が生まれる
       }
       if (bad) { sideEffectSkips.push({ topic: target, entry: e }); continue; }
-      chosen = e;
-      break;
+      okCandidates.push(e);
     }
+    chosen = pickCandidate(okCandidates);
 
     if (!chosen) { frozen.add(target); continue; } // この論点は今は動かせない（除外規則 or 他論点への配慮のため）
 
@@ -496,9 +876,11 @@ function printReport(group, groupReports, results, opts = {}) {
 
   const labelOf = (pr) => by === 'topic'
     ? `論点:${pr.key}${opts.topicName?.get(pr.key) ? `（${opts.topicName.get(pr.key)}）` : ''}`
-    : (PART_NAMES[pr.key] || `Part ${pr.key}`);
+    : by === 'drift'
+      ? pr.key // 既に "volX PN" 形式の文字列（main() 側で組み立て済み）
+      : (PART_NAMES[pr.key] || `Part ${pr.key}`);
 
-  console.log(`\n--- ${by === 'topic' ? '論点別' : 'パート別'} 正解位置分布 ---`);
+  console.log(`\n--- ${by === 'topic' ? '論点別' : by === 'drift' ? '巻×パート別' : 'パート別'} 正解位置分布 ---`);
   for (const pr of groupReports) {
     const total = pr.entries.length;
     const excluded = pr.entries.filter(e => e.excluded).length;
@@ -559,6 +941,26 @@ function printReport(group, groupReports, results, opts = {}) {
     }
   }
 
+  if (by === 'drift' && opts.driftReports) {
+    console.log(`\n--- 前半・後半ドリフト（validate.mjs 検査Fと同じ z スコア。目標zは区画ごとに帰無分布から決定的に引いた値） ---`);
+    for (const d of opts.driftReports) {
+      const pairs = d.moves.length / 2;
+      const touched = pairs > 0 ? `入れ替え ${pairs} 組` : '変更なし';
+      const label = `${d.mockGroup} P${d.part}`;
+      if (d.target == null) {
+        // 是正不要（元から健全）だった区画。目標は引いていない。
+        console.log(`  ${label}: z ${d.before.z.toFixed(2)}（前半n=${d.half}・後半n=${d.half}、${touched}） [達成（是正不要）]`);
+        continue;
+      }
+      const distAfter = Math.abs(d.after.z - d.target);
+      const status = !d.achieved ? `残差（${d.residualReason}）`
+        : d.residualReason ? `目標に近似（${d.residualReason}）`
+          : '達成';
+      console.log(`  ${label}: z ${d.before.z.toFixed(2)} → ${d.after.z.toFixed(2)}` +
+        `（目標 ${d.target.toFixed(2)}、目標との差 ${distAfter.toFixed(2)}／前半n=${d.half}・後半n=${d.half}、${touched}） [${status}]`);
+    }
+  }
+
   if (fileErrors.length > 0) {
     console.log(`\n--- 対応できなかったファイル（${fileErrors.length} 件） ---`);
     for (const r of fileErrors) console.log(`  ${r.file}: ${r.error}`);
@@ -566,17 +968,20 @@ function printReport(group, groupReports, results, opts = {}) {
 }
 
 function printHelp() {
-  console.log(`使い方: node balance2.mjs [--write] [--by part|topic] --group <名前> <ファイル…>
+  console.log(`使い方: node balance2.mjs [--write] [--by part|topic|drift] --group <名前> <ファイル…>
 
   正解位置（A/B/C/D）の偏りを平準化する codemod。
   既定は dry-run（差分と分布表を表示するだけ）。--write を付けると実際にファイルを書き換える。
   --by part（既定）はパート単位、--by topic は論点（topics）単位で分布を均す。
+  --by drift は件数ではなく no昇順の前半・後半の系統的な偏り（validate.mjs 検査F）を是正する
+  （前半の高い位置の設問と後半の低い位置の設問を対にして入れ替えるため、件数は変えない）。
   模試はパート単位の通し受験なので --by part のまま使うこと。
   ドリルは論点ごとに連続出題されるため --by topic で均すこと。
 
   例:
     node tools/balance2.mjs --group vol1 assets/data/mocks/vol1-*.js
     node tools/balance2.mjs --by topic --group drills assets/data/drills/*.js
+    node tools/balance2.mjs --by drift --write --group vol3 assets/data/mocks/vol3-*.js
 
   注記:
     - Part 2（3択の音声応答）は、選択肢どうしに順序の制約がないため対象に含めている。
@@ -617,8 +1022,8 @@ async function main() {
     else if (a === '--help' || a === '-h') { printHelp(); return; }
     else files.push(a);
   }
-  if (by !== 'part' && by !== 'topic') {
-    console.error(`--by は "part" か "topic" のどちらかで指定してください（指定値: "${by}"）`);
+  if (by !== 'part' && by !== 'topic' && by !== 'drift') {
+    console.error(`--by は "part" か "topic" か "drift" のどれかで指定してください（指定値: "${by}"）`);
     process.exitCode = 1;
     return;
   }
@@ -669,6 +1074,47 @@ async function main() {
     reportOpts.sideEffectSkips = sideEffectSkips;
     reportOpts.residual = residual;
     reportOpts.topicName = await loadTopicNames();
+  } else if (by === 'drift') {
+    // 区画は「巻（ファイル名の vol1 等。無ければ --group の値にフォールバック）
+    // ＋パート番号」の組で切る。複数巻のファイルを1回の実行に渡すことで、
+    // 「同じ区画に達成しうる値」が巻をまたいで衝突しないかを検出・回避できる
+    // （analyzeDrift/fixDriftPart 直上のコメント参照）。
+    const byCell = new Map(); // "巻:パート" -> { mockGroup, part, entries }
+    for (const e of allEntries) {
+      const mg = e.mockGroup || group;
+      const key = `${mg}:${e.part}`;
+      if (!byCell.has(key)) byCell.set(key, { mockGroup: mg, part: e.part, entries: [] });
+      byCell.get(key).entries.push(e);
+    }
+    const cells = [...byCell.values()]
+      .map(c => ({ ...c, analysis: analyzeDrift(c.entries, c.part) }))
+      .filter(c => c.analysis) // 設問数が10問未満（Part1 相当）は validate.mjs 同様に判定対象外
+      .sort((a, b) => a.mockGroup === b.mockGroup ? a.part - b.part : (a.mockGroup < b.mockGroup ? -1 : 1));
+
+    // 是正が不要な（=元から健全な）区画の値を先にすべて登録しておく。処理の順序に
+    // 関係なく、是正が必要な区画が「登録済みの値と衝突しない目標」を選べるようにするため。
+    const usedValues = new Map();
+    for (const cell of cells) {
+      if (!cell.analysis.needsFix) {
+        const r = Math.round(cell.analysis.before.z * 10000) / 10000;
+        usedValues.set(r, (usedValues.get(r) || 0) + 1);
+      }
+    }
+
+    groupReports = [];
+    reportOpts.driftReports = [];
+    for (const cell of cells) {
+      const result = fixDriftPart(cell.analysis, cell.part, cell.mockGroup, usedValues);
+      if (cell.analysis.needsFix) {
+        const r = Math.round(result.after.z * 10000) / 10000;
+        usedValues.set(r, (usedValues.get(r) || 0) + 1);
+      }
+      const k = kOfPart.get(cell.part);
+      const before = countDist(cell.entries, k, false);
+      const after = countDist(cell.entries, k, true);
+      groupReports.push({ key: `${cell.mockGroup} P${cell.part}`, k, entries: cell.entries, before, after, moves: result.moves });
+      reportOpts.driftReports.push({ ...result, mockGroup: cell.mockGroup });
+    }
   } else {
     const byPart = new Map();
     for (const e of allEntries) {

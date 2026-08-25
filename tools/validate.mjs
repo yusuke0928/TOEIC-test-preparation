@@ -672,6 +672,58 @@ for (const meta of MOCK_META) {
         判定が不安定なのでとばす（Part1・Part6 はこれで自然に対象外になる）。
    graphic・p7ins のように選択肢が順序を持つ設問も、受験者から見れば同じ並びで
    目に入るため、ここでは除外しない（balance2.mjs の入れ替え対象外とは別の話）。 */
+/* ── 正解位置の系統的な位置ドリフト（検査F・模試/--extra・WARN） ──
+   A・C（循環）は「隣接ペアの規則性」しか見ないため、周期の長い・緩やかな
+   ドリフト（多用した文字が前半から後半へ徐々に移っていく）は素通りする。
+   実際に balance2.mjs の候補選択（balancePart / balanceByTopic）が
+   Array.prototype.find 等で「ファイル内で最初に見つかった設問」を選ぶ実装に
+   なっており、過剰な文字が前半から順に剥がされて末尾にだけ残り、補充された
+   文字が前半に集まる——という前半・後半の系統的な偏りを生んでいた
+   （2026-08-24 実測：vol3 Part3 で no昇順の前半平均2.37・後半平均0.47、差+1.89。
+   件数は均等になるため balance2.mjs 自身の報告も検査A〜Eも素通りしていた）。
+
+   no昇順に並べ、前半 floor(n/2) 問・後半 floor(n/2) 問（奇数なら中央の1問は
+   前半・後半どちらにも入れず捨てる）の正解位置（A=0, B=1, …）の平均を取り、
+   その差を「各半分がランダムに一様分布{0..k-1}から独立に選ばれた場合」の
+   標準偏差で割った z スコアで評価する（分散 = (k^2-1)/12、差の分散は
+   その2倍を半分の問題数で割ったもの。Part2は3択なのでk=3、他は4択でk=4）。
+   |z| >= 2.0（両側 5% 水準の目安）を WARN にする。
+
+   閾値の根拠（2026-08-24 実測）：健全な Vol.6 は判定対象になる全パートで
+   |z| の最大が 0.82（Part4）。重症の Vol.3 は判定対象の全パート
+   （Part2/3/4/5/6/7。Part1は下の下限で対象外）で |z| が 2.68〜5.22。
+   0.82 と 2.68 の間に約3.3倍の開きがあり、2.0 はその間を取って
+   両者をきれいに分離する。
+   A・C と同じ理由で設問数10問未満（Part1の6問）は判定しない
+   （n=6 では前半・後半が3問ずつしかなく統計的に不安定。実際
+   n>=10 のもとで vol1〜5 の35区画中30区画が同符号のドリフトを示した）。
+   ERROR ではなく WARN にする：A・C は「隣接ペアの60%以上が同じ規則」という
+   ほぼ決定的な機械生成パターンを検出するのに対し、F は平均差の統計的な
+   徴候であり、境界付近では偶然の変動と区別しにくいため。 */
+function checkDriftF(key, p, sorted, k, letters) {
+  const n = sorted.length;
+  if (n < 10) return;
+  const half = Math.floor(n / 2);
+  const front = sorted.slice(0, half);
+  const back = sorted.slice(n - half);
+  const frontMean = front.reduce((a, e) => a + e.answerIdx, 0) / half;
+  const backMean = back.reduce((a, e) => a + e.answerIdx, 0) / half;
+  const diff = frontMean - backMean;
+  const varUniform = (k * k - 1) / 12;
+  const stdNull = Math.sqrt((2 * varUniform) / half);
+  const z = stdNull > 0 ? diff / stdNull : 0;
+  if (Math.abs(z) >= 2.0) {
+    const clamp = (x) => Math.min(k - 1, Math.max(0, Math.round(x)));
+    const frontHint = letters[clamp(frontMean)];
+    const backHint = letters[clamp(backMean)];
+    warn(key,
+      `Part${p} の正解位置に前半・後半の系統的な偏りがある疑い（no昇順で前半平均${frontMean.toFixed(2)}` +
+      `〈${frontHint}寄り〉・後半平均${backMean.toFixed(2)}〈${backHint}寄り〉、差${diff.toFixed(2)}、` +
+      `z=${z.toFixed(2)}／目安|z|>=2.0でWARN。前半と後半で当てやすい記号が変わってしまっており、` +
+      `本文を読まなくても前半/後半で狙う記号を変えれば当たりやすくなる恐れがある）`);
+  }
+}
+
 for (const meta of MOCK_META) {
   const byPart = mockSeq.get(meta.id);
   if (!byPart) continue;
@@ -727,6 +779,9 @@ for (const meta of MOCK_META) {
           `${pairs}組中${sameHits}組。偶然なら約25%。同じ記号を意図的に避ける生成パターンの疑い）`);
       }
     }
+
+    /* 検査F：前半・後半の系統的な位置ドリフト（上のコメント参照）。 */
+    checkDriftF(`mocks/${meta.id}.js`, p, sorted, k, letters);
   }
 }
 
@@ -794,6 +849,9 @@ for (const [key, byPart] of extraSeq) {
           `${pairs}組中${sameHits}組。偶然なら約25%。同じ記号を意図的に避ける生成パターンの疑い）`);
       }
     }
+
+    /* 検査F：前半・後半の系統的な位置ドリフト（上のブロックのコメント参照）。 */
+    checkDriftF(key, p, sorted, k, letters);
   }
 }
 
