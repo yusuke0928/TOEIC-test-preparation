@@ -66,10 +66,10 @@ export const L3 = [
         e: '「翌日の祭事向け注文の準備のため」と述べられている。',
         w: ['正解。', '配送遅延の話はない。', '設備整備には触れていない。', '休業の案内ではない。'] },
       { tag: '詳細', s: 'What is said about items left after 5:30?',
-        c: ['They will be donated.', 'They will be restocked tomorrow.', 'They will be moved to another counter.', 'They will be sold at half price.'],
-        a: 3,
+        c: ['They will be sold at half price.', 'They will be restocked tomorrow.', 'They will be moved to another counter.', 'They will be donated.'],
+        a: 0,
         e: '「17 時半以降に残った商品は半額」と明言されている。',
-        w: ['寄付の話はない。', '翌日の補充には触れていない。', '移動の話はない。', '正解。'] },
+        w: ['正解。', '翌日の補充には触れていない。', '移動の話はない。', '寄付の話はない。'] },
       { tag: '詳細', s: 'Where are shoppers directed to pay?',
         c: ['At the front of the store', 'Near the bakery counter', 'At the far end near the pharmacy', 'At a temporary outdoor till'],
         a: 2,
@@ -97,10 +97,10 @@ export const L3 = [
         e: 'スーツのアイロン、手仕上げ、同日仕上げという内容からクリーニング店。',
         w: ['学校ではない。', '生地卸ではない。', '販売店ではない。', '正解。'] },
       { tag: '詳細', s: 'What does the speaker acknowledge about the business?',
-        c: ['It has limited opening hours.', 'It is difficult to reach by public transport.', 'It is not the lowest-priced option.', 'It cannot handle delicate fabrics.'],
-        a: 2,
+        c: ['It is not the lowest-priced option.', 'It is difficult to reach by public transport.', 'It has limited opening hours.', 'It cannot handle delicate fabrics.'],
+        a: 0,
         e: '「最安ではない、それは率直に言う」と認めている。',
-        w: ['年中無休で営業時間は制限されていない。', '停留所の 2 軒隣で交通の便はよい。', '正解。', '素材の制約には触れていない。'] },
+        w: ['正解。', '停留所の 2 軒隣で交通の便はよい。', '年中無休で営業時間は制限されていない。', '素材の制約には触れていない。'] },
       { tag: '詳細', s: 'How can listeners obtain the special offer?',
         c: ['By printing a voucher', 'By ordering online', 'By mentioning a phrase in the shop', 'By joining a membership scheme'],
         a: 2,
@@ -186,10 +186,10 @@ export const L3 = [
     v: [['registry office', '登記所'], ['certificate', '証明書'], ['ceremony', '式典'], ['stay on the line', '電話を切らずに待つ']],
     q: [
       { tag: '詳細', s: 'What is indicated about ordering certificate copies?',
-        c: ['Online orders are processed faster.', 'They can only be ordered in person.', 'They require an appointment.', 'They are free of charge.'],
-        a: 0,
+        c: ['They are free of charge.', 'They can only be ordered in person.', 'They require an appointment.', 'Online orders are processed faster.'],
+        a: 3,
         e: '「電話注文は 10 営業日、ウェブ注文は 4 営業日」と明示されている。',
-        w: ['正解。', '来所限定ではない。', '予約は出生届の話。', '料金には触れていない。'] },
+        w: ['料金には触れていない。', '来所限定ではない。', '予約は出生届の話。', '正解。'] },
       { tag: '詳細', s: 'What should callers prepare before selecting option three?',
         c: ['A payment card', 'A reference number', 'Names, a date and a location', 'Proof of address'],
         a: 2,
@@ -259,16 +259,49 @@ export const L3 = [
         w: ['ゼロから書く作業ではない。', '正解。', '録画視聴の話はない。', '筆記試験ではない。'] },
       { tag: '意図', s: 'Why does the speaker say, "I chose them because they are typical, not because they are poor"?',
         t: ['p3int'],
-        c: ['To reassure the authors of the sample reports', 'To explain why six reports were selected', 'To criticise the current reporting standard', 'To encourage volunteers to share their work'],
-        a: 0,
+        c: ['To criticise the current reporting standard', 'To explain why six reports were selected', 'To reassure the authors of the sample reports', 'To encourage volunteers to share their work'],
+        a: 2,
         e: '直前の「書き手は名乗り出ないでほしい」を受けた発言。書き手が責められていると感じないよう配慮している。',
-        w: ['正解。', '数の理由の説明ではない。', '批判ではなく擁護。', '名乗り出ないよう求めているので逆。'] },
+        w: ['批判ではなく擁護。', '数の理由の説明ではない。', '正解。', '名乗り出ないよう求めているので逆。'] },
     ],
   }),
 
   /* ── 95–97（図表）─────────────────────────────────── */
-  talk({
-    n: [95, 96, 97], lv: 5, k: 'announcement', t: ['graphic', 'p4type'],
+  /* 本番の TOEIC は "Look at the graphic." の設問を1セットに1問しか置かない。この模試は
+     長らく1セット2問（95・96）を置いており、2問目「Where will that class now be held?」は
+     "that class" で前問（No.95）の正解を先行詞として受ける鎖になっていた。
+     2026-08-24 の是正で、No.96 を「図表を見なくても音声だけで解ける通常設問」に差し替え、
+     本番仕様（1セット1問）に揃えた。新しい No.96（id v1q96r）は変更の原因（設備の不具合）を
+     問う設問で、スタジオ名・クラス名（Ceramics）にも、移設先（Studio C）にも触れないため、
+     No.95 の正解にも No.97 の正解（受付での確認）にも重ならない。
+     talk() は id を no から自動生成し、この設問だけ id を新規採番する手段がないため、
+     このユニットだけヘルパーを使わず直接記述する。No.97 の id（v1q97）と内容は変更していない。
+     2026-08-25 の是正：No.95 自体に「一般常識だけで図表なしに解ける」欠陥が残っていた。
+     旧音声は "The kiln in Studio B failed its inspection" と述べており、"kiln"（窯）＝
+     陶芸（Ceramics）という一般常識だけで表を見ずに正解（Ceramics）へ到達できた。さらに
+     "hand-building only — no wheel work today" も「ろくろ」＝陶芸を独立に示唆しており、
+     二重に一般常識で解けてしまっていた。窯・ろくろ・手びねりに触れる語をすべて "a piece of
+     equipment" 等の中立語に置き換え、Studio 列（Studio B）と Time 列（正午）を突き合わせて
+     初めて Class 列（Ceramics）が分かる形にした。会話の長さは同巻の他の Part 4（約110語）と
+     揃えている。No.96 の正解（機材の不具合）・No.97 の正解（受付での確認）はどちらも変更後の
+     音声でも同じ根拠のまま成立する。設問 id は音声の実質変更に伴い v1q95 → v1q95r に
+     新規採番した。
+
+     2026-08-25 の追加是正（レビュー役の監査差し戻し）：No.96 自体に、正解の英文が音声と
+     一致しないという欠陥が残っていた。音声は "A piece of equipment in Studio B failed an
+     inspection"（点検に不合格）と述べているが、旧正解 (C) は "A piece of machinery broke
+     down unexpectedly."（機材が故障した）だった。点検に不合格になることと故障することは
+     別事象で（カバー欠落・証明書切れ・配線の摩耗などは、稼働したまま点検には落ちる）、
+     exp 自身も「点検で不合格になったことが理由」と書いており、正解の英文と解説が食い違って
+     いた。加えて "machinery" は陶芸・木工など特定の工芸を連想させ、No.95 で "kiln" 等を
+     除去した効果を弱めていた（設問は先読みされるため）。(C) を "Some equipment did not
+     pass an inspection."（音声の "failed an inspection" の忠実な言い換え。特定の工芸を
+     示唆しない中立語）に差し替え、exp・why を新しい文言に合わせて書き直した。正解位置
+     （index 2）・(A)(B)(D) の英文は変更していない。選択肢の語数は 6/6/7/7 語で、正解が
+     単独最長にはならない。設問 id は選択肢の実質変更に伴い v1q96r → v1q96s に新規採番した。 */
+  {
+    id: 'v1-p4-95', part: 4, kind: 'set', kindLabel: 'announcement',
+    topics: ['graphic', 'p4type'], level: 5,
     graphic: {
       t: 'table', title: 'Northgate Arts Centre — Studio Timetable (Wednesday)',
       head: ['Time', 'Studio', 'Class'],
@@ -279,33 +312,36 @@ export const L3 = [
         ['16:00', 'Studio C', 'Watercolour'],
       ],
     },
-    s: [
+    script: [
       { role: 'W-Au', text: 'Good morning, everyone. A short notice about today\'s programme here at Northgate.' },
-      { role: 'W-Au', text: 'The kiln in Studio B failed its inspection this morning, so the class scheduled there at midday cannot go ahead as planned.' },
-      { role: 'W-Au', text: 'Rather than cancel, we have moved it to Studio C, which is free until four. The session will run at its normal time, but hand-building only — no wheel work today.' },
+      { role: 'W-Au', text: 'A piece of equipment in Studio B failed an inspection this morning, so the class scheduled there at midday cannot go ahead as planned.' },
+      { role: 'W-Au', text: 'Rather than cancel, we have moved it to Studio C, which is free until four. The session will run at its normal time, but without some of the usual equipment.' },
       { role: 'W-Au', text: 'Everyone booked on that class has been sent a message. If you didn\'t receive one, please check with the desk, because it means we don\'t have a current number for you.' },
       { role: 'W-Au', text: 'All other classes today are unaffected and will run in their listed studios.' },
     ],
-    ja: 'ノースゲート・アーツセンターの当日案内。スタジオ B の窯が朝の点検に不合格となり、正午からそこで予定されていたクラスは実施できない。中止せず、16 時まで空いているスタジオ C に移して通常時刻に実施するが、本日は手びねりのみでろくろは使わない。当該クラスの予約者には連絡済みで、届いていない場合は連絡先が未更新の可能性があるため受付で確認するよう案内。他のクラスは影響なく、表示どおりのスタジオで実施。',
-    v: [['kiln', '窯'], ['hand-building', '手びねり'], ['wheel work', 'ろくろ作業'], ['go ahead', '実施される']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which class has been affected?',
-        c: ['Life Drawing', 'Ceramics', 'Printmaking', 'Watercolour'],
-        a: 1,
-        e: '「スタジオ B で正午に予定されていたクラス」＝ Ceramics。',
-        w: ['10 時・スタジオ A。', '正解。', '14 時・スタジオ A。', '16 時・スタジオ C で影響なし。'] },
-      { tag: '図表', s: 'Look at the graphic. Where will that class now be held?',
-        c: ['Studio A', 'Studio B', 'Studio C', 'In the main hall'],
-        a: 2,
-        e: '「16 時まで空いているスタジオ C に移す」と述べている。',
-        w: ['スタジオ A は別のクラスが使用。', '窯が使えないため使用不可。', '正解。', 'ホールの話は出ていない。'] },
-      { tag: '詳細', s: 'What should listeners do if they did not receive a message?',
-        c: ['Wait for a second announcement', 'Speak to staff at the desk', 'Re-book the class online', 'Collect a refund voucher'],
-        a: 1,
-        e: '「届いていない場合は受付で確認を。連絡先が未更新の可能性がある」と案内している。',
-        w: ['再放送を待つよう案内していない。', '正解。', '再予約の指示はない。', '返金の話はない。'] },
+    ja: 'ノースゲート・アーツセンターの当日案内。スタジオ B の設備が朝の点検に不合格となり、正午からそこで予定されていたクラスは実施できない。中止せず、16 時まで空いているスタジオ C に移して通常時刻に実施するが、本日はいつもの設備なしで行う。当該クラスの予約者には連絡済みで、届いていない場合は連絡先が未更新の可能性があるため受付で確認するよう案内。他のクラスは影響なく、表示どおりのスタジオで実施。',
+    vocab: [['notice', '案内、告知'], ['inspection', '点検'], ['unaffected', '影響を受けない'], ['go ahead', '実施される']],
+    questions: [
+      { id: 'v1q95r', no: 95, tag: '図表', stem: 'Look at the graphic. Which class has been affected?',
+        choices: ['Life Drawing', 'Watercolour', 'Printmaking', 'Ceramics'],
+        answer: 3,
+        exp: '「スタジオ B で正午に予定されていたクラス」＝ Ceramics。',
+        why: ['10 時・スタジオ A。', '16 時・スタジオ C で影響なし。', '14 時・スタジオ A。', '正解。'],
+        topics: ['graphic', 'p4type'] },
+      { id: 'v1q96s', no: 96, tag: '詳細', stem: 'Why has today\'s schedule been changed?',
+        choices: ['A visiting instructor did not arrive.', 'The building\'s alarm system was tested.', 'Some equipment did not pass an inspection.', 'Heavy rain caused a brief power cut.'],
+        answer: 2,
+        exp: '「スタジオ B の設備が本日の点検に不合格になった」ことが変更の理由として述べられている（"failed an inspection" の言い換え）。',
+        why: ['講師の欠席には触れていない。', '警報装置の点検の話はない。', '正解。「設備が点検に不合格になった」という発言と一致する。', '悪天候や停電には触れていない。'],
+        topics: ['p4type'] },
+      { id: 'v1q97', no: 97, tag: '詳細', stem: 'What should listeners do if they did not receive a message?',
+        choices: ['Wait for a second announcement', 'Speak to staff at the desk', 'Re-book the class online', 'Collect a refund voucher'],
+        answer: 1,
+        exp: '「届いていない場合は受付で確認を。連絡先が未更新の可能性がある」と案内している。',
+        why: ['再放送を待つよう案内していない。', '正解。', '再予約の指示はない。', '返金の話はない。'],
+        topics: ['graphic', 'p4type'] },
     ],
-  }),
+  },
 
   /* ── 98–100（図表）───────────────────────────────── */
   talk({

@@ -269,13 +269,33 @@ export const L1 = [
     w: ['invoice の反復で、遅れている状況と矛盾する。', '正解。', '頻度の話で理由ではない。'],
     ja: '請求書はもう発送されているべきではないですか。→ (B) 今朝、請求ソフトが落ちました。' }),
 
-  p2(22, { t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Br',
-    p: 'Do you know if the merger has been finalized?',
-    c: ['It merges two departments.', 'Legal is still drafting the paperwork.', 'The finale was well received.'],
-    a: 1,
-    e: '「法務がまだ書類を作成中」と未確定であることを伝える応答。',
-    w: ['merge の反復。', '正解。', 'finalized と finale の音の引っ掛け。'],
-    ja: '合併は正式に決定しましたか。→ (B) 法務がまだ書類を作成中です。' }),
+  /* id は v4q22r（no は模試の通し番号として 22 を維持するが、正解の選択肢を差し替えたため
+     設問 id は新規採番。旧 id v4q22 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     旧 (B) Legal is still drafting the paperwork. は、vol2-l1.js No.8 の正解
+     'Legal is still reviewing it.' と「法務がまだ〜している＝未確定」という装置が同一で、
+     全巻照合（機械照合＋通読）により重複と判定されたため差し替えた（2026-08-24）。
+     新しい正解は「話自体が先週白紙になった」という確定した事実で応答する型に変えてあり、
+     「まだ決まっていない」という未確定型ではなく「結論が出た（不成立）」という別の装置になる。
+     誤答2つは元のまま使用（(A) は merger の定義を述べるだけで完了の有無に触れておらず、
+     (C) は finalized / finale の音の引っ掛けで、いずれも装置の重複とは無関係だったため）。
+     p2() ヘルパーは id を no から自動生成し、no を変えずに id だけ変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v4-p2-22r', part: 2, kind: 'p2', topics: ['p2ind'], level: 5,
+    questions: [{
+      id: 'v4q22r', no: 22,
+      prompt: 'Do you know if the merger has been finalized?',
+      speakerA: 'M-Am', speakerB: 'W-Br',
+      choices: ['It merges two departments.', 'It fell through last week.', 'The finale was well received.'],
+      answer: 1,
+      exp: 'Do you know if ... ? は形の上では「知っているか」を尋ねる Yes/No 疑問だが、実際に求められているのは埋め込み節の中身、つまり合併が正式に決まったのかどうか。ここに Yes/No を置かず事実だけで答えるのが間接応答。fall through は取引・合意・計画が成立せずに流れることをいう句動詞で（Longman は if an agreement, plan, sale etc falls through, it is not completed successfully と定義）、merger のような取り決めを主語に取る。「先週流れた」と言えば、正式決定には至らなかったことがそのまま伝わる。',
+      why: [
+        '設問の merger と語幹を共有する merges を使った引っ掛け。述べているのは合併の中身（何と何を統合するか）で、これは正式決定の前でも後でも等しく言える内容。つまり、問われている「決定済み」と「未決定」のどちらの状態とも両立してしまい、状態を区別する情報を何も足していない。',
+        '正解。It は the merger を受け、「先週流れた」と合併そのものの結末を述べている。fall through した以上、正式決定には至らなかったことが確定するので、Yes/No を使わずに問いへの答えが出ている。',
+        'finalized と音の近い finale（公演などの最終幕）を使った音の引っ掛け。しかも the finale と定冠詞で受けているのに、この対話にはその最終幕が指しうるものが一つも出てきていない。指示対象を欠くので、応答として立たない。',
+      ],
+      ja: '合併が正式に決まったかどうか、ご存じですか。→ (B) 先週、その話は流れました。',
+      topics: ['p2ind'],
+    }] },
 
   p2(23, { t: ['p2wh'], lv: 4, sa: 'W-Cn', sb: 'M-Br',
     p: 'Are we meeting in the main hall or the annex?',

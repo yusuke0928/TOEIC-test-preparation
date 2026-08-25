@@ -52,8 +52,34 @@ export const L2B = [
   }),
 
   /* ── 56–58（図表）────────────────────────────────── */
-  set({
-    n: [56, 57, 58], lv: 5, t: ['graphic'],
+  /* No.57 は2度目の是正（id を v3q57s に再採番）。1度目の修正（v3q57r）は「ページ数の時点で
+     除外される綴じ方の公表料金」を問う図表設問にしたが、レビューで次が発覚した：
+     stem が定冠詞＋単数（"the binding option that is ruled out"）で「除外されるのはちょうど1つ」
+     と明言しており、表の Max pages 列（48/250/400/600）と組み合わせると、48<P≤250 の場合に
+     除外される行は必ず Saddle stitch に一意確定するため、音声の「190ページ」を聞かなくても
+     設問文と表だけで正解 £1.90 が求まってしまっていた。加えて正解 £1.90 は公表料金の最安値、
+     Max pages 48 は唯一の外れ値（次点の250とは5倍差）で、当てずっぽうの手がかりも二重に立って
+     いた上、"the binding option that is ruled out" が No.56 の選択肢 Saddle stitch を先読みで
+     排除し、No.56 を実質3択にしていた。この会話は図表設問を2問載せられない構造（Perfect bound /
+     Wire-O / Case bound を識別する属性がすべて表の列そのもの）なので、No.57 を図表設問から
+     詳細設問に作り替え、音声終盤の「200部には公表料金にない割引がある」という発言
+     （No.58 の正解＝午後に見積もりを送る、とは別の事実で、いずれの他設問の答えにも触れない）を
+     問う形にした。tag を「図表」→「詳細」、topics を ['graphic'] → ['p3detail']
+     （このセットの他の詳細系設問と同じ論点。他ユニットの set() 既定値に倣った）に変更。
+     set() は id を no から自動生成し、この設問だけ id を変える手段がないため、
+     このユニットだけヘルパーを使わず直接記述する。 */
+  {
+    id: 'v3-p3-56', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
+      { role: 'M-Am', text: 'Halvard Print, good afternoon.' },
+      { role: 'W-Au', text: 'Hello. I need two hundred copies of a training manual. It runs to a hundred and ninety pages.' },
+      { role: 'M-Am', text: 'A hundred and ninety. That rules out one of our options straight away.' },
+      { role: 'W-Au', text: 'The important thing is that it stays open on a bench while people follow the steps.' },
+      { role: 'M-Am', text: 'Then that narrows it to one. The cheaper binding at that page count won\'t stay open — it springs shut.' },
+      { role: 'W-Au', text: 'Understood. And the cost?' },
+      { role: 'M-Am', text: 'I\'ll send a written quotation this afternoon. There\'s a discount at two hundred copies that\'s not on the published rate.' },
+    ],
     graphic: {
       t: 'table', title: 'Halvard Print — Binding Options',
       head: ['Binding', 'Max pages', 'Lies flat', 'Cost per copy'],
@@ -64,36 +90,30 @@ export const L2B = [
         ['Case bound', '600', 'No', '£9.80'],
       ],
     },
-    s: [
-      { role: 'M-Am', text: 'Halvard Print, good afternoon.' },
-      { role: 'W-Au', text: 'Hello. I need two hundred copies of a training manual. It runs to a hundred and ninety pages.' },
-      { role: 'M-Am', text: 'A hundred and ninety. That rules out one of our options straight away.' },
-      { role: 'W-Au', text: 'The important thing is that it stays open on a bench while people follow the steps.' },
-      { role: 'M-Am', text: 'Then that narrows it to one. The cheaper binding at that page count won\'t stay open — it springs shut.' },
-      { role: 'W-Au', text: 'Understood. And the cost?' },
-      { role: 'M-Am', text: 'I\'ll send a written quotation this afternoon. There\'s a discount at two hundred copies that\'s not on the published rate.' },
-    ],
     ja: '190 ページの研修マニュアルを 200 部という依頼。ページ数で選択肢が 1 つ除外される。作業台の上で開いたままになることが重要と伝えると、条件を満たすのは 1 つに絞られると説明。そのページ数では安い方の綴じ方は開いたままにならず閉じてしまうという。費用は午後に書面で見積もりを送るとし、200 部には公表料金にない割引があると案内された。',
-    v: [['lie flat', '（本が）開いたままになる'], ['spring shut', '（反発で）閉じてしまう'], ['quotation', '見積もり']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which binding will be used?',
-        c: ['Saddle stitch', 'Perfect bound', 'Wire-O', 'Case bound'],
-        a: 2,
-        e: '190 ページなので Saddle stitch（48 ページまで）は不可。開いたままになる必要があるので Lies flat が Yes の Wire-O。Perfect bound と Case bound は No。',
-        w: ['ページ数の上限を超える。', '開いたままにならない。', '正解。', '開いたままにならない。'] },
-      { tag: '図表', s: 'Look at the graphic. What is the published cost per copy for that option?',
-        c: ['£1.90', '£3.40', '£4.20', '£9.80'],
-        a: 2,
-        e: 'Wire-O の 1 部あたり £4.20。実際には 200 部の割引があるが、公表料金はこの額。',
-        w: ['Saddle stitch。', 'Perfect bound。', '正解。', 'Case bound。'] },
-      { tag: '次の行動', s: 'What will the man do this afternoon?',
-        c: ['Send a written quotation', 'Deliver a sample copy',
-            'Order the paper stock', 'Visit the customer\'s site'],
-        a: 0,
-        e: '「午後に書面で見積もりを送る」と述べている。',
-        w: ['正解。', '見本の話はない。', '用紙の発注には触れていない。', '訪問の予定もない。'] },
+    vocab: [['lie flat', '（本が）開いたままになる'], ['spring shut', '（反発で）閉じてしまう'], ['quotation', '見積もり']],
+    questions: [
+      { id: 'v3q56', no: 56, tag: '図表', stem: 'Look at the graphic. Which binding will be used?',
+        choices: ['Saddle stitch', 'Wire-O', 'Perfect bound', 'Case bound'],
+        answer: 1,
+        exp: '190 ページなので Saddle stitch（48 ページまで）は不可。開いたままになる必要があるので Lies flat が Yes の Wire-O。Perfect bound と Case bound は No。',
+        why: ['ページ数の上限を超える。', '正解。', '開いたままにならない。', '開いたままにならない。'],
+        topics: ['graphic'] },
+      { id: 'v3q57s', no: 57, tag: '詳細', stem: 'What does the man say about the price for this order?',
+        choices: ['It will be higher than the standard published rate.', 'It will be the same as the published rate.',
+                   'It will be lower than the standard published rate.', 'It includes a surcharge for a short deadline.'],
+        answer: 2,
+        exp: '男性は「200 部には公表料金にない割引がある」と述べている。割引がある以上、実際の価格は公表料金より低くなる。',
+        why: ['割引は価格を下げるものであり、上げるものではない。', '割引は公表料金と異なることを意味するので、同額にはならない。', '正解。', '述べられているのは割引であり、追加の割増ではない。短納期への言及もない。'],
+        topics: ['p3detail'] },
+      { id: 'v3q58', no: 58, tag: '次の行動', stem: 'What will the man do this afternoon?',
+        choices: ['Send a written quotation', 'Deliver a sample copy', 'Order the paper stock', 'Visit the customer\'s site'],
+        answer: 0,
+        exp: '「午後に書面で見積もりを送る」と述べている。',
+        why: ['正解。', '見本の話はない。', '用紙の発注には触れていない。', '訪問の予定もない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 
   /* ── 59–61 ─────────────────────────────────────────── */
   set({
@@ -125,17 +145,58 @@ export const L2B = [
         e: '素材制作の費用が見積もられていないため、7 千では済まないという指摘。',
         w: ['再交渉の提案ではない。', '正解。', '予算承認の話はない。', '高い方に隠れた費用があるとは述べていない。'] },
       { tag: '次の行動', s: 'What is the woman asked to do?',
-        c: ['Get written confirmation of the filming days', 'Obtain a third quotation',
-            'Produce sample footage', 'Negotiate a lower price'],
-        a: 0,
+        c: ['Negotiate a lower price', 'Obtain a third quotation',
+            'Produce sample footage', 'Get written confirmation of the filming days'],
+        a: 3,
         e: '「契約前に撮影 2 日間を書面で確認するよう頼め」と指示されている。',
-        w: ['正解。', '3 社目の話はない。', '素材制作は避ける方針。', '値下げ交渉は述べていない。'] },
+        w: ['値下げ交渉は述べていない。', '3 社目の話はない。', '素材制作は避ける方針。', '正解。'] },
     ],
   }),
 
-  /* ── 62–64（図表）────────────────────────────────── */
-  set({
-    n: [62, 63, 64], lv: 5, t: ['graphic'],
+  /* ── 62–64（図表 1 問＋通常 2 問）─────────────────── */
+  /* No.63 は本番仕様（1 セット 1 問の図表設問）に揃えるための差し替え。
+     旧 No.63「Look at the graphic. Will lunch be included?」は、No.62 の正解
+     （Woodland trail）が確定して初めて「3 時間＝4 時間未満」から昼食の有無が
+     決まる構造で、図表設問が1セットに2問載る形（本番に存在しない構造）だった。
+     音声終盤の M-Cn の発言 "Then there's one that fits exactly." の意図問題
+     （＝女性が挙げた2条件〈登り300m未満・6kmより長い〉を満たす案が1つに絞られる、
+     という意味）に置き換えた。図表を見なくても音声だけで解け、正解（Woodland trail）
+     の名称・数値には一切触れないので No.62 の答えを先読みで漏らさない。
+     tag を「図表」→「意図」、topics を ['graphic']（o.t 由来）→ ['p3int'] に変更。
+     set() は id を no から自動生成し、この設問だけ id を変える手段がないため、
+     このユニットだけヘルパーを使わず直接記述する（先例: v3-p3-56 の v3q57s）。 */
+  /* 2026-08-25 追記（監査で二度目の差し戻し）: 上の v3q63r 自体が意図問題として
+     成立していなかった。引用 "there's one that fits exactly" に字義を超えた含みが
+     なく（「条件に合う案がちょうど1つ」という文字通りの意味そのもの）、しかも
+     正解 "Only one walk meets both conditions she described." がその逐語訳で、
+     誤答3つ（複数ある／一つも無い／どれでもよい）は引用文中の "one" と "fits" に
+     矛盾するため設問文と選択肢だけで、音声なしに正解できてしまっていた。
+     引用を同じ発話の別の一文 "we have all day" に差し替えた
+     （女性の発言「But six kilometres feels too short — we have all day.」の一部）。
+     この一文は字義（一日使える時間がある）を超えて、直前の「6キロでは短すぎる」という
+     不満の理由付けとして機能しており、含みを読む必要が生じる。
+     誤答は次の根拠でそれぞれ「不可能」に閉じている:
+     ・「その日は後で別の予定がある」＝ "we have all day" の字義（その日は丸ごと空いている）と
+       直接矛盾する。
+     ・「さらに短縮したい」＝ 直前で本人が「6キロでは短すぎる」と述べており、
+       これと正反対になるため成立しない。
+     ・「距離に関わらず昼食を用意してほしい」＝ 後続の発言「4時間以上のコースのみ昼食を
+       含む」と明示的に矛盾する。
+     No.62（Woodland trail・9 km）の答えにも、No.64（中間地点の温かい飲み物）の答えにも
+     一切触れないため、先読みによる漏れは生じない。tag「意図」・topics ['p3int'] は
+     そのまま据え置く（成立している意図問題になったため）。中身を総入れ替えしたので
+     id を v3q63r → v3q63s に新規採番する。 */
+  {
+    id: 'v3-p3-62', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
+      { role: 'W-Br', text: 'Good morning. We\'re a group of eight and we\'d like a guided walk on Friday.' },
+      { role: 'M-Cn', text: 'Certainly. How much climbing are you comfortable with?' },
+      { role: 'W-Br', text: 'Two of the group have knee problems, so we\'d want to keep the ascent under three hundred metres. But six kilometres feels too short — we have all day.' },
+      { role: 'M-Cn', text: 'Then there\'s one that fits exactly.' },
+      { role: 'W-Br', text: 'Good. Is lunch included?' },
+      { role: 'M-Cn', text: 'On walks of four hours or more, yes. On shorter ones you bring your own, though we do provide hot drinks at the halfway point on all of them.' },
+    ],
     graphic: {
       t: 'table', title: 'Ardvreck Estate — Guided Walks',
       head: ['Walk', 'Distance', 'Ascent', 'Duration'],
@@ -146,36 +207,31 @@ export const L2B = [
         ['Summit route', '14 km', '980 m', '6 hours'],
       ],
     },
-    s: [
-      { role: 'W-Br', text: 'Good morning. We\'re a group of eight and we\'d like a guided walk on Friday.' },
-      { role: 'M-Cn', text: 'Certainly. How much climbing are you comfortable with?' },
-      { role: 'W-Br', text: 'Two of the group have knee problems, so we\'d want to keep the ascent under three hundred metres. But six kilometres feels too short — we have all day.' },
-      { role: 'M-Cn', text: 'Then there\'s one that fits exactly.' },
-      { role: 'W-Br', text: 'Good. Is lunch included?' },
-      { role: 'M-Cn', text: 'On walks of four hours or more, yes. On shorter ones you bring your own, though we do provide hot drinks at the halfway point on all of them.' },
-    ],
     ja: '8 名のグループが金曜のガイド付きウォーキングを希望。2 名が膝の不調のため登りは 300 メートル未満に抑えたいが、6 キロでは短すぎる（1 日使える）と伝える。条件にちょうど合うコースが 1 つあると案内される。昼食は 4 時間以上のコースでは含まれ、それより短いものは各自持参だが、すべてのコースで中間地点に温かい飲み物が用意される。',
-    v: [['ascent', '登り（の標高差）'], ['halfway point', '中間地点']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which walk will the group take?',
-        c: ['Woodland trail', 'Loch circuit', 'Ridge path', 'Summit route'],
-        a: 0,
-        e: '登り 300 メートル未満で、6 キロより長いのは Woodland trail（9 km・210 m）のみ。',
-        w: ['正解。', '6 km で短すぎる。', '登り 620 m で条件を超える。', '登り 980 m で条件を超える。'] },
-      { tag: '図表', s: 'Look at the graphic. Will lunch be included?',
-        c: ['Yes, because the walk exceeds four hours', 'No, because the walk is under four hours',
-            'Yes, for groups of eight or more', 'No, because lunch is never included'],
-        a: 1,
-        e: 'Woodland trail は 3 時間で、昼食が含まれるのは 4 時間以上のコース。よって含まれない。',
-        w: ['3 時間なので該当しない。', '正解。', '人数による規定はない。', '4 時間以上では含まれる。'] },
-      { tag: '詳細', s: 'What is provided on every walk?',
-        c: ['Hot drinks partway through', 'A packed lunch',
-            'Walking poles', 'A printed map'],
-        a: 0,
-        e: '「すべてのコースで中間地点に温かい飲み物を用意する」と述べている。',
-        w: ['正解。', '4 時間以上のコースのみ。', 'ポールの話はない。', '地図には触れていない。'] },
+    vocab: [['ascent', '登り（の標高差）'], ['halfway point', '中間地点']],
+    questions: [
+      { id: 'v3q62', no: 62, tag: '図表', stem: 'Look at the graphic. Which walk will the group take?',
+        choices: ['Woodland trail', 'Loch circuit', 'Ridge path', 'Summit route'],
+        answer: 0,
+        exp: '登り 300 メートル未満で、6 キロより長いのは Woodland trail（9 km・210 m）のみ。',
+        why: ['正解。', '6 km で短すぎる。', '登り 620 m で条件を超える。', '登り 980 m で条件を超える。'],
+        topics: ['graphic'] },
+      { id: 'v3q63s', no: 63, tag: '意図', stem: 'What does the woman mean when she says, "we have all day"?',
+        choices: ['She has other commitments later that day.', 'She wants the walk shortened even further.',
+                   'She would prefer a walk that takes longer.', 'She wants lunch provided regardless of how long the walk is.'],
+        answer: 2,
+        exp: '直前に「six kilometres feels too short（6キロでは短すぎる）」とあり、その理由として「we have all day（その日は丸ごと使える）」と続けている。使える時間が十分にあるので、短い案では物足りず、より時間のかかる長い案を望んでいる、という意味。',
+        why: ['「we have all day」はその日が丸ごと空いていることを意味し、後で別の予定があることとは相容れない。', '直前で「6キロでは短すぎる」と述べており、さらに短くしたいという読みはこれと正反対になる。', '正解。', '昼食が出るかどうかは後続の発言で「4時間以上のコースのみ」と条件付きで示されており、長さに関わらず出るという読みとは矛盾する。'],
+        topics: ['p3int'] },
+      { id: 'v3q64', no: 64, tag: '詳細', stem: 'What is provided on every walk?',
+        choices: ['Hot drinks partway through', 'A packed lunch',
+                   'Walking poles', 'A printed map'],
+        answer: 0,
+        exp: '「すべてのコースで中間地点に温かい飲み物を用意する」と述べている。',
+        why: ['正解。', '4 時間以上のコースのみ。', 'ポールの話はない。', '地図には触れていない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 
   /* ── 65–67 ─────────────────────────────────────────── */
   set({
@@ -201,60 +257,84 @@ export const L2B = [
         e: 'ウェブは 30 日、同梱印刷物は 14 日という食い違い。',
         w: ['価格の話はない。', '正解。', 'ロゴには触れていない。', '保証期間ではなく返品期間。'] },
       { tag: '詳細', s: 'Why has the insert not been reprinted?',
-        c: ['The existing stock would be wasted.', 'The printer is unavailable.',
-            'The policy may change again.', 'Legal approval is pending.'],
-        a: 0,
+        c: ['Legal approval is pending.', 'The printer is unavailable.',
+            'The policy may change again.', 'The existing stock would be wasted.'],
+        a: 3,
         e: '「使える印刷物 1 万 1 千枚を廃棄することになる」が理由。費用 900 も併せて挙げられている。',
-        w: ['正解。', '印刷業者の話はない。', '再変更の予定は述べていない。', '法務承認の話もない。'] },
+        w: ['法務承認の話もない。', '印刷業者の話はない。', '再変更の予定は述べていない。', '正解。'] },
       { tag: '次の行動', s: 'What solution is proposed?',
-        c: ['Adding a label to the outer packaging', 'Reprinting the inserts immediately',
-            'Removing the insert from the boxes', 'Reverting to the fourteen-day policy'],
-        a: 0,
+        c: ['Reverting to the fourteen-day policy', 'Reprinting the inserts immediately',
+            'Removing the insert from the boxes', 'Adding a label to the outer packaging'],
+        a: 3,
         e: '「外箱にシールを貼る。優雅ではないがほぼ費用がかからない」と提案されている。',
-        w: ['正解。', '刷り直しは避ける方針。', '抜き取りは述べていない。', '規定を戻す話はない。'] },
+        w: ['規定を戻す話はない。', '刷り直しは避ける方針。', '抜き取りは述べていない。', '正解。'] },
     ],
   }),
 
-  /* ── 68–70（図表）────────────────────────────────── */
-  set({
-    n: [68, 69, 70], lv: 5, t: ['graphic'],
-    graphic: {
-      t: 'kv', title: 'Sorting Office — Collection Times (Weekday)',
-      pairs: [
-        ['Counter A', 'Parcels — until 17:30'],
-        ['Counter B', 'Registered post — until 16:00'],
-        ['Counter C', 'Customs items — until 15:00'],
-        ['Locker bank', 'Self-service — 24 hours'],
-      ],
-    },
-    s: [
+  /* ── 68–70（図表 1 問＋通常 2 問）─────────────────── */
+  /* No.69 は本番仕様に揃えるための差し替え。旧 No.69「Look at the graphic.
+     What time is it most likely now?」は、No.68 の正解（Counter C）が確定し、
+     かつ表の締切時刻（15:00）を読んでから「20分過ぎている」という音声と
+     足し合わせて初めて解ける2階建ての図表設問で、1セットに図表設問が2問
+     載る形（本番に存在しない構造）だった。音声中の「20分過ぎている」という
+     数値そのものを問う詳細設問に置き換えた——カウンターの識別や表の時刻は
+     一切問わないので、No.68 の答え（Counter C）を先読みで漏らさない。
+     tag は「図表」のまま変えず、topics のみ ['graphic']（o.t 由来）→
+     ['p3detail'] に変更。set() は id を no から自動生成し、この設問だけ
+     id を変える手段がないため、このユニットだけヘルパーを使わず直接記述する
+     （先例: v3-p3-56 の v3q57s）。 */
+  /* 2026-08-25 追記: No.68 自体に別の欠陥があった。音声の
+     "shuts earliest of all of them" が表の until 列の唯一の最小値
+     （15:00＝Counter C）と直接対応しており、「関税＝customs カウンター」
+     という語彙推論を飛ばして最上級の一語だけで表の極端値を拾えば解けた。
+     音声から最上級表現を除去し、あわせて表の時刻も Counter B と C で
+     入れ替えて、正解行（Counter C）が until 列の最大でも最小でもない
+     中間値（16:00）になるようにした。No.69 が依拠する「20分過ぎている」
+     という数値は変えていない。表・音声を実質変更したため id を
+     v3q68 → v3q68b に新規採番。 */
+  {
+    id: 'v3-p3-68', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
       { role: 'W-Au', text: 'Excuse me, I have a card for an item that couldn\'t be delivered.' },
       { role: 'M-Br', text: 'May I see it? Ah — this one came from abroad and there\'s duty to pay, so it\'s not the ordinary parcel counter.' },
       { role: 'W-Au', text: 'I didn\'t realise. What time do they close?' },
-      { role: 'M-Br', text: 'That counter shuts earliest of all of them, and I\'m afraid you\'ve missed it by twenty minutes.' },
+      { role: 'M-Br', text: 'That counter\'s already shut, I\'m afraid — you\'ve missed it by twenty minutes.' },
       { role: 'W-Au', text: 'Can I use the lockers?' },
       { role: 'M-Br', text: 'Not for anything with duty outstanding. But you can pay the duty online tonight, and then it moves to the ordinary parcel counter tomorrow, which is open much later.' },
       { role: 'W-Au', text: 'That\'s easier. Thank you.' },
     ],
-    ja: '不在票を持って郵便局を訪れた女性。担当者が確認すると海外からの品で関税の支払いが必要なため、通常の小包窓口ではないと説明。その窓口は全窓口の中で最も早く閉まり、20 分前に締め切られていた。ロッカー利用を尋ねると、関税未納の品は不可。ただし当夜オンラインで関税を支払えば、翌日は通常の小包窓口の扱いになり、そちらはずっと遅くまで開いていると案内された。',
-    v: [['duty', '関税'], ['outstanding', '未払いの'], ['locker bank', '自動受取ロッカー']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which counter does the woman need today?',
-        c: ['Counter A', 'Counter B', 'Counter C', 'The locker bank'],
-        a: 2,
-        e: '関税のかかる海外からの品なので Customs items ＝ Counter C。「全窓口で最も早く閉まる」（15:00）という説明とも一致する。',
-        w: ['通常の小包窓口。', '書留窓口。', '正解。', '関税未納の品は利用できない。'] },
-      { tag: '図表', s: 'Look at the graphic. What time is it most likely now?',
-        c: ['About 15:20', 'About 16:20', 'About 17:20', 'About 17:50'],
-        a: 0,
-        e: 'Counter C は 15:00 締め切りで「20 分過ぎている」とあるので約 15:20。',
-        w: ['正解。', 'Counter B の締切から 20 分後。', 'Counter A の締切に近い。', 'Counter A の締切後。'] },
-      { tag: '次の行動', s: 'What will the woman most likely do tonight?',
-        c: ['Pay a charge online', 'Collect the item from a locker',
-            'Telephone the sorting office', 'Return the item to the sender'],
-        a: 0,
-        e: '「今夜オンラインで関税を払えば、翌日は通常の小包窓口になる」と案内され、女性は「その方が楽」と応じている。',
-        w: ['正解。', '関税未納のためロッカーは使えない。', '電話の話は出ていない。', '返送は述べていない。'] },
+    graphic: {
+      t: 'kv', title: 'Sorting Office — Collection Times (Weekday)',
+      pairs: [
+        ['Counter A', 'Parcels — until 17:30'],
+        ['Counter B', 'Registered post — until 15:00'],
+        ['Counter C', 'Customs items — until 16:00'],
+        ['Locker bank', 'Self-service — 24 hours'],
+      ],
+    },
+    ja: '不在票を持って郵便局を訪れた女性。担当者が確認すると海外からの品で関税の支払いが必要なため、通常の小包窓口ではないと説明。その窓口はすでに閉まっており、20 分前に締め切られていた。ロッカー利用を尋ねると、関税未納の品は不可。ただし当夜オンラインで関税を支払えば、翌日は通常の小包窓口の扱いになり、そちらはずっと遅くまで開いていると案内された。',
+    vocab: [['duty', '関税'], ['outstanding', '未払いの'], ['locker bank', '自動受取ロッカー']],
+    questions: [
+      { id: 'v3q68b', no: 68, tag: '図表', stem: 'Look at the graphic. Which counter does the woman need today?',
+        choices: ['Counter A', 'Counter B', 'Counter C', 'The locker bank'],
+        answer: 2,
+        exp: '海外からの品で関税（duty）の支払いが必要と述べられており、これに対応するのは Customs items ＝ Counter C。表の締切時刻は手がかりにならない——音声はどの窓口が何時に閉まるかに一切触れていないので、duty と Customs items を結び付ける以外に窓口を特定する道はない。',
+        why: ['通常の小包窓口であり、関税がかかる品の窓口ではない。', '書留郵便の窓口であり、関税とは無関係。', '正解。', '関税未納の品はロッカーに預けられないと明言されている。'],
+        topics: ['graphic'] },
+      { id: 'v3q69r', no: 69, tag: '詳細', stem: 'By how many minutes did the woman miss the counter\'s closing time?',
+        choices: ['Five minutes', 'Ten minutes', 'Fifteen minutes', 'Twenty minutes'],
+        answer: 3,
+        exp: '男性の 「you\'ve missed it by twenty minutes」 が唯一の根拠。表に載っているのは各窓口の締切時刻だけで現在時刻が無いため、経過時間を表から計算することはできない。選択肢は昇順に並べてある。',
+        why: ['男性が口にした差は twenty minutes。five という数はこの会話に出てこない。', '男性が口にした差は twenty minutes。ten という数はこの会話に出てこない。', '男性が口にした差は twenty minutes。fifteen という数はこの会話に出てこない。', '正解。男性が twenty minutes と明言している。'],
+        topics: ['p3detail'] },
+      { id: 'v3q70', no: 70, tag: '次の行動', stem: 'What will the woman most likely do tonight?',
+        choices: ['Pay a charge online', 'Collect the item from a locker',
+                   'Telephone the sorting office', 'Return the item to the sender'],
+        answer: 0,
+        exp: '「今夜オンラインで関税を払えば、翌日は通常の小包窓口になる」と案内され、女性は「その方が楽」と応じている。',
+        why: ['正解。', '関税未納のためロッカーは使えない。', '電話の話は出ていない。', '返送は述べていない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 ];

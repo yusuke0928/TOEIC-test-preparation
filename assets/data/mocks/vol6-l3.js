@@ -125,7 +125,7 @@ export const L3 = [
       { tag: '概要', s: 'What kind of business does the advertisement describe?',
         c: ['A home security system installer', 'A moving company', 'A locksmith service', 'A hardware store'],
         a: 2,
-        e: '冒頭と末尾で社名を Penhale Locksmiths と名乗り、締め出し時の出張対応・出張料・部品代について述べている。',
+        e: '冒頭と末尾で社名を Penhale Locksmiths と名乗り、出張対応（call-out）の待ち時間・確定料金・出張料の免除について述べている。',
         w: ['防犯システムの設置には触れていない。', '引っ越しの話はない。', '正解。', '店舗での販売の話ではない。'] },
       { tag: '詳細', s: 'What does the speaker emphasise about pricing?',
         c: ['Discounts are given to returning customers.', 'A fixed price is given before work begins.', 'Prices are lower in the evenings and at weekends.', 'A membership plan reduces costs.'],
@@ -316,7 +316,15 @@ export const L3 = [
      ドリルを解いた記憶で3問目はそのまま解け、2問目も照合の手順が分かってしまう状態だった。
      差し替え版は表のどの列にも一意の値が無く（Monday・Thursday・Worktops・Door frames が
      それぞれ2回ずつ）、2つの図表問題は互いに別の行・別の組み合わせで解く。
-     設問 id は新規採番する（no は 95–97 のまま）。 */
+     設問 id は新規採番する（no は 95–97 のまま）。
+     2026-08-25 追記：正解位置の偏り是正（Vol.6 は図表 5 問中 4 問が C だった）。
+     Machine 1〜4 は連番ラベルで選択肢の並べ替えができないため、Machine 2 と Machine 3 の
+     Service due（月曜／木曜）だけを入れ替え、正解の行を Machine 3 → Machine 2 に移した
+     （No.95 の答えを C → B に）。Used for 列はどちらも Door frames のまま変えていないため、
+     音声の「ドアフレーム用の機械を月曜に点検する」という条件との対応は変わらない。
+     入れ替え後も Service due は Monday が Machine 1・2、Thursday が Machine 3・4 の
+     ちょうど2回ずつで、「一意の値が無い」という表の設計は保たれている。
+     中身（表）を変更したため設問 id を v6q95r → v6q95r2 に新規採番する。 */
   talk({
     n: [95, 96, 97], lv: 5, k: 'announcement', t: ['graphic', 'p4type'],
     graphic: {
@@ -324,8 +332,8 @@ export const L3 = [
       head: ['Machine', 'Used for', 'Service due'],
       rows: [
         ['Machine 1', 'Worktops', 'Monday'],
-        ['Machine 2', 'Door frames', 'Thursday'],
-        ['Machine 3', 'Door frames', 'Monday'],
+        ['Machine 2', 'Door frames', 'Monday'],
+        ['Machine 3', 'Door frames', 'Thursday'],
         ['Machine 4', 'Worktops', 'Thursday'],
       ],
     },
@@ -339,17 +347,22 @@ export const L3 = [
     ja: 'ターンベック建具工房の朝の連絡。今週の点検予定に2件の変更がある。第一に、月曜に来る技術者が今週は半日しか滞在できないため、点検できるのは2台ではなく1台となる。工房側は、月曜に予定していた2台のうちドアフレーム用の機械を点検してもらい、もう1台は次回に回すことにした。第二に、木曜の午前に天板ラインの上の集塵ダクトを交換するため、木曜に予定していた天板用の機械はそもそも運転できず、その点検は翌週に繰り延べになる。両日に共通する依頼として、技術者が各機械を清掃済み・空の状態で受け取りたいので、加工途中の材料を機械に残したまま退出しないよう求めている。入口の掲示板は昼までに更新される。',
     v: [['joinery', '建具工房、木工所'], ['worktop', '（台所などの）天板、ワークトップ'], ['extraction ductwork', '（切削くずを吸う）集塵ダクト'], ['clean down', '（機械を）清掃する']],
     q: [
-      { tag: '図表', id: 'v6q95r', s: 'Look at the graphic. Which machine will the engineer service on Monday?',
+      { tag: '図表', id: 'v6q95r2', s: 'Look at the graphic. Which machine will the engineer service on Monday?',
         c: ['Machine 1', 'Machine 2', 'Machine 3', 'Machine 4'],
-        a: 2,
-        e: '「月曜の技術者は半日しかいないので1台だけ。ドアフレーム用の機械のほうを点検してもらう」と述べている。表で月曜に予定されているのは Machine 1 と Machine 3 の2台で、そのうち Used for が Door frames なのは Machine 3。',
-        w: ['月曜の予定だが、用途は Worktops。技術者に見てもらうのはドアフレーム用のほうだと述べている。', '用途は Door frames だが、予定は木曜であって月曜ではない。', '正解。月曜の予定で、かつドアフレーム用。', '月曜の予定でも、ドアフレーム用でもない。'] },
-      { tag: '図表', id: 'v6q96r', s: 'Look at the graphic. Which machine\'s service has been put back to the following week?',
-        c: ['Machine 1', 'Machine 2', 'Machine 3', 'Machine 4'],
+        a: 1,
+        e: '「月曜の技術者は半日しかいないので1台だけ。ドアフレーム用の機械のほうを点検してもらう」と述べている。表で月曜に予定されているのは Machine 1 と Machine 2 の2台で、そのうち Used for が Door frames なのは Machine 2。',
+        w: ['月曜の予定だが、用途は Worktops。技術者に見てもらうのはドアフレーム用のほうだと述べている。', '正解。月曜の予定で、かつドアフレーム用。', '用途は Door frames だが、予定は木曜であって月曜ではない。', '月曜の予定でも、ドアフレーム用でもない。'] },
+      /* 2026-08-25: 本番仕様「Look at the graphic. の設問は1セットに1問」に合わせ、No.96 を
+         図表問題から通常の詳細設問へ差し替えた（No.95 だけを図表設問として残す）。中身を丸ごと
+         変えたため設問 id は新規採番する（v6q96r → v6q96r2。no は 96 のまま）。正解位置は
+         差し替え前と同じ index 3 を維持。素材は script 内の未使用の発言（木曜の点検が
+         延期される理由＝集塵ダクトの交換）から作成し、script は書き換えていない。 */
+      { tag: '詳細', t: ['p4type'], id: 'v6q96r2', s: 'Why will Thursday\'s servicing not go ahead as planned?',
+        c: ['The engineer is only available for half a day.', 'The worktop line itself is being dismantled permanently.', 'Both of Monday\'s jobs have been moved to next week.', 'The ductwork over the worktop line is due for replacement.'],
         a: 3,
-        e: '「木曜の午前に天板ラインの集塵ダクトを交換するので、木曜に予定していた天板用の機械は運転できず、点検は翌週に回る」と述べている。表で木曜の予定は Machine 2 と Machine 4 の2台で、そのうち Used for が Worktops なのは Machine 4。',
-        w: ['用途は Worktops だが、予定は月曜であって木曜ではない。', '木曜の予定だが、用途は Door frames。ダクト交換の影響を受けるのは天板ラインのほう。', '月曜の予定で、用途も Door frames。', '正解。木曜の予定で、かつ天板用。'] },
-      { tag: '詳細', id: 'v6q97r', s: 'What does the speaker ask the listeners to do?',
+        e: '男性は「木曜の午前に天板ラインの上の集塵ダクトを交換するため、木曜に予定していた天板用の機械はそもそも運転できない」と述べている。',
+        w: ['半日しか滞在できないのは月曜に来る技術者の制約で、男性は「木曜は別の問題」と述べて切り分けている。木曜の延期理由ではない。', '交換されるのは天板ラインの上の集塵ダクトであり、ラインそのものを恒久的に解体するとは述べていない。撤去ではなく交換で、作業は当日午前だけである。', '翌週に回るのは木曜に予定されていた天板用の機械1台であり、月曜の2件の点検がどちらも翌週に回るとは述べていない。これは月曜についての話で、木曜の延期理由でもない。', '正解。木曜の午前に天板ラインの上の集塵ダクトが交換されるため、木曜に予定していた天板用の機械が運転できないと述べている。'] },
+      { tag: '詳細', t: ['p4type'], id: 'v6q97r', s: 'What does the speaker ask the listeners to do?',
         c: ['Order replacement parts in advance.', 'Avoid leaving unfinished work in a machine overnight.', 'Report any faults to the engineer directly.', 'Record the running hours of each machine.'],
         a: 1,
         e: '「技術者は各機械を清掃済みで空の状態にしておいてほしいと言っているので、加工途中の材料を機械に残したまま退出しないでほしい」と述べている。',
@@ -383,14 +396,14 @@ export const L3 = [
       { tag: '図表', s: 'Look at the graphic. What is the current stock of the box size the speaker is concerned about?',
         c: ['640', '620', '210', '96'],
         a: 2,
-        e: '「トートバッグ・シリーズの発送に使う中サイズの箱が、通常なら再発注のフラグを立てる水準をすでに下回っている」と述べており、図表で Used For が Tote bags の行（Box Size は Medium）の Current Stock を見ると 210。',
-        w: ['640 は Small の在庫数。小サイズは「その水準には程遠い」と述べられており、話し手が懸念しているのは中サイズ。', '620 は Large の在庫数。大サイズも「その水準には程遠い」と述べられており、話し手が懸念しているのは中サイズ。', '正解。', '96 は Extra-large の在庫数。話し手は「それ以外は問題ない」と述べており、懸念しているのは中サイズのみ。'] },
-      { tag: '詳細', s: 'What does the speaker say about the small and large box sizes?',
+        e: '「トートバッグ・シリーズの発送に使う中サイズの箱が、通常なら再発注のフラグを立てる水準をすでに下回っている」と述べており、図表で Used For が Tote bags の行（Box Size は Medium）の Current Stock を見ると 210。なお表の中で数字が最も小さいのは Extra-large の96だが、再発注の基準は箱のサイズごとに異なり、話し手はそれを含めて「他は問題ない」と述べている。数字の小ささではなく、音声が名指しした用途（トートバッグ）で行を特定する。',
+        w: ['640 は Small の在庫数。小サイズは「その水準には程遠い」と述べられており、話し手が懸念しているのは中サイズ。', '620 は Large の在庫数。大サイズも「その水準には程遠い」と述べられており、話し手が懸念しているのは中サイズ。', '正解。', '96 は Extra-large（ラグ用）の在庫数。4行の中で数字自体は最も小さいが、再発注の基準は箱のサイズごとに異なり、話し手は Everything else is fine except the boxes we use for mid-size orders と述べて中サイズだけを問題として名指ししている。数字の小ささで選ぶ設問ではない。'] },
+      { tag: '詳細', t: ['p4type'], s: 'What does the speaker say about the small and large box sizes?',
         c: ['They are also running low.', 'They have not been counted yet.', 'Neither is close to its reorder point.', 'They will be replaced by a new supplier.'],
         a: 2,
         e: '「小サイズと大サイズも確認したが、どちらもその水準には程遠い」と明言している。',
         w: ['在庫が少ないのは中サイズのみで、この2サイズについては水準には程遠いと述べている。', 'カウント済みだと明言している（確認したと述べている）。', '正解。', '仕入先変更の話はない。'] },
-      { tag: '依頼', s: 'What request does the speaker make?',
+      { tag: '依頼', t: ['p4type'], s: 'What request does the speaker make?',
         c: ['Contact the supplier about a delivery date', 'Approve a rush order at extra cost', 'Update the shipment schedule for Friday', 'Visit the warehouse to verify the count in person'],
         a: 0,
         e: '「サプライヤーに連絡して納品日を確認してほしい」と依頼している（あわせて、その返信を自分にも写しで送るよう念押ししている）。',

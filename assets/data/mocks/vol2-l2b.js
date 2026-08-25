@@ -16,8 +16,39 @@ const set = (o) => ({
 export const L2B = [
 
   /* ── 53–55（図表）────────────────────────────────── */
-  set({
-    n: [53, 54, 55], lv: 5, t: ['graphic'],
+  /* 本番の Part 3/4 は "Look at the graphic." が 1 セットに 1 問のみ。
+     このセットはかつて No.53・54 の 2 問を図表問題にしており、No.54 の
+     "that model" が No.53 の正解を先行詞として受ける鎖になっていた（旧 id: v2q54r）。
+     一度は音声に一文（M-Am の発話末尾）を足し、No.54 を「点検で稼働していない
+     車種の日額」に作り替えて鎖を切ったが、方針が「構造ごと本番仕様に寄せる」に
+     変わったため、その付加節と、それに合わせて書き換えた No.53 の why[3] 後半を
+     元に戻し、No.54 は図表を見ずに音声だけで解ける通常設問（意図問題）に
+     作り替えた。set() は id を no から自動生成し、この設問だけ id を変える手段が
+     ないため、このユニットだけヘルパーを使わず直接記述する。
+
+     2026-08-25 の追加是正（レビュー役の監査差し戻し）：上記で作り替えた No.54（意図問題）
+     自体が、設問文と選択肢だけで解ける欠陥を持っていた。引用 "Then weight isn't the
+     constraint; length is" はどちらの要素が効くかを明言する平叙文で、含意を持たない。
+     4 択の対比の組（期間/料金・保証金/免許・納品日/距離・長さ/重量）のうち、引用文中の
+     2 語（weight, length）をそのまま含むのは正解の組だけなので、会話を聞かなくても
+     語の一致だけで正解できた。この会話で含意を持つ発話は "a photo won't do"（＝原本が
+     必要）だけだが、これは No.55 の正解と同じ命題のため使えない。よって意図問題を諦め、
+     音声中で他の設問に使われていない情報（保証金の返却条件＝「借りたときと同じ燃料の量で
+     返せば返金される」）を使った通常の詳細設問に作り替えた。tag を「意図」から「詳細」に、
+     topics を p3int から p3detail に変更。正解位置（index 3）は維持。設問 id は
+     v2q54c → v2q54d に新規採番した。 */
+  {
+    id: 'v2-p3-53', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
+      { role: 'M-Am', text: 'Kestrel Hire, good morning.' },
+      { role: 'W-Br', text: 'Hello. I need a van for Saturday. I\'m moving some display boards — the longest is three metres.' },
+      { role: 'M-Am', text: 'Three metres. And roughly what weight in total?' },
+      { role: 'W-Br', text: 'Nothing heavy. Maybe two hundred kilos altogether.' },
+      { role: 'M-Am', text: 'Then weight isn\'t the constraint; length is. I\'ll put you in the smallest one that takes a three-metre board.' },
+      { role: 'W-Br', text: 'That works. Do you need a deposit?' },
+      { role: 'M-Am', text: 'A hundred pounds, refunded when you bring it back with the same fuel level. And bring your licence — a photo won\'t do.' },
+    ],
     graphic: {
       t: 'table', title: 'Kestrel Hire — Van Fleet',
       head: ['Model', 'Load length', 'Payload', 'Daily rate'],
@@ -28,36 +59,39 @@ export const L2B = [
         ['Extra long', '4.2 m', '1,400 kg', '£112'],
       ],
     },
-    s: [
-      { role: 'M-Am', text: 'Kestrel Hire, good morning.' },
-      { role: 'W-Br', text: 'Hello. I need a van for Saturday. I\'m moving some display boards — the longest is three metres.' },
-      { role: 'M-Am', text: 'Three metres. And roughly what weight in total?' },
-      { role: 'W-Br', text: 'Nothing heavy. Maybe two hundred kilos altogether.' },
-      { role: 'M-Am', text: 'Then weight isn\'t the constraint; length is. I\'ll put you in the smallest one that takes a three-metre board.' },
-      { role: 'W-Br', text: 'That works. Do you need a deposit?' },
-      { role: 'M-Am', text: 'A hundred pounds, refunded when you bring it back with the same fuel level. And bring your licence — a photo won\'t do.' },
-    ],
     ja: '女性が土曜にディスプレイボード（最長 3 メートル）を運ぶためバンを借りたいと電話。総重量は 200 キロ程度で重量は制約にならず、長さで決まると説明される。3 メートルの板が入る最小の車種が割り当てられる。保証金は 100 ポンドで、同じ燃料量で返却すれば返金。免許証は原本が必要で写真では不可。',
-    v: [['payload', '積載量'], ['constraint', '制約'], ['deposit', '保証金']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which model will the woman hire?',
-        c: ['Long', 'Compact', 'Medium', 'Extra long'],
-        a: 0,
-        e: '3 メートルの板が入るのは荷室 3.4 メートルの Long 以上。「最小の車種」なので Long。重量 200 キロはどの車種でも足りる。',
-        w: ['正解。', '1.8 m では入らない。', '2.6 m では入らない。', '条件は満たすが「最小」ではない。'] },
-      { tag: '図表', s: 'Look at the graphic. What is the daily rate for that model?',
-        c: ['£54', '£71', '£88', '£112'],
-        a: 2,
-        e: 'Long の日額は £88。',
-        w: ['Compact の料金。', 'Medium の料金。', '正解。', 'Extra long の料金。'] },
-      { tag: '詳細', s: 'What is the woman told to bring?',
-        c: ['A printed booking confirmation', 'A second form of payment',
-            'Her original driving licence', 'Proof of insurance'],
-        a: 2,
-        e: '「免許証を持参。写真では不可」＝原本が必要。',
-        w: ['予約確認書の話はない。', '別の支払い手段は求められていない。', '正解。', '保険証明には触れていない。'] },
+    vocab: [['payload', '積載量'], ['constraint', '制約'], ['deposit', '保証金']],
+    questions: [
+      { id: 'v2q53', no: 53, tag: '図表', stem: 'Look at the graphic. Which model will the woman hire?',
+        choices: ['Long', 'Compact', 'Medium', 'Extra long'],
+        answer: 0,
+        exp: '3 メートルの板が入るのは荷室 3.4 メートルの Long 以上。「最小の車種」なので Long。重量 200 キロはどの車種でも足りる。',
+        why: ['正解。', '1.8 m では入らない。', '2.6 m では入らない。', '荷室 4.2 m なので長さの条件自体は満たすが「最小」ではない。'],
+        topics: ['graphic'] },
+      { id: 'v2q54d', no: 54, tag: '詳細', stem: 'Under what condition will the deposit be returned?',
+        choices: [
+          'It must be returned with a full tank.',
+          'It must be returned by Saturday evening.',
+          'It must be cleaned before it is handed back.',
+          'It must have the same amount of fuel.',
+        ],
+        answer: 3,
+        exp: '「保証金は、借りたときと同じ燃料の量で返却すれば返金される」と述べられている（"refunded when you bring it back with the same fuel level"）。',
+        why: [
+          '満タンで返す、とは述べていない。条件は「同じ燃料の量」であって満タンではない。',
+          '返却の期限（土曜夕方）には触れていない。',
+          '洗車してから返す、という条件は述べられていない。',
+          '正解。「同じ燃料の量で返却すれば保証金は返金される」という発言と一致する。',
+        ],
+        topics: ['p3detail'] },
+      { id: 'v2q55', no: 55, tag: '詳細', stem: 'What is the woman told to bring?',
+        choices: ['A printed booking confirmation', 'A second form of payment', 'Her original driving licence', 'Proof of insurance'],
+        answer: 2,
+        exp: '「免許証を持参。写真では不可」＝原本が必要。',
+        why: ['予約確認書の話はない。', '別の支払い手段は求められていない。', '正解。', '保険証明には触れていない。'],
+        topics: ['graphic'] },
     ],
-  }),
+  },
 
   /* ── 56–58 ─────────────────────────────────────────── */
   set({
@@ -179,63 +213,171 @@ export const L2B = [
   }),
 
   /* ── 65–67（図表）────────────────────────────────── */
-  set({
-    n: [65, 66, 67], lv: 5, t: ['graphic'],
+  /* 2026-08-25 是正（is3、vol1-l2b.js No.65 と同じ方針）：4系列のうち Newsletter だけが
+     145→410→158 と突出し、他3系列（Search 1,240→1,190→1,205／Trade directory
+     310→298→306／Referral 92→88→95）はほぼ横ばいだった。「1系列だけ毛色が違う」ため、
+     表を一瞥するだけで音声なしに Newsletter に絞り込めていた。
+     今回、他3系列にも動きを持たせたうえで、Newsletter の決め手（「2月に急増して
+     3月に元の水準近くまで戻る」）と紛らわしいが条件を満たさない値を意図的に配置した。
+     Trade directory は 460→305→298 と表内でも大きな数値を示すが、急増しているのは
+     1月であり「2月に急増」という時期の条件には当てはまらない（「表内で目立つ数字を
+     選ぶ」を無効化）。Search は 1,100→1,240→1,360 と毎月着実に増えるだけで、急増後に
+     戻るという形にはならない。Referral は 130→110→95 と一貫して減少している。
+     台詞（"One source spiked in February and went straight back down." 以下）は
+     いずれも Newsletter 自身の増減にしか言及しておらず、他3系列の水準を主張していない
+     ため書き換えの必要はなかった。Source 名・選択肢の並び・正解（Newsletter、choices
+     の4番目）は変更していないため answer の index は 3 のまま。No.66・No.67 は本文中の
+     当該発言（周年メール配信の成果・配信停止率・依頼内容）を変更していないため答え・id
+     とも変更しない。No.65 は表・解説を書き換えたため、このユニットだけ set() ヘルパーを
+     使わず直接記述し、設問 id を新規採番する（v2q65 → v2q65r、no は 65 のまま）。 */
+  /* 2026-08-25 是正（2巡目、レビュー差し戻し対応）：上の是正後も次の4つの欠陥が残っており、
+     会話ごと差し替えた。
+     (1) 表だけで解けた——4系列とも単調増加・単調減少のみで、「2月に急増して3月に戻る」
+     という山型の動きを示すのは Newsletter 1系列だけだった。変化幅の最大・最小も
+     両方 Newsletter が兼ねていた。
+     (2) 音声だけで解けた——"the anniversary mailing" "we sent it to the full list"
+     "the unsubscribe rate" は、4つの Source のうち Newsletter（メール配信）以外に
+     当てはまりようがなく、「行名を言わない」ルールが同義語で実質的に破られていた。
+     (3) 先読みだけで解けた——No.66 の選択肢と No.67 の選択肢の両方に "mailing" が
+     出ており、設問間で語彙が重複していた。
+     (4) vol5-l2b.js No.65–67（W-Br/M-Cn、"One region jumped in the second quarter
+     and came straight back down." → "So it worked." → "Whether it 'worked'
+     depends on margin"）と、意図問題の鍵になる修辞・正解の命題（数量の増加は
+     成功の証にならない、という同じ結論）が一致していた。CLAUDE.md の
+     「意図問題の鍵になっている修辞が同型／正解の命題が同じなら作り直す」に該当する。
+     新しい題材は、クライアント向け研修会場を4室（Room 12/5/9/3、非序数の番号）から
+     選ぶという設定にし、判別軸を「量の山型」から「種別×種別」の完全な2×2
+     （Tables: Round/Rectangular × Wall: Glass/Solid、4通りがちょうど1回ずつ出現し
+     最大値・最小値・唯一値が存在しない）に組み替えた。どちらの軸にも一般的な優劣は
+     ない（丸テーブルと角テーブル、ガラス壁と仕切り壁のどちらが「良い」かは用途次第）。
+     音声はどの行にも対応しない属性値（round tables・a solid wall）だけを述べ、
+     部屋番号を言わないのはもちろん、部屋番号を推測させる同義語も使っていない。
+     意図問題は「追加費用をまだ提示していないので決定が変わるかもしれない」という、
+     費用の承認待ちという vol5 とは別の命題にし、次の行動も「見取り図を金曜までに
+     送ってもらう」という費用に触れない依頼にして、3問間の語彙重複（旧版の
+     "mailing"）も解消した（3問の choices を突き合わせ、正解にあたる語が他問の
+     stem・choices に出ていないことを確認済み）。
+     検討した別案（印刷会社の色校正から仕上げ・綴じで1点を選ぶ設定、家具の張り替え
+     生地から色・織りで1点を選ぶ設定）はいずれも `assets/data/drills/listening2.js`
+     u-p3i-01（校正・matte/gloss の校正刷りが絡む意図問題）または
+     `assets/data/mocks/vol4-r2.js`・`vol5-r2.js`（張り替え〈reupholster〉業者の
+     Part 7）と語彙・題材が重なったため、両方を避けて研修会場の設定にした。
+     Source 名・choices の並び・正解位置（No.65 は index 3、No.66 は index 0、
+     No.67 は index 2）は変更前と同じ位置を維持した。3問とも中身を全面的に
+     書き換えたため、設問 id はすべて新規採番する（v2q65r → v2q65r2、
+     v2q66 → v2q66r、v2q67 → v2q67r、no はそれぞれ 65・66・67 のまま）。 */
+  /* 2026-08-25 是正（監査差し戻し対応、2件）。
+     (1) 正解の行の番号が Room 3（4つの行番号 12/5/9/3 のうち最小）になっており、
+     vol4-l2b.js No.53（Unit 3 が最小）・vol5-l3.js No.98（Bay 2 が最小）と
+     合わせて3表とも「正解＝最小番号」という指紋が揃っていた。属性（Tables・Wall の
+     値）は変えず、正解の行の番号だけを Room 3 → Room 8 に振り直した。新しい番号
+     12/5/9/8 のうち最小は 5（誤答の行）で、8 は最大でも最小でもない中間の値になる。
+     choices の並び順（Room 5, Room 12, Room 9, Room 8）も昇順・降順のいずれでもない
+     （5, 12, 9, 8）。会話（音声）は部屋番号に一切言及していないため変更していない。
+     why の文言は部屋番号ではなく属性（Round/Rectangular・Glass/Solid）で書かれて
+     いるため変更不要。exp 内の「Room 3」の表記のみ「Room 8」に更新した。
+     (2) No.67 の誤答 (D) "Change the room to a rectangular layout instead." に
+     表のセル値 "Rectangular" がそのまま含まれており、"instead" という語もあって
+     「選ばれた部屋は Rectangular ではない」と先読みだけで読め、Room 12・Room 9 が
+     音声なしで消えていた（25%→50%）。また (A)(B) の2択がすでに venue を含んでおり、
+     (D) にも venue を入れると正解 (C) だけが venue を含まない選択肢になって浮いて
+     しまう。(D) を "Order refreshments for the first morning."（6語、表のどの
+     値〈Round/Rectangular/Glass/Solid〉にも venue にも触れない）に差し替えた。
+     why[3] を「会話に飲食物の手配についての言及はなく、依頼の内容でもない。」に
+     書き直した。No.65 は表・choices・exp を、No.67 は choices・why を変更したため
+     id を新規採番する（v2q65r2 → v2q65r3、v2q67r → v2q67r2、no はそれぞれ 65・67
+     のまま）。No.66 は変更していない。 */
+  {
+    id: 'v2-p3-65', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
     graphic: {
-      t: 'table', title: 'Monthly Website Enquiries by Source',
-      head: ['Source', 'January', 'February', 'March'],
+      t: 'table', title: 'Workshop Room Options — Available This Week',
+      head: ['Room', 'Tables', 'Wall'],
       rows: [
-        ['Search', '1,240', '1,190', '1,205'],
-        ['Trade directory', '310', '298', '306'],
-        ['Newsletter', '145', '410', '158'],
-        ['Referral', '92', '88', '95'],
+        ['Room 12', 'Rectangular', 'Glass'],
+        ['Room 5', 'Round', 'Glass'],
+        ['Room 9', 'Rectangular', 'Solid'],
+        ['Room 8', 'Round', 'Solid'],
       ],
     },
-    s: [
-      { role: 'W-Br', text: 'Have you seen the enquiry figures? One source spiked in February and went straight back down.' },
-      { role: 'M-Am', text: 'I have. That was the anniversary mailing. We sent it to the full list, including people who hadn\'t opened anything in two years.' },
-      { role: 'W-Br', text: 'So it worked.' },
-      { role: 'M-Am', text: 'It generated enquiries. Whether it worked depends on what happened to them. Twelve became quotes and one became an order.' },
-      { role: 'W-Br', text: 'One order out of nearly three hundred extra enquiries.' },
-      { role: 'M-Am', text: 'Which is why I haven\'t repeated it. The unsubscribe rate that month was four times normal.' },
-      { role: 'W-Br', text: 'Then let\'s not count that month as a success. Can you add the conversion column to the monthly sheet so this is visible next time?' },
+    script: [
+      { role: 'W-Br', text: 'The room list came back from the venue — four options, like you asked for.' },
+      { role: 'M-Am', text: 'Good. Did the client say anything definite about the setup?' },
+      { role: 'W-Br', text: 'Two things, actually. It\'s a workshop with small-group discussion, so it needs round tables — a rectangular layout won\'t work for that.' },
+      { role: 'M-Am', text: 'Okay, that rules out the rectangular ones. What was the other thing?' },
+      { role: 'W-Br', text: 'They\'ll be discussing confidential material, so it has to be a solid wall — nothing with glass.' },
+      { role: 'M-Am', text: 'That only leaves one option, then. I\'ll get it booked this afternoon.' },
+      { role: 'W-Br', text: 'Hold off for now. I haven\'t shown him the added cost for that room, and that might change his mind.' },
+      { role: 'M-Am', text: 'Understood. What do you want me to do instead?' },
+      { role: 'W-Br', text: 'Can you ask the venue to hold the booking and send over the floor plan by Friday? I\'d rather show him in person.' },
     ],
-    ja: '問い合わせ件数のデータで、ある経路が 2 月に急増しすぐ元に戻っている。男性はそれが周年記念のメール配信によるもので、2 年間開封のない人まで含む全リストに送ったと説明。女性が「効果があった」と言うと、男性は問い合わせは生んだが、その後 12 件が見積もりに、1 件が受注になっただけだと述べる。約 300 件増に対し受注 1 件。配信停止率はその月に通常の 4 倍となったため繰り返していない。女性はその月を成功と数えないこととし、月次表に成約率の列を追加するよう依頼した。',
-    v: [['spike', '急増する'], ['unsubscribe rate', '配信停止率'], ['conversion', '成約（率）']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which source are the speakers discussing?',
-        c: ['Newsletter', 'Search', 'Trade directory', 'Referral'],
-        a: 0,
-        e: '2 月に急増して 3 月に戻ったのは Newsletter（145 → 410 → 158）だけ。',
-        w: ['正解。', 'ほぼ横ばい。', 'ほぼ横ばい。', 'ほぼ横ばい。'] },
-      { tag: '意図', t: ['p3int'], s: 'What does the man mean when he says, "Whether it worked depends on what happened to them"?',
-        c: ['The enquiries need to be judged by their outcome.', 'The data was recorded incorrectly.',
-            'The mailing reached the wrong audience entirely.', 'The results will not be known for months.'],
-        a: 0,
-        e: '直後に「12 件が見積もり、1 件が受注」と成果を示している。件数ではなく結果で評価すべきという趣旨。',
-        w: ['正解。', 'データの誤りは述べていない。', '対象は全リストで、誤配信ではない。', '結果はすでに出ている。'] },
-      { tag: '次の行動', s: 'What does the woman ask the man to do?',
-        c: ['Repeat the mailing in April', 'Remove inactive addresses from the list',
-            'Add conversion data to the monthly report', 'Compare the figures with last year'],
-        a: 2,
-        e: '「月次表に成約率の列を追加してほしい」と依頼している。',
-        w: ['繰り返さない方針。', 'リスト整理は述べていない。', '正解。', '前年比較の依頼はない。'] },
+    ja: '会場から届いた研修室のリストについて、女性が担当者の男性と検討している。クライアントは、少人数のグループ討議を行う研修のため丸テーブルの部屋を希望しており、四角いテーブルの配置では対応できないという。さらに機密性の高い内容を話し合うため、ガラス壁ではなく仕切り壁の部屋でなければならないとも希望している。男性は残る1室をすぐに予約しようとするが、女性は待つよう伝える。追加料金をまだクライアントに提示しておらず、それを知れば決定が変わるかもしれないためだという。女性は男性に、会場に予約を保留させたうえで金曜までに見取り図を送ってもらうよう依頼し、クライアントに直接見せたいと述べる。',
+    vocab: [['workshop', '研修・ワークショップ'], ['confidential', '機密の'], ['hold off', '（行動を）見送る・いったん待つ'], ['floor plan', '見取り図'], ['book', '予約する']],
+    questions: [
+      { id: 'v2q65r3', no: 65, tag: '図表', stem: 'Look at the graphic. Which room matches what the client asked for?',
+        choices: ['Room 5', 'Room 12', 'Room 9', 'Room 8'],
+        answer: 3,
+        exp: 'クライアントは、少人数のグループ討議のため丸テーブルを、機密性の高い内容を話し合うためガラス壁ではなく仕切り壁を希望している。両方を満たすのは Round・Solid の Room 8 だけである。Room 5（Round・Glass）は壁の条件を満たさず、Room 12（Rectangular・Glass）はテーブル・壁のどちらの条件も満たさず、Room 9（Rectangular・Solid）はテーブルの条件を満たさない。表そのものは Tables・Wall のどちらも2件ずつに均等に分かれており、列を1つ見るだけでは1室に絞れない。女性が伝えた2つの条件を両方とも聞き取って初めて Room 8 に確定できる。',
+        why: ['テーブルは条件どおり Round だが、壁が Glass のため、機密性を保てないという条件に反する。', 'テーブルが Rectangular、壁も Glass で、両方の条件に反する。', '壁は条件どおり Solid だが、テーブルが Rectangular のため、少人数のグループ討議に適さないという条件に反する。', '正解。'],
+        topics: ['graphic'] },
+      { id: 'v2q66r', no: 66, tag: '意図', stem: 'What does the woman mean when she says, "Hold off for now"?',
+        choices: ['She worries the added cost could change his decision.', 'She thinks the wrong room was booked initially.', 'She wants the venue to change the layout entirely.', 'She believes the workshop date has already passed.'],
+        answer: 0,
+        exp: '直後で「追加料金をまだ見せていないので、決定が変わるかもしれない」と理由を続けている。部屋の予約し直しやレイアウト変更、日程の話ではなく、費用の承認が先だという趣旨。',
+        why: ['正解。', '男性はこれから「今日の午後に予約する」と言った段階で、予約はまだ行われていない。取り違えて予約し直すという話ではない。', '女性は「丸テーブルの部屋」という条件で部屋を絞っており、会場に配置を変えさせる話は出ていない。直後に続く理由も追加料金の提示であって、レイアウトではない。', '女性はこのあと「予約を保留して金曜までに見取り図を送ってもらってほしい」と頼んでおり、研修はこれから行われる。日程が過ぎたという話ではない。'],
+        topics: ['p3int'] },
+      { id: 'v2q67r2', no: 67, tag: '次の行動', stem: 'What does the woman ask the man to do?',
+        choices: ['Confirm the room booking with the venue today.', 'Ask the venue to cancel the reservation.', 'Get the floor plan sent over by Friday.', 'Order refreshments for the first morning.'],
+        answer: 2,
+        exp: '「会場に予約を保留させ、金曜までに見取り図を送ってもらってほしい」と依頼している。',
+        why: ['女性は「今は待って」と言っており、今日中に予約を確定させることは依頼の内容と正反対である。', '女性が頼んだのは「予約を保留してもらう」ことで、取り消しではない。追加料金を示したうえでクライアントに判断してもらうまで押さえておく趣旨。', '正解。', '会話に飲食物の手配についての言及はなく、依頼の内容でもない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 
-  /* ── 68–70（図表）────────────────────────────────── */
-  set({
-    n: [68, 69, 70], lv: 5, t: ['graphic'],
-    graphic: {
-      t: 'list', title: 'Fenmoor Hall — Room Assignments (Saturday)',
-      items: [
-        'Oak Room — Registration and refreshments',
-        'Gallery — Poster session',
-        'Lecture Theatre — Plenary talks',
-        'Seminar Room B — Workshop (limited places)',
-      ],
-    },
-    s: [
+  /* 本番の Part 3/4 は "Look at the graphic." が 1 セットに 1 問のみ。
+     旧 No.69 は "Look at the graphic." で午後の実習の部屋を問うており、No.68 と
+     合わせて 1 セット 2 問の図表問題になっていた。No.69 を、図表を見ずに音声
+     だけで解ける通常設問（詳細）に作り替えた。set() は id を no から自動生成し、
+     この設問だけ id を変える手段がないため、このユニットだけヘルパーを使わず
+     直接記述する。
+     2026-08-25 の是正：No.68 自体に 2 つの欠陥が残っていた。
+     (1) 選択肢の形が不揃いだった（Oak Room・Lecture Theatre は 2 語、Seminar Room B は
+     3 語、正解の Gallery だけ 1 語で Room/Theatre の類の語を含まない）。正解だけ「形が違う」
+     という理由で、内容を読まずに選べてしまう。Seminar Room B を Seminar Room に、Gallery を
+     Gallery Hall にし、4 択すべて「〈固有名〉＋部屋を表す語」の 2 語形に揃えた。
+     (2) 設問文が "display his board" と述べており、"board"（ポスターボード）という業界知識
+     だけで、音声を聞かなくても図表の "Poster session" 行（Gallery）に直結してしまう懸念が
+     あった。設問文を "Where will the man most likely go?" という中立な言い方に変え、
+     男性が "poster presenters" だと述べる音声を実際に聞かないと正解に辿り着けない形にした。
+     図表・音声本文・No.69・No.70 の内容と正解は変更していない。設問 id は選択肢・設問文の
+     実質変更に伴い v2q68 → v2q68r に新規採番した。
+
+     2026-08-25 の追加是正（レビュー役の監査差し戻し）：No.68 自体に、この男性が実際には
+     2 部屋（ポスター発表の Gallery Hall と、午後の実習の Seminar Room）の両方に行くという
+     欠陥が残っていた。旧設問文 "Where will the man most likely go?" は時点を指定しておらず、
+     しかも会話の最後の一文が Seminar Room への道案内だったため、Seminar Room も答えとして
+     成立しかねなかった（its why[2] が「実習の会場。」としか書けず、誤りである理由を示せて
+     いなかったのが徴候）。設問文を "Where will the man most likely be at noon?" に変更し、
+     音声の "The session itself runs from eleven to one."（ポスター発表は 11〜13 時）と
+     突き合わせることで、正午の時点は確定的に Gallery Hall（Poster session）に絞られる
+     形にした（実習は "in the afternoon" で、正午の時点ではまだ始まっていない）。
+     選択肢・正解位置（index 3）は変更していない。why[2]（Seminar Room）を「実習は午後に
+     行われ、正午の時点ではまだ始まっていない」という趣旨に書き直した。設問 id は設問文の
+     実質変更に伴い v2q68r → v2q68s に新規採番した。
+
+     あわせて No.70 の欠陥も是正した。図表の "Seminar Room — Workshop (limited places)" と
+     いう注記が、No.70 の正解 "It reached its limit quickly."（定員に早く達した）をそのまま
+     先読みで示唆していた（設問は音声より先に読めるため）。注記を "(pre-booked)"（要事前
+     予約、というだけで定員超過を示唆しない）に変更した。この行は No.68 の正解（Gallery
+     Hall）とは別の行であり、No.68 には影響しない。括弧付きの項目が図表中に 1 つだけ、かつ
+     正解の行（Gallery Hall）ではない行にある、という形は維持した。No.70 自身の設問文・
+     選択肢・正解（index 3）は変更していないが、図表を見ただけでは解けない形に是正したため、
+     設問 id を v2q70 → v2q70b に新規採番した。 */
+  {
+    id: 'v2-p3-68', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
       { role: 'M-Am', text: 'Excuse me, I\'m one of the poster presenters. Where should I put my board up?' },
       { role: 'W-Au', text: 'You\'re in the room straight through the arch, not the one you register in. The boards are numbered, and yours will have your name on it.' },
       { role: 'M-Am', text: 'And when can I set up?' },
@@ -245,25 +387,47 @@ export const L2B = [
       { role: 'M-Am', text: 'Petrakis.' },
       { role: 'W-Au', text: 'You\'re on it. It\'s the last room down the corridor on the left.' },
     ],
+    graphic: {
+      t: 'list', title: 'Fenmoor Hall — Room Assignments (Saturday)',
+      items: [
+        'Oak Room — Registration and refreshments',
+        'Gallery Hall — Poster session',
+        'Lecture Theatre — Plenary talks',
+        'Seminar Room — Workshop (pre-booked)',
+      ],
+    },
     ja: 'ポスター発表者の男性が掲示場所を尋ねる。受付をする部屋ではなくアーチを抜けた先の部屋で、掲示板には番号と本人の名前がついている。設営は 8 時から可能で、セッション自体は 11 時から 13 時。午後の実習に申し込んだが確認が来ていないと相談すると、定員 20 名で 1 日で埋まったと説明され、名簿を確認して登録済みと判明。会場は廊下の左手一番奥。',
-    v: [['plenary talk', '全体講演'], ['cap', '定員'], ['hands-on session', '実習']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Where should the man display his board?',
-        c: ['Oak Room', 'Lecture Theatre', 'Seminar Room B', 'Gallery'],
-        a: 3,
-        e: 'ポスター発表なので Gallery。「受付をする部屋ではない」という説明も Oak Room を除外する手がかり。',
-        w: ['受付と軽食の部屋。', '全体講演の会場。', '実習の会場。', '正解。'] },
-      { tag: '図表', s: 'Look at the graphic. Which room will the man go to in the afternoon?',
-        c: ['Oak Room', 'Gallery', 'Lecture Theatre', 'Seminar Room B'],
-        a: 3,
-        e: '午後の実習は定員制の Workshop ＝ Seminar Room B。',
-        w: ['受付。', 'ポスター会場。', '全体講演。', '正解。'] },
-      { tag: '詳細', s: 'What does the woman say about the afternoon session?',
-        c: ['It has been moved to a larger room.', 'It requires an additional fee.',
+    vocab: [['plenary talk', '全体講演'], ['cap', '定員'], ['hands-on session', '実習']],
+    questions: [
+      { id: 'v2q68s', no: 68, tag: '図表', stem: 'Look at the graphic. Where will the man most likely be at noon?',
+        choices: ['Oak Room', 'Lecture Theatre', 'Seminar Room', 'Gallery Hall'],
+        answer: 3,
+        exp: 'ポスター発表者だと名乗っており、Gallery Hall（Poster session）が「11 時から 13 時」実施されると述べられている。正午はその時間帯の中にあるため、正午に男性がいるのは Gallery Hall。「受付をする部屋ではない」という説明も Oak Room を除外する手がかり。',
+        why: ['受付と軽食の部屋。', '全体講演の会場。', '実習は "in the afternoon"（午後）に行われ、正午の時点ではまだ始まっていない。', '正解。'],
+        topics: ['graphic'] },
+      { id: 'v2q69b', no: 69, tag: '詳細', stem: 'How does the woman confirm the man\'s afternoon booking?',
+        choices: [
+          'By checking his email confirmation',
+          'By calling the workshop leader',
+          'By requesting a payment receipt',
+          'By checking the attendee list',
+        ],
+        answer: 3,
+        exp: '男性が確認メールを受け取っていないと伝えると、女性は「名簿を確認する」と述べ、名字を尋ねている。確認の方法は名簿と名字の照合。',
+        why: [
+          '男性自身が「確認メールを受け取っていない」と述べており、確認する対象が存在しない。',
+          '女性はその場で名簿を開いて名字を尋ね、「載っています」と即答している。電話をかける場面はなく、実習の担当者も会話に登場しない。',
+          '確認の手段として述べられているのは名簿と名字の照合であり、支払い関連の書類ではない。',
+          '正解。「名簿を確認する」「名字を教えてほしい」という発言と一致する。',
+        ],
+        topics: ['p3detail'] },
+      { id: 'v2q70b', no: 70, tag: '詳細', stem: 'What does the woman say about the afternoon session?',
+        choices: ['It has been moved to a larger room.', 'It requires an additional fee.',
             'It will be recorded.', 'It reached its limit quickly.'],
-        a: 3,
-        e: '「定員 20 名で 1 日で埋まった」と述べている。',
-        w: ['移動の話はない。', '追加料金には触れていない。', '録画の話はない。', '正解。'] },
+        answer: 3,
+        exp: '「定員 20 名で 1 日で埋まった」と述べている。',
+        why: ['移動の話はない。', '追加料金には触れていない。', '録画の話はない。', '正解。'],
+        topics: ['graphic'] },
     ],
-  }),
+  },
 ];

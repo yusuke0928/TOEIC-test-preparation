@@ -145,19 +145,60 @@ export const L1 = [
 
   p2(8, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Am',
     p: 'Could you send me the minutes from yesterday\'s meeting?',
-    c: ['Sure, they\'re minute-long.', 'The meeting ran long.', 'I\'m still typing them up.'],
-    a: 2,
+    c: ['I\'m still typing them up.', 'The meeting ran long.', 'Sure, they\'re minute-long.'],
+    a: 0,
     e: '依頼に対し「まだ清書中です」と、完了していないことを間接的に伝える応答。',
-    w: ['minutes（議事録）と minute（分）の音の引っ掛け。', '会議の長さは依頼への答えになっていない。', '正解。'],
-    ja: '昨日の会議の議事録を送っていただけますか。→ (C) まだ清書しているところです。' }),
+    w: ['正解。', '会議の長さは依頼への答えになっていない。', 'minutes（議事録）と minute（分）の音の引っ掛け。'],
+    ja: '昨日の会議の議事録を送っていただけますか。→ (A) まだ清書しているところです。' }),
 
-  p2(9, { t: ['p2wh'], lv: 4, sa: 'W-Au', sb: 'M-Br',
-    p: 'Who\'s covering the reception desk this afternoon?',
-    c: ['It closes at five.', 'Nobody\'s been assigned yet.', 'The desk was moved.'],
-    a: 1,
-    e: 'Who に対して「まだ誰も割り当てられていない」と答える応答。',
-    w: ['閉店時刻は問いに答えていない。', '正解。', 'desk の反復。'],
-    ja: '今日の午後、誰が受付を担当しますか。→ (B) まだ誰も割り当てられていません。' }),
+  /* id は v5q9r（no は模試の通し番号として 9 を維持。設問全体を差し替えたため id は
+     新規採番のまま使い続ける。旧 id v5q9 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     経緯:
+     1) 初版 "Who's covering the reception desk this afternoon?" → "Nobody's been assigned yet."
+        は vol4-l1.js No.13 "Who is covering the reception desk this afternoon?" →
+        "Nobody has volunteered yet." と stem・正解の装置（＝まだ誰も決まっていない）が
+        同一で重複と判定され差し替えた。
+     2) 1回目の差し替え（選択疑問 "Should we replace the older forklift, or just have it
+        serviced again?"）はレビュー監査で3件の欠陥により却下: (a) 誤答が「去年2回整備した」
+        で、買い替え方向を示す間接的な第二の正解になっていた。(b) もう一方の誤答を「選択疑問に
+        Yes は構造的に不可」として排除していたが、この規則は誤り（Cambridge の
+        *English Grammar Today* も Huddleston & Pullum (2002) も、選択疑問への Yes/No 応答は
+        文脈次第で成立しうるとし、統語的な禁止ではないとしている）。(c) vol6-l1.js No.18 と
+        型・装置が全一致するうえ、Vol.5 の選択疑問がこれで4問目になってしまう。
+     2回目の今回は付加疑問 (tag question) に変更し、正解の装置も「保証期間の数値を Yes/No を
+     使わずに訂正する」という、既存6巻 Part 2 全150問のどの装置とも重複しない型にした
+     （2026-08-24）。
+     2026-08-25 のレビュー監査で解説のみ改訂（prompt・choices・answer は変更なし）。
+     旧解説は誤答2つを「期間の長さに触れていない」で切っていたが、この論法は1回目の差し替えで
+     却下された論法の再演にあたる（本データセットでは V6-19 / V1-28 / V4-10 のように
+     二択のどちらも選ばない応答・事実だけを返す応答が正解になっており、「明示していない」は
+     排除根拠にならない）。改訂後は「問われている命題と論理的に独立している——保証期間が
+     1年でも2年でも両方の誤答は同時に成り立つ」という形に書き換えた。この線なら、
+     どんな文脈を補っても (A)(C) は応答にならない（応答にするには文を書き換えるしかない）。
+     なお既存の付加疑問6問（V1-26 / V2-18 / V3-18 / V3-31 / V4-18 / V6-15）は全部
+     主語が二人称の人間で、無生物主語＋isn't it? はこれが唯一。Vol.5 は付加疑問が0問だった。
+     p2() ヘルパーは id を no から自動生成し、no を変えずに id だけ変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v5-p2-9r', part: 2, kind: 'p2', topics: ['p2wh'], level: 4,
+    questions: [{
+      id: 'v5q9r', no: 9,
+      prompt: 'The extended warranty on these laptops is still just one year, isn\'t it?',
+      speakerA: 'W-Au', speakerB: 'M-Br',
+      choices: [
+        'It\'s billed as a separate line item on the invoice.',
+        'It went up to two years starting with this year\'s models.',
+        'It covers manufacturing defects, not accidental damage.',
+      ],
+      answer: 1,
+      exp: '付加疑問 "..., isn\'t it?" は「延長保証は今も1年のままだ」という命題の真偽を相手に確かめる形なので、応答はその命題を肯定するか、否定するか、または自分には判断できない事情を述べるかのいずれかになる。正解は Yes / No を使わず、「今年のモデルから2年になった」と保証期間そのものの新しい値を挙げて「まだ1年」を否定している。go up は LDOCE が "to increase in price, amount, level etc" と定義し go up from something to something の型を挙げる語で、数量が上がることを表す。starting with は切り替わりの起点を示し、一回限りの変更ではなく仕様そのものが改まったことを表す。誤答2つは保証にまつわる語（invoice / line item / manufacturing defects）を並べているが、述べている内容は保証期間の長さと論理的に独立していて、期間が1年であっても2年であっても同じように成り立つ。話題が同じでも命題として独立していれば応答にならない、というのが Part 2 の急所。',
+      why: [
+        '請求書上の計上方法を述べた文。保証料が独立した項目として立っているかどうかは保証期間の長さとは別の事柄で、期間が1年でも2年でも同じように成り立つ。つまり付加疑問が求める極性の判断をまったく含んでいない。「保証期間は自分の担当外だ」という含みで読もうとしても、この文にはそう読ませる語（I / not sure / you\'d have to ask など）が一つも無く、保証の扱いを承知している話し手の断定になっている。',
+        '正解。「今年のモデルから2年になった」と保証期間そのものの新しい値を挙げ、「まだ1年」を否定している。Yes / No を使わずに相手の前提を訂正する型。',
+        '保証の適用範囲を述べた文。製造上の欠陥が対象で偶発的な損傷は対象外という範囲の話は、期間が1年でも2年でも変わらず成り立つので、「まだ1年か」への答えにはならない。X, not Y という訂正の形をしているが、訂正しているのは相手が口にしていない補償範囲のほうで、問われている期間には手が付いていない。',
+      ],
+      ja: 'これらのノートパソコンの延長保証は、まだ1年きりのままですよね。→ (B) 今年のモデルからは2年になりました。',
+      topics: ['p2wh'],
+    }] },
 
   p2(10, { t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Br',
     p: 'Has the invoice from the caterer come through?',
@@ -305,11 +346,11 @@ export const L1 = [
 
   p2(28, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
     p: 'Why don\'t we just merge the two spreadsheets?',
-    c: ['They use different formats, unfortunately.', 'Because it merges well.', 'The spreadsheet has ten tabs.'],
-    a: 0,
+    c: ['The spreadsheet has ten tabs.', 'Because it merges well.', 'They use different formats, unfortunately.'],
+    a: 2,
     e: 'Why don\'t we ...? は提案。それに対する障害を挙げる応答が正解で、Because で理由を答えるのは誤り。',
-    w: ['正解。', 'merge の反復で提案への応答になっていない。', 'タブ数は提案への応答ではない。'],
-    ja: '2 つの表を統合してはどうでしょう。→ (A) あいにく書式が違うんです。' }),
+    w: ['タブ数は提案への応答ではない。', 'merge の反復で提案への応答になっていない。', '正解。'],
+    ja: '2 つの表を統合してはどうでしょう。→ (C) あいにく書式が違うんです。' }),
 
   p2(29, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Cn',
     p: 'Has the budget for new laptops been approved?',

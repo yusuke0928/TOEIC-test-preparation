@@ -121,87 +121,267 @@ export const L2B = [
   }),
 
   /* ── 62–64（図表）────────────────────────────────── */
-  set({
-    n: [62, 63, 64], lv: 5, t: ['graphic'],
-    graphic: {
-      t: 'table', title: 'Trellis Co-working — Room Booking Fees',
-      head: ['Room', 'Seats', 'Hourly rate'],
-      rows: [['Larch', '4', '€9'], ['Maple', '8', '€15'], ['Oak', '14', '€24'], ['Willow', '22', '€38']],
-    },
-    s: [
+  /* 本番の TOEIC は "Look at the graphic." の設問を1セットに1問しか置かない。この模試は
+     長らく1セット2問（62・63）を置いており、2問目が必然的に1問目の正解を先行詞で受ける
+     鎖になっていた（実際、旧 No.63 は "the room that is booked from ten until two that day"
+     のように問い方を変えて凌いでいたが、それでも図表設問が2問残る構造自体は解消していなかった）。
+     2026-08-24 の是正で、No.63 を「図表を見なくても音声だけで解ける通常設問」に差し替え、
+     本番仕様（1セット1問）に揃えた。旧 No.63（id v1q63r、Oak の時間料金 €24 を問う図表設問）は
+     この差し替えでまるごと不要になった。
+     新しい No.63（id v1q63s）はワークショップの参加人数（"There will be twelve of us." と
+     音声に明示）を問う設問で、No.62 の正解（Willow）にも No.64 の正解
+     （2 週間以上前の予約という早期割引の理由）にも触れない。
+     set() は id を no から自動生成し、この設問だけ id を新規採番する手段がないため、
+     このユニットだけヘルパーを使わず直接記述する。
+     No.64 も id を新規採番済み（v1q64r、以前の是正）。旧選択肢 (D)「He is reserving the
+     largest room.」は誤答でありながら事実としては真（男性は実際に最大の部屋 Willow を
+     予約する）で、設問を先読みした受験者が図表の座席数列だけで「最大の部屋＝Willow」と
+     分かり、No.62 の正解を音声なしで強く絞り込めてしまっていた。(D) を「He is booking
+     more than one room.」（会話全体を通じて予約は 1 室のみで明確に偽、他のどの設問の
+     答えにも触れない）に差し替えた。(A)〜(C) と正解位置（index 0）は変更していない。
+     2026-08-25 の是正：No.62 自体に「座席数・料金ともに Willow が最大」という欠陥が残って
+     いた（Larch 4/€9・Maple 8/€15・Oak 14/€24・Willow 22/€38、単調増加）。2 軸とも最大の
+     行を選べば当たるため、会話を聞かなくても表だけで正解できていた。座席数と料金の対応を
+     崩し、Willow（正解）をどちらの列でも最大・最小にならない中間の値に変更した
+     （Larch 4/€9・Oak 14/€33・Willow 18/€24・Maple 26/€19。Maple が座席数最大・料金最安、
+     Oak が料金最大という非単調な配置にすることで、「一番大きい／一番高い部屋を選ぶ」という
+     当てずっぽうが機能しなくなる）。"next size up"（14 席のすぐ上）は 18 席の Willow を指し、
+     26 席の Maple はさらにもう一段階大きいので対象外——という、表の順序に基づく閉じた推論の
+     みで正解に至る形にした。会話（音声）と No.63・No.64 の内容・正解は変更していない。
+     設問 id は表の実質変更に伴い v1q62 → v1q62r に新規採番した。
+
+     2026-08-25 の追加是正（レビュー役の監査差し戻し）：上記の是正後もなお 2 件の欠陥が残っていた。
+     (1) 女性の "It is." が男性の "if it's the only option that fits us"（12 名が入る唯一の
+     選択肢）を肯定する台詞だったが、直した表では Maple（26 席）にも 12 名は入り、Maple が
+     予約不可であるとはどこにも述べられていなかった。第二の正解（Maple も条件を満たす）が
+     生じていた。(2) 座席数と料金が非単調（Oak 14 席 €33 > Willow 18 席 €24）で、物語として
+     不自然だった。
+     両方を是正するため、料金を座席数と単調に対応させ（Larch 4/€9・Oak 14/€24・Willow 18/€28・
+     Maple 26/€38。座席数・料金のどちらでも Willow は 4 択中 3 番目で極端値にならない）、かつ
+     会話に "Our largest room is closed for redecorating this month" という一文を足して
+     Maple を明示的に予約対象から除外した。これにより「11〜13 時に空いていて 12 名が入る
+     部屋」は、14 席の Oak（10〜14 時で予約済み）でも 26 席の Maple（改装で閉鎖）でもなく、
+     18 席の Willow だけになり、"the only option that fits us" が文字どおり真になる。
+     "our largest room" という最上級は表の最大値（Maple＝26 席・€38、誤答）を名指しするが、
+     これは「一番大きい部屋を選べば当たる」という当てずっぽうを助長しない——Maple は最初から
+     一番大きく・一番高い当てずっぽうの行き先であり、それが除外されると分かっても、残る
+     Oak と Willow のどちらが正解かは「Oak は時間帯が合わない」という別の情報を聞かないと
+     決まらないため。
+     No.63 の選択肢は別途、是正5（下記）で全巻唯一の小文字始まりを是正しており、その過程で
+     Oak の座席数（14）を使った誤答 "Fourteen" を追加した。Oak は No.62 の誤答（時間帯が
+     合わず予約できない部屋）であり、"Fourteen"（参加人数と取り違える罠）が No.62 の正解
+     Willow を示唆することはない。
+     設問 id は表・会話・解説の実質変更に伴い v1q62r → v1q62t、v1q63s → v1q63t に
+     新規採番した。No.64（v1q64r）の内容・正解は変更していない。 */
+  {
+    id: 'v1-p3-62', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
       { role: 'W-Br', text: 'Trellis Co-working, good afternoon.' },
       { role: 'M-Am', text: 'Hello. I\'d like to book a room for a workshop on the nineteenth. There will be twelve of us.' },
       { role: 'W-Br', text: 'Twelve. Let me see what is free that day. The room that seats fourteen is taken from ten until two, I\'m afraid.' },
       { role: 'M-Am', text: 'We were planning eleven to one.' },
-      { role: 'W-Br', text: 'Then that one\'s out. I do have the next size up available all day.' },
+      { role: 'W-Br', text: 'Then that one\'s out. Our largest room is closed for redecorating this month, but I do have the next size up from fourteen, available all day.' },
       { role: 'M-Am', text: 'That\'s more space than we need, but if it\'s the only option that fits us, we\'ll take it.' },
       { role: 'W-Br', text: 'It is. And because you\'re booking more than two weeks ahead, I can apply our early-booking discount of ten percent.' },
       { role: 'M-Am', text: 'Good. Two hours, then.' },
     ],
-    ja: '男性が 19 日に 12 名のワークショップ用の部屋を予約したいと電話。14 名収容の部屋は 10 時から 14 時まで予約済みで、希望は 11 時から 13 時のため使えない。ひとつ上のサイズ（22 名）が終日空いており、広すぎるがそれしか合わないため予約。2 週間以上前の予約なので早期割引 10 パーセントが適用される。',
-    v: [['seat', '（人数を）収容する'], ['early-booking discount', '早期予約割引']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which room will the man reserve?',
-        c: ['Larch', 'Maple', 'Oak', 'Willow'],
-        a: 3,
-        e: '12 名が入るのは Oak（14 席）だが 11〜13 時は使えない。「ひとつ上のサイズ」＝ Willow（22 席）。',
-        w: ['4 席では足りない。', '8 席では足りない。', '14 席は時間帯が空いていない。', '正解。'] },
-      { tag: '図表', s: 'Look at the graphic. What is the hourly rate for that room before the discount?',
-        c: ['€15', '€24', '€38', '€53'],
-        a: 2,
-        e: 'Willow の時間料金は €38。割引前の 1 時間あたりの金額を問われている。',
-        w: ['Maple の料金。', 'Oak の料金。', '正解。', 'Maple と Willow を足した額。'] },
-      { tag: '詳細', s: 'Why is the man eligible for a discount?',
-        c: ['He is booking well in advance.', 'He is booking for more than two hours.', 'He is a returning customer.', 'He is reserving the largest room.'],
-        a: 0,
-        e: '「2 週間以上前の予約だから早期割引が使える」と説明されている。',
-        w: ['正解。', '時間数は 2 時間で、条件として述べられていない。', '再来訪の話はない。', '部屋の大きさは割引理由ではない。'] },
+    graphic: {
+      t: 'table', title: 'Trellis Co-working — Room Booking Fees',
+      head: ['Room', 'Seats', 'Hourly rate'],
+      rows: [['Larch', '4', '€9'], ['Oak', '14', '€24'], ['Willow', '18', '€28'], ['Maple', '26', '€38']],
+    },
+    ja: '男性が 19 日に 12 名のワークショップ用の部屋を予約したいと電話。14 名収容の部屋（Oak）は 10 時から 14 時まで予約済みで、希望は 11 時から 13 時のため使えない。最大の部屋（Maple）は今月改装のため閉鎖中とのことで、14 席のすぐ上のサイズ（18 名収容の Willow）が終日空いており、広すぎるがそれしか合わないため予約。2 週間以上前の予約なので早期割引 10 パーセントが適用される。',
+    vocab: [['seat', '（人数を）収容する'], ['early-booking discount', '早期予約割引']],
+    questions: [
+      { id: 'v1q62t', no: 62, tag: '図表', stem: 'Look at the graphic. Which room will the man reserve?',
+        choices: ['Larch', 'Maple', 'Oak', 'Willow'],
+        answer: 3,
+        exp: '12 名なら 14 席の Oak で足りるが、11〜13 時は予約済みで使えない。26 席の Maple は今月改装のため閉鎖中で選べない。残るのは 14 席のすぐ上のサイズである 18 席の Willow だけで、男性の「それしか合わないなら」という発言とも一致する。',
+        why: ['4 席では 12 名が入らない。', '26 席で人数は足りるが、最大の部屋のため今月は改装で閉鎖中と案内されており、選べない。', '14 席で人数は足りるが、希望の時間帯（11〜13 時）は予約済みで使えない。', '正解。'],
+        topics: ['graphic'] },
+      { id: 'v1q63t', no: 63, tag: '詳細', stem: 'How many people will attend the workshop?',
+        choices: ['Ten', 'Twelve', 'Fourteen', 'Nineteen'],
+        answer: 1,
+        exp: '男性が冒頭で「12 名で行きます」と参加人数を告げ、女性が「12 名ですね」と復唱して確認している。参加人数は 12 名で確定する。',
+        why: [
+          '"from ten until two" は Oak が予約済みの時間帯、"ten percent" は早期割引率を指し、いずれも参加人数ではない。参加人数は男性が明言した 12 名で確定する。',
+          '正解。男性の「12 名で行きます」と、女性の「12 名ですね」という復唱の両方で確認できる。',
+          '"the room that seats fourteen" は Oak（希望の時間帯には使えない部屋）の座席数であり、参加人数ではない。参加人数は 12 名と明言されている。',
+          '"a workshop on the nineteenth" は開催日（19 日）であり、参加人数ではない。参加人数は 12 名と明言されている。',
+        ],
+        topics: ['p3detail'] },
+      { id: 'v1q64r', no: 64, tag: '詳細', stem: 'Why is the man eligible for a discount?',
+        choices: ['He is booking well in advance.', 'He is booking for more than two hours.', 'He is a returning customer.', 'He is booking more than one room.'],
+        answer: 0,
+        exp: '「2 週間以上前の予約だから早期割引が使える」と説明されている。',
+        why: ['正解。', '時間数は 2 時間で、条件として述べられていない。', '再来訪の話はない。', '会話を通じて予約しているのは 1 室のみで、複数の部屋を予約してはいない。'],
+        topics: ['graphic'] },
     ],
-  }),
+  },
 
   /* ── 65–67（図表）────────────────────────────────── */
-  set({
-    n: [65, 66, 67], lv: 5, t: ['graphic'],
+  /* 2026-08-25 是正：4系列のうち Outerwear だけが 164→171→243 と大きく動き、他3系列
+     （Footwear 210→198→186／Knitwear 132→128→119／Accessories 88→91→86）は
+     横ばいか減少のみだった。「1行だけ毛色が違う」ため、"the only line that moved
+     much at all" という台詞と表を突き合わせるだけで、音声の具体的な数値を聞かずに
+     Outerwear に絞り込めていた。
+     今回、他3系列にも動きを持たせたうえで、Outerwear の決め手（「第2四半期から
+     第3四半期にかけて70点を超えて増加」）と紛らわしいが条件を満たさない値を
+     意図的に配置した。Knitwear は 132→212→219 と表内で最大の増加（+80）を示すが、
+     これは第1四半期→第2四半期の変化であり「第2四半期から第3四半期にかけて」という
+     時期の条件に当てはまらない（「表内で一番動いた行を選ぶ」を無効化）。Accessories は
+     88→91→152 と第2四半期から第3四半期にかけて増加する点は Outerwear と同じだが、
+     増加幅は+61で「70点を超える」という条件を満たさない（「正しい四半期の増加行を
+     選ぶ」だけでは2択が残る）。Footwear は 145→149→152 と小幅な増加のみで、
+     いずれの条件にも当てはまらない。
+     台詞の "Three of the four categories are flat or improving." と
+     "It's the only line that moved much at all." は新しい表では成立しなくなるため、
+     両方とも削除し、男性が Outerwear の条件（増加幅・時期）を直接述べる形に書き換えた。
+     Category 名・選択肢の並び・正解（Outerwear、choices の1番目）は変更していないため
+     answer の index は 0 のまま。No.66・No.67 は本文中の当該発言（理由コード・仕入先・
+     依頼内容）を変更していないため答え・id とも変更しない。No.65 は表・音声・解説を
+     書き換えたため、このユニットだけ set() ヘルパーを使わず直接記述し、設問 id を
+     新規採番する（v1q65 → v1q65r、no は 65 のまま）。 */
+  /* 2026-08-25 是正（2巡目、レビュー差し戻し対応）：上の是正後も、正解の Outerwear
+     （164/171/243）が表内で最大セル（243）・Q3列の最大・行合計の最大（578）を
+     兼ねてしまっていた。「Q2→Q3 の変化幅で選ぶ」トラップは効いていたが（Knitwear が
+     表内最大の変化 +80 を持つため）、「表で一番大きい数字・一番大きい行を選ぶ」という
+     何も聞かずに使える別の当てずっぽうがそのまま通ってしまう状態だった。
+     Footwear の数値を 145/149/152 から 245/249/252 に引き上げた。これにより
+     最大セル（252）・Q3列最大（252）・行合計最大（746）はすべて誤答行（Footwear）に
+     移り、Knitwear の Q1→Q2 +80（表内最大の変化）はそのまま、Outerwear の
+     Q2→Q3 +72（「70点超」を満たす唯一の変化）もそのまま維持された。Footwear 自身は
+     Q1→Q2 が +4、Q2→Q3 が +3 とほぼ横ばいで、どちらの条件（70点超の増加・該当する
+     四半期）も満たさない。
+     「どの列でも印（最大・最小）が付かない唯一の行になっていないか」も確認した。
+     新しい数値では Q1〜Q3 のすべての列で Footwear が最大、Accessories が最小となり、
+     Outerwear と Knitwear はどちらの列でも最大にも最小にもならない——「無印の行」が
+     2行（Outerwear・Knitwear）になるため、無印であること自体では1行に絞れない。
+     音声（"One category is up by more than seventy units, specifically between
+     the second and third quarter."）は数値そのものに触れていないため変更していない。
+     表の数値のみ変更したため、答え・choices の並びは変えていないが、設問 id は
+     新規採番する（v1q65r → v1q65r2、no は 65 のまま）。answer の index は
+     0 のまま維持した。 */
+  /* 2026-08-25 是正（3巡目、監査差し戻し対応）：上の2巡目の是正後も、条件「Q2→Q3 で
+     70点を超えて増加」を満たす行が Outerwear（+72）だけで、これが同時に「70点超の
+     増加行のうちで最大の増加幅」でもあったため、「表内で一番大きく動いた行を選ぶ」
+     という当てずっぽうがそのまま正解に一致していた（表だけで100%的中）。
+     監査役の案(ii) に従い、Accessories の Q3 を 152 → 165 に引き上げて Q2→Q3 の
+     増加幅を +61 → +74 にし、70点超の増加行を Outerwear（+72）・Accessories（+74）
+     の2行にした。この2行だけを比べると「大きいほうを選ぶ」は Accessories に落ちる
+     （+74 > +72）ため、量の大小だけでは正解を決められない。
+     そのうえで、量に優劣のない種別列 Range（Core／Seasonal）を追加し、Footwear・
+     Outerwear を Core、Knitwear・Accessories を Seasonal とした（2行ずつに均等）。
+     音声を「70点超の増加行が2つあるが、片方は季節商品でこの時期の増加は珍しくなく、
+     基幹ラインのほうこそ本当の懸念だ」と書き換え、「70点超の増加」と「Core」の
+     両方を満たす Outerwear だけに絞り込む形にした。
+     他の当てずっぽう経路も確認済み：Q1・Q2・Q3 の各列とも最大は Footwear・最小は
+     Accessories で、Outerwear はどの生の列でも極値にならない。行合計も最大は
+     Footwear（746）・最小は Accessories（344）で、Outerwear（578）は中間。
+     Q1→Q2 の増加幅は Knitwear が表内最大（+80）で、これは対象の時期（第2四半期→
+     第3四半期）に当てはまらない。「どの列でも極値を持たない行」を探すと Outerwear と
+     Knitwear の2行が残るが、この2行は Range で Core／Seasonal に分かれており、
+     ここでも Core の指定が Outerwear だけに絞り込む。
+     Category 名・choices の並び・正解位置（index 0）は変更していないため answer は
+     0 のまま維持した。No.65 は表・音声・解説を書き換えたため、このユニットだけ
+     set() ヘルパーを使わず直接記述し、設問 id を新規採番する（v1q65r2 → v1q65r3、
+     no は 65 のまま）。
+
+     あわせて2つの残存漏れも是正した。
+     (1) No.66 の正解 "A defective component from a new supplier" が4択で唯一
+     supplier を含む一方、No.67 の (B) "A meeting with the supplier" にも
+     supplier が出ており、設問をまたいだ先読みで正解が示唆されていた。No.67 の
+     (B) を "A meeting with the factory manager" に差し替え、supplier という
+     語を No.66 の正解だけに残した。
+     (2) No.66 は選択肢の語数が 3/7/3/6 で正解（7語）が単独最長、No.67 も
+     6/5/4/5 で正解（6語）が単独最長だった。No.66 の誤答3つをそれぞれ
+     "Inaccurate size labelling on the packaging."（6語）、
+     "Delays in delivery from the warehouse."（6語）、
+     "A change in the returns policy itself."（7語）に伸ばし、正解の7語と
+     並ぶ長さにした（7語が正解と (D) の2つになり単独最長ではなくなる）。No.67 は
+     (B) を上記の言い換えで6語にし、(C) を "A revised monthly sales forecast"
+     （5語）に伸ばして、6/6/5/5 という正解が単独最長にならない分布にした。
+     内容・正解はいずれも変えていない。No.66・No.67 とも選択肢の文言を変更したため
+     id を新規採番する（v1q66 → v1q66r、v1q67 → v1q67r、no はそれぞれ 66・67 の
+     まま）。 */
+  /* 2026-08-25 是正（4巡目、監査差し戻し対応）：3巡目の是正（Range 列の追加）後も、
+     「Core」という1条件だけで Core の2行（Footwear・Outerwear）に絞り込み、その中で
+     「実際に動いているほう」を選べば Outerwear が一意に決まってしまっていた（Footwear は
+     Q1→Q2→Q3 が 245/249/252 とほぼ横ばいのため）。「70点超の増加」も「第2四半期から第3
+     四半期にかけて」という時期の条件も、Q1〜Q3 の生数値が表に残っている限り表だけで検算
+     できてしまい、音声を聞く必要が実質無かった。
+     監査役の案A（種別×種別の 2×2 に組み替える）を採用し、Q1〜Q3 の数量列を表から撤去した。
+     「70点を超えて増加」という情報は音声だけが持つ情報にし、表からは検証できないようにした。
+     Range（Core／Seasonal）はそのまま残し、もう1つの中立な種別として Buyer（Team North／
+     Team South。地域担当の社内バイヤーで、量に優劣の無い属性）を追加した。
+     Footwear=Core/Team North、Knitwear=Seasonal/Team South、Outerwear=Core/Team South、
+     Accessories=Seasonal/Team North とし、Range・Buyer のどちらも値がちょうど2回ずつ出て、
+     4行の組み合わせがすべて異なる 2×2 になる。
+     音声は「基幹ラインで季節商品ではない」（Range 条件、Footwear・Outerwear の2択に絞る）と
+     「Team South の扱い」（Buyer 条件、Knitwear・Outerwear の2択に絞る）の両方を述べ、両方を
+     組み合わせて初めて Outerwear 一つに決まる形にした。表には数量列が無いためどの列にも
+     最大・最小・唯一値は存在せず、「表で目立つ行を選ぶ」当てずっぽうは機能しない。
+     あわせて、音声の "The reason codes point at the zips." が世界知識で「ジッパー付きの
+     ニットは稀」と Knitwear をほぼ排除し Outerwear に傾ける効果を持っていたため、
+     "the zips" を "the fastenings"（留め具全般。4カテゴリすべてに存在しうる）に差し替えた。
+     No.66 の答え（不良部品・新しい仕入先・留め具の不具合）と No.67 の答え（絶対数ではなく
+     割合での依頼）はいずれも変更していない。「A sizing change, maybe?」という女性の発言も
+     No.66 の why[0] の根拠として維持している。
+     また、No.66 の選択肢のうち正解 (B) だけ文末ピリオドが無く、他3つには付いている回帰
+     （HEAD では4択とも無しで揃っていた）を発見し、4択とも無しに統一した（同じセットの
+     No.67 も4択ともピリオド無しで、これに合わせた）。句読点だけの変更のため No.66 の id は
+     変更していない。
+     No.65 は表・音声・exp・why を実質的に書き換えたため id を新規採番する
+     （v1q65r3 → v1q65r4、no は 65 のまま、answer の index は 0 のまま変更なし）。
+     No.67 は script の変更を共有するが自身の stem・choices・answer・why は変更していないため
+     id は維持する（v1q67r のまま）。 */
+  {
+    id: 'v1-p3-65', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
     graphic: {
-      t: 'table', title: 'Quarterly Returns by Category (units)',
-      head: ['Category', 'Q1', 'Q2', 'Q3'],
+      t: 'table', title: 'Returns Review — Category Profile',
+      head: ['Category', 'Range', 'Buyer'],
       rows: [
-        ['Footwear', '210', '198', '186'],
-        ['Outerwear', '164', '171', '243'],
-        ['Knitwear', '132', '128', '119'],
-        ['Accessories', '88', '91', '86'],
+        ['Footwear', 'Core', 'Team North'],
+        ['Knitwear', 'Seasonal', 'Team South'],
+        ['Outerwear', 'Core', 'Team South'],
+        ['Accessories', 'Seasonal', 'Team North'],
       ],
     },
-    s: [
-      { role: 'M-Br', text: 'Priya, the returns figures came through. Three of the four categories are flat or improving.' },
-      { role: 'W-Au', text: 'And the fourth?' },
-      { role: 'M-Br', text: 'Up by more than seventy units between the second and third quarters. It\'s the only line that moved much at all.' },
+    script: [
+      { role: 'M-Br', text: 'Priya, the returns figures came through. One line is up by more than seventy units between the second and third quarter, and it\'s one of our core lines, not one of the seasonal ones.' },
+      { role: 'W-Au', text: 'Do we know exactly which one?' },
+      { role: 'M-Br', text: 'It\'s one of Team South\'s.' },
       { role: 'W-Au', text: 'Do we know why? A sizing change, maybe?' },
-      { role: 'M-Br', text: 'The reason codes point at the zips. Sixty percent of that category\'s returns in Q3 cite a faulty fastening.' },
+      { role: 'M-Br', text: 'The reason codes point at the fastenings. Sixty percent of that category\'s returns in Q3 cite a faulty fastening.' },
       { role: 'W-Au', text: 'That\'ll be the new supplier we moved to in June. Can you get me the return rate as a percentage of units sold rather than absolute numbers?' },
       { role: 'M-Br', text: 'I can have that by Thursday.' },
       { role: 'W-Au', text: 'Good. If it confirms what I think, we go back to the previous supplier for the spring run.' },
     ],
-    ja: '返品数の四半期データについて、4 カテゴリのうち 3 つは横ばいか改善しているが、1 つだけ第 2 四半期から第 3 四半期にかけて 70 点以上増加している。理由コードはファスナーの不良を示し、第 3 四半期の同カテゴリ返品の 60 パーセントが留め具の不具合を挙げている。6 月に切り替えた新しい仕入先が原因と推測され、絶対数ではなく販売数に対する返品率を木曜までに出すことになった。裏づけが取れれば春物は従来の仕入先に戻す方針。',
-    v: [['returns', '返品'], ['reason code', '理由コード'], ['fastening', '留め具'], ['run', '（生産の）ロット']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which category are the speakers discussing?',
-        c: ['Footwear', 'Outerwear', 'Knitwear', 'Accessories'],
-        a: 1,
-        e: 'Q2 から Q3 にかけて 70 点以上増えているのは Outerwear（171→243、+72）だけ。他は減少か横ばい。',
-        w: ['210→198→186 と減少。', '正解。', '132→128→119 と減少。', '88→91→86 とほぼ横ばい。'] },
-      { tag: '詳細', s: 'What is given as the likely cause?',
-        c: ['Inaccurate size labelling', 'A defective component from a new supplier', 'Delays in delivery', 'A change in the returns policy'],
-        a: 1,
-        e: '「理由コードはファスナーを示す」「6 月に切り替えた新しい仕入先だろう」が根拠。',
-        w: ['サイズ表記は仮説として出たが否定されている。', '正解。', '配送遅延の話はない。', '返品規定の変更には触れていない。'] },
-      { tag: '次の行動', s: 'What does the woman ask for?',
-        c: ['Return figures expressed as a percentage', 'A meeting with the supplier', 'A revised sales forecast', 'Photographs of the faulty items'],
-        a: 0,
-        e: '「絶対数ではなく販売数に対する割合で出してほしい」と依頼している。',
-        w: ['正解。', '面談の要請はない。', '売上予測の話は出ていない。', '写真は求めていない。'] },
+    ja: '返品状況のレビューについて、男性が、季節商品ではなく基幹ラインの系列が1つ、第2四半期から第3四半期にかけて70点を超えて増加していると述べる。女性がどの系列かと尋ねると、Team South が扱っているものだと分かる。女性はサイズ変更が原因かと尋ねるが、男性は理由コードが留め具（fastenings）の不良を示していると答える。第3四半期の同カテゴリ返品の60パーセントが留め具の不具合を挙げている。6月に切り替えた新しい仕入先が原因と推測され、絶対数ではなく販売数に対する返品率を木曜までに出すことになった。裏づけが取れれば春物は従来の仕入先に戻す方針。',
+    vocab: [['returns', '返品'], ['reason code', '理由コード'], ['fastening', '留め具'], ['run', '（生産の）ロット'], ['core line', '基幹ライン'], ['seasonal line', '季節商品ライン']],
+    questions: [
+      { id: 'v1q65r4', no: 65, tag: '図表', stem: 'Look at the graphic. Which category are the speakers discussing?',
+        choices: ['Outerwear', 'Footwear', 'Knitwear', 'Accessories'],
+        answer: 0,
+        exp: 'Q2 から Q3 にかけて 70 点を超えて増加している系列が1つあり、それは基幹ライン（Core）で季節商品ではないと述べられている。この条件だけでは Core の2行、Footwear と Outerwear が残る。続けて、その系列は Team South の扱いだと分かる。この条件だけでは Team South の2行、Knitwear と Outerwear が残る。「Core」と「Team South」の両方を満たす行は Outerwear だけであり、これが正解となる。表には数量の列が無く、Range・Buyer のどちらも値に優劣が無いため、「表で目立つ行を選ぶ」当てずっぽうは機能しない。',
+        why: ['正解。', 'Footwear は基幹ライン（Core）で季節商品ではないという条件は満たすが、Team North の扱いであり、Team South という条件は満たさない。', 'Knitwear は Team South の扱いという条件は満たすが、季節商品（Seasonal）に区分されており、基幹ラインで季節商品ではないという条件は満たさない。', 'Accessories は季節商品（Seasonal）かつ Team North の扱いで、どちらの条件も満たさない。'],
+        topics: ['graphic'] },
+      { id: 'v1q66r', no: 66, tag: '詳細', stem: 'What is given as the likely cause?',
+        choices: ['Inaccurate size labelling on the packaging', 'A defective component from a new supplier', 'Delays in delivery from the warehouse', 'A change in the returns policy itself'],
+        answer: 1,
+        exp: '「理由コードは留め具（fastenings）の不良を示す」「6 月に切り替えた新しい仕入先だろう」が根拠。',
+        why: ['女性が挙げた推測は「サイズの変更が原因では」というもので、包装のサイズ表示が誤っているという話は誰もしていない。男性はその推測に対し「理由コードが指しているのは留め具（fastenings）だ」と別の原因を答えている。', '正解。', '配送遅延の話はない。', '返品規定の変更には触れていない。'],
+        topics: ['p3detail'] },
+      { id: 'v1q67r', no: 67, tag: '次の行動', stem: 'What does the woman ask for?',
+        choices: ['Return figures expressed as a percentage', 'A meeting with the factory manager', 'A revised monthly sales forecast', 'Photographs of the faulty items'],
+        answer: 0,
+        exp: '「絶対数ではなく販売数に対する割合で出してほしい」と依頼している。',
+        why: ['正解。', '工場長との面談を求める発言はない。仕入先については「裏づけが取れれば春物は従来の仕入先に戻す」と述べているだけである。', '女性が求めたのは販売数に対する返品の割合であり、売上予測の作成には触れていない。', '不良品の写真を送るよう求める発言はない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 
   /* ── 68–70（図表）────────────────────────────────── */
   set({
