@@ -5,7 +5,7 @@
 import { MOCK_META, loadMock, availableMocks, mockAvailable } from '../../data/registry.js';
 import { pageHead, sectionHead, esc, pct, meter, empty, toast, partLabel, jaDateTime, hhmmss, stat } from '../ui.js';
 import { state, attemptsDesc, getSession } from '../store.js';
-import { launch, resumeFromSession } from '../runtime.js';
+import { launch, launchOrResume, resumeFromSession } from '../runtime.js';
 import { PART_SIZE } from '../score.js';
 import { lineChart } from '../charts.js';
 import * as A from '../analytics.js';
@@ -174,11 +174,16 @@ export async function detail(el, id) {
       </div></div>` : ''}
   `;
 
-  const startWith = (filter, label, opts = {}) => {
+  // launchOrResume を通す（中断中のセッションが確認なしで破棄される事故の是正。
+  // 「フル受験」ボタンが「中断中」バナーの中身を無言で消していた）。
+  // 戻り値が false（confirm でキャンセルされ、何も起動しなかった）のときは
+  // 「N 問で開始します」のトーストを出さない — 起動していないのにそれが
+  // 出ると、操作が効いたかのように見えてしまう。
+  const startWith = async (filter, label, opts = {}) => {
     const picked = units.filter(filter);
     if (!picked.length) { toast('該当するパートが収録されていません'); return; }
     const n = picked.reduce((s, u) => s + u.questions.length, 0);
-    launch({
+    const started = await launchOrResume({
       mode: 'mock', label: `${meta.title}${label ? '｜' + label : ''}`,
       sourceId: id, units: picked,
       instant: el.querySelector('#opt-instant')?.checked ?? false,
@@ -189,7 +194,7 @@ export async function detail(el, id) {
       autoPlay: true,
       restore: { kind: 'mock', id, unitIds: picked.map(u => u.id) },
     });
-    toast(`${n} 問で開始します`);
+    if (started) toast(`${n} 問で開始します`);
   };
 
   el.querySelectorAll('[data-run]').forEach(b => b.addEventListener('click', () => {

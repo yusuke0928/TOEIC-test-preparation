@@ -29,23 +29,23 @@ export const L3 = [
     v: [['arborist', '樹木医'], ['crown', '樹冠'], ['fell', '伐採する'], ['limb', '大枝'], ['conservation area', '保全地区']],
     q: [
       { tag: '概要', s: 'What does the speaker recommend?',
-        c: ['Felling the tree entirely', 'Replacing the neighbour\'s shed',
-            'Taking no action for now', 'Removing one branch only'],
-        a: 3,
+        c: ['Removing one branch only', 'Replacing the neighbour\'s shed',
+            'Taking no action for now', 'Felling the tree entirely'],
+        a: 0,
         e: '「その枝だけを除去し、他は手を付けない」と提案している。',
-        w: ['伐採の必要はないと明言。', '小屋の交換は述べていない。', '作業は提案されている。', '正解。'] },
+        w: ['正解。', '小屋の交換は述べていない。', '作業は提案されている。', '伐採の必要はないと明言。'] },
       { tag: '詳細', s: 'Why is the limb a concern?',
-        c: ['It is dead at the tip.', 'It touches an overhead cable.',
-            'It blocks light to the garden.', 'Its structure makes failure likely.'],
-        a: 3,
+        c: ['Its structure makes failure likely.', 'It touches an overhead cable.',
+            'It blocks light to the garden.', 'It is dead at the tip.'],
+        a: 0,
         e: '「入り皮の股があり、この大きさのブナでは典型的な破断点」と説明されている。',
-        w: ['枯死の話はない。', '電線には触れていない。', '採光の話は出ていない。', '正解。'] },
+        w: ['正解。', '電線には触れていない。', '採光の話は出ていない。', '枯死の話はない。'] },
       { tag: '推測', s: 'Why does the speaker mention six weeks?',
-        c: ['The neighbour needs time to respond.', 'The quotation expires in six weeks.',
-            'The work cannot begin immediately.', 'The tree must be inspected again.'],
-        a: 2,
+        c: ['The neighbour needs time to respond.', 'The work cannot begin immediately.',
+            'The quotation expires in six weeks.', 'The tree must be inspected again.'],
+        a: 1,
         e: '「保全地区なので自治体への 6 週間前の届出が必要」＝それだけ着工が先になる。',
-        w: ['隣人の同意は別件。', '見積もりの有効期限ではない。', '正解。', '再調査の話はない。'] },
+        w: ['隣人の同意は別件。', '正解。', '見積もりの有効期限ではない。', '再調査の話はない。'] },
     ],
   }),
 
@@ -75,11 +75,11 @@ export const L3 = [
         e: '「大きな効果音の事前の合図を希望する場合は案内係に申し出る」と案内されている。',
         w: ['座席変更の話はない。', '返金には触れていない。', '正解。', 'プログラムの話もない。'] },
       { tag: '推測', s: 'Why can latecomers not be seated immediately?',
-        c: ['The doors are locked during the first scene.', 'The ushers are occupied elsewhere.',
-            'Seats are allocated only before the performance.', 'The opening scene is performed in low light.'],
-        a: 3,
+        c: ['The opening scene is performed in low light.', 'The ushers are occupied elsewhere.',
+            'Seats are allocated only before the performance.', 'The doors are locked during the first scene.'],
+        a: 0,
         e: '「冒頭はほぼ暗闇の中で演じられるため着席させられない」が理由。',
-        w: ['施錠の話はない。', '案内係の都合ではない。', '座席割当の規定ではない。', '正解。'] },
+        w: ['正解。', '案内係の都合ではない。', '座席割当の規定ではない。', '施錠の話はない。'] },
     ],
   }),
 
@@ -246,17 +246,50 @@ export const L3 = [
         e: '「橋床自体が想定よりはるかに良好」という発見で、補修範囲が欄干のみになった。',
         w: ['業者の話はない。', '正解。', '助成金には触れていない。', '幅の変更は述べていない。'] },
       { tag: '意図', t: ['p3int'], s: 'What does Ms. Pascoe mean when she says, "We were asking them to check whether four million was the right number"?',
-        c: ['The campaign raised money independently.', 'The campaign focused on verifying the estimate.',
-            'The council refused to meet the group.', 'The estimate was deliberately inflated.'],
-        a: 1,
+        c: ['The campaign raised money independently.', 'The council refused to meet the group.',
+            'The campaign focused on verifying the estimate.', 'The estimate was deliberately inflated.'],
+        a: 2,
         e: '直前で「求めてきたのは資金ではなく再調査だった」と述べている。見積もりの検証を求めていた、という趣旨。',
-        w: ['募金活動の話はない。', '正解。', '面会拒否には触れていない。', '意図的な水増しとは述べていない。'] },
+        w: ['募金活動の話はない。', '面会拒否には触れていない。', '正解。', '意図的な水増しとは述べていない。'] },
     ],
   }),
 
-  /* ── 92–94（図表）─────────────────────────────────── */
-  talk({
-    n: [92, 93, 94], lv: 5, k: 'talk', t: ['graphic', 'p4type'],
+  /* ── 92–94（図表 1 問＋通常 2 問）─────────────────── */
+  /* No.93 は本番仕様に揃えるための差し替え。旧 No.93「Look at the graphic.
+     Which bay is unaffected?」は No.92 と同じ表・同じ「区画の玉突き」情報だけで
+     解ける図表設問で、1セットに図表設問が2問載る形（本番に存在しない構造）
+     だった。音声終盤の "I know at least one of you will assume everything
+     has moved by one" の意図問題に置き換えた——区画番号・用途名には一切
+     触れないので、No.92 の答え（Bay 3）を先読みで漏らさない。
+     tag を「図表」→「意図」、topics を ['graphic','p4type']（o.t 由来）→
+     ['p4type'] に変更（Part 4 は p4type のみで detail/int の区別が無い）。
+     talk() は id を no から自動生成し、この設問だけ id を変える手段がないため、
+     このユニットだけヘルパーを使わず直接記述する（先例: v3-p3-56 の v3q57s）。 */
+  /* 2026-08-25 追記（監査で二度目の差し戻し）: 上のコメントの「Part 4 は p4type のみ」は
+     誤りだった。同じファイルの他の意図問題（No.78・82・84・91・95）はすべて ['p3int'] を
+     使っており、実データと矛盾していたコメントを削除する。加えて v3q93r 自体に別の欠陥が
+     あった。stem の引用 "everything has moved by one" に「1つずつずれた」を当てはめると、
+     表の Outbound = Bay 2 から機械的に 2→3 を導けてしまい（−1 方向は Bay 1 = Inbound で
+     不適なので +1 に一意化される）、No.92 の正解（Bay 3）が音声なしで割れていた。
+     引用を同じトークの別の発言 "don't let them overfill on a Wednesday" に差し替えた。
+     この発言は「スキップの回収は火曜と金曜のみ」という直前の情報と結び付けて初めて、
+     「水曜に満杯にすると次の回収（金曜）まで捌けない」という含みが読み取れる意図問題になり、
+     区画番号・用途名にも表示（signage）にも触れないため、No.92・No.94 のどちらの答えも
+     漏らさない。誤答は「毎週水曜に回収される」（回収は火曜・金曜のみと明言されており矛盾）、
+     「入荷は水曜に経路変更される」（「入荷は変更なし、同じ区画・同じ時刻」と明言されており
+     矛盾）、「ごみ容器は水曜に清掃される」（本文に言及なし）でそれぞれ閉じている。
+     topics は ['p4type'] → ['p3int'] に変更する（意図問題として本来あるべき論点）。
+     中身を総入れ替えしたので id を v3q93r → v3q93s に新規採番する。 */
+  {
+    id: 'v3-p4-92', part: 4, kind: 'set', kindLabel: 'talk',
+    topics: ['graphic', 'p4type'], level: 5,
+    script: [
+      { role: 'M-Cn', text: 'Morning all. Two changes on site from today, and both affect where you park the trucks.' },
+      { role: 'M-Cn', text: 'First, the bay we currently use for outbound is out of action for three weeks while the levelling plate is replaced. Outbound moves to the bay currently used for returns.' },
+      { role: 'M-Cn', text: 'Returns then move to the waste bay, and waste goes into skips in the yard for the duration. The skips are emptied on Tuesdays and Fridays, so don\'t let them overfill on a Wednesday.' },
+      { role: 'M-Cn', text: 'Second, inbound is unaffected — same bay, same times. I mention it only because I know at least one of you will assume everything has moved by one.' },
+      { role: 'M-Cn', text: 'The signage will be changed this afternoon. Until then, go by what I\'ve just said rather than what\'s on the wall.' },
+    ],
     graphic: {
       t: 'table', title: 'Fernbrook Depot — Bay Allocation',
       head: ['Bay', 'Use'],
@@ -267,34 +300,31 @@ export const L3 = [
         ['4', 'Waste and recycling'],
       ],
     },
-    s: [
-      { role: 'M-Cn', text: 'Morning all. Two changes on site from today, and both affect where you park the trucks.' },
-      { role: 'M-Cn', text: 'First, the bay we currently use for outbound is out of action for three weeks while the levelling plate is replaced. Outbound moves to the bay currently used for returns.' },
-      { role: 'M-Cn', text: 'Returns then move to the waste bay, and waste goes into skips in the yard for the duration. The skips are emptied on Tuesdays and Fridays, so don\'t let them overfill on a Wednesday.' },
-      { role: 'M-Cn', text: 'Second, inbound is unaffected — same bay, same times. I mention it only because I know at least one of you will assume everything has moved by one.' },
-      { role: 'M-Cn', text: 'The signage will be changed this afternoon. Until then, go by what I\'ve just said rather than what\'s on the wall.' },
-    ],
     ja: '本日から現場で 2 点変更があり、いずれもトラックの停車位置に関わる。第 1 に、現在出荷に使っている区画が、レベリングプレート交換のため 3 週間使用不可。出荷は現在「返品・破損」に使っている区画へ移る。返品はさらに廃棄用の区画へ移り、廃棄は期間中、構内のスキップ（大型ごみ容器）を使う。スキップの回収は火曜と金曜なので、水曜に溢れさせないこと。第 2 に、入荷は変更なし（同じ区画・同じ時刻）。全部が 1 つずつずれると思い込む人がいるので念のため触れた、と説明。表示は当日午後に変更されるので、それまでは壁の表示ではなく今の説明に従うこと。',
-    v: [['bay', '（荷役の）区画'], ['out of action', '使用不可で'], ['skip', '大型ごみ容器'], ['signage', '表示']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which bay will outbound pallets now use?',
-        c: ['Bay 1', 'Bay 2', 'Bay 3', 'Bay 4'],
-        a: 2,
-        e: '出荷は「現在返品に使っている区画」＝ Bay 3 へ移る。',
-        w: ['入荷用で変更なし。', '本来の出荷用だが使用不可。', '正解。', '返品の移転先。'] },
-      { tag: '図表', s: 'Look at the graphic. Which bay is unaffected?',
-        c: ['Bay 1', 'Bay 2', 'Bay 3', 'Bay 4'],
-        a: 0,
-        e: '「入荷は変更なし、同じ区画・同じ時刻」と明言されている。入荷は Bay 1。',
-        w: ['正解。', '使用不可になる。', '出荷が入る。', '返品が入る。'] },
-      { tag: '詳細', s: 'What are listeners told about the signage?',
-        c: ['It will be changed later today.', 'It has already been updated.',
-            'It will not be changed at all.', 'It should be removed by drivers.'],
-        a: 0,
-        e: '「表示は当日午後に変更される。それまでは口頭の説明に従うこと」と述べている。',
-        w: ['正解。', 'まだ変更されていない。', '変更されると明言。', '撤去の指示はない。'] },
+    vocab: [['bay', '（荷役の）区画'], ['out of action', '使用不可で'], ['skip', '大型ごみ容器'], ['signage', '表示']],
+    questions: [
+      { id: 'v3q92', no: 92, tag: '図表', stem: 'Look at the graphic. Which bay will outbound pallets now use?',
+        choices: ['Bay 1', 'Bay 2', 'Bay 3', 'Bay 4'],
+        answer: 2,
+        exp: '出荷は「現在返品に使っている区画」＝ Bay 3 へ移る。',
+        why: ['入荷用で変更なし。', '本来の出荷用だが使用不可。', '正解。', '返品の移転先。'],
+        topics: ['graphic', 'p4type'] },
+      { id: 'v3q93s', no: 93, tag: '意図', stem: 'Why does the man say, "don\'t let them overfill on a Wednesday"?',
+        choices: ['Because the skips are emptied every Wednesday.', 'Because inbound deliveries are rerouted on Wednesdays.',
+                   'Because no collection is scheduled between Wednesday and Friday.', 'Because the waste bin needs cleaning on Wednesdays.'],
+        answer: 2,
+        exp: '直前で「スキップの回収は火曜と金曜のみ」と述べている。水曜に満杯にしてしまうと、次の回収日である金曜まで回収されないため、その間あふれる恐れがある、という注意喚起。',
+        why: ['男性が明言している回収曜日は火曜と金曜であり、毎週水曜に回収されるとは述べていない。', '入荷（inbound）については「変更なし、同じ区画・同じ時刻」と明言されており、経路変更の話ではない。', '正解。', 'ごみ容器の清掃について本文は一切触れていない。'],
+        topics: ['p3int'] },
+      { id: 'v3q94', no: 94, tag: '詳細', stem: 'What are listeners told about the signage?',
+        choices: ['It will be changed later today.', 'It has already been updated.',
+                   'It will not be changed at all.', 'It should be removed by drivers.'],
+        answer: 0,
+        exp: '「表示は当日午後に変更される。それまでは口頭の説明に従うこと」と述べている。',
+        why: ['正解。', 'まだ変更されていない。', '変更されると明言。', '撤去の指示はない。'],
+        topics: ['p4type'] },
     ],
-  }),
+  },
 
   /* ── 95–97 ─────────────────────────────────────────── */
   talk({
@@ -317,11 +347,11 @@ export const L3 = [
         e: '直後に「10 週間と伝えて早く開ける方がよい」と続く。悲観側で計画し、楽観側を期待するという方針。',
         w: ['正解。', '中間値の話ではない。', '業者の見積もりを否定してはいない。', '閉鎖時期の前倒しは述べていない。'] },
       { tag: '詳細', s: 'What must researchers do before 20 March?',
-        c: ['Submit requests for material', 'Return borrowed material',
-            'Register for a new reader card', 'Confirm their contact details'],
-        a: 0,
+        c: ['Confirm their contact details', 'Return borrowed material',
+            'Register for a new reader card', 'Submit requests for material'],
+        a: 3,
         e: '「資料が必要な研究者は 3 月 20 日までに請求する」と指示されている。',
-        w: ['正解。', '返却の話はない。', '利用証の話は出ていない。', '連絡先の確認も述べていない。'] },
+        w: ['連絡先の確認も述べていない。', '返却の話はない。', '利用証の話は出ていない。', '正解。'] },
       { tag: '詳細', s: 'What will not be possible once packing begins?',
         c: ['Entering the new building', 'Retrieving any item',
             'Contacting the removals firm', 'Cancelling a request'],
@@ -331,45 +361,79 @@ export const L3 = [
     ],
   }),
 
-  /* ── 98–100（図表）───────────────────────────────── */
-  talk({
-    n: [98, 99, 100], lv: 5, k: 'announcement', t: ['graphic', 'p4type'],
-    graphic: {
-      t: 'table', title: 'Sculpture Park — Trail Markers',
-      head: ['Marker colour', 'Route', 'Length'],
-      rows: [
-        ['Blue', 'Lakeside', '1.2 km'],
-        ['Green', 'Woodland', '2.4 km'],
-        ['Yellow', 'Meadow', '3.1 km'],
-        ['Red', 'Full circuit', '5.0 km'],
-      ],
-    },
-    s: [
+  /* ── 98–100（図表 1 問＋通常 2 問）─────────────────── */
+  /* No.99 は本番仕様に揃えるための差し替え。旧 No.99「Look at the graphic.
+     Which route is open but not recommended for all visitors?」は No.98 と
+     同じ表・同じ音声情報（樹林コース＝ぬかるみ）だけで解ける図表設問で、
+     1セットに図表設問が2問載る形（本番に存在しない構造）だった。閉鎖の
+     理由（識別ではなく原因）を問う詳細設問に置き換えた——色・距離には
+     一切触れないので、No.98 の答え（Red）を先読みで漏らさない。
+     tag は「図表」のまま変えず、topics のみ ['graphic','p4type']（o.t 由来）
+     → ['p4type'] に変更。talk() は id を no から自動生成し、この設問だけ
+     id を変える手段がないため、このユニットだけヘルパーを使わず直接記述
+     する（先例: v3-p3-56 の v3q57s）。 */
+  /* 2026-08-25 追記: No.98 自体に別の欠陥があった。音声の
+     "the longest of our four routes" が表の Length 列の唯一の最大値
+     （5.0 km＝Red）と直接対応しており、"impassable when wet" という
+     因果説明を聞き取らなくても最上級の一語だけで表の極端値を拾えば解けた。
+     音声の識別句を「公園全体を一周するコース」（Full circuit の言い換え）
+     に差し替えて最上級表現を除去し、あわせて表の距離も Blue・Green・Red の
+     間で入れ替えて、正解行（Red）が Length 列の最大でも最小でもない
+     （1.2 km と 5.0 km の間の 2.4 km という）中間値になるようにした。
+     No.99 が依拠する「濡れると通行不能になる開けた区間」という理由と、
+     樹林ルート＝ぬかるみ／残り2ルート＝影響なしという識別は変えていない。
+     表・音声を実質変更したため id を v3q98 → v3q98b に新規採番。 */
+  /* 2026-08-25 追記（監査で二度目の差し戻し）: Red の Route 名 "Full circuit"
+     （公園を一周するコース）が Length 列で最短の 2.4 km になっており、
+     「一周が最長のはず」という常識と衝突していた（正解の行自体は Length 列の
+     最大でも最小でもないので出題は壊れていないが、実在感を欠く）。Route 名を
+     "Full circuit" → "Ridge and heath" に変更し、音声の識別句も「公園全体を
+     一周するコース」→「尾根と開けたヒースを横切るコース」に合わせて書き換えた。
+     Length 列の数値（1.2 / 2.4 / 3.1 / 5.0 km）は変えていないため、正解行
+     （Red・2.4 km）が引き続き非極端値であることに変わりはない。 */
+  {
+    id: 'v3-p4-98', part: 4, kind: 'set', kindLabel: 'announcement',
+    topics: ['graphic', 'p4type'], level: 5,
+    script: [
       { role: 'M-Br', text: 'Attention, visitors to the sculpture park. A short announcement about today\'s access.' },
-      { role: 'M-Br', text: 'Because of ground conditions after last night\'s rain, the longest of our four routes is closed. Sections of it cross open ground that becomes impassable when wet.' },
+      { role: 'M-Br', text: 'Because of ground conditions after last night\'s rain, the route that crosses the ridge and the open heath is closed. Sections of it cross open ground that becomes impassable when wet.' },
       { role: 'M-Br', text: 'The route through the trees is open but muddy; we recommend it only for those in suitable footwear.' },
       { role: 'M-Br', text: 'The two remaining routes are unaffected and are surfaced throughout.' },
       { role: 'M-Br', text: 'Please note that the three works by Adaeze Nwankwo are all on the closed route. If you\'ve come specifically to see those, speak to staff at the visitor centre — we can arrange access with a guide at two o\'clock.' },
     ],
-    ja: '彫刻公園の来園者向け放送。前夜の雨による地面の状態のため、4 コースのうち最も長いものが閉鎖。開けた場所を横切る区間が濡れると通行不能になるため。樹林を抜けるコースは開いているがぬかるんでいるので、適切な靴の来園者のみに推奨。残り 2 コースは影響なく、全区間舗装されている。なおアダエゼ・ンワンコの作品 3 点はすべて閉鎖中のコース上にあるため、それが目的の来園者はビジターセンターの係員に申し出れば、14 時にガイド同行で入れるよう手配できる。',
-    v: [['impassable', '通行できない'], ['surfaced', '舗装された'], ['footwear', '履物']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which route is closed?',
-        c: ['Blue', 'Green', 'Yellow', 'Red'],
-        a: 3,
-        e: '「4 コースのうち最も長いもの」＝ Red（5.0 km）。',
-        w: ['1.2 km。', '2.4 km。', '3.1 km。', '正解。'] },
-      { tag: '図表', s: 'Look at the graphic. Which route is open but not recommended for all visitors?',
-        c: ['Green', 'Blue', 'Yellow', 'Red'],
-        a: 0,
-        e: '「樹林を抜けるコース」＝ Woodland ＝ Green。ぬかるんでいるため適切な靴の人のみに推奨。',
-        w: ['正解。', '湖畔で舗装されている。', '草地で舗装されている。', '閉鎖中。'] },
-      { tag: '詳細', s: 'What can visitors do if they came to see particular works?',
-        c: ['Request a refund at the exit', 'View them from the meadow route',
-            'Arrange guided access at a set time', 'Return the following day free of charge'],
-        a: 2,
-        e: '「係員に申し出れば 14 時にガイド同行で入れるよう手配できる」と案内されている。',
-        w: ['返金の話はない。', '草地コースからは見えない。', '正解。', '翌日の無料入園には触れていない。'] },
+    graphic: {
+      t: 'table', title: 'Sculpture Park — Trail Markers',
+      head: ['Marker colour', 'Route', 'Length'],
+      rows: [
+        ['Blue', 'Lakeside', '5.0 km'],
+        ['Green', 'Woodland', '1.2 km'],
+        ['Yellow', 'Meadow', '3.1 km'],
+        ['Red', 'Ridge and heath', '2.4 km'],
+      ],
+    },
+    ja: '彫刻公園の来園者向け放送。前夜の雨による地面の状態のため、尾根と開けたヒースを横切るコースが閉鎖。開けた場所を横切る区間が濡れると通行不能になるため。樹林を抜けるコースは開いているがぬかるんでいるので、適切な靴の来園者のみに推奨。残り 2 コースは影響なく、全区間舗装されている。なおアダエゼ・ンワンコの作品 3 点はすべて閉鎖中のコース上にあるため、それが目的の来園者はビジターセンターの係員に申し出れば、14 時にガイド同行で入れるよう手配できる。',
+    vocab: [['impassable', '通行できない'], ['surfaced', '舗装された'], ['footwear', '履物']],
+    questions: [
+      { id: 'v3q98b', no: 98, tag: '図表', stem: 'Look at the graphic. Which route is closed?',
+        choices: ['Blue', 'Green', 'Yellow', 'Red'],
+        answer: 3,
+        exp: '「尾根と開けたヒースを横切るコース」＝表の Route 名 "Ridge and heath" ＝ Red。樹林ルート（Green）は「開いているがぬかるんでいる」、残り2ルート（Blue・Yellow）は「影響なく全区間舗装」と明言されており、閉鎖されているのは Red のみ。距離（Length）は音声で言及されない。',
+        why: ['影響を受けていない「残り2ルート」の一方として言及されており、閉鎖ではない。', '樹林を抜けるルートは、閉鎖ではなく「開いているがぬかるんでいる」と案内されている。', '影響を受けていない「残り2ルート」のもう一方であり、閉鎖ではない。', '正解。'],
+        topics: ['graphic', 'p4type'] },
+      { id: 'v3q99r', no: 99, tag: '詳細', stem: 'Why is one of the routes closed today?',
+        choices: ['Sections of it are permanently unsafe for walking.', 'It is muddy from heavy foot traffic near the sculptures.',
+                   'It is closed for scheduled maintenance work today.', 'It crosses open ground that becomes unsafe when wet.'],
+        answer: 3,
+        exp: '「開けた場所を横切る区間が、濡れると通行不能になる」（前夜の雨が原因）と述べている。',
+        why: ['「濡れると」通行不能になるという条件付きの記述であり、常時とは述べていない。', '「泥だらけ」なのは樹林を抜ける別のコースであり、この閉鎖中のコースの理由ではない。', '閉鎖の理由は前夜の雨による地面の状態であって、工事とは述べていない。', '正解。'],
+        topics: ['p4type'] },
+      { id: 'v3q100', no: 100, tag: '詳細', stem: 'What can visitors do if they came to see particular works?',
+        choices: ['Request a refund at the exit', 'View them from the meadow route',
+                   'Arrange guided access at a set time', 'Return the following day free of charge'],
+        answer: 2,
+        exp: '「係員に申し出れば 14 時にガイド同行で入れるよう手配できる」と案内されている。',
+        why: ['返金の話はない。', '作品 3 点は「すべて閉鎖中のコース上にある」と明言されており、Meadow（草地）は影響を受けていない別のコース。', '正解。', '翌日の無料入園には触れていない。'],
+        topics: ['p4type'] },
     ],
-  }),
+  },
 ];

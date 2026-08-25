@@ -30,17 +30,17 @@ export const L3 = [
     v: [['hygienist', '歯科衛生士'], ['unplanned leave', '急な休み'], ['check-up cycle', '検診の周期']],
     q: [
       { tag: '概要', s: 'Why is the speaker calling?',
-        c: ['To announce a change in the practice\'s opening hours.', 'To confirm that an appointment has been cancelled outright.',
-            'To request payment before the appointment.', 'To explain that a hygienist is unavailable and offer alternatives.'],
-        a: 3,
+        c: ['To explain that a hygienist is unavailable and offer alternatives.', 'To confirm that an appointment has been cancelled outright.',
+            'To request payment before the appointment.', 'To announce a change in the practice\'s opening hours.'],
+        a: 0,
         e: '担当の衛生士が急に休みを取ったため、代替案を提示している。',
-        w: ['営業時間の変更ではない。', '予約は取り消されておらず選択肢が提示されている。', '支払いの話はない。', '正解。'] },
+        w: ['正解。', '予約は取り消されておらず選択肢が提示されている。', '支払いの話はない。', '営業時間の変更ではない。'] },
       { tag: '詳細', s: 'What is one option offered to the listener?',
-        c: ['Switching permanently to Mr. Okafor for all future visits.', 'Having the entire appointment cancelled with a full refund.',
-            'Coming in earlier on Thursday for both procedures.', 'Having the check-up on Thursday and the clean later that day with a different hygienist.'],
-        a: 3,
+        c: ['Having the check-up on Thursday and the clean later that day with a different hygienist.', 'Having the entire appointment cancelled with a full refund.',
+            'Coming in earlier on Thursday for both procedures.', 'Switching permanently to Mr. Okafor for all future visits.'],
+        a: 0,
         e: '検診は木曜のまま、清掃は別の衛生士が同日午後3時半に担当する案が示されている。',
-        w: ['恒久的な担当変更ではない。', '返金の話はない。', '早める案ではなく時間が遅くなる。', '正解。'] },
+        w: ['正解。', '返金の話はない。', '早める案ではなく時間が遅くなる。', '恒久的な担当変更ではない。'] },
       { tag: '依頼', s: 'What does the speaker ask the listener to do?',
         c: ['Arrive fifteen minutes early on Thursday.', 'Call back before Wednesday to choose an option.',
             'Bring proof of insurance to the appointment.', 'Confirm the appointment online.'],
@@ -70,11 +70,11 @@ export const L3 = [
         e: '「機材変更のため」と明言されている。',
         w: ['遅延の話は出ていない。', '修理の話はない。', '正解。', '保安上の問題には触れていない。'] },
       { tag: '詳細', s: 'What should wheelchair-assistance passengers who already checked in do?',
-        c: ['Wait for a separate announcement.', 'Proceed to gate 14 immediately on their own.',
-            'Visit the service desk for a new pass.', 'Stay where they are; staff will come to them.'],
-        a: 3,
+        c: ['Wait for a separate announcement.', 'Stay where they are; staff will come to them.',
+            'Visit the service desk for a new pass.', 'Proceed to gate 14 immediately on their own.'],
+        a: 1,
         e: '「移動不要。係員が迎えに来て案内する」と述べられている。',
-        w: ['別の案内を待つ指示はない。', '自力での移動は求めていない。', 'サービスデスクを訪れる必要はない。', '正解。'] },
+        w: ['別の案内を待つ指示はない。', '正解。', 'サービスデスクを訪れる必要はない。', '自力での移動は求めていない。'] },
       { tag: '推測', s: 'What is implied about passengers who are reseated?',
         c: ['They must request a new seat at the service desk.', 'They will receive a new boarding pass automatically at the gate.',
             'They will be moved to a later flight.', 'They will receive a discount on a future flight.'],
@@ -105,11 +105,11 @@ export const L3 = [
         e: '400 ポンド超の出張は予約前に一言の正当化と上司承認を必要とする制度を提案している。',
         w: ['払い戻し率の話はない。', '全面禁止ではないと明言している。', '正解。', '外部委託の話も出ていない。'] },
       { tag: '意図', t: ['p3int'], s: 'What does the speaker mean when she says, "It\'s about making the decision visible"?',
-        c: ['She wants to reduce the total travel budget by half.', 'She wants every trip to be approved by two managers.',
-            'She wants to publish everyone\'s travel plans internally.', 'She wants justification to happen before spending, not just be recorded after.'],
-        a: 3,
+        c: ['She wants to reduce the total travel budget by half.', 'She wants justification to happen before spending, not just be recorded after.',
+            'She wants to publish everyone\'s travel plans internally.', 'She wants every trip to be approved by two managers.'],
+        a: 1,
         e: '直後に「今は事後にしか正当化されず手遅れになる」と述べ、事前の可視化が狙いだと説明している。',
-        w: ['予算半減の話も出ていない。', '二重承認の話はない。', '社内公開の話ではない。', '正解。'] },
+        w: ['予算半減の話も出ていない。', '正解。', '社内公開の話ではない。', '二重承認の話はない。'] },
       { tag: '詳細', s: 'What is stated about trips under four hundred pounds?',
         c: ['They still require written justification.', 'They are unaffected by the new policy.',
             'They will be banned starting next month.', 'They require approval from two managers.'],
@@ -141,10 +141,10 @@ export const L3 = [
         w: ['オンライン講座の話はない。', '配送サービスではない。', '正解。', '園芸道具の割引には触れていない。'] },
       { tag: '詳細', s: 'What is said about pausing the service?',
         c: ['Pausing requires thirty days\' notice.', 'Pausing is not permitted once a subscription starts.',
-            'A cancellation fee applies each time.', 'Customers are only charged for months they are actually visited.'],
-        a: 3,
+            'Customers are only charged for months they are actually visited.', 'A cancellation fee applies each time.'],
+        a: 2,
         e: '「旅行中は一時停止でき、実際に訪問した月のみ課金される」と述べている。',
-        w: ['予告期間には触れていない。', '一時停止は可能と明言。', '解約料の話はない。', '正解。'] },
+        w: ['予告期間には触れていない。', '一時停止は可能と明言。', '正解。', '解約料の話はない。'] },
       { tag: '詳細', s: 'What does the speaker say about plants that die within three months?',
         c: ['A partial refund will be issued.', 'They will be replaced free of charge.',
             'The customer must upgrade their plan.', 'They are not covered under any circumstances.'],
@@ -175,10 +175,10 @@ export const L3 = [
         w: ['本社監査担当ではない。', 'コンサルタントではなく現場スタッフ向け。', '正解。', '会員向けの説明ではない。'] },
       { tag: '意図', t: ['p3int'], s: 'What does the speaker mean when she says, "that\'s a decision for the duty manager, not for you"?',
         c: ['Staff should record the incident on video.', 'Staff should call the police immediately.',
-            'Staff should ask a colleague to make the decision instead.', 'Staff should not personally confront or accuse a customer.'],
-        a: 3,
+            'Staff should not personally confront or accuse a customer.', 'Staff should ask a colleague to make the decision instead.'],
+        a: 2,
         e: '直前の「すぐに問い詰めたくなる衝動」への対応として述べており、その判断・対応は当直責任者に委ねるべきだという意味。',
-        w: ['録画の話は出ていない。', '警察への通報は述べていない。', '同僚への丸投げではなく当直責任者への報告。', '正解。'] },
+        w: ['録画の話は出ていない。', '警察への通報は述べていない。', '正解。', '同僚への丸投げではなく当直責任者への報告。'] },
       { tag: '詳細', s: 'What must staff never do?',
         c: ['Offer help to any customer without being asked.', 'Discuss a specific customer with another customer.',
             'Leave the sales floor unattended.', 'Report a concern to the duty manager.'],
@@ -204,10 +204,10 @@ export const L3 = [
     q: [
       { tag: '詳細', s: 'What can callers do to check an existing claim\'s status?',
         c: ['Visit a local branch in person.', 'Send a text message with their policy number.',
-            'Use the website or app with their claim reference number.', 'E-mail a photograph of the damage.'],
-        a: 2,
+            'E-mail a photograph of the damage.', 'Use the website or app with their claim reference number.'],
+        a: 3,
         e: '「ウェブサイトかアプリで、請求番号を使ってリアルタイム確認ができる」と案内されている。',
-        w: ['来店の案内はない。', 'テキストメッセージの話はない。', '正解。', 'メール送付の話も出ていない。'] },
+        w: ['来店の案内はない。', 'テキストメッセージの話はない。', 'メール送付の話も出ていない。', '正解。'] },
       { tag: '詳細', s: 'What is said about reporting a new incident with no injuries?',
         c: ['It can only be reported during business hours.', 'It cannot be processed without a phone call.',
             'It requires a police report to be attached.', 'It can be started online and avoids the queue for the first stage.'],
@@ -215,15 +215,19 @@ export const L3 = [
         e: '「オンラインで開始でき、約 10 分で最初の段階の待ち行列を回避できる」と述べている。',
         w: ['営業時間限定とは述べていない。', '電話なしでも開始できると明言。', '警察報告書の話はない。', '正解。'] },
       { tag: '詳細', s: 'Who is advised to stay on the line rather than use the alternatives?',
-        c: ['Callers who have already filed a claim online.', 'Callers whose incident involves an injury or is still ongoing.',
-            'Callers asking about premium payments.', 'Callers who want a printed copy of their policy.'],
-        a: 1,
+        c: ['Callers who have already filed a claim online.', 'Callers who want a printed copy of their policy.',
+            'Callers asking about premium payments.', 'Callers whose incident involves an injury or is still ongoing.'],
+        a: 3,
         e: '「けがを伴う場合や進行中の事故についてはそのまま保留するように」と案内している。',
-        w: ['オンライン申請済みの人への案内ではない。', '正解。', '保険料の話は出ていない。', '証書の印刷には触れていない。'] },
+        w: ['オンライン申請済みの人への案内ではない。', '証書の印刷には触れていない。', '保険料の話は出ていない。', '正解。'] },
     ],
   }),
 
   /* ── 89–91（図表）─────────────────────────────────── */
+  /* 2026-08-25（レビュー差し戻し対応）：No.90・No.91 は t を明示していなかったため、
+     ユニット既定の t:['graphic','p4type'] を暗黙に継承し、図表を使わない詳細設問
+     なのに topics に 'graphic' が紛れ込んでいた。両問に t:['p4type'] を明示した。
+     stem・choices・answer は変更していないため id（talk() の自動生成）はそのまま。 */
   talk({
     n: [89, 90, 91], lv: 5, k: 'talk', t: ['graphic', 'p4type'],
     graphic: {
@@ -247,17 +251,17 @@ export const L3 = [
     v: [['keg', '（ビールの）樽'], ['rota', '勤務表'], ['dinner rush', '夕食どきの混雑'] ],
     q: [
       { tag: '図表', s: 'Look at the graphic. Who will swap to cellar duty for the first hour on Tuesday?',
-        c: ['Yara', 'Marek', 'Feng', 'Priya'],
-        a: 0,
+        c: ['Priya', 'Marek', 'Feng', 'Yara'],
+        a: 3,
         e: '「本日（火曜）グリル担当」が該当。表の火曜グリルは Yara。',
-        w: ['正解。', '火曜はバー担当。', '火曜はホール担当。', '貯蔵室担当で、入れ替わる相手側。'] },
-      { tag: '詳細', s: 'Why is the swap necessary?',
+        w: ['貯蔵室担当で、入れ替わる相手側。', '火曜はバー担当。', '火曜はホール担当。', '正解。'] },
+      { tag: '詳細', t: ['p4type'], s: 'Why is the swap necessary?',
         c: ['A delivery needs to be stored before it warms up.', 'A staff member called in sick.',
             'The grill station is being repaired.', 'A new till is being installed.'],
         a: 0,
         e: '「生樽の配達が遅れており、庭先で温まる前にすぐ貯蔵室に運び込む必要がある」が理由。',
         w: ['正解。', '欠勤の話はない。', '修理の話ではない。', 'レジ交換はバーの決済機の話。'] },
-      { tag: '詳細', s: 'What mistake was made last week?',
+      { tag: '詳細', t: ['p4type'], s: 'What mistake was made last week?',
         c: ['The card machine was left unplugged.', 'Snacks were put out too early and ran out before the dinner rush.',
             'The wrong beer kegs were delivered.', 'The rota was posted a day late.'],
         a: 1,
@@ -266,20 +270,23 @@ export const L3 = [
     ],
   }),
 
-  /* ── 92–94（図表）─────────────────────────────────── */
-  talk({
-    n: [92, 93, 94], lv: 5, k: 'announcement', t: ['graphic', 'p4type'],
-    graphic: {
-      t: 'table', title: 'Cross Street Car Park — Rate Changes',
-      head: ['Ticket type', 'Current rate', 'New rate (from 1 October)'],
-      rows: [
-        ['Up to 1 hour', '£2.00', '£2.00'],
-        ['1–3 hours', '£5.00', '£6.50'],
-        ['3–6 hours', '£9.00', '£11.00'],
-        ['Season ticket (monthly)', '£85', '£85'],
-      ],
-    },
-    s: [
+  /* ── 92–94 ─────────────────────────────────────────── */
+  /* 2026-08-25: 利用者判断で模試の図表設問を 9→5 に削減。Part 4 は No.89・No.98 の
+     2問を残し、No.92 を通常設問に差し替える。旧 No.92 は設問文が「3–6 hours」の行を
+     名指しし、図表の New rate 列がそのまま答えになっていた（音声は "the one-to-
+     three-hour and three-to-six-hour bands will both increase" と述べるのみで
+     数値を一切言わない＝音声だけでは解けず、図表だけで解けてしまっていた）。
+     スクリプト・ja・vocab は変更せず、音声だけで解ける目的（purpose）設問に
+     差し替えた。このユニットから図表設問が無くなるため graphic オブジェクトを削除し、
+     t を ['graphic', 'p4type'] → ['p4type'] に変更（No.93・No.94 が既定継承で
+     'graphic' を保持してしまう不具合の芽を摘む）。talk() ヘルパーは id を no から
+     自動生成し、内容を変えた No.92 だけ id を変える手段がないため、このユニットのみ
+     ヘルパーを使わず直接記述する（no は 92 のまま、id は新規採番）。No.93・No.94 は
+     内容不変のため id を維持。 */
+  {
+    id: 'v5-p4-92', part: 4, kind: 'set', kindLabel: 'announcement',
+    topics: ['p4type'], level: 5,
+    script: [
       { role: 'M-Cn', text: 'Thank you all for coming to this quarter\'s tenant forum. The main item today concerns car park charges.' },
       { role: 'M-Cn', text: 'The board has agreed that, from the first of October, the mid-range tariffs — the one-to-three-hour and three-to-six-hour bands — will both increase, while the short-stay rate and the monthly season ticket stay exactly where they are.' },
       { role: 'M-Cn', text: 'I know a rate rise is never welcome, so let me explain where the money goes. The car park\'s drainage system failed twice this winter, and a permanent fix — regrading and relining — is not something we can cover from the existing service charge alone.' },
@@ -287,27 +294,31 @@ export const L3 = [
       { role: 'M-Cn', text: 'If you currently pay under the three-to-six-hour band regularly, switching to a season ticket may now work out cheaper — our concierge can run the comparison for your specific pattern if you bring in your last few months of receipts.' },
     ],
     ja: 'テナント向け四半期フォーラムでの駐車場料金についての説明。10 月 1 日から中間帯の料金（1〜3 時間、3〜6 時間）が値上げされる一方、短時間料金と月極の年間券は据え置きと発表。値上げの理由として、今冬に駐車場の排水設備が 2 回故障し、恒久的な修理（再整地と内張り）が既存の管理費だけでは賄えないと説明。1 時間未満の利用者や月極利用者には今回の発表は一切影響しない。3〜6 時間帯を日常的に利用している人は、月極に切り替えた方が安くなる可能性があり、直近数か月の領収書を持参すればコンシェルジュが個別に比較してくれると案内している。',
-    v: [['tariff', '料金体系'], ['drainage system', '排水設備'], ['concierge', 'コンシェルジュ']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. What is the new rate for the 3–6 hour ticket from October?',
-        c: ['£11.00', '£9.00', '£6.50', '£85'],
-        a: 0,
-        e: '表の 3–6 hours の新料金は £11.00。',
-        w: ['正解。', '現行料金。', '1–3 hours の新料金。', '月極の料金。'] },
-      { tag: '詳細', s: 'What is the stated reason for the change?',
-        c: ['Local property taxes have increased.', 'Repairs to the drainage system are needed.',
+    vocab: [['tariff', '料金体系'], ['drainage system', '排水設備'], ['concierge', 'コンシェルジュ']],
+    questions: [
+      { id: 'v5q92r', no: 92, tag: '目的', stem: 'What is the purpose of the talk?',
+        choices: ['To announce changes to car park charges.', 'To announce the closure of the car park.',
+            'To introduce new car park staff.', 'To request feedback on a road project.'],
+        answer: 0,
+        exp: '「本日の主な議題は駐車場料金についてです」と切り出し、その後の値上げ内容を説明している。',
+        why: ['正解。', '話し手は 10 月からの新料金と月極への切り替えを案内しており、駐車場が引き続き営業する前提で話している。閉鎖には触れていない。', '新スタッフの紹介ではなく、料金改定とその理由の説明。', '道路工事についての意見募集ではない。'],
+        topics: ['p4type'] },
+      { id: 'v5q93', no: 93, tag: '詳細', stem: 'What is the stated reason for the change?',
+        choices: ['Local property taxes have increased.', 'Repairs to the drainage system are needed.',
             'The car park is being expanded.', 'Staffing costs have risen.'],
-        a: 1,
-        e: '「排水設備が 2 回故障し、恒久的な修理費用が必要」と説明されている。',
-        w: ['税金の話はない。', '正解。', '拡張工事の話も出ていない。', '人件費には触れていない。'] },
-      { tag: '詳細', s: 'What does the speaker suggest to frequent 3–6 hour parkers?',
-        c: ['Apply for a rate exemption.', 'Park at a different facility nearby.',
+        answer: 1,
+        exp: '「排水設備が 2 回故障し、恒久的な修理費用が必要」と説明されている。',
+        why: ['税金の話はない。', '正解。', '拡張工事の話も出ていない。', '人件費には触れていない。'],
+        topics: ['p4type'] },
+      { id: 'v5q94', no: 94, tag: '詳細', stem: 'What does the speaker suggest to frequent 3–6 hour parkers?',
+        choices: ['Apply for a rate exemption.', 'Park at a different facility nearby.',
             'Consider switching to a season ticket.', 'Prepay for an entire year at once.'],
-        a: 2,
-        e: '「月極に切り替えた方が安くなる可能性があり、比較してもらえる」と提案している。',
-        w: ['免除の申請には触れていない。', '他施設の利用は提案していない。', '正解。', '一括前払いの話も出ていない。'] },
+        answer: 2,
+        exp: '「月極に切り替えた方が安くなる可能性があり、比較してもらえる」と提案している。',
+        why: ['免除の申請には触れていない。', '他施設の利用は提案していない。', '正解。', '一括前払いの話も出ていない。'],
+        topics: ['p4type'] },
     ],
-  }),
+  },
 
   /* ── 95–97 地域ニュース ───────────────────────────── */
   talk({
@@ -324,64 +335,187 @@ export const L3 = [
     q: [
       { tag: '詳細', s: 'Why has the current bridge been restricted to pedestrians only?',
         c: ['The council reduced its maintenance budget.', 'A previous accident closed it to other traffic.',
-            'A structural survey found it unsafe for cyclists and scooters.', 'Nearby construction blocked wider access.'],
-        a: 2,
+            'Nearby construction blocked wider access.', 'A structural survey found it unsafe for cyclists and scooters.'],
+        a: 3,
         e: '「構造調査で自転車やスクーターの荷重に耐えられないと判明したため」と説明されている。',
-        w: ['維持費削減には触れていない。', '事故の話はない。', '正解。', '周辺工事による通行止めではない。'] },
+        w: ['維持費削減には触れていない。', '事故の話はない。', '周辺工事による通行止めではない。', '正解。'] },
       { tag: '詳細', s: 'According to Mr. Renner, what was the main obstacle to the project?',
-        c: ['Maintaining access during construction.', 'The overall cost of the new bridge.',
-            'Finding a contractor willing to take the work.', 'Objections from nearby businesses.'],
-        a: 0,
+        c: ['Objections from nearby businesses.', 'The overall cost of the new bridge.',
+            'Finding a contractor willing to take the work.', 'Maintaining access during construction.'],
+        a: 3,
         e: '「最終的な障害は費用ではなく、工事中の横断路確保だった」と明言している。',
-        w: ['正解。', '費用は主要因ではないと否定されている。', '請負業者探しの話はない。', '近隣店舗の反対には触れていない。'] },
+        w: ['近隣店舗の反対には触れていない。', '費用は主要因ではないと否定されている。', '請負業者探しの話はない。', '正解。'] },
       { tag: '推測', s: 'What is implied about the temporary pontoon crossing?',
-        c: ['It will ensure the public retains access throughout construction.', 'It will only be used in an emergency.',
-            'It will remain in place permanently after construction.', 'It requires a separate council vote to install.'],
-        a: 0,
+        c: ['It requires a separate council vote to install.', 'It will only be used in an emergency.',
+            'It will remain in place permanently after construction.', 'It will ensure the public retains access throughout construction.'],
+        a: 3,
         e: '「工事期間中ずっと設置し、誰もアクセスを失わないようにする」とある。',
-        w: ['正解。', '緊急時限定ではない。', '恒久設置の話はない。', '別途採決が必要とは述べていない。'] },
+        w: ['別途採決が必要とは述べていない。', '緊急時限定ではない。', '恒久設置の話はない。', '正解。'] },
     ],
   }),
 
-  /* ── 98–100（図表）───────────────────────────────── */
-  talk({
-    n: [98, 99, 100], lv: 5, k: 'telephone message', t: ['graphic', 'p4type'],
+  /* ── 98–100（図表は1問目のみ）────────────────────── */
+  /* 2026-08-25 全面書き直し：`vol4-l2b.js` No.53–55（Kestrel Self Storage）と装置が
+     丸ごと重複していた。場面（貸倉庫の見学）・表題（`— Unit Sizes`）・行名
+     （Locker/Small/Medium/Large）・状況（1ベッドルームの家具を約2か月）・図表問題の
+     正解（Medium）・3問目の命題（短期だから定額プランより単位契約が得）が一致しており、
+     「前の巻を解いた記憶から答えが手に入るか」に対して3問中2問が YES だった。
+     加えて、行名 Locker<Small<Medium<Large 自体が大小の序列を持ち、音声が
+     「小さすぎず大きすぎない中間」としか言わなくても選択肢名から Medium を当てられた
+     （面積の数値だけ本文から外した前回の是正は、この選択肢側の序数性を残したため未完
+     だった）。
+     今回、業種を「引っ越し向け貸倉庫」から「オフィスの書類保管（Millbank Document
+     Archive）」へ変更し、行名を Bay 2 / Bay 4 / Bay 11 / Bay 19 という非序数の番号
+     （表内の並びも数値順にしていない）にした。図表問題の決め手も「面積の大小」から
+     「1階であること」「空調管理されていること」という2つの独立した条件の組み合わせに
+     変更し、正解の Bay 2 は Floor・Climate control のどちらの列でも単独の値ではなく
+     （Ground は Bay 4 と共有、Yes は Bay 11 と共有）、Monthly rate も £36 で Bay 19 と
+     同額にして最大・最小・唯一値のいずれにもならないようにした（当てずっぽうの
+     落ち先は本文末の検証を参照）。
+     3巡目監査（2026-08-25、レビュー役差し戻し）：上記の金額調整（Bay11=£34/Bay4=£30/
+     Bay19=£44/Bay2=£38）は「空調ありの2行のうち高い方」にも「1階の2行のうち高い方」にも
+     Bay 2 が一致してしまい、どちらか一方の条件しか聞き取れなくても「高い方を選ぶ」で
+     50%の確率で正解に達する対称な経路が新たに開いていた。いずれの設問（No.98＝どのベイを
+     勧めるか／No.99＝持参物／No.100＝防火扉）も金額を問うていないため、Monthly rate 列を
+     丸ごと削除した。残る列は Bay／Floor／Climate control の3列のみで、Floor は Ground×2・
+     Upper×2、Climate control は Yes×2・No×2 と、値がちょうど2回ずつ出る種別×種別の 2×2 に
+     なる。極端値（最大・最小）も列内の唯一値も存在しなくなり、当てずっぽうの的中率は
+     厳密に25%に戻る（検証は報告に記載）。script・ja・vocab のいずれも金額に一切言及して
+     いないため、列の削除による破綻はない。exp・why も金額に触れていないため変更していない。
+     表そのものを変更したため No.98 の id のみ新規採番する（no は 98 のまま、answer は 0 の
+     まま変更なし）。No.99・No.100 は内容・id とも変更していない。
+     3問目（No.100）の命題も「支払い方法の損得」から
+     「1階のベイは施錠されておりスタッフの解錠が必要」という別の論点に変更した。
+     No.99（写真付き身分証の持参）は場面を変えても契約時の要件として自然なため流用し、
+     監査で指摘された不自然な英語 `Identification with a photo on it.` を
+     `A form of photo identification.` に修正した。
+     talk() ヘルパーは id を no から自動生成し、この設問だけ id を変える手段がない
+     ため、このユニットだけヘルパーを使わず直接記述する。3問とも中身を書き換えたため
+     3問とも id を新規採番した（no は 98/99/100 のまま）。answer の index は
+     いずれも変更前と同じ（98:0 / 99:3 / 100:0）。
+     再追記（2026-08-25、レビュー差し戻し対応）：
+     (1) No.100 の stem「What does the speaker say about the ground-floor bays?」を
+     先読みすると、表の Floor 列で Ground なのは Bay 4 と Bay 2 の2行だけなので、
+     No.98 が音声なしで 25%→50% に絞られてしまうと指摘された。stem を「What does
+     the speaker say about the fire doors?」に差し替え、階を一切名指ししない形にした
+     （選択肢・answer は変更していない。表に fire door の列は無いため図表だけでも
+     解けない）。音声 "the ground-floor bays sit behind our fire doors, so someone
+     on staff has to let you in" に対応する。誤答3つ（点検頻度・常時開放・今年設置）は
+     いずれも音声に出てこず、うち「常時開放」は「スタッフが解錠する必要がある」＝
+     常時は施錠されているという記述と直接矛盾する。stem を変えたため id を新規採番
+     する（v5q100r3）。
+     (2) No.98 の表について、Bay 2（正解）が「1階かつ空調あり」に加えて「空調ありの
+     2行のうち安い方」（Bay 11 £42 → Bay 2 £36）にもなっており、当てずっぽうの
+     的中率が 25%→35〜40% に上がると指摘された。Monthly rate を Bay 11=£34 /
+     Bay 4=£30 / Bay 19=£44 / Bay 2=£38 に組み替えた。空調ありの2行では Bay 2 が
+     むしろ高い方になり、1階の2行でも Bay 2 が高い方になるため、「安い方を選ぶ」
+     という自然な誘導はどちらの軸でも正解に一致しない。最大値（£44）は誤答の
+     Bay 19 に、最小値（£30）は誤答の Bay 4 に置き、Bay 2 の £38 は最大でも最小でも
+     なく、4つの値はすべて異なる（当てずっぽうの落ち先の全体は本文末の検証を参照）。
+     why・exp は金額に言及していないため変更していない。
+     (3) 音声中の「around fifteen boxes」が `vol4-l2b.js` の書き直し前バージョン
+     （No.53–55 の旧稿）で使っていた数と同じ数字で、書き直しの出自が見える痕跡
+     だったため「around twenty boxes」に変更した（ja も合わせて修正。この数字は
+     どの設問の決め手にもなっていないため、答えへの影響はない）。 */
+  /* 2026-08-25 是正（監査差し戻し対応、2件）。
+     (1) 「Climate control: Yes / No」は空調ありのほうが明らかに有利な、優劣のある
+     対だった。「Floor: Ground / Upper」も、重い書類箱を運ぶこの場面では Ground が
+     有利であり、正解の Bay 2 は2軸とも有利な行になっていた（CLAUDE.md「2軸とも
+     最良の行を作らないこと」に抵触）。Climate control 列を Access（Roller shutter /
+     Double doors）に差し替えた。どちらが一般的に優れているとも言えない中立な対で、
+     今回はパレット台車で搬入するため、シャッター式には台車の車輪が引っかかる
+     立ち上がりのレールがあり使えず、観音開きが必要という状況依存の理由にした
+     （書類の防湿という一般的に優劣のある理由を、台車の物理的な制約という中立な
+     理由に置き換えた）。Floor 列は No.100（防火扉の説明が1階のベイに限られる）の
+     成立に必要なため残した。新しい Access 列は Roller shutter・Double doors が
+     2行ずつに均等に分かれ、最大・最小・唯一値は生じない。音声の該当箇所を
+     「書類が湿気てはいけない」から「パレット台車で搬入する」に、要件を
+     「climate-controlled」から「double-door」に書き換えた。
+     (2) 正解の行の番号が Bay 2（4つの行番号 11/4/19/2 のうち最小）になっており、
+     vol2-l2b.js No.65（Room 3 が最小）・vol4-l2b.js No.53（Unit 3 が最小）と合わせて
+     3表とも「正解＝最小番号」という指紋が揃っていた。属性（Floor・Access の値）は
+     変えず、正解の行の番号だけを Bay 2 → Bay 15 に振り直した。新しい番号
+     11/4/19/15 のうち最小は 4（誤答の行）、最大は 19（誤答の行）で、15 はどちらにも
+     ならない中間の値になる。choices の並び順（Bay 15, Bay 4, Bay 11, Bay 19）も
+     昇順・降順のいずれでもない（15, 4, 11, 19。旧版の Bay 2, Bay 4, Bay 11, Bay 19
+     は 2 < 4 < 11 < 19 の完全な昇順だったため、この点も是正した）。音声はベイ番号に
+     一切言及していないため変更していない。
+     No.98 は表・音声・choices・exp・why・vocab を実質変更したため id を新規採番する
+     （v5q98r4 → v5q98r5、no は 98 のまま、answer は 0 のまま）。No.99・No.100 は
+     金額や climate control に触れておらず、防火扉の説明も Floor 列に依存したままの
+     ため内容・id とも変更していない。 */
+  /* 2026-08-25 是正（さらなる差し戻し対応）：上記の是正後も、`Floor: Ground / Upper`
+     自体が優劣軸のままだった。重い書類箱を運ぶ場面では素朴に「1階のほうが楽」と読め、
+     正解もその Ground 側（Bay 15）だったため、音声を聞かなくても Ground の2行
+     （Bay 4・Bay 15）に絞り込める（50%）。さらに No.100 の stem "the fire doors" の
+     "doors" が表の Access 列の値 "Double doors" と語として共鳴し、「doors が論点らしい
+     → Double doors の行」という先読みだけの絞り込みと合成すると、Ground かつ
+     Double doors の行は Bay 15 だけになり、音声を一切聞かずに 100% 的中する経路が
+     開いていた。
+     (i) Floor の傾きを誤答側に反転させた。音声の決め手を「重いから1階」ではなく
+     「夕方以降にも出入りしたい → 1階のベイは防火扉の奥でスタッフの解錠が必要になり
+     時間帯が縛られる → 暗証番号式で終日利用できる上階のベイにする」という理由に
+     書き換えた。あわせて「トロリーごと載る大きさのエレベーターがあるので、箱の重さは
+     どちらの階を選んでも問題にならない」という一文を足し、「重い荷物は当然1階」という
+     世界知識そのものを無効化した。これにより、素朴な「1階のほうが楽」という選択は
+     誤答（Bay 4・Bay 15）に落ちる。正解は Upper かつ Double doors の Bay 11 になった。
+     No.100（1階のベイは防火扉の奥で係員の解錠が必要）という一般的な事実は、顧客が
+     実際にどのベイを借りるかとは独立して成立するため、そのまま使える。
+     (ii) No.100 の stem を "Why must some visits be made during staffed hours?"
+     に差し替え、"door" の語を stem からも4択からも完全に排除した。あわせて、正解
+     (旧 "Staff must open them for customers.") だけ主語が Staff で誤答3つが全部
+     They という回帰（先読みで正解が形により浮く）も直すため、4択とも
+     "Some bays ..." で始まる統一した主語・8語の構造に揃えた。
+     Access・Floor の表自体（Bay 11/4/19/15 の行と値）は変更していない。値は
+     Floor が Ground×2・Upper×2、Access が Double doors×2・Roller shutter×2 の
+     2×2 のまま、極端値・唯一値は無い。会話はベイ番号に一切言及していない。
+     No.98 は音声・exp・why・answer を実質的に変更したため id を新規採番する
+     （v5q98r5 → v5q98r6、no は 98 のまま、choices の並び順は変更していない）。
+     No.100 は stem・choices を全面的に書き換えたため id を新規採番する
+     （v5q100r3 → v5q100r4、no は 100 のまま、answer の index は 0 のまま）。
+     No.99（v5q99r3）は内容・id とも変更していない。 */
+  {
+    id: 'v5-p4-98', part: 4, kind: 'set', kindLabel: 'telephone message',
+    topics: ['graphic', 'p4type'], level: 5,
+    script: [
+      { role: 'W-Br', text: 'Hi, this is Millbank Document Archive, returning your call about storing some office files while your move finishes up.' },
+      { role: 'W-Br', text: 'You mentioned you\'d like to be able to drop things off or collect them some evenings, after the office closes — that points you to one of our upper bays, since those work on a self-service keypad rather than needing one of us there to let you in. There\'s a lift up to that floor big enough for a loaded trolley, so the weight of the boxes isn\'t an issue either way.' },
+      { role: 'W-Br', text: 'You also mentioned around twenty boxes of closed client files, with a few of the lever-arch ones quite heavy, so you\'ll be bringing everything in on a pallet trolley — that means it also needs to be one of our double-door bays; the roller-shutter ones have a raised threshold rail the wheels can\'t get over.' },
+      { role: 'W-Br', text: 'The bay you\'d want is on the upper floor with double doors, and there\'s one free from Monday.' },
+      { role: 'W-Br', text: 'One thing to flag: unlike the upper bays, the ground-floor ones sit behind our fire doors, so someone on staff has to let you in — that\'s why those are limited to our staffed hours, eight until six. Yours won\'t be.' },
+      { role: 'W-Br', text: 'Give me a call to confirm, and bring a form of photo identification when you come in to sign the agreement — we can\'t set up the bay without it.' },
+    ],
     graphic: {
-      t: 'table', title: 'Fenchurch Self-Storage — Unit Sizes',
-      head: ['Unit', 'Floor area', 'Monthly rate'],
+      t: 'table', title: 'Millbank Document Archive — Storage Bays',
+      head: ['Bay', 'Floor', 'Access'],
       rows: [
-        ['Locker', '1 m²', '£18'],
-        ['Small', '3 m²', '£42'],
-        ['Medium', '6 m²', '£68'],
-        ['Large', '10 m²', '£96'],
+        ['Bay 11', 'Upper', 'Double doors'],
+        ['Bay 4', 'Ground', 'Roller shutter'],
+        ['Bay 19', 'Upper', 'Roller shutter'],
+        ['Bay 15', 'Ground', 'Double doors'],
       ],
     },
-    s: [
-      { role: 'W-Br', text: 'Hi, this is Fenchurch Self-Storage returning your call about storage for your move.' },
-      { role: 'W-Br', text: 'Based on what you described — a one-bedroom flat\'s worth of furniture, so a sofa, a bed frame, a wardrobe, and some boxes — our medium unit should be the right fit. Customers moving from a similar-sized flat usually find the small unit too tight once the wardrobe\'s in, but don\'t need the large.' },
-      { role: 'W-Br', text: 'That unit is available from the first of the month, which I know is exactly when you need it.' },
-      { role: 'W-Br', text: 'On price, because you mentioned this is only for two months, I\'d suggest paying monthly rather than our discounted six-month rate — the six-month rate only pays off if you keep the unit for at least four months.' },
-      { role: 'W-Br', text: 'Give us a call back to confirm, and bring photo ID when you come in to sign the agreement — we can\'t set up the unit without it.' },
+    ja: 'ミルバンク・ドキュメント・アーカイブから、オフィス移転が済むまで書類を預ける件についての折り返しの電話。顧客は夕方、閉店後にも荷物の出し入れをしたいと伝えており、それには暗証番号式キーパッドで終日利用できる上階のベイが向いていると案内する。上階へは台車ごと載せられる大きさのエレベーターがあるため、箱の重さはどちらの階を選んでも問題にならないという。また、処理済み案件のファイルがおよそ20箱あり、そのうちレバーアーチ式のファイルが数箱かなり重いためパレット台車で運び込むとのことなので、シャッター式ではなく観音開きの搬入口があるベイである必要があるとも説明する（シャッター式は台車の車輪が引っかかる立ち上がりのレールがあるため）。この2条件（上階かつ観音開きの搬入口）を満たすベイが月曜から利用可能だと案内する。あわせて、1階のベイは防火扉の奥にあるためスタッフが解錠する必要があり、そのため利用できるのはスタッフが常駐する時間帯（8時から18時まで）に限られるが、顧客が契約する上階のベイにはその制約がないと伝える。最後に、確認の電話を折り返すよう依頼し、来店して契約書に署名する際は写真付き身分証明書を持参するよう求める。それがないとベイの契約手続きができないため。',
+    vocab: [['lever-arch file', 'レバーアーチ式ファイル（バインダー）'], ['pallet trolley', 'パレット台車'], ['roller shutter', 'シャッター（巻き上げ式の扉）'], ['threshold rail', '（床の）立ち上がりレール'], ['keypad', '暗証番号式の錠']],
+    questions: [
+      { id: 'v5q98r6', no: 98, tag: '図表', stem: 'Look at the graphic. Which bay does the speaker recommend?',
+        choices: ['Bay 15', 'Bay 4', 'Bay 11', 'Bay 19'],
+        answer: 2,
+        exp: '来訪者は夕方以降にも出入りしたいと述べており、暗証番号式で終日利用できる上階のベイが必要になる（1階のベイは防火扉の奥にあり、スタッフの解錠が必要で、スタッフの常駐時間しか利用できないため）。また、荷物はパレット台車で運び込むため、シャッター式ではなく観音開きの搬入口が必要である（シャッター式には台車の車輪が引っかかる立ち上がりのレールがあるため）。図表でこの2条件（上階・観音開き）をともに満たすのは Bay 11 のみ。',
+        why: ['観音開きの搬入口で台車の条件は満たすが、1階のため防火扉の奥にあり、スタッフの常駐時間しか利用できず、夕方以降に出入りしたいという条件を満たさない。', '1階でスタッフの常駐時間に限られるうえ、搬入口もシャッター式で台車が使えず、どちらの条件も満たさない。', '正解。', '上階で暗証番号式のため夕方以降も利用できるが、搬入口がシャッター式で台車の車輪が引っかかり使えない。'],
+        topics: ['graphic', 'p4type'] },
+      { id: 'v5q99r3', no: 99, tag: '次の行動', stem: 'What does the speaker ask the listener to bring?',
+        choices: ['Cash for the first month\'s rent.', 'Confirmation of the drop-off date.', 'A cheque for the deposit.', 'A form of photo identification.'],
+        answer: 3,
+        exp: '「契約書に署名しに来る際は写真付き身分証明書を持参してほしい。それがないと契約手続きができない」と述べている。',
+        why: ['来店時に持参するよう求められたのは写真付き身分証明書のみで、初月分の家賃を現金で持参するようにとは述べていない。', '搬入日についての確認書の持参は求めていない。ベイの利用開始日はすでに担当者の側から「月曜から利用可能」と伝えられている。', '預け金の小切手にも触れていない。', '正解。'],
+        topics: ['p4type'] },
+      { id: 'v5q100r4', no: 100, tag: '詳細', stem: 'Why must some visits be made during staffed hours?',
+        choices: ['Some bays can only be opened by staff.', 'Some bays are checked by management every month.', 'Some bays stay open to visitors every evening.', 'Some bays were newly built earlier this year.'],
+        answer: 0,
+        exp: '1階のベイは防火扉の奥にあり、スタッフでなければ解錠できないため、そうしたベイへの来訪はスタッフが常駐する時間帯（8時から18時）に限られる、と説明されている。顧客が契約する上階のベイは暗証番号式のため、この制約を受けない。',
+        why: ['正解。', '点検の頻度には触れていない。', '「夕方も開いている」という説明はなく、むしろ逆に、一部のベイはスタッフの解錠が必要なため夕方は使えないという内容である。', '設置・完成時期には触れていない。'],
+        topics: ['p4type'] },
     ],
-    ja: 'フェンチャーチ・セルフストレージから、引っ越し用の保管依頼についての折り返し電話。1 ベッドルームの部屋の家具（ソファ、ベッドフレーム、ワードローブ、いくつかの箱）という説明から、中サイズのユニットが適していると案内。同程度の広さから引っ越す顧客は、小サイズだとワードローブを入れると手狭になるが、大サイズは必要ないことが多いという。そのユニットは月初から利用可能で、ちょうど必要な時期に合うと述べる。料金については、利用期間が 2 か月のみと聞いているため、6 か月の割引料金ではなく月払いを勧める。6 か月料金は最低 4 か月以上利用しないと元が取れないため。確認の折り返しを依頼し、来店時には写真付き身分証明書の持参を求める。それがないと契約手続きができないため。',
-    v: [['pays off', '元が取れる、割に合う'], ['photo ID', '写真付き身分証明書'], ['tight', '手狭な']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which unit does the speaker recommend?',
-        c: ['Medium', 'Small', 'Locker', 'Large'],
-        a: 0,
-        e: '1 ベッドルーム分の家具に適するのは Medium。Small では手狭、Large は不要と述べている。',
-        w: ['正解。', '手狭になると述べている。', '小物用でごく狭い。', '不要と述べている。'] },
-      { tag: '図表', s: 'Look at the graphic. What is the monthly rate for that unit?',
-        c: ['£18', '£42', '£68', '£96'],
-        a: 2,
-        e: 'Medium の月額は £68。',
-        w: ['Locker の料金。', 'Small の料金。', '正解。', 'Large の料金。'] },
-      { tag: '詳細', s: 'Why does the speaker recommend paying monthly rather than the six-month rate?',
-        c: ['The six-month rate only pays off after at least four months.', 'The six-month rate is not available for this unit.',
-            'Monthly payment includes free insurance.', 'The customer\'s move date is uncertain.'],
-        a: 0,
-        e: '「6 か月料金は最低 4 か月以上でないと元が取れず、今回は 2 か月のみの利用のため」と説明している。',
-        w: ['正解。', '6 か月料金自体は存在する。', '保険の話はない。', '移動日は月初と確定している。'] },
-    ],
-  }),
+  },
 ];

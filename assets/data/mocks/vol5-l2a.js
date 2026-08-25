@@ -163,51 +163,83 @@ export const L2A = [
     ],
   }),
 
-  /* ── 44–46（図表）────────────────────────────────── */
-  set({
-    n: [44, 45, 46], lv: 5, t: ['graphic'],
-    graphic: {
-      t: 'table', title: 'Millbrook Bakery — Wholesale Delivery Routes',
-      head: ['Route', 'Days', 'Delivery window'],
-      rows: [
-        ['North (cafés)', 'Mon, Wed, Fri', '06:00–07:30'],
-        ['South (hotels)', 'Tue, Thu', '05:30–07:00'],
-        ['City centre (restaurants)', 'Daily', '07:00–08:30'],
-        ['Out-of-town (supermarkets)', 'Mon, Thu', '08:00–10:00'],
-      ],
-    },
-    s: [
+  /* ── 44–46（図表は1問目のみ）────────────────────────── */
+  /* 本番仕様（1セット1問の図表設問）に合わせ、No.45 を図表設問から通常設問へ差し替えた
+     （2026-08-25）。旧 No.45（id: v5q45r）は「明日のルートの配達枠」を問う図表設問だったが、
+     1セット2問の図表構成自体を解消するため丸ごと書き直した。新設問は音声のみで解け、
+     図表（今日のルート）にも No.46（渋滞への懸念）にも触れない——男性が女性にこの配送を
+     頼んだ理由（同僚 Priya の病欠）を問う。id は新規採番（v5q45r2）。
+     set() は id を no から自動生成し、この設問だけ id を変える手段がないため、
+     このユニットだけヘルパーを使わず直接記述する。
+     追記（2026-08-25、監査で発見の破綻を是正）：No.44 の選択肢が
+     'City centre (restaurants)' のように図表の行名をそのまま括弧書きで含んでいたため、
+     音声の「hotels aren't on it, cafés aren't on it — restaurants only」と選択肢の
+     括弧内の語を単純一致させるだけで、図表を引かずに正解できた。選択肢からは括弧書きを外し
+     ルート名のみにし、業態（cafés/hotels/restaurants/supermarkets）は図表の独立列
+     （Serves）に移した。これで「業態は図表でしか分からず、どの業態のルートかは音声でしか
+     分からない」形になる。
+     あわせて、音声中の「call the city-centre accounts directly」が選択肢 'City centre' と
+     そのまま一致し、業態・曜日の推論を経ずに語だけで正解できてしまう経路も見つけたため、
+     'restaurant accounts' に変更した（ja も合わせて修正）。この1文以外の音声本文は
+     変更していない。中身を変えたため id を新規採番する（no は 44 のまま）。
+     再追記（2026-08-25、Vol.5 図表数の是正に伴う監査）：Days 列で City centre だけが
+     'Daily'（唯一値かつ最大）だったため、Days を見るだけで Serves 列を読まずに正解できた。
+     North の Days も 'Mon, Wed, Fri' → 'Daily' に変更し、Daily の行を2つ（North, City centre）
+     にしたことで、Days だけでは絞れず Serves 列（Restaurants）を読んで初めて City centre に
+     決まる形にした。音声（North の曜日には触れていない）とは矛盾しない。
+     あわせて、ルート名 'City centre' と音声の 'restaurants only' の間に「レストランは
+     都心にある」という現実世界の連想が残っていたため、'Eastside'（方角由来の中立な名前）に
+     改称した。これで正解はレストラン云々の連想ではなく Serves 列の読み取りでしか出ない。
+     この2点により choices・exp・why・id（v5q44r → v5q44r2）を更新する。
+     あわせて No.46 の topics が ['graphic'] のままだった（この設問は図表を使わない詳細設問）
+     ため ['p3detail'] に修正した。stem・choices・answer は変えていないため id は維持。 */
+  {
+    id: 'v5-p3-44', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
+    script: [
       { role: 'M-Cn', text: 'Thanks for coming in early. Priya\'s off sick, so I need you to cover her route today.' },
       { role: 'W-Br', text: 'Which one was she on?' },
       { role: 'M-Cn', text: 'The one that runs every day of the week — hotels aren\'t on it, cafés aren\'t on it — restaurants only.' },
       { role: 'W-Br', text: 'Got it. What time should I be loaded and out?' },
       { role: 'M-Cn', text: 'Seven at the latest, so you\'re delivering by half seven and finished before eight thirty.' },
       { role: 'W-Br', text: 'That doesn\'t leave much room if there\'s traffic.' },
-      { role: 'M-Cn', text: 'There usually isn\'t at that hour. If you do hit trouble, call the city-centre accounts directly — their numbers are on the manifest.' },
+      { role: 'M-Cn', text: 'There usually isn\'t at that hour. If you do hit trouble, call the restaurant accounts directly — their numbers are on the manifest.' },
       { role: 'W-Br', text: 'Will do. Is there a route I should know for tomorrow as well?' },
       { role: 'M-Cn', text: 'Tomorrow you\'re back on your usual, the supermarkets — that\'s only two days a week, so it should feel light after today.' },
     ],
-    ja: '配送担当が、体調不良の同僚に代わって女性ドライバーに担当ルートを頼む。対象は「毎日運行、ホテルもカフェも含まず、レストランのみ」のルート。7 時までに積み込みを終え、7 時半までに配達、8 時半までに完了する必要があると説明。渋滞への懸念に対し、その時間帯は通常混まないと述べつつ、問題があれば配送先の市街地の顧客に直接連絡するよう伝える。翌日は通常担当のスーパー向けルート（週 2 日）に戻るため、今日より楽になるだろうと付け加える。',
-    v: [['manifest', '積荷目録'], ['off sick', '病気で欠勤している'], ['loaded and out', '積み込みを終えて出発する'] ],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which route will the driver cover today?',
-        c: ['City centre (restaurants)', 'South (hotels)', 'North (cafés)', 'Out-of-town (supermarkets)'],
-        a: 0,
-        e: '「毎日運行、ホテルもカフェも含まず、レストランのみ」に一致するのは City centre（Daily）だけ。',
-        w: ['正解。', 'ホテル向けで週 2 日。', 'カフェ向けで週 3 日。', 'スーパー向けで週 2 日。'] },
-      { tag: '図表', s: 'Look at the graphic. What is the delivery window for that route?',
-        c: ['07:00–08:30', '05:30–07:00', '06:00–07:30', '08:00–10:00'],
-        a: 0,
-        e: 'City centre（レストラン）の配達枠は 07:00–08:30。会話の「7 時半までに配達、8 時半までに完了」とも一致する。',
-        w: ['正解。', 'South の枠。', 'North の枠。', 'Out-of-town の枠。'] },
-      { tag: '詳細', s: 'What does the driver say about the schedule?',
-        c: ['She needs help loading the van.', 'She wants a different route assigned.',
-            'She thinks the schedule is too light.', 'She is concerned about traffic delays.'],
-        a: 3,
-        e: '「渋滞があれば余裕がない」と懸念を示している。',
-        w: ['積み込みの補助は求めていない。', '別ルートへの変更は求めていない。', 'むしろ余裕がないと感じている。', '正解。'] },
+    graphic: {
+      t: 'table', title: 'Millbrook Bakery — Wholesale Delivery Routes',
+      head: ['Route', 'Serves', 'Days', 'Delivery window'],
+      rows: [
+        ['North', 'Cafés', 'Daily', '06:00–07:30'],
+        ['South', 'Hotels', 'Tue, Thu', '05:30–07:00'],
+        ['Eastside', 'Restaurants', 'Daily', '07:00–08:30'],
+        ['Out-of-town', 'Supermarkets', 'Mon, Thu', '08:00–10:00'],
+      ],
+    },
+    ja: '配送担当が、体調不良の同僚に代わって女性ドライバーに担当ルートを頼む。対象は「毎日運行、ホテルもカフェも含まず、レストランのみ」のルート。7 時までに積み込みを終え、7 時半までに配達、8 時半までに完了する必要があると説明。渋滞への懸念に対し、その時間帯は通常混まないと述べつつ、問題があれば配送先のレストラン各店に直接連絡するよう伝える。翌日は通常担当のスーパー向けルート（週 2 日）に戻るため、今日より楽になるだろうと付け加える。',
+    vocab: [['manifest', '積荷目録'], ['off sick', '病気で欠勤している'], ['loaded and out', '積み込みを終えて出発する']],
+    questions: [
+      { id: 'v5q44r2', no: 44, tag: '図表', stem: 'Look at the graphic. Which route will the driver cover today?',
+        choices: ['Eastside', 'South', 'North', 'Out-of-town'],
+        answer: 0,
+        exp: '音声は「毎日運行、ホテルもカフェも含まれず、レストランのみ」と業態で説明している。図表で Days が Daily なのは North（Cafés）と Eastside（Restaurants）の2行あり、Days だけでは絞れない。Serves 列で Restaurants に対応するのは Eastside だけなので、これが正解になる。',
+        why: ['正解。', '図表では Hotels 向けで週 2 日（Tue, Thu）。音声は「ホテルは含まれない」と述べている。', '図表では Cafés 向け。Days は Eastside と同じ Daily だが、音声は「カフェは含まれない」と明言しているため除外される。', '図表では Supermarkets 向けで週 2 日（Mon, Thu）。音声は翌日担当分として別に触れており、レストラン向けではない。'],
+        topics: ['graphic'] },
+      { id: 'v5q45r2', no: 45, tag: '詳細', stem: 'Why is the woman covering this route today?',
+        choices: ['She switched shifts with a coworker.', 'She is training for a new position.', 'She requested extra weekend hours.', 'Her colleague is unwell today.'],
+        answer: 3,
+        exp: '冒頭で「プリヤが病欠のため、代わりに今日のルートを担当してほしい」と依頼している。',
+        why: ['男性は「プリヤが病欠だから代わってほしい」と依頼しており、同僚とシフトを交換した結果ではない。', '女性は翌日には自分の通常ルートに戻ると述べられており、新しい職務のための研修としては扱われていない。', '今日の担当を頼んだのは男性の側で、女性が自分から追加勤務を申し出た場面はない。男性が挙げた理由は「プリヤの病欠」だけで、勤務時間の追加にも週末にも一切触れていない。', '正解。'],
+        topics: ['p3detail'] },
+      { id: 'v5q46', no: 46, tag: '詳細', stem: 'What does the driver say about the schedule?',
+        choices: ['She needs help loading the van.', 'She wants a different route assigned.', 'She thinks the schedule is too light.', 'She is concerned about traffic delays.'],
+        answer: 3,
+        exp: '「渋滞があれば余裕がない」と懸念を示している。',
+        why: ['積み込みの補助は求めていない。', '別ルートへの変更は求めていない。', 'むしろ余裕がないと感じている。', '正解。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 
   /* ── 47–49 ─────────────────────────────────────────── */
   set({
@@ -246,20 +278,51 @@ export const L2A = [
     ],
   }),
 
-  /* ── 50–52（図表）────────────────────────────────── */
-  set({
-    n: [50, 51, 52], lv: 5, t: ['graphic'],
-    graphic: {
-      t: 'table', title: 'Aldergate Business Centre — Meeting Room Availability, Thursday',
-      head: ['Room', '09:00', '11:00', '14:00'],
-      rows: [
-        ['Birch (4 seats)', 'Free', 'Booked', 'Free'],
-        ['Cedar (8 seats)', 'Booked', 'Free', 'Free'],
-        ['Elm (12 seats)', 'Booked', 'Booked', 'Free'],
-        ['Fir (20 seats)', 'Free', 'Booked', 'Booked'],
-      ],
-    },
-    s: [
+  /* ── 50–52（図表なし）──────────────────────────────── */
+  /* 本番仕様（1セット1問の図表設問）に合わせ、No.51 を図表設問から通常設問へ一度差し替えた
+     （2026-08-25）。旧 No.51（id: v5q51）は「その部屋を使う時刻」を問う図表設問だった。
+     再追記（2026-08-25、Vol.5 の図表セット数を本番相当の5セット（Part 3:3 / Part 4:2）に
+     絞る監査に伴い、No.50 も図表設問から外し、このセットの graphic を丸ごと削除した）：
+     - No.50（旧 v5q50 = Look at the graphic. Which room…）は、部屋名は図表がないと
+       決まらない設問だったため維持できず、音声だけで解ける「女性は木曜に何のために
+       部屋が要るか（顧客向けプレゼン）」という冒頭の情報を問う設問に書き直した。
+       id 新規採番（v5q50r）。
+     - No.51（v5q51r）の旧 stem "When will the man have the equipment ready?" は
+       "the equipment" の一語で No.52 の正解（画面と会議機器の事前設営）を先読みで
+       割らせてしまうと監査で指摘された（ファイル内の旧コメントは「No.52 にも触れない」と
+       書いていたが誤りだった）。レビュー役の案を検証のうえ採用し、"How does the woman
+       react to the time she is offered?" に差し替えた（正解 She says it suits her
+       client better.）。時刻・機器・遠隔参加者のいずれにも触れず、No.52 の情報とは
+       重ならない。id 再採番（v5q51r2）。
+     - No.52 は stem・正解の中身は変えず維持するが、選択肢が (B) だけ8語・唯一の
+       "X and Y" 構造・唯一の過去分詞修飾つきで単独最長になっていた点をレビュー役の
+       指摘で是正した。4択とも6語に揃え、"and" 構造を (A)(B) の2つに、
+       後置修飾（過去分詞＋前置詞句）を全choiceに持たせて (B) だけが際立たないようにした。
+       中身を変えたため id を新規採番する（v5q52r）。
+     - 3問とも topics を明示（p3detail）。graphic 削除に伴いユニット既定の topics も
+       ['graphic'] から ['p3detail'] に変更した。
+     set() は id を no から自動生成し、これらの設問だけ id を変える手段がないため、
+     このユニットだけヘルパーを使わず直接記述する。
+     再々追記（2026-08-25、レビュー差し戻し対応）：No.51 の選択肢 (B)「She says it
+     suits her client better.」が、No.50 の4択のうち client を含む唯一の選択肢＝
+     正解「A client presentation.」を名指ししており、No.51 を先読みするだけで No.50
+     が決定できると指摘された。(B) から client の語を外し「She says the later time
+     is actually preferable.」に差し替えた（音声 "That's fine, actually — two works
+     even better for our client" の "actually...even better" 部分で成立し、client
+     には触れない）。exp も client への言及を外した。中身を変えたため id を新規採番
+     する（v5q51r3）。
+     あわせて No.52 の stem "the caller" を、同じセットの No.50・No.51 が使う
+     "the woman" に統一した（台本に電話であることを示す語がなく、呼称が浮いていた）。
+     stem のみの変更のため id は v5q52r のまま維持する。
+     2巡目監査（2026-08-25、レビュー役）：No.51 の exp が「当初希望していなかった時間でも」と
+     書いていたが、女性は冒頭で「11 時か 14 時のどちらでもよい」と自ら 14 時を候補に挙げており、
+     台本と食い違っていた。exp を「挙げた 2 案のうち遅い方を提示され、むしろ好都合だと答えた」
+     という事実どおりの記述に改めた。あわせて why の (A)(C) が「述べていない」だけだったため、
+     台本の該当箇所を根拠として名指しする形に書き直した。解説文のみの修正。 */
+  {
+    id: 'v5-p3-50', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['p3detail'], level: 5,
+    script: [
       { role: 'W-Au', text: 'I need a room for a client presentation on Thursday — eleven people, so I\'ll need decent seating.' },
       { role: 'M-Am', text: 'Do you have a preferred time?' },
       { role: 'W-Au', text: 'Either eleven or two would work for us.' },
@@ -270,24 +333,28 @@ export const L2A = [
       { role: 'M-Am', text: 'No problem, I\'ll have that ready fifteen minutes before you arrive.' },
     ],
     ja: '女性が木曜の顧客向けプレゼンのため会議室を予約したいと相談。参加者は 11 名で、11 時か 14 時のどちらでもよいと伝える。11 名を収容できるのは Elm か Fir だが、11 時はどちらも予約済みのため 14 時になると案内され、女性はむしろ好都合だと答える。担当者は 14 時に空いている方の部屋を予約し、遠隔参加者 2 名のため画面と会議機器の事前設営も依頼される。到着 15 分前までに準備すると約束した。',
-    v: [['decent seating', 'それなりの座席数'], ['conferencing equipment', '会議用機器'], ['remotely', '遠隔で'] ],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which room will be booked for the presentation?',
-        c: ['Elm', 'Cedar', 'Birch', 'Fir'],
-        a: 0,
-        e: '11 名を収容できるのは Elm（12 席）と Fir（20 席）。14 時に空いているのは Elm のみ（Fir は 14 時も予約済み）。',
-        w: ['正解。', '8 席では足りない。', '4 席では足りない。', '14 時は予約済みで使えない。'] },
-      { tag: '図表', s: 'Look at the graphic. What time will the room be used?',
-        c: ['09:00', '11:00', '14:00', '16:00'],
-        a: 2,
-        e: '11 時はどちらの大部屋も予約済みのため、14 時に決まった。',
-        w: ['候補にすら挙がっていない。', '両方の大部屋が予約済み。', '正解。', '本文に記載なし。'] },
-      { tag: '詳細', s: 'What does the caller request in addition to the room?',
-        c: ['A catered lunch for eleven people.', 'Screen and video-conferencing equipment set up in advance.',
-            'Extra parking spaces for visitors.', 'A printed agenda for each attendee.'],
-        a: 1,
-        e: '遠隔参加者がいるため、画面と会議機器の事前設営を依頼している。',
-        w: ['昼食の話はない。', '正解。', '駐車場の話も出ていない。', '議事次第の印刷には触れていない。'] },
+    vocab: [['decent seating', 'それなりの座席数'], ['conferencing equipment', '会議用機器'], ['remotely', '遠隔で'] ],
+    questions: [
+      { id: 'v5q50r', no: 50, tag: '概要', stem: 'What is the woman arranging a room for?',
+        choices: ['A job interview.', 'A staff orientation.', 'A department meeting.', 'A client presentation.'],
+        answer: 3,
+        exp: '冒頭で「木曜に顧客向けのプレゼンのため部屋が必要」と述べている。',
+        why: ['面接の話は出ていない。', '研修の話は出ていない。', '部署の会議とは述べていない。', '正解。'],
+        topics: ['p3detail'] },
+      { id: 'v5q51r3', no: 51, tag: '詳細', stem: 'How does the woman react to the time she is offered?',
+        choices: ['She asks to be put on a waiting list.', 'She says the later time is actually preferable.',
+            'She asks whether a discount applies.', 'She says she will check and call back.'],
+        answer: 1,
+        exp: '女性は初めに「11 時か 14 時のどちらでもよい」と伝えている。11 時はどちらの大部屋も予約済みで 14 時になると告げられると「かえってその方が都合がよい」と答えており、提示された遅い方の時刻を歓迎している。',
+        why: ['11 時が埋まっていると聞いた直後にその場で 14 時を受け入れており、11 時の空きを待ちたいという希望は述べていない。', '正解。', '女性が 14 時について述べたのは「かえって都合がよい」という一点のみで、料金にも割引にも会話を通じて一切触れていない。', 'その場で答えており、確認して折り返すとは言っていない。'],
+        topics: ['p3detail'] },
+      { id: 'v5q52r', no: 52, tag: '詳細', stem: 'What does the woman request in addition to the room?',
+        choices: ['A catered lunch and bottled water.', 'Screen and conferencing equipment installed early.',
+            'Extra parking spaces reserved for guests.', 'A printed agenda for the attendees.'],
+        answer: 1,
+        exp: '遠隔参加者がいるため、画面と会議機器を前もって設営しておくよう依頼している。',
+        why: ['昼食や飲み物の手配には触れていない。', '正解。', '駐車場の確保には触れていない。', '印刷した議事次第の配布には触れていない。'],
+        topics: ['p3detail'] },
     ],
-  }),
+  },
 ];

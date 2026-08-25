@@ -143,50 +143,80 @@ export const L2B = [
   }),
 
   /* ── 62–64（図表）────────────────────────────────── */
-  /* 数値の置き方（2026-08-18、監査で組み替えた）。以前は Area 3 が「耐荷重が最大」かつ
-     「クレーン可」の唯一の行で、音声を聞かずに表だけで当たった。いまは耐荷重の最大値
-     （3.6t）をクレーン不可の Area 2 に置いてあるので、「一番大きい行」を選ぶと外れる。
-     script の条件は「クレーン不可が2行」「残る2行のうち一方だけが 2.8t 未満」なので、
-     この構造（Area 1=2.2/可, Area 3=3.0/可）は崩さないこと。 */
+  /* 2026-08-25 是正（3回目）。前回（2回目）の是正は判別軸を「crane 可否／耐荷重／
+     既存の使用予定」の3系統に増やしたつもりだったが、実際には表だけで Area 3 が
+     一意に決まっていた——耐荷重は最小（Area 1・2.5t）でも最大（Area 2・3.6t）でもなく、
+     crane 列で唯一 No のエリア（Area 4）でもない、「どの列でも印が付かない唯一の行」が
+     Area 3 だけだったため、当てずっぽうで100%正解できた。加えて音声も
+     "Area Four's a non-starter" "Isn't Area Two the one with the highest rating?" と
+     除外対象を行名で名指ししており（"the highest rating" は最上級）、二重に閉じて
+     いなかった。
+
+     今回、判別軸を「量」から「種別」に組み替えた。数値の Load limit と Yes/No の
+     Crane access を廃し、Roof deck（Concrete slab / Steel deck）と
+     Crane set-up（East side / West side）という、どちらも一般的な優劣を持たない
+     2種類×2種類の表にした（4エリアがちょうど1組み合わせずつになり、最大・最小・
+     唯一値がすべて消える）。音声側は「2.8トンなのでコンクリート下地でなければ
+     支えられない（Steel deck の2エリアを除外）」「今月は東側で外壁工事の足場が
+     組まれておりクレーンを西側にしか据えられない（East side の残り1エリアを除外）」
+     の2条件に組み替え、いずれも行名を言わず属性で指すようにした。表だけでは
+     4エリアのどれも識別できず（同じ属性の組み合わせが必ず2エリアずつ存在する）、
+     音声の2条件を両方拾って初めて Area 3（Concrete slab・West side）に絞り込める。
+
+     あわせて、除外理由の四半期表記のずれ（判断基準は「今期すでに committed」なのに
+     除外理由は「来期の chiller housing」だった点）も解消した——今回の除外理由は
+     季節・四半期に依存しない「今月の足場工事」に統一している。結びの
+     "That leaves the last one, by default." も「最後のエリア＝Area 4」と誤読される
+     余地があったため、"That's the only one of the remaining two that fits." に
+     改めた。
+
+     No.63（一体吊りの理由＝メーカー保証）・No.64（作業日数）の該当発言（2.8トン・
+     一体吊りの文、クレーン1日＋配管翌朝の文）はいずれも変更していないため、
+     両設問は答え・id とも変更しない。No.62 は表・音声・解説を全面的に書き換えたため
+     設問 id を新規採番する（v6q62r → v6q62r3、no は 62 のまま）。正解位置は前回と
+     同じ index 2（choices の3番目＝Area 3）を維持した。 */
   set({
     n: [62, 63, 64], lv: 5, t: ['graphic'],
     graphic: {
       t: 'table', title: 'Thurlby House — Roof Plant Areas',
-      head: ['Area', 'Load limit', 'Crane access'],
+      head: ['Area', 'Roof deck', 'Crane set-up'],
       rows: [
-        ['Area 1', '2.2 tonnes', 'Yes'],
-        ['Area 2', '3.6 tonnes', 'No'],
-        ['Area 3', '3.0 tonnes', 'Yes'],
-        ['Area 4', '3.4 tonnes', 'No'],
+        ['Area 1', 'Concrete slab', 'East side'],
+        ['Area 2', 'Steel deck', 'East side'],
+        ['Area 3', 'Concrete slab', 'West side'],
+        ['Area 4', 'Steel deck', 'West side'],
       ],
     },
     s: [
       { role: 'W-Au', text: 'The new cooling unit is booked in for the twelfth. Which of the roof areas are you putting it on?' },
-      { role: 'M-Am', text: 'That comes down to two things — what the roof underneath will carry, and whether we can swing a crane over it.' },
+      { role: 'M-Am', text: 'That depends on the roof deck underneath and where we can actually get the crane set up this month.' },
       { role: 'W-Au', text: 'The unit weighs two point eight tonnes, and it has to go up in one piece. The manufacturer won\'t warrant it if we split it on site.' },
-      { role: 'M-Am', text: 'Then two of the four areas are out immediately — no crane can reach either of them.' },
-      { role: 'W-Au', text: 'And of the two that are left?' },
-      { role: 'M-Am', text: 'One is rated under the weight of the unit, so it\'s the other one by default.' },
+      { role: 'M-Am', text: 'At that weight it has to sit on a concrete slab — steel decking won\'t take a point load like that, so two of the areas are out straight away.' },
+      { role: 'W-Au', text: 'And the crane itself?' },
+      { role: 'M-Am', text: 'Scaffolding\'s up on the east side for the façade work, so this month the crane can only be positioned on the west side. That\'s the only one of the remaining two that fits.' },
       { role: 'W-Au', text: 'Understood. How long is the roof out of use for the installation?' },
       { role: 'M-Am', text: 'A full day for the crane, then a morning after that for the pipework.' },
     ],
-    ja: '施設管理担当の女性が、12日に搬入予定の新しい冷却ユニットをどの屋上プラントエリアに設置するのか業者に尋ねる。業者は、下地の屋根が支えられる重量と、クレーンを振り出せるかどうかの2点で決まると答える。女性はユニットが2.8トンで、現場で分割するとメーカー保証が効かないため一体で吊り上げる必要があると説明。業者は4エリアのうち2つはクレーンが届かないため即座に除外され、残る2つのうち一方は耐荷重がユニットの重量を下回るため、自動的にもう一方に決まると述べる。設置に伴う屋上の使用停止は、クレーン作業に丸1日、その後の配管作業に翌朝が必要だと案内された。',
-    v: [['plant area', '設備機器の設置区画'], ['load limit', '耐荷重'], ['warrant', '（製品を）保証する'], ['pipework', '配管']],
+    ja: '施設管理担当の女性が、12日に搬入予定の新しい冷却ユニットをどの屋上プラントエリアに設置するのか業者に尋ねる。業者は、下地の屋根の種類と、今月クレーンをどちら側に据えられるかで決まると答える。女性はユニットが2.8トンあり、現場で分割するとメーカー保証が効かなくなるため一体で吊り上げる必要があると説明する。業者は、その重さではコンクリート下地でなければ支えられず鋼製デッキの2エリアはまず除外されると述べる。続けて、今月は東側で外壁工事の足場が組まれているためクレーンを西側にしか据えられず、残る2エリアのうち条件に合うのは1つだけだと説明する。設置に伴う屋上の使用停止は、クレーン作業に丸1日、その後の配管作業に翌朝が必要だと案内された。',
+    v: [['plant area', '設備機器の設置区画'], ['warrant', '（製品を）保証する'], ['point load', '一点に集中してかかる荷重'], ['scaffolding', '（工事用の）足場'], ['pipework', '配管']],
     q: [
-      { tag: '図表', s: 'Look at the graphic. Where will the cooling unit be installed?',
+      { tag: '図表', id: 'v6q62r3', s: 'Look at the graphic. Where will the cooling unit be installed?',
         c: ['Area 1', 'Area 2', 'Area 3', 'Area 4'],
         a: 2,
-        e: 'ユニットは2.8トンで、分割せずクレーンで吊り上げる必要がある。クレーンが届かない Area 2 と Area 4 は除外され、残る Area 1 と Area 3 のうち Area 1 は耐荷重2.2トンで2.8トンを支えられない。したがって Area 3。なお耐荷重が最大なのはクレーンの届かない Area 2（3.6トン）なので、数字の大きい行を選ぶだけでは答えにならない。',
-        w: ['クレーンは届くが、耐荷重2.2トンでは2.8トンのユニットを支えられない。', '耐荷重3.6トンは4エリアで最大だが、図表の Crane access が「No」でクレーンが届かず、一体では吊り上げられない。', '正解。', '耐荷重3.4トンは足りるが、図表の Crane access が「No」でクレーンが届かない。'] },
-      /* stem を "for that area" から自己完結形へ変えた（2026-08-18、最終監査）。前問 No.62 の正解を
-         先行詞にしていたため、62 を落とすと 63 も連鎖して落ちた。いまは 62 の答えを知らなくても
-         「2.8t・一体吊り＝クレーン必須」＋表 → Area 3 → 3.0 と単独で辿れる。 */
-      { tag: '図表', s: 'Look at the graphic. What is the load limit for the area where the unit will be installed?',
-        c: ['2.2 tonnes', '3.0 tonnes', '3.4 tonnes', '3.6 tonnes'],
+        e: '男性はまず、ユニットの重さ（2.8トン）ではコンクリート下地でなければ支えられないと述べ、鋼製デッキの Area 2・Area 4 を除外する。続けて、今月は東側で外壁工事の足場が組まれておりクレーンを西側にしか据えられないと述べ、残る2エリア（Area 1・Area 3）のうち東側の Area 1 も除外される。したがって Area 3（コンクリート下地・西側）に決まる。表の Roof deck 列・Crane set-up 列はどちらも2エリアずつに分かれており、突出した値も1エリアだけの値も無い。片方の列だけでは必ず2エリアが残るため、男性が挙げた「重さによる下地の条件」と「今月のクレーンの据え付け位置」の両方を聞き取って初めて Area 3 に確定できる。',
+        w: ['コンクリート下地で重さの条件は満たすが、東側にあり、今月は外壁工事の足場のためクレーンを東側には据え付けられない。', '鋼製デッキのため、2.8トンのユニットを支えられず、この時点で除外される。', '正解。', '鋼製デッキのため、2.8トンのユニットを支えられず、この時点で除外される。西側にある点はこの除外理由に関係しない。'] },
+      /* 2026-08-25（2回目の是正）: 前回差し替えた正解 "The roof's load capacity and
+         crane access." が図表の列見出し（Load limit / Crane access）とほぼ同一で、
+         図表だけで当たってしまう欠陥が見つかったため、"That comes down to two things"
+         の論点を離れ、script 内の別の未使用発言（メーカー保証が一体吊りを要求する理由）
+         を問う設問に差し替えた。中身を丸ごと変えたため設問 id を再度新規採番する
+         （no は 63 のまま）。正解位置は前回と同じ index 1 を維持。 */
+      { tag: '詳細', t: ['p3detail'], id: 'v6q63r2', s: 'Why must the unit be lifted in one piece?',
+        c: ['The crane can only make one lift that day.', 'The manufacturer\'s warranty would not apply otherwise.', 'The roof cannot be reached from inside the building.', 'The delivery is booked for a single date.'],
         a: 1,
-        e: '設置先となる Area 3 の耐荷重は3.0トン。2.8トンのユニットをわずかに上回る。',
-        w: ['Area 1 の値。クレーンは届くが2.8トンに足りない。', '正解。', 'Area 4 の値。クレーンが届かない。', 'Area 2 の値。4エリアで最大だがクレーンが届かない。'] },
-      { tag: '詳細', s: 'How long does the man say the roof will be out of use?',
+        e: '女性が「現場で分割するとメーカー保証が効かなくなる」と述べており、一体で吊り上げる理由はメーカー保証を維持するためである。',
+        w: ['その日のクレーンの吊り作業回数については述べられていない。', '正解。', '建物内部からの屋根への到達可否については述べられていない。', '搬入日が12日である点は述べられているが、これは一体で吊り上げる理由ではない。'] },
+      { tag: '詳細', t: ['p3detail'], s: 'How long does the man say the roof will be out of use?',
         c: ['Half a day.', 'One day.', 'One day and a morning.', 'Two days and a morning.'],
         a: 2,
         e: '「クレーン作業に丸1日、そのあと配管のために翌朝が必要」と述べており、合わせて1日と半日になる。',
@@ -195,15 +225,25 @@ export const L2B = [
   }),
 
   /* ── 65–67（図表）────────────────────────────────── */
+  /* 2026-08-25 是正：正解位置の偏り是正（Vol.6 は図表 5 問中 4 問が C だった）。
+     Zone/Area/Dock/Machine のような連番ラベルは選択肢の並べ替えができないため、
+     表の行の属性（Stock type・Units short の組）を Zone 1 と Zone 3 の間で入れ替え、
+     正解の行を Zone 3 → Zone 1 に移した（No.65 の tag: '図表' 設問の答えを C → A に）。
+     音声は Zone の番号を一度も言わず、Electronics / Returns Pending / Workwear /
+     Seasonal stock という stock type 名でのみ言及しているため、この入れ替えは音声と
+     矛盾しない。入れ替え後も Units short 列は Zone 1=31, Zone 2=58, Zone 3=2, Zone 4=9 で、
+     最大値（58, Zone 2）は依然として不正解（「未記帳の返品ロットと説明がつく」ため除外）
+     であり、「一番大きい数を選ぶ」当てずっぽうは今回も Zone 2 に落ちる。
+     中身（表）を変更したため設問 id を v6q65 → v6q65b に新規採番する（no は 65 のまま）。 */
   set({
     n: [65, 66, 67], lv: 5, t: ['graphic'],
     graphic: {
       t: 'table', title: 'Bramcote Distribution Centre — Q3 Inventory Variance',
       head: ['Zone', 'Stock type', 'Units short'],
       rows: [
-        ['Zone 1', 'Workwear', '2'],
+        ['Zone 1', 'Electronics', '31'],
         ['Zone 2', 'Returns pending', '58'],
-        ['Zone 3', 'Electronics', '31'],
+        ['Zone 3', 'Workwear', '2'],
         ['Zone 4', 'Seasonal stock', '9'],
       ],
     },
@@ -220,20 +260,20 @@ export const L2B = [
     ja: '倉庫の第3四半期の在庫監査の結果について、男性が4ゾーンのうち2つが正常な変動幅を大きく外れていると報告する。返品保留ゾーンが58個、エレクトロニクスが31個の不足。女性は不足数のより大きい返品保留のほうを調べるべきかと尋ねるが、男性はそちらは先週返品されたロットが未記帳のままであることと一致するため説明がつくと答える。一方エレクトロニクスには説明が見つからず、今四半期に該当規模の出荷も返品記録もなく、しかも保管品の中で最も高額な在庫だという。女性は記録の遅れではなく実際の食い違いとして扱うこととし、翌朝シフト開始前、誰も在庫を動かさない時間帯に再カウントを行うことにした。',
     v: [['variance', '差異'], ['despatch', '発送'], ['discrepancy', '食い違い'], ['paperwork lag', '記帳の遅れ']],
     q: [
-      { tag: '図表', s: 'Look at the graphic. Which zone are the speakers concerned about?',
+      { tag: '図表', id: 'v6q65b', s: 'Look at the graphic. Which zone are the speakers concerned about?',
         c: ['Zone 1', 'Zone 2', 'Zone 3', 'Zone 4'],
-        a: 2,
-        e: '正常な変動幅を外れているのは2ゾーンで、うちエレクトロニクス（31個不足）だけは説明がつかないと述べている。図表でエレクトロニクスに対応するのは Zone 3。',
-        w: ['Workwear のゾーン。正常な変動幅を外れた2ゾーンとして名前が挙がっていない。', '不足数はより大きいが、未記帳の返品ロットと一致すると説明がついている。', '正解。', 'Seasonal stock のゾーン。正常な変動幅を外れた2ゾーンとして名前が挙がっていない。'] },
+        a: 0,
+        e: '正常な変動幅を外れているのは2ゾーンで、うちエレクトロニクス（31個不足）だけは説明がつかないと述べている。図表でエレクトロニクスに対応するのは Zone 1。',
+        w: ['正解。', '不足数58は表の中で最大だが、先週返品されたロットが未記帳のままであることと一致すると説明がついている。「数字が一番大きい行を選ぶ」という当てずっぽうはここに落ちる。', 'Workwear のゾーン。正常な変動幅を外れた2ゾーンとして名前が挙がっていない。', 'Seasonal stock のゾーン。正常な変動幅を外れた2ゾーンとして名前が挙がっていない。'] },
       /* stem と選択肢Aから Electronics / Returns Pending の名指しを外した（2026-08-18、最終監査）。
          旧 stem は「Electronics のほうが深刻」と書いており、表の Stock type 列を引くだけで
          前問 No.65（どのゾーンか）が音声なしで Zone 3 に確定した。 */
-      { tag: '詳細', s: 'Why does the man think one of the two discrepancies is more serious?',
+      { tag: '詳細', t: ['p3detail'], s: 'Why does the man think one of the two discrepancies is more serious?',
         c: ['It involves a larger number of missing units.', 'It cannot be explained by a known cause.', 'It occurred in a zone with no security camera.', 'It was reported by more than one employee.'],
         a: 1,
         e: 'Returns Pendingは先週返品されたロットと一致すると分かっているが、Electronicsには一致する説明が見つからないと述べている。',
         w: ['男性がより深刻だとしているのは Electronics（31個不足）で、Returns Pending の58個不足より数は少ない。不足数の多さは理由になっていない。', '正解。', 'セキュリティカメラの有無には触れていない。', '報告者の人数には触れていない。'] },
-      { tag: '次の行動', s: 'What does the woman decide to do?',
+      { tag: '次の行動', t: ['p3detail'], s: 'What does the woman decide to do?',
         c: ['Arrange a recount before the next shift begins.', 'Order additional security cameras for the zone.', 'Escalate the issue to head office immediately.', 'Write off the missing units as a loss.'],
         a: 0,
         e: '「翌朝、シフト開始前に、誰も在庫を動かさない状態で再カウントを行う」と述べている。',
@@ -278,12 +318,12 @@ export const L2B = [
         a: 3,
         e: '女性のブースは「2階建ての構造物」で、男性は「構造材の施工業者（structural stand-builders）の枠になる。その枠の搬入口は搬入予定表に出ている」と答えている。図表で Structural stand-builders の行に割り当てられている搬入口は Dock 4。',
         w: ['Dock 1 は10:00–12:00 の什器・AV業者の枠に割り当てられた搬入口である。', 'Dock 2 は08:00–10:00 のモジュール式ブース用の搬入口で、女性のブースへの割り当てではない。男性は "the dock you\'re assigned to is having its floor resurfaced this week" と述べて、割り当て先＝補修中の搬入口であることを明言している。Dock 2 が出てくるのは "I\'ll put you into Dock Two instead for that one morning" — 補修が超過した場合にその朝だけ回す代替先としてであり、instead が示すとおり割り当てそのものではない。', 'Dock 3 は12:00–14:00 の出展者自身の車両（own-vehicle drop-off）用の枠に割り当てられた搬入口である。女性の鉄骨フレームは "coming from a supplier" と述べられており、出展者自身の車両での持ち込みでもない。', '正解。'] },
-      { tag: '詳細', s: 'What does the woman say about the steel frame delivery?',
+      { tag: '詳細', t: ['p3detail'], s: 'What does the woman say about the steel frame delivery?',
         c: ['It has already arrived at the venue.', 'It cannot arrive before seven o\'clock.', 'It is coming from another exhibitor.', 'It will arrive on the exhibitor\'s own vehicle.'],
         a: 1,
         e: '「鉄骨フレームは供給業者から来るが、7時より前には届けられない」と述べている。',
         w: ['これから届くもので、まだ到着していない。', '正解。', '「供給業者から来る」と述べており、他の出展者からではない。', '供給業者が運んでくるもので、出展者自身の車両ではない。'] },
-      { tag: '詳細', s: 'What will happen if the floor resurfacing runs over schedule?',
+      { tag: '詳細', t: ['p3detail'], s: 'What will happen if the floor resurfacing runs over schedule?',
         c: ['The move-in will be postponed to the next day.', 'An additional fee will be charged to the exhibitor.', 'The dock being resurfaced will stay closed for the rest of the week.', 'The truck will be redirected to a different dock that morning.'],
         a: 3,
         e: '「予定を超えた場合は、その朝だけDock Twoに回す」と説明している。',

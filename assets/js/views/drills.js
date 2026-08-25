@@ -7,7 +7,7 @@ import { drillCounts, unitsForTopic } from '../../data/registry.js';
 import { pageHead, sectionHead, esc, pct, meter, accMod, empty, toast, partLabel, relTime, mmss } from '../ui.js';
 import * as A from '../analytics.js';
 import { itemStat, isFlagged } from '../store.js';
-import { launch } from '../runtime.js';
+import { launchOrResume } from '../runtime.js';
 import { shuffle } from '../quiz.js';
 
 /* ── 一覧 ────────────────────────────────────────────── */
@@ -42,7 +42,7 @@ export default async function drills(el) {
     const lists = await Promise.all(weak.map(unitsForTopic));
     const units = shuffle(lists.flat()).slice(0, 20);
     if (!units.length) { toast('該当するドリルがありません'); return; }
-    launch({
+    await launchOrResume({
       mode: 'drill', label: '弱点横断ドリル', units, instant: true,
       backTo: '#/drills', sessionKey: 'weak-mix',
       restore: { kind: 'drills', unitIds: units.map(u => u.id) },
@@ -158,7 +158,13 @@ export async function topic(el, topicId) {
     </div>
   `;
 
-  el.querySelectorAll('[data-start]').forEach(btn => btn.addEventListener('click', () => {
+  // ボタン4種（全問／ランダム10／未着手／間違えたものだけ）は選び直す設問集合が
+  // 別物なので、sessionKey も別にする（同じキーだと、片方を中断中にもう片方を
+  // 押しても「押したボタンが無視され、中断中の方が起動する」事故になる。
+  // rev-wrong-… / rev-blank-… を分けたのと同じ考え方）。label にも種別を出し、
+  // ホームに複数並んだときに区別できるようにする。
+  const HOW_LABEL = { all: '全問', random: 'ランダム10問', unseen: '未着手のみ', shaky: '間違えたものだけ' };
+  el.querySelectorAll('[data-start]').forEach(btn => btn.addEventListener('click', async () => {
     const how = btn.dataset.start;
     let pick = units;
     if (how === 'random') pick = shuffle(units).slice(0, 10);
@@ -167,9 +173,9 @@ export async function topic(el, topicId) {
       const st = itemStat(q.id); return st.n > 0 && st.ok < st.n;
     }));
     if (!pick.length) { toast('該当する設問がありません'); return; }
-    launch({
-      mode: 'drill', label: `論点：${t.name}`, units: pick,
-      instant: true, backTo: `#/drills/${topicId}`, sessionKey: `topic-${topicId}`,
+    await launchOrResume({
+      mode: 'drill', label: `論点：${t.name}｜${HOW_LABEL[how] || how}`, units: pick,
+      instant: true, backTo: `#/drills/${topicId}`, sessionKey: `topic-${topicId}-${how}`,
       restore: { kind: 'drills', unitIds: pick.map(u => u.id) },
     });
   }));

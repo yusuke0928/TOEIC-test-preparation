@@ -31,23 +31,23 @@ export const L2A = [
     v: [['sign off on', '承認する'], ['jump the queue', '順番を飛ばす'], ['turn around', '対応する、処理する']],
     q: [
       { tag: '意図', t: ['p3int'], s: 'What does the man mean when he says, "At this point, jumping the queue is the point"?',
-        c: ['He thinks Julian should wait for a reply as usual.', 'He is unsure whether legal received the e-mail.',
-            'He wants to cancel the phone call.', 'He believes the situation justifies asking for priority treatment.'],
-        a: 3,
+        c: ['He believes the situation justifies asking for priority treatment.', 'He is unsure whether legal received the e-mail.',
+            'He wants to cancel the phone call.', 'He thinks Julian should wait for a reply as usual.'],
+        a: 0,
         e: '通常の順番を待つのではなく、緊急性を理由に優先対応を求めるべきだという趣旨の発言。',
-        w: ['通常通り待つべきとは逆の主張。', '受信の有無への疑問ではない。', '電話を止める提案ではない。', '正解。'] },
+        w: ['正解。', '受信の有無への疑問ではない。', '電話を止める提案ではない。', '通常通り待つべきとは逆の主張。'] },
       { tag: '詳細', s: 'What is Julian concerned about?',
-        c: ['A technical error in the e-mail', 'Missing the launch deadline entirely',
-            'The cost of the discount', 'Being seen as impatient with another department'],
-        a: 3,
+        c: ['Being seen as impatient with another department', 'Missing the launch deadline entirely',
+            'The cost of the discount', 'A technical error in the e-mail'],
+        a: 0,
         e: '「順番を飛ばすように見えるのは気が引ける」と述べている。',
-        w: ['技術的な誤りには触れていない。', '締め切りを完全に逃す心配ではない。', '費用の話はない。', '正解。'] },
+        w: ['正解。', '締め切りを完全に逃す心配ではない。', '費用の話はない。', '技術的な誤りには触れていない。'] },
       { tag: '次の行動', s: 'What will happen if legal cannot respond today?',
-        c: ['The launch will be cancelled.', 'Wei will contact legal instead.',
-            'The discount will be removed.', 'The launch will move to Thursday.'],
-        a: 3,
+        c: ['The launch will move to Thursday.', 'Wei will contact legal instead.',
+            'The discount will be removed.', 'The launch will be cancelled.'],
+        a: 0,
         e: '「今日対応できなければ木曜に延期する」と女性が明言している。',
-        w: ['中止の話はない。', 'ジュリアンが電話することになっている。', '割引の撤回には触れていない。', '正解。'] },
+        w: ['正解。', 'ジュリアンが電話することになっている。', '割引の撤回には触れていない。', '中止の話はない。'] },
     ],
   }),
 
@@ -68,16 +68,16 @@ export const L2A = [
     v: [['disconnect', '切断する'], ['circuit', '回路'], ['fragile', '壊れやすい']],
     q: [
       { tag: '詳細', s: 'When does IT need to begin disconnecting the servers?',
-        c: ['The fifteenth', 'The thirteenth', 'The fourteenth', 'The twelfth'],
-        a: 3,
+        c: ['The fifteenth', 'The twelfth', 'The fourteenth', 'The thirteenth'],
+        a: 1,
         e: '「2 日前の告知」＝14 日の 2 日前である 12 日から作業が必要だと述べている。',
-        w: ['記載なし。', '本文に記載なし。', '移転当日。', '正解。'] },
+        w: ['記載なし。', '正解。', '移転当日。', '本文に記載なし。'] },
       { tag: '詳細', s: 'What problem does the man raise?',
-        c: ['A missing floor plan', 'A shortage of moving boxes',
-            'A delay in the elevator booking', 'A conflict with the finance team\'s printing schedule'],
-        a: 3,
+        c: ['A conflict with the finance team\'s printing schedule', 'A shortage of moving boxes',
+            'A delay in the elevator booking', 'A missing floor plan'],
+        a: 0,
         e: '共有プリンターの停止時期が経理部の月末印刷と重なることを指摘している。',
-        w: ['フロア図の話もない。', '箱の不足には触れていない。', 'エレベーターの話はない。', '正解。'] },
+        w: ['正解。', '箱の不足には触れていない。', 'エレベーターの話はない。', 'フロア図の話もない。'] },
       { tag: '次の行動', s: 'What will the man do this afternoon?',
         c: ['Contact the IT department', 'Print the month-end reports',
             'Label fragile boxes', 'Reserve the elevator'],
@@ -88,8 +88,24 @@ export const L2A = [
   }),
 
   /* ── 38–40（図表）───────────────────────────────── */
-  set({
-    n: [38, 39, 40], lv: 5, t: ['graphic'],
+  /* 本番は図表セットでも Look at the graphic. の設問は 1 セットに 1 問のみ。
+     2 問目（No.39）を「音声だけで解ける通常設問」に差し替えたため、set() ヘルパー
+     （id を no から自動生成する）を使わず直接オブジェクトを記述する。中身を丸ごと
+     差し替えたので id は使い回さず v4q39r として新規採番する（no は模試の通し番号
+     として 39 を維持）。No.40 は内容・id とも変更していない。
+     2026-08-25 追記: No.38 自体に別の欠陥があった。選択肢 ['£8.90','£15.00',
+     '£11.50','£12.40'] のうち正解 £15.00（Zone C の翌日便）が選択肢中の最大値で、
+     「速達は一番高いはず」という発想だけで、音声も表も見ずに当たった。表の
+     Zone D（remote）の Standard 料金を £12.40 → £16.80 に組み替え、選択肢の
+     同じ枠（Zone D の Standard）も £16.80 に合わせて、正解 £15.00 が選択肢中の
+     最大でも最小でもない値（£8.90 < £11.50 < £15.00 < £16.80）になるように
+     した。Zone D の Next-day が「Not available」であること（No.40 の根拠）は
+     変えていない。遠い区分ほど高いという料金体系（Standard: A<B<C<D）も維持。
+     表・選択肢を実質変更したため id を v4q38 → v4q38b に新規採番。No.39・
+     No.40 の内容・id は変更していない。 */
+  {
+    id: 'v4-p3-38', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
     graphic: {
       t: 'table', title: 'Bramwell Courier — Regional Rates (per parcel, up to 5 kg)',
       head: ['Zone', 'Standard', 'Next-day', 'Notes'],
@@ -97,10 +113,10 @@ export const L2A = [
         ['Zone A (local)', '£4.50', '£8.00', 'Includes tracking'],
         ['Zone B (regional)', '£6.20', '£11.50', 'Includes tracking'],
         ['Zone C (national)', '£8.90', '£15.00', 'Signature required'],
-        ['Zone D (remote)', '£12.40', 'Not available', 'Signature required'],
+        ['Zone D (remote)', '£16.80', 'Not available', 'Signature required'],
       ],
     },
-    s: [
+    script: [
       { role: 'M-Au', text: 'The Aldergate order needs to arrive by tomorrow morning. Where does that postcode fall?' },
       { role: 'W-Cn', text: 'Let me check... that\'s Zone C. National, not regional.' },
       { role: 'M-Au', text: 'And next-day is available for Zone C?' },
@@ -110,26 +126,41 @@ export const L2A = [
       { role: 'M-Au', text: 'Then we\'d better tell them today, before they assume next-day like the first one.' },
     ],
     ja: '男性がオールダーゲート宛の荷物を翌朝までに届けたいと相談。郵便番号を調べると全国区の Zone C にあたる。翌日配送は可能だが署名が必要で、宛先の顧客は在宅勤務なので問題ないと判断。次に高地宛の荷物については Zone D にあたり、翌日配送の選択肢自体がなく通常便のみで、すでに 2 日かかる。1 件目のように翌日配送を期待されないよう、今日のうちに顧客へ伝えることにした。',
-    v: [['postcode', '郵便番号'], ['signature', '署名'], ['highlands', '高地']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. What will the delivery cost for the Aldergate order?',
-        c: ['£8.90', '£15.00', '£11.50', '£12.40'],
-        a: 1,
-        e: 'Zone C（全国区）の翌日配送は £15.00。翌朝必着という要件から翌日配送を選ぶ。',
-        w: ['Zone C の通常便。', '正解。', 'Zone B の翌日便。', 'Zone D の通常便。'] },
-      { tag: '図表', s: 'Look at the graphic. What is required for delivery to Zone C?',
-        c: ['An access code', 'Cash on delivery', 'A tracking app', 'A signature'],
-        a: 3,
-        e: 'Zone C の Notes 欄に「Signature required」とある。',
-        w: ['アクセスコードの記載もない。', '代金引換の記載はない。', '追跡アプリの話はない。', '正解。'] },
-      { tag: '推測', t: ['p7inf'], s: 'Why does the man want the client told today about the highlands parcel?',
-        c: ['To request a different address', 'To offer them a discount',
-            'To cancel the order', 'To prevent them from expecting next-day delivery'],
-        a: 3,
-        e: 'Zone D には翌日配送の選択肢がなく通常便のみのため、1 件目のように早く届くと誤解されないよう事前に伝えるべきだという趣旨。',
-        w: ['住所変更の依頼はない。', '値引きの話はない。', '注文の取り消しではない。', '正解。'] },
+    vocab: [['postcode', '郵便番号'], ['signature', '署名'], ['highlands', '高地']],
+    questions: [
+      {
+        id: 'v4q38b', no: 38, tag: '図表', topics: ['graphic'],
+        stem: 'Look at the graphic. What will the delivery cost for the Aldergate order?',
+        choices: ['£15.00', '£8.90', '£11.50', '£16.80'],
+        answer: 0,
+        exp: 'Zone C（全国区）の翌日配送は £15.00。翌朝必着という要件から翌日配送を選ぶ。選択肢中の最大値は £16.80（Zone D の通常便）であり、金額の大小では選べない。',
+        why: ['正解。', 'Zone C の通常便であり、翌朝必着という要件には合わない。', 'Zone B の翌日便であり、Aldergate の区分（Zone C）ではない。', 'Zone D の通常便であり、Aldergate とは無関係の区分の金額。'],
+      },
+      {
+        // 新規: 音声だけで解ける設問。No.38 の答え（£15.00）にも No.40 の答えにも触れない。
+        id: 'v4q39r', no: 39, tag: '詳細', topics: ['p3detail'],
+        stem: 'Which zone does the Aldergate order fall under?',
+        choices: ['Zone A', 'Zone B', 'Zone C', 'Zone D'],
+        answer: 2,
+        exp: '女性が「それは Zone C。全国区で、地域区分ではない」と明言している。選択肢は自然順（A/B/C/D）に並べてある。',
+        why: [
+          '女性は 「National, not regional」 と述べており、Zone A は local（近距離）の区分。全国区の宛先には当たらない。',
+          '「地域区分ではない」と明示的に否定されている。',
+          '正解。',
+          'Zone D は、この後に話題になる高地行きの別の荷物に使われる区分。',
+        ],
+      },
+      {
+        id: 'v4q40', no: 40, tag: '推測', topics: ['p7inf'],
+        stem: 'Why does the man want the client told today about the highlands parcel?',
+        choices: ['To prevent them from expecting next-day delivery', 'To offer them a discount',
+                   'To cancel the order', 'To request a different address'],
+        answer: 0,
+        exp: 'Zone D には翌日配送の選択肢がなく通常便のみのため、1 件目のように早く届くと誤解されないよう事前に伝えるべきだという趣旨。',
+        why: ['正解。', '値引きの話はない。', '注文の取り消しではない。', '住所変更の依頼はない。'],
+      },
     ],
-  }),
+  },
 
   /* ── 41–43（3名）─────────────────────────────────── */
   set({
@@ -169,6 +200,12 @@ export const L2A = [
   }),
 
   /* ── 44–46（図表）───────────────────────────────── */
+  /* 2026-08-25 追記: set() は各設問の topics を x.t || o.t || ['p3detail'] で決めるため、
+     o.t: ['graphic'] のこのユニットでは No.45・46（通常の詳細設問）が明示的な t を
+     持たず、既定で ['graphic'] を継承してしまっていた（図表を見て答える設問ではない
+     のに論点集計上は「図表問題」に計上される不整合）。No.45・46 に t: ['p3detail']
+     を明示し、No.44（唯一の「Look at the graphic」設問）だけが ['graphic'] を
+     継承するようにした。 */
   set({
     n: [44, 45, 46], lv: 5, t: ['graphic'],
     graphic: {
@@ -198,12 +235,12 @@ export const L2A = [
         a: 3,
         e: '10 時と 11 時の 2 コマ連続で空いているのは Pod 4 だけ。図表問題では、音声が言わない側（ポッド番号）を表から特定する。',
         w: ['10 時が予約済み。', '11 時が予約済み。', '10・11 時が予約済み。', '正解。'] },
-      { tag: '詳細', s: 'What had the woman originally wanted?',
+      { tag: '詳細', t: ['p3detail'], s: 'What had the woman originally wanted?',
         c: ['A different day', 'A longer session', 'To start at nine', 'To book two pods'],
         a: 2,
         e: '「9 時ちょうどの開始を希望していたが、空きがなければ 10 時以降でもよい」と述べている。',
         w: ['曜日の変更は述べていない。', '時間の延長は求めていない。', '正解。', '1 室のみ希望。'] },
-      { tag: '詳細', s: 'What does the man say about the pods\' equipment?',
+      { tag: '詳細', t: ['p3detail'], s: 'What does the man say about the pods\' equipment?',
         c: ['Equipment must be booked in advance.', 'An adapter must be purchased separately.',
             'Only some pods have screens.', 'HDMI and USB-C are already built in.'],
         a: 3,
@@ -228,11 +265,11 @@ export const L2A = [
     v: [['produce', '青果'], ['drought', '干ばつ'], ['root vegetable', '根菜']],
     q: [
       { tag: '詳細', s: 'Why has the produce invoice increased?',
-        c: ['A new supplier was hired.', 'The restaurant increased its order size.',
-            'Drought has affected certain crops.', 'Delivery fees rose.'],
-        a: 2,
+        c: ['A new supplier was hired.', 'Drought has affected certain crops.',
+            'The restaurant increased its order size.', 'Delivery fees rose.'],
+        a: 1,
         e: '干ばつがレタスとトマトの作物に影響していると業者から説明を受けている。',
-        w: ['業者変更の話はない。', '発注量増加には触れていない。', '正解。', '配送料の話も出ていない。'] },
+        w: ['業者変更の話はない。', '正解。', '発注量増加には触れていない。', '配送料の話も出ていない。'] },
       { tag: '詳細', s: 'What is unaffected by the price increase?',
         c: ['Lettuce and tomatoes', 'All produce',
             'Root vegetables and grains', 'Only imported items'],
@@ -277,11 +314,11 @@ export const L2A = [
         e: '「その週、積み込み場のカメラが故障していた」ため目視で確認できないと述べている。',
         w: ['正解。', '書類の破棄には触れていない。', '勤務の有無は述べていない。', '塗装の話はない。'] },
       { tag: '推測', s: 'Why is the woman concerned about other pallets?',
-        c: ['A mislabelling problem could recur on any pallet.', 'They are due for a scheduled audit.',
-            'They belong to a different client.', 'They have already caused a second incident.'],
-        a: 0,
+        c: ['They have already caused a second incident.', 'They are due for a scheduled audit.',
+            'They belong to a different client.', 'A mislabelling problem could recur on any pallet.'],
+        a: 3,
         e: '「表示ミスなら、これ 1 件に限らず他のパレットでも容易に起こり得る」と懸念している。',
-        w: ['正解。', '監査予定の話はない。', '顧客の違いには触れていない。', '2 件目の発生はまだ述べられていない。'] },
+        w: ['2 件目の発生はまだ述べられていない。', '監査予定の話はない。', '顧客の違いには触れていない。', '正解。'] },
     ],
   }),
 ];

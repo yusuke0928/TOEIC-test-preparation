@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =============================================================
-   smoke.mjs — 実ブラウザ通しテスト（27項目）
+   smoke.mjs — 実ブラウザ通しテスト（33項目）
    Playwright で chromium を実際に動かし、アプリを一切変更せずに検証する。
 
    使い方:
@@ -179,7 +179,7 @@ async function launchDescDrill(page, base) {
 }
 
 /* =============================================================
-   テスト本体（27 項目）
+   テスト本体（33 項目）
    ============================================================= */
 
 /* 01 起動 */
@@ -773,6 +773,338 @@ async function test27({ page }) {
   assert(await page.locator('[data-act="desc-show"]').count() === 0, 'scene方式のユニットなのに「もう一度見る」ボタンが出ています');
 }
 
+/* 28 中断セッション複数件: ホームに全件表示され、古い方も「再開する」から
+   answered が保たれたまま続けられる（sessions[0] しか出さない実装だと、
+   rev-wrong-… / rev-blank-… のように複数セッションが同時に残ったとき、
+   古い方がホームから永久に到達不能になる）。 */
+async function test28({ page }) {
+  // 1件目のセッション（力試し：Part 5 30問）を作って中断する
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('#first-run', { timeout: 10000 });
+  await page.click('#first-run');
+  await waitExam(page);
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash === '#/', null, { timeout: 8000 });
+
+  // 2件目のセッション（Part 5 速攻 20問、別のセッションキー）を作って中断する
+  await page.waitForSelector('#quick-p5', { timeout: 8000 });
+  await page.click('#quick-p5');
+  await waitExam(page);
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash === '#/', null, { timeout: 8000 });
+  // hash 変更後、ルータの再描画（home.js の動的 import・await）が終わるまで待つ。
+  // すぐに #app の innerText を読むと、直前の演習画面がまだ残っている競合状態を拾う。
+  await page.waitForSelector('[data-resume]', { timeout: 8000 });
+
+  const text = await page.locator('#app').innerText();
+  assert(text.includes('力試し：Part 5 を 30 問'), '古い方（1件目）の中断セッションがホームに表示されません');
+  assert(text.includes('Part 5 速攻 20 問'), '新しい方（2件目）の中断セッションがホームに表示されません');
+  const resumeButtons = await page.locator('[data-resume]').count();
+  assert(resumeButtons === 2, `再開ボタンが2件表示されるべきです（実際: ${resumeButtons}）`);
+  const dropButtons = await page.locator('[data-drop]').count();
+  assert(dropButtons === 2, `破棄ボタンが2件表示されるべきです（実際: ${dropButtons}）`);
+
+  // 古い方（first-run）の「再開する」から再開する。0/30 からの再スタートに
+  // なっていない（answered=1 が保たれている）ことを確認する。
+  await page.click('[data-resume="first-run"]');
+  await waitExam(page);
+  const count = await page.locator('.exambar__count').innerText();
+  assert(count.trim().startsWith('1'), `古い方を再開したのに解答数が復元されていません（${count}）`);
+}
+
+/* 29 中断セッションの上書き防止: 誤答復習を1問答えて中断した後、同じボタンを
+   再度押すと確認ダイアログが出て、OK なら「続きから」再開する（保存済みの
+   セッションが 0 問目から上書きされない）。 */
+async function test29({ page }) {
+  await openMockDetail(page, BASE, 'vol1');
+  await page.click('[data-run="p5"]');
+  await waitExam(page);
+
+  // 意図的に誤答するため、最初の2問の正解を先に調べておく
+  const info = await page.evaluate(async () => {
+    const reg = await import('/assets/data/registry.js');
+    const mock = await reg.loadMock('vol1');
+    return mock.units.filter(u => u.part === 5).slice(0, 2)
+      .map(u => ({ answer: u.questions[0].answer, n: u.questions[0].choices.length }));
+  });
+  const wrong0 = (info[0].answer + 1) % info[0].n;
+  const wrong1 = (info[1].answer + 1) % info[1].n;
+
+  await page.click(`.choices .choice[data-pick="${wrong0}"]`);
+  await page.click('[data-act="next"]');
+  await page.waitForTimeout(100);
+  await page.click(`.choices .choice[data-pick="${wrong1}"]`);
+
+  // 残り28問は未解答のまま採点する（「未解答があります」の確認ダイアログが出る）
+  page.once('dialog', d => d.accept());
+  await page.click('[data-act="finish"]');
+  await page.waitForFunction(() => /^#\/result\//.test(location.hash), null, { timeout: 10000 });
+  await page.waitForSelector('#review-wrong', { timeout: 10000 });
+
+  // 1回目: 誤答復習を開始し、1問だけ答えて中断する
+  await page.click('#review-wrong');
+  await waitExam(page);
+  await page.waitForSelector('.choices .choice', { timeout: 8000 });
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => /^#\/result\//.test(location.hash), null, { timeout: 8000 });
+
+  // 2回目: 同じボタンをもう一度押す → 保存済みセッションを上書きせず確認する
+  await page.waitForSelector('#review-wrong', { timeout: 10000 });
+  let dialogMessage = '';
+  const onDialog = async (d) => { dialogMessage = d.message(); await d.accept(); };
+  page.on('dialog', onDialog);
+  await page.click('#review-wrong');
+  await waitExam(page);
+  page.off('dialog', onDialog);
+
+  assert(dialogMessage, '中断中のセッションを再度起動したのに確認ダイアログが出ません（上書きの疑い）');
+  assert(/続きから再開/.test(dialogMessage), `確認ダイアログの文言が想定と違います（実際: 「${dialogMessage}」）`);
+  assert(/1\s*\/\s*2/.test(dialogMessage), `確認ダイアログの解答済み数（1/2）が想定と違います（実際: 「${dialogMessage}」）`);
+
+  const count = await page.locator('.exambar__count').innerText();
+  assert(count.trim().startsWith('1'), `OK で再開したのに解答数が 0 からの再スタートになっています（${count}）`);
+
+  // sessionKey つきの起動口は 8 箇所あるが、ブラウザ経由で踏めるのは上の
+  // rev-wrong-… だけで、残り 7 箇所が launch() に戻されても実行時テストでは
+  // 捕まらない（実際に drills.js の 2 箇所を launch() に戻して全 29 項目が
+  // PASS することを確認した）。戻された時点で中断セッションの上書きが復活する
+  // ので、import 側を静的に見張る。
+  for (const f of ['home.js', 'drills.js', 'review.js', 'result.js']) {
+    const src = readFileSync(path.join(ROOT, 'assets/js/views', f), 'utf8');
+    const m = src.match(/import\s*\{([^}]*)\}\s*from\s*'\.\.\/runtime\.js'/);
+    assert(m, `views/${f} の runtime.js の import が読み取れません`);
+    assert(!/\blaunch\b/.test(m[1]),
+      `views/${f} が launch を直接 import しています。sessionKey つきの起動は launchOrResume() を通さないと中断セッションを上書きします`);
+  }
+
+  // mocks.js だけは import 全体を launch 抜きにはできない。#resume ボタン
+  // （明示的な「続きから再開する」操作）の旧形式フォールバックが、意図的に
+  // launch() を直接呼ぶ（resumeFromSession() が false を返した後、その場で
+  // 組み直す）。危険なのは sessionKey つきで新規に起動する startWith() の方
+  // なので、そこだけを取り出して launchOrResume 経由になっているかを見る
+  // （かつて startWith() は launch() のままで、「フル受験」ボタンが中断中
+  // バナーの中身を無言で破棄していた。メインの指示で launchOrResume() に
+  // 差し替え済み）。
+  {
+    const src = readFileSync(path.join(ROOT, 'assets/js/views/mocks.js'), 'utf8');
+    const i = src.indexOf('const startWith');
+    assert(i >= 0, 'mocks.js の startWith() 定義が見つかりません');
+    const end = src.indexOf('\n  };', i);
+    assert(end > i, 'mocks.js の startWith() の終端が読み取れません');
+    const body = src.slice(i, end);
+    assert(/launchOrResume\(/.test(body),
+      'mocks.js の startWith() が launchOrResume() を呼んでいません（中断セッションを無言で上書きします）');
+    assert(!/\blaunch\(/.test(body),
+      'mocks.js の startWith() が launch() を直接呼んでいます（中断セッションを無言で上書きします）');
+  }
+}
+
+/* 30 模試の中断確認は1問も答えていなくても出る: mocks.js の起動口は
+   answered>0 のときしか確認していなかったため、模試を1問も答えずに時間だけ
+   経過させて中断すると、同じボタンの再押下で確認なしに上書きされていた
+   （120分模試の経過時間・再生済み印が answered===0 の間は無条件で消える）。
+   launchOrResume() の確認条件を answered>0 || elapsedMs>0 に広げた是正を見る。 */
+async function test30({ page }) {
+  await openMockDetail(page, BASE, 'vol1');
+  await page.click('[data-run="p5"]');
+  await waitExam(page);
+
+  // 1問も答えず、時間だけ経過させてから中断する
+  await page.waitForTimeout(300);
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash !== '#/exam', null, { timeout: 8000 });
+  await page.waitForSelector('[data-run="p5"]', { timeout: 8000 });
+
+  const saved = await page.evaluate(async () => {
+    const store = await import('/assets/js/store.js');
+    return store.getSession('mock-vol1-Part 5');
+  });
+  assert(saved, '模試のパート指定セッション（mock-vol1-Part 5）が保存されていません');
+  assert((saved.answered || 0) === 0, `このテストの前提（未解答のまま中断）が崩れています（answered=${saved.answered}）`);
+  assert((saved.elapsedMs || 0) > 0, '経過時間（elapsedMs）が保存されていません（このテストの前提が崩れています）');
+
+  let dialogMessage = '';
+  const onDialog = async (d) => { dialogMessage = d.message(); await d.accept(); };
+  page.on('dialog', onDialog);
+  await page.click('[data-run="p5"]');
+  await waitExam(page);
+  page.off('dialog', onDialog);
+
+  assert(dialogMessage, '1問も答えていない中断セッションを再度起動したのに確認ダイアログが出ません（無言で破棄される疑い）');
+  assert(/続きから再開/.test(dialogMessage), `確認ダイアログの文言が想定と違います（実際: 「${dialogMessage}」）`);
+  assert(/0\s*\/\s*30/.test(dialogMessage), `確認ダイアログの解答済み数（0/30）が想定と違います（実際: 「${dialogMessage}」）`);
+}
+
+/* 31 ドリルの起動口4種は別セッション: 「全問」で中断した直後に「ランダム10問」を
+   押しても、同じ sessionKey を共有していたときは「押したボタンが無視され、
+   中断中の全問セッションが確認のうえ再開される」事故になっていた。
+   sessionKey を種別ごとに分けた是正により、確認なしで別セッションとして
+   即座に始まることを見る。 */
+async function test31({ page }) {
+  // page.evaluate() 内で import() するには、先にページを読み込んでおく必要がある
+  // （white-screen のままだとモジュール指定子を解決できない。test07 と同じ手順）。
+  await page.goto(`${BASE}/#/`, { waitUntil: 'load' });
+  await page.waitForSelector('.phead__title', { timeout: 15000 });
+
+  // 「全問」と「ランダム10問」の総数が確実に変わるよう、1ユニット=1問だけの
+  // 論点（Part3/4/6/7混じりだと1ユニットの設問数が読めない）で、かつ
+  // ランダム抽選が意味を持つよう15問以上あるものを選ぶ。
+  const picked = await page.evaluate(async () => {
+    const reg = await import('/assets/data/registry.js');
+    const counts = await reg.drillCounts();
+    for (const [id, n] of Object.entries(counts)) {
+      if (n < 15) continue;
+      const units = await reg.unitsForTopic(id);
+      if (units.length >= 15 && units.every(u => u.questions.length === 1)) {
+        return { id, n: units.length };
+      }
+    }
+    return null;
+  });
+  assert(picked, '検証に使える論点（1ユニット1問・15問以上）が見つかりません');
+
+  await gotoHash(page, BASE, `/drills/${picked.id}`);
+  await page.waitForSelector('[data-start="all"]', { timeout: 15000 });
+  await page.click('[data-start="all"]');
+  await waitExam(page);
+  const countAll = (await page.locator('.exambar__count').innerText()).trim();
+  assert(countAll.endsWith(`/${picked.n}`), `「全問」の総数が想定と違います（${countAll}、期待 /${picked.n}）`);
+
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash !== '#/exam', null, { timeout: 8000 });
+  await page.waitForSelector('[data-start="all"]', { timeout: 8000 });
+
+  let dialogAppeared = false;
+  const onDialog = async (d) => { dialogAppeared = true; await d.accept(); };
+  page.on('dialog', onDialog);
+  await page.click('[data-start="random"]');
+  await waitExam(page);
+  page.off('dialog', onDialog);
+
+  assert(!dialogAppeared, '「全問」を中断した直後に「ランダム10問」を押したのに確認ダイアログが出ました（sessionKey を共有している疑い）');
+  const countRandom = (await page.locator('.exambar__count').innerText()).trim();
+  assert(countRandom.startsWith('0'), `別セッションのはずが、解答数0からの開始になっていません（${countRandom}）`);
+  assert(countRandom.endsWith('/10'), `「ランダム10問」の総数が10ではありません（${countRandom}）`);
+}
+
+/* 32 中断確認のキャンセルは「何もしない」: 以前はキャンセルした瞬間に
+   clearSession() して最初から始めていた（誤クリック1回で進捗が消える）。
+   キャンセルしたら演習を起動せず、画面も遷移せず、保存済みセッションも
+   変化しないことを見る。 */
+async function test32({ page }) {
+  const href = await firstTopicHref(page, BASE);
+  const topicId = href.replace('#/drills/', '');
+  const key = `topic-${topicId}-all`;
+
+  await page.goto(`${BASE}/${href}`, { waitUntil: 'load' });
+  await page.waitForSelector('[data-start="all"]', { timeout: 15000 });
+  await page.click('[data-start="all"]');
+  await waitExam(page);
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash !== '#/exam', null, { timeout: 8000 });
+  await page.waitForSelector('[data-start="all"]', { timeout: 8000 });
+
+  const before = await page.evaluate(async (k) => {
+    const store = await import('/assets/js/store.js');
+    return store.getSession(k);
+  }, key);
+  assert(before && (before.answered || 0) >= 1, 'このテストの前提（1問答えて中断済み）が崩れています');
+  const hashBefore = await page.evaluate(() => location.hash);
+
+  let dialogMessage = '';
+  const onDialog = async (d) => { dialogMessage = d.message(); await d.dismiss(); };
+  page.on('dialog', onDialog);
+  await page.click('[data-start="all"]');
+  await page.waitForTimeout(400);
+  page.off('dialog', onDialog);
+
+  assert(dialogMessage, 'キャンセルの検証に確認ダイアログ自体が出ていません');
+  const hashAfter = await page.evaluate(() => location.hash);
+  assert(hashAfter === hashBefore, `キャンセルしたのに画面が遷移しました（${hashBefore} → ${hashAfter}）`);
+  assert((await page.locator('.exambar').count()) === 0, 'キャンセルしたのに演習画面が起動しています');
+
+  const toastText = (await page.locator('#toasts .toast').last().innerText()).trim();
+  assert(toastText.includes('そのままにしました'), `キャンセル時のトースト文言が想定と違います（実際: 「${toastText}」）`);
+  assert(toastText.includes('破棄してください'), `キャンセル時のトースト文言に破棄の案内がありません（実際: 「${toastText}」）`);
+
+  const after = await page.evaluate(async (k) => {
+    const store = await import('/assets/js/store.js');
+    return store.getSession(k);
+  }, key);
+  assert(after, 'キャンセルしたのに中断中のセッションが消えました');
+  assert((after.answered || 0) === (before.answered || 0),
+    `キャンセルしたのに中断中のセッションの解答数が変化しました（${before.answered} → ${after.answered}）`);
+}
+
+/* 33 中断セッションの折りたたみ: 4件以上あるとき、扉には3件（1件目は大きい
+   カード、2・3件目は行）までを表示し、残りは「他 N 件を表示」の下にたたむ。
+   開くと全件見える（携帯幅では6件で1画面を超え、扉の上部を占有していた）。 */
+async function pauseCurrentExam(page) {
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash !== '#/exam', null, { timeout: 8000 });
+}
+
+async function test33({ page }) {
+  // 1・2件目: ホームの起動口
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('#first-run', { timeout: 10000 });
+  await page.click('#first-run');
+  await waitExam(page);
+  await pauseCurrentExam(page);
+
+  await page.waitForSelector('#quick-p5', { timeout: 8000 });
+  await page.click('#quick-p5');
+  await waitExam(page);
+  await pauseCurrentExam(page);
+
+  // 3・4件目: 同じ論点の「全問」「ランダム10問」（sessionKey を種別ごとに
+  // 分けた副産物として、ここで別セッションを2件同時に作れる）
+  const href = await firstTopicHref(page, BASE);
+  await page.goto(`${BASE}/${href}`, { waitUntil: 'load' });
+  await page.waitForSelector('[data-start="all"]', { timeout: 15000 });
+  await page.click('[data-start="all"]');
+  await waitExam(page);
+  await pauseCurrentExam(page);
+
+  await page.waitForSelector('[data-start="random"]', { timeout: 8000 });
+  await page.click('[data-start="random"]');
+  await waitExam(page);
+  await pauseCurrentExam(page);
+
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('[data-resume]', { timeout: 8000 });
+
+  const total = await page.evaluate(async () => {
+    const store = await import('/assets/js/store.js');
+    return Object.keys(store.state.sessions).length;
+  });
+  assert(total >= 4, `このテストの前提（中断セッション4件以上）が崩れています（実際: ${total}件）`);
+
+  const visibleResume = await page.locator('[data-resume]:visible').count();
+  assert(visibleResume === 3, `折りたたみ前に見える再開ボタンは3件のはずです（実際: ${visibleResume}件）`);
+
+  const hiddenN = total - 3;
+  const bodyText = await page.locator('#app').innerText();
+  assert(bodyText.includes(`他 ${hiddenN} 件を表示`), `「他 ${hiddenN} 件を表示」の表記が見つかりません`);
+
+  await page.click(`summary:has-text("他 ${hiddenN} 件を表示")`);
+  await page.waitForTimeout(150);
+  const visibleAfter = await page.locator('[data-resume]:visible').count();
+  assert(visibleAfter === total, `「他 N 件を表示」を開いても全件表示されません（${visibleAfter} / ${total}）`);
+}
+
 /* =============================================================
    実行制御
    ============================================================= */
@@ -804,6 +1136,12 @@ const TESTS = [
   ['25_Part1描写テキスト方式：表示→自動消去→もう一度見るで再表示', test25],
   ['26_Part1描写テキスト方式：音声非対応環境でももう一度見る→解答→解説まで到達', test26],
   ['27_Part1：模試のscene方式は従来どおりSVGを描画しdescboxを持たない（退行なし）', test27],
+  ['28_中断セッション複数件：ホームに全件表示され古い方もanswered保持で再開できる', test28],
+  ['29_中断セッションの上書き防止：同じ起動ボタンの再押下は確認のうえ続きから再開する', test29],
+  ['30_模試の中断確認：1問も答えていなくても経過時間だけで確認が出る', test30],
+  ['31_ドリルの起動口4種は別セッション：全問を中断してもランダム10問は確認なしで別枠起動', test31],
+  ['32_中断確認のキャンセルは何もしない：起動せず遷移せずセッションも残る', test32],
+  ['33_中断セッションの折りたたみ：4件以上でホームは3件＋「他N件」、開くと全件見える', test33],
 ];
 
 function slug(name) { return name.replace(/[^\w一-龠ぁ-んァ-ヶー]+/g, '-').slice(0, 80); }
