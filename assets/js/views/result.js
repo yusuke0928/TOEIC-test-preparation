@@ -9,7 +9,7 @@ import { barsH, ring, lineChart } from '../charts.js';
 import { band, TARGET_900, gapToTarget } from '../score.js';
 import { topicName } from '../../data/topics.js';
 import { unitsForQuestionIds, buildIndex } from '../../data/registry.js';
-import { launch } from '../runtime.js';
+import { launchOrResume } from '../runtime.js';
 import { renderChoices, renderKaisetsu, audioLinesFor, KEYS } from '../quiz.js';
 import { renderDocs, renderGraphic } from '../render.js';
 import { SCENES } from '../../data/scenes.js';
@@ -189,7 +189,7 @@ export async function detail(el, id) {
   const startReview = async (ids, label, keySuffix) => {
     const units = await unitsForQuestionIds(ids);
     if (!units.length) { toast('設問データを読み込めませんでした'); return; }
-    launch({
+    await launchOrResume({
       mode: 'review', label, units,
       instant: true, backTo: `#/result/${id}`, sessionKey: `rev-${keySuffix}-${id}`,
       restore: { kind: 'qids', ids },

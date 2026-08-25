@@ -9,7 +9,7 @@ import * as A from '../analytics.js';
 import { band, TARGET_900 } from '../score.js';
 import { TOPICS, topicName } from '../../data/topics.js';
 import { availableMocks, unitsForTopic, unitsForQuestionIds } from '../../data/registry.js';
-import { launch, resumeFromSession } from '../runtime.js';
+import { launchOrResume, resumeFromSession } from '../runtime.js';
 import { dueItems } from '../store.js';
 
 export default async function home(el) {
@@ -59,7 +59,7 @@ export default async function home(el) {
       const p5 = (await loadDrills()).filter(u => u.part === 5);
       if (!p5.length) { toast('Part 5 のドリルがまだありません'); return; }
       const units = shuffle(p5).slice(0, 30);
-      launch({
+      await launchOrResume({
         mode: 'drill', label: '力試し：Part 5 を 30 問', units, instant: true, backTo: '#/',
         sessionKey: 'first-run', restore: { kind: 'drills', unitIds: units.map(u => u.id) },
       });
@@ -76,20 +76,7 @@ export default async function home(el) {
               <span class="chip">通算 ${cov.total.toLocaleString()} 問</span>`,
     })}
 
-    ${sessions.length ? `
-      <div class="card" style="border-color:var(--shu);border-left-width:3px">
-        <div class="inline" style="justify-content:space-between">
-          <div>
-            <div class="stat__k">中断中の演習</div>
-            <div style="font-weight:600;margin-top:.2rem">${esc(sessions[0].label)}</div>
-            <div class="note">${sessions[0].answered ?? 0} / ${sessions[0].total ?? '?'} 問　${relTime(sessions[0].savedAt)}に中断</div>
-          </div>
-          <div class="inline">
-            <button class="btn btn--ghost btn--sm" data-drop="${esc(sessions[0].key)}">破棄</button>
-            <button class="btn btn--shu" data-resume="${esc(sessions[0].key)}">再開する</button>
-          </div>
-        </div>
-      </div>` : ''}
+    ${sessions.length ? sessionsCard(sessions) : ''}
 
     <div class="grid grid--sidebar ${sessions.length ? 'mt2' : ''}">
       <!-- 推定スコア -->
@@ -197,16 +184,20 @@ export default async function home(el) {
     </div>
   `;
 
-  /* ── 操作 ── */
-  el.querySelector('[data-resume]')?.addEventListener('click', async (e) => {
-    const key = e.target.dataset.resume;
+  /* ── 操作 ──
+     中断セッションは複数件同時に残りうる（rev-wrong-… / rev-blank-… など）ため、
+     querySelector 単数ではなく querySelectorAll で全件にイベントを付ける。 */
+  el.querySelectorAll('[data-resume]').forEach(btn => btn.addEventListener('click', async (e) => {
+    const key = e.currentTarget.dataset.resume;
     await resumeSession(key);
-  });
-  el.querySelector('[data-drop]')?.addEventListener('click', (e) => {
-    if (!confirm('中断中の演習を破棄しますか？')) return;
-    clearSession(e.target.dataset.drop);
+  }));
+  el.querySelectorAll('[data-drop]').forEach(btn => btn.addEventListener('click', (e) => {
+    const key = e.currentTarget.dataset.drop;
+    const label = e.currentTarget.dataset.label || '演習';
+    if (!confirm(`中断中の演習「${label}」を破棄しますか？`)) return;
+    clearSession(key);
     location.reload();
-  });
+  }));
 
   el.querySelector('#quick-p5')?.addEventListener('click', async () => {
     const { loadDrills } = await import('../../data/registry.js');
@@ -215,7 +206,7 @@ export default async function home(el) {
     if (!p5.length) { toast('Part 5 のドリルがまだありません'); return; }
     const { shuffle } = await import('../quiz.js');
     const units = shuffle(p5).slice(0, 20);
-    launch({
+    await launchOrResume({
       mode: 'drill', label: 'Part 5 速攻 20 問',
       units, instant: true, backTo: '#/',
       sessionKey: 'quick-p5',
@@ -229,13 +220,57 @@ export default async function home(el) {
     if (!found.length) { toast('この論点のドリルがまだありません'); return; }
     const { shuffle } = await import('../quiz.js');
     const units = shuffle(found).slice(0, 10);
-    launch({
+    await launchOrResume({
       mode: 'drill', label: `弱点補強：${topicName(t.id)}`,
       units, instant: true, backTo: '#/',
       sessionKey: `weak-${t.id}`,
       restore: { kind: 'drills', unitIds: units.map(u => u.id) },
     });
   });
+}
+
+/**
+ * 中断中の演習カード。1 件目（最新）は従来どおりの大きさで、
+ * 2 件目・3 件目は同じカード内に 1 行ずつ積む（rev-wrong-… / rev-blank-… のように
+ * 複数のセッションキーが同時に残る場合、古い方をここに出さないと二度と
+ * 到達できなくなるため）。4 件目以降は「他 N 件を表示」の下にたたむ
+ * （携帯幅では6件で1画面を超え、扉の上部を占有してしまうため）。
+ * 開閉の状態は保存しない。新しい CSS クラスは足さず、quiz.js の
+ * 「解答一覧を開く」と同じ <details>/<summary> の作法を使う。
+ */
+function sessionsCard(sessions) {
+  const [first, ...rest] = sessions;
+  const shown = rest.slice(0, 2);
+  const hidden = rest.slice(2);
+  const row = (s) => `
+    <div class="inline" style="justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--rule)">
+      <div class="note">
+        <span class="stat__k">中断中</span>　${esc(s.label)}　${s.answered ?? 0} / ${s.total ?? '?'} 問　${relTime(s.savedAt)}に中断
+      </div>
+      <div class="inline">
+        <button class="btn btn--ghost btn--sm" data-drop="${esc(s.key)}" data-label="${esc(s.label || '演習')}">破棄</button>
+        <button class="btn btn--shu btn--sm" data-resume="${esc(s.key)}">再開する</button>
+      </div>
+    </div>`;
+  return `<div class="card" style="border-color:var(--shu);border-left-width:3px">
+    <div class="inline" style="justify-content:space-between;flex-wrap:wrap;gap:.6rem">
+      <div>
+        <div class="stat__k">中断中の演習</div>
+        <div style="font-weight:600;margin-top:.2rem">${esc(first.label)}</div>
+        <div class="note">${first.answered ?? 0} / ${first.total ?? '?'} 問　${relTime(first.savedAt)}に中断</div>
+      </div>
+      <div class="inline">
+        <button class="btn btn--ghost btn--sm" data-drop="${esc(first.key)}" data-label="${esc(first.label || '演習')}">破棄</button>
+        <button class="btn btn--shu" data-resume="${esc(first.key)}">再開する</button>
+      </div>
+    </div>
+    ${shown.map(row).join('')}
+    ${hidden.length ? `
+      <details style="margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--rule)">
+        <summary class="note" style="cursor:pointer">他 ${hidden.length} 件を表示</summary>
+        ${hidden.map(row).join('')}
+      </details>` : ''}
+  </div>`;
 }
 
 /** 推定スコアを出せない理由を、次に何をすればよいかの形で伝える */

@@ -5,7 +5,7 @@
 import { state, dueItems, dueCount, dueTodayCount, missedItems, flaggedItems, itemStat } from '../store.js';
 import { unitsForQuestionIds, buildIndex } from '../../data/registry.js';
 import { pageHead, sectionHead, esc, pct, empty, toast, partLabel, relTime, meter } from '../ui.js';
-import { launch } from '../runtime.js';
+import { launchOrResume } from '../runtime.js';
 import { barsV } from '../charts.js';
 import { topicName } from '../../data/topics.js';
 
@@ -73,7 +73,7 @@ export default async function review(el) {
       : flagged.slice(0, 30);
     const units = await unitsForQuestionIds(ids);
     if (!units.length) { toast('対象の設問データを読み込めませんでした'); return; }
-    launch({
+    await launchOrResume({
       mode: 'review',
       label: kind === 'due' ? '復習キュー' : kind === 'missed' ? '誤答の総ざらい' : 'フラグ付き設問',
       units, instant: true, backTo: '#/review', sessionKey: `review-${kind}`,
