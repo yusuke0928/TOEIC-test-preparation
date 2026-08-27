@@ -4,7 +4,7 @@
 
 import { MOCK_META, loadMock, availableMocks, mockAvailable } from '../../data/registry.js';
 import { pageHead, sectionHead, esc, pct, meter, empty, toast, partLabel, jaDateTime, hhmmss, stat } from '../ui.js';
-import { state, attemptsDesc, getSession } from '../store.js';
+import { state, attemptsDesc, getSession, allSessions, clearSession } from '../store.js';
 import { launch, launchOrResume, resumeFromSession } from '../runtime.js';
 import { PART_SIZE } from '../score.js';
 import { lineChart } from '../charts.js';
@@ -45,10 +45,15 @@ export default async function mocks(el) {
 
     ${sectionHead(hist.length >= 2 ? '02' : '01', '模試一覧', '上から順に受けるのが推奨')}
     <div class="stack">
-      ${metas.map(m => {
+      ${(() => { const sessionsAll = allSessions(); return metas.map(m => {
         const done = byMock[m.id] || [];
         const best = done.filter(a => a.full).sort((a, b) => b.scaled.total - a.scaled.total)[0];
-        const paused = m.available ? getSession(`mock-${m.id}`) : null;
+        // フル受験（mock-<id>）だけでなく、パート指定・L/R指定（mock-<id>-<label>）の
+        // 中断セッションも「中断中」チップの対象にする（是正3。従来はフル受験だけが
+        // 特別扱いで、パート別に中断すると一覧のここにも詳細ページにも出なかった）。
+        const paused = m.available && (
+          !!getSession(`mock-${m.id}`) || sessionsAll.some(s => s.key.startsWith(`mock-${m.id}-`))
+        );
         const body = `
           <div class="inline" style="justify-content:space-between;align-items:flex-start;gap:1rem">
             <div style="flex:1;min-width:0">
@@ -75,7 +80,7 @@ export default async function mocks(el) {
         return m.available
           ? `<a class="card" href="#/mocks/${esc(m.id)}" style="display:block">${body}</a>`
           : `<div class="card" style="display:block;opacity:.6" aria-disabled="true">${body}</div>`;
-      }).join('')}
+      }).join(''); })()}
     </div>`;
 }
 
@@ -104,6 +109,12 @@ export async function detail(el, id) {
   const totalQ = Object.values(counts).reduce((s, n) => s + n, 0);
   const history = attemptsDesc().filter(a => a.sourceId === id);
   const paused = getSession(`mock-${id}`);
+  // フル受験（sessionKey === `mock-${id}`）以外に、パート指定・L/R指定の受験は
+  // `mock-${id}-${label}` という別キーで保存される（mocks.js の startWith() 参照）。
+  // 従来はここが getSession(`mock-${id}`) だけを見ていたため、パート別の中断が
+  // 模試詳細ページにまったく出なかった（是正3）。
+  const partKeyPrefix = `mock-${id}-`;
+  const pausedParts = allSessions().filter(s => s.key.startsWith(partKeyPrefix));
 
   el.innerHTML = `
     ${pageHead({
@@ -114,13 +125,24 @@ export async function detail(el, id) {
     })}
 
     ${paused ? `<div class="card" style="border-color:var(--shu);border-left-width:3px">
-      <div class="inline" style="justify-content:space-between">
+      <div class="inline" style="justify-content:space-between;flex-wrap:wrap;gap:.6rem">
         <div><div class="stat__k">中断中</div>
-        <div class="note">${paused.answered ?? 0} / ${paused.total ?? totalQ} 問まで解答済み</div></div>
+        <div class="note">${paused.answered ?? 0} / ${paused.total ?? totalQ} 問まで解答済み${remainingChip(paused)}</div></div>
         <button class="btn btn--shu" id="resume">続きから再開</button>
       </div></div>` : ''}
 
-    <div class="grid grid--sidebar ${paused ? 'mt2' : ''}">
+    ${pausedParts.map(s => `
+    <div class="card" style="border-color:var(--shu);border-left-width:3px">
+      <div class="inline" style="justify-content:space-between;flex-wrap:wrap;gap:.6rem">
+        <div><div class="stat__k">中断中</div>
+        <div class="note">${esc(s.key.slice(partKeyPrefix.length))}　${s.answered ?? 0} / ${s.total ?? '?'} 問まで解答済み${remainingChip(s)}</div></div>
+        <div class="inline">
+          <button class="btn btn--ghost btn--sm" data-drop-part="${esc(s.key)}">破棄</button>
+          <button class="btn btn--shu btn--sm" data-resume-part="${esc(s.key)}">続きから再開</button>
+        </div>
+      </div></div>`).join('')}
+
+    <div class="grid grid--sidebar ${(paused || pausedParts.length) ? 'mt2' : ''}">
       <div class="card">
         <div class="stat__k">構成</div>
         <div class="tbl-wrap mt"><table class="tbl">
@@ -217,4 +239,39 @@ export async function detail(el, id) {
       restore: { kind: 'mock', id, unitIds: units.map(u => u.id) },
     });
   });
+
+  // パート指定・L/R指定の中断セッション（是正3）。フル受験の #resume とは別キーなので、
+  // ここは resumeFromSession() を直接使う（home.js の resumeSession() と同じ作法）。
+  el.querySelectorAll('[data-resume-part]').forEach(btn => btn.addEventListener('click', async (e) => {
+    const key = e.currentTarget.dataset.resumePart;
+    const s = getSession(key);
+    if (!s) return;
+    if (await resumeFromSession(key, s, { backTo: `#/mocks/${id}` })) return;
+    toast('この中断データは復元できないため破棄しました。もう一度始めてください。');
+    clearSession(key);
+    location.reload();
+  }));
+  el.querySelectorAll('[data-drop-part]').forEach(btn => btn.addEventListener('click', (e) => {
+    const key = e.currentTarget.dataset.dropPart;
+    if (!confirm('中断中の演習を破棄しますか？')) return;
+    clearSession(key);
+    location.reload();
+  }));
+}
+
+/**
+ * 時間制限つきセッションの残り時間チップ（是正2）。時間制限が無いセッション
+ * には何も出さない。quiz.js の警告しきい値（残り5分未満で赤く強調）と揃える。
+ * 残りが0以下（再開すると即座に自動採点される状態）は「時間切れ」と出す。
+ * home.js にも同じ役割の関数があるが、view 間の依存を増やさないためここでは
+ * 小さいので重複させている。
+ */
+function remainingChip(s) {
+  if (!(s?.timeLimitMs > 0)) return '';
+  const rem = s.timeLimitMs - (s.elapsedMs || 0);
+  const urgent = rem < 5 * 60000;
+  const label = rem <= 0 ? '時間切れ'
+    : rem < 60000 ? `残り ${Math.ceil(rem / 1000)} 秒`
+    : `残り ${Math.ceil(rem / 60000)} 分`;
+  return ` <span class="chip ${urgent ? 'chip--shu' : ''}">${esc(label)}</span>`;
 }
