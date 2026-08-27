@@ -101,8 +101,33 @@ export const L2A = [
      最大でも最小でもない値（£8.90 < £11.50 < £15.00 < £16.80）になるように
      した。Zone D の Next-day が「Not available」であること（No.40 の根拠）は
      変えていない。遠い区分ほど高いという料金体系（Standard: A<B<C<D）も維持。
-     表・選択肢を実質変更したため id を v4q38 → v4q38b に新規採番。No.39・
-     No.40 の内容・id は変更していない。 */
+     表・選択肢を実質変更したため id を v4q38 → v4q38b に新規採番。No.40
+     の内容・id は変更していない。
+     2026-08-25 追記2: No.39（v4q39r、「Aldergate はどのゾーンか」）がオブザーバーの
+     実プレイで発覚——No.38 の解答過程（Aldergate → Zone C の特定）とまったく同じ
+     事実を問うており、Zone C を聞き逃すと No.38・No.39 の両方を落とす「鎖」に
+     なっていた。No.39 を、No.38 の解答過程（ゾーン名・金額・署名要件）にも
+     No.40 の根拠（Zone D に翌日便が無いこと）にも触れない独立した事実——本文
+     後半の高地行き荷物についての「通常便の所要日数（already two days）」——を
+     問う設問に差し替え、id を v4q39r → v4q39c に新規採番した。
+     2026-08-25 追記3: レビュー役の監査で残存2件が判明。(1) No.39 の stem
+     `How long does standard delivery to the highlands normally take?` の
+     `standard` が、表の Zone D（remote）の Standard 料金 £16.80 と結び付き、
+     「£16.80 は高地向け通常便の料金＝Aldergate の答えではない」という消去材料を
+     No.38 に与えていた（25%→33% への劣化）。`standard` を削り
+     `How long does delivery to the highlands normally take?` とした。
+     (2) No.39 の誤答 `One week` が宅配便として非現実的で常識だけで消え、かつ
+     No.40 の誤答 `To prevent them from expecting next-day delivery` の
+     `next-day delivery` が No.39 の `One day` を先読みだけで消す消去材料に
+     なっており、あわせて実質2択（50%）になっていた。`One week` を
+     `Four days` に差し替えて非現実的な選択肢を無くし（One day/Two days/
+     Three days/Four days の昇順4択。いずれも音声の "that's already two
+     days" とだけ矛盾する現実的な値）、No.40 は正解・誤答とも `next-day` や
+     `delivery` という具体的な語を含まない表現に書き換えて先読みでの消去材料を
+     断った（命題「高地行きは翌日便が使えないと伝えるため」は変えていない）。
+     stem・選択肢を実質変更したため No.39 の id を v4q39c → v4q39d、No.40 の
+     id を v4q40 → v4q40b に新規採番した。あわせて No.40 の誤答側の語数を
+     伸ばし、正解が単独最長にならないようにした。 */
   {
     id: 'v4-p3-38', part: 3, kind: 'set', kindLabel: 'conversation',
     topics: ['graphic'], level: 5,
@@ -137,26 +162,28 @@ export const L2A = [
         why: ['正解。', 'Zone C の通常便であり、翌朝必着という要件には合わない。', 'Zone B の翌日便であり、Aldergate の区分（Zone C）ではない。', 'Zone D の通常便であり、Aldergate とは無関係の区分の金額。'],
       },
       {
-        // 新規: 音声だけで解ける設問。No.38 の答え（£15.00）にも No.40 の答えにも触れない。
-        id: 'v4q39r', no: 39, tag: '詳細', topics: ['p3detail'],
-        stem: 'Which zone does the Aldergate order fall under?',
-        choices: ['Zone A', 'Zone B', 'Zone C', 'Zone D'],
-        answer: 2,
-        exp: '女性が「それは Zone C。全国区で、地域区分ではない」と明言している。選択肢は自然順（A/B/C/D）に並べてある。',
+        // 音声だけで解ける設問。No.38 の解答過程（Aldergate→Zone C の特定、料金、
+        // 署名要件）にも No.40 の根拠（Zone D に翌日便が無いこと）にも触れない、
+        // 本文後半の高地行き荷物についての独立した事実（通常便の所要日数）を問う。
+        id: 'v4q39d', no: 39, tag: '詳細', topics: ['p3detail'],
+        stem: 'How long does delivery to the highlands normally take?',
+        choices: ['One day', 'Two days', 'Three days', 'Four days'],
+        answer: 1,
+        exp: '女性は高地行きの荷物について「翌日配送の選択肢が全く無く、標準の便のみで、それだけで既に2日かかる」と述べている（"No next-day option there at all — standard only, and that\'s already two days."）。翌日配送そのものが無いと明言されているため1日では届かず、"already two days" と実数が明言されているため3日・4日でもない。',
         why: [
-          '女性は 「National, not regional」 と述べており、Zone A は local（近距離）の区分。全国区の宛先には当たらない。',
-          '「地域区分ではない」と明示的に否定されている。',
-          '正解。',
-          'Zone D は、この後に話題になる高地行きの別の荷物に使われる区分。',
+          '高地行きの区分には「翌日配送の選択肢が全く無い」と明言されており、1日で届く手段は存在しない。',
+          '正解。"that\'s already two days" と明言されている。',
+          '"that\'s already two days" と実数が明言されており、3日という言及はない。',
+          '"that\'s already two days" と実数が明言されており、4日という言及もない。',
         ],
       },
       {
-        id: 'v4q40', no: 40, tag: '推測', topics: ['p7inf'],
+        id: 'v4q40b', no: 40, tag: '推測', topics: ['p7inf'],
         stem: 'Why does the man want the client told today about the highlands parcel?',
-        choices: ['To prevent them from expecting next-day delivery', 'To offer them a discount',
-                   'To cancel the order', 'To request a different address'],
+        choices: ['To correct the client\'s assumption about speed', 'To offer them a discount on the order',
+                   'To cancel the order at their request', 'To request a different delivery address'],
         answer: 0,
-        exp: 'Zone D には翌日配送の選択肢がなく通常便のみのため、1 件目のように早く届くと誤解されないよう事前に伝えるべきだという趣旨。',
+        exp: 'Zone D には翌日配送の選択肢がなく標準の便のみのため、1 件目（Aldergate 向け）のように早く届くと誤解されないよう、その思い込みを正しておくべきだという趣旨。具体的な配送日数には触れず、あくまで速さについての思い込みを正すという目的だけを述べている。',
         why: ['正解。', '値引きの話はない。', '注文の取り消しではない。', '住所変更の依頼はない。'],
       },
     ],
@@ -205,49 +232,92 @@ export const L2A = [
      持たず、既定で ['graphic'] を継承してしまっていた（図表を見て答える設問ではない
      のに論点集計上は「図表問題」に計上される不整合）。No.45・46 に t: ['p3detail']
      を明示し、No.44（唯一の「Look at the graphic」設問）だけが ['graphic'] を
-     継承するようにした。 */
-  set({
-    n: [44, 45, 46], lv: 5, t: ['graphic'],
+     継承するようにした。
+     2026-08-25 追記2: オブザーバーの実プレイで、No.44 の音声が "Pod 4, ten to
+     twelve." とポッド番号そのものを明言しており、図表を見る必要が一切ないことが
+     判明。しかも exp が「音声が言わない側（ポッド番号）を表から特定する」と、
+     事実と逆のことを書いていた。加えて、旧・表は「10時・11時の2コマ連続で
+     空いているのは Pod 4 だけ」という唯一値だったため、音声を無視して表だけを
+     見ても解けた（当てずっぽうの列⑤⑦に該当）。
+     vol6-l2b.js No.68（"the dock for that slot is set out on the move-in
+     schedule" と番号を伏せて属性だけを伝える型）を参考に、音声からポッド番号を
+     完全に削除し、表の属性（10時-12時・11時-13時のどちらの2時間枠が空いているか）
+     でのみ特定できる形に組み替えた。あわせて表も、2時間連続で空いている枠が
+     Pod 3（11:00–13:00）と Pod 4（10:00–12:00）の2室になるようにし
+     （旧表は Pod 4 のみだった）、音声の「正午までに終わる枠が必要」という条件と
+     突き合わせて初めて Pod 4 に絞れるようにした（表だけでは2室に絞れるが1室には
+     絞れない。音声だけでは「10時開始の方」としか分からずポッド番号は分からない）。
+     No.45 が根拠とする「9 時開始を希望していた」という発話、No.46 が根拠とする
+     「全ポッドに HDMI・USB-C 内蔵」という発話はどちらも文言を変えていない。
+     stem・選択肢・答えの位置（Pod 4 = index 3）は変えていない。表・音声を実質
+     変更したため id を v4q44 → v4q44b に新規採番。No.45・46 の id は変更していない。
+     2026-08-25 追記3: レビュー役の監査で、女性の応答 `Then the earlier one,
+     please.` が比較級 `earlier` で対象を直接指しており、表の時刻列とそのまま
+     結び付くため「2時間連続で空いている中で早い方」を音声の2語だけで確定でき、
+     出題意図（正午までに終わる枠との照合）を丸ごと迂回できることが判明。
+     `Then I'll take the one that works, please.`（直前の男性の発話が示した
+     「正午までに終わる方」という条件だけを指す、比較級・最上級を含まない表現）に
+     差し替えた。正解・選択肢は変えていないため id は維持（v4q44b のまま）。ja の
+     「早い方（10時開始）を選ぶ」も比較級を含まない表現に直した。
+     あわせて No.46 の誤答の語数を伸ばし、正解 `HDMI and USB-C are already
+     built in.`（7語）が選択肢中で単独最長（他は6語）にならないようにした
+     （選択肢を実質変更したため id を v4q46 → v4q46b に新規採番）。 */
+  {
+    id: 'v4-p3-44', part: 3, kind: 'set', kindLabel: 'conversation',
+    topics: ['graphic'], level: 5,
     graphic: {
       t: 'table', title: 'Fernshaw Co-working — Meeting Pod Availability, Friday',
       head: ['Pod', '10:00', '11:00', '12:00'],
       rows: [
         ['Pod 1', 'Booked', 'Free', 'Booked'],
         ['Pod 2', 'Free', 'Booked', 'Free'],
-        ['Pod 3', 'Booked', 'Booked', 'Free'],
+        ['Pod 3', 'Booked', 'Free', 'Free'],
         ['Pod 4', 'Free', 'Free', 'Booked'],
       ],
     },
-    s: [
+    script: [
       { role: 'M-Cn', text: 'Fernshaw Co-working, how can I help?' },
-      { role: 'W-Am', text: 'Hi, I need a pod for Friday, two hours back to back. I was hoping to start right at nine, but any time from ten would do if nine isn\'t free.' },
-      { role: 'M-Cn', text: 'Let me see... nothing is free before ten, and there\'s only one pod free for two hours running after that.' },
-      { role: 'W-Am', text: 'Which one, and when does it start?' },
-      { role: 'M-Cn', text: 'Pod 4, ten to twelve.' },
-      { role: 'W-Am', text: 'That works. Do I need to bring my own screen adapter?' },
+      { role: 'W-Am', text: 'Hi, I need a pod for Friday, two hours back to back. I was hoping to start right at nine, but if that\'s taken, anything works as long as I\'m out by noon for another commitment.' },
+      { role: 'M-Cn', text: 'Let me see... nothing\'s free before ten, and there are two slots that run two hours straight after that.' },
+      { role: 'W-Am', text: 'Do either of them get me out by noon?' },
+      { role: 'M-Cn', text: 'Only one does. The other one doesn\'t open up until eleven, so it would run past your noon commitment.' },
+      { role: 'W-Am', text: 'Then I\'ll take the one that works, please. Do I need to bring my own screen adapter?' },
       { role: 'M-Cn', text: 'No, all pods have HDMI and USB-C built in. Just bring your laptop.' },
     ],
-    ja: '女性が金曜日にコワーキングスペースのポッドを 2 時間連続で予約したいと電話。9 時開始を希望していたが空きがなく、10 時以降で 2 時間連続して空いているのは 1 室だけと案内される。Pod 4 が 10 時から 12 時まで空いており、それで予約が決まった。画面用アダプターの持参が必要か尋ねると、すべてのポッドに HDMI と USB-C が備え付けられているのでノートパソコンだけで良いと案内される。',
-    v: [['back to back', '連続して'], ['adapter', 'アダプター'], ['built in', '内蔵の']],
-    q: [
-      { tag: '図表', s: 'Look at the graphic. Which pod will the woman use?',
-        c: ['Pod 1', 'Pod 2', 'Pod 3', 'Pod 4'],
-        a: 3,
-        e: '10 時と 11 時の 2 コマ連続で空いているのは Pod 4 だけ。図表問題では、音声が言わない側（ポッド番号）を表から特定する。',
-        w: ['10 時が予約済み。', '11 時が予約済み。', '10・11 時が予約済み。', '正解。'] },
-      { tag: '詳細', t: ['p3detail'], s: 'What had the woman originally wanted?',
-        c: ['A different day', 'A longer session', 'To start at nine', 'To book two pods'],
-        a: 2,
-        e: '「9 時ちょうどの開始を希望していたが、空きがなければ 10 時以降でもよい」と述べている。',
-        w: ['曜日の変更は述べていない。', '時間の延長は求めていない。', '正解。', '1 室のみ希望。'] },
-      { tag: '詳細', t: ['p3detail'], s: 'What does the man say about the pods\' equipment?',
-        c: ['Equipment must be booked in advance.', 'An adapter must be purchased separately.',
-            'Only some pods have screens.', 'HDMI and USB-C are already built in.'],
-        a: 3,
-        e: '「すべてのポッドに HDMI と USB-C が内蔵されている」と案内している。',
-        w: ['事前予約の話はない。', '別途購入は不要と述べている。', 'すべてのポッドが対象。', '正解。'] },
+    ja: '女性が金曜日にコワーキングスペースのポッドを2時間連続で予約したいと電話をかける。9時開始を希望していたが、埋まっていれば正午までに退室できる枠なら何でもよいと伝える。担当者は、10時より前は空きがなく、10時以降で2時間連続して空いている枠が2つあると案内する。女性が「どちらも正午までに終わるか」と尋ねると、片方は11時開始のため正午を過ぎてしまい、もう一方だけが正午ちょうどに終わると説明される。女性は正午ちょうどに終わる方（10時開始）を選ぶ。画面用アダプターの持参が必要か尋ねると、すべてのポッドにHDMIとUSB-Cが備え付けられているのでノートパソコンだけで良いと案内される。',
+    vocab: [['back to back', '連続して'], ['commitment', '用事、予定'], ['run past', '（時刻を）過ぎる'], ['built in', '内蔵の']],
+    questions: [
+      {
+        id: 'v4q44b', no: 44, tag: '図表', topics: ['graphic'],
+        stem: 'Look at the graphic. Which pod will the woman use?',
+        choices: ['Pod 1', 'Pod 2', 'Pod 3', 'Pod 4'],
+        answer: 3,
+        exp: '女性は2時間連続の枠が必要で、正午までに終わることを条件としている。表で2時間連続して空いているのは Pod 3（11:00–13:00）と Pod 4（10:00–12:00）の2室のみだが、11時開始の Pod 3 は正午を過ぎてしまうため条件に合わない。10時開始で正午ちょうどに終わる Pod 4 が条件に合う。音声はポッド番号を一切明言せず、「10時より前は空きがない」「もう一方は11時開始で正午を過ぎる」という時間の条件だけを伝えるため、表と照合して初めてポッド番号が決まる。',
+        why: [
+          '11時の1コマしか空いておらず（10時・12時は予約済み）、2時間連続にならない。',
+          '10時と12時は空いているが11時が予約済みのため、連続した2時間にならない。',
+          '11:00–13:00 の2時間は連続して空いているが、11時開始のため正午を過ぎてしまい、女性の条件（正午までに終わる）に合わない。',
+          '正解。10:00–12:00 の2時間が連続して空いており、正午ちょうどに終わる。',
+        ],
+      },
+      {
+        id: 'v4q45', no: 45, tag: '詳細', topics: ['p3detail'],
+        stem: 'What had the woman originally wanted?',
+        choices: ['A different day', 'A longer session', 'To start at nine', 'To book two pods'],
+        answer: 2,
+        exp: '「9時ちょうどの開始を希望していたが、埋まっていれば別の時間でもよい」と述べている。',
+        why: ['曜日の変更は述べていない。', '時間の延長は求めていない。', '正解。', '1室のみ希望。'],
+      },
+      {
+        id: 'v4q46b', no: 46, tag: '詳細', topics: ['p3detail'],
+        stem: "What does the man say about the pods' equipment?",
+        choices: ['Equipment must always be booked well in advance.', 'An adapter must be purchased at extra cost.', 'Only some of the pods have screens.', 'HDMI and USB-C are already built in.'],
+        answer: 3,
+        exp: '「すべてのポッドにHDMIとUSB-Cが内蔵されている」と案内している。',
+        why: ['事前予約の話はない。', '別途購入は不要と述べている。', 'すべてのポッドが対象。', '正解。'],
+      },
     ],
-  }),
+  },
 
   /* ── 47–49 ─────────────────────────────────────────── */
   set({

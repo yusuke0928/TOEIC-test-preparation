@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =============================================================
-   smoke.mjs — 実ブラウザ通しテスト（33項目）
+   smoke.mjs — 実ブラウザ通しテスト（37項目）
    Playwright で chromium を実際に動かし、アプリを一切変更せずに検証する。
 
    使い方:
@@ -179,7 +179,7 @@ async function launchDescDrill(page, base) {
 }
 
 /* =============================================================
-   テスト本体（33 項目）
+   テスト本体（37 項目）
    ============================================================= */
 
 /* 01 起動 */
@@ -1105,6 +1105,145 @@ async function test33({ page }) {
   assert(visibleAfter === total, `「他 N 件を表示」を開いても全件表示されません（${visibleAfter} / ${total}）`);
 }
 
+/* 34 是正1: 時間制限つきのセッションが savedAt に関わらず先頭に並ぶ。
+   無制限セッションを先に、時間制限つきセッションを後に保存する（＝時間制限
+   つきの方が savedAt は新しい）普通の場合だけでなく、逆の場合（時間制限
+   つきの方が古い）でも時間制限つきが先頭に来ることを見る。savedAt だけの
+   並びだと、120分模試を残り32分で中断した直後に1問だけのドリルを何本も
+   触ると、いちばん失うものが大きい模試が「他N件」の下に沈んでいた。 */
+async function test34({ page }) {
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('.phead__title', { timeout: 15000 });
+  await page.evaluate(async () => {
+    const store = await import('/assets/js/store.js');
+    // 時間制限つきセッションを先に保存する（＝savedAt は古い）
+    store.saveSession('smoke-timed', {
+      mode: 'mock', label: 'Smoke: 時間制限セッション', answered: 118, total: 200,
+      timeLimitMs: 120 * 60000, elapsedMs: 88 * 60000,
+    });
+    await new Promise(r => setTimeout(r, 30));
+    // 無制限セッションを後に保存する（＝savedAt は新しい）
+    store.saveSession('smoke-untimed', {
+      mode: 'drill', label: 'Smoke: 無制限セッション', answered: 1, total: 10,
+    });
+    // saveSession() 経由の保存は 120ms デバウンスされる（store.js の save()）。
+    // reload() でページごと破棄する前に確実に書き込んでおく。
+    store.saveNow();
+  });
+  // gotoHash(page, BASE, '/') は現在と同じ URL（ハッシュも同じ）への navigate になり、
+  // ブラウザは hashchange を発火させない（何も起きない）ため、ルータが再描画されず
+  // 保存したセッションが画面に反映されない。reload() で確実に作り直す。
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForSelector('[data-resume]', { timeout: 10000 });
+
+  const keysInOrder = await page.locator('[data-resume]').evaluateAll(
+    els => els.map(el => el.dataset.resume));
+  assert(keysInOrder[0] === 'smoke-timed',
+    `savedAt が新しい無制限セッションより、時間制限つきセッションが先頭に来るべきです（実際の並び: ${keysInOrder.join(', ')}）`);
+  assert(keysInOrder.includes('smoke-untimed'), '無制限セッションがホームに表示されません');
+}
+
+/* 35 是正2: 時間制限つきセッションのカードに残り時間が表示される。
+   残り5分未満（quiz.js の試験画面の警告しきい値と同じ）は chip--shu で
+   赤く強調され、残りが0以下なら「時間切れ」と表示される（再開すると即座に
+   自動採点される状態であることが、演習を開く前の扉の時点で分かるようにする）。 */
+async function test35({ page }) {
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('.phead__title', { timeout: 15000 });
+  await page.evaluate(async () => {
+    const store = await import('/assets/js/store.js');
+    store.saveSession('smoke-normal', {
+      mode: 'mock', label: 'Smoke: 残り時間に余裕', answered: 10, total: 200,
+      timeLimitMs: 120 * 60000, elapsedMs: 60 * 60000, // 残り60分
+    });
+    store.saveSession('smoke-urgent', {
+      mode: 'mock', label: 'Smoke: 残りわずか', answered: 190, total: 200,
+      timeLimitMs: 75 * 60000, elapsedMs: 72 * 60000, // 残り3分
+    });
+    store.saveSession('smoke-expired', {
+      mode: 'mock', label: 'Smoke: 時間切れ', answered: 118, total: 200,
+      timeLimitMs: 120 * 60000, elapsedMs: 121 * 60000, // 残り-1分
+    });
+    // saveSession() 経由の保存は 120ms デバウンスされる（store.js の save()）。
+    // reload() でページごと破棄する前に確実に書き込んでおく。
+    store.saveNow();
+  });
+  // gotoHash(page, BASE, '/') は現在と同じ URL（ハッシュも同じ）への navigate になり、
+  // ブラウザは hashchange を発火させない（何も起きない）ため、ルータが再描画されず
+  // 保存したセッションが画面に反映されない。reload() で確実に作り直す。
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForSelector('[data-resume]', { timeout: 10000 });
+
+  const bodyText = await page.locator('#app').innerText();
+  assert(bodyText.includes('残り 60 分'), `余裕がある残り時間の表示が見つかりません（本文冒頭: ${bodyText.slice(0, 300)}）`);
+  assert(bodyText.includes('残り 3 分'), '残りわずかな時間の表示が見つかりません');
+  assert(bodyText.includes('時間切れ'), '残り0以下のセッションに「時間切れ」の表示が見つかりません');
+
+  const urgentChips = await page.locator('.chip.chip--shu', { hasText: /^(残り 3 分|時間切れ)$/ }).count();
+  assert(urgentChips === 2, `残りわずか・時間切れのチップが赤（chip--shu）で強調されていません（実際: ${urgentChips}件）`);
+  const normalChipClass = await page.locator('.chip', { hasText: '残り 60 分' }).first().getAttribute('class');
+  assert(!/chip--shu/.test(normalChipClass || ''), `余裕がある残り時間のチップまで赤く強調されています（class: ${normalChipClass}）`);
+}
+
+/* 36 是正3: パート指定・L/R指定の模試中断（mock-<id>-<label>）が、模試一覧の
+   「中断中」チップと模試詳細ページの両方に表示される。従来はフル受験
+   （mock-<id>）だけを見ていたため、「リーディングのみ（75分）」のような
+   部分受験を中断すると、時間制限つきのセッションなのにホームにしか
+   出なかった。既存の #resume（フル受験用）ボタンの挙動も壊れていないことと、
+   パート別セッション専用の再開ボタンから answered を保ったまま再開できる
+   ことも見る。 */
+async function test36({ page }) {
+  await openMockDetail(page, BASE, 'vol1');
+  await page.click('[data-run="R"]');
+  await waitExam(page);
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForTimeout(150);
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash === '#/mocks/vol1', null, { timeout: 8000 });
+  await page.waitForSelector('[data-resume-part]', { timeout: 8000 });
+
+  const detailText = await page.locator('#app').innerText();
+  assert(/中断中/.test(detailText), 'パート別（Reading）の中断が模試詳細に表示されません');
+  assert(detailText.includes('Reading'), '中断中の表示に区別できるラベル（Reading）が含まれていません');
+  assert((await page.locator('[data-resume-part]').count()) === 1, 'パート別セッションの再開ボタンが見つかりません');
+  assert((await page.locator('[data-drop-part]').count()) === 1, 'パート別セッションの破棄ボタンが見つかりません');
+  assert((await page.locator('#resume').count()) === 0,
+    'フル受験を中断していないのに、フル受験用の #resume ボタンが出ています（混線の疑い）');
+
+  // 模試一覧の「中断中」チップにも反映される
+  await gotoHash(page, BASE, '/mocks');
+  await page.waitForSelector('.stack .card', { timeout: 15000 });
+  const listText = await page.locator('.stack').innerText();
+  assert(/中断中/.test(listText), 'パート別（Reading）の中断が模試一覧の「中断中」チップに反映されていません');
+
+  // パート別セッション専用の再開ボタンから再開すると answered が保たれる
+  await openMockDetail(page, BASE, 'vol1');
+  await page.waitForSelector('[data-resume-part]', { timeout: 8000 });
+  await page.click('[data-resume-part]');
+  await waitExam(page);
+  const count = await page.locator('.exambar__count').innerText();
+  assert(count.trim().startsWith('1'), `パート別セッションを再開したのに解答数が復元されていません（${count}）`);
+}
+
+/* 37 是正4: relTime() が「たった今」を返す直後に中断しても、
+   「たった今に中断」という助詞の壊れた表示にならない。 */
+async function test37({ page }) {
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('#first-run', { timeout: 10000 });
+  await page.click('#first-run');
+  await waitExam(page);
+  await page.click('.choices .choice[data-pick="0"]');
+  await page.waitForSelector('.kaisetsu', { timeout: 8000 });
+  await page.click('[data-act="pause"]');
+  await page.waitForFunction(() => location.hash === '#/', null, { timeout: 8000 });
+  await page.waitForSelector('[data-resume]', { timeout: 8000 });
+
+  const bodyText = await page.locator('#app').innerText();
+  assert(!bodyText.includes('たった今に中断'), '「たった今に中断」という助詞の壊れた表示が出ています');
+  assert(bodyText.includes('たった今中断'),
+    `直後に中断したのに「たった今中断」の表示が見つかりません（relTime の挙動が変わった可能性。本文冒頭: ${bodyText.slice(0, 300)}）`);
+}
+
 /* =============================================================
    実行制御
    ============================================================= */
@@ -1142,6 +1281,10 @@ const TESTS = [
   ['31_ドリルの起動口4種は別セッション：全問を中断してもランダム10問は確認なしで別枠起動', test31],
   ['32_中断確認のキャンセルは何もしない：起動せず遷移せずセッションも残る', test32],
   ['33_中断セッションの折りたたみ：4件以上でホームは3件＋「他N件」、開くと全件見える', test33],
+  ['34_是正1：時間制限つきセッションはsavedAtに関わらずホームの先頭に並ぶ', test34],
+  ['35_是正2：時間制限つきセッションのカードに残り時間が表示され、残りわずか／時間切れは強調される', test35],
+  ['36_是正3：模試のパート別中断が模試一覧・模試詳細の両方に表示され、専用ボタンで再開できる', test36],
+  ['37_是正4：「たった今に中断」という助詞の壊れた表示が出ない', test37],
 ];
 
 function slug(name) { return name.replace(/[^\w一-龠ぁ-んァ-ヶー]+/g, '-').slice(0, 80); }
