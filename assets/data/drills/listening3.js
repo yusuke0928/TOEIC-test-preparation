@@ -22,7 +22,7 @@ export const UNITS = [
     p: "Has the lease renewal already gone out to the tenants?",
     c: [
       "It went out this morning, actually.",
-      "The lease runs for two years.",
+      "Two years is the standard length for this lease.",
       "The tenants are on the fourth floor.",
     ],
     a: 0,
@@ -154,15 +154,15 @@ export const UNITS = [
     t: ['p2ind'], lv: 4, sa: 'W-Cn', sb: 'M-Au',
     p: 'It looks like enrollment is down again this semester.',
     c: [
-      'The semester ends in December.',
-      'Enrollment forms are online now.',
+      'The semester ends in December, right before winter break starts.',
+      'Enrollment forms are online now, but the same paper option remains available.',
       'Then we might need to extend the application deadline.',
     ],
     a: 2,
     e: '志願者数の減少という報告（平叙文）に対し、「出願期限の延長が必要かもしれない」と対応策を提案する間接応答。',
     w: [
-      'semester の反復。報告への反応になっていない。',
-      'enrollment の反復。書式の電子化は減少への対応策ではない。',
+      'semester の反復。学期の終わる時期を加えても、報告への反応になっていない。',
+      'enrollment の反復。書式の電子化は減少への対応策ではない。紙の選択肢が残っているという情報を加えても同じ。',
       '正解。減少を受けた対応策を提案している。',
     ],
     ja: '設問：この学期もまた志願者数が減っているようです。→ (C) では出願期限の延長が必要かもしれませんね。',
@@ -175,14 +175,14 @@ export const UNITS = [
     c: [
       'The booths were installed last month.',
       "Only during peak hours, from what I've heard.",
-      'I usually work from home on Fridays.',
+      'I usually work from home on Fridays, except during the busiest weeks.',
     ],
     a: 1,
     e: '予約の要否を尋ねられ、Yes / No を使わず「混雑時間帯だけ、と聞いている」と条件付きで答える間接応答。',
     w: [
       'booths の反復。設置時期の話であり、予約の要否に答えていない。',
       '正解。混雑時間帯に限られると条件を示している。',
-      '個人の勤務スタイルの話であり、予約の要否に答えていない。',
+      '個人の勤務スタイルの話であり、例外を加えても、予約の要否に答えていない。',
     ],
     ja: '設問：電話ブースはもう事前予約が必要ですか。→ (B) 混雑時間帯だけ、と聞いています。',
     v: [['phone booth', '電話ブース'], ['peak hours', '混雑時間帯']],
@@ -230,16 +230,16 @@ export const UNITS = [
     t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Br',
     p: 'Someone in receiving keeps mislabeling the pallets.',
     c: [
-      'The pallets arrived yesterday afternoon.',
+      'Those pallets arrived yesterday afternoon, a full day earlier than the delivery log shows.',
       "I'll walk through the process with the new hires tomorrow.",
-      'The warehouse closes at six.',
+      'The warehouse closes at six, an hour earlier than it used to.',
     ],
     a: 1,
     e: 'ラベル付けのミスという報告（平叙文）に対し、「明日、新人に手順を説明する」と再発防止の行動で答える間接応答。',
     w: [
-      'pallets の反復。到着時刻の話であり、報告への対応になっていない。',
+      'pallets の反復。到着時刻の話であり、詳細を加えても報告への対応になっていない。',
       '正解。再発防止の具体的な行動を示している。',
-      '倉庫の閉店時刻の話であり、報告への対応になっていない。',
+      '倉庫の閉店時刻の話であり、変更の情報を加えても報告への対応になっていない。',
     ],
     ja: '設問：入荷担当の誰かがパレットのラベル付けを間違え続けています。→ (B) 明日、新人たちに手順を説明します。',
     v: [['receiving', '入荷（部門）'], ['mislabel', 'ラベルを間違って貼る']],
@@ -251,7 +251,7 @@ export const UNITS = [
     p: "The client approved the final layout, didn't they?",
     c: [
       'The layout took two weeks to finish.',
-      'The client meeting is on Friday.',
+      'On Friday, the client meeting is scheduled.',
       'They approved everything except the cover.',
     ],
     a: 2,
@@ -284,20 +284,31 @@ export const UNITS = [
     v: [['sign off on', '正式に承認する'], ['revised version', '改訂版']],
   }),
 
-  p2('p2w-11', {
+  /* id は p2w-11r（誤答 1 つを差し替えたため新規採番。旧 id p2w-11 を使い回すと、
+     第二の正解を選んで不正解と記録された履歴がそのまま SRS に引き継がれる）。
+     旧 (A) "Yes, we'll record it next week." は「選択疑問に Yes は不可」を排除根拠に
+     していたが、この規則は 2026-08-24 に誤りと確定している。しかもこの誤答は Yes を
+     取り除いても we'll record it が第二案（事前収録）をそのまま選んでおり、next week が
+     beforehand と矛盾する材料も設問中に無いため、完全な応答として成立していた。
+     prompt は or の後ろが共通の Should we に掛かる動詞句 record it beforehand なので
+     構造上の問題は無く、prompt と正解は変えていない（ja も変更なし）。
+     同じファイルの p2w-14 が既に「選択疑問＋Yes で始まる誤答」の型なので、装置の重複を
+     避けるため、差し替え後の (A) は Yes を使わない語の引っ掛けにしてある。先頭語も
+     Records / Whichever / The と 3 つとも変えて、正解だけが形で浮かないようにした。 */
+  p2('p2w-11r', {
     t: ['p2wh'], lv: 4, sa: 'W-Br', sb: 'M-Am',
     p: 'Should we run the interview live or record it beforehand?',
     c: [
-      "Yes, we'll record it next week.",
+      'Records from that period are kept in the basement.',
       'Whichever the host prefers.',
       'The interview runs about twenty minutes.',
     ],
     a: 1,
-    e: '選択疑問文には原則 Yes / No で答えられない。「司会者の希望次第」と判断を他者に委ねる間接応答。',
+    e: '「生放送で流す」か「事前に収録する」かを問う選択疑問。応答はどちらかを選ぶか、どちらも選べない事情を述べるかのどちらかになる。正解は Whichever the host prefers と決め方のほうを示す間接応答で、自分ではどちらとも名指ししていないが、司会者の希望で決まると答えているので応答として成立する。誤答 2 つは record と interview を拾っているだけで、述べている内容は放送の形式と論理的に独立している。',
     w: [
-      '選択疑問に Yes は不可。',
-      '正解。判断を司会者に委ねている。',
-      'How long への答えであり、選択に対応していない。',
+      '設問の動詞 record（アクセントは後ろ）を、名詞の records（アクセントは前。記録・保管資料）で受けた引っ掛け。保管場所を述べているだけで、地下にあってもなくても、生放送にする案も事前収録にする案も同じように成り立つ。形式の二択を分ける材料になっていない。',
+      '正解。決定の基準を司会者の希望に委ねている。',
+      'How long への答えであり、選択に対応していない。長さが何分であっても、生放送でも事前収録でも同じように言える。',
     ],
     ja: '設問：インタビューは生放送と事前収録のどちらにしますか。→ (B) 司会者の希望次第です。',
     v: [['run live', '生放送で流す'], ['beforehand', '事前に']],
@@ -308,7 +319,7 @@ export const UNITS = [
     p: 'Do you know whether the invoices were sent before the holiday?',
     c: [
       'The invoices come to about six thousand.',
-      'The holiday falls on a Monday this year.',
+      'This year, the holiday falls on a Monday.',
       'I believe so, but let me double-check.',
     ],
     a: 2,
@@ -345,16 +356,16 @@ export const UNITS = [
     t: ['p2wh'], lv: 3, sa: 'M-Au', sb: 'W-Br',
     p: 'Would you rather we mail the invitations or send them by e-mail?',
     c: [
-      'Yes, the invitations are ready.',
-      'The event is in two months.',
+      'Yes, the invitations are ready, though the cover design needs final approval.',
+      'The event is in two months, so timing shouldn\'t be a concern.',
       'Mail feels more appropriate for this event.',
     ],
     a: 2,
-    e: '選択疑問文に Yes / No は使えない。郵送とメールのどちらかを直接選んで答える、比較的素直な応答。',
+    e: '「郵送する」か「メールで送る」かを問う選択疑問。正解は Mail と一方を名指しし、この催しには郵送の方がふさわしいと理由を添えた、比較的素直な応答。',
     w: [
-      '選択疑問に Yes は不可。',
-      'How soon への答えであり、選択に対応していない。',
-      '正解。郵送の方がふさわしいと直接選んでいる。',
+      '招待状が用意できているという状態を述べた文。用意できているかどうかは、郵送で出してもメールで送っても同じように言えることで、送り方の二択とは無関係。デザイン承認の話を加えても同じ。',
+      '開催時期を答えているだけで、送り方には触れていない。二か月あるという情報は郵送にもメールにも等しく当てはまり、一方に絞る材料にならない。',
+      '正解。この催しには郵送の方がふさわしい、と一方を名指しして選んでいる。',
     ],
     ja: '設問：招待状は郵送とメールのどちらがよいですか。→ (C) この催しには郵送の方がふさわしいと思います。',
     v: [['invitation', '招待状'], ['appropriate', 'ふさわしい']],
