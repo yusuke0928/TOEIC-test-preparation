@@ -188,23 +188,23 @@ export const L1 = [
 
   p2(8, { t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Au',
     p: 'Should we advertise the position externally?',
-    c: ['The advertisement was well designed.', 'Have we exhausted the internal list?', 'In the trade press.'],
+    c: ['The advertisement was well designed.', 'Have we exhausted the internal list?', 'Our external walls need repainting.'],
     a: 1,
     e: '提案に対して質問で返す応答。判断の前提を確認している。',
-    w: ['advertise の反復。提案への応答になっていない。', '正解。', 'Where への答え。'],
+    w: ['advertise の反復。広告の出来ばえの話で、社外に出すかどうかには触れていない。', '正解。', 'externally と重なる external を、外壁という別の意味で使った引っ掛け。塗り替えが要るかどうかは公募するかどうかと無関係。'],
     ja: 'この職は社外にも公募すべきでしょうか。→ (B) 社内の候補は出尽くしましたか。' }),
 
   p2(9, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'How was the site visit yesterday?',
-    c: ['The site is near Doncaster.', 'By car, about an hour.', 'I wasn\'t able to go in the end.'],
+    c: ['The site is near Doncaster, just off the motorway.', 'By car, about an hour.', 'I wasn\'t able to go in the end.'],
     a: 2,
     e: '感想を求められて「結局行けなかった」と答えられない事情を述べる間接応答。',
-    w: ['site の反復。', 'How を手段と誤解した引っ掛け。', '正解。'],
+    w: ['site の反復。所在地を答えているだけで、視察がどうだったかという感想には触れていない。', 'How を手段と誤解した引っ掛け。', '正解。'],
     ja: '昨日の現地視察はどうでしたか。→ (C) 結局行けなかったんです。' }),
 
   p2(10, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',
     p: 'Where do I return the projector remote?',
-    c: ['To the AV cupboard on level two.', 'It projects quite clearly.', 'About two hours ago.'],
+    c: ['To the AV cupboard on level two.', 'It projects quite clearly onto the far screen.', 'About two hours ago, before the client meeting started downstairs.'],
     a: 0,
     e: 'Where に場所で答えている。',
     w: ['正解。', 'project の反復。', 'When への答え。'],
@@ -212,7 +212,7 @@ export const L1 = [
 
   p2(11, { t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Are these figures final?',
-    c: ['About twelve pages.', 'Yes, we finished at five.', 'The finance team is still reconciling.'],
+    c: ['About twelve pages, including the two appendices.', 'Yes, we finished at five.', 'The finance team is still reconciling.'],
     a: 2,
     e: '「財務チームがまだ照合中」＝まだ確定していない、と間接的に答えている。',
     w: ['How many への答え。', 'final と finish の音の引っ掛け。', '正解。'],
@@ -220,10 +220,10 @@ export const L1 = [
 
   p2(12, { t: ['p2wh'], lv: 4, sa: 'M-Cn', sb: 'W-Br',
     p: 'Weren\'t you going to take the early train?',
-    c: ['I changed it to the eight fifteen.', 'Yes, it\'s quite early.', 'Trains run every twenty minutes.'],
+    c: ['I changed it to the eight fifteen.', 'They arrived early for the briefing.', 'Trains run every twenty minutes on that branch line.'],
     a: 0,
     e: '否定疑問に Yes / No を使わず、変更した事実を述べて答えている。',
-    w: ['正解。', 'early の反復。', 'train の反復。'],
+    w: ['正解。', 'early の反復。早く着いたのは別の人たちで、話し手が早い列車に乗る予定だったかどうかには触れていない。', 'train の反復。運行間隔を答えているだけで、予定を変えたかどうかには触れていない。'],
     ja: '早い列車に乗る予定ではなかったですか。→ (A) 8 時 15 分に変更しました。' }),
 
   p2(13, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
@@ -238,8 +238,8 @@ export const L1 = [
     p: 'Do you want the summary before the meeting or during it?',
     c: ['Yes, the summary was useful.', 'Before, if you can manage it.', 'It summarises the third quarter.'],
     a: 1,
-    e: '選択疑問に一方を選び、条件を添えて答えている。',
-    w: ['選択疑問に Yes は不可。', '正解。', 'summary の反復。'],
+    e: '「会議の前」か「会議の最中」かを問う選択疑問。or が結んでいるのは before the meeting と during it の 2 つの時を表す句で、要約を渡すこと自体は両案に共通している。正解は Before と一方を名指しし、可能ならという条件を添えている。',
+    w: ['要約が役に立ったという過去の感想。役に立ったかどうかは、会議の前に渡しても最中に渡しても同じように言えることで、これから渡す要約をいつ受け取りたいかという二択とは無関係。', '正解。前にしてほしいと一方を名指しし、可能ならという条件を添えている。', 'summary の反復。要約の中身を説明しているだけで、受け取る時点の二択には触れていない。'],
     ja: '要約は会議の前と最中のどちらがよいですか。→ (B) 可能なら前にお願いします。' }),
 
   p2(15, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
@@ -306,20 +306,52 @@ export const L1 = [
     w: ['正解。', '場所を答えており、前提への応答になっていない。', 'fully booked の反復。'],
     ja: 'ワークショップは満席だと思っていました。→ (A) 今朝 2 名がキャンセルしました。' }),
 
-  p2(23, { t: ['p2wh'], lv: 5, sa: 'W-Au', sb: 'M-Am',
-    p: 'Do you want me to reprint the labels, or will you handle it?',
-    c: ['Yes, please do.', 'If you have the template, go ahead.', 'The printer\'s out of ink.'],
-    a: 1,
-    e: '選択疑問に対し、条件を付けて一方を選ぶ応答。',
-    w: ['選択疑問に Yes は不可。', '正解。', '関連はするが選択に答えていない。'],
-    ja: 'ラベルを刷り直しましょうか、それともご自分でされますか。→ (B) テンプレートをお持ちならお願いします。' }),
+  /* id は v3q23r（no は模試の通し番号として 23 を維持するが、誤答 2 つを差し替えたため
+     設問 id は新規採番。旧 id v3q23 を使い回すと SRS の復習履歴が別問題に引き継がれる）。
+     差し替えの理由（2026-08-28）:
+     1) 旧 (A) 'Yes, please do.' は「選択疑問に Yes は構造的に不可」を排除根拠にしていたが、
+        この規則は 2026-08-24 に誤りと確定している（経緯は vol5-l1.js の v5q9r の注釈に記録）。
+        しかもこの prompt は or の後ろ will you handle it? が独立した節なので、Yes は前半の
+        Do you want me to reprint the labels? に掛かり、「はい、刷り直してください」と第一案を
+        明確に選ぶ完全な応答になっていた。正解 (B) と同じ第一案を、条件も付けずに選んでいた。
+     2) 旧 (C) 'The printer is out of ink.' は、どちらが担当しても共通に効く障害を挙げた文で、
+        「今はどちらもできない」と二択の前提ごと退ける応答になる。選択疑問では両案をまとめて
+        退ける応答も成立するので、これも第二の正解にあたる。
+     差し替え後の誤答 2 つは、どちらも prompt の語を別の意味で拾っただけの文で、二択とは
+     論理的に独立している。書式の裏に細字の条項があってもなくても、扉の取っ手が緩んで
+     いてもいなくても、こちらが刷り直す案も相手が対応する案も同じように成り立つ。
+     3 つの選択肢の先頭語（The / If / Someone）を全部変えてあるのは、正解だけが形で
+     浮かないようにするため。prompt と正解 (B) は変えていないので ja もそのまま。
+     p2() ヘルパーは id を no から自動生成し、no を変えずに id だけを変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v3-p2-23r', part: 2, kind: 'p2', topics: ['p2wh'], level: 5,
+    questions: [{
+      id: 'v3q23r', no: 23,
+      prompt: 'Do you want me to reprint the labels, or will you handle it?',
+      speakerA: 'W-Au', speakerB: 'M-Am',
+      choices: [
+        'The fine print is on the back of the form.',
+        'If you have the template, go ahead.',
+        'Someone needs to tighten the door handle.',
+      ],
+      answer: 1,
+      exp: '「こちらが刷り直す」か「そちらで対応する」かを問う選択疑問。応答はどちらかを選ぶか、どちらも選べない事情を述べるかのどちらかになる。正解はテンプレートがあるならという条件を付けたうえで、go ahead と相手に第一案（こちらが刷り直す）を進めさせる形で一方を選んでいる。誤答 2 つは print と handle を prompt とは別の意味で拾っているだけで、述べている内容は担当の二択と論理的に独立している。細字の条項が裏面にあってもなくても、取っ手が緩んでいてもいなくても、どちらの案も同じように成り立つ。',
+      why: [
+        'reprint と重なる print を、fine print（契約書などの細字の条項）という別の意味で使った引っ掛け。書式の裏面に何が刷ってあるかは、こちらが刷り直す案とも相手が対応する案とも独立していて、どちらを採っても同じように成り立つ。二択を分ける材料を何も含んでいない。',
+        '正解。テンプレートがあるならという条件を付けて、こちらが刷り直す側（第一案）を選んでいる。',
+        'handle を動詞ではなく名詞（扉の取っ手）で使った引っ掛け。取っ手を締め直す必要があるという別件の話であって、ラベルを誰が刷り直すかには触れていない。',
+      ],
+      ja: 'ラベルを刷り直しましょうか、それともご自分でされますか。→ (B) テンプレートをお持ちならお願いします。',
+      topics: ['p2wh'],
+    }],
+  },
 
   p2(24, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'When can we expect the revised quotation?',
-    c: ['The quotation was accepted.', 'They\'re waiting on a price from their fabricator.', 'By courier, I think.'],
+    c: ['The original quotation for a smaller order was accepted last week.', 'They\'re waiting on a price from their fabricator.', 'By courier, I think, from the local printing office.'],
     a: 1,
     e: '時期を尋ねられ、「加工業者からの価格待ち」＝まだわからない理由を答える間接応答。',
-    w: ['quotation の反復。時期を答えていない。', '正解。', 'How への答え。'],
+    w: ['quotation の反復。先週受理されたのは小口注文向けの元の見積もりで、これから届く修正版がいつになるかには触れていない。', '正解。', 'How への答え。届け方を述べているだけで、時期には触れていない。'],
     ja: '修正した見積もりはいつごろいただけますか。→ (B) 加工業者からの価格待ちだそうです。' }),
 
   p2(25, { t: ['p2wh'], lv: 4, sa: 'W-Am', sb: 'M-Au',
@@ -348,23 +380,23 @@ export const L1 = [
 
   p2(28, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'Did the new packaging test well with customers?',
-    c: ['Yes, they were tested.', 'It packs more efficiently.', 'We only have twelve responses so far.'],
+    c: ['Yes, they were tested.', 'I packed the samples for the trade fair myself.', 'We only have twelve responses so far.'],
     a: 2,
     e: '「まだ 12 件しか回答がない」＝判断できる段階ではない、という間接応答。',
-    w: ['test の反復。', 'pack の反復。', '正解。'],
+    w: ['test の反復。設問の test well with customers は「顧客の受けがよい」という自動詞の用法で、この応答の be tested は「試験にかけられる」という受動態。試験にかけたとだけ述べており、受けがよかったかどうかは何も言っていない。単数の the new packaging を they で受けている点も噛み合わない。', 'pack の反復。誰が見本を詰めたかという話で、顧客の評価がどうだったかには触れていない。', '正解。'],
     ja: '新しいパッケージは顧客の評価が良かったですか。→ (C) まだ 12 件しか回答がありません。' }),
 
   p2(29, { t: ['p2wh'], lv: 4, sa: 'W-Au', sb: 'M-Br',
     p: 'Why don\'t we run the induction online this year?',
-    c: ['Because it induces confusion.', 'Half the intake has no reliable connection.', 'It ran for two days.'],
+    c: ['The induction starts on the fourth of September.', 'Half the intake has no reliable connection.', 'It ran for two days at the old regional training venue.'],
     a: 1,
     e: 'Why don\'t we ...? は提案。それに対する障害を挙げる応答が正解。',
-    w: ['induce の音の引っ掛け。', '正解。', 'run の反復。'],
+    w: ['When への答え。開始日を述べているだけで、オンラインで実施するという提案の可否には触れていない。', '正解。', 'run の反復。昨年の会場と日数を述べているだけで、今年オンラインにするかどうかには触れていない。'],
     ja: '今年は新人研修をオンラインでやりませんか。→ (B) 新入社員の半数は通信環境が安定していません。' }),
 
   p2(30, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'Where did you find the missing inventory sheet?',
-    c: ['Yes, it was missing.', 'About forty items.', 'Someone had filed it under the wrong month.'],
+    c: ['Yes, it was missing.', 'About forty items were listed on the missing sheet.', 'Someone had filed it under the wrong month.'],
     a: 2,
     e: '場所を尋ねられ、経緯を含めて答えている。',
     w: ['Where に Yes は不可。', 'How many への答え。', '正解。'],

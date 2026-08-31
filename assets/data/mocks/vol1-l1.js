@@ -158,10 +158,10 @@ export const L1 = [
   p2(7, {
     p: 'Where should I leave the visitor badges?',
     sa: 'W-Am', sb: 'M-Br', lv: 3,
-    c: ['Yes, they visited yesterday.', 'About twenty of them.', 'In the tray by the entrance.'],
+    c: ['Yes, they visited yesterday.', 'About twenty of them arrived this morning.', 'In the tray by the entrance.'],
     a: 2,
     e: 'Where に場所で答える直接的な応答。',
-    w: ['Where 疑問文に Yes は不可。', 'How many への答え。', '正解。'],
+    w: ['Where 疑問文に Yes は不可。', 'How many への答え。数と到着時刻を述べているだけで、置き場所には触れていない。', '正解。'],
     ja: '来客用バッジはどこに置けばよいですか。→ (C) 入口のそばのトレーに。',
   }),
 
@@ -188,7 +188,7 @@ export const L1 = [
   p2(10, {
     p: 'Why has the shuttle service been reduced?',
     sa: 'M-Br', sb: 'W-Am', lv: 4,
-    c: ['It runs every twenty minutes.', 'Near the north gate.', 'Fewer people are commuting on Fridays.'],
+    c: ['It runs every twenty minutes during peak hours.', 'Near the north gate by the loading area.', 'Fewer people are commuting on Fridays.'],
     a: 2,
     e: 'Why に理由で答えている。',
     w: ['How often への答え。', 'Where への答え。', '正解。'],
@@ -208,30 +208,30 @@ export const L1 = [
   p2(12, {
     p: 'Have the new security cameras been installed yet?',
     sa: 'M-Cn', sb: 'W-Br', lv: 3,
-    c: ['She installed it herself.', 'It\'s a secure connection.', 'Only in the lobby so far.'],
+    c: ['She installed it herself over the weekend.', 'It\'s a secure connection through the main router.', 'Only in the lobby so far.'],
     a: 2,
     e: 'Yes / No を使わず「今のところロビーだけ」と部分的な進捗を答える応答。',
-    w: ['install の反復。主語がかみ合わない。', 'secure の音の反復。', '正解。'],
+    w: ['install の反復。設問に女性は出てこないので She の指すものがなく、単数の it も複数の the new security cameras を受けられない。', 'secure の音の反復。回線の話で、設置の進み具合には触れていない。', '正解。'],
     ja: '新しい防犯カメラはもう設置されましたか。→ (C) 今のところロビーだけです。',
   }),
 
   p2(13, {
     p: 'Would you like me to book a car for the site visit?',
     sa: 'W-Am', sb: 'M-Br', lv: 4,
-    c: ['That would be a big help.', 'The site\'s quite large.', 'I booked it last spring.'],
+    c: ['That would be a big help.', 'The site plans arrived on Tuesday morning.', 'I booked it last spring for a different trip.'],
     a: 0,
     e: '申し出に対する受諾。That would be a big help. は Part 2 頻出の受諾表現。',
-    w: ['正解。', 'site の反復。申し出への応答になっていない。', 'book の反復。時制が噛み合わない。'],
+    w: ['正解。', 'site の反復。図面がいつ届いたかを述べているだけで、車を手配するかどうかには触れていない。', 'book の反復。手配したのは前の春の別の出張の車で、今回の現地視察の申し出には答えていない。'],
     ja: '現地視察の車を手配しましょうか。→ (A) そうしていただけると大変助かります。',
   }),
 
   p2(14, {
     p: 'Isn\'t the cafeteria closed for renovation this week?',
     sa: 'M-Am', sb: 'W-Au', lv: 4,
-    c: ['Yes, the food is excellent.', 'No, they pushed it back to April.', 'It closes at three.'],
+    c: ['Yes, they\'re serving lunch as usual.', 'No, they pushed it back to April.', 'It closes at three.'],
     a: 1,
     e: '否定疑問への応答。閉まっていないので No、その理由として「4 月に延期された」と続く。',
-    w: ['Yes と答えるなら閉鎖の内容が続くはず。', '正解。', 'close の反復。質問に答えていない。'],
+    w: ['Yes は「今週は改装で閉まっている」を肯定することになるが、続く they\'re serving lunch as usual は通常どおり営業していると述べており、同じ発話の前半と後半が食い違っている。', '正解。', 'close の反復。閉店時刻を答えており、今週閉まっているかどうかには触れていない。'],
     ja: '今週、社員食堂は改装で閉まっているのではないですか。→ (B) いいえ、4 月に延期されました。',
   }),
 
@@ -240,15 +240,15 @@ export const L1 = [
     sa: 'W-Br', sb: 'M-Cn', lv: 4,
     c: ['About sixty copies.', 'Yes, please print them.', 'Whichever is cheaper.'],
     a: 2,
-    e: '選択疑問に「安い方で」と基準を示して答える応答。選択疑問に Yes / No は原則不可。',
-    w: ['How many への答え。', '選択疑問に Yes は使えない。', '正解。'],
+    e: '「カラーで刷る」か「白黒で刷る」かを問う選択疑問。or が結んでいるのは in color と in black and white の 2 つの副詞句だけで、print the handouts は両案に共通している。応答はどちらの刷り方を採るかを示すか、選べない事情を述べるかになる。正解は「安い方で」と判断の基準を挙げて一方を選ばせている。',
+    w: ['部数を答えており、カラーか白黒かという刷り方の二択には触れていない。', '「刷ってください」と、両案に共通する print the handouts の部分を繰り返しているだけで、in color と in black and white のどちらを採るかを示す語が一つも無い。', '正解。安いほうで、と判断の基準を挙げて一方を選ばせている。'],
     ja: '配布資料はカラーと白黒のどちらで印刷しますか。→ (C) 安い方でお願いします。',
   }),
 
   p2(16, {
     p: 'The keynote speaker\'s flight was delayed.',
     sa: 'M-Br', sb: 'W-Am', lv: 5,
-    c: ['He spoke for about an hour.', 'Then we should swap the afternoon sessions.', 'At gate twelve.'],
+    c: ['He spoke for about an hour and took questions afterward.', 'Then we should swap the afternoon sessions.', 'At gate twelve.'],
     a: 1,
     e: '平叙文による情報提供に対し、それを受けた対応策を提案する応答。平叙文の投げかけは 900 帯で最も落としやすい型。',
     w: ['speak の反復。過去の話にすり替わっている。', '正解。', '搭乗口の話は無関係。'],
@@ -278,7 +278,7 @@ export const L1 = [
   p2(19, {
     p: 'Could you take a look at these figures before I send them out?',
     sa: 'W-Am', sb: 'M-Br', lv: 4,
-    c: ['They were sent this morning.', 'I have a meeting until four.', 'On the second page.'],
+    c: ['They were sent this morning.', 'I have a meeting until four.', 'On the second page of the client\'s file.'],
     a: 1,
     e: '依頼に対し、すぐには対応できない事情を述べる間接応答。断りとも承諾ともつかない返しが正解になる典型。',
     w: ['send の反復。依頼と時制が合わない。', '正解。', '場所を答えており、依頼への応答になっていない。'],
@@ -298,7 +298,7 @@ export const L1 = [
   p2(21, {
     p: 'What did you think of the candidate we interviewed this morning?',
     sa: 'W-Br', sb: 'M-Cn', lv: 5,
-    c: ['Three candidates in total.', 'At half past nine.', 'I only saw the last ten minutes.'],
+    c: ['Three candidates in total applied for the role.', 'At half past nine in the main boardroom.', 'I only saw the last ten minutes.'],
     a: 2,
     e: '感想を求められて「最後の 10 分しか見ていない」と判断できない事情を述べる間接応答。',
     w: ['How many への答え。', 'When への答え。', '正解。'],
@@ -308,7 +308,7 @@ export const L1 = [
   p2(22, {
     p: 'This printer keeps jamming.',
     sa: 'M-Br', sb: 'W-Am', lv: 5,
-    c: ['I printed it in duplicate.', 'There\'s another one on the fourth floor.', 'The jam is homemade.'],
+    c: ['I printed it in duplicate for the client meeting.', 'There\'s another one on the fourth floor.', 'The jam is homemade.'],
     a: 1,
     e: '不具合の報告に対し、代替手段を提示する応答。問題提起 → 解決案の提示は Part 2 の頻出パターン。',
     w: ['print の反復。', '正解。', 'jam の別の意味を使った音の引っ掛け。'],
@@ -318,10 +318,10 @@ export const L1 = [
   p2(23, {
     p: 'Have you decided which venue to use for the awards dinner?',
     sa: 'W-Au', sb: 'M-Am', lv: 4,
-    c: ['The awards were presented last night.', 'It\'s between the Rowan and the Kestrel.', 'Dinner is at seven.'],
+    c: ['The awards were presented last night and broadcast live.', 'It\'s between the Rowan and the Kestrel.', 'Dinner is at seven, right after the ceremony.'],
     a: 1,
     e: '「まだ 2 択で迷っている」と決定途中であることを伝える応答。Yes / No を使わない。',
-    w: ['award の反復。時制が合わない。', '正解。', 'dinner の反復。'],
+    w: ['award の反復。授賞は昨夜すでに済んだことになり、これから会場を決める話と時制が合わない。', '正解。', 'dinner の反復。開始時刻を答えているだけで、会場が決まったかどうかには触れていない。'],
     ja: '授賞式の夕食会の会場は決まりましたか。→ (B) ローワンとケストレルの二択です。',
   }),
 
@@ -330,15 +330,15 @@ export const L1 = [
     sa: 'M-Cn', sb: 'W-Br', lv: 4,
     c: ['Some of the team works remotely on Wednesdays.', 'Because I checked it twice.', 'It moved to the third floor.'],
     a: 0,
-    e: 'Why don\'t we ...? は提案。提案に対する懸念を述べる応答が正解。理由を答える Because は誤り。',
-    w: ['正解。', 'check の反復。Why を理由の問いと誤解した引っ掛け。', 'move の反復。'],
+    e: 'Why don\'t we ...? は提案。提案に対する懸念を述べる応答が正解。',
+    w: ['正解。', 'check-in と重なる check を別の意味で使った引っ掛け。何を 2 度確かめたのかも示されておらず、水曜の朝に移すという提案には触れていない。', 'move の反復。移ったのは階であって、打ち合わせの曜日には触れていない。'],
     ja: '週次の打ち合わせを水曜の朝に移しませんか。→ (A) 水曜は在宅勤務の人がいます。',
   }),
 
   p2(25, {
     p: 'How often is the equipment recalibrated?',
     sa: 'W-Am', sb: 'M-Br', lv: 4,
-    c: ['By an external technician.', 'Every six months, or after a repair.', 'It costs about four hundred.'],
+    c: ['By an external technician or the site engineer.', 'Every six months, or after a repair.', 'It costs about four hundred pounds per visit.'],
     a: 1,
     e: 'How often に頻度で答えている。',
     w: ['By whom への答え。', '正解。', 'How much への答え。'],
@@ -358,7 +358,7 @@ export const L1 = [
   p2(27, {
     p: 'Who approved the additional overtime last month?',
     sa: 'W-Br', sb: 'M-Cn', lv: 5,
-    c: ['About thirty extra hours.', 'That would have been Mr. Farrow.', 'It was approved in writing.'],
+    c: ['About thirty extra hours.', 'That would have been Mr. Farrow.', 'It was approved in writing before the deadline.'],
     a: 1,
     e: '「たぶんファロー氏でしょう」と推量で人物を答える応答。That would have been ... は控えめな断定の定型。',
     w: ['How many への答え。', '正解。', 'approve の反復。人を答えていない。'],

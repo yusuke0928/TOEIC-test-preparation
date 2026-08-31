@@ -357,7 +357,7 @@ export const R1 = [
         c: [
           'Tickets for all performances are now printed at home.',
           'The renovation of the foyer will begin in October.',
-          'Group discounts are available for parties of ten or more.',
+          'Group discounts are offered to parties of ten or more.',
           'Returning patrons are handled separately from new bookings.',
         ],
         a: 3,
@@ -385,10 +385,12 @@ export const R1 = [
     },
     q: [
       { tag: '態・時制', t: ['voice', 'ctense'],
-        c: ['will move', 'will be moved', 'have moved', 'are moving'],
+        c: ['will move', 'will be moved', 'have been moving', 'have been moved'],
         a: 1,
         e: 'ラックは「移設される」側なので受動態。10 月 6 日からという未来の予定なので未来形。',
-        w: ['能動態。ラックが自ら移動することになる。', '正解。', '能動の現在完了。', '能動の進行形。'] },
+        w: ['能動態。ラックが自ら移動することになる。', '正解。',
+            '能動の現在完了進行形。ラックには行為主体がなく、currently outside the main entrance という記述からまだ移動が始まっていないと分かるため、既に始まっている継続的動作を表すこの形とは矛盾する。受動態の未来形が必要。',
+            '現在完了・受動態。currently outside the main entrance が示す「今もまだ元の位置にある」という状態と、既に移動を終えたことを表すこの形は矛盾する。10 月 6 日から始まる今後の移設には未来形が必要。'] },
       { tag: '接続語', t: ['connect'],
         c: ['because', 'whereas', 'provided that', 'as soon as'],
         a: 1,

@@ -180,7 +180,7 @@ export const TOPICS = [
 
   { id: 'p2wh', group: 'g-listening', part: 2, name: 'Part 2 疑問文の型',
     sub: '否定疑問・付加疑問・選択疑問',
-    pitfall: '否定疑問への Yes/No は日本語と逆。選択疑問に Yes/No は原則不可。',
+    pitfall: '否定疑問への Yes/No は日本語と逆。選択疑問は Yes / No で始まっても誤りとは限らない。二択のどちらを採ったかが言えているかで切る。',
     key: '文頭 3 語で疑問文の型を確定させ、その型に合わない応答を切る。' },
 
   { id: 'p3int', group: 'g-listening', part: 3, name: 'Part 3 意図問題',

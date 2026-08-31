@@ -26,6 +26,17 @@
      ・kind 別の構造（p1 の scene/desc 排他、set の script、doc の Part6 空所・Part7 挿入位置 等）
      ・選択肢数・answer 範囲・選択肢の重複、why の数と「正解」始まり位置
      ・意図問題の逐語引用が script に存在するか
+     ・正解位置の規則性 A〜F（循環・連続・使い切り・前後半ドリフト）と、
+       選択肢の語数から正解が漏れていないか（検査G。最長/最短の選択肢を
+       選ぶだけの的中率が偶然から統計的に外れていないかを見る）、
+       選択肢の『形』から正解が浮いていないか（検査H。4本のうちちょうど1本だけ
+       複合(and/or)や先頭語が他と違う形をしている設問で、その1本が正解になる
+       率が偶然から統計的に外れていないかを見る）。
+       G・H は「1巻×1パート」「1ファイル×1パート」単位の判定に加え、
+       「模試6巻を合算したパート別」「ドリル全ファイルを合算したパート別」の
+       判定も行う（メッセージ先頭に `[合算]`。1巻・1ファイルあたりの該当数が
+       少なすぎて個別には有意にならない漏れを、合算して初めて捕まえるため。
+       --extra のファイルはこの合算には混ぜない）
      ・図表（graphic）— topics（ユニット・設問）に "graphic" 論点があるか、
        設問 tag に「図表」を含むのに、そのユニットが graphic オブジェクトを
        持っていなければエラー（Vol.1〜3 のヘルパーが `graphic: o.g` と誤記していて
@@ -208,6 +219,12 @@ const extraSeq = new Map();               // --extra の key -> { part -> [{ no,
 const mockGroups = new Map();             // mockId -> { part -> [bool, ...] } — Part6の1文書(4問)・Part3/4の1セット(3問)ごとに
                                            // 「正解記号が全部異なるか」を集める（検査E用）
 const extraGroups = new Map();            // --extra の key -> { part -> [bool, ...] } — 上と同じ、registry.js 未登録ファイル用
+const wordLenDist = new Map();            // t.key -> { part -> [{ wc:[...], answer, n }] } — 選択肢の語数と正解位置（検査G用）。
+                                           // key は「模試なら1巻分（targets.push 時点で mocks/${id}.js に集約済み）、
+                                           // ドリル・--extra なら1ファイル」に自然に一致するため、A〜Fのように
+                                           // mock/extra を別マップに分ける必要がない（no による並び順にも依存しないため）。
+const shapeDist = new Map();              // t.key -> { part -> [{ choices:[...], answer, n, label }] } — 選択肢の『形』
+                                           // （複合 and/or・先頭語）と正解位置（検査H用）。粒度・理由は wordLenDist と同じ。
 
 /* ── 対象ファイルの読み込み ─────────────────────────────
    registry.js の MOCK_META / DRILL_FILES をそのまま使う
@@ -441,6 +458,36 @@ for (const t of targets) {
       const effectiveN = nActual ?? nWant;
       if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer >= effectiveN)
         err(qat, `answer が範囲外 (${q.answer})。0 始まりで 0–${effectiveN - 1} のはず`);
+
+      /* ── 検査G用の収集：選択肢の語数（空白区切り） ──
+         文挿入問題（insertAt を持つ）は選択肢が "[1]"〜"[4]" で語数に意味が
+         無いため対象外にする（既存の insertQs 判定 q.insertAt != null を再利用）。
+         choices・answer の形が壊れている設問（上のエラーで既に報告済み）は
+         集計に混ぜても意味がないので、ここでも自前で有効性を確認してから集める。 */
+      if (q.insertAt == null && Array.isArray(q.choices) && q.choices.length >= 2 &&
+          Number.isInteger(q.answer) && q.answer >= 0 && q.answer < q.choices.length) {
+        const wc = q.choices.map(c =>
+          typeof c === 'string' ? c.trim().split(/\s+/).filter(Boolean).length : 0);
+        if (!wordLenDist.has(key)) wordLenDist.set(key, {});
+        const byPartWc = wordLenDist.get(key);
+        byPartWc[u.part] = byPartWc[u.part] || [];
+        byPartWc[u.part].push({ wc, answer: q.answer, n: q.choices.length });
+
+        /* ── 検査H用の収集：選択肢の『形』（複合 and/or・先頭語）と正解位置 ──
+           検査Gと同じ絞り込みに加えて「全選択肢が2語以下」（金額・日付・ラベルの
+           4択など、構造上いじれない選択肢）を除外する。CLAUDE.md の実測で
+           終止符・読点・語数の3軸は偶然の範囲だったため、この2軸だけを集める。
+           choices が全部文字列でない設問（他のエラーで既に報告済み）も除外する。 */
+        if (q.choices.every(c => typeof c === 'string') && wc.some(w => w > 2)) {
+          if (!shapeDist.has(key)) shapeDist.set(key, {});
+          const byPartShape = shapeDist.get(key);
+          byPartShape[u.part] = byPartShape[u.part] || [];
+          byPartShape[u.part].push({
+            choices: q.choices, answer: q.answer, n: q.choices.length,
+            label: Number.isInteger(q.no) ? `no=${q.no}` : (q.id ?? '(id なし)'),
+          });
+        }
+      }
 
       if (q.why == null) warn(qat, 'why がない');
       else if (q.why.length !== effectiveN) err(qat, `why が ${q.why.length} 個（選択肢 ${effectiveN} 個と不一致）`);
@@ -882,6 +929,305 @@ for (const meta of MOCK_META) {
 }
 for (const [key, byPart] of extraGroups) checkGroupUniformity(key, byPart);
 
+/* ── 検査G：選択肢の語数から正解が漏れていないか（模試・ドリル・--extra・WARN） ──
+   CLAUDE.md「選択肢の『形』が正解を教えてしまう」節の実測（全1,200問で「一番長い
+   選択肢を選ぶ」だけで35〜76%的中。偶然は4択25%・Part2の3択33%）を機械的に
+   捕まえる検査。正解は根拠に忠実に丁寧に書き、誤答は短く済ませる書き癖が原因。
+
+   単位は検査A〜Fと同じ「1つの巻×1つのパート」（模試）／「1ファイル×1つのパート」
+   （ドリル・--extra）。wordLenDist は targets ループ中に t.key（模試は
+   mocks/${id}.js に集約済み、ドリル・--extra はファイル単位）× u.part で
+   自然にこの粒度になっている（A〜Fのように no の並び順に依存しないため、
+   mock 用・extra 用にマップを分ける必要がない＝そのまま --extra にも効く）。
+
+   各設問について、選択肢のうち語数が「最長」（複数選択肢が同語数で並んだら
+   1/tie で按分）である選択肢を選んだときの的中率、「最短」についても同様に
+   計算し、それぞれ偶然の値 p（4択0.25／Part2の3択1/3）からの乖離を
+   z = (実測 - p) / sqrt(p*(1-p)/n) で正規化する（検査Fと同じ考え方。
+   3択と4択を同じ閾値で扱うため）。|z| >= 2.0 で WARN、最長側・最短側の
+   両方を独立に見る（最短側は、是正が行き過ぎて「正解だけ短い」という
+   逆向きの指紋になっていないかを捕まえるため）。
+
+   文挿入問題（insertAt）は収集時点で除外済み（選択肢が "[1]"〜"[4]" で
+   語数に意味が無いため）。選択肢数がそのパートの想定数（Part2=3・他=4）と
+   一致する設問だけを対象にする（形が壊れている設問は上で既にエラー報告済み）。
+   設問数10問未満のまとまりは判定しない（検査A・Cと同じ扱い。Part1は
+   模試1巻あたり6問しかなく母数不足で誤検知するため）。
+   選択肢が全問同語数（＝最長も最短も毎回全選択肢に按分）のまとまりでは
+   実測値がちょうど p に一致し z=0 になるので、分母（sqrt）が 0 になって
+   落ちることはない（p は 0.25 か 1/3 で固定、0 や 1 にはならない）。 */
+function checkWordLenG(key, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k);
+    const n = filtered.length;
+    if (n < 10) continue;
+    const pChance = 1 / k;
+
+    let longestSum = 0, shortestSum = 0;
+    for (const e of filtered) {
+      const maxWc = Math.max(...e.wc);
+      const minWc = Math.min(...e.wc);
+      const maxTies = e.wc.filter(x => x === maxWc).length;
+      const minTies = e.wc.filter(x => x === minWc).length;
+      if (e.wc[e.answer] === maxWc) longestSum += 1 / maxTies;
+      if (e.wc[e.answer] === minWc) shortestSum += 1 / minTies;
+    }
+    const longestRate = longestSum / n;
+    const shortestRate = shortestSum / n;
+    const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+    const zLongest = stdNull > 0 ? (longestRate - pChance) / stdNull : 0;
+    const zShortest = stdNull > 0 ? (shortestRate - pChance) / stdNull : 0;
+
+    if (Math.abs(zLongest) >= 2.0) {
+      warn(key,
+        `Part${p} は選択肢の語数が最長のものを選ぶだけで正解が ${(longestRate * 100).toFixed(0)}% 当たる` +
+        `（偶然は${(pChance * 100).toFixed(0)}%、${n}問中期待的中${longestSum.toFixed(1)}問相当、z=${zLongest.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。最長側。正解を根拠に忠実に丁寧に書き、誤答を短く済ませる書き癖の疑い）`);
+    }
+    if (Math.abs(zShortest) >= 2.0) {
+      warn(key,
+        `Part${p} は選択肢の語数が最短のものを選ぶだけで正解が ${(shortestRate * 100).toFixed(0)}% 当たる` +
+        `（偶然は${(pChance * 100).toFixed(0)}%、${n}問中期待的中${shortestSum.toFixed(1)}問相当、z=${zShortest.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。最短側。長い選択肢を避ける是正が行き過ぎて、` +
+        `正解だけ短くなる逆向きの指紋になっている疑い）`);
+    }
+  }
+}
+for (const [key, byPart] of wordLenDist) checkWordLenG(key, byPart);
+
+/* ── 検査H：選択肢の『形』から正解が浮いていないか（模試・ドリル・--extra・WARN） ──
+   CLAUDE.md「選択肢の『形』が正解を教えてしまう」節の実測（全1,200問で
+   「4本のうちちょうど1本だけが他と違う形をしている」とき、その1本が正解だった
+   割合）を機械的に捕まえる検査。実測で偶然の範囲を外れて漏れが確認できたのは
+   複合(and/or)軸と先頭語軸の2つだけ（終止符・読点・語数は偶然の範囲。
+   語数は検査Gが最長/最短という別方式で既に見ている）なので、この2軸だけを見る。
+
+   単位・母数の考え方は検査Gと同じ「1つの巻×1つのパート」（模試）／
+   「1ファイル×1つのパート」（ドリル・--extra）。shapeDist は targets ループ中に
+   t.key × u.part で自然にこの粒度に溜まる（no の並び順に依存しないため
+   mock 用・extra 用にマップを分ける必要がなく、そのまま --extra にも効く）。
+   収集時点で検査Gと同じ絞り込み（insertAt 除外・choices/answer の形が正常）に
+   加えて「全選択肢が2語以下」（金額・日付・ラベルの4択のような、構造上いじれない
+   選択肢）を除外してある。
+
+   各設問について、選択肢を軸ごとに値化する：
+     複合軸   … 選択肢が /\s(and|or)\s/i にマッチするか（真偽値）
+     先頭語軸 … 選択肢の先頭語を小文字化し、英字とアポストロフィ以外を除いたもの
+   「値の種類がちょうど2つで、片方の出現回数が1」＝ちょうど1本だけ他と違う形を
+   している設問だけを集め（loneOutlierIndex）、その1本が正解だった率を、
+   偶然の値 p（4択0.25／Part2の3択1/3）と比べ
+   z = (実測 - p) / sqrt(p*(1-p)/n) で正規化する（検査F・Gと同じ考え方）。
+
+   |z| >= 2.0 で WARN（2026-08-28 に片側から両側に変更）。当初は「浮いた1本が
+   正解に**なりにくい**方向は漏れではない」として z >= 2.0 の片側検定にしていたが、
+   同日の作業でそれが誤りだと実証された。「浮いた1本がほぼ正解にならない」状態は、
+   その1本を消すだけで4択が実質3択になる（的中率が25%→33%に上がる）ため、
+   これも同じ「選択肢の形だけで正解が漏れる」欠陥であり、実際 z=-2.14
+   （先頭語 Part4、1/21=5%）という行き過ぎた是正の指紋が片側検定では
+   検出できていなかった。z の符号でメッセージを書き分ける
+   （z>0＝浮いた1本が正解になりやすい＝書き癖の疑い、
+   z<0＝浮いた1本が正解になりにくい＝是正が行き過ぎて選択肢が実質1つ減っている疑い）。
+
+   該当設問（＝ちょうど1本だけ他と違う形を持つ設問）が8件未満のまとまりは
+   判定しない（指示どおりの閾値。母数が小さいと1件の差でzが跳ねるため。
+   「値の種類が2つで片方が1」まで絞り込んだ後の母数は1パート分の設問数より
+   さらに小さくなるので、検査Gの10問未満スキップより低い8を使う）。 */
+function hasAndOr(choice) {
+  return /\s(and|or)\s/i.test(choice);
+}
+function leadWord(choice) {
+  const first = choice.trim().split(/\s+/)[0] || '';
+  return first.toLowerCase().replace(/[^a-z']/g, '');
+}
+/* 値の種類がちょうど2つで、片方の出現回数が1のとき、その1本の index を返す
+   （＝残り n-1 本は同じ値で揃っている＝ちょうど1本だけ他と違う形）。
+   全部同じ／3種類以上に割れている／2種類だが1対1（4択で2:2等）のときは -1。 */
+function loneOutlierIndex(values) {
+  const counts = new Map();
+  values.forEach(v => counts.set(v, (counts.get(v) || 0) + 1));
+  if (counts.size !== 2) return -1;
+  for (const [v, c] of counts) {
+    if (c === 1) return values.indexOf(v);
+  }
+  return -1;
+}
+function formatLabels(labels, capN = 25) {
+  if (labels.length <= capN) return labels.join(', ');
+  return labels.slice(0, capN).join(', ') + ` …ほか${labels.length - capN}件`;
+}
+function checkShapeH(key, byPart) {
+  const axes = [
+    { name: '複合(and/or)', value: hasAndOr },
+    { name: '先頭語', value: leadWord },
+  ];
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k);
+    const pChance = 1 / k;
+
+    for (const axis of axes) {
+      let n = 0, hits = 0;
+      const hitLabels = [];
+      for (const e of filtered) {
+        const outlier = loneOutlierIndex(e.choices.map(axis.value));
+        if (outlier === -1) continue;
+        n++;
+        if (outlier === e.answer) { hits++; hitLabels.push(`${e.label}(${KEYS[outlier]})`); }
+      }
+      if (n < 8) continue;
+      const rate = hits / n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は選択肢のうち${axis.name}だけが他と違う1本を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${n}問中${hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。浮いた1本が正解になりやすい側。該当設問: ${formatLabels(hitLabels)}）`
+          : `Part${p} は選択肢のうち${axis.name}だけが他と違う1本が正解になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${n}問中${hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。浮いた1本を消すだけで選択肢が1つ減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(hitLabels)}）`;
+        warn(key, msg);
+      }
+    }
+  }
+}
+for (const [key, byPart] of shapeDist) checkShapeH(key, byPart);
+
+/* ── 検査G・H の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
+   上の checkWordLenG / checkShapeH は「1巻×1パート」「1ファイル×1パート」単位
+   で見ている。この単位だと、1巻・1ファイルあたりの該当数が少ない漏れは
+   有意にならず永久に検出できない。実測（メインが確認済み）:
+     複合(and/or)：Part3 で全6巻合算 9/10 = 90%、z=+4.75
+                    （1巻あたり2〜3件しかなく検査Hの8件未満で毎回スキップ）
+     先頭語　　　：Part3 で全6巻合算 17/31 = 55%、z=+3.84（同上）
+                    Part4 で全6巻合算  1/21 =  5%、z=-2.14（逆向きに行き過ぎ）
+   ドリルの語数（検査G）でも同型の事故が起きている（1ファイル8〜20問では
+   個別に有意にならないのに、Part6 を合算すると z=+3.4 だった実例）。
+
+   単位別の判定はそのまま残し、これは追加の判定として行う
+   （＝重複して報告されることがあるが、key に [合算] を付けて区別できるようにする）。
+
+   母数の下限は合算後 8 件未満なら判定しない（2026-08-28 に 12 から引き下げ。
+   当初は「合算は複数ファイルを束ねるので、単位別〈検査Hは8件〉より厚い母数を
+   要求すべき」として 12 を指定していたが、これは逆だった。合算は単位別より
+   情報が少ないのではなく多いのだから、単位別より厳しい下限を課す理由がない。
+   実際、この引き下げ前は当の動機になった実測〈複合(and/or) Part3 9/10=90%、
+   z=+4.75〉が n=10<12 のため検出されなかった。単位別の下限〈検査Hが8、
+   検査Gが10〉のうちより小さいほうに合わせ、合算にも 8 を採る。 */
+const AGG_MIN = 8;
+const mockKeySet = new Set(targets.filter(t => t.mock).map(t => t.key));
+const drillKeySet = new Set(targets.filter(t => !t.mock && !t.extra).map(t => t.key));
+
+/** dist（wordLenDist / shapeDist と同じ形: key -> {part -> entries[]}）から、
+   keySet に含まれる key の分だけをパート別に束ねて1つの byPart にする。 */
+function aggregateByGroup(dist, keySet) {
+  const byPart = {};
+  for (const [key, kp] of dist) {
+    if (!keySet.has(key)) continue;
+    for (const p of PART_LIST) {
+      const entries = kp[p];
+      if (!entries) continue;
+      (byPart[p] = byPart[p] || []).push(...entries);
+    }
+  }
+  return byPart;
+}
+
+/* checkWordLenG と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。
+   ロジックを分岐で共用すると条件分岐が増えて可読性が落ちるため、小さい関数として複製する。 */
+function checkWordLenGAggregate(label, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k);
+    const n = filtered.length;
+    if (n < AGG_MIN) continue;
+    const pChance = 1 / k;
+
+    let longestSum = 0, shortestSum = 0;
+    for (const e of filtered) {
+      const maxWc = Math.max(...e.wc);
+      const minWc = Math.min(...e.wc);
+      const maxTies = e.wc.filter(x => x === maxWc).length;
+      const minTies = e.wc.filter(x => x === minWc).length;
+      if (e.wc[e.answer] === maxWc) longestSum += 1 / maxTies;
+      if (e.wc[e.answer] === minWc) shortestSum += 1 / minTies;
+    }
+    const longestRate = longestSum / n;
+    const shortestRate = shortestSum / n;
+    const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+    const zLongest = stdNull > 0 ? (longestRate - pChance) / stdNull : 0;
+    const zShortest = stdNull > 0 ? (shortestRate - pChance) / stdNull : 0;
+
+    if (Math.abs(zLongest) >= 2.0) {
+      warn(`[合算] ${label}`,
+        `Part${p} は選択肢の語数が最長のものを選ぶだけで正解が ${(longestRate * 100).toFixed(0)}% 当たる` +
+        `（偶然は${(pChance * 100).toFixed(0)}%、${n}問中期待的中${longestSum.toFixed(1)}問相当、z=${zLongest.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。最長側。正解を根拠に忠実に丁寧に書き、誤答を短く済ませる書き癖の疑い）`);
+    }
+    if (Math.abs(zShortest) >= 2.0) {
+      warn(`[合算] ${label}`,
+        `Part${p} は選択肢の語数が最短のものを選ぶだけで正解が ${(shortestRate * 100).toFixed(0)}% 当たる` +
+        `（偶然は${(pChance * 100).toFixed(0)}%、${n}問中期待的中${shortestSum.toFixed(1)}問相当、z=${zShortest.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。最短側。長い選択肢を避ける是正が行き過ぎて、` +
+        `正解だけ短くなる逆向きの指紋になっている疑い）`);
+    }
+  }
+}
+
+/* checkShapeH と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。 */
+function checkShapeHAggregate(label, byPart) {
+  const axes = [
+    { name: '複合(and/or)', value: hasAndOr },
+    { name: '先頭語', value: leadWord },
+  ];
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k);
+    const pChance = 1 / k;
+
+    for (const axis of axes) {
+      let n = 0, hits = 0;
+      const hitLabels = [];
+      for (const e of filtered) {
+        const outlier = loneOutlierIndex(e.choices.map(axis.value));
+        if (outlier === -1) continue;
+        n++;
+        if (outlier === e.answer) { hits++; hitLabels.push(`${e.label}(${KEYS[outlier]})`); }
+      }
+      if (n < AGG_MIN) continue;
+      const rate = hits / n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は選択肢のうち${axis.name}だけが他と違う1本を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${n}問中${hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。浮いた1本が正解になりやすい側。該当設問: ${formatLabels(hitLabels)}）`
+          : `Part${p} は選択肢のうち${axis.name}だけが他と違う1本が正解になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${n}問中${hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。浮いた1本を消すだけで選択肢が1つ減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(hitLabels)}）`;
+        warn(`[合算] ${label}`, msg);
+      }
+    }
+  }
+}
+
+checkWordLenGAggregate('模試6巻合算', aggregateByGroup(wordLenDist, mockKeySet));
+checkWordLenGAggregate('ドリル全体合算', aggregateByGroup(wordLenDist, drillKeySet));
+checkShapeHAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
+checkShapeHAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
+
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
   // ここで KEYS（4文字）固定で判定すると D=0 が恒久的に「偏り」と誤検知されるため、
@@ -945,3 +1291,19 @@ const scopeUnits = scopeTargets.reduce((a, t) => a + (targetStats.get(t.key)?.un
 console.log(`\nエラー ${errorList.length}件 / 警告 ${warnList.length}件 / 総問題数 ${scopeQuestions}問 / ユニット ${scopeUnits}件`);
 
 if (errorList.length) process.exitCode = 1;
+
+/* ── テスト用エクスポート（CLI実行には無関係） ──────────────
+   `node tools/validate.mjs` を直接実行する通常経路では使われない
+   （エントリモジュールとして実行する限り、この export は無視されるだけで
+   挙動・出力を一切変えない）。検査G・H の「合算」ロジックは --extra が
+   合算から意図的に除外される仕様のため、実データを介したテストだけでは
+   「合算だけが発火するか」を確認できない。この export はそれを単体で
+   検証するための入口で、スクラッチパッドの検証用スクリプトから
+   `import('.../tools/validate.mjs')` して使う。 */
+export const __test__ = {
+  AGG_MIN, mockKeySet, drillKeySet,
+  aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate,
+  checkWordLenG, checkShapeH,
+  loneOutlierIndex, hasAndOr, leadWord, formatLabels,
+  wordLenDist, shapeDist, issues, warn,
+};

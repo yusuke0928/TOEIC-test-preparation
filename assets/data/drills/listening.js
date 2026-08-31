@@ -260,14 +260,14 @@ export const UNITS = [
     t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Shouldn\'t we order more toner before the audit?',
     c: [
-      'They\'re in alphabetical order on the shelf.',
-      'No, the auditor arrives on Thursday.',
+      'They\'re in alphabetical order on the shelf, right next to the printer paper.',
+      'No, the auditor arrives on Thursday, for the quarterly review.',
       'I thought Deepa took care of that yesterday.',
     ],
     a: 2,
     e: '「〜すべきでは？」という提案に対し、「ディーパが昨日やったと思っていたが」と第三者の行動を挙げて応じる間接応答。Yes / No を使わずに実質「もう手配済みのはず」と答えている。なお「もう注文してある」と既成事実を述べる応答も、この型では正解になりうる。誤答かどうかは「注文すべきか」という提案に情報として答えているかで判断する。',
-    w: ['問いの order（注文する）を「順序」の意味で使った、音の反復による引っ掛け。トナーを注文すべきかという提案には何も答えていない。',
-        'audit → auditor と関連語を重ねた引っ掛け。「監査官は木曜に来る」は監査がまだ先だと示す情報で、「監査の前に注文する」余地がまだあることの裏づけにこそなり、No の理由にならない。「配送が間に合わない」という含みで読もうとすると、この会話に出てこない配送日数を補う必要がある。',
+    w: ['問いの order（注文する）を「順序」の意味で使った、音の反復による引っ掛け。置き場所を加えても、トナーを注文すべきかという提案には何も答えていない。',
+        'audit → auditor と関連語を重ねた引っ掛け。「監査官は木曜に来る」は監査がまだ先だと示す情報で、「監査の前に注文する」余地がまだあることの裏づけにこそなり、No の理由にならない。何のための監査かを加えても同じで、「配送が間に合わない」という含みで読もうとすると、この会話に出てこない配送日数を補う必要がある。',
         '正解。第三者がすでに対応した可能性を示す間接応答。'],
     ja: '設問：監査の前にトナーをもっと注文すべきではないですか。→ (C) ディーパが昨日対応したと思っていました。',
     v: [['audit', '監査'], ['take care of', '対処する'], ['in alphabetical order', 'アルファベット順に']],
@@ -294,13 +294,13 @@ export const UNITS = [
     t: ['p2ind'], lv: 4, sa: 'W-Au', sb: 'M-Am',
     p: 'How long does the certification course take?',
     c: [
-      'The certificate is on my desk.',
+      'The certificate is on my desk, filed under last year\'s cohort.',
       'Yes, I completed it last spring.',
       'It depends on which track you choose.',
     ],
     a: 2,
     e: '「どれくらいかかるか」に対し、「選ぶコースによる」と条件付きで返す間接応答。It depends on ... は Part 2 の間接応答の定番。',
-    w: ['certificate という関連語を使った引っ掛け。期間を答えていない。',
+    w: ['certificate という関連語を使った引っ掛け。保管場所を加えても、期間を答えていない。',
         'How long への Yes / No は不可。',
         '正解。一概には言えないと条件を示す。'],
     ja: '設問：その認定講座はどのくらいかかりますか。→ (C) どのコースを選ぶかによります。',
@@ -328,15 +328,15 @@ export const UNITS = [
     t: ['p2ind'], lv: 4, sa: 'W-Am', sb: 'M-Au',
     p: 'Could you send me the attendance figures for last quarter?',
     c: [
-      'About three hundred people attended.',
+      'About three hundred people attended, according to the sign-in sheet.',
       'I\'ll need approval from Ms. Duarte first.',
-      'The figures were quite encouraging.',
+      'The figures were quite encouraging, especially compared with last year.',
     ],
     a: 1,
     e: '依頼に対し、「まずデュアルテさんの承認が必要です」と条件を示して事実上の保留を伝える間接応答。承諾でも拒否でもない返しが正解になる典型。',
-    w: ['attend の反復。依頼への応答になっていない。',
+    w: ['attend の反復。出所を加えても、依頼への応答になっていない。',
         '正解。依頼に条件を付けて応じている。',
-        'figures の反復。依頼に答えていない。'],
+        'figures の反復。比較の対象を加えても、依頼に答えていない。'],
     ja: '設問：前四半期の参加者数を送っていただけますか。→ (B) まずデュアルテさんの承認が必要です。',
     v: [['attendance figures', '参加者数'], ['approval', '承認']],
   }),
@@ -363,15 +363,15 @@ export const UNITS = [
     t: ['p2wh'], lv: 3, sa: 'W-Br', sb: 'M-Am',
     p: 'Would you rather present on Tuesday or Thursday?',
     c: [
-      'Yes, I would.',
+      'Yes, I would, but let\'s confirm with the client first.',
       'Either day works for me.',
-      'In the main auditorium.',
+      'In the main auditorium, not the smaller room upstairs.',
     ],
     a: 1,
-    e: '選択疑問文（A or B）には原則として Yes / No で答えられない。「どちらでもよい」という応答が定番の正解。',
-    w: ['選択疑問に Yes は不可。',
-        '正解。どちらでも構わないという応答。',
-        '場所を答えており、選択に対応していない。'],
+    e: '「火曜」か「木曜」かを問う選択疑問。応答はどちらかを名指しするか、どちらでもよい・決められないという事情を述べるかになる。正解は「どちらの日でも大丈夫」と二択の両方を受け入れる定番の型。なお Yes / No で始まる応答が形として禁じられているわけではなく、判定は「二択のどちらを採ったかが言えているか」で行う。',
+    w: ['would の後ろの動詞句が省略された形で、補われるのは質問の rather present on Tuesday or Thursday。つまり二択をそっくり含んだまま繰り返しているだけで、Tuesday か Thursday かを特定する語が応答の中に一つも無い。確認を挟む一言を加えても同じで、依然としてどちらの曜日かを特定していない。',
+        '正解。どちらの日でも構わない、と二択の両方を受け入れている。',
+        '場所を答えており、部屋の候補を加えても、火曜か木曜かという日の二択には触れていない。'],
     ja: '設問：発表は火曜と木曜のどちらがよいですか。→ (B) どちらの日でも大丈夫です。',
     v: [['would rather', 'むしろ〜したい'], ['auditorium', '講堂']],
   }),
@@ -410,19 +410,28 @@ export const UNITS = [
     v: [['book out', '予約で埋まる'], ['block', '街区']],
   }),
 
-  p2('p2w-04', {
+  /* id は p2w-04r（第二の正解を閉じたため新規採番。旧 id p2w-04 を使い回すと、
+     第二の正解を選んで不正解と記録された履歴がそのまま SRS に引き継がれる）。
+     旧 (C) 'It moved last month.' は、it が受けられる名詞句が the standing meeting しか
+     無く、「定例会議は先月動かしたばかりだ」＝もう一度動かすことへの障害を挙げた
+     間接応答として成立していた。「すでに手当て済み・直近でやったばかり」を事実で示して
+     提案を押し返す型は、同じファイルの p2i-03b で正解になっている装置なので、
+     誤答には置けない。自動詞 move（予定が動く）の実在も語法上の逃げ道にならない。
+     差し替え後は主語を the archive boxes（提案の対象と別の事物）にし、move の語形反復
+     だけを残した。prompt・正解・answer は変えていない（ja も正解しか載せていないので変更なし）。 */
+  p2('p2w-04r', {
     t: ['p2wh'], lv: 3, sa: 'M-Au', sb: 'W-Br',
     p: 'Why don\'t we move the standing meeting to Wednesdays?',
     c: [
       'Because it stands in the corner.',
       'That would suit the Berlin team better.',
-      'It moved last month.',
+      'The archive boxes were moved yesterday.',
     ],
     a: 1,
-    e: 'Why don\'t we ...? は理由を問う疑問ではなく提案。したがって Because で答えるのは誤り。提案への賛同を示す (B) が正解。',
-    w: ['stand の反復。Why don\'t we を理由の問いと誤解した引っ掛け。',
-        '正解。提案に賛成する応答。',
-        'move の反復。提案に答えていない。'],
+    e: 'Why don\'t we ...? は「〜しませんか」という提案。応答は提案を受け入れるか、実行を妨げる事情を挙げるかになる。正解 (B) は「その方がベルリンのチームには都合がよい」と、水曜に移す利点を挙げて賛同している。なお Because で始まる応答が形として誤りになるわけではない。この形は字義どおり「なぜ移さないのか」とも読めるので、妨げになる事情を Because で述べる返しは成立する。判定は語の形ではなく内容で行う。',
+    w: ['stand の反復。in the corner という場所の補語が付くと stand は「立って場所を占めている」という物理的な意味になり、主語は場所を占める物でなければならない。ここで it が受けられるのは the standing meeting だが、会議は出来事なので隅に立つことはできない。standing meeting の standing は「定例の」という意味で、立っていることではない。',
+        '正解。水曜に移せばベルリンのチームの都合がよくなる、と利点を挙げて提案に賛成している。',
+        'move の語形反復。動いたと述べているのは the archive boxes という物で、提案の対象である the standing meeting とは別の事物。しかも報告しているのは昨日一度きりの出来事なので、定例会議を今後どの曜日に開くかにも、曜日を動かせるかどうかにも情報を与えていない。'],
     ja: '設問：定例会議を水曜に移しませんか。→ (B) その方がベルリンのチームには都合がよいでしょう。',
     v: [['standing meeting', '定例会議'], ['suit', '都合がよい']],
   }),
@@ -461,19 +470,33 @@ export const UNITS = [
     v: [['orientation', '新人研修'], ['new hire', '新入社員']],
   }),
 
-  p2('p2w-07', {
+  /* id は p2w-07r（第二の正解を閉じたため新規採番。旧 id p2w-07 を使い回すと、
+     第二の正解を選んで不正解と記録された履歴がそのまま SRS に引き継がれる）。
+     旧 (B) 'Yes, they were approved.' は、Yes が「承認するのはソレンセン氏だ」という
+     確認をそのまま肯定し、続く they were approved がその承認がすでに済んでいることを
+     報告するので、質問に答えたうえで状況を補った完全な応答として成立していた。
+     「もう手当て済みだ」と事実で応じる型は p2i-03b で正解になっている装置である。
+     旧 why の「承認済みなら質問と噛み合わない」は排除根拠になっていない——
+     設問は請求書が未承認だとはどこにも述べておらず、承認済みだと知らせる応答は
+     この確認に対して普通に成立する。なお「Yes で始まるから誤り」という論法は
+     使えない（2026-08-28 に誤りと確定）。
+     差し替え後の (B) は approve の語形反復を残したまま、承認されたと述べる対象を
+     the planning application（自治体に出す許認可の申請）に移してある。社外の申請なので、
+     誰が請求書を承認する決まりかにも、請求書が今どの状態かにも触れない。
+     prompt・正解・answer は変えていない（ja も正解しか載せていないので変更なし）。 */
+  p2('p2w-07r', {
     t: ['p2wh'], lv: 4, sa: 'W-Br', sb: 'M-Au',
     p: 'Isn\'t Mr. Sorensen supposed to approve these invoices?',
     c: [
       'He\'s on leave until the ninth.',
-      'Yes, they were approved.',
+      'The planning application was approved in June.',
       'The invoice number is 4471.',
     ],
     a: 0,
-    e: '否定疑問による確認に対し、「彼は 9 日まで休暇中」と、承認が得られない事情を述べる間接応答。Yes / No を使わない応答が正解になる典型。',
-    w: ['正解。承認できない事情を示す。',
-        'approve の反復。「承認済み」なら質問と噛み合わない。',
-        'invoice の反復。質問に答えていない。'],
+    e: '否定疑問による確認。応答は、承認の担当がソレンセン氏かどうかに答えるか、その承認が得られるかどうかを左右する事情を述べるかになる。正解は「彼は 9 日まで休暇中だ」と、承認するはずの本人が不在で今は承認が得られないという事情を挙げた間接応答。誤答 2 つは approve と invoice を拾っているだけで、述べている内容は承認の担当にも請求書の状態にも触れていない。',
+    w: ['正解。承認するはずの本人が 9 日まで不在だと述べ、いま承認が得られない事情を示している。',
+        'approve の語形反復。承認されたと述べているのは the planning application で、話題になっている these invoices とは別の案件。自治体に出した許認可の申請が 6 月に下りたという社外の出来事を報告しているだけで、社内で誰が請求書を承認する決まりなのかにも、請求書が今どの状態にあるのかにも情報を与えていない。',
+        'invoice の語形反復。答えているのは What is the invoice number? という書類の番号であって、承認の担当が誰かという確認には触れていない。'],
     ja: '設問：これらの請求書はソレンセンさんが承認するはずではないですか。→ (A) 彼は 9 日まで休暇中です。',
     v: [['be supposed to', '〜することになっている'], ['on leave', '休暇中で']],
   }),
@@ -487,10 +510,10 @@ export const UNITS = [
       'It was reported on Monday.',
     ],
     a: 0,
-    e: '選択疑問に対し「紙の消費が少ない方で」と判断基準を示して選ばせる応答。直接どちらかを選ばなくても正解になる。',
-    w: ['正解。選択の基準を示している。',
-        '選択疑問に Yes は不可。',
-        'report の反復。選択に答えていない。'],
+    e: '「両面」か「片面」かを問う選択疑問。or が結んでいるのは double-sided と single-sided の 2 語で、printed は両案に共通している。正解は「紙の消費が少ない方で」と判断の基準を示して選ばせる応答。直接どちらかを名指ししなくても、一方に絞れる基準を与えていれば正解になる。',
+    w: ['正解。紙の消費が少ない方で、と一方に絞れる基準を示している。',
+        '「刷ってください」と、両案に共通する printed の部分を繰り返しているだけで、double-sided と single-sided のどちらを採るかを示す語が無い。',
+        'report の反復。報告がいつ出されたかを述べているだけで、両面か片面かの二択には触れていない。'],
     ja: '設問：報告書は両面印刷と片面印刷のどちらにしますか。→ (A) 紙の消費が少ない方でお願いします。',
     v: [['double-sided', '両面の'], ['whichever', 'どちらでも〜する方']],
   }),
