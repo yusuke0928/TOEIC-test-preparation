@@ -13,8 +13,11 @@ const p5 = (no, o) => ({
 const p6 = (o) => ({
   id: `v1-p6-${o.n[0]}`, part: 6, kind: 'doc', topics: o.t, level: o.lv ?? 4, docCount: 1,
   docs: [o.doc],
+  /* 設問 id は通し番号 no から自動生成するが、中身を差し替えた設問だけは
+     x.id で新規採番を明示できるようにしてある（id を使い回すと SRS の履歴が
+     別問題に引き継がれるため）。 */
   questions: o.q.map((x, i) => ({
-    id: `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.id ?? `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t, tag: x.tag,
   })),
 });
@@ -826,10 +829,13 @@ export const R1 = [
     },
     q: [
       { tag: '態・時制', t: ['ctense', 'voice'],
-        c: ['processing', 'will be processed', 'have processed', 'will process'],
+        c: ['processing', 'will be processed', 'have been processed', 'will be processing'],
         a: 1,
-        e: '返却物は「処理される」側なので受動態。ヘッダの日付は 9 月 4 日、本文は 10 月 1 日からの話なので未来形。',
-        w: ['分詞。述語動詞にならない。', '正解。', '現在完了かつ能動。', '能動態。返却物が処理することになる。'] },
+        e: '「処理する」の意味の process は目的語を必要とする他動詞だが、空所の後ろは through 以下の前置詞句だけで目的語が無い。目的語にあたる returns が主語に立った受動態が入る。ヘッダの日付は 9 月 4 日で、本文は 10 月 1 日から始まる運用の話なので未来形。',
+        w: ['分詞。この節には定形動詞が他に無く、文の述語動詞になれない。',
+            '正解。will be processed。process の目的語にあたるものが主語に立った受動態で、開始は 10 月 1 日なので未来形。',
+            '受動態だが現在完了。現在完了は現在を終点とする期間について述べる形で、10 月 1 日を起点とする期間には使えない。ヘッダの日付は 9 月 4 日なので、その期間はまだ始まっていない。',
+            '能動の未来進行形。process は目的語となる名詞句を必要とするが、空所の後ろに目的語が無い。'] },
       { tag: '接続語', t: ['connect'],
         c: ['However', 'Otherwise', 'For example', 'Likewise'],
         a: 0,
@@ -866,11 +872,18 @@ export const R1 = [
       ],
     },
     q: [
-      { tag: '態', t: ['voice'],
-        c: ['issue', 'are issued', 'are issuing', 'have issued'],
+      /* id は v1q135r（no は 135 のまま）。初版の (A)「issue」は、AHD が intr.「to be
+         circulated or published: books issuing from a publisher」を立項しており、
+         fobs issue from the management office ... が第二の正解として成立していた。
+         その選択肢を差し替えたため設問 id を新規採番している。 */
+      { tag: '態', t: ['voice'], id: 'v1q135r',
+        c: ['was issued', 'are issued', 'are issuing', 'have issued'],
         a: 1,
-        e: 'キーフォブは「発行される」側なので受動態。空所の後ろに目的語がなく from 句が続く点が根拠。',
-        w: ['能動の現在形。', '正解。', '能動の進行形。', '能動の現在完了。'] },
+        e: 'この文は「借家契約書を提示すれば管理事務所でフォブを受け取れる」という常時の手続きを述べている。手続き・規則は単純現在形で書く。主語 fobs は複数で、フォブは事務所が発行して渡す側の物なので are issued。',
+        w: ['受動態だが単数の was。主語 fobs は複数なので数が合わない。過去形である点も、これから入居者が受け取る手続きの説明と合わない。',
+            '正解。are issued。複数主語 fobs に対応する単純現在の受動態で、常時の手続きを述べる形。',
+            '進行形。進行形は発話時に進行中の出来事を述べる形で、on production of a tenancy agreement という条件付きの常時の規則は表せない（規則は単純現在形で書く）。',
+            '現在完了。現在完了は現在までに完了した出来事を報告する形で、規則そのものを述べる働きを持たない。第 2 段落の when collecting a fob が示すとおり、受け取りはこれからの行為でもある。'] },
       { tag: '接続語', t: ['connect', 'conjprep'],
         c: ['but', 'unless', 'because', 'so'],
         a: 0,
@@ -950,10 +963,13 @@ export const R1 = [
     },
     q: [
       { tag: '態・時制', t: ['ctense', 'voice'],
-        c: ['has marked', 'can mark', 'marking', 'can be marked'],
+        c: ['were being marked', 'can be marking', 'marking', 'can be marked'],
         a: 3,
-        e: '訪問は「記録される」側なので受動態。before に続く節なので現在形。',
-        w: ['能動の現在完了。', '能動態。訪問が自ら記録することになる。', '分詞。', '正解。'] },
+        e: 'mark A as B「A を B として記録する」は as の前に目的語を置く他動詞の型だが、空所の後ろは as closed だけで目的語が無い。目的語にあたる the visit が主語に立った受動態が入る。before の導く節なので現在時制で受ける（can は現在時制の助動詞）。',
+        w: ['受動態だが複数の were。主語 the visit は単数なので数が合わない。過去進行形である点も、来週月曜から始まる規定を述べる文脈と合わない。',
+            '能動の進行形。mark は as closed の前に目的語となる名詞句を必要とするが、空所の後ろに目的語が無い。',
+            '分詞。この節には定形動詞が他に無く、before の導く節の述語動詞になれない。',
+            '正解。can be marked。mark の目的語にあたるものが主語に立った受動態で、「クローズ扱いにできる」という許可を can が表す。'] },
       { tag: '代名詞', t: ['pron', 'quant'],
         c: ['Either', 'Most', 'All', 'Each'],
         a: 3,

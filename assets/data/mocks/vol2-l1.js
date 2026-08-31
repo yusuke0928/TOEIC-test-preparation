@@ -161,7 +161,7 @@ export const L1 = [
 
   p2(10, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',
     p: 'How long has the branch been under renovation?',
-    c: ['Since the beginning of March.', 'About forty metres.', 'The branch manager decided.'],
+    c: ['Since the beginning of March.', 'About forty metres from the entrance.', 'The branch manager decided.'],
     a: 0,
     e: 'How long に期間の起点で答えている。',
     w: ['正解。', 'How long を長さと誤解した引っ掛け。', 'branch の反復。'],
@@ -185,18 +185,18 @@ export const L1 = [
 
   p2(13, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
     p: 'Why did the second shipment cost so much more?',
-    c: ['It went by air rather than sea.', 'We paid it last week.', 'It shipped from the same warehouse.'],
+    c: ['It went by air rather than sea.', 'We paid it last week by wire transfer.', 'It shipped from the same warehouse we have always used.'],
     a: 0,
     e: '理由を尋ねられ、輸送手段の違いという具体的な原因を答えている。',
-    w: ['正解。', '支払い時期は理由ではない。', 'ship の反復。理由になっていない。'],
+    w: ['正解。', '支払いの時期と方法を述べているだけで、2 回目の出荷が高くついた理由には触れていない。', 'ship の反復。同じ倉庫からの出荷だと述べており、条件が変わっていないことになるので高くなった理由にならない。'],
     ja: 'なぜ 2 回目の出荷はこれほど高くついたのですか。→ (A) 船便ではなく航空便を使ったからです。' }),
 
   p2(14, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Br',
     p: 'Would you prefer the report as a slide deck or a written summary?',
-    c: ['Whichever you already have.', 'It was written last quarter.', 'Yes, I\'d prefer that.'],
+    c: ['Whichever you already have.', 'It was written last quarter.', 'Yes, the reporter called this morning.'],
     a: 0,
-    e: '選択疑問に「すでにある方で」と条件で答える応答。Yes / No は使えない。',
-    w: ['正解。', 'write の反復。', '選択疑問に Yes は不可。'],
+    e: '「スライドの資料」か「文書の要約」かを問う選択疑問。正解は「もう出来ている方で」と、どちらを採るかの基準を相手に渡して選ばせる応答。二択を名指ししなくても、一方に絞れる手がかりを与えていれば応答として成立する。',
+    w: ['正解。すでに出来ている方で構わない、と選択の基準を示している。', 'write の反復。報告書がいつ書かれたかを述べているだけで、スライドか文書かの二択には触れていない。', 'Yes だけではスライドと文書のどちらを選んだのか決まらない。report と重なる reporter を使った音の引っ掛けで、記者から電話があったという内容も二択のどちらとも無関係。'],
     ja: '報告はスライドと文書のどちらがよいですか。→ (A) もう出来ている方で構いません。' }),
 
   p2(15, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
@@ -209,7 +209,7 @@ export const L1 = [
 
   p2(16, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Au',
     p: 'Where are the safety data sheets kept?',
-    c: ['Every six months.', 'In the binder by the emergency exit.', 'Yes, they\'re up to date.'],
+    c: ['Once a quarter, or whenever a product changes.', 'In the binder by the emergency exit.', 'Yes, they\'re up to date as of this past March.'],
     a: 1,
     e: 'Where に場所で答えている。',
     w: ['How often への答え。', '正解。', 'Where に Yes は不可。'],
@@ -235,7 +235,7 @@ export const L1 = [
 
   p2(19, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Br',
     p: 'Should we invite the regional director to the launch?',
-    c: ['Has anyone asked her assistant?', 'The launch went well.', 'To the third floor.'],
+    c: ['Has anyone asked her assistant?', 'The launch went well last year.', 'To the third floor.'],
     a: 0,
     e: '提案に対して質問で返す応答。判断の前に確認すべき点を挙げている。',
     w: ['正解。', 'launch の反復。時制も合わない。', 'Where への答え。'],
@@ -259,7 +259,7 @@ export const L1 = [
 
   p2(22, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'Could you cover the front desk for twenty minutes?',
-    c: ['I\'m on a call until half past.', 'It covers three floors.', 'The desk was replaced.'],
+    c: ['I\'m on a call until half past.', 'It covers three floors of the main building.', 'The desk was replaced at the start of this new term.'],
     a: 0,
     e: '依頼に対し「30 分まで通話中」と事情を述べる間接的な断り。',
     w: ['正解。', 'cover の別の意味を使った引っ掛け。', 'desk の反復。'],
@@ -267,7 +267,7 @@ export const L1 = [
 
   p2(23, { t: ['p2wh'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Didn\'t we agree to postpone the software rollout?',
-    c: ['Yes, it rolled out smoothly.', 'The agreement was signed.', 'That was before the security patch came through.'],
+    c: ['Yes, it rolled out smoothly across every region last week.', 'The agreement was signed by both regional directors after months of talks.', 'That was before the security patch came through.'],
     a: 2,
     e: '「あれはセキュリティパッチが来る前の話だ」＝状況が変わったので前提が成立しない、という間接応答。',
     w: ['roll out の反復。延期したのだから矛盾する。', 'agree の反復。', '正解。'],
@@ -291,10 +291,10 @@ export const L1 = [
 
   p2(26, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
     p: 'Is the seminar being recorded, or do we need to take notes?',
-    c: ['Both, actually — the recording is audio only.', 'Yes, we recorded it.', 'On the fifteenth.'],
+    c: ['Both, actually — the recording is audio only.', 'Yes, we broke the previous record.', 'On the fifteenth.'],
     a: 0,
-    e: '選択疑問に「実は両方」と答え、理由を添えている。二者択一を崩す応答は 900 帯で頻出。',
-    w: ['正解。', '選択疑問に Yes は不可。', 'When への答え。'],
+    e: '「録音されるのか」「メモを取る必要があるのか」を問う選択疑問。正解は「実は両方」と答え、録音が音声だけだという理由を添えて二者択一を崩している。一方を選ぶ形だけでなく、両方・どちらでもない、という応答も成立する。',
+    w: ['正解。両方だと答え、録音が音声だけだという理由を添えている。', 'Yes だけでは録音とメモのどちらなのか決まらない。recorded と重なる record を「（最高）記録」という別の意味の名詞で使った引っ掛けで、記録を更新したという内容も二択のどちらとも無関係。', '日付を答えており、録音とメモのどちらが要るかには触れていない。'],
     ja: 'セミナーは録画されますか、それともメモを取る必要がありますか。→ (A) 実は両方です。録音は音声だけなので。' }),
 
   p2(27, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
@@ -307,10 +307,10 @@ export const L1 = [
 
   p2(28, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',
     p: 'Why don\'t we combine the two induction sessions?',
-    c: ['It combines well with the other module.', 'Because it induces drowsiness.', 'The two groups start on different dates.'],
+    c: ['It combines well with the other module.', 'They fitted those induction hobs in the staff kitchen last month.', 'The two groups start on different dates.'],
     a: 2,
-    e: 'Why don\'t we ...? は提案。それに対する障害を挙げる応答が正解。Because で理由を答えるのは誤り。',
-    w: ['combine の反復。', 'induce の音を使った引っ掛け。', '正解。'],
+    e: 'Why don\'t we ...? は提案。それに対する障害を挙げる応答が正解。',
+    w: ['combine の反復。別の教材との相性の話で、2 つの回をまとめられるかには触れていない。', 'induction を「新人研修」ではなく IH 調理器の意味で使った引っ掛け。給湯室の設備をいつ入れたかという別件で、研修の回をまとめる案とは無関係。', '正解。'],
     ja: '2 つの新人研修をまとめてはどうでしょう。→ (C) 2 つのグループは開始日が違います。' }),
 
   p2(29, { t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Br',
@@ -331,7 +331,7 @@ export const L1 = [
 
   p2(31, { t: ['p2wh'], lv: 5, sa: 'W-Am', sb: 'M-Am',
     p: 'Weren\'t the invoices supposed to go out on the first?',
-    c: ['To all account holders.', 'Yes, they were quite detailed.', 'The billing system was down until the third.'],
+    c: ['To all account holders.', 'Yes, they were quite detailed and included cost breakdowns.', 'The billing system was down until the third.'],
     a: 2,
     e: '否定疑問に対し、遅れた事情を述べる間接応答。Yes / No を使わない。',
     w: ['To whom への答え。', 'invoice に関連するが、遅延の説明になっていない。', '正解。'],
