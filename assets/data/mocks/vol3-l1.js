@@ -244,7 +244,7 @@ export const L1 = [
 
   p2(15, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Who normally orders the laboratory gloves?',
-    c: ['Whoever notices they\'re low.', 'About four boxes a month.', 'Yes, they were ordered.'],
+    c: ['Whoever notices they\'re low.', 'About four boxes a month.', 'Yes, the order arrived.'],
     a: 0,
     e: '担当者を尋ねられて「気づいた人が」と、決まっていないことを示す間接応答。',
     w: ['正解。', 'How many への答え。', 'Who に Yes は不可。'],
@@ -268,7 +268,7 @@ export const L1 = [
 
   p2(18, { t: ['p2wh'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'You\'re the one who set up the shared calendar, aren\'t you?',
-    c: ['It calendars the whole year.', 'Yes, it\'s shared with everyone.', 'That was Marcelo, actually.'],
+    c: ['It calendars the whole year.', 'Yes, we all share it.', 'That was Marcelo, actually.'],
     a: 2,
     e: '付加疑問による確認に対し、事実を訂正する応答。',
     w: ['意味を成さない語の引っ掛け。', 'share の反復。', '正解。'],
@@ -276,7 +276,7 @@ export const L1 = [
 
   p2(19, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Br',
     p: 'Why has the delivery been split into two?',
-    c: ['Into the north entrance.', 'One item was on back order.', 'It was delivered on Tuesday.'],
+    c: ['Into the north entrance.', 'One item was on back order.', 'The delivery came on Tuesday.'],
     a: 1,
     e: '理由を尋ねられ、入荷待ちの品があったという原因を答えている。',
     w: ['Where への答え。', '正解。', 'deliver の反復。理由になっていない。'],
@@ -300,10 +300,10 @@ export const L1 = [
 
   p2(22, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'I thought the workshop was fully booked.',
-    c: ['Two people dropped out this morning.', 'The workshop\'s on the fourth floor.', 'It was fully booked last year.'],
+    c: ['Two people dropped out this morning.', 'The workshop\'s on the fourth floor.', 'Bookings closed early last year.'],
     a: 0,
     e: '平叙文による前提に対し、状況が変わったことを伝えて訂正する応答。',
-    w: ['正解。', '場所を答えており、前提への応答になっていない。', 'fully booked の反復。'],
+    w: ['正解。', '場所を答えており、前提への応答になっていない。', 'book の反復。予約が締め切られたのは昨年の話で、今朝の欠員の有無には触れていない。'],
     ja: 'ワークショップは満席だと思っていました。→ (A) 今朝 2 名がキャンセルしました。' }),
 
   /* id は v3q23r（no は模試の通し番号として 23 を維持するが、誤答 2 つを差し替えたため
@@ -348,10 +348,10 @@ export const L1 = [
 
   p2(24, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'When can we expect the revised quotation?',
-    c: ['The original quotation for a smaller order was accepted last week.', 'They\'re waiting on a price from their fabricator.', 'By courier, I think, from the local printing office.'],
+    c: ['The original quotation for a smaller order went through last week.', 'They\'re waiting on a price from their fabricator.', 'By courier, I think, from the local printing office.'],
     a: 1,
     e: '時期を尋ねられ、「加工業者からの価格待ち」＝まだわからない理由を答える間接応答。',
-    w: ['quotation の反復。先週受理されたのは小口注文向けの元の見積もりで、これから届く修正版がいつになるかには触れていない。', '正解。', 'How への答え。届け方を述べているだけで、時期には触れていない。'],
+    w: ['quotation の反復。先週通ったのは小口注文向けの元の見積もりで、これから届く修正版がいつになるかには触れていない。', '正解。', 'How への答え。届け方を述べているだけで、時期には触れていない。'],
     ja: '修正した見積もりはいつごろいただけますか。→ (B) 加工業者からの価格待ちだそうです。' }),
 
   p2(25, { t: ['p2wh'], lv: 4, sa: 'W-Am', sb: 'M-Au',
@@ -380,10 +380,10 @@ export const L1 = [
 
   p2(28, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Am',
     p: 'Did the new packaging test well with customers?',
-    c: ['Yes, they were tested.', 'I packed the samples for the trade fair myself.', 'We only have twelve responses so far.'],
+    c: ['Yes, we tested them.', 'I packed the samples for the trade fair myself.', 'We only have twelve responses so far.'],
     a: 2,
     e: '「まだ 12 件しか回答がない」＝判断できる段階ではない、という間接応答。',
-    w: ['test の反復。設問の test well with customers は「顧客の受けがよい」という自動詞の用法で、この応答の be tested は「試験にかけられる」という受動態。試験にかけたとだけ述べており、受けがよかったかどうかは何も言っていない。単数の the new packaging を they で受けている点も噛み合わない。', 'pack の反復。誰が見本を詰めたかという話で、顧客の評価がどうだったかには触れていない。', '正解。'],
+    w: ['test の反復。設問の test well with customers は「顧客の受けがよい」という自動詞の用法で、この応答の tested は他動詞。試験にかけたとだけ述べており、受けがよかったかどうかは何も言っていない。単数の the new packaging を them で受けている点も噛み合わない。', 'pack の反復。誰が見本を詰めたかという話で、顧客の評価がどうだったかには触れていない。', '正解。'],
     ja: '新しいパッケージは顧客の評価が良かったですか。→ (C) まだ 12 件しか回答がありません。' }),
 
   p2(29, { t: ['p2wh'], lv: 4, sa: 'W-Au', sb: 'M-Br',
@@ -396,7 +396,7 @@ export const L1 = [
 
   p2(30, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'Where did you find the missing inventory sheet?',
-    c: ['Yes, it was missing.', 'About forty items were listed on the missing sheet.', 'Someone had filed it under the wrong month.'],
+    c: ['Yes, it was missing.', 'About forty items appear on the missing inventory sheet.', 'Someone had filed it under the wrong month.'],
     a: 2,
     e: '場所を尋ねられ、経緯を含めて答えている。',
     w: ['Where に Yes は不可。', 'How many への答え。', '正解。'],

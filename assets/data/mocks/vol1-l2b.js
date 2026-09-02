@@ -77,7 +77,7 @@ export const L2B = [
         e: '「ボイラー前面のゲージの針が何を指しているか」＝圧力の値を確認するよう求めている。',
         w: ['サーモスタットの話はない。', 'ラジエーターの弁ではない。', '正解。', 'ブレーカーには触れていない。'] },
       { tag: '次の行動', s: 'What will happen tomorrow?',
-        c: ['The woman will repressurise the boiler herself.', 'An engineer will visit in the late afternoon.', 'The boiler will be replaced.', 'The woman will call back with a reading.'],
+        c: ['The woman will repressurise the boiler herself.', 'An engineer will visit in the late afternoon.', 'A technician will replace the boiler.', 'The woman will call back with a reading.'],
         a: 1,
         e: '「16〜18 時の枠で予約する」と述べられている。',
         w: ['自分でやるより技術者を希望した。', '正解。', '交換の話は出ていない。', '数値はすでに伝えている。'] },

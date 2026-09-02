@@ -5,8 +5,11 @@
 const mp = (o) => ({
   id: `v2-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7cross'],
   level: o.lv ?? 5, docCount: o.docs.length, docs: o.docs,
+  /* 設問 id は通し番号 no から自動生成するが、中身を差し替えた設問だけは
+     x.id で新規採番を明示できるようにしてある（id を使い回すと SRS の履歴が
+     別問題に引き継がれるため。vol1-r1.js の p6() ヘルパーと同じ仕組み）。 */
   questions: o.q.map((x, i) => ({
-    id: `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.id ?? `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || ['p7cross'], tag: x.tag,
   })),
 });
@@ -128,13 +131,13 @@ export const R4 = [
         w: ['両者とも数値の公表を拒んでおり、記事もそう明記している。「2人の経営者」という指定はない。', '賃料上昇（18パーセント）は記事の冒頭で明記されている。', '分量の偏りは指摘しておらず、複数号にわたる話でもない。', '正解。'] },
       { tag: 'クロス', s: 'What does the letter writer say about the seeded rye?',
         c: ['It was among the nine remaining lines.', 'It is no longer available at Hearth & Grain.',
-            'It has been taken up by Pellinore\'s.', 'Its price has risen sharply.'],
+            "Pellinore's now sells it instead.", 'Its price has risen sharply.'],
         a: 1,
         e: '「残った 9 種類に入っておらず、今はスーパーで買っている」とある。',
         w: ['入っていないと明記。', '正解。', '別店舗が扱っているとは述べていない。', '価格には触れていない。'] },
       { tag: '推測', t: ['p7inf'], s: 'What does the letter writer imply about the café queue?',
-        c: ['It shows the café is more successful than expected.', 'It is caused by the loss of the other bakery\'s range.',
-            'It will shorten once staff are trained.', 'It disadvantages a group of former customers.'],
+        c: ['It shows the café is more successful than expected.', "It stems from the loss of the other bakery's range.",
+            'It will shorten once staff finish training.', 'It disadvantages a group of former customers.'],
         a: 3,
         e: '「座っていく人には問題ないが、通勤途中の人には不可能」＝従来の買って帰る客が締め出されている。',
         w: ['成功の指標としては述べていない。', '他店の品目減とは結び付けていない。', '研修の話はない。', '正解。'] },
@@ -212,7 +215,7 @@ export const R4 = [
         w: ['保証金の支払期限は示されていない。', 'fallback の解放は撮影当日の 8 時までと明記されており、契約直後という記述とは異なる。', '人数はすでに伝わっており、書面での再確認も求められていない。', '正解。'] },
       { tag: '推測', t: ['p7inf'], s: 'Why does Ms. Pritchard raise a concern about the fallback space?',
         c: ['Its electrical capacity may be insufficient.', 'It may not be large enough for the crew.',
-            'The space is already booked on the afternoon of 18 September.', 'It has no natural light.'],
+            'The space already has a booking on 18 September.', 'It has no natural light.'],
         a: 0,
         e: '「電源が限られており、照明 2 灯で上限に近い」と警告している。文書 1 の「16 A まで」と一致する。',
         w: ['正解。', '広さの懸念は述べていない。', '両日とも空いていると回答している。', '採光の話は Long Gallery のもの。'] },
@@ -370,12 +373,12 @@ export const R4 = [
         a: 0,
         e: '「距離は含まれる範囲内なのでキロ単価の請求はない」と明記されている。',
         w: ['正解。', '追加請求はないと明記。', '再計算の話はない。', '休憩の規定には触れていない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What does Ms. Ní Chatháin imply about the second-driver requirement?',
-        c: ['It is not within the company\'s discretion.', 'It could be avoided by leaving later.',
-            'It applies only to school groups.', 'It will be charged at a reduced rate.'],
+      { id: 'v2q200r', tag: '推測', t: ['p7inf'], s: 'What does Ms. Ní Chatháin imply about the second-driver requirement?',
+        c: ['It is not within the company\'s discretion.', 'It applies only where duty exceeds eleven hours.',
+            'It applies only to school groups.', 'The company will charge it at a reduced rate.'],
         a: 0,
         e: '「歓迎されないのはわかるが、こちらで免除できるものではない」＝法令上の要件で裁量の余地がない。',
-        w: ['正解。', '出発時刻の調整には触れていない。', '学校団体限定ではない。', '割引対象外と明記。'] },
+        w: ['正解。', '文書1は「a second driver is required by law where duty exceeds ten hours」と規定しており、11時間は勤務上限（duty allowance）の基準であって第2運転手の要件ではない。文書3の10.5時間はすでに10時間を超えている。', '学校団体限定ではない。', '割引対象外と明記。'] },
     ],
   }),
 ];

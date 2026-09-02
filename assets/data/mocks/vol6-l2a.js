@@ -207,7 +207,7 @@ export const L2A = [
         e: '「先週コーヒーをこぼした」と明言している。',
         w: ['落下の話ではない。反応しなくなった原因はこぼした飲み物である。', '充電については何も述べられていない。不具合はキーの反応である。', '正解。', '配送中の破損ではない。持ち主が使用中にこぼしている。'] },
       { tag: '詳細', s: 'Why does the woman recommend a full replacement instead of cleaning?',
-        c: ['Residue from the coffee could cause the keys to fail again.', 'A cleaning would take longer than a replacement.', 'The keyboard model is being discontinued.', 'The store does not offer cleaning services.'],
+        c: ['Residue from the coffee could cause the keys to fail again.', 'A cleaning would take longer than a replacement.', 'The manufacturer discontinued this keyboard model.', 'The store does not offer cleaning services.'],
         a: 0,
         e: '「コーヒーの糖分が残ると、清掃後もまた不具合が起きやすい」と説明している。',
         w: ['正解。', '所要時間の比較ではない。', '生産終了の話はない。', '清掃サービス自体は提供されている。'] },

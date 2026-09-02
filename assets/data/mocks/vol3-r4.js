@@ -368,7 +368,7 @@ export const R4 = [
         e: '「距離は含まれる範囲内なのでキロ単価の請求はない」と明記されている。',
         w: ['正解。', '距離は含まれる範囲内なので、1 km あたり €1.40 の請求は生じないと明記されている。', '再計算の話はない。', '許可証の話はない。'] },
       { tag: '推測', t: ['p7inf'], s: 'What does Mr. Ffrench imply about the fourth-crew requirement?',
-        c: ['It will be charged at a reduced rate.', 'It could be avoided by packing the counter differently.',
+        c: ['The company will charge it at a reduced rate.', 'The clinic could avoid it by packing the counter differently.',
             'It applies only to medical-related moves.', 'It is not within the company\'s discretion.'],
         a: 3,
         e: '「これは免除できるものではない」＝保険会社の要件で、裁量の余地がないことを示している。',

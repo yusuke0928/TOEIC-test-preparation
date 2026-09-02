@@ -153,10 +153,10 @@ export const L1 = [
 
   p2(9, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Who should I send the revised drawings to?',
-    c: ['They were revised yesterday.', 'By e-mail is fine.', 'Anyone on the project list.'],
+    c: ['The revisions arrived yesterday afternoon.', 'By e-mail is fine.', 'Anyone on the project list.'],
     a: 2,
     e: '「プロジェクト名簿にいる人なら誰でも」と、特定せずに範囲で答える応答。',
-    w: ['revise の反復。人を答えていない。', 'How への答え。', '正解。'],
+    w: ['revise の反復。修正版が届いた時期を述べるだけで、送り先には触れていない。', 'How への答え。', '正解。'],
     ja: '修正した図面は誰に送ればよいですか。→ (C) プロジェクト名簿にいる人なら誰でも構いません。' }),
 
   p2(10, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',
@@ -169,7 +169,7 @@ export const L1 = [
 
   p2(11, { t: ['p2ind'], lv: 5, sa: 'W-Au', sb: 'M-Am',
     p: 'Did the auditors find anything in the inventory records?',
-    c: ['Yes, the records were audited.', 'In the storage room.', 'Their report\'s due Friday.'],
+    c: ['Yes, they audited the records.', 'In the storage room.', 'Their report\'s due Friday.'],
     a: 2,
     e: '「報告書は金曜提出」＝まだわからない、と間接的に答えている。',
     w: ['audit の反復。質問に答えていない。', 'Where への答え。', '正解。'],
@@ -193,7 +193,7 @@ export const L1 = [
 
   p2(14, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Br',
     p: 'Would you prefer the report as a slide deck or a written summary?',
-    c: ['Whichever you already have.', 'It was written last quarter.', 'Yes, the reporter called this morning.'],
+    c: ['Whichever you already have.', 'They wrote it last quarter.', 'Yes, the reporter called this morning.'],
     a: 0,
     e: '「スライドの資料」か「文書の要約」かを問う選択疑問。正解は「もう出来ている方で」と、どちらを採るかの基準を相手に渡して選ばせる応答。二択を名指ししなくても、一方に絞れる手がかりを与えていれば応答として成立する。',
     w: ['正解。すでに出来ている方で構わない、と選択の基準を示している。', 'write の反復。報告書がいつ書かれたかを述べているだけで、スライドか文書かの二択には触れていない。', 'Yes だけではスライドと文書のどちらを選んだのか決まらない。report と重なる reporter を使った音の引っ掛けで、記者から電話があったという内容も二択のどちらとも無関係。'],

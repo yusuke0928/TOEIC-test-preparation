@@ -92,7 +92,7 @@ export const L3 = [
     v: [['resurfacing', '整氷（氷面の再仕上げ）'], ['skate hire', 'スケート靴の貸出'], ['sharpening machine', '（刃の）研磨機']],
     q: [
       { tag: '詳細', s: 'Why will the public session end early today?',
-        c: ['For a scheduled fire drill', 'Because of a power failure', 'Because a private lesson has been booked', 'To make time for extra resurfacing work'],
+        c: ['For a scheduled fire drill', 'Because of a power failure', 'Because of a booking for a private lesson', 'To make time for extra resurfacing work'],
         a: 3,
         e: '「今夜のジュニアリーグの試合前に追加の整氷作業を行うため」と述べている。',
         w: ['訓練の話は出ていない。', '停電の話はない。', '個人レッスンの予約には触れていない。', '正解。'] },

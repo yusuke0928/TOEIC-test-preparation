@@ -185,7 +185,7 @@ export const L1 = [
       prompt: 'The extended warranty on these laptops is still just one year, isn\'t it?',
       speakerA: 'W-Au', speakerB: 'M-Br',
       choices: [
-        'It\'s billed as a separate line item on the invoice.',
+        'It appears as a separate line item on the invoice.',
         'It went up to two years starting with this year\'s models.',
         'It only covers manufacturing defects, not accidental damage or normal wear and tear.',
       ],
