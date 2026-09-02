@@ -456,7 +456,7 @@ export const L1 = [
   p2(20, {
     t: ['p2ind'], lv: 4, sa: 'M-Am', sb: 'W-Cn',
     p: "Who's driving the van up to the Bellhaven store on Saturday?",
-    c: ['The store opens at nine.', 'Marcus offered to, I think.', 'It was driven back empty last time.'],
+    c: ['The store opens at nine.', 'Marcus offered to, I think.', 'Someone drove it back empty last time.'],
     a: 1,
     e: '担当者を尋ねられて、確信を持ちきれない形で人名を答える間接応答。',
     w: [
@@ -498,7 +498,7 @@ export const L1 = [
   p2(23, {
     t: ['p2wh'], lv: 3, sa: 'W-Am', sb: 'M-Au',
     p: 'How often does accounting process reimbursement requests?',
-    c: ['By direct deposit, I think.', 'Mine was processed last Friday.', 'Twice a month, usually.'],
+    c: ['By direct deposit, I think.', 'Accounting processed mine last Friday.', 'Twice a month, usually.'],
     a: 2,
     e: 'How often に、頻度で答えている直接的な応答。',
     w: [
@@ -526,12 +526,12 @@ export const L1 = [
   p2(25, {
     t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Br',
     p: 'Who arranged for the shrubs along the front drive to be cut back?',
-    c: ["I wasn't aware anyone had.", 'They were planted about ten years ago.', 'It does look much tidier now.'],
+    c: ["I wasn't aware anyone had.", 'Those shrubs are about ten years old.', 'It does look much tidier now.'],
     a: 0,
     e: '「誰かが手配した」という前提そのものを問い返す間接応答。前提の否定は 900 帯で頻出。',
     w: [
       '正解。手配した人がいるとは知らなかった、と前提を問い返している。',
-      '植えられた時期の話で、手配した人に答えていない。',
+      '植え込みの樹齢の話で、誰が手配したかに答えていない。',
       '仕上がりの感想で、手配した人に答えていない。',
     ],
     ja: '正面の車寄せ沿いの植え込みを刈り込むよう手配したのは誰ですか。→ (A) 誰かが手配したとは知りませんでした。',

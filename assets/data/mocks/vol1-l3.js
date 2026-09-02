@@ -124,7 +124,7 @@ export const L3 = [
     q: [
       { tag: '意図', s: 'What does the speaker mean when he says, "That is eight people sitting near us for three months"?',
         t: ['p3int'],
-        c: ['The programme lacked meaningful work.', 'The office was too crowded.', 'The internship was too short.', 'Too many interns were recruited.'],
+        c: ['The programme lacked meaningful work.', 'The office was too crowded.', 'The internship was too short.', 'The company recruited too many interns.'],
         a: 0,
         e: '直前に「明確な業務がないまま何週間も過ごした」とあり、直後に改善策（成果物を持つ指導役に紐づける）が続く。中身のなさへの批判。',
         w: ['正解。', '座席の混雑の話ではない。', '期間の短さは論点ではない。', '人数の多さではなく内容が問題。'] },
@@ -165,7 +165,7 @@ export const L3 = [
         e: '「水槽は上部が開いており、暗いと水面が固い床のように見える」が理由。',
         w: ['早朝の清掃で滑りやすくなるとは述べていない。危険なのは水槽が開いていることと照度不足。', '補修工事の話はない。', '正解。', '車両との共用ではない。'] },
       { tag: '詳細', s: 'What restriction applies to the control room?',
-        c: ['No photography is allowed.', 'Mobile phones must be switched off.', 'Only staff may enter.', 'Hard hats must be removed.'],
+        c: ['No photography is allowed.', 'Mobile phones must be switched off.', 'Only staff are allowed inside.', 'Hard hats must be removed.'],
         a: 0,
         e: '「制御室での撮影は禁止。それ以外は自由」と述べている。',
         w: ['正解。', '携帯電話自体は可。', '立ち入り禁止とは言っていない。', 'ヘルメットを外す指示はない。'] },

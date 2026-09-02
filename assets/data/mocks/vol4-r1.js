@@ -669,7 +669,7 @@ export const R1 = [
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'Other conditions of the discount remain unchanged.',
-          'The loyalty programme will also be redesigned this year.',
+          'The company will also redesign the loyalty programme this year.',
           'New employees become eligible after a three-month probation period.',
           "The finance team's review took approximately six weeks to complete.",
         ],

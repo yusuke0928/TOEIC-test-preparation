@@ -31,8 +31,10 @@
        選ぶだけの的中率が偶然から統計的に外れていないかを見る）、
        選択肢の『形』から正解が浮いていないか（検査H。4本のうちちょうど1本だけ
        複合(and/or)や先頭語が他と違う形をしている設問で、その1本が正解になる
-       率が偶然から統計的に外れていないかを見る）。
-       G・H は「1巻×1パート」「1ファイル×1パート」単位の判定に加え、
+       率が偶然から統計的に外れていないかを見る）、選択肢のうち受動態(be+過去
+       分詞)を含む本数 k が偶然(k/選択肢数)から外れて正解位置と相関していないか
+       （検査I）。
+       G・H・I は「1巻×1パート」「1ファイル×1パート」単位の判定に加え、
        「模試6巻を合算したパート別」「ドリル全ファイルを合算したパート別」の
        判定も行う（メッセージ先頭に `[合算]`。1巻・1ファイルあたりの該当数が
        少なすぎて個別には有意にならない漏れを、合算して初めて捕まえるため。
@@ -1099,16 +1101,102 @@ function checkShapeH(key, byPart) {
 }
 for (const [key, byPart] of shapeDist) checkShapeH(key, byPart);
 
-/* ── 検査G・H の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
-   上の checkWordLenG / checkShapeH は「1巻×1パート」「1ファイル×1パート」単位
-   で見ている。この単位だと、1巻・1ファイルあたりの該当数が少ない漏れは
-   有意にならず永久に検出できない。実測（メインが確認済み）:
+/* ── 検査I：受動態の軸から正解が漏れていないか（模試・ドリル・--extra・WARN） ──
+   検査G（語数）・検査Hが「複合(and/or)・先頭語」を見ているのに対し、選択肢の
+   もう一つの『形』——受動態(be + 過去分詞)を含むかどうか——から正解が漏れて
+   いないかを見る。模試6巻を実測（是正前、選択肢に3語以上を含む設問）すると、
+   選択肢のうち受動態を含むものがちょうど k 本あるとき、正解が受動態側にある率
+   が偶然(k/選択肢数)から系統的に外れていた
+   （Part2 k=1: 48問中8問=17%〈偶然33%、z=-2.45〉／Part7 k=1: 74問中12問=16%
+   〈z=-1.75〉、k=2: 48問中15問=31%〈偶然50%、z=-2.60〉／Part3 k=3: 13問中
+   6問=46%〈偶然75%、z=-2.40〉／Part6の語句4択 k=2: 17問中17問=100%〈z=+4.12〉）。
+
+   受動態の判定は isPassive()。be動詞(現在・過去・原形・過去分詞・進行形・
+   短縮形)の直後に、任意の副詞0〜2語を挟んで過去分詞(規則変化 -ed/-en、および
+   不規則変化リスト)が続く形にマッチする正規表現で、メインが実測に使った計器と
+   同一定義（変えないこと）。get + 過去分詞は数えない(BEにgetを含めていない)。
+   is interested のように形容詞化した分詞も、表面上の形として数える（意図どおり）。
+
+   単位・母数の考え方は検査G・Hと同じ「1つの巻×1つのパート」（模試）／
+   「1ファイル×1つのパート」（ドリル・--extra）。収集は検査Hと同じ shapeDist
+   （insertAt 除外・全選択肢2語以下は除外済み）をそのまま再利用する。
+
+   各設問について k = 選択肢のうち受動態を含む本数を数え、k が 1〜(選択肢数-1)
+   の設問だけを対象にする（k=0 は受動態の選択肢が無く軸が存在せず、k=選択肢数
+   は全選択肢が受動態で軸にならないため、検査Hの loneOutlierIndex が「値の
+   種類がちょうど2つ」を要求するのと同じ理由で除く）。k の値ごとに別々の母数
+   として集計し、p = k / 選択肢数（受動態側からランダムに1本選んだときの偶然の
+   的中率）、z = (hits/n - p) / sqrt(p(1-p)/n) で正規化する（検査F・G・Hと
+   同じ考え方）。n_k >= 8 かつ |z| >= 2.0 で WARN（検査Hと同じ閾値・同じ
+   両側判定）。z > 0 は「受動態側を選ぶだけで正解が当たりやすい」、z < 0 は
+   「受動態側を消すだけで選択肢が実質減る（是正が行き過ぎている疑い）」を表す。
+   2026-09-02、誤検知2種を修正: (1) 所有格 's を be の縮約と誤認
+   （"the neighbour's shed" "the client's agreed budget" 等）、(2) -ed/-en で
+   終わるが過去分詞でない語（"is open" "is between" "are even" 等）を過去分詞と
+   誤認。NOT_PP の否定先読みと BE からの所有格除去で対処した。 */
+const IRREG = 'been|begun|bent|bitten|blown|broken|brought|built|bought|caught|chosen|come|cut|dealt|done|drawn|driven|drunk|eaten|fallen|fed|felt|fought|found|flown|forbidden|forgotten|forgiven|frozen|given|gone|grown|had|heard|held|hidden|hit|hurt|kept|known|laid|led|left|lent|let|lit|lost|made|meant|met|paid|put|read|ridden|risen|run|said|seen|sent|set|shaken|shown|shut|sold|sought|spent|spoken|split|spread|stolen|struck|stuck|sung|sworn|taken|taught|thought|thrown|told|torn|understood|undertaken|withdrawn|withheld|won|worn|written|overseen|overtaken|rebuilt|redone|reset|resold|rewritten|upheld|foreseen|misled|proven|shot|woven|hung|sunk|bound|wound|lain|shone|slid|bred|fled|sped|spun|swept|swung|trodden|forecast|broadcast|cast|cost|bid|quit|shed|spat|leapt|dreamt|learnt|spelt|burnt|smelt';
+const NOT_PP = 'open|often|even|uneven|seven|eleven|ten|then|when|kitchen|garden|chicken|linen|women|children|screen|between|green|golden|wooden|sudden|need|indeed|red|bed|feed|speed|proceed|exceed|succeed|seed|hundred|kindred|sacred|naked|wicked|rugged|oxygen|citizen|token|omen|specimen|siren|heaven|haven|raven|keen|teen|queen|amen|hyphen|dozen|happen|listen|oven|warden|burden|golden|leaden|molten|rotten|silken|sullen|swollen|barren|brazen|molten';
+const PP = `(?!(?:${NOT_PP})\\b)(?:[a-z]+(?:ed|en)|${IRREG})`;
+const BE = `(?:am|is|are|was|were|be|been|being)`;
+const ADV = `(?:\\s+(?:not|never|also|still|already|now|only|being|currently|recently|often|usually|just|all|both|then|soon|later|first|properly|fully|partly|once|again)){0,2}`;
+const PASSIVE_RE = new RegExp(`\\b(?:${BE}|isn't|aren't|wasn't|weren't|it's|that's|he's|she's|they're|we're|you're|there's|what's|who's|everything's|everyone's|nothing's|mine's|i'm)${ADV}\\s+${PP}\\b`, 'i');
+function isPassive(choice) {
+  return typeof choice === 'string' && PASSIVE_RE.test(choice);
+}
+function checkPassiveI(key, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();   // 受動態を含む選択肢の本数 k -> { n, hits, hitLabels }
+    for (const e of filtered) {
+      const flags = e.choices.map(isPassive);
+      const kPassive = flags.filter(Boolean).length;
+      if (kPassive < 1 || kPassive > e.n - 1) continue;
+      if (!byK.has(kPassive)) byK.set(kPassive, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kPassive);
+      g.n++;
+      if (flags[e.answer]) { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kPassive, g] of byK) {
+      if (g.n < 8) continue;
+      const pChance = kPassive / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は受動態の選択肢が${kPassive}/${k4}本あるとき、その受動態側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。受動態側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は受動態の選択肢が${kPassive}/${k4}本あるとき、正解が受動態側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。受動態側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(key, msg);
+      }
+    }
+  }
+}
+for (const [key, byPart] of shapeDist) checkPassiveI(key, byPart);
+
+/* ── 検査G・H・I の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
+   上の checkWordLenG / checkShapeH / checkPassiveI は「1巻×1パート」
+   「1ファイル×1パート」単位で見ている。この単位だと、1巻・1ファイルあたりの
+   該当数が少ない漏れは有意にならず永久に検出できない。実測（メインが確認済み）:
      複合(and/or)：Part3 で全6巻合算 9/10 = 90%、z=+4.75
                     （1巻あたり2〜3件しかなく検査Hの8件未満で毎回スキップ）
      先頭語　　　：Part3 で全6巻合算 17/31 = 55%、z=+3.84（同上）
                     Part4 で全6巻合算  1/21 =  5%、z=-2.14（逆向きに行き過ぎ）
    ドリルの語数（検査G）でも同型の事故が起きている（1ファイル8〜20問では
    個別に有意にならないのに、Part6 を合算すると z=+3.4 だった実例）。
+   受動態（検査I）も同じ理由で合算判定が要る——1巻あたりの該当 k は数問しか
+   出ないため、模試6巻を合算して初めて上のコメントに書いた実測
+   （Part2 k=1 z=-2.45、Part7 k=1 z=-1.75・k=2 z=-2.60、Part3 k=3 z=-2.40、
+   Part6語句 k=2 z=+4.12）が有意水準に達する。
 
    単位別の判定はそのまま残し、これは追加の判定として行う
    （＝重複して報告されることがあるが、key に [合算] を付けて区別できるようにする）。
@@ -1223,10 +1311,52 @@ function checkShapeHAggregate(label, byPart) {
   }
 }
 
+/* checkPassiveI と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。 */
+function checkPassiveIAggregate(label, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();
+    for (const e of filtered) {
+      const flags = e.choices.map(isPassive);
+      const kPassive = flags.filter(Boolean).length;
+      if (kPassive < 1 || kPassive > e.n - 1) continue;
+      if (!byK.has(kPassive)) byK.set(kPassive, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kPassive);
+      g.n++;
+      if (flags[e.answer]) { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kPassive, g] of byK) {
+      if (g.n < AGG_MIN) continue;
+      const pChance = kPassive / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は受動態の選択肢が${kPassive}/${k4}本あるとき、その受動態側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。受動態側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は受動態の選択肢が${kPassive}/${k4}本あるとき、正解が受動態側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。受動態側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(`[合算] ${label}`, msg);
+      }
+    }
+  }
+}
+
 checkWordLenGAggregate('模試6巻合算', aggregateByGroup(wordLenDist, mockKeySet));
 checkWordLenGAggregate('ドリル全体合算', aggregateByGroup(wordLenDist, drillKeySet));
 checkShapeHAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
 checkShapeHAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
+checkPassiveIAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
+checkPassiveIAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
 
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
@@ -1295,15 +1425,15 @@ if (errorList.length) process.exitCode = 1;
 /* ── テスト用エクスポート（CLI実行には無関係） ──────────────
    `node tools/validate.mjs` を直接実行する通常経路では使われない
    （エントリモジュールとして実行する限り、この export は無視されるだけで
-   挙動・出力を一切変えない）。検査G・H の「合算」ロジックは --extra が
+   挙動・出力を一切変えない）。検査G・H・I の「合算」ロジックは --extra が
    合算から意図的に除外される仕様のため、実データを介したテストだけでは
    「合算だけが発火するか」を確認できない。この export はそれを単体で
    検証するための入口で、スクラッチパッドの検証用スクリプトから
    `import('.../tools/validate.mjs')` して使う。 */
 export const __test__ = {
   AGG_MIN, mockKeySet, drillKeySet,
-  aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate,
-  checkWordLenG, checkShapeH,
-  loneOutlierIndex, hasAndOr, leadWord, formatLabels,
+  aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate, checkPassiveIAggregate,
+  checkWordLenG, checkShapeH, checkPassiveI,
+  loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive,
   wordLenDist, shapeDist, issues, warn,
 };

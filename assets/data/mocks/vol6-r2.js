@@ -305,7 +305,7 @@ export const R2 = [
     }],
     q: [
       { tag: '詳細', s: 'What did the theatre originally believe was causing the drop in matinee attendance?',
-        c: ['That the shows were being marketed to the wrong audience.', 'That ticket prices were too close to evening prices.',
+        c: ['That the theatre was marketing the shows to the wrong audience.', 'That ticket prices were too close to evening prices.',
             'That the theatre’s location was hard to find for first-time visitors.', 'That a nearby venue had lower prices for similar matinee performances.'],
         a: 1,
         e: '第1段落に「興行部が最初に疑ったのはチケット価格で、14ドルではマチネの席が夜間公演よりわずか2ドル安いだけだった」とある。',

@@ -631,7 +631,7 @@ export const R1 = [
           'The shop removed cards from its website and window display.',
           "Freya plans to open a second location next spring.",
           'Card prices had not changed at the shop in over a decade.',
-          "The shop's retail lease was renewed for another five years.",
+          "The shop renewed its retail lease for another five years.",
         ],
         a: 0,
         e: '直後が「既存客から直接頼まれれば小口の仕事は今も対応するが、もう宣伝はしていない」と続く。名刺の宣伝をやめたという前置きが自然につながる。',
@@ -644,7 +644,7 @@ export const R1 = [
     ],
   }),
 
-  p6({
+  (() => { const u = p6({
     n: [139, 140, 141, 142], lv: 5, t: ['connect', 'ctense'],
     doc: {
       label: 'Memo',
@@ -657,12 +657,17 @@ export const R1 = [
       ],
     },
     q: [
+      /* 2026-09-02（第2巡・レビュー指摘）: (C) の has moved は「イベントが時間帯を移る」の能格用法で
+         成立してしまい第二の正解の疑いがあったため、非定形 moving に差し替えた。この節には {{1}} 以外に
+         定形動詞が無く、moving は文の述語動詞になれない。第二の正解を閉じる差し替えのため、この設問だけ
+         id を新規採番する（no は 139 のまま）。p6() ヘルパーは id を n から自動生成し1問だけ上書きする
+         手段がないため、このユニットを IIFE で包み構築後に id を書き換える。 */
       { tag: '態・時制', t: ['voice', 'ctense'],
-        c: ['will move', 'will be moved', 'has moved', 'is moved regularly'],
+        c: ['had been moved', 'will be moved', 'moving', 'is moved regularly'],
         a: 1,
-        e: '訓練日程は「変更される」側なので受動態。今後の予定なので未来形。',
-        w: ['能動態。', '正解。', '能動の現在完了。',
-            '受動態だが現在形（習慣・恒常的用法）。本文は「アラーム点検業者が 9 日に来られないため」という今回限りの理由による変更であり、日常的に繰り返される移動ではない。今回だけの予定を表すには未来形が必要。'] },
+        e: '空所には文の述語になれる定形動詞が要る。(C) は分詞で、この節には他に定形動詞が無いため述語になれない。(A) は過去完了だが、基準となる過去の時点が本文には無い。(D) は現在形で regularly と結びつき習慣的な反復を表すため、9日から11日への一回限りの変更を述べられない。正解の will be moved は未来の一回限りの予定を表す。',
+        w: ['受動態だが過去完了。過去のある時点までに移動が完了していたことを示す形で、これから 11 日午後に変更されるという本文の時間関係と噛み合わない。基準となる過去の時点も本文には無い。', '正解。', '分詞。この節には定形動詞が他に無く、文の述語動詞になれない。',
+            '受動態だが現在形。regularly が習慣的な反復を表す語で、本文の「アラーム点検業者が 9 日に来られないため」という今回限りの理由による変更（9 日から 11 日へ一度だけ動く）とは噛み合わない。'] },
       { tag: '接続語', t: ['connect'],
         c: ['Therefore', 'Otherwise', 'Similarly', 'In fact'],
         a: 3,
@@ -687,7 +692,7 @@ export const R1 = [
             '非定形。having been recorded は分詞（完了受動の分詞構文）であり、セミコロンの後ろに置かれる独立節の定形述語にはなれない。',
             '能動の現在完了進行形。受動態でなければならず、過去から継続する動作を表すため、今後の運用方針を述べるこの文脈に合わない。'] },
     ],
-  }),
+  }); u.questions[0].id = 'v5q139r'; return u; })(),
 
   p6({
     n: [143, 144, 145, 146], lv: 5, t: ['cohesion', 'connect'],

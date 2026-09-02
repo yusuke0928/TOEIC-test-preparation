@@ -198,7 +198,7 @@ export const L1 = [
   p2(11, {
     p: 'How did the client respond to the revised proposal?',
     sa: 'W-Au', sb: 'M-Am', lv: 4,
-    c: ['We haven\'t heard back yet.', 'By courier, I think.', 'Yes, it was revised twice.'],
+    c: ['We haven\'t heard back yet.', 'By courier, I think.', 'Yes, we revised it twice.'],
     a: 0,
     e: '「まだ返答がない」と、答えられない事情を述べる間接応答。',
     w: ['正解。', 'How を手段と誤解した引っ掛け。', 'revise の反復。How に Yes は不可。'],
@@ -358,10 +358,10 @@ export const L1 = [
   p2(27, {
     p: 'Who approved the additional overtime last month?',
     sa: 'W-Br', sb: 'M-Cn', lv: 5,
-    c: ['About thirty extra hours.', 'That would have been Mr. Farrow.', 'It was approved in writing before the deadline.'],
+    c: ['About thirty extra hours.', 'That would have been Mr. Farrow.', 'The written approval came through before the deadline.'],
     a: 1,
     e: '「たぶんファロー氏でしょう」と推量で人物を答える応答。That would have been ... は控えめな断定の定型。',
-    w: ['How many への答え。', '正解。', 'approve の反復。人を答えていない。'],
+    w: ['How many への答え。', '正解。', 'approve の反復。書面で承認が下りたと述べるだけで、誰が承認したかには触れていない。'],
     ja: '先月の追加残業は誰が承認したのですか。→ (B) ファロー氏だったはずです。',
   }),
 

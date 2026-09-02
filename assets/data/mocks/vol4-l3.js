@@ -107,10 +107,10 @@ export const L3 = [
         w: ['正解。', '機能を使うなとは言っていない。', 'フィードバック募集の話ではない。', '導入延期は述べていない。'] },
       { tag: '詳細', s: 'What does the speaker say about processing time?',
         c: ['It varies depending on the amount claimed.', 'It increased slightly during the trial.',
-            'It will be announced next month.', 'It dropped from eleven days to two.'],
+            'It will appear in next month\'s report.', 'It dropped from eleven days to two.'],
         a: 3,
         e: '「従来平均11日だったのが、試験導入では平均2日になった」と述べている。',
-        w: ['金額による違いには触れていない。', '増加ではなく短縮。', 'すでに述べられている。', '正解。'] },
+        w: ['金額による違いには触れていない。', '増加ではなく短縮。', '「来月」はアプリ移行の開始時期として既に触れられており、処理時間の報告掲載とは無関係。', '正解。'] },
     ],
   }),
 

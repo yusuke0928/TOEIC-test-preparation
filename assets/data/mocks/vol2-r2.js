@@ -172,7 +172,7 @@ export const R2 = [
         w: ['制限速度は変えていない。', '路面はその年も変えていないと明記。', '標識も変えていない。', '正解。'] },
       { tag: '詳細', s: 'What was unusual about the Vestmark trial?',
         c: ['It covered a longer stretch of road than others.', 'It measured effects over a longer period.',
-            'It was funded by residents.', 'It was conducted without prior consultation.'],
+            'Residents paid for it.', 'The council conducted it without prior consultation.'],
         a: 1,
         e: '「通常 1 年のところ 3 年間測定した」点が特異だと述べられている。',
         w: ['距離の比較はしていない。', '正解。', '資金の話はない。', '事前協議には触れていない。'] },

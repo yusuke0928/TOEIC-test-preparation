@@ -321,7 +321,7 @@ export const L2B = [
         why: ['テーブルは条件どおり Round だが、壁が Glass のため、機密性を保てないという条件に反する。', 'テーブルが Rectangular、壁も Glass で、両方の条件に反する。', '壁は条件どおり Solid だが、テーブルが Rectangular のため、少人数のグループ討議に適さないという条件に反する。', '正解。'],
         topics: ['graphic'] },
       { id: 'v2q66r', no: 66, tag: '意図', stem: 'What does the woman mean when she says, "Hold off for now"?',
-        choices: ['She worries the added cost could change his decision.', 'She thinks the wrong room was booked initially.', 'She wants the venue to change the layout entirely.', 'She believes the workshop date has already passed.'],
+        choices: ['She worries the added cost could change his decision.', 'She thinks they booked the wrong room initially.', 'She wants the venue to change the layout entirely.', 'She believes the workshop date has already passed.'],
         answer: 0,
         exp: '直後で「追加料金をまだ見せていないので、決定が変わるかもしれない」と理由を続けている。部屋の予約し直しやレイアウト変更、日程の話ではなく、費用の承認が先だという趣旨。',
         why: ['正解。', '男性はこれから「今日の午後に予約する」と言った段階で、予約はまだ行われていない。取り違えて予約し直すという話ではない。', '女性は「丸テーブルの部屋」という条件で部屋を絞っており、会場に配置を変えさせる話は出ていない。直後に続く理由も追加料金の提示であって、レイアウトではない。', '女性はこのあと「予約を保留して金曜までに見取り図を送ってもらってほしい」と頼んでおり、研修はこれから行われる。日程が過ぎたという話ではない。'],

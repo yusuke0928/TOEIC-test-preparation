@@ -212,7 +212,7 @@ export const L2B = [
          を問う設問に差し替えた。中身を丸ごと変えたため設問 id を再度新規採番する
          （no は 63 のまま）。正解位置は前回と同じ index 1 を維持。 */
       { tag: '詳細', t: ['p3detail'], id: 'v6q63r2', s: 'Why must the unit be lifted in one piece?',
-        c: ['The crane can only make one lift that day.', 'The manufacturer\'s warranty would not apply otherwise.', 'The roof cannot be reached from inside the building.', 'The delivery is booked for a single date.'],
+        c: ['The crane can only make one lift that day.', 'The manufacturer\'s warranty would not apply otherwise.', 'The building offers no internal access to the roof.', 'The delivery arrives on a single date.'],
         a: 1,
         e: '女性が「現場で分割するとメーカー保証が効かなくなる」と述べており、一体で吊り上げる理由はメーカー保証を維持するためである。',
         w: ['その日のクレーンの吊り作業回数については述べられていない。', '正解。', '建物内部からの屋根への到達可否については述べられていない。', '搬入日が12日である点は述べられているが、これは一体で吊り上げる理由ではない。'] },

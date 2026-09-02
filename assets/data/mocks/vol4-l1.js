@@ -183,7 +183,7 @@ export const L1 = [
 
   p2(11, { t: ['p2wh'], lv: 4, sa: 'W-Au', sb: 'M-Am',
     p: 'Would you rather review the budget now or after lunch?',
-    c: ['Whichever suits you best.', 'Yes, that budget works.', 'The lunch was rescheduled.'],
+    c: ['Whichever suits you best.', 'Yes, that budget works.', 'The lunch time changed.'],
     a: 0,
     e: '「今」か「昼食後」かを問う選択疑問。or の後ろは共通の Would you rather review the budget に掛かる時の句なので、Yes で始めてもどちらを選んだことになるのかは決まらない。正解は判断を相手に委ねる応答。',
     w: ['正解。', 'Yes だけではどちらを選んだのか決まらない。budget の反復で、予算そのものが妥当だという内容も時期の二択に触れていない。', 'lunch の反復。昼食の日程が動いたという事実は、確認を今にするか後にするかのどちらとも両立する（時間がずれても「昼食後」という選択肢は残る）。'],
@@ -191,7 +191,7 @@ export const L1 = [
 
   p2(12, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'How did the client react to the revised proposal?',
-    c: ['They have not responded yet.', 'It was revised twice.', 'The proposal is due Friday.'],
+    c: ['They have not responded yet.', 'It went through two revisions.', 'The proposal is due Friday.'],
     a: 0,
     e: 'まだ反応を得ていないと間接的に答える応答。',
     w: ['正解。', 'revise の反復。', '期限の話で反応の内容ではない。'],
