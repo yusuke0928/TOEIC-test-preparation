@@ -33,12 +33,18 @@
        複合(and/or)や先頭語が他と違う形をしている設問で、その1本が正解になる
        率が偶然から統計的に外れていないかを見る）、選択肢のうち受動態(be+過去
        分詞)を含む本数 k が偶然(k/選択肢数)から外れて正解位置と相関していないか
-       （検査I）。
-       G・H・I は「1巻×1パート」「1ファイル×1パート」単位の判定に加え、
+       （検査I）、選択肢のうち定形（that節・主節の述語になれる形。原形も含む）を
+       含む本数 k が偶然(k/選択肢数)から外れて正解位置と相関していないか（検査J。
+       要求提案の that 節で誤答を全部非定形＝to V/V-ing/having V-en に差し替えた
+       結果「定形がちょうど1本＝正解」になる事故に対応）。
+       G・H・I・J は「1巻×1パート」「1ファイル×1パート」単位の判定に加え、
        「模試6巻を合算したパート別」「ドリル全ファイルを合算したパート別」の
        判定も行う（メッセージ先頭に `[合算]`。1巻・1ファイルあたりの該当数が
        少なすぎて個別には有意にならない漏れを、合算して初めて捕まえるため。
-       --extra のファイルはこの合算には混ぜない）
+       --extra のファイルはこの合算には混ぜない）。検査Jはこれに加えて
+       「模試+ドリル全体を合わせた合算」も見る（対象になる設問自体が全データで
+       42問しかなく、模試側とドリル側を別々に合算すると実際の事故〈7問〉が
+       どちらの母数〈8件以上〉にも届かず検出できないため）
      ・図表（graphic）— topics（ユニット・設問）に "graphic" 論点があるか、
        設問 tag に「図表」を含むのに、そのユニットが graphic オブジェクトを
        持っていなければエラー（Vol.1〜3 のヘルパーが `graphic: o.g` と誤記していて
@@ -227,6 +233,11 @@ const wordLenDist = new Map();            // t.key -> { part -> [{ wc:[...], ans
                                            // mock/extra を別マップに分ける必要がない（no による並び順にも依存しないため）。
 const shapeDist = new Map();              // t.key -> { part -> [{ choices:[...], answer, n, label }] } — 選択肢の『形』
                                            // （複合 and/or・先頭語）と正解位置（検査H用）。粒度・理由は wordLenDist と同じ。
+const finiteDist = new Map();             // t.key -> { part -> [{ choices:[...], answer, n, label }] } — 選択肢
+                                           // （生データ）と正解位置（検査J用。定形/非定形への分類は checkFiniteJ
+                                           // 側で classifyFiniteness() を呼んで行う）。粒度・理由は wordLenDist と
+                                           // 同じだが、shapeDist と違い「全選択肢が2語以下」の除外はしない
+                                           // （動詞の形を問う設問は1語の選択肢がほとんどのため）ので別マップにする。
 
 /* ── 対象ファイルの読み込み ─────────────────────────────
    registry.js の MOCK_META / DRILL_FILES をそのまま使う
@@ -485,6 +496,25 @@ for (const t of targets) {
           const byPartShape = shapeDist.get(key);
           byPartShape[u.part] = byPartShape[u.part] || [];
           byPartShape[u.part].push({
+            choices: q.choices, answer: q.answer, n: q.choices.length,
+            label: Number.isInteger(q.no) ? `no=${q.no}` : (q.id ?? '(id なし)'),
+          });
+        }
+
+        /* ── 検査J用の収集：選択肢（生の文字列）と正解位置 ──
+           検査G・Hと違い「全選択肢が2語以下」による除外はしない（動詞の形を問う
+           設問は "submit" のように1語の選択肢がほとんどで、語数フィルタを掛けると
+           まさに検出対象の設問が抜け落ちる）。分類（定形/非定形/判別不能/対象外）は
+           ここでは行わず、選択肢の生データだけを溜めて checkFiniteJ 側で
+           classifyFiniteness() を呼ぶ（検査H・Iの hasAndOr/leadWord/isPassive と
+           同じ「収集は生データ、分類は判定関数側」という設計に合わせるため。
+           classifyFiniteness は isPassive の IRREG 定義を再利用するので、
+           isPassive より後ろに定義せざるを得ない事情もある）。 */
+        if (q.choices.every(c => typeof c === 'string')) {
+          if (!finiteDist.has(key)) finiteDist.set(key, {});
+          const byPartFinite = finiteDist.get(key);
+          byPartFinite[u.part] = byPartFinite[u.part] || [];
+          byPartFinite[u.part].push({
             choices: q.choices, answer: q.answer, n: q.choices.length,
             label: Number.isInteger(q.no) ? `no=${q.no}` : (q.id ?? '(id なし)'),
           });
@@ -1183,6 +1213,219 @@ function checkPassiveI(key, byPart) {
 }
 for (const [key, byPart] of shapeDist) checkPassiveI(key, byPart);
 
+/* ── 検査J：定形/非定形の軸から正解が漏れていないか（模試・ドリル・--extra・WARN） ──
+   検査I（受動態）と同じ考え方を、選択肢が「that 節・主節の述語になれる形（定形）か、
+   to V・V-ing・having V-en・being V-en（非定形）か」という軸に適用する。
+   要求・提案の that 節（`It is essential that every participant ------- a signed
+   waiver.`）のような設問で、第二の正解（英式の直説法）を潰すために誤答を全部
+   非定形に差し替えた結果、「4択のうち定形がちょうど1本だけで、それが正解」という
+   設問が7問同時に発生した実際の事故（2026-09-12）に対応する。
+
+   軸の実体は「その位置で述語（that 節・主節の動詞）になれる形かどうか」。
+   分類は4値：定形(finite) / 非定形(nonfinite) / 判別不能(unknown) / 対象外(other)。
+   unknown と other はどちらも「その設問ごと母数から外す」対象として同じ扱いにする。
+   ・非定形（述語になれない）：to V（to be V-en 含む）／V-ing 単独／having V-en／
+     being V-en／**過去形と紛れない裸の過去分詞**（`worn` `taken` `written`
+     `known` のように、不規則動詞で過去分詞形が単純過去形と綴りが異なるもの。
+     過去形（wore/took/wrote/knew）ではあり得ない形なので、定形の単純過去との
+     混同が起きず、非定形の分詞としてのみ読める）。
+   ・定形（述語になれる）：`submits` `is submitted` `will submit` `had submitted`
+     のような時制・助動詞を持つ形。**原形も含む**（`submit` はもちろん、
+     `be filed` `be approved` `be put` のような原形受動も）——仮定法現在・
+     命令形の述語になれるため同じ側に数える。この検査が捕まえたいのは
+     「述語になれる形が1本だけ浮いている」状態であり、原形（原形受動を含む）は
+     まさにその1本になり得るため、非定形側に置いてはならない
+     （2026-09-12、指示側の初出仕様が「be V-en は非定形」と自己矛盾していたため
+     訂正された。原形受動を非定形に誤分類すると、捕まえるべき7問中 subj-07r
+     `be filed`・subj-25r `be approved` を取り逃がす）。
+   ・判別不能：過去形か過去分詞か決まらない語が先頭に来ているもの。
+     **不規則動詞は「過去形と過去分詞が同形かどうか」で分岐する**——
+     `said` `held` `put` `cut` `read` のように過去形＝過去分詞（さらに `put`
+     `cut` `read` は原形とも同形）の語は、定形の単純過去（あるいは原形）と
+     非定形の過去分詞のどちらとも読めるため判別不能（IRREG_SAME_PP）。一方
+     `worn` `taken` `written` `known` のように過去分詞が単純過去と別形の語は、
+     過去形ではあり得ないので非定形として確定できる（上記・IRREG_DISTINCT_PP）。
+     規則動詞の `-ed` 語（`submitted` `checked` `suspended`）は過去形＝過去分詞
+     なので常に判別不能。CLAUDE.md の指示は「単独で置かれていて」（＝選択肢が
+     その1語だけ）だが、後ろに語が続いても曖昧さの性質は変わらない
+     （"processed automatically" は定形の単純過去にも、非定形の分詞句の一部にも
+     読める）ため、語数を問わず先頭語がこの形なら判別不能にする（指示からの
+     拡張。除外が増える方向にしか効かないので安全側）。
+
+   判定は先頭語（w0）とその次の語（w1）だけを見る、単純な表層パターンマッチ。
+   明示的なパターン（to/having/being/V-ing/法助動詞/have・has・had/be動詞の時制形/
+   短縮形/原形の be/3人称単数現在の -s）のどれにも掛からない「裸の語」
+   （`submit` `consist` `monitor` 等）は、同じ設問の他の選択肢から「動詞の頭」
+   （先頭の to/having/been/being を読み飛ばした最初の語）を取り出し、同じ語幹の
+   ものが明示的パターンで分類できていれば、その語の原形とみなして定形にする
+   （アンカー方式）。アンカーが無ければ、動詞の活用形パラダイムの選択肢ではない
+   （語彙・品詞問題の名詞・形容詞など無関係な選択肢）と判断し対象外(other)にする。
+
+   誤判定が無いことは、assets/data 全体（模試6巻＋ドリル23ファイル、1,814設問）に
+   対して実行し、①「定形」「非定形」両方を含み unknown/other を含まない42設問
+   （すべて Part5・Part6）を全件目視、②「その他」に落ちた約5,500件のうち
+   Part1〜4・7 の全文・フレーズ選択肢（"It's a secure connection..." 等）が
+   意図どおり定形/非定形いずれにも誤分類されず対象外になっていること、を
+   確認して行った（詳細は SP/fix-final-validateJ.md）。
+   当初 -ing 名詞の誤検知（"meeting" 等）を避けるための denylist を持っていたが、
+   `having set up` の兄弟である `setting up` の "setting" がその denylist に
+   入っていたため非定形と判定されず、裸の語アンカー経路に落ちて誤って定形と
+   判定される事故が実測で見つかり、denylist を撤去した（無関係な選択肢セットは、
+   他の選択肢が対象外になることで自然に母数から外れるため、denylist が無くても
+   誤検知は増えない）。また当初アンカーの語幹取り出しに選択肢の先頭語
+   （`sibWords[0]`）をそのまま使っていたが、`to submit` `having submitted` の
+   ような選択肢では先頭語が `to`/`having` になり、実際の動詞（`submit`）を
+   拾えていなかった（`submitting` のような1語の -ing 型が兄弟にあるときだけ
+   たまたま機能する、という偶然に依存していた）。`finitenessVerbHead()` で
+   先頭の to/having/been/being を読み飛ばすよう修正した。
+
+   収集は finiteDist（選択肢の生データ。分類はここで行う）。各設問について
+   kFinite = 選択肢のうち定形の本数を数え、kFinite が 1〜(選択肢数-1) の設問だけを
+   対象にする（0 は定形が無く軸が存在せず、選択肢数は全選択肢が定形で軸にならない
+   ため、検査I と同じ理由で除く）。kFinite の値ごとに別々の母数として集計し、
+   p = kFinite / 選択肢数、z = (hits/n - p) / sqrt(p(1-p)/n) で正規化する
+   （検査F・G・H・Iと同じ考え方）。n_k >= 8 かつ |z| >= 2.0 で WARN
+   （検査Hと同じ閾値・同じ両側判定）。実際の事故（7問同時発生）は kFinite=1 に
+   相当する。 */
+const NONVERB_AFTER_TO = new Set([
+  'the', 'a', 'an', 'this', 'that', 'these', 'those', 'his', 'her', 'its', 'our', 'their', 'my', 'your',
+  'whom', 'whoever', 'someone', 'anyone', 'everyone', 'no', 'nobody', 'somebody', 'anybody', 'everybody',
+  'us', 'them', 'him', 'me', 'you', 'which', 'whose',
+]);
+const FINITE_MODALS = new Set(['will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'ought']);
+const FINITE_HAVE = new Set(['has', 'have', 'had']);
+const FINITE_BE_TENSED = new Set(['am', 'is', 'are', 'was', 'were']);
+const FINITE_BE_CONTR = new Set([
+  "isn't", "aren't", "wasn't", "weren't", "it's", "that's", "he's", "she's",
+  "they're", "we're", "you're", "there's", "what's", "who's",
+]);
+/* 検査IのIRREG（不規則動詞の過去分詞リスト）を、「過去形と同形か（IRREG_SAME_PP、
+   判別不能）」「過去形と別形か（IRREG_DISTINCT_PP、過去形とは紛れない＝非定形確定）」
+   に分割する。base-past-participle が3形とも異なる動詞（write-wrote-written 等）の
+   participle は DISTINCT。base=participle だが past だけ別形の動詞（come-came-come、
+   run-ran-run）はどちらにも入れない（過去形との混同は起きないが、原形とも同形で
+   「原形＝定形」の可能性を排除できないため、特別扱いせず一般の裸の語アンカー
+   経路に委ねる）。 */
+const IRREG_SAME_PP = new Set('bent|brought|built|bought|caught|cut|dealt|fed|felt|fought|found|had|heard|held|hit|hurt|kept|laid|led|left|lent|lit|lost|made|meant|met|paid|put|read|said|sent|set|shot|shut|sold|sought|spent|split|spread|struck|stuck|taught|thought|told|understood|withheld|won|hung|bound|wound|shone|slid|bred|fled|sped|swept|swung|forecast|broadcast|cast|cost|bid|quit|shed|spat|leapt|dreamt|learnt|spelt|burnt|smelt|rebuilt|reset|resold|upheld|misled'.split('|'));
+const IRREG_DISTINCT_PP = new Set('been|begun|bitten|blown|broken|chosen|done|drawn|driven|drunk|eaten|fallen|flown|forbidden|forgotten|forgiven|frozen|given|gone|grown|hidden|known|ridden|risen|seen|shaken|shown|sung|sworn|taken|torn|thrown|trodden|woven|withdrawn|worn|written|overseen|overtaken|undertaken|foreseen|redone|rewritten|proven|lain|sunk'.split('|'));
+function finitenessStripPunct(w) {
+  return (w || '').toLowerCase().replace(/[^a-z']/g, '');
+}
+/* 同一設問内で「同じ動詞のパラダイムか」を見るためだけの粗いステマー。
+   厳密な語幹一致は要求しない（誤って一致しても、その裸の語を定形にするだけで、
+   一致しないと安全側の対象外に倒れるため、緩めに倒してある）。 */
+function finitenessCrudeStem(w) {
+  let s = finitenessStripPunct(w);
+  if (s.endsWith('ies') && s.length > 4) s = s.slice(0, -3) + 'y';
+  else if (s.endsWith('ing') && s.length > 5) s = s.slice(0, -3);
+  else if (s.endsWith('ied') && s.length > 4) s = s.slice(0, -3) + 'y';
+  else if (s.endsWith('es') && s.length > 4) s = s.slice(0, -2);
+  else if (s.endsWith('ed') && s.length > 4) s = s.slice(0, -2);
+  else if (s.endsWith('s') && !s.endsWith('ss') && s.length > 3) s = s.slice(0, -1);
+  if (/([a-z])\1$/.test(s) && s.length > 3) s = s.slice(0, -1);
+  return s;
+}
+/* 選択肢の語配列から「動詞の頭」を取り出す。to/having/been/being のような
+   先頭の助動詞・不定詞標識を読み飛ばし、実際の語幹を持つ語（"to submit" なら
+   submit、"having submitted" なら submitted）にたどり着く。 */
+const FINITENESS_SKIP_HEAD = new Set(['to', 'having', 'been', 'being', 'not']);
+function finitenessVerbHead(words) {
+  let i = 0;
+  while (i < words.length - 1 && FINITENESS_SKIP_HEAD.has(finitenessStripPunct(words[i]))) i++;
+  return words[i];
+}
+/* 選択肢を「明示的なパターン」だけで分類する。マッチしなければ null
+   （裸の語などアンカー判定待ち）を返す。 */
+function classifyFinitenessExplicit(words) {
+  const w0 = finitenessStripPunct(words[0]);
+  const w1 = finitenessStripPunct(words[1]);
+  if (!w0) return null;
+
+  if (w0 === 'to') {                                        // to V（to be/have Ven 含む）
+    if (!w1) return 'other';
+    if (NONVERB_AFTER_TO.has(w1)) return 'other';           // "to the office" 等の前置詞句は除外
+    return 'nonfinite';
+  }
+  if (w0 === 'having') return 'nonfinite';                   // having V-en（having been V-en 含む）
+  if (w0 === 'being') return 'nonfinite';                     // being V-en
+  if (/^[a-z]+ing$/.test(w0)) return 'nonfinite';             // V-ing 単独
+  if (IRREG_DISTINCT_PP.has(w0)) return 'nonfinite';          // 過去形とは別形の過去分詞（worn/taken/written 等）→非定形確定
+  if (IRREG_SAME_PP.has(w0)) return 'unknown';                // 過去形＝過去分詞の不規則動詞（said/held/put/cut 等）→判別不能
+  if (/^[a-z]+(?:ed|en)$/.test(w0)) return 'unknown';         // 規則動詞の -ed（過去形＝過去分詞）→判別不能
+  if (FINITE_MODALS.has(w0)) return 'finite';                 // 法助動詞 + V
+  if (FINITE_HAVE.has(w0)) {                                  // have/has/had + V-en（"have to V" は除外）
+    if (w1 === 'to') return 'other';
+    return 'finite';
+  }
+  if (FINITE_BE_TENSED.has(w0)) return 'finite';              // be動詞（時制あり）+ V-en/V-ing
+  if (FINITE_BE_CONTR.has(finitenessStripPunct(words[0]))) return 'finite'; // be動詞の短縮形
+  if (w0 === 'be') return 'finite';                           // 原形の be（仮定法現在。be V-en も含む）
+  if (/^[a-z]+s$/.test(w0) && !w0.endsWith('ss') && w0.length > 3) return 'finite'; // 3人称単数現在
+  return null;
+}
+function classifyFiniteness(choice, siblings) {
+  if (typeof choice !== 'string') return 'unknown';
+  const words = choice.trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return 'unknown';
+
+  const explicit = classifyFinitenessExplicit(words);
+  if (explicit) return explicit;
+
+  // 裸の語。同じ設問の他の選択肢の「動詞の頭」から、明示的パターンで分類できた
+  // 同じ語幹のものがあれば、その語の原形（定形）とみなす。アンカーが無ければ
+  // 動詞の活用形パラダイムの選択肢ではないと判断し、対象外にする。
+  const stem = finitenessCrudeStem(words[0]);
+  for (const sib of siblings) {
+    if (sib === choice) continue;
+    const sibWords = String(sib).trim().split(/\s+/).filter(Boolean);
+    if (!sibWords.length) continue;
+    const sibExplicit = classifyFinitenessExplicit(sibWords);
+    if (!sibExplicit || sibExplicit === 'other' || sibExplicit === 'unknown') continue;
+    if (finitenessCrudeStem(finitenessVerbHead(sibWords)) === stem) return 'finite';
+  }
+  return 'other';
+}
+function checkFiniteJ(key, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();   // 定形の本数 kFinite -> { n, hits, hitLabels }
+    for (const e of filtered) {
+      const classes = e.choices.map(c => classifyFiniteness(c, e.choices));
+      if (classes.some(c => c === 'unknown' || c === 'other')) continue;
+      const kFinite = classes.filter(c => c === 'finite').length;
+      if (kFinite < 1 || kFinite > e.n - 1) continue;
+      if (!byK.has(kFinite)) byK.set(kFinite, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kFinite);
+      g.n++;
+      if (classes[e.answer] === 'finite') { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kFinite, g] of byK) {
+      if (g.n < 8) continue;
+      const pChance = kFinite / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は定形（that節・主節の述語になれる形）の選択肢が${kFinite}/${k4}本あるとき、その定形側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。定形側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は定形の選択肢が${kFinite}/${k4}本あるとき、正解が定形側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。定形側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(key, msg);
+      }
+    }
+  }
+}
+for (const [key, byPart] of finiteDist) checkFiniteJ(key, byPart);
+
 /* ── 検査G・H・I の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
    上の checkWordLenG / checkShapeH / checkPassiveI は「1巻×1パート」
    「1ファイル×1パート」単位で見ている。この単位だと、1巻・1ファイルあたりの
@@ -1351,12 +1594,63 @@ function checkPassiveIAggregate(label, byPart) {
   }
 }
 
+/* checkFiniteJ と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。 */
+function checkFiniteJAggregate(label, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();
+    for (const e of filtered) {
+      const classes = e.choices.map(c => classifyFiniteness(c, e.choices));
+      if (classes.some(c => c === 'unknown' || c === 'other')) continue;
+      const kFinite = classes.filter(c => c === 'finite').length;
+      if (kFinite < 1 || kFinite > e.n - 1) continue;
+      if (!byK.has(kFinite)) byK.set(kFinite, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kFinite);
+      g.n++;
+      if (classes[e.answer] === 'finite') { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kFinite, g] of byK) {
+      if (g.n < AGG_MIN) continue;
+      const pChance = kFinite / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は定形（that節・主節の述語になれる形）の選択肢が${kFinite}/${k4}本あるとき、その定形側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。定形側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は定形の選択肢が${kFinite}/${k4}本あるとき、正解が定形側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。定形側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(`[合算] ${label}`, msg);
+      }
+    }
+  }
+}
+
 checkWordLenGAggregate('模試6巻合算', aggregateByGroup(wordLenDist, mockKeySet));
 checkWordLenGAggregate('ドリル全体合算', aggregateByGroup(wordLenDist, drillKeySet));
 checkShapeHAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
 checkShapeHAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
 checkPassiveIAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
 checkPassiveIAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
+checkFiniteJAggregate('模試6巻合算', aggregateByGroup(finiteDist, mockKeySet));
+checkFiniteJAggregate('ドリル全体合算', aggregateByGroup(finiteDist, drillKeySet));
+/* 検査Jだけ「模試+ドリル全体」の合算も追加する（指示どおりの拡張ではない。
+   理由は SP/fix-final-validateJ.md に記録：定形/非定形の軸が適用できる設問は
+   動詞の活用形パラダイム（4択とも同じ動詞の形違い）に限られ、全データでも
+   42問しかない。実際の事故（7問）は模試側3問・ドリル側5問に分かれており、
+   検査G・Hと同じ「模試合算」「ドリル合算」を別々に見る運用のままだと、
+   AGG_MIN=8 のどちらの母数にも届かず検出できない。母数を8件以上に保ったまま
+   検出するには、模試とドリルを合わせた母数が要る）。 */
+checkFiniteJAggregate('模試+ドリル全体合算', aggregateByGroup(finiteDist, new Set([...mockKeySet, ...drillKeySet])));
 
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
@@ -1433,7 +1727,8 @@ if (errorList.length) process.exitCode = 1;
 export const __test__ = {
   AGG_MIN, mockKeySet, drillKeySet,
   aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate, checkPassiveIAggregate,
-  checkWordLenG, checkShapeH, checkPassiveI,
-  loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive,
-  wordLenDist, shapeDist, issues, warn,
+  checkFiniteJAggregate,
+  checkWordLenG, checkShapeH, checkPassiveI, checkFiniteJ,
+  loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive, classifyFiniteness,
+  wordLenDist, shapeDist, finiteDist, issues, warn,
 };
