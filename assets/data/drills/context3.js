@@ -21,14 +21,24 @@ export const UNITS = [
       ],
     }],
     questions: [
-      { id: 'p6c3-01-1', topics: ['cohesion'],
-        choices: ['those', 'other', 'the same', 'certain'],
+      /* id は p6c3-01-1r（第二の正解を閉じるため誤答(C)を差し替え、新規採番）。旧 (C)
+         the same は、談話の照応として直前に名指しされた対象をそのまま指す用法が標準的で
+         （比較基準は談話から供給されればよい：I went to Oxford. My brother went to
+         the same university.）、閉じていなかった。決定的なのは同じ文書の p6c3-01-2
+         選択肢(A) が during the same period をまったく同じ照応用法で使っていること。
+         旧 why[2]「既定の読みでは相互の意味になる」もヘッジを断定に書き換えただけの
+         主張で根拠が無かった。(C) を either に差し替え、単数名詞しか取れない
+         （*either floors）という数の構造で閉じた。本文に「2つのフロア」があるので
+         誘引力もある。あわせて (D) certain の why を、非照応の限定詞であるという
+         構造の言い方に直した。 */
+      { id: 'p6c3-01-1r', topics: ['cohesion'],
+        choices: ['those', 'other', 'either', 'certain'],
         answer: 0,
         exp: '直前の文で levels 2 and 3 という具体的なフロアが名指しされている。それを受けて「(通常割り当てられている)フロア」と言うには、既出の特定の対象を指す指示形容詞 those が必要。空所の文だけでは、どのフロアを指すか決まらない。',
         why: ['正解。直前の文で名指しされた levels 2・3 を指す。',
               'other なら「(2・3以外の)別の」フロアという意味になり、閉鎖対象の説明と矛盾する。',
-              'the same は比較対象が必要だが、ここでは何と「同じ」かが示されていない。',
-              'certain は不特定の一部を指し、直前で明示された2つのフロアを指せない。'],
+              'either は単数名詞にしか付かない限定詞（either floor は可、either floors は不可）。levels 2 and 3 という2つのフロアが直前にあるため誘引力はあるが、floors という複数形とは数が一致せず成立しない。',
+              'certain は a certain Mr Smith のように、話し手・聞き手のどちらにも未同定の対象を新たに導入するときに使う非照応の限定詞で、直前の文で既に特定された levels 2 and 3 を指し戻す働きを持たない。'],
         vocab: [['overflow lot', '臨時駐車場']] },
 
       { id: 'p6c3-01-2', topics: ['p6ins'],
@@ -43,7 +53,7 @@ export const UNITS = [
         why: ['駐車場の照明工事（対象階を加えても）は矢印や出口の話とは別件で、直後の「旧レイアウトの記憶に頼らない」という文につながらない。',
               '正解。直前の文の「(現在)サッカレー通り出口へ誘導する矢印」を「これまで使われてきたサッカレー通り出口」と反復して受け、動線が変わることを示す。直後の「一時的な標識に従うべき」にも自然につながる。',
               '延期の経緯（具体的な遅れの理由を加えても）は過去の話であり、標識やレイアウト変更の説明にはつながらない。',
-              '区画数の変更は矢印や出口の話とは別の変更点で、次文の「レイアウトの記憶」にはつながらない。'],
+              '区画数の変更は、直前の文の「(現在)サッカレー通り出口へ誘導する矢印」という動線の話に結び付かない。'],
         vocab: [['directional marking', '誘導標示'], ['currently', '現在のところ']] },
 
       { id: 'p6c3-01-3', topics: ['cohesion'],
@@ -92,7 +102,7 @@ export const UNITS = [
         choices: ['Every', 'Some', 'No', 'This'],
         answer: 3,
         exp: '直前の文で「日曜1時(UTC)からデータベースを新サーバーへ移行するため約4時間利用できなくなる」という1回限りの具体的な作業を説明している。それを受けて「その(この)メンテナンスは...」と特定の事象を指すには this が必要。',
-        why: ['Every は不可算名詞 maintenance との相性が悪く、また総称的な繰り返しを示すため、直前で説明した1回限りの特定の作業を指すには合わない。',
+        why: ['Every は単数可算名詞を取る限定詞で、不可算名詞 maintenance には付けられない（*every maintenance は成立しない）。また総称的な繰り返しを示す語でもあり、直前で説明した1回限りの特定の作業を指すにも合わない。',
               'Some は不特定の一部を表し、直前で具体的に説明された作業と矛盾する。',
               'No は「メンテナンスが無い」の意になり、直前の説明と正面から矛盾する。',
               '正解。直前の文で具体的に説明した今回のデータベース移行という特定の作業を指す。'],
@@ -106,7 +116,7 @@ export const UNITS = [
           'Support tickets submitted during the window will be queued and answered once we are back online, typically within one business day of the maintenance ending.',
         ],
         answer: 1,
-        exp: 'この段落は「メンテナンス中は新規請求書の作成・支払記録・レポート出力ができず、保存した変更も移行完了まで反映されない」という制約を説明している。その制約を踏まえた回避策として、直後の文で「事前に準備し、送信予約機能を使う」という具体策が続く。段落全体の趣旨(できないこと→回避策)を踏まえないと、どの一文が入るか決まらない。',
+        exp: 'この段落は「メンテナンス中は新規請求書の作成・支払記録・レポート出力ができず、保存した変更も移行完了まで反映されない」という制約を説明している。その制約を踏まえた回避策として、直後の文で「事前に準備し、送信予約機能を使う」という具体策が続く。決め手は直後の文の the scheduled-send option という定冠詞つきの表現で、これが指す「送信予約機能」を先に導入している一文でなければならない。(B) だけがこれを満たす。',
         why: ['API アクセスの制限（対象範囲を加えても）は Enterprise プラン限定の別の影響で、緊急の請求書送付という話題にはつながらない。',
               '正解。先月導入されたスケジュール機能に触れており、直後の「事前に準備し、送信予約機能を使う」という具体策に直接つながる。',
               '移行時期の経緯（類似の事例を加えても）は過去の話で、緊急時の対処法にはつながらない。',
@@ -120,21 +130,25 @@ export const UNITS = [
         why: ['Another は別の(3つ目の)施設を暗示し、「単一の施設」という記述と矛盾する。',
               '正解。直前の文で初めて具体的に特定された「ダブリンの単一施設」を指す定冠詞。',
               'A は未出のものとして再導入する意味になり、直前で既に特定された施設と矛盾する。',
-              'Every は複数の存在を前提とし、「単一の施設」という記述と矛盾する。'],
+              'Every facility とすると「すべての施設が as our current infrastructure(現行のインフラ)と同じ認証基準を満たす」という文になり、比較対象である current infrastructure 自体がその「すべての施設」に含まれる自己言及になってしまう。既出の特定の1施設(ダブリンの単一施設)を指すには定冠詞 The が必要。'],
         vocab: [['data-residency requirement', 'データ所在地要件']] },
 
-      { id: 'p6c3-02-4', topics: ['p6ins'],
+      /* id は p6c3-02-4r（誤答を差し替えたため新規採番）。旧誤答(C)は本文の
+         in most time zones という「most」（＝例外の存在を予告する語）に呼応してしまい、
+         次文への譲歩の接続という程度差でしか(D)と区別できない第二の正解だった。
+         時間帯に触れない内容に差し替え、本文の「most」と呼応しないようにした。 */
+      { id: 'p6c3-02-4r', topics: ['p6ins'],
         choices: [
           'Most of our competitors schedule similar maintenance windows for the same reason.',
           'The new servers have twice the storage capacity of the ones being retired.',
-          'Customers based in Australia and New Zealand will experience the maintenance window in the middle of the day.',
+          'We have also published a short video walkthrough of the new invoicing dashboard.',
           'We have also doubled the engineering team assigned to the cutover compared with our usual maintenance procedure.',
         ],
         answer: 3,
         exp: 'この段落は「負荷の低い時間帯を選んで作業を予定した」という説明と、直後の「それでも予定より長引いた場合はステータスページで更新する」という譲歩の間に位置する。予定通り終わらせるための追加の備えを述べる一文が、両者を自然につなぐ。',
         why: ['他社の対応との比較は、直後の「それでも予定より長引いた場合」という譲歩の前提を作らない。',
               '新サーバーの容量は事実の紹介であり、作業が延びた場合の対応にはつながらない。',
-              '一部地域では日中に当たるという注意点は、直前の「負荷の低い時間帯を選んだ」への補足にとどまり、直後の「予定より長引いた場合」にはつながらない。',
+              '新しい請求書ダッシュボードの解説動画の話は、直前の「負荷の低い時間帯を選んだ」にも直後の「予定より長引いた場合」にもつながらない。',
               '正解。通常より多くの技術者を投入したという備えを述べ、それでも直後の「予定より長引いた場合」という譲歩に自然につながる。'],
         vocab: [['cutover', '切り替え作業'], ['real-time update', 'リアルタイム更新']] },
     ],
@@ -161,8 +175,8 @@ export const UNITS = [
         exp: '直前で導入された the new Chronogate app という単数の主体を受ける主格代名詞は It。Each も単数扱いで動詞の形は合うが、複数の対象があることを前提とする語であり、この文書で導入されている新システムは Chronogate ひとつだけなので合わない。',
         why: ['正解。直前で導入された単数の主体 the new Chronogate app を受ける。',
               'They は複数。単数の app を受けられない。',
-              'Each は複数の対象の中の「それぞれ」を表す語。直前で導入された新システムは Chronogate ひとつだけで、前提が合わない。',
-              'Both は「両方」の意で、置き換えられる旧スプレッドシートまで含んでしまい、直前の文意と矛盾する。'],
+              'Each は2つ以上の対象を1つずつ取り上げる語。直前の文には the new Chronogate app と the spreadsheet template の2つが出ており、Each で受けると置き換えられる旧スプレッドシートまで含めた読みになり、直後の「財務チームに届く前に指摘する」という新機能の説明と食い違う。',
+              'Both は複数扱いで、動詞は calculates ではなく calculate を取る形でなければならず、単数形の calculates とは数が一致しない。意味の上でも「両方」は置き換えられる旧スプレッドシートまで含んでしまい、直前の文意と矛盾する。'],
         vocab: [['utilization', '稼働率、使用率'], ['flag', '(問題として)指摘する']] },
 
       { id: 'p6c3-03-2', topics: ['p6ins'],
@@ -184,8 +198,8 @@ export const UNITS = [
         choices: ['Some', 'Any', 'Other', 'These'],
         answer: 3,
         exp: '直前の文で「9月最終週に1日2回研修を行い、出席は必須」と述べている。その研修そのものを受けるので、直前に述べたばかりの複数名詞 sessions を指す this の複数形 these が入る。空所の文だけを見ても、どの研修を指すかは決まらない。',
-        why: ['Some だと「一部の回だけが両方の画面を扱う」という意味になり、全員に出席を義務付けている直前の文とかみ合わない。',
-              'Any は疑問文・否定文・条件節で使うのが基本で、この肯定平叙文には合わない。',
+        why: ['Some は部分集合を導入する語で、直前の文で名指しした研修全体を漏れなく受け直す確定的な照応にはならない。加えて「一部の回だけが両方の画面を扱う」という読みになると、直後の「(残り40%が現場勤務のため)両画面を扱う」という理由付けが、全研修が対象であることの説明として機能しなくなる。',
+              'Any は「(不特定の)任意のどれでも」という総称的な意味を持つ語で、直前の文で名指しされた特定の研修一式を漏れなく受け直す確定的な照応にはならない。',
               'Other は既出以外の別の研修を指すが、本文にあるのは9月最終週の研修だけで、それ以外のセッションは存在しない。',
               '正解。直前の文で述べたばかりの Training sessions を指す this の複数形。'],
         vocab: [['mandatory', '必須の'], ['interface', '(操作)画面']] },
@@ -199,7 +213,7 @@ export const UNITS = [
         ],
         answer: 2,
         exp: '直前の文で「請求コードや案件番号は何も変わらない」という安心材料を示し、直後で「研修後もまだ質問がある場合はOperationsチームに直接連絡を」と続く。両者の間には、研修で配布される具体的な資料に触れる一文が入るのが自然で、待たずに直接連絡すべき理由(すでに参照資料は配られている)にもつながる。',
-        why: ['請求先住所の再入力という内容（出所の説明を加えても）は、直前の「請求コードや案件番号は変わらない」という説明とむしろ矛盾し、話がつながらない。',
+        why: ['請求先住所の再入力という内容（出所の説明を加えても）は、直前の文が変わらないと述べている billing codes・client project numbers とは別物の billing addresses の話で、直後の「研修後もまだ質問がある場合は」という文につながらない。',
               '請求書テンプレートの更新は並行する別の案件で、この段落の趣旨から外れる。',
               '正解。研修セッションで配布される対照表に触れており、直後の「研修後もまだ質問がある場合は」という文に自然につながる。',
               '開発元の話は背景情報にすぎず、質問対応の案内にはつながらない。'],
@@ -218,7 +232,7 @@ export const UNITS = [
       body: [
         "The Halworth Aquatic Centre reopened to the public last Saturday, ten weeks after Corvane Assessors, the town's structural consultancy, found corrosion in three roof trusses during a routine survey and recommended immediate closure. {{1}} assessors' estimate, issued the same week, called for repairs to be finished by the end of June.",
         'The repair itself — replacing the corroded trusses and recoating the pool deck beneath them — was completed by Bruncastle & Vane, a construction firm the council had not previously used for work of this size. Bruncastle & Vane compressed the schedule by running two work shifts instead of one and by sourcing replacement steel locally rather than importing it. {{2}} As a result, the centre reopened on 12 April, well ahead of the June estimate.',
-        "Bruncastle & Vane will return to Halworth in September to resurface the centre's outdoor lanes, a smaller project expected to take three weeks. {{3}} recommended waiting until early autumn for this second phase, citing the need to confirm the repaired trusses have fully settled under normal pool-hall humidity before adjacent structural work resumes.",
+        "Bruncastle & Vane will return to Halworth in September to resurface the centre's outdoor lanes, a smaller project expected to take three weeks. {{3}}, which had performed the original structural survey and set the timeline in its initial estimate, recommended waiting until early autumn for this second phase, citing the need to confirm the repaired trusses have fully settled under normal pool-hall humidity before adjacent structural work resumes.",
         "The council has confirmed that season passes will not increase in price despite the additional cost of the compressed schedule. {{4}} A full account of the project's costs will be presented at the council's public meeting on 30 April.",
       ],
     }],
@@ -248,14 +262,19 @@ export const UNITS = [
               '海外供給元のその後の発言（具体的な差を加えても）は、今回の工期短縮の理由の説明にはつながらない。'],
         vocab: [['compress', '(工期などを)短縮する'], ['timeline', '工程、日程']] },
 
-      { id: 'p6c3-04-3', topics: ['cohesion'],
+      /* id は p6c3-04-3r（stem を差し替えたため新規採番）。旧文には空所の主語を
+         一意に特定する材料が無く、「トラスの定着待ちを進言する」のは施工業者
+         Bruncastle & Vane が言っても不自然ではなかった（本文に排除する記述が無い）。
+         非制限用法の関係代名詞節を補い、第1段落で構造調査・当初見積もりを行った
+         主体だけに一致する記述にして一意に閉じた。 */
+      { id: 'p6c3-04-3r', topics: ['cohesion'],
         choices: ['Corvane Assessors', 'Bruncastle & Vane', 'The town council', "The centre's management"],
         answer: 0,
-        exp: '空所の直前の文の主語は施工業者 Bruncastle & Vane だが、ここで問われているのは「トラスが定着するのを確認してから」という構造上の安全性についての専門的な判断であり、これは第1段落で構造調査を担当したとわかる Corvane Assessors の領分。直前の文の主語につられて Bruncastle & Vane を選ぶと誤り。離れた第1段落の情報と、この文の技術的な内容を突き合わせないと判断できない。',
-        why: ['正解。第1段落から構造調査(屋根トラスの腐食)を担当したとわかる Corvane Assessors が、トラスの定着という構造上の安全性について助言する立場にある。',
-              '直前の文の主語につられやすいが、Bruncastle & Vane は第2段落にあるとおり施工を担当した建設会社であり、構造安全性についての専門的判断をする立場ではない。',
-              '町議会は発注者であり、構造上の安全性についての専門的助言をする立場ではない。',
-              '施設の運営側も、構造安全性についての専門的助言をする立場ではない。'],
+        exp: '空所には非制限用法の関係代名詞節「which had performed the original structural survey and set the timeline in its initial estimate（構造調査を行い、当初の見積もりで工程を示した）」が続く。この記述に一致するのは第1段落で構造調査を行い最初の見積もりを出した Corvane Assessors だけ。直前の文の主語 Bruncastle & Vane につられて選ぶと誤り。離れた第1段落の情報と、この関係代名詞節の内容を突き合わせないと判断できない。',
+        why: ['正解。第1段落で構造調査(屋根トラスの腐食)を行い、当初の見積もりを出したのは Corvane Assessors。関係代名詞節の内容と一致する。',
+              '直前の文の主語につられやすいが、Bruncastle & Vane は第2段落にあるとおり施工を担当した建設会社であり、構造調査や当初の見積もりは行っていない。関係代名詞節の内容と食い違う。',
+              '町議会は発注者であり、構造調査や見積もりを行った主体ではない。',
+              '施設の運営側も、構造調査や見積もりを行った主体ではない。'],
         vocab: [['settle', '(構造物が)定着する、落ち着く'], ['humidity', '湿度']] },
 
       { id: 'p6c3-04-4', topics: ['p6ins'],
@@ -308,14 +327,22 @@ export const UNITS = [
               '動詞の原形。be 動詞の直後に原形は置けない。'],
         vocab: [['pre-portioned', '小分けにされた'], ['beforehand', '事前に']] },
 
-      { id: 'p6c3-05-2', topics: ['quant', 'cohesion'],
-        choices: ['Every', 'Each', 'Most', 'All'],
+      /* id は p6c3-05-2r（誤答(C)を差し替えたため新規採番）。旧 (C) Most の排除
+         「『大半』の意で、直後の『何も見失わない』が示す網羅性と矛盾する」は意味の推論
+         （閉じ方3）で、Most ingredients arrive individually labeled …, so nothing
+         gets lost … は文法的に完全に成立し、販促文の緩い主張としても読めてしまう
+         （閉じ切れていない）。Most を Much に差し替え、可算性の構造で閉じた——
+         much は不可算名詞を修飾する語で、可算名詞の複数形 ingredients には付けられない
+         （*much ingredients。可算複数には many が要る）。Every・Each（単数専用）と
+         同じ数・可算性の軸で3本とも構造的に閉じる。 */
+      { id: 'p6c3-05-2r', topics: ['quant'],
+        choices: ['Every', 'Each', 'Much', 'All'],
         answer: 3,
-        exp: '直前の文で挙げた材料一式を指す複数名詞 ingredients を受けるには、複数名詞を取り、かつ「すべて」という総括の意味を持つ All が必要。同じ文の後半にある「何も見失わない」という記述が、All が示す網羅性と一致する。',
+        exp: '直前の文で挙げた材料一式を指す複数名詞 ingredients を受けるには、複数の可算名詞を取れる限定詞が要る。Every・Each は単数名詞専用、Much は不可算名詞専用なので、複数の可算名詞 ingredients を取れるのは All だけ。同じ文の後半にある「何も見失わない」という記述も、All が示す網羅性と一致する。',
         why: ['Every は単数名詞を取る。複数形 ingredients には使えない。',
               'Each も単数名詞を取る語で、複数形 ingredients には付けられない。',
-              'Most は「大半」の意で、直後の「何も見失わない」が示す網羅性と矛盾する。',
-              '正解。複数名詞 ingredients を取り、直後の「何も見失わない」が示す網羅性とも一致する。'],
+              'Much は不可算名詞を修飾する語（much water / much time）。ingredients は可算名詞の複数形なので much は付けられず、可算複数を修飾するには many が要る。',
+              '正解。複数の可算名詞 ingredients を取れる限定詞で、直後の「何も見失わない」が示す網羅性とも一致する。'],
         vocab: [['crisper drawer', '(冷蔵庫の)野菜室']] },
 
       { id: 'p6c3-05-3', topics: ['biz'],

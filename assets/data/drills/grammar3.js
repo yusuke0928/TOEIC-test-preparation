@@ -109,7 +109,7 @@ export const UNITS = [
     e: '冠詞 a と名詞 breakdown の間に入るのは形容詞。granular breakdown「細かく分解された内訳」という定型表現。',
     w: ['名詞。granularity breakdown という複合名詞は成立せず、「細かく分けた」という修飾の意味も出せない。',
         '正解。名詞 breakdown を修飾する形容詞。',
-        '原形動詞。冠詞の直後に動詞は置けない。',
+        '動詞（原形）。古い形容詞用法（granular と同義の「粒状の」）もあるが、その意味では「粒状の内訳」という物理的な意味にしかならず、「細かく分解された」という修飾の意味は出せない。動詞としては冠詞の直後に置けない。',
         '副詞。名詞を修飾できない。'],
     ja: '予定支出の細かい内訳を含む提案書のみが、助成金委員会に回付される。',
     v: [['breakdown', '内訳'], ['projected expenses', '見込み支出'], ['forward to', '〜に回付する']],
@@ -138,7 +138,7 @@ export const UNITS = [
     w: ['名詞。remain の補語に名詞を置くと「取締役たち＝慎重さそのもの」という同定の意味になり、成り立たない。',
         '副詞。remain の補語にはなれず、後ろの about ともつながらない。',
         '正解。remain の補語となる形容詞。be circumspect about は定型表現。',
-        '名詞の複数形。circumspection は不可算名詞で複数形を作らず、補語に名詞を置けば同定の意味になり成り立たない。'],
+        '名詞の複数形。補語に名詞を置くと「取締役たち＝慎重さそのもの」という同定の意味になり、成り立たない。'],
     ja: '公になれば評判を損ないかねないと意識していた取締役たちは、正式な発表の準備が整うまで、合併協議について慎重な態度を崩さなかった。',
     v: [['mindful of', '〜を意識して'], ['reputational risk', '評判上のリスク'], ['circumspect', '慎重な']],
   }),
@@ -158,7 +158,7 @@ export const UNITS = [
   }),
 
   q('pos-31', {
-    t: ['pos'], lv: 5,
+    t: ['pos'], lv: 4,
     s: "The auditor's memo, though written in restrained language, made it ------- clear that the discrepancy could not be attributed to rounding errors alone.",
     c: ['unmistakable', 'mistaken', 'mistake', 'unmistakably'],
     a: 3,
@@ -178,9 +178,9 @@ export const UNITS = [
     c: ['will arrive', 'arrives', 'is arriving', 'arrived'],
     a: 1,
     e: 'as soon as が導く時を表す副詞節の中では、未来のことでも現在形で表す。主節 will begin が未来を示しているのが手がかり。',
-    w: ['副詞節中に will は原則使わない。',
+    w: ['未来形。時を表す副詞節の中は、未来の事柄でも現在形で表し will は用いない。なお条件を表す副詞節で見られる意志の will の読みも、主語 the shipment が無生物であるここでは成り立たない。',
         '正解。時の副詞節中の現在形が未来を表す。',
-        '現在進行形も未来を表せるが、as soon as 節では単純現在が原則。',
+        '現在進行形。as soon as は到達点そのものを指す接続詞で、到達動詞 arrive の進行形（まだ到着し切っていない「到着しつつある」の意）とは相容れない。',
         '過去形。主節が will begin と未来を指しているので、過去形とは時制が噛み合わない。'],
     ja: '荷物が到着し次第、受け入れチームが品質検査を開始します。',
     v: [['shipment', '荷物'], ['receiving team', '受け入れチーム']],
@@ -192,9 +192,9 @@ export const UNITS = [
     c: ['will complete', 'completes', 'is completing', 'had completed'],
     a: 1,
     e: 'until が導く時の副詞節の中は現在形。主節 will keep が未来を表している。',
-    w: ['副詞節中に will は使わない。',
+    w: ['未来形。until が導くのは時を表す副詞節で、その中は未来の事柄でも現在形で表す。will complete という形が立つのは when のように名詞節も導ける語が名詞節を導く場合（例: We do not know when the contractor will complete the inspection.）であって、until は名詞節を導かず、ここは keep the observation room closed の期間を限定する副詞節なのでその形は取れない。',
         '正解。時の副詞節中の現在形。',
-        '進行形。until 節では単純現在が原則。',
+        '進行形。complete は動作の完了点そのものを指す到達動詞で、その進行形（is completing）は「完了に近づきつつある」過程は表せても、until 節が指す完了の瞬間そのものは表せない。観察室の閉鎖が解除されるのはその瞬間なので、進行形はこの文脈に合わない。',
         '過去完了。まだ起きていない未来の完了を過去完了で表すのは誤り。'],
     ja: '換気設備の業者が最終検査を終えるまで、診療所は観察室を閉鎖したままにする。',
     v: [['ventilation', '換気'], ['inspection', '検査']],
@@ -214,32 +214,32 @@ export const UNITS = [
     v: [['a number of', '多くの〜'], ['carry', '（商品を）取り扱う']],
   }),
 
-  q('vform-24', {
+  q('vform-24r', {
     t: ['vform'], lv: 4,
     s: 'By the time the auditors arrived on site, the warehouse manager ------- most of the damaged inventory already.',
-    c: ['discarded', 'has discarded', 'was discarding', 'had discarded'],
+    c: ['discarded', 'has discarded', 'is discarding', 'had discarded'],
     a: 3,
     e: 'arrived という過去の一時点よりも前に完了していた出来事なので過去完了。by the time 節が過去形のときは、主節も過去の基準時に対する完了を過去完了で表す。',
     w: ['過去形。arrived という基準時との前後関係が示せない。',
         '現在完了。過去の基準時 arrived と結び付かない。',
-        '過去進行形。すでに処分し終えていたという完了の意味に合わない。',
+        '現在進行形。By the time the auditors arrived という過去の一時点が文全体の時間軸を決めており、現在時制に切り替える手がかりが文中に無い。',
         '正解。過去のある時点までに完了していたことを表す過去完了。'],
     ja: '監査人たちが現地に到着したときには、倉庫責任者はすでに損傷した在庫の大半を処分し終えていた。',
     v: [['auditor', '監査人'], ['discard', '処分する'], ['inventory', '在庫']],
   }),
 
-  q('vform-25', {
+  q('vform-25r', {
     t: ['vform'], lv: 4,
-    s: 'Unless the vendor ------- the replacement parts by Friday, the assembly line will remain idle over the weekend.',
-    c: ['will ship', 'ships', 'is shipping', 'had shipped'],
+    s: 'Unless the replacement parts ------- customs by Friday, the assembly line will remain idle over the weekend.',
+    c: ['will clear', 'clear', 'to clear', 'had cleared'],
     a: 1,
-    e: 'unless が導く条件の副詞節の中は、未来のことでも現在形で表す。主節 will remain が未来を示している。',
-    w: ['副詞節中に will は使わない。',
+    e: 'unless が導く条件の副詞節の中は、未来のことでも現在形で表す。ここでの主語 the replacement parts は無生物なので、意志を表す will の読みは成立せず、単純な未来を表す will も条件の副詞節では使わない。to clear のような非定形は節の定形動詞になれない。主節 will remain が未来を示している。',
+    w: ['will の意志用法は動作主が有生であることを前提とするが、主語 the replacement parts は無生物なのでその読みは成り立たない。単純な未来を表す will も、条件を表す副詞節の中では使わない。',
         '正解。条件の副詞節中の現在形が未来を表す。',
-        '進行形。unless 節では単純現在が原則。',
+        'to 不定詞。節の定形動詞の位置には置けない。',
         '過去完了。基準となる過去の時点が文中になく、主節の will remain とも噛み合わない。'],
-    ja: '業者が金曜日までに交換部品を出荷しない限り、組立ラインは週末の間稼働しないままになる。',
-    v: [['assembly line', '組立ライン'], ['idle', '稼働していない、遊休の']],
+    ja: '交換部品が金曜日までに通関しない限り、組立ラインは週末の間稼働しないままになる。',
+    v: [['clear customs', '通関する'], ['assembly line', '組立ライン'], ['idle', '稼働していない、遊休の']],
   }),
 
   q('vform-26', {
@@ -262,16 +262,16 @@ export const UNITS = [
     c: ['will be confirmed', 'are confirmed', 'confirm', 'were confirmed'],
     a: 1,
     e: 'The moment ...「〜した瞬間に」も時を表す副詞節を導き、中は現在形。結果は「確認される」側なので受動態。主節 will notify が未来を示す。',
-    w: ['副詞節中に will は使わない。',
+    w: ['時の副詞節では will は使わない。意志を表す will の例外が生じうるのは条件を表す副詞節の場合であり、ここは時を表す副詞節（the moment ...）なのでその例外は当てはまらない。',
         '正解。時の副詞節中の現在形の受動態。',
-        '能動態。結果が自ら確認することになり主客が逆。',
+        '能動態。confirm は他動詞で目的語が必要だが、ここには目的語が無く、能動の原形では文として成立しない。',
         '過去形の受動態。主節が will notify と未来を指しているので時制が合わない。'],
     ja: '結果が確認され次第、検査技師が医師と患者の両方に知らせます。',
     v: [['the moment', '〜した瞬間に'], ['physician', '医師']],
   }),
 
   q('vform-28', {
-    t: ['vform'], lv: 4,
+    t: ['vform'], lv: 3,
     s: 'Each of the regional offices ------- required to submit a quarterly compliance report.',
     c: ['are', 'have been', 'is', 'were'],
     a: 2,
@@ -284,28 +284,28 @@ export const UNITS = [
     v: [['regional office', '地域事務所'], ['compliance report', 'コンプライアンス報告書']],
   }),
 
-  q('vform-29', {
+  q('vform-29r', {
     t: ['vform'], lv: 5,
-    s: 'By the time the trustees meet in March, the foundation ------- more than three million dollars in grants, surpassing its original target by a wide margin.',
+    s: 'By the time the trustees meet next March, the foundation ------- more than three million dollars in grants, surpassing its original target by a wide margin.',
     c: ['will have distributed', 'will distribute', 'has distributed', 'was distributing'],
     a: 0,
-    e: 'by the time が導く節の指す未来の一時点までに完了しているはずの内容なので未来完了。by the time 節の中は未来のことでも現在形 meet で表す点もあわせて確認する。分詞構文 surpassing 以下も、その時点で目標を上回っているという完了のニュアンスと整合する。',
+    e: 'by the time が導く節の指す未来の一時点までに完了しているはずの内容なので未来完了。by the time 節の中は未来のことでも現在形 meet で表す点もあわせて確認する。next March により来る3月の1回限りの会合だと特定されるので、by the time 節の現在形を毎年恒例の集まりと読み替える余地はない。分詞構文 surpassing 以下も、その時点で目標を上回っているという完了のニュアンスと整合する。',
     w: ['正解。未来のある時点までの完了を表す未来完了。',
         '単純未来。by the time が示す未来の基準時「までに完了している」という意味を表せない。',
-        '現在完了。by the time 節が示す未来の基準時と結び付かない。',
+        '現在完了。next March により来る3月の1回限りの会合だと特定されているため、by the time 節の現在形を毎年恒例の集まりと読み替える余地が無く、その基準時までに完了している意味は未来完了でなければ表せない。',
         '過去進行形。未来の内容と時制が合わない。'],
-    ja: '3月に評議員が集まる時点までに、その財団は300万ドルを超える助成金を分配し、当初の目標を大きく上回ることになる。',
+    ja: '来年3月に評議員が集まる時点までに、その財団は300万ドルを超える助成金を分配し、当初の目標を大きく上回ることになる。',
     v: [['foundation', '財団'], ['trustee', '評議員、理事'], ['surpass', '上回る'], ['by a wide margin', '大差で']],
   }),
 
-  q('vform-30', {
+  q('vform-30r', {
     t: ['vform'], lv: 5,
     s: 'The samples that the field team collected during the monsoon survey ------- to the central lab before the storage facility lost power last Tuesday.',
-    c: ['were shipping', 'have been shipped', 'will be shipped', 'had been shipped'],
+    c: ['are being shipped', 'have been shipped', 'will be shipped', 'had been shipped'],
     a: 3,
     e: 'lost power last Tuesday という過去の一時点よりも前に完了していた内容なので過去完了。サンプルは「発送される」側なので受動態。主語 The samples と動詞の間に関係詞節が入り、文の骨格を見失いやすい。',
-    w: ['過去進行形（能動）。ship は「〜を発送する」という他動詞なので、The samples を主語にした能動態では試料が何かを発送する側になる。商業英語には Your order ships today. のように品物を主語に立てる自動詞用法もあるが、これは発送予定を単純時制で告げる言い方で、lost power という過去の一時点より前に完了していたという前後関係は表せない。',
-        '現在完了の受動態。last Tuesday という明確な過去の時点を示す語句と現在完了は共起できない。',
+    w: ['現在進行形の受動態。before ... lost power last Tuesday という過去の一時点が文全体の時間軸を決めており、現在時制に切り替える手がかりが文中に無い。',
+        '現在完了の受動態。before ... lost power last Tuesday が過去の基準点を作っており、発話時点を基準にする現在完了とはかみ合わない。',
         '未来の受動態。文全体が過去の出来事であることと矛盾する。',
         '正解。過去のある時点までに完了していた受動態。'],
     ja: 'モンスーン期の調査で現地チームが採集した試料は、先週火曜日に保管施設が停電する前に、すでに中央研究所へ発送されていた。',
@@ -318,7 +318,7 @@ export const UNITS = [
     c: ['will be submitted', 'is submitted', 'submits', 'had been submitted'],
     a: 1,
     e: 'provided that「〜という条件で」も条件を表す副詞節を導き、中は現在形。報告書は「提出される」側なので受動態。主節 will release が未来を示す。',
-    w: ['副詞節中に will は使わない。',
+    w: ['条件を表す副詞節では、単純な未来を表す will は使わない。意志を表す will の例外は動作主が有生であることが前提だが、ここでの主語 the final inspection report は無生物でその読みは成り立たない。',
         '正解。条件の副詞節中の現在形の受動態。',
         '能動態。報告書が自ら提出することになり主客が逆。',
         '過去完了の受動態。基準となる過去の時点が文中になく、主節の will release とも噛み合わない。'],
@@ -327,13 +327,13 @@ export const UNITS = [
   }),
 
   /* ══ 仮定法・要求提案 ═══════════════════════════════ */
-  q('subj-34', {
+  q('subj-34r', {
     t: ['subj'], lv: 5,
     s: 'If the company had invested in automation five years ago, it ------- so heavily on manual labor today.',
-    c: ['would not have relied', 'would not rely', 'did not rely', 'has not relied'],
+    c: ['having relied', 'would not rely', 'did not rely', 'has not relied'],
     a: 1,
-    e: 'if 節が had + 過去分詞（過去の事実に反する仮定）でも、帰結節の内容が today のように現在時点を指すときは、would + 原形を使う（混合仮定法）。would have relied のような would + have + 過去分詞は、帰結節も過去の内容を表すときに使う形で、today という現在を示す語と噛み合わない。',
-    w: ['仮定法過去完了の通常の帰結節の形。帰結節が過去の内容を表すときに使うが、ここでは today という現在を示す語があり噛み合わない。',
+    e: 'if 節が had + 過去分詞（過去の事実に反する仮定）でも、帰結節の内容が today のように現在時点を指すときは、would + 原形を使う（混合仮定法）。帰結節には定形の助動詞 would が必要で、having relied のような非定形だけでは独立節の述語になれない。',
+    w: ['非定形（having + 過去分詞）。it の後に定形動詞が無く、独立節の述語として機能しない。',
         '正解。if 節の過去の仮定に対し、today という現在時点の帰結を示すため would + 原形（混合仮定法）。',
         '直説法の過去形。仮定法の帰結節の形として使わない。',
         '現在完了。仮定法の帰結節の形として使わない。'],
@@ -355,46 +355,51 @@ export const UNITS = [
     v: [['holiday closure', '休業期間'], ['deliver', '配送する、届ける']],
   }),
 
-  q('subj-36', {
+  q('subj-36r', {
     t: ['subj'], lv: 4,
     s: 'It is high time the accounting department ------- the outdated software, given how often the program causes billing errors.',
-    c: ['replaced', 'replaces', 'will replace', 'has replaced'],
+    c: ['replaced', 'to replace', 'will replace', 'has replaced'],
     a: 0,
-    e: 'It is (high) time that ... の後は仮定法過去（過去形）を使い、「そろそろ〜すべき時だ」という現在についての婉曲な提案・非難を表す。will や現在形、完了形はこの構文では使わない。',
+    e: 'It is (high) time that ... の後は仮定法過去（過去形）を使い、「そろそろ〜すべき時だ」という現在についての婉曲な提案・非難を表す。to 不定詞のような非定形は that 節の定形述語にはなれず、完了形は「すでに実現した」という事実を表してしまって It is high time の含意と衝突する。will（単純未来）もこの構文に続く形として成立しない。',
     w: ['正解。It is high time の後に置く仮定法過去（過去形）。',
-        '直説法の現在形。It is high time の後では使わない。',
-        '未来形。It is high time の後では使わない。',
-        '現在完了。It is high time の後では使わない。'],
+        'to 不定詞。It is high time の後に続くのは主語と定形の述語を備えた節で、非定形の to replace はその述語になれない。',
+        '未来形。It is high time の構文は仮定法過去で「そろそろ〜すべき時だ」という現在についての婉曲な提案を表すもので、単純未来を続ける形にはならない。',
+        '現在完了。すでに入れ替えたという完了の事実を表す形になり、It is high time が担う「まだ実現していない」という含意と両立しない。'],
     ja: 'そのソフトウエアが頻繁に請求書の誤りを引き起こしていることを踏まえると、経理部門はもうとっくにその旧式のソフトウエアを入れ替えていてよい頃だ。',
     v: [['outdated', '旧式の'], ['billing error', '請求書の誤り']],
   }),
 
-  q('subj-24', {
+  q('subj-24r', {
     t: ['subj'], lv: 4,
     s: 'It is advisable that the support team, once the software has been rolled out to all branches, ------- it closely for the first two weeks.',
-    c: ['monitors', 'monitor', 'monitored', 'will monitor'],
+    c: ['to monitor', 'monitor', 'monitoring', 'will monitor'],
     a: 1,
-    e: 'It is advisable that ... の that 節も原形。主語 the support team と動詞の間に once 以下の挿入句が入り、文の骨格（that 節の主語と述語）を見失いやすい。',
-    w: ['三単現の s。advisable に続く that 節では原形。',
+    e: 'It is advisable that ... の that 節も原形。主語 the support team と動詞の間に once 以下の挿入句が入り、文の骨格（that 節の主語と述語）を見失いやすい。to monitor や monitoring のような非定形は、that 節の定形動詞の位置には置けない。',
+    w: ['to 不定詞。that 節の定形動詞の位置には置けない。',
         '正解。should が省略された原形。',
-        '過去形。advisable の that 節では原形が必要。',
+        '動名詞・現在分詞。that 節の定形動詞の位置には置けない。',
         '未来形。that 節では用いない。'],
     ja: 'そのソフトウエアが全支店へ展開された後、最初の2週間はサポートチームが綿密に監視することが望ましい。',
     v: [['roll out', '展開する、導入する'], ['closely', '綿密に']],
   }),
 
-  q('subj-25', {
-    t: ['subj'], lv: 4,
-    s: 'The lease agreement stipulates that any structural modification ------- approved in writing by the property manager beforehand.',
-    c: ['is', 'was', 'be', 'has been'],
-    a: 2,
-    e: 'stipulate that ...「〜と規定する」も原形を要求する動詞。受動態の場合は be + 過去分詞となる。',
-    w: ['直説法の現在形。stipulate の that 節では原形。',
-        '過去形。stipulate の that 節では原形が必要。',
-        '正解。原形の受動態 be approved。',
-        '現在完了。that 節では用いない。'],
-    ja: '賃貸借契約は、構造上の変更はいかなるものも事前に不動産管理者から書面で承認を受けなければならないと規定している。',
-    v: [['lease agreement', '賃貸借契約'], ['stipulate', '規定する'], ['structural modification', '構造上の変更']],
+  /* id は subj-25r3（第3巡監査で、末尾の "without prior written approval from the
+     property manager" が grammar.js の subj-07r "without prior written authorization
+     from IT" とほぼ同文だと指摘された。T1（not 先行型）8問中4問が without で終わって
+     いた偏りも合わせて、末尾を before 節に差し替えて分散させた。stem を変えたため
+     id を新規採番。choices・answer・論点・閉じ方は変えていない）。 */
+  q('subj-25r3', {
+    t: ['subj'], lv: 3,
+    s: 'It is crucial that any modification to the leased premises not ------- undertaken before the property manager has given written approval.',
+    c: ['be', 'was', 'is being', 'would be'],
+    a: 0,
+    e: 'crucial のように要求・必要を表す語に続く that 節（mandative）を否定するときは、do 支援を使わず not を原形の直前に置く（not + 原形）。直説法の過去形・現在進行形・助動詞 would を用いた形はいずれも否定するとき not をそれぞれの定形（was / is / would）の直後に置く語順になるため、not の直後にそのまま立てることができず、この位置に入るのは原形だけである。',
+    w: ['正解。crucial that ... の that 節は原形（仮定法現在）を取り、否定は not の直後に原形を置く語順になる（not be undertaken）。',
+        '直説法の過去形（受動態）。否定は was not undertaken の語順が必要で、not の直後にそのまま置けない。',
+        '現在進行形（受動態）。否定は is not being undertaken の語順が必要で、not の直後にそのまま置けない。',
+        '助動詞 would + 過去分詞（受動態）。否定は would not be undertaken の語順が必要で、not の直後にそのまま置けない。'],
+    ja: '賃借物件への改変は、不動産管理者から書面による承認を得るまで行われてはならないということが極めて重要である。',
+    v: [['premises', '建物、物件'], ['undertake', '（作業などに）着手する、行う']],
   }),
 
   q('subj-37', {
@@ -411,32 +416,43 @@ export const UNITS = [
     v: [['upcoming audit', '近く実施される監査'], ['quarterly report', '四半期報告書']],
   }),
 
-  q('subj-27', {
-    t: ['subj'], lv: 4,
-    s: 'The committee urged that the proposal, despite lingering objections from two members, ------- put to a formal vote without further delay.',
-    c: ['is', 'be', 'was', 'has been'],
+  /* id は subj-27r3（第3巡監査で、正解 be を持つ not 先行型が subj-25r2・subj-28・
+     v4q115r と合わせて4問集中していると指摘された（選択肢の在庫が be/is/was/has been/
+     will be/should be/could be/is being/was being に限られ、1問ずつ直しても収束しない）。
+     4問まとめて配分を決め、本問を能動態に作り替えた（正解は原形 omit。受動から能動へ
+     変えたことで be 集中が2問に減り、subj-28 と共有していた「is/was/has been/be の
+     単複違いだけの4形」という重なりも同時に解消した）。stem・choices・answer を
+     変えたため id を新規採番。閉じ方（not + 原形の語順）と論点は変えていない。 */
+  q('subj-27r3', {
+    t: ['subj'], lv: 3,
+    s: "The committee urged that the compliance officer not ------- any transaction involving a director's family member from the annual report.",
+    c: ['omits', 'omit', 'has omitted', 'will omit'],
     a: 1,
-    e: 'urge that ... も原形を要求する動詞。主語 the proposal と述語の間に despite 以下の挿入句が入り、文の骨格を見失いやすい。受動態なので be + 過去分詞。',
-    w: ['直説法の現在形。urge の that 節では原形。',
-        '正解。原形の受動態 be put。',
-        '過去形。urge の that 節では原形が必要。',
-        '現在完了。that 節では用いない。'],
-    ja: '委員会は、2名の委員からの根強い反対はあるものの、その提案をこれ以上遅らせずに正式な採決にかけるよう強く求めた。',
-    v: [['lingering', '根強く残る'], ['put to a vote', '採決にかける']],
+    e: 'urge that ...「〜するよう強く求める」の that 節（mandative）を否定するときも、do 支援を使わず not を原形の直前に置く（not + 原形）。定形の直説法・現在完了・助動詞 will はいずれも否定するとき not をそれぞれの定形（does / has / will）の直後に置く語順になるため、not の直後にそのまま立てることができず、この位置に入るのは原形だけである。',
+    w: ['三人称単数現在の定形。否定するには does not omit の語順が必要で、not を動詞の直前に置いたこの語順は作れない。',
+        '正解。urge that ... の that 節は原形（仮定法現在）を取り、否定は not ＋ 原形。',
+        '現在完了。否定形は has not omitted の語順になるため、not の直後にこの形は置けない。',
+        '助動詞 will + 原形。否定形は will not omit の語順になるため、not の直後にこの形は置けない。'],
+    ja: '委員会は、コンプライアンス担当者が取締役の家族が関与する取引を年次報告書から漏らさないよう強く求めた。',
+    v: [['transaction', '取引'], ['omit', '省く、除外する'], ['annual report', '年次報告書']],
   }),
 
-  q('subj-28', {
-    t: ['subj'], lv: 4,
-    s: 'It is critical that the encryption keys not ------- stored on the same server as the customer database.',
-    c: ['are', 'were', 'be', 'have been'],
-    a: 2,
-    e: '要求・必要を表す that 節を否定するときは、do 支援を使わず not を原形の直前に置く（not + 原形）。It is critical that ... の that 節が原形を要求している点は他の要求構文と同じ。',
-    w: ['直説法の現在形。critical に続く that 節では原形。not の後も同様。',
-        '過去形。critical の that 節では原形が必要。',
-        '正解。not be の形。原形の直前に not を置く。',
-        '現在完了。that 節では用いない。'],
-    ja: '暗号鍵は顧客データベースと同じサーバーに保管してはならないということが極めて重要である。',
-    v: [['encryption key', '暗号鍵'], ['critical', '極めて重要な']],
+  /* id は subj-28r（第3巡監査で、正解 be を持つ not 先行型が subj-25r2・subj-27r2・
+     v4q115r と合わせて4問集中していると指摘された。4問まとめて配分を決め、本問を
+     能動態に作り替えた（正解は原形 store）。stem・choices・answer を変えたため
+     id を新規採番。閉じ方（not + 原形の語順）と論点は変えていない。 */
+  q('subj-28r', {
+    t: ['subj'], lv: 3,
+    s: 'It is critical that the database administrator not ------- the encryption keys on the same server as the customer database.',
+    c: ['stores', 'store', 'stored', 'will store'],
+    a: 1,
+    e: '要求・必要を表す that 節（mandative）を否定するときは、do 支援を使わず not を原形の直前に置く（not + 原形）。定形の直説法・過去形・助動詞 will はいずれも否定するとき not をそれぞれの定形（does / did / will）の直後に置く語順になるため、not の直後にそのまま立てることができず、この位置に入るのは原形だけである。',
+    w: ['三人称単数現在の定形。否定するには does not store の語順が必要で、not を動詞の直前に置いたこの語順は作れない。',
+        '正解。critical that ... の that 節は原形（仮定法現在）を取り、否定は not ＋ 原形。',
+        '過去形の定形。否定形は did not store となるため、not を動詞の直前に置いたこの語順は作れない。',
+        '助動詞 will + 原形。否定形は will not store の語順になるため、not の直後にこの形は置けない。'],
+    ja: '暗号鍵を顧客データベースと同じサーバーに保管しないことが、データベース管理者にとって極めて重要である。',
+    v: [['encryption key', '暗号鍵'], ['critical', '極めて重要な'], ['database administrator', 'データベース管理者']],
   }),
 
   q('subj-29', {
@@ -453,18 +469,18 @@ export const UNITS = [
     v: [['customs deadline', '税関の締切'], ['incur', '（損失などを）被る'], ['storage penalty', '保管料の違約金']],
   }),
 
-  q('subj-38', {
+  q('subj-38r', {
     t: ['subj'], lv: 5,
-    s: "The technician replaced the faulty sensor during Friday's routine inspection; otherwise, the entire production line ------- for several days.",
-    c: ['would have stopped', 'stopped', 'will stop', 'has stopped'],
+    s: "During Friday's routine inspection, the technician replaced the faulty sensor just in time to prevent a shutdown; otherwise, the entire production line ------- for several days.",
+    c: ['would have stopped', 'stopping', 'will stop', 'has stopped'],
     a: 0,
-    e: 'otherwise は「そうでなければ」という意味で、if 節の代わりに前の文の内容を条件として受ける。前の文が過去の事実（技術者が点検中にセンサーを交換した）を述べているので、otherwise の後は仮定法過去完了の帰結節 would have + 過去分詞（もしそうしていなかったら〜していただろう）になる。',
-    w: ['正解。otherwise が受ける過去の反実仮想に対応する would have + 過去分詞。',
-        '単純過去形。実際に生産ラインが停止したという事実を表す形になるが、前の文は技術者が点検中にセンサーを交換したと述べているだけで、停止が実際に起きたとは述べていない。',
+    e: 'otherwise は前文の内容が成り立たなかった場合の帰結を導く。前文は「操業停止を防いだ」という事実を述べているので、その反対の事態（防げなかった場合）を仮定法過去完了の帰結節 would have + 過去分詞（もしそうしていなかったら〜していただろう）で表す。',
+    w: ['正解。otherwise が受ける「もし防げていなかったら」という反実仮想に対応する would have + 過去分詞。',
+        '動名詞・現在分詞。otherwise 以下のセミコロンの後は独立した文で定形の述語動詞が必要な位置であり、非定形の stopping はそこに置けない。',
         '未来形。前の文で述べられている過去の出来事と時制が合わない。',
         '現在完了。過去の反実仮想を表す帰結節の形として使わない。'],
-    ja: '技術者は金曜日の定期点検中に故障したセンサーを交換した。そうでなければ、生産ライン全体が数日間停止していただろう。',
-    v: [['faulty sensor', '故障したセンサー'], ['routine inspection', '定期点検'], ['production line', '生産ライン']],
+    ja: '金曜日の定期点検中、技術者は操業停止を防ぐのにぎりぎり間に合うタイミングで故障したセンサーを交換した。そうでなければ、生産ライン全体が数日間停止していただろう。',
+    v: [['faulty sensor', '故障したセンサー'], ['routine inspection', '定期点検'], ['prevent a shutdown', '操業停止を防ぐ']],
   }),
 
   q('subj-39', {
@@ -472,11 +488,11 @@ export const UNITS = [
     s: "------- the auditor's second review, the discrepancy in the shipping invoices would have gone unnoticed until the year-end close.",
     c: ['But for', 'Were it not', 'Unless', 'Because of'],
     a: 0,
-    e: "but for + 名詞, S would have + 過去分詞 で「もし〜がなかったら…していただろう」という過去の反実仮想を表す。but for は Were it not for や If it had not been for と同義の、名詞ひとつで条件節の働きをする表現で、実際には the auditor's second review が行われたおかげで discrepancy は見過ごされずに済んだ、という意味になる。Were it not for の for が欠けている点が問題で、for のない Were it not + 名詞 は「it が〜でないとしたら」という別の意味の条件節になる（例: Were it not a holiday, the office would be open.）。ここでは it が指すものが文中になく、帰結の would have gone unnoticed ともつながらない。Unless は本来〈主語＋動詞〉を伴う節を導く語で、名詞句をそのまま続けることはできない。Because of は文法的には名詞に続けられるが、「2回目の再確認が行われたせいで見過ごされた」という不合理な因果関係になり、文意が成立しない。",
+    e: "but for + 名詞, S would have + 過去分詞 で「もし〜がなかったら…していただろう」という過去の反実仮想を表す。but for は Were it not for や If it had not been for と同義の、名詞ひとつで条件節の働きをする表現で、実際には the auditor's second review が行われたおかげで discrepancy は見過ごされずに済んだ、という意味になる。Were it not for の for が欠けている点が問題で、for のない Were it not + 名詞 は「it が〜でないとしたら」という別の意味の条件節になる（例: Were it not a holiday, the office would be open.）。ここでは it が指すものが文中になく、帰結の would have gone unnoticed ともつながらない。Unless は本来〈主語＋動詞〉を伴う節を導く語で、名詞句をそのまま続けることはできない。Because of は文法的には名詞に続けられるが、事実として起きた原因を導く語で、後続節が事実の結果を述べる文脈でしか使えない。ここでの帰結節 would have gone unnoticed は「実際には見過ごされなかった」という反実仮想を表しており、事実の原因を導く Because of とは両立しない。",
     w: ['正解。but for + 名詞, S would have + 過去分詞（もし〜がなかったら…していただろう）。',
         'Were it not for の for が欠けている。for のない Were it not + 名詞は「it が〜でないとしたら」という別の意味の条件節になるが（例: Were it not a holiday, the office would be open.）、ここでは it が指すものが文中になく、帰結ともつながらない。',
         'unless は〈主語＋動詞〉を伴う節を導く語で、名詞句をそのまま続けることはできない。',
-        '文法的には名詞に続けられるが、「2回目の再確認が行われたせいで見過ごされた」という不合理な因果関係になり、文意が成立しない。'],
+        'because of は事実として起きた原因を導く語で、後続節が事実の結果を述べる文脈でしか使えない。ここでの帰結節 would have gone unnoticed は「実際には見過ごされなかった」という反実仮想を表しており、事実の原因を導く because of とは両立しない。'],
     ja: 'もし監査人による2回目の確認がなかったら、配送請求書の食い違いは年度末決算まで見過ごされていただろう。',
     v: [['discrepancy', '食い違い、不一致'], ['shipping invoice', '配送請求書'], ['year-end close', '年度末決算']],
   }),
