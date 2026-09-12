@@ -21,23 +21,23 @@ export const TOPICS = [
 
   { id: 'vform', group: 'g-grammar', part: 5, name: '動詞の形',
     sub: '時制・態・主述の一致',
-    pitfall: '800 レベルでは単純な時制は落とさない。狙われるのは「時を表す副詞節中の現在形」と「完了形の使い分け」。',
+    pitfall: '800 レベルでは単純な時制は落とさない。狙われるのは「時を表す副詞節中の現在形」と「完了形の使い分け」。条件の副詞節（unless / provided that）では意志の will が立ちうるので、条件節の主語は無生物にする。',
     key: 'by the time / once / as soon as に続く節は未来でも現在形。' },
 
   { id: 'subj', group: 'g-grammar', part: 5, name: '仮定法・要求提案',
     sub: '要求提案の that 節・仮定法の時制・if なし条件',
-    pitfall: 'recommend / require / essential の後ろの that 節は原形。ただし insist は二義的で、要求の意味なら原形、「事実を強く主張する」の意味なら直説法になる。',
+    pitfall: 'recommend / require / essential の後ろの that 節は原形（仮定法現在）が標準。英式では直説法も使われるので、直説法の形を誤答に置くと第二の正解になる。ただし insist と urge は二義的で、要求の意味なら原形、「事実を強く主張する」の意味なら直説法になる。',
     key: 'if 節がなくても otherwise / but for / 主語の名詞句が条件を担うことがある。帰結節が would + 原形か would have + 過去分詞かは「いつの話か」で決まる。' },
 
   { id: 'verbal', group: 'g-grammar', part: 5, name: '準動詞',
     sub: '不定詞・動名詞・分詞の選択',
     pitfall: '動詞ごとに後続形が決まっているものは知識問題。avoid/consider/postpone は動名詞のみ。',
-    key: '「be committed to -ing」「look forward to -ing」の to は前置詞。' },
+    key: '「be committed to -ing」「look forward to -ing」の to は前置詞。ただし be committed to / with a view to は辞書（LDOCE）が動名詞のみ立項する一方、裸の不定詞（reduce 等）も実文に動名詞形の1割前後の頻度で存在するので、作問では裸の不定詞を誤答に置かず、refines のような構造で不可能な形を使う。' },
 
   { id: 'ptcp', group: 'g-grammar', part: 5, name: '分詞と分詞構文',
     sub: '現在分詞と過去分詞の判別',
-    pitfall: '修飾先が「する側」か「される側」か。名詞との能動・受動関係だけで決まる。',
-    key: '意味上の主語が省略された分詞構文は、必ず主節の主語と一致する。' },
+    pitfall: '修飾先が「する側」か「される側」か。名詞との能動・受動関係だけで決まる。ただし close / open のように自動詞用法を持つ動詞は現在分詞でも成立するので、辞書で自他を確認する。',
+    key: '意味上の主語が省略された分詞構文は、Given that / Considering / Provided that / Judging from のように慣用化した接続表現を除き、必ず主節の主語と一致する。' },
 
   { id: 'rel', group: 'g-grammar', part: 5, name: '関係詞',
     sub: '格・先行詞・複合関係詞',
@@ -72,7 +72,7 @@ export const TOPICS = [
   { id: 'voice', group: 'g-grammar', part: 5, name: '態と自他動詞',
     sub: '受動態にできない動詞',
     pitfall: 'rise / arise / occur / remain / consist は自動詞。受動態の選択肢は即消せる。',
-    key: '空所の直後に目的語があれば能動、なければ受動を疑う。' },
+    key: '空所の直後に目的語があれば能動、なければ受動を疑う。ただし move / open / close のように自動詞用法を持つ動詞は能動でも成立するので、辞書で自他を確認する。' },
 
   /* ── 語彙・語法 ─────────────────────────────────── */
   { id: 'colloc', group: 'g-vocab', part: 5, name: 'コロケーション',
@@ -118,7 +118,7 @@ export const TOPICS = [
 
   { id: 'ctense', group: 'g-context', part: 6, name: '文脈依存の時制',
     sub: '文書全体の時間軸から決める',
-    pitfall: '同じ文だけ見ると複数の時制が成立する。日付・last week・as of などが決定打。',
+    pitfall: '同じ文だけ見ると複数の時制が成立する。決定打は文書の別の箇所（ヘッダの日付・as of など）にあり、同じ文の中だけで決め手がある設問はこの論点ではない。',
     key: '文書のヘッダの日付と、本文中の時を表す語句を必ず結び付ける。' },
 
   { id: 'p6ins', group: 'g-context', part: 6, name: '文挿入（Part 6）',
