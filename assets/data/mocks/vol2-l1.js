@@ -177,18 +177,18 @@ export const L1 = [
 
   p2(12, { t: ['p2wh'], lv: 4, sa: 'M-Cn', sb: 'W-Br',
     p: 'Isn\'t Ms. Haddad supposed to chair this session?',
-    c: ['Yes, please take a chair.', 'She swapped with Mr. Oyelaran.', 'The session runs until four.'],
+    c: ['Yes, please take a chair.', 'She swapped with Mr. Oyelaran.', 'The session doesn\'t run until four.'],
     a: 1,
     e: '否定疑問に Yes / No を使わず「オイェララン氏と交代した」と事実で答える応答。',
-    w: ['chair の別の意味を使った引っ掛け。', '正解。', 'session の反復。'],
+    w: ['chair の別の意味を使った引っ掛け。', '正解。', 'session の反復。否定形にしても、誰が進行するかには触れていない。'],
     ja: 'このセッションはハダッドさんが進行するはずではないですか。→ (B) オイェララン氏と交代しました。' }),
 
   p2(13, { t: ['p2ind'], lv: 5, sa: 'W-Am', sb: 'M-Au',
     p: 'Why did the second shipment cost so much more?',
-    c: ['It went by air rather than sea.', 'We paid it last week by wire transfer.', 'It shipped from the same warehouse we have always used.'],
+    c: ['It went by air rather than sea.', 'We didn\'t pay it last week by wire transfer.', 'It shipped from the same warehouse we have always used.'],
     a: 0,
     e: '理由を尋ねられ、輸送手段の違いという具体的な原因を答えている。',
-    w: ['正解。', '支払いの時期と方法を述べているだけで、2 回目の出荷が高くついた理由には触れていない。', 'ship の反復。同じ倉庫からの出荷だと述べており、条件が変わっていないことになるので高くなった理由にならない。'],
+    w: ['正解。', '支払いの時期と方法を否定形で述べているだけで、2 回目の出荷が高くついた理由には触れていない。', 'ship の反復。同じ倉庫からの出荷だと述べており、条件が変わっていないことになるので高くなった理由にならない。'],
     ja: 'なぜ 2 回目の出荷はこれほど高くついたのですか。→ (A) 船便ではなく航空便を使ったからです。' }),
 
   p2(14, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Br',
@@ -299,10 +299,10 @@ export const L1 = [
 
   p2(27, { t: ['p2ind'], lv: 5, sa: 'W-Br', sb: 'M-Cn',
     p: 'Where should the new server rack go?',
-    c: ['It weighs about ninety kilos.', 'The electrician hasn\'t signed off on the floor loading yet.', 'Yes, it was delivered.'],
+    c: ['It doesn\'t weigh ninety kilos.', 'The electrician hasn\'t signed off on the floor loading yet.', 'Yes, it was delivered.'],
     a: 1,
     e: '場所を尋ねられて「電気技師の床荷重の承認がまだ」＝決められない、と理由で返す間接応答。',
-    w: ['重量は場所の答えになっていない。', '正解。', 'Where に Yes は不可。'],
+    w: ['重量を否定形で述べても、場所の答えになっていない。', '正解。', 'Where に Yes は不可。'],
     ja: '新しいサーバーラックはどこに置けばよいですか。→ (B) 床の荷重について電気技師の承認がまだ出ていません。' }),
 
   p2(28, { t: ['p2wh'], lv: 4, sa: 'M-Br', sb: 'W-Am',

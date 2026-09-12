@@ -169,10 +169,10 @@ export const L2A = [
     v: [['take-home exercise', '（自宅で行う）持ち帰り課題'], ['brief', '（作業内容を示す）指示書'], ['screen', '（応募者を）ふるいにかける']],
     q: [
       { tag: '概要', qid: 'v6q44b', s: 'What problem does the woman report?',
-        c: ['Most candidates are not completing the take-home exercise.', 'Too few people have applied for the positions.', 'The team missed a deadline for making offers.', 'An advertisement was published with the wrong salary.'],
+        c: ['Most candidates are not completing the take-home exercise.', 'Too few people have applied for the positions.', 'The team missed a deadline for making offers.', 'No applicants were drawn by the advertisement this quarter.'],
         a: 0,
         e: '冒頭で「応募者のうち18名に持ち帰り課題を依頼したが、提出したのは7名だけ」と述べている。選考の途中段階で大半が離脱していることが問題。',
-        w: ['正解。', '課題を依頼したのは応募者のうちの18名であり、応募数が少ないという事実は述べられていない。', '内定を出す期限には触れていない。', '給与についての言及がない。'] },
+        w: ['正解。', '課題を依頼したのは応募者のうちの18名であり、応募数が少ないという事実は述べられていない。', '内定を出す期限には触れていない。', '女性は "We asked eighteen of the applicants to do the take-home exercise" と、18名の応募者がいたと述べており、応募者が一人もいなかったという内容は矛盾する。'] },
       { tag: '詳細', qid: 'v6q45b', s: 'What did the candidates tell the woman?',
         c: ['They had accepted positions with other employers.', 'They were unhappy with the advertised salary.', 'They did not want an interview at the weekend.', 'The exercise took much longer than the advertisement stated.'],
         a: 3,

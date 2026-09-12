@@ -102,10 +102,10 @@ export const L2B = [
     v: [['breakage', '破損（率）'], ['baseline', '基準値'], ['brittle', '脆い'], ['appendix', '付録']],
     q: [
       { tag: '詳細', s: 'What concern does the man raise?',
-        c: ['The sample size was too small.', 'The comparison periods differ in season.', 'The new material costs more.', 'The trial was not independently reviewed.'],
+        c: ["Last July's figures were not pulled at all.", 'The comparison periods differ in season.', 'The new material costs more.', 'The trial was not independently reviewed.'],
         a: 1,
         e: '「試験は 7 月、基準値は 2 月」という季節のずれを問題にしている。',
-        w: ['標本数の話は出ていない。', '正解。', '費用には触れていない。', '第三者検証の話はない。'] },
+        w: ['女性は "Which is why I also pulled last July for comparison. Breakage that month was three point six." と述べ、前年 7 月の数値を実際に引き出して示している。まったく引き出していないとするこの記述は本文と正面から矛盾するので偽。', '正解。', '費用には触れていない。', '第三者検証の話はない。'] },
       { tag: '意図', s: 'What does the woman mean when she says, "You are asking whether the weather explains it"?',
         t: ['p3int'],
         c: ['She is restating his concern before answering it.', 'She disagrees that the weather is relevant to the result.', 'She needs him to repeat the question in different words.', 'She is unsure how to respond until she checks the appendix.'],

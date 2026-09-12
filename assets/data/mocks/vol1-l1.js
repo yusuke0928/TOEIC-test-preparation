@@ -178,10 +178,10 @@ export const L1 = [
   p2(9, {
     p: 'Who is going to lead the orientation on Monday?',
     sa: 'W-Br', sb: 'M-Cn', lv: 4,
-    c: ['Hasn\'t that been postponed?', 'It starts at nine.', 'In the training room.'],
+    c: ['Hasn\'t that been postponed?', 'It cannot start until nine.', 'In the training room.'],
     a: 0,
     e: '担当者を尋ねられて「延期になったのでは？」と前提を問い返す間接応答。前提の否定は 900 帯で頻出。',
-    w: ['正解。', 'When への答え。', 'Where への答え。'],
+    w: ['正解。', 'When への答え。否定形にしても開始時刻の話であり、Who の答えにはならない。', 'Where への答え。'],
     ja: '月曜のオリエンテーションは誰が担当しますか。→ (A) あれは延期になったのではないですか。',
   }),
 
@@ -398,10 +398,10 @@ export const L1 = [
   p2(31, {
     p: 'Could I get an extension on the compliance training deadline?',
     sa: 'W-Am', sb: 'M-Br', lv: 5,
-    c: ['You\'d need to ask your line manager.', 'The extension is 4419.', 'It was quite a useful course.'],
+    c: ['You\'d need to ask your line manager.', 'The extension isn\'t 4419.', 'It was quite a useful course.'],
     a: 0,
     e: '依頼に対し「上司に聞いてください」と権限のある人へ回す間接応答。extension の別の意味（内線）を使った (B) が典型的な引っ掛け。',
-    w: ['正解。', 'extension を「内線」と取った音の引っ掛け。', '依頼への応答になっていない。'],
+    w: ['正解。', 'extension を「内線」と取った音の引っ掛けで、番号を否定形にしても期限延長の依頼への応答にはならない。', '依頼への応答になっていない。'],
     ja: 'コンプライアンス研修の期限を延ばしていただけますか。→ (A) 直属の上司に確認する必要があります。',
   }),
 ];

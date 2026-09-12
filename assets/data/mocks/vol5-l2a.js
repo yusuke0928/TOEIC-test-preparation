@@ -118,11 +118,11 @@ export const L2A = [
         e: '法務の承認が 4 日間止まったままだと述べており、対応を促す趣旨の発言。',
         w: ['正解。', 'デザイン画面は無傷だと述べているだけで、前倒しで完成したとは述べていない。', 'まだ承認されておらず、4 日間止まったままだと述べている。また、今日提出したという話も本文にはない。', '却下されたとは述べておらず、承認待ちの状態だと述べている。修正が必要だという話も本文にはない。'] },
       { tag: '次の行動', s: 'What will Naledi do today?',
-        c: ['Approve the consent wording without waiting for legal.', 'Rewrite the entire parsing layer herself by Friday.',
+        c: ['Approve the consent wording without waiting for legal.', 'Tell Diego not to run full testing.',
             'Follow up with legal about the consent wording.', 'Delay the release by two full weeks instead.'],
         a: 2,
         e: '「今日中に催促する」と述べている。',
-        w: ['法務の承認を待たずに自分で文言を承認するとは述べていない。ナレディの「今日中に催促する」は法務に対応を促すという意味で、承認の権限は法務側にある。', '解析処理は Diego の担当で、ナレディが書き直すとは述べていない。', '正解。', '延期ではなく再来週金曜の出荷を目標にしている。'] },
+        w: ['法務の承認を待たずに自分で文言を承認するとは述べていない。ナレディの「今日中に催促する」は法務に対応を促すという意味で、承認の権限は法務側にある。', 'ディエゴは "Three days, assuming nothing else changes on their end." と、解析層が終われば全体テストに 3 日かかると答え、ナレディはその線で出荷日を決めている。全体テストをやめるよう伝えるという内容は、この記述と正面から矛盾する。', '正解。', '延期ではなく再来週金曜の出荷を目標にしている。'] },
     ],
   }),
 
