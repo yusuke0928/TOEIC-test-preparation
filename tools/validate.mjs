@@ -1426,6 +1426,112 @@ function checkFiniteJ(key, byPart) {
 }
 for (const [key, byPart] of finiteDist) checkFiniteJ(key, byPart);
 
+/* ── 検査K：否定語の軸から正解が漏れていないか（模試・ドリル・--extra・WARN） ──
+   検査G（語数）・H（複合 and/or・先頭語）・I（受動態）・J（定形性）に続く6本目の
+   計器。選択肢の『形』のうち「否定語を含むかどうか」という軸を見る。
+   **この軸は検査G〜Jのどれも見ていない**——否定語を1語足しても語数はほぼ動かず、
+   and/or も先頭語も受動態も定形性も変わらないため、既存の4本は全部素通りする。
+
+   2026-09-12、模試6巻で実測したところ（k=1 すなわち否定語を含む選択肢が
+   ちょうど1本だけの設問に限る）:
+     狭義（not / never / n't のみ）: 該当93問中49問が正解＝53%（偶然25%、
+       期待23.8問、z=+6.01）。内訳は Part3 24問中14問=58%、Part4 19問中12問=63%、
+       Part7 38問中17問=45%。
+     広義（no / none / without / neither / nor / nothing / nobody / cannot も含む）:
+       該当141問中60問が正解＝43%（偶然25%、期待35.9問、z=+4.66）。
+   **z=+6.01 は検査G〜Jの WARN 閾値（|z|>=2.0）の3倍。**しかも HEAD でも同じ値が
+   出るので、ある日の是正が作った指紋ではなく、データ全体に元からある書き癖である。
+   原因は「誤答は本文に書いていないことを言う → 肯定形で別の事実を述べれば済む」
+   のに対し、「正解は本文の記述を否定の形でまとめ直すことが多い」
+   （`It has not yet been approved.` `No payment ever went through.`）ため。
+
+   判定は isNegated()。判定語は**広義**の集合（not / never / n't の縮約 /
+   no / none / nothing / nobody / neither / nor / without / cannot）。
+   狭義のほうが z は大きいが、広義でも z=+4.66 で有意であり、作問者が狭義を
+   避けて `no` `without` に逃げたときに計器が素通りしては意味がないので広義を採る。
+   **単語境界 \b で判定する**ので `note` `notice` `north` `November` `Nonetheless`
+   `Notwithstanding` `Nordvik` `Noor` のような語の一部には当たらない
+   （全1,838問の選択肢を走査して確認済み。No/Not/Nor で始まる語は
+   Noise Nominate Nonetheless Noor Nordvik North Notifies Notify Notifying
+   Notwithstanding November が実在するが、どれもヒットしない）。
+   縮約だけは `\b` を前置できない（`doesn't` の n の前は s で語境界が無い）ため
+   `n['’]t\b` と書く。英語で n't で終わる語は否定の縮約しかないので安全
+   （実データでは haven't / hasn't / isn't / wasn't / doesn't / shouldn't の12本）。
+   `No. 4`（= number 4）のような略記は `\bno\b` の直後が「ピリオド＋数字」なら
+   除外する否定先読みで弾く（実データには0件だが、計器としては塞いでおく。
+   `no 30-day grace period` のような真正の否定を巻き込まないよう、ピリオドを必須に
+   してある）。`no longer` は意味的にも否定なので拾って正しい。
+   なお `no matter how` `no less than` は意味的には否定ではないが、これらが現れる
+   設問（rel-12・comp-09）は下記のとおり shapeDist の「全選択肢が2語以下」除外に
+   掛かって母数に入らないため、実害が無いことを確認したうえで例外規則は設けない
+   （ad hoc な除外語を足すほうが計器を壊す。CLAUDE.md「ヒットが1件だけのときは
+   まず照合条件を疑う」）。
+
+   単位・母数の考え方は検査I と完全に同じ「1つの巻×1つのパート」（模試）／
+   「1ファイル×1パート」（ドリル・--extra）。収集も検査H・I と同じ shapeDist を
+   再利用する（insertAt の位置選択は除外済み、「全選択肢が2語以下」も除外済み）。
+   後者の除外は、この検査では特に重要な意味を持つ——`["Every","Both","Either","None"]`
+   `["much","either","none","no one"]` `["Whatever","Nevertheless","No matter","However"]`
+   のような1〜2語の4択は、**否定語であること自体が問うている論点**であり、
+   検査J の「形＝論点の設問は対象外」と同じ理由で母数に入れてはならない。
+   shapeDist の語数フィルタがちょうどその区画を落とす。
+
+   各設問について k = 否定語を含む選択肢の本数を数え、k が 1〜(選択肢数-1) の
+   設問だけを対象にする（k=0 は軸が存在せず、k=選択肢数は軸にならない。検査I と同じ）。
+   k の値ごとに別々の母数として集計し、p = k / 選択肢数、
+   z = (hits/n - p) / sqrt(p(1-p)/n)。n_k >= 8 かつ |z| >= 2.0 で WARN、両側判定。
+   z > 0 は「否定側を選ぶだけで当たる」、z < 0 は「是正が行き過ぎて逆向きの指紋」。 */
+const NEG_WORDS = 'not|never|none|nothing|nobody|neither|nor|without|cannot';
+/* `no` だけ別扱いにするのは略記 `No. 4`（= number 4）を弾くため。`\bno\b` は
+   "No." の直後が数字でも語境界が立ってしまうので、否定先読み (?!\.\s*\d) を足す。
+   ピリオドを必須にしてあるのは、`no 30-day grace period` のような真正の否定を
+   巻き込まないため（ピリオド無しの `no 4` まで弾くと副作用のほうが大きい）。
+   縮約 n't は `\b` を前置できない（`doesn't` の n の前は s で語境界が無い）ので
+   語尾側の境界だけで判定する。英語で n't で終わる語は否定の縮約しかない。 */
+const NEGATED_RE = new RegExp(`\\b(?:${NEG_WORDS})\\b|\\bno\\b(?!\\.\\s*\\d)|n['’]t\\b`, 'i');
+function isNegated(choice) {
+  return typeof choice === 'string' && NEGATED_RE.test(choice);
+}
+function checkNegationK(key, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();   // 否定語を含む選択肢の本数 kNeg -> { n, hits, hitLabels }
+    for (const e of filtered) {
+      const flags = e.choices.map(isNegated);
+      const kNeg = flags.filter(Boolean).length;
+      if (kNeg < 1 || kNeg > e.n - 1) continue;
+      if (!byK.has(kNeg)) byK.set(kNeg, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kNeg);
+      g.n++;
+      if (flags[e.answer]) { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kNeg, g] of byK) {
+      if (g.n < 8) continue;
+      const pChance = kNeg / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は否定語（not/never/n't/no/none/without 等）を含む選択肢が${kNeg}/${k4}本あるとき、その否定側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。否定側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は否定語を含む選択肢が${kNeg}/${k4}本あるとき、正解が否定側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。否定側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(key, msg);
+      }
+    }
+  }
+}
+for (const [key, byPart] of shapeDist) checkNegationK(key, byPart);
+
 /* ── 検査G・H・I の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
    上の checkWordLenG / checkShapeH / checkPassiveI は「1巻×1パート」
    「1ファイル×1パート」単位で見ている。この単位だと、1巻・1ファイルあたりの
@@ -1635,6 +1741,46 @@ function checkFiniteJAggregate(label, byPart) {
   }
 }
 
+/* checkNegationK と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。 */
+function checkNegationKAggregate(label, byPart) {
+  for (const p of PART_LIST) {
+    const entries = byPart[p];
+    if (!entries) continue;
+    const k4 = p === 2 ? 3 : 4;
+    const filtered = entries.filter(e => e.n === k4);
+    if (!filtered.length) continue;
+
+    const byK = new Map();
+    for (const e of filtered) {
+      const flags = e.choices.map(isNegated);
+      const kNeg = flags.filter(Boolean).length;
+      if (kNeg < 1 || kNeg > e.n - 1) continue;
+      if (!byK.has(kNeg)) byK.set(kNeg, { n: 0, hits: 0, hitLabels: [] });
+      const g = byK.get(kNeg);
+      g.n++;
+      if (flags[e.answer]) { g.hits++; g.hitLabels.push(`${e.label}(${KEYS[e.answer]})`); }
+    }
+    for (const [kNeg, g] of byK) {
+      if (g.n < AGG_MIN) continue;
+      const pChance = kNeg / k4;
+      const rate = g.hits / g.n;
+      const stdNull = Math.sqrt(pChance * (1 - pChance) / g.n);
+      const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+      if (Math.abs(z) >= 2.0) {
+        const msg = z > 0
+          ? `Part${p} は否定語（not/never/n't/no/none/without 等）を含む選択肢が${kNeg}/${k4}本あるとき、その否定側を選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。否定側が正解になりやすい側。該当設問: ${formatLabels(g.hitLabels)}）`
+          : `Part${p} は否定語を含む選択肢が${kNeg}/${k4}本あるとき、正解が否定側になることが ${(rate * 100).toFixed(0)}% しかない` +
+            `（偶然は${(pChance * 100).toFixed(0)}%、該当${g.n}問中${g.hits}問的中、z=${z.toFixed(2)}` +
+            `／目安|z|>=2.0でWARN。否定側を消すだけで実質的な選択肢が減る。是正が行き過ぎて` +
+            `逆向きの指紋になっている疑い。該当設問: ${formatLabels(g.hitLabels)}）`;
+        warn(`[合算] ${label}`, msg);
+      }
+    }
+  }
+}
+
 checkWordLenGAggregate('模試6巻合算', aggregateByGroup(wordLenDist, mockKeySet));
 checkWordLenGAggregate('ドリル全体合算', aggregateByGroup(wordLenDist, drillKeySet));
 checkShapeHAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
@@ -1651,6 +1797,14 @@ checkFiniteJAggregate('ドリル全体合算', aggregateByGroup(finiteDist, dril
    AGG_MIN=8 のどちらの母数にも届かず検出できない。母数を8件以上に保ったまま
    検出するには、模試とドリルを合わせた母数が要る）。 */
 checkFiniteJAggregate('模試+ドリル全体合算', aggregateByGroup(finiteDist, new Set([...mockKeySet, ...drillKeySet])));
+checkNegationKAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
+checkNegationKAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
+/* 検査Kも検査Jにならって「模試+ドリル全体」の合算を追加する。理由は検査Jと同じで
+   母数の確保——否定語を含む選択肢がちょうど k 本という設問は1巻・1ファイルあたり
+   数問しか出ず、ドリル側は Part3/4/7 が少ないため単独では AGG_MIN=8 に届かない
+   区画が多い。模試とドリルを合わせた母数なら、同じ書き癖が両方に跨がって出て
+   いる場合を取り逃がさない。 */
+checkNegationKAggregate('模試+ドリル全体合算', aggregateByGroup(shapeDist, new Set([...mockKeySet, ...drillKeySet])));
 
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
@@ -1727,8 +1881,8 @@ if (errorList.length) process.exitCode = 1;
 export const __test__ = {
   AGG_MIN, mockKeySet, drillKeySet,
   aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate, checkPassiveIAggregate,
-  checkFiniteJAggregate,
-  checkWordLenG, checkShapeH, checkPassiveI, checkFiniteJ,
-  loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive, classifyFiniteness,
+  checkFiniteJAggregate, checkNegationKAggregate,
+  checkWordLenG, checkShapeH, checkPassiveI, checkFiniteJ, checkNegationK,
+  loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive, classifyFiniteness, isNegated,
   wordLenDist, shapeDist, finiteDist, issues, warn,
 };
