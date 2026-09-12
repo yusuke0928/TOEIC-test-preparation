@@ -14,8 +14,10 @@ const p5 = (no, o) => ({
 const p6 = (o) => ({
   id: `v5-p6-${o.n[0]}`, part: 6, kind: 'doc', topics: o.t, level: o.lv ?? 4, docCount: 1,
   docs: [o.doc],
+  // id: x.id ?? `v5q${o.n[i]}` — 個々の設問だけ設問 id を新規採番するとき、x に id を足せば上書きできる
+  // （no は o.n[i] のまま変わらない）。2026-09-03 追加。
   questions: o.q.map((x, i) => ({
-    id: `v5q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
+    id: x.id ?? `v5q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t, tag: x.tag,
   })),
 });
@@ -188,12 +190,17 @@ export const R1 = [
         '名詞「比較可能性」。The guidelines are comparability では「ガイドライン＝比較可能性」という等式になり、意味をなさない。'],
     ja: '改訂されたガイドラインは、報告期限を除けば、昨年発行されたものとほぼ同等である。' }),
 
+  /* 最終照合で、vol4-r1.js No.108（"------- piece of equipment leaving the warehouse
+     must be logged ..." choices Every/All/Several/Most、正解 Every）と選択肢が
+     4 語中 3 語（Every/All/Several）重なり、正解も Every で一致する巻をまたぐ重複が
+     見つかった。誤答1本（All → Both）を差し替えて重なりを4語中2語まで下げた。
+     誤答1本のみの差し替え（過半には満たない）なので id は据え置く。 */
   p5(108, { t: ['quant'], lv: 4,
     s: '------- department is expected to submit its own contingency plan by Friday.',
-    c: ['Every', 'Few', 'Several', 'All'],
+    c: ['Every', 'Few', 'Several', 'Both'],
     a: 0,
     e: 'department が単数形で動詞も is なので、単数名詞を取る every。',
-    w: ['正解。', '複数名詞を取る。', '複数名詞を取る。', '複数名詞を取る。'],
+    w: ['正解。', '複数名詞を取る。department という単数形の可算名詞には続けられない。', '複数名詞を取る。department という単数形の可算名詞には続けられない。', '2 つのものを指すときに使う語で複数扱いになる。department という単数形の可算名詞には続けられず、二者に絞る文脈も無い。'],
     ja: '各部門は金曜日までに、それぞれの緊急時対応計画を提出することになっている。' }),
 
   p5(109, { t: ['comp'], lv: 5,
@@ -306,13 +313,49 @@ export const R1 = [
       topics: ['adv'],
     }] },
 
-  p5(115, { t: ['subj'], lv: 5,
-    s: 'It is essential that every visitor ------- a badge at all times while on site.',
-    c: ['wear', 'wears', 'wearing', 'to wear'],
-    a: 0,
-    e: 'essential that 節中は原形（仮定法現在）。',
-    w: ['正解。', '三単現の s は不可。', '分詞。', '不定詞。'],
-    ja: '敷地内にいる間、すべての来訪者は常にバッジを着用することが不可欠である。' }),
+  /* id は v5q115r2（no は 115 のまま。前版 v5q115r も今回の巡で新設した id で HEAD には無く、
+     まだコミット・配布されていないため SRS 履歴が存在しないが、stem を丸ごと差し替えるため
+     区別のため r2 とした）。
+     第3巡監査で、前版の (C) have worn が第二の正解であることが確定した——要求・提案の that 節
+     では主語・動詞の一致が停止し、原形は HAVE の原形＝have なので、have worn は完了仮定法として
+     正文になり得る（"It is not required that licensing have been continuous during that
+     period." ほか、英語版 Wikipedia insource で多数確認）。加えて前版は v2q111r と主語
+     every visitor・目的語 a badge まで一致し、誤答テンプレートも will V / have V-en / were
+     V-ing で揃っていたため、巻をまたぐ重複にもなっていた。
+     DECISIONS.md D1再改訂のとおり、肯定形のまま4本とも定形にする型は
+     「will は動詞ごとに開閉が割れる」「have V-en は完了仮定法として必ず開く」の両方に当たるため
+     採らず、`not` を空所の前に置く型（subj-28 と同型）に作り替えた。
+     not が空所の前にあるので、直説法（is/was 等）・進行形（is being V-en）・原形以外の受動態は
+     すべて「not は定形の直前ではなく be動詞の直後に置く」という語順のみで同時に落ちる
+     （is not dispatched / was not dispatched / is not being dispatched の語順にしかならず、
+     not の直後に定形を直接置くことはできない）。誤答3本が同一の語順規則ひとつで一括消去できる
+     ため、CLAUDE.md の目盛りに従い level は 3（前版の5から変更）。
+     stem は badge / every visitor から完全に離し、v2q111r2 とも重ならない題材（代替出荷／
+     損傷品の返送）にした。トリガーは essential（この T1 の族でまだ使われていない語）とした
+     ——当初 stipulate 案で書いたが、`grammar.js` が並行してこの巡で `subj-07r` に
+     stipulate を使う編集を加えていたため（"The updated data-handling policy stipulates
+     that an employee not ------- client files to a personal email account ..."）、
+     トリガー動詞の重複を避けて essential に差し替えた。
+     grammar.js の subj-28（暗号鍵／critical／受動）・subj-02r（試験区域／mandatory／能動）・
+     subj-07r（クライアントファイル／stipulate／能動）・vol4-r1.js の v4q115r（会則／require／
+     受動）・v2q111r2（緊急停止装置／imperative／能動）のいずれとも語彙が重ならないようにした
+     （本問は受動・物主語）。
+     `not` 先行型なので will の可否を動詞ごとに測り直す必要は無い（語順だけで閉じるため）。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
+  { id: 'v5-p5-115r2', part: 5, kind: 'single', topics: ['subj'], level: 3,
+    questions: [{
+      id: 'v5q115r2', no: 115,
+      stem: 'It is essential that the replacement shipment not ------- dispatched before the damaged units have been returned.',
+      choices: ['is dispatched', 'be dispatched', 'was dispatched', 'is being dispatched'],
+      answer: 1,
+      exp: 'essential that ... の that 節を否定するときも、not を原形の直前に置く（not + 原形）。定形の活用形（現在形・過去形・現在進行形）の受動態を否定するときは、not を be動詞の直後に置く語順（is not dispatched / was not dispatched / is not being dispatched）になるため、not の直後にそのまま定形を置くことはできず、この位置に入れられるのは原形の be だけになる。',
+      why: ['直説法の現在形（受動態）。否定形は is not dispatched となるため、not を be動詞の直前に置いたこの語順は作れない。',
+            '正解。not be dispatched。要求・必要を表す essential の that 節は原形（仮定法現在）を取り、否定は not ＋ 原形。',
+            '過去形（受動態）。否定形は was not dispatched となるため、not を be動詞の直前に置いたこの語順は作れない。',
+            '現在進行形（受動態）。否定形は is not being dispatched となるため、not の直後にこの形をそのまま置くことはできない。'],
+      ja: '損傷した製品が返送されるまで代替の出荷分を発送してはならないということが必須である。',
+      topics: ['subj'],
+    }] },
 
   p5(116, { t: ['confuse'], lv: 5,
     s: 'The landlord was ------- enough to waive the last month\'s rent given the circumstances.',
@@ -330,7 +373,7 @@ export const R1 = [
     c: ['were', 'it was', 'was', 'did it'],
     a: 2,
     e: 'Not until ... が文頭に出ると主節が倒置される。主語 the wiring fault は単数なので was。',
-    w: ['複数形。', '倒置されていない形。', '正解。', '強調構文の形とは一致しない。'],
+    w: ['複数形。', '倒置されていない形。', '正解。', 'did it は一般動詞の疑問文・強調構文で使う do-support の形。この形を入れると助動詞 did の後ろに主語 it を置いたことになるが、続く the wiring fault discovered もそれ自体が主語＋動詞の並びなので、文に主語が it と the wiring fault の二つ並ぶことになり成立しない。'],
     ja: '最終検査になって初めて、配線の不具合が発見された。' }),
 
   /* id は v5q118r（no は 118 のまま。stem・選択肢とも差し替えたため設問 id は新規採番）。
@@ -419,7 +462,7 @@ export const R1 = [
     a: 0,
     e: '形容詞 adequate を修飾するので副詞。',
     w: ['正解。', '形容詞。形容詞を修飾できない。', '名詞。', '動詞。'],
-    ja: '検査官は、その配線が現行の安全基準を満たすのに十分であると判断した。' }),
+    ja: '検査官は、その配線が現行の安全基準を満たすのに十分に適切であると判断した。' }),
 
   /* id は v5q122r（no は 122 のまま。stem を差し替えたため設問 id は新規採番）。
      旧 stem は The factory operates two production lines; ------- runs a different shift pattern.
@@ -479,13 +522,107 @@ export const R1 = [
     w: ['前置詞句。', '正解。', '前置詞句。', '前置詞句。'],
     ja: '保証は、無許可の技術者によって装置が改造されていない限り有効である。' }),
 
-  p5(125, { t: ['ptcp'], lv: 5,
-    s: 'With the access road ------- for repaving, deliveries are being rerouted through the rear gate.',
-    c: ['to close', 'closing', 'close', 'closed'],
-    a: 3,
-    e: '付帯状況の with + O + 分詞。道路は「閉鎖される」側なので過去分詞。',
-    w: ['不定詞。', '現在分詞。道路が自ら閉じることになる。', '形容詞・副詞。', '正解。'],
-    ja: 'アクセス道路が再舗装のため閉鎖されているため、配送は裏門経由に振り替えられている。' }),
+  /* id は v5q125r（no は 125 のまま。動詞を close から block に差し替えたため設問 id は新規採番）。
+     旧 (A) to close は「with + 名詞句 + to 不定詞」（予定・未処理を表す絶対構文）でそのまま成立していた。
+     英語版 Wikipedia insource /[Ww]ith the [a-z]+ to close/＝31 件（with the deal to close at the
+     end of the year など）、/[Ww]ith the [a-z]+ to open in/＝7 件（with the stations to open in
+     early 2017 など）で、close/open のような自動詞用法（能格）を持つ語がこの型に参加することを確認した。
+     close は Google Books Ngrams の the road closes（平均 6.82e-10）・the bridge closes
+     （6.06e-10）が示すとおり道路・施設を主語にする自動詞用法を持つため、(B) closing も
+     「道路自身が閉まりつつある」という進行の絶対構文として同じ理由で開く疑いがあった
+     （With the access road closing for repaving = 道路が再舗装のため閉まりつつあるので、と読め、
+     受動の closed とほぼ同じ帰結になる）。
+     T2（能格動詞は LDOCE で [transitive] のみの動詞に枠を移す）に従い、動詞を block に差し替えた。
+     LDOCE は block（verb）のすべての語義を [transitive] とし、目的語を要求しない自動詞用法を
+     立項しない（block somebody's way / block something from happening / block somebody's view /
+     block light / block a ball など、いずれも目的語を伴う）。英語版 Wikipedia insource
+     /with the [a-z]+ to block/＝18 件はすべて with the intent/task/plan/object to block …
+     （目的を表す名詞＋to 不定詞）型で、NP 自身が「閉じる」ように to block する予定用法は無い。
+     stem は変えていない（動詞は choices 側にのみ現れるため、stem を変更せずに動詞を差し替えられる）。
+     誤答の過半（4 択中 4 本）を差し替えたため id は新規採番。level・topics は変えていない。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。
+
+     2026-09-03（レビューの差し戻し・同じ id 内での是正）：(A) to block が、
+     with + NP + to V の別の読み（目的語ギャップの不定詞関係節。with the bill to pay /
+     with a family to feed 型）でそのまま成立していた。この読みでは the access road が
+     block の目的語になり、"With the access road to block for repaving, ..." は
+     「再舗装のため封鎖しなければならないアクセス道路を抱えているので」という意味で成立する
+     （目的語ギャップの不定詞関係節は他動詞専用の語でこそ作れるため、自動詞用法を封じる目的で
+     動詞を block に替えたことが、逆にこの読みを確実に成立させていた）。
+     Google Books Ngrams（1990–2019, en-2019, smoothing=3 平均）: with the rent to pay
+     1.27e-10 / with the bills to pay 8.8e-11 / with the mortgage to pay 4.2e-11 と、
+     定冠詞つき単数の具体名詞でも目的語ギャップ型が成立する。英語版 Wikipedia insource
+     "he has been left there with the bill to pay"（*Number9dream*）も同型の実例。
+     (A) を定形の blocks に差し替えた。with 絶対構文の補語位置には分詞・形容詞・前置詞句などの
+     非定形の要素しか入らず、定形動詞を置くと構文自体が成立しない
+     （"With the access road blocks for repaving, ..." という文は作れない）ため、
+     目的語ギャップの読みも予定を表す読みも生じる余地が構造的に消える。
+     この差し替えは誤答 1 本（(A) のみ）で、v5q125r への採番はすでに前回の是正（動詞を block に
+     替えた回）で行われているため id は据え置く。stem・answer・level・topics は変えていない。
+
+     2026-09-12（第2巡再監査の指摘・stem 修正）：(C) block と (A) blocks が名詞読みで開いていた。
+     block/blocks/blocking はいずれも名詞としても読めるため、"With the access road block for
+     repaving, ..." が「補修舗装のための進入路の封鎖により」という意味で完全な付帯状況の名詞句として
+     成立してしまう（road block は Ngrams で the road block 2.597e-08・road block for 1.041e-09
+     と、上で正解の枠とした is essential that it be の 3.540e-08 より高頻度。英語版 Wikipedia
+     insource "the road block (was|is|at|on|had)" も5件。access road ＋名詞の3段複合も
+     access road construction / access road upgrades などで生産的）。blocks も複数名詞として
+     同じ経路で開く。blocking も Wiktionary が名詞義（bed blocking のように対象名詞＋blocking の
+     複合が語彙化する型）を立項しており、自動詞の共起制限（蹴球・クリケット・精神・計算機はいずれも
+     主語に動作主性が要る）だけでは名詞読みまで塞げない。
+     また現行 exp の「block に自動詞用法は無い」は事実として誤り。LDOCE は verb を [transitive]
+     単独ラベルとするが、AHD 5th（v.intr. Sports／I blocked on his name.）・Collins 12th
+     （(also intr) sport／(intr) 心理学的な block を病む）・Random House（v.i. Sports／
+     to suffer a block）・Wiktionary（cricket／プログラミングの blocking call）がいずれも自動詞を
+     立項しており、学習者が辞書を引けば衝突する（CLAUDE.md「実在する語義を存在しないと書かない」）。
+     動詞は替えず、stem に不変化詞 off を追加して閉じた：block off / blocks off には名詞形が
+     無く（"the access road block off for repaving" は off for repaving が構成素にならず
+     主要部の立たない名詞句になる）、blocking off も LDOCE の block sth ↔ off（目的語必須の句動詞。
+     例 Police blocked off the city centre streets.）により目的語の無いこの位置には立てず、
+     自動詞義（蹴球・クリケット・精神・計算機）もどれも off を取らないので自動詞経路も同時に死ぬ。
+     blocked off for は Ngrams 8.757e-09 で実在。off は stem 側にのみ置き、選択肢には付けていない
+     （選択肢に付けると off が二重に出る）。stem を変更したため id を新規採番（v5q125r →
+     v5q125r2）。no（125）・answer（3=blocked の位置）・level・topics は変えていない。
+
+     2026-09-12（第3巡監査の指摘・動詞を替えて枠ごと組み替え）：足した off が、drills/grammar.js の
+     ptcp-06r「With the eastern corridor ------- off for repairs, visitors should use the north
+     entrance until June.」（分詞: sealing/*sealed/seals/seal）と、枠（With the 〈NP〉 ------- off
+     for 〈-ing 名詞〉, 〈主節〉）・選択肢の活用パターン（原形・-ing・-s・-ed の4活用で正解は
+     過去分詞）・装置（付帯状況の with + O + 過去分詞 ＋ 他動詞専用の句動詞 V off の目的語必須性）の
+     いずれも一致してしまっていた。grammar.js は担当外のため、v5q125r2 の側を off に頼らない
+     閉じ方に組み替えた。動詞を restrict に差し替え、stem からも off を外した：
+     ・restrict は LDOCE 以下すべての主要辞書で他動詞専用（[transitive]。restrict access /
+       restrict the flow のように必ず目的語を取り、自動詞の語義を立てる辞書は無い）で、
+       block と違って自動詞の語義自体が存在しないため、block で起きたような「自動詞の共起制限
+       だけでは名詞読みを塞げない」問題そのものが生じない。
+     ・restrict には block のような一般名詞の語義が無い（辞書はいずれも動詞のみを立項）ため、
+       "the access road restrict" が road block のような複合名詞として読める余地が無い
+       （対照に road block は Ngrams で 2.597e-08 と高頻度）。block/blocks/blocking を
+       名詞として読む経路（前回・前々回の是正で問題になった経路）がこの動詞には存在しない。
+     ・「道路自身が制限する」という能動の自動詞読みが実在するかを英語版 Wikipedia insource で
+       確認したところ、"road restricts to"／"restricts to a single lane" はいずれも0件
+       （対照に同型の "narrows to a single lane" は8件検出され、検索そのものは生きている）。
+       divert は「道路の走行方向が変わる」という能格の自動詞用法が実在する（insource
+       "the road diverts" 7件・"diverts around" 7件）ため、restrict に差し替えた。
+     この結果、off という不変化詞に頼らずに、動詞 restrict の他動詞専用性だけで
+     (A)(B)(C) を同時に閉じられる。stem を変更したため id を新規採番（v5q125r2 → v5q125r3）。
+     no（125）・level・topics は変えていない。answer の位置は D のまま
+     （blocked→restricted、位置は変わらない）。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
+  { id: 'v5-p5-125r3', part: 5, kind: 'single', topics: ['ptcp'], level: 5,
+    questions: [{
+      id: 'v5q125r3', no: 125,
+      stem: 'With the access road ------- for repaving, deliveries are being rerouted through the rear gate.',
+      choices: ['restricts', 'restricting', 'restrict', 'restricted'],
+      answer: 3,
+      exp: '付帯状況の with + O + 過去分詞。restrict は「（通行・利用などを）制限する」を表す他動詞専用の語（LDOCE ほか主要辞書がいずれも [transitive] のみを立項し、名詞の語義も持たない）。空所の後ろに目的語が無く、道路は「制限される」側なので、過去分詞 restricted が入る。',
+      why: ['三人称単数現在の定形動詞。with 付帯状況（with + O + -------）の空所に入るのは分詞・形容詞・前置詞句で、時制を持つ定形動詞は置けない。',
+            '現在分詞。with + O + 現在分詞という形自体は成立するが、restrict は目的語を必要とする他動詞専用の語で、道路が「制限する」側になる自動詞用法は辞書に無い。目的語の無いこの位置には置けない。',
+            '原形。時制も分詞の形も持たないため、付帯状況節の述部にはならない。',
+            '正解。付帯状況の with + O + 過去分詞。restricted for repaving で「補修舗装のため通行制限されて」。'],
+      ja: 'アクセス道路が再舗装のため通行制限されているため、配送は裏門経由に振り替えられている。',
+      topics: ['ptcp'],
+    }] },
 
   p5(126, { t: ['biz'], lv: 5,
     s: 'In recognition of the delay, the vendor agreed to ------- the late-delivery penalty for this shipment.',
@@ -572,14 +709,22 @@ export const R1 = [
       ],
     },
     q: [
-      { tag: '態・時制', t: ['ctense', 'voice'],
-        c: ['will be relocated', 'is being relocated', 'has been relocating', 'relocates'],
+      /* 2026-09-03（監査指摘）: (B) is being relocated は「予定・手配済みの未来を表す現在進行形（受動）」
+         としてそのまま成立していた（メールの日付 6 March とも矛盾しない）。(D) relocates も
+         LDOCE が relocate を [intransitive, transitive] で立項するため疑われたが、自動詞の主語は
+         人・事業体に限られ（if a person or business relocates ... they move to a different place）、
+         archive room はどちらでもないので (B) ほど強くは開かない。
+         T12（未来を表しうる形を誤答に置かない）に従い、(B) は「6 March 付のメールで 18 March の
+         週の予定を過去形にはできない」という文書内の日付で閉じる was relocated に、(D) は非定形
+         relocating に差し替えた。第二の正解を閉じる修正なので id を新規採番（no は 131 のまま）。 */
+      { id: 'v5q131r', tag: '態・時制', t: ['ctense', 'voice'],
+        c: ['will be relocated', 'was relocated', 'has been relocating', 'relocating'],
         a: 0,
         e: '書庫は「移される」側なので受動態。3 月 18 日の週という未来の予定なので未来形。',
         w: ['正解。',
-            '受動態の現在進行形。メールの日付は 3 月 6 日で、移設は 3 月 18 日の週という今後の予定。現在まさに行われている最中を表すこの形とは時制が合わない。',
+            '受動態の過去形。メールの日付は 3 月 6 日で、本文が予定しているのは 18 日の週の移設。18 日の週は 6 日より後（未来）なので、過去形 was relocated ではまだ来ていない日付の出来事を過去形で語ることになり、6 March 付のメールの時点と噛み合わない。',
             '能動の現在完了進行形。3 月 18 日の週という今後の時期に対し、既に継続して行われてきた動作を表すこの形は時制が合わない。また能動態なので書庫室自身が移転する意味になってしまう。',
-            '能動の現在形。'] },
+            '現在分詞。定形の動詞ではないため、文の述語になれない。'] },
       { tag: '接続語', t: ['connect'],
         c: ['For instance', 'Otherwise', 'Consequently', 'Similarly'],
         a: 2,
@@ -594,12 +739,25 @@ export const R1 = [
         ],
         a: 3,
         e: '直後が「地下入口にサインアウト表を置き、24 時間以内に返却」という新たな運用ルールの説明。地下への立ち入りに制約を設けるという前置きが自然につながる。',
-        w: ['ファイルのデジタル化は本文のどこにも出てこず、直後の「地下でのサインアウトと 24 時間以内の返却」という運用説明の前置きにならない。', 'エレベーターの停止は地下への立ち入り手順とは別の話で、直後の返却ルールを導かない。', '本文は 3 月 18 日の週だけの一時的な移転だと述べており、4 月に恒久的に再開するという日程と食い違う。地下の運用ルールの前置きにもならない。', '正解。'] },
-      { tag: '態', t: ['voice'],
-        c: ['is', 'was', 'has been', 'were'],
+        w: ['ファイルのデジタル化は本文のどこにも出てこず、直後の「地下でのサインアウトと 24 時間以内の返却」という運用説明の前置きにならない。', 'エレベーターの停止は地下への立ち入り手順とは別の話で、直後の返却ルールを導かない。', '4 月の恒久的な再開時期は本文のどこにも書かれておらず、直後の「地下でのサインアウトと 24 時間以内の返却」という運用ルールの前置きにもならない。', '正解。'] },
+      /* 2026-09-03（監査指摘）: (C) has been chosen は現在完了受動としてそのまま成立していた
+         （文書のどこにも過去の時点副詞が無く、単純過去を強制する材料が無いため）。副次的に (A) is も
+         「日程はこの部署ではなく施工業者が決めるものだ」という現行の取り決めを述べる現在受動として
+         読めてしまう疑いがあった。論点を宣言どおりの「態」に戻すため、(A)(C) を数の一致だけで
+         閉じる形に差し替えた（(A) are・(C) being、(D) were はそのまま）。
+         第二の正解を閉じる修正なので id を新規採番（no は 134 のまま）。
+
+         2026-09-03（レビューの指摘・tag/topics のみの是正）：4 本とも be 動詞（are/was/being/were）
+         なので態（能動・受動）の対立が無く、実際に切れているのは主述の一致（which＝the timing が単数）
+         と定形／非定形（being は非定形）だけ。上のコメントが書いた「論点を宣言どおりの『態』に戻す」は
+         実データと食い違っており、態は戻っていない。tag を「態」→「動詞の形」、topics を
+         ['voice']→['vform']（topics.js の vform＝「時制・態・主述の一致」）に付け替えた。
+         choices・answer・exp・why・stem は変えていない。 */
+      { id: 'v5q134r', tag: '動詞の形', t: ['vform'],
+        c: ['are', 'was', 'being', 'were'],
         a: 1,
-        e: '主語 the timing は単数。文全体が過去の決定を振り返る内容なので過去形の受動態。',
-        w: ['現在形では時制が合わない。', '正解。', '現在完了では文脈と合わない。', '複数形は主語と一致しない。'] },
+        e: '主語 which（＝ the timing）は単数。文全体が過去の決定を振り返る内容なので過去形の受動態。',
+        w: ['現在形の受動態だが複数形。関係代名詞 which（＝ the timing、単数）と一致しない。', '正解。', '現在分詞。定形の動詞ではないため、この関係代名詞節の述語になれない。', '複数形は主語と一致しない。'] },
     ],
   }),
 
@@ -620,12 +778,22 @@ export const R1 = [
         c: ['is', 'were', 'was', 'has been'],
         a: 2,
         e: '過去の一時点で顧客が思い込んだ内容を述べる過去進行形。assumed という過去の動詞と時制が一致する。',
-        w: ['現在形では過去の思い込みと時制が合わない。', '複数扱いは the shop（単数）と一致しない。', '正解。', '現在完了では文脈と合わない。'] },
-      { tag: '結束性', t: ['cohesion', 'pron'],
-        c: ['None', 'These', 'Both', 'That'],
+        w: ['現在形。直後の一文 It was not. は「実際には閉店しようとしていなかった」という事実を過去形で述べており、regular customers assumed the shop ------- closing の空所もこれと同じ過去の時点の状態を指していなければ呼応しない。現在形 is ではこの過去の時点を表せない。', '複数扱いは the shop（単数）と一致しない。', '正解。', '現在完了では文脈と合わない。'] },
+      /* 2026-09-03（レビュー指摘・第二の正解を閉じる修正）: exp の指示対象を a box of two hundred
+         （名刺側）にしたことで、(B) These が「a box of two hundred＝two hundred [business cards]
+         の省略」という容器＋中身の読みで two hundred cards（複数）を指す先行詞として開いていた。
+         直前の地の文も cards had become the least profitable item と cards を複数形で主題として
+         既に提示しており、"These needed the space and the machine time far more." は
+         「（名刺の）こちらのほうが場所も機械の時間もはるかに食っていた」と読めて、
+         正解 That の命題と同じ内容になってしまう。単数の指示詞に寄せると再び exp との整合が壊れるため、
+         (B) を単数・複数のどちらの読みにも依存しない Neither に差し替えた。
+         第二の正解を閉じる修正なので id を新規採番（no は 136 のまま）。stem・answer・exp・topics・
+         level は変えていない。 */
+      { id: 'v5q136r', tag: '結束性', t: ['cohesion', 'pron'],
+        c: ['None', 'Neither', 'Both', 'That'],
         a: 3,
-        e: '直前の one large banner（単数）を指す指示代名詞。「その（大判バナーの仕事の）方が場所も機械の時間もはるかに必要だった」という意味。',
-        w: ['「どれも〜ない」では文意が逆になる。', '複数形は単数の banner と一致しない。', 'Both は名刺とバナーの両方を指すことになるが、述語は far more と比較級で、比較の相手が消えてしまう。', '正解。'] },
+        e: '直前の a box of two hundred（名刺 200 枚分の印刷という、ひとまとまりの仕事を指す単数の名詞句）を指す指示代名詞。名刺が最も利益率の低い品目になっていたという記事の前提と整合させると、「名刺の仕事の方が、同じ利益率のバナー一枚と比べて場所も機械の時間もはるかに必要だった」という意味になる。',
+        w: ['「どれも〜ない」では文意が逆になる。', '「（2 つのうち）どちらも〜ない」。直前の一文は名刺 200 枚の箱とバナー一枚が同じ利益率だったと述べ、続く一文はその一方（名刺側）が場所も機械の時間もはるかに必要だったと対比している。Neither はこの対比そのものを打ち消してしまい、直前の内容と矛盾する。', 'Both は名刺とバナーの両方を指すことになるが、述語は far more と比較級で、比較の相手が消えてしまう。', '正解。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'The shop removed cards from its website and window display.',
@@ -711,7 +879,7 @@ export const R1 = [
         c: ['must return', 'must be returned', 'returning', 'may be returned'],
         a: 1,
         e: '空所の後ろは to IT で、目的語が無い。「返却する」の意の return は目的語を取る他動詞なので、返却される側の loaned laptops を主語に立てるには受動態にする。',
-        w: ['能動態。「返却する」の意の return は目的語（返す物）を要求するが、空所の後ろは to IT だけで目的語が無い。残るのは目的語を取らない「（自ら）戻る」の用法で、ノートパソコン自身が IT 部門へ戻ることになり、返却の義務を負う主体が文から消える。',
+        w: ['能動態。「（人が）返却する」の意の return は他動詞で目的語（返す物）を要求するが、空所の後ろは to IT だけで目的語が無い。目的語を伴わないこの位置の return は自動詞（自ら戻る）の読みになり、同じ文書の末尾にある Devices not returned within the new window ... のように「返却する」を他動詞・受動形で表す用法と食い違う。',
             '正解。',
             '現在分詞。定形の述語にならないため、主語 loaned laptops を受ける述語動詞が文中に一つも無くなり、文として成立しない。',
             'may は許可・可能性を表す助動詞。この文は「従来の 10 日ではなく 5 営業日以内」と期限を切り替える規定で、同じ文書の末尾は期限内に返却されなかった機器を給与部門に報告すると定めている。許可の助動詞では期限も罰則も課されないため、義務を表す助動詞でなければならない。'] },

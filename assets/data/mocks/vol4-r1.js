@@ -15,8 +15,11 @@ const p5 = (no, o) => ({
 const p6 = (o) => ({
   id: `v4-p6-${o.n[0]}`, part: 6, kind: 'doc', topics: o.t, level: o.lv ?? 4, docCount: 1,
   docs: [o.doc],
+  /* 設問 id は通し番号 no から自動生成するが、中身を差し替えた設問だけは
+     x.id で新規採番を明示できるようにしてある（id を使い回すと SRS の履歴が
+     別問題に引き継がれるため。vol2-r4.js の mp() ヘルパーと同じ仕組み）。 */
   questions: o.q.map((x, i) => ({
-    id: `v4q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
+    id: x.id ?? `v4q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t, tag: x.tag,
   })),
 });
@@ -34,10 +37,13 @@ export const R1 = [
 
   p5(102, { t: ['conjprep'], lv: 4,
     s: '------- the auditors identified only minor issues, the report recommends a full review of the reimbursement process.',
-    c: ['Because of', 'Despite', 'In spite of', 'Although'],
+    c: ['Because of', 'Despite', 'Nevertheless', 'Although'],
     a: 3,
-    e: '後ろが節（SV）なので接続詞 Although が入る。',
-    w: ['前置詞句。', '前置詞句。', '前置詞句。', '正解。'],
+    e: '後ろが節（SV）なので接続詞が入る。監査人が見つけたのは軽微な問題だけなのに全面的な見直しを勧告する、という譲歩の関係なので Although。Nevertheless は接続詞ではなく副詞（文修飾）なので、節と節をつなぐ働きを持たない。',
+    w: ['前置詞句。目的語には名詞句（the auditors’ findings など）しか取れず、後ろに続く定形節 the auditors identified only minor issues を支配できない。',
+        '前置詞句。目的語には名詞句しか取れず、後ろに続く定形節を支配できない。',
+        '接続詞ではなく副詞。Nevertheless the auditors identified only minor issues, the report recommends a full review of the reimbursement process. は、節をつなぐ語を欠いたままコンマだけで2つの独立節を接続した非文（コンマスプライス）になる。',
+        '正解。Although the auditors identified only minor issues, ...「軽微な問題しか見つけなかったものの」という譲歩。'],
     ja: '監査人は軽微な問題しか見つけなかったものの、報告書は払い戻しプロセスの全面的な見直しを勧告している。' }),
 
   p5(103, { t: ['vform'], lv: 5,
@@ -64,16 +70,51 @@ export const R1 = [
     c: ['Order', 'Ordered', 'Ordering', 'To order'],
     a: 1,
     e: '分詞構文の意味上の主語は the replacement parts。部品は「発注される」側なので過去分詞。',
-    w: ['原形。', '正解。', '現在分詞では部品が自ら発注することになる。', '不定詞。'],
+    w: ['原形。', '正解。', '現在分詞では部品が自ら発注することになる。', '目的の to 不定詞も、主節の主語を意味上の主語に取る（To order directly, you need an account. のように）。To order from the manufacturer directly, the replacement parts arrived ... では、交換部品自身が発注することになってしまう。'],
     ja: 'メーカーから直接発注されたため、交換部品は 2 日以内に届いた。' }),
 
-  p5(106, { t: ['pron'], lv: 5,
-    s: 'The two suppliers use different invoicing software, so ------- of their reports can be imported directly into our system.',
-    c: ['neither', 'both', 'either', 'each'],
-    a: 0,
-    e: '「どちらの報告書も直接取り込めない」という全否定。動詞 can の後ろが単数扱いであることとも一致する。',
-    w: ['正解。', '「両方とも」では文意が逆になる。', '「どちらか一方」では文意が変わる。', '個別性の話ではない。'],
-    ja: '2 社の仕入先は異なる請求ソフトを使用しているため、どちらの報告書も当社のシステムに直接取り込むことができない。' }),
+  /* id は v4q106r2（no は 106 のまま。第3巡監査で、vol5-r1.js v5q106r3 と
+     「No.106・選択肢4語（neither/either/both/each）が集合として完全一致・正解も neither で
+     同一・stem 冒頭も同じ The two …」という巻をまたぐ重複が指摘された
+     （CLAUDE.md「前の巻を解いた記憶から、この設問の答えが手に入るか」に該当）。
+     印字する相関の相手を nor から or に替え、正解を neither から either に変更して
+     「答えは neither」という記憶が効かないようにした。選択肢集合はそのまま
+     （neither/either/both/each）で、閉じる装置（①構造：印字された相関の相手 1 語だけで
+     答えが決まる）も変えていない——either は or と対になり（either A or B）、
+     neither は nor と（neither A nor B）、both は and と（both A and B）対になる
+     相関表現で、いずれも or とは対にならない。each はそもそも相関表現を作らない語で、
+     or と組む仕組みが無い（限定詞としての each は the を伴う名詞句にも掛からない：
+     *each the Delgado invoice）。
+
+     あわせて、旧文の前半（2社が別の請求ソフトを使っている）と後半（1月分・2月分の
+     明細書）が対応しておらず因果が繋がっていない、という指摘も解消した。stem 冒頭の
+     The two を外し、前半・後半とも仕入先 2 社（Delgado／Renwick）の側で対にしてある——
+     会計システムがどちらか一方の出荷を重複として検出したため、どちらの請求書を
+     再送すべきかが特定できない、という文脈で either A or B が自然に成立する。
+
+     重複確認（更新後）：vol3-r1.js No.103（v3q103、topics vform）・grammar.js vform-03 は
+     印字された Neither A nor B に続く動詞の数一致を問う型で、本問（相関の相手の語と
+     対応する語を選ばせる型）とは別の知識。vol1-r1.js v1q117r（Every/Both/Either/None、
+     正解 None）・vol5-r1.js v5q106r3（both/each/either/neither、正解 neither、
+     否定極性項目 at all の認可）とは choices の並びが近い 4 語を使うが、
+     スロット番号・正解・stem の文言のいずれも一致しない。
+     stem・正解を変えたため id を新規採番した。level は 3 のまま
+     （決め手が neither/either/both が nor/or/and とそれぞれ固定の対を作るという
+     文法書の標準項目である点は変わらない）。 */
+  { id: 'v4-p5-106r2', part: 5, kind: 'single', topics: ['conjprep'], level: 3,
+    questions: [{
+      id: 'v4q106r2', no: 106,
+      stem: 'Because the accounting system flagged one of the two shipments as a duplicate, ------- the Delgado invoice or the Renwick invoice will need to be resent with a corrected reference number before month-end closing.',
+      choices: ['neither', 'either', 'both', 'each'],
+      answer: 1,
+      exp: '空所の後ろに or が続いているので、対になる語は either ... or の either だけ。neither は nor と（neither A nor B）、both は and と（both A and B）対になる相関表現で、or とは対にならない。each はそもそも相関表現を作らない語で、or と組む仕組みが無い。',
+      why: ['neither は nor と対になる相関表現（neither A nor B）。後ろに続くのは or であって nor ではないため、対応関係が崩れる。',
+            '正解。either the Delgado invoice or the Renwick invoice ...。either は or と対になり「A か B かのどちらか」を表す相関表現。',
+            'both は and と対になる相関表現（both A and B）。後ろに続くのは or であって and ではないため、対応関係が崩れる。',
+            'each は相関表現を作らない語で、or と対になる仕組みを持たない。限定詞として使うにも each の直後は冠詞なしの名詞が来るはずで、each the Delgado invoice のように the を伴う名詞句には掛からない。'],
+      ja: '会計システムが2件の出荷のうち一方を重複として検出したため、月末締めまでに、デルガド社かレンウィック社のどちらかの請求書を、訂正した参照番号を付けて再送する必要がある。',
+      topics: ['conjprep'],
+    }] },
 
   p5(107, { t: ['adjprep'], lv: 5,
     s: 'Reimbursement is ------- to receipts being submitted within thirty days of the expense.',
@@ -87,7 +128,7 @@ export const R1 = [
     s: '------- piece of equipment leaving the warehouse must be logged in the tracking system.',
     c: ['Every', 'All', 'Several', 'Most'],
     a: 0,
-    e: 'piece が単数形で動詞も must（単数扱い）なので、単数名詞を取る every。',
+    e: 'piece が単数形なので、単数名詞を取る every が入る。',
     w: ['正解。', '複数名詞を取る。', '複数名詞を取る。', '複数名詞を取る。'],
     ja: '倉庫を出るすべての備品は、追跡システムに記録されなければならない。' }),
 
@@ -130,7 +171,7 @@ export const R1 = [
        辞書外の実在型を否定して見える書き方だった。実在を認めたうえで
        「比較されているのが目的語そのもの（less current）なので does の目的語枠が既に埋まっている、
        かつ draw は二重目的語を取らない」という構造の理由で切るように書き換えた。
-     重複確認：inv 系（v4q117 / v5q117 / inv-24 の neither did …）は否定辞の前置による倒置で、
+     重複確認：inv 系（v4q117r / v5q117 / inv-24 の neither did …）は否定辞の前置による倒置で、
      本問の比較節の倒置とは別の構造。comp 系 18 問にも than + 助動詞 + 主語の型は無い。
      p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
   { id: 'v4-p5-109r', part: 5, kind: 'single', topics: ['comp'], level: 5,
@@ -153,7 +194,10 @@ export const R1 = [
     c: ['be signed', 'must be signed', 'must sign', 'signing'],
     a: 1,
     e: '契約は「署名される」側なので受動態。義務を表す must を伴う。',
-    w: ['受動態の原形。原形が単独で現れるのは助動詞の後・命令文・要求を表す語に続く that 節などに限られ、ここにはその引き金が無い。主語 The contract に対する定形動詞が他に無いため文が成立しない。', '正解。', '能動態。', '分詞。'],
+    w: ['受動態の原形。原形が単独で現れるのは助動詞の後・命令文・要求を表す語に続く that 節などに限られ、ここにはその引き金が無い。主語 The contract に対する定形動詞が他に無いため文が成立しない。',
+        '正解。',
+        '能動態。The contract must sign by both parties では、契約書自身が署名する側になってしまい意味が成立しない。sign by ... という、by 以下を単なる付加情報として続けられる自動詞用法も無い。',
+        '分詞。signing は動名詞・現在分詞であって定形動詞ではなく、主語 The contract に対応する定形動詞が他に無いため文が成立しない。'],
     ja: '契約は、現場でのいかなる作業も開始される前に、双方によって署名されなければならない。' }),
 
   p5(111, { t: ['rel'], lv: 5,
@@ -240,13 +284,55 @@ export const R1 = [
       topics: ['adv'],
     }] },
 
-  p5(115, { t: ['subj'], lv: 5,
-    s: 'The bylaws require that every member ------- notified in writing of any change to the fee schedule.',
-    c: ['be', 'is', 'was', 'being'],
-    a: 0,
-    e: 'require that 節中は原形（仮定法現在）。',
-    w: ['正解。', '三単現の s は不可。', '過去形は不可。', '分詞。'],
-    ja: '会則は、会費体系に変更があった場合、すべての会員が書面で通知されることを求めている。' }),
+  /* id は v4q115r（no は 115 のまま）。DECISIONS.md D1改訂に基づき、非定形3本＋原形1本
+     （「定形かどうかだけで当たる」形の漏れ）だった旧版を作り替えた。
+     いったん「It is imperative that every technician ------- ...」＋
+     will follow / have followed / follow / were following という肯定形の型（D1改訂の
+     例と同じ枠）を組んだが、実装後に assets/data 全体と機械照合したところ、
+     vol2-r1.js の v2q111r（同じく D1改訂を受けて作られた設問）が
+     「It is imperative that every visitor ------- ...」＋ will collect / have collected /
+     collect / were collecting という、trigger の文言（It is imperative that every 単数名詞）・
+     選択肢の型（will V / have V-en / V / were V-ing）・正解の位置（C）まで一致する型に
+     なっていた。語彙は違っても、2巻に同一の「型」が生まれており、複数巻を解く利用者が
+     「It is imperative that every … は will/have/were を消して原形」という型で
+     覚えてしまう（CLAUDE.md「巻をまたいでスロットが一致する」と同種の指紋）。
+     コーディネーターが提示した2案のうち、肯定形（案1）はこの衝突を起こしたため、
+     案2（この1問だけ not 先行型にする）に切り替えた。
+
+     採った型（subj-28 と同型。ただし語彙・主語・態・否定の内容は全て変えてある）：
+     stem の動詞は require のまま残せる。require + will be が第二の正解になり得た
+     （英語版 Wikipedia insource:/require[sd] that [a-z ]{3,30} will /＝18件中4件が
+     本物の mandative 実例）のは、will be が肯定形で that 節の述語に立つ場合の話であって、
+     not を空所の直前に置くと事情が変わる——is・will be・has been のような定形の活用形を
+     否定するときは not を助動詞の直後に置く語順（is not / will not be / has not been）に
+     なるため、not の直後にそのまま置くことができない。この語順の制約は require の
+     語義（mandative か「必要とする」か）に関係なく効くので、require の語義の可用性を
+     再調査する必要が無い。
+     誤答3本の閉じ方はすべて①構造（語順）：
+     ・will be … not will be charged は語順違反。will not be charged が正しい語順。
+     ・is … not is charged は語順違反。is not charged が正しい語順。
+     ・has been … not has been charged は語順違反。has not been charged が正しい語順。
+     語数は [1,2,1,2]（be・is が1語、will be・has been が2語で、正解 be は単独の外れ値では
+     ない）。先頭語は be・will・is・has の4種。複合 and/or は0、受動態は4本とも
+     （charged と組む）で揃っている。
+     domain は subj-28（暗号鍵／データベース）・subj-02r（試験区域／免責同意書）・
+     subj-07r（経費報告書／30日以内の提出）のいずれとも異なる（会則／会員／改定後の会費の
+     請求猶予）。選択肢の並び（be/will be/is/has been、正解位置A）も上記3問（部品の並びが
+     いずれも異なる4語）と一致しない。 */
+  { id: 'v4-p5-115r', part: 5, kind: 'single', topics: ['subj'], level: 3,
+    questions: [{
+      id: 'v4q115r', no: 115,
+      stem: 'The bylaws require that a member not ------- charged the revised fee until written notice of the change has been sent.',
+      choices: ['be', 'will be', 'is', 'has been'],
+      answer: 0,
+      exp: '要求を表す require に続く that 節を否定するときも、not は原形の直前に置く（not + 原形）。is・will be・has been のような定形の活用形を否定するときは、not を助動詞の直後に置く語順（is not / will not be / has not been）でなければならず、not の直後にそのまま置くことはできない。この文にはその語順の否定形が無いので、not の直後に置けるのは原形の be だけである。',
+      why: ['正解。not be charged。要求を表す動詞に続く that 節を否定するときも、not を原形の直前に置く語順になる。',
+            '未来形。not の直後には置けない。will not be charged の語順が必要。',
+            '直説法の現在形。not の直後に定形の活用形は置けない。否定するなら is not charged の語順になる。',
+            '現在完了。not の直後には置けない。has not been charged の語順が必要。'],
+      ja: '会則は、変更の通知が書面で送付されるまでは、会員に対して改定後の会費を請求してはならないと定めている。',
+      topics: ['subj'],
+    }] },
 
   p5(116, { t: ['confuse'], lv: 5,
     s: 'The ------- reason for the delay was a shortage of raw materials, not a labour dispute.',
@@ -259,13 +345,28 @@ export const R1 = [
         '「信念に基づいた、筋の通った」。a principled stand / no principled reason のように、道義や一貫した原則にのっとっていることを述べる語。ここで挙がっている理由は原材料不足という事実関係であって道義的な立場ではないため、当てはまらない。'],
     ja: '遅延の主な理由は原材料の不足であり、労使紛争ではなかった。' }),
 
-  p5(117, { t: ['inv'], lv: 5,
-    s: 'Under no circumstances ------- a visitor be left unaccompanied in the server room.',
-    c: ['is to', 'a visitor should', 'should', 'a visitor is'],
-    a: 2,
-    e: 'Under no circumstances のような否定語句が文頭に出ると、疑問文と同じ語順（助動詞＋主語）になる。',
-    w: ['主語が欠けており構造が合わない。', '倒置されていない語順。', '正解。', '倒置されていない語順。'],
-    ja: 'いかなる状況であっても、来訪者をサーバー室に付き添いなしで残してはならない。' }),
+  /* id は v4q117r（no は 117 のまま。stem と正解の文言が変わるため設問 id は新規採番）。
+     旧 stem は Under no circumstances ------- a visitor be left unaccompanied in the server room.
+     で、空所の後ろに主語 a visitor がすでに印字されていた。誤答 (B) a visitor should・
+     (D) a visitor is を空所に入れると a visitor が二重になり、(A) is to を入れると
+     is と to の間に主語が入らない語順になる（正しくは is a visitor to be left ...）。
+     いずれも stem と選択肢を連結すれば構造が破綻していると分かり、倒置の知識が無くても
+     消去できてしまっていた。stem から a visitor を外し、主語を選択肢側に組み込んで
+     倒置（助動詞＋主語）そのものを問う形に作り替えた。正解の位置（3 番目）は変えていない。 */
+  { id: 'v4-p5-117r', part: 5, kind: 'single', topics: ['inv'], level: 5,
+    questions: [{
+      id: 'v4q117r', no: 117,
+      stem: 'Under no circumstances ------- left unaccompanied in the server room.',
+      choices: ['a visitor should be', 'a visitor is', 'should a visitor be', 'should be a visitor'],
+      answer: 2,
+      exp: 'Under no circumstances のような否定の副詞句が文頭に出ると、疑問文と同じ語順（助動詞・be＋主語）に倒置される。空所のあとは left unaccompanied ... と続くだけなので、空所には〈助動詞＋主語＋be〉がひとまとまりで入る必要がある。',
+      why: ['主語が助動詞の前に来ており、倒置されていない語順。Under no circumstances のような否定語句が文頭に出た文は、疑問文と同じ〈助動詞＋主語〉の順にならなければならない。',
+            '主語 a visitor が be 動詞 is の前にあり、倒置されていない語順。',
+            '正解。should a visitor be left。否定語句の前置による倒置で〈助動詞＋主語〉の順になり、そのあとに受動態の be left が続く。',
+            '受動態を作る be と過去分詞 left の間に主語 a visitor が割り込んでおり、be left という続き方を分断している。倒置後の語順は〈助動詞＋主語＋be+過去分詞〉でなければならない。'],
+      ja: 'いかなる状況であっても、来訪者をサーバー室に付き添いなしで残してはならない。',
+      topics: ['inv'],
+    }] },
 
   /* id は v4q118r（no は 118 のまま。stem・選択肢とも差し替えたため設問 id は新規採番）。
      旧 v4q118 は The technician ------- us that the replacement part would not arrive until
@@ -559,25 +660,40 @@ export const R1 = [
       title: 'A Repair Shop That Started Selling Time, Not Just Parts',
       body: [
         'When Voss & Hale Appliance Repair introduced a flat forty-minute diagnostic slot last year, most customers assumed it {{1}} simply a new pricing scheme.',
-        'It was not quite that. Owner Petra Voss explains that technicians had been quoting repairs after a rushed five-minute look, then discovering the real problem once the appliance was already in pieces. "We were promising a price before we actually knew {{2}} was wrong," she says. "The forty minutes let us tell customers the truth up front."',
+        /* {{2}} の直後を was wrong with the machine に変更（旧 was wrong）。指示代名詞 that を
+           空所に入れた場合の「knew that was wrong」という読みを、be wrong with N が要求する
+           「N の不具合そのもの」という主語の型で閉じるための変更（v4q136r、下記の q 参照）。 */
+        'It was not quite that. Owner Petra Voss explains that technicians had been quoting repairs after a rushed five-minute look, then discovering the real problem once the appliance was already in pieces. "We were promising a price before we actually knew {{2}} was wrong with the machine," she says. "The forty minutes let us tell customers the truth up front."',
         '{{3}} Customers now receive a written estimate before any part is ordered, and cancelling after the diagnostic slot costs only the slot fee, not a restocking charge.',
         'Repeat business has grown steadily since the change, {{4}} first-time customers have been slower to book the longer slot.',
       ],
     },
     q: [
-      { tag: '時制', t: ['vform'],
-        c: ['was', 'were', 'is', 'has been'],
+      /* id は v4q135r（no は 135 のまま）。最終照合で、vol5-r1.js No.135
+         （"regular customers assumed the shop ------- closing." choices is/were/was/has been、
+         正解 was）と選択肢集合が was/were/is/has been で完全一致し、正解も was で一致している
+         巻をまたぐ重複が見つかった。誤答2本（were → are、is → being）を差し替えて集合を
+         was/are/being/has been にし、重なりを4語中2語まで下げた。誤答の過半を差し替えたため
+         id を新規採番。stem・正解・論点（過去の時点に時制を合わせる）は変えていない。 */
+      { id: 'v4q135r', tag: '時制', t: ['vform'],
+        c: ['was', 'are', 'being', 'has been'],
         a: 0,
         e: '過去の一時点で顧客が思い込んだ内容を述べる。主語 it（単数）と、過去の動詞 assumed に時制を合わせる。',
-        w: ['正解。', '単数の it と一致しない。', '現在形では過去の思い込みと時制が合わない。', '現在完了では文脈と合わない。'] },
-      { tag: '関係詞', t: ['rel'],
+        w: ['正解。',
+            '現在形かつ複数扱い。主語 it（単数）と一致せず、時制も過去の動詞 assumed と合わない。',
+            '非定形（現在分詞）。assumed の目的語節の定形の述語にはなれない。',
+            '現在完了。過去の一時点の思い込みを表す文脈と時制が合わない。'] },
+      /* id は v4q136r（no は 136 のまま。本文 {{2}} の直後を was wrong → was wrong with the
+         machine に変更したため設問 id は新規採番）。誤答 (B) that の why を、指示代名詞の
+         読みを認めたうえで be wrong with N の主語の型で閉じる書き方に差し替えてある。 */
+      { id: 'v4q136r', tag: '関係詞', t: ['rel'],
         c: ['which', 'that', 'what', 'how'],
         a: 2,
-        e: '先行詞を含む関係代名詞 what。「何が悪いのか（＝the thing that was wrong）」という名詞節を作り、knew の目的語になる。',
+        e: '先行詞を含む関係代名詞 what。「機械のどこが悪いのか（＝the thing that was wrong with the machine）」という名詞節を作り、knew の目的語になる。',
         w: ['疑問詞として使えば「（示された候補のうち）どれが」の意味になるが、選ぶ対象となる候補が本文に示されていないため成立しない。関係代名詞と見た場合は先行詞になる名詞が前にない。',
-            '関係代名詞・接続詞の that では、主語のない was wrong を後ろに導けない。指示代名詞と見れば knew that was wrong と読めるが、that が指す具体物が直前になく、「40 分あれば本当のことを伝えられる」と続く発言の趣旨（故障箇所が分からないまま見積もっていた）ともつながらない。',
+            '関係代名詞・接続詞の that では、主語のない was wrong with the machine を後ろに導けない。指示代名詞と見た場合、that が指せるのは直前で述べられた「技術者が急いで見て価格を先に約束していた」というやり方であり、これは機械の不具合そのものではない。be wrong with the machine の主語になれるのは機械が抱える不具合や故障箇所そのものであって、業務のやり方ではないため、この読みでも成立しない。',
             '正解。',
-            'how は方法を表す副詞で、後ろの was wrong の主語になれない。節の中に主語が必要（knew how the appliance had broken なら可）。'] },
+            'how は方法を表す副詞で、後ろの was wrong with the machine の主語になれない。節の中に主語が必要（knew how the appliance had broken なら可）。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'Diagnostic slots are currently booked about two weeks in advance.',
@@ -587,12 +703,18 @@ export const R1 = [
         ],
         a: 3,
         e: '直後が「顧客は部品発注前に見積もりを受け取り、診断後のキャンセルはスロット料金のみで済む」と続くため、方針変更を総括する文が先行する必要がある。',
-        w: ['予約状況は「方針変更」の話に接続しない。', '2 号店の計画は次文とつながらない。', '創業の経緯は文脈から外れる。', '正解。'] },
+        w: ['予約状況は「方針変更」の話に接続しない。',
+            '2 号店の計画は次文とつながらない。',
+            '創業の経緯は文脈から外れる。',
+            '正解。also と The change が、前段落で述べた診断スロット制度の導入を受けて「その制度にはさらにこういう変更点も加わった」とつなぐ。次文の書面見積もり・スロット料金のみのキャンセルという説明は、この一文が予告するキャンセル規定の中身そのものに対応する。'] },
       { tag: '接続語', t: ['conjprep'],
         c: ['because', 'although', 'so that', 'provided that'],
         a: 1,
         e: '「常連客の利用は着実に増えた」に対し「初めての客は予約が遅れがち」と対比している。',
-        w: ['因果ではない。', '正解。', '目的でもない。', '条件でもない。'] },
+        w: ['因果ではない。',
+            '正解。',
+            'so that には目的用法のほか結果用法（〜、その結果…）もある。ただし常連客の予約が増えたことが新規客の予約の遅さを引き起こすという因果関係は本文のどこにも述べられておらず、記事はこの 2 つを対比して並べているだけなので、結果用法で読んでも成立しない。',
+            '条件でもない。'] },
       ],
   }),
 
@@ -603,7 +725,11 @@ export const R1 = [
       head: 'TO: All site supervisors\nFROM: Safety & Compliance\nDATE: 14 January\nSUBJECT: Near-miss reporting — process change',
       body: [
         'From 1 February, near-miss incidents {{1}} within twenty-four hours using the new online form, rather than the paper log used until now.',
-        'The paper log will remain in each site office for one further month as a backup, but every entry made there must also be entered online before the end of the same shift. {{2}}, a near miss recorded only on paper will not appear in the monthly safety summary sent to head office.',
+        /* v4q140r: {{2}} 直前の節を「オンラインにも入力する義務」だけにし、紙台帳が
+           1 か月残るという事実（旧文の as a backup）は {{2}} の後ろに移した。旧文のままだと
+           「紙台帳はバックアップとして残る」が譲歩の足場になり、誤答 Nonetheless
+           （それでもなお…）が成立してしまっていた。 */
+        'Every entry made in the paper log must also be entered online before the end of the same shift. {{2}}, a near miss recorded only on paper will not appear in the monthly safety summary sent to head office. The paper log itself will remain in each site office for one further month during the transition.',
         '{{3}} Supervisors should complete the short training video, under six minutes, before the new system goes live.',
         "Any near miss involving a contractor rather than a direct employee {{4}} to that contractor's own safety officer as well as to our system.",
       ],
@@ -615,13 +741,19 @@ export const R1 = [
         e: 'report は目的語を必要とする他動詞だが、空所の後ろは期限と手段を示す副詞句だけで目的語が無い。目的語にあたる near-miss incidents が主語に立った受動態が入る。2 月 1 日からの規定なので義務を表す must を伴う。',
         w: ['能動の進行形。report は目的語となる名詞句を必要とするが、空所の後ろに目的語が無い。',
             '正解。must be reported。report の目的語にあたるものが主語に立った受動態で、義務を表す must に続く。',
-            '受動態だが現在完了。現在完了は現在を終点とする期間について述べる形で、2 月 1 日を起点とする期間には使えない。メモの日付は 1 月 14 日、同じ文の rather than the paper log used until now も、切り替えがまだであることを示している。',
+            '受動態だが現在完了。メモの日付は 1 月 14 日で、2 月 1 日はまだ来ていない未来の日付である。現在完了は起点が過去でなければならず、未来の日付を起点とする期間は現在完了で表せない。同じ文の rather than the paper log used until now も、切り替えがまだ行われていないことを示している。',
             '分詞。この節には定形動詞が他に無く、文の述語動詞になれない。'] },
-      { tag: '接続語', t: ['connect'],
+      /* id は v4q140r（no は 140 のまま。本文段落の構成を変え、Nonetheless の足場になっていた
+         「紙台帳がバックアップとして残る」という一文を {{2}} の後ろへ移したため設問 id は
+         新規採番）。 */
+      { id: 'v4q140r', tag: '接続語', t: ['connect'],
         c: ['For example', 'Similarly', 'Otherwise', 'Nonetheless'],
         a: 2,
         e: '「紙にしか記録しなければ月次の安全報告に反映されない」＝そうしなければ、という条件的な帰結。',
-        w: ['例示でもない。', '並列ではない。', '正解。', '逆接でもない。'] },
+        w: ['例示ではない。直前の文は「紙台帳への記入はオンラインへの入力も必須にする」という義務の規定で、この文はその具体例ではなく、その義務を果たさなかった場合の帰結を述べている。',
+            '並列ではない。直前の文（オンライン入力も必須にする）とこの文（月次の安全報告に反映されない）は同種の事柄を並べているのではなく、規定とその不履行時の帰結という関係にある。',
+            '正解。',
+            'Nonetheless は、直前の内容と対比的な事実を続けるときに使う。直前の文は「紙台帳への記入はオンラインへの入力も必須にする」という義務を述べているだけで、これと対比になる譲歩の材料が本文に無い。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'Head office reviews the monthly safety summary within five working days.',
@@ -656,16 +788,30 @@ export const R1 = [
       ],
     },
     q: [
-      { tag: '態', t: ['voice'],
-        c: ['will rise', 'will be risen', 'rises', 'has risen'],
+      /* id は v4q143r（no は 143 のまま。誤答 (C) を差し替えたため設問 id は新規採番）。
+         旧選択肢 rises は「確定した予定を表す単純現在」として成立し（英語版 Wikipedia
+         "Simple present": "Sometimes to refer to an arranged future event, usually with a
+         reference to time: Our holiday starts on 20 May."）、From 1 April という時の指定を
+         伴う本文でそのまま第二の正解になっていた（同一データ内の vol2-r1.js の Part 6 も
+         opens を「確定した予定は現在形で表す」として正解にしており、旧 why の「現在形で
+         今後の変更を表せない。」は同じアプリの中で規則が逆になっていた）。rises → rise に
+         替え、主語 the staff discount（単数）との数の不一致で閉じる形にした。 */
+      { id: 'v4q143r', tag: '態', t: ['voice'],
+        c: ['will rise', 'will be risen', 'rise', 'has risen'],
         a: 0,
         e: 'rise は自動詞で受動態にできない。今後の変更を述べるので未来形。',
-        w: ['正解。', 'rise は他動詞化して受動態にできない。', '現在形で今後の変更を表せない。', '現在完了では文脈と合わない。'] },
+        w: ['正解。',
+            'rise は他動詞化して受動態にできない。',
+            '主語 the staff discount は単数なのに動詞が原形の rise では数が一致しない。名詞の連鎖として読んでも、この節には定形動詞が無く文が成立しない。',
+            '現在完了。同じ文に up from the current fifteen percent とあり、現在の時点でまだ15パーセントのままだと述べている。has risen（すでに上がった）はこの現在の値と両立しない。'] },
       { tag: '接続語', t: ['conjprep'],
         c: ['although', 'because of', 'despite', 'because'],
         a: 3,
         e: '後ろが節（the loyalty programme ... generates ...）なので接続詞 because。',
-        w: ['譲歩で文意が合わない。', '前置詞句。後ろに節は続かない。', '逆接で文意が合わない。', '正解。'] },
+        w: ['譲歩で文意が合わない。',
+            '前置詞句。後ろに節は続かない。',
+            '前置詞。目的語には名詞句・動名詞句を取り、後ろに続く定形節 the loyalty programme now generates enough separate revenue to absorb the cost を支配できない（節を続けるには despite the fact that ... のように the fact を挟む必要がある）。逆接の意味でも、値上げが可能になった理由を述べる文脈に合わない。',
+            '正解。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'Other conditions of the discount remain unchanged.',

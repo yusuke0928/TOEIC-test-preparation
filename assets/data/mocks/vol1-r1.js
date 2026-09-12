@@ -49,7 +49,9 @@ export const R1 = [
     c: ['will conclude', 'concludes', 'concluding', 'is concluding'],
     a: 1,
     e: 'once は時を表す接続詞。節内は未来の内容でも現在形で表す。',
-    w: ['副詞節中に will は用いない。', '正解。', '分詞。述語動詞にならない。', '進行形は完了の時点を示しにくい。'],
+    w: ['意志の will が読めるのは、主語が人や組織などで「応じる・合意する」といった意志を表せる場合に限られる（例：before the court will accept the case のように、副詞節の中でも主語が意志ある主体であれば will が使われることがある）。この文の主語 the inspection は点検という無生物の出来事で、応じる・合意するといった意志を持ちえないため、その読みが立たない。',
+        '正解。', '分詞。述語動詞にならない。',
+        '進行形。once は「ある状態に到達したら」という到達点を示す接続詞で、主節の許可条件になるのは点検が完了し終えた時点である。is concluding は終結へ向かう途中の過程を指す進行形であり、完了した時点を示せない。'],
     ja: '点検が完了し次第、作業員は上部デッキでの作業再開を許可される。' }),
 
   p5(104, { t: ['colloc'], lv: 4,
@@ -67,7 +69,7 @@ export const R1 = [
     s: 'The two branches submitted their proposals separately, and ------- included a detailed cost breakdown.',
     c: ['both', 'either', 'each other', 'another'],
     a: 0,
-    e: '2 つの支店の両方が、という文脈。動詞 included が複数扱いでも成立する both が適切。',
+    e: '2 つの支店の両方が、という文脈。2 つのものの「両方」を指せる代名詞は both だけ。',
     w: ['正解。', 'either は「どちらか一方」で、2 つとも含めた意味にならない。', '相互代名詞。主語にならない。', '「もう一つ」。3 つ目が存在する前提になる。'],
     ja: '2 つの支店は別々に提案書を提出し、どちらにも詳細な費用内訳が含まれていた。' }),
 
@@ -87,7 +89,7 @@ export const R1 = [
     c: ['receiving', 'receive', 'to receive', 'received'],
     a: 3,
     e: '応募書類は「受け取られる」側なので過去分詞が名詞を後置修飾する。空所の後ろに目的語がないことも根拠。',
-    w: ['現在分詞。応募書類が受け取ることになる。', '原形。既に述語動詞がある。', '不定詞。「これから受け取る」意になり文意に合わない。', '正解。'],
+    w: ['現在分詞。応募書類が受け取ることになる。', '原形。既に述語動詞がある。', '不定詞。不定詞の意味上の主語は修飾される Applications で、応募書類が「受け取る」側になってしまう。応募書類が「受け取られる」意味にするには受動の to be received が要る。', '正解。'],
     ja: '締切後に受理された応募書類は、次回の採用時期まで保留される。' }),
 
   /* id は v1q108r（no は模試の通し番号として 108 を維持するが、stem を差し替えたため設問 id は
@@ -117,7 +119,7 @@ export const R1 = [
     c: ['which', 'whose', 'that', 'who'],
     a: 1,
     e: '空所の直後が無冠詞の名詞 delivery record で、「その業者の納品実績」という所有関係。所有格の関係代名詞。',
-    w: ['直後に名詞は続かない。', '正解。', '直後に名詞は続かない。', '主格。直後に名詞は置けない。'],
+    w: ['所有関係（その業者の納品実績）を示せる関係詞は whose だけで、which にはその働きが無い。', '正解。', '直後に名詞は続かない。', '主格。直後に名詞は置けない。'],
     ja: 'そのコンサルタントは、納品実績が独立した 3 社の顧客によって検証されている業者を推薦した。' }),
 
   p5(110, { t: ['conjprep'], lv: 4,
@@ -227,13 +229,32 @@ export const R1 = [
     w: ['動詞。', '過去分詞。', '正解。', '形容詞。'],
     ja: 'ルノー氏によるライセンス条件の解釈が、会社を高くつく紛争から救った。' }),
 
-  p5(115, { t: ['subj'], lv: 5,
-    s: 'The regulator has requested that the utility ------- its emergency procedures within sixty days.',
-    c: ['revises', 'will revise', 'revised', 'revise'],
-    a: 3,
-    e: 'request that ... の that 節は「（should）＋原形」。三単現の s は付けない。',
-    w: ['三単現の s。', '未来形。', '過去形。', '正解。'],
-    ja: '規制当局は、その公益事業者に対し 60 日以内に緊急時手順を改訂するよう要請した。' }),
+  /* id は v1q115r（no は 115 を維持。誤答を差し替えたため設問 id は新規採番）。
+     旧 (A) revises は英式英語の直説法 mandative として成立する第二の正解だった
+     （英語版 Wikipedia insource で demanded/requested that ... 三単現の実例が複数、
+     Google Books Ngrams でも important that he is／essential that he is が仮定法の
+     半分前後の頻度で共存）。CLAUDE.md の T1（要求・提案の that 節）の方針に従い、
+     定形の直説法の誤答は残さず全部非定形に差し替えた——(A) を to 不定詞、
+     (C) を動名詞にした。that 節の述語動詞は定形でなければならないため、
+     どちらも「主語＋非定形」の形では節の述語になれず、構造で閉じる。
+     (B) will revise（mandative に will は立たない）はそのまま残した。
+     p5() ヘルパーは id を no から自動生成し no を変えずに id だけ変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v1-p5-115r', part: 5, kind: 'single', topics: ['subj'], level: 5,
+    questions: [{
+      id: 'v1q115r', no: 115,
+      stem: 'The regulator has requested that the utility ------- its emergency procedures within sixty days.',
+      choices: ['to revise', 'will revise', 'revising', 'revise'],
+      answer: 3,
+      exp: '要求動詞 request の that 節は、動詞の位置に定形の直説法ではなく仮定法現在（原形）を置く（mandative subjunctive）。that 節の述語動詞は定形でなければならないので、to 不定詞や動名詞のような非定形の形は、主語 the utility の後ろに置いても節の述語になれない。',
+      why: ['to 不定詞。that 節の主語 the utility の直後には述語動詞が必要だが、to revise は非定形で節の述語になれない（that の後ろに「主語＋to 不定詞」という形は取れない）。',
+            '未来形。request は指示内容を that 節に取る動詞で、その指示内容は「これから遂行すべき事柄」でなければならない。will は予測や意志を表す助動詞であり、指示の力を持たないため、mandative の that 節の述語にはなれない。',
+            '動名詞。to revise と同様、the utility の直後で節の述語になれない非定形。',
+            '正解。request that ... の that 節は原形（仮定法現在）。'],
+      ja: '規制当局は、その公益事業者に対し 60 日以内に緊急時手順を改訂するよう要請した。',
+      topics: ['subj'],
+    }],
+  },
 
   /* id は v1q116r3（no は 116 を維持。設問を丸ごと差し替えたため設問 id は三度目の新規採番）。
      v1q116r2 は economic / economical の対を避けるための応急処置で、誤答は閉じていたものの
@@ -292,21 +313,64 @@ export const R1 = [
     }],
   },
 
-  p5(117, { t: ['quant'], lv: 4,
-    s: '------- of the four bids met the technical specification, so the tender will be reissued.',
-    c: ['Neither', 'Both', 'Either', 'None'],
-    a: 3,
-    e: '4 者以上の全否定は none。neither は 2 者に限定される。後半の「再入札」とも整合する。',
-    w: ['2 者の否定。', '2 者の両方。文意も逆。', '2 者のうち一方。', '正解。'],
-    ja: '4 件の入札のいずれも技術仕様を満たさなかったため、入札はやり直される。' }),
+  /* id は v1q117r（no は 117 を維持。誤答 (A) Neither を差し替えたため新規採番）。
+     旧 (A) Neither の排除根拠は「2 者の否定」の一点のみだったが、neither が 2 者に限定される
+     という規則は偽（AHD の用法注記は none を "preferred" とするだけで required とはしていない）。
+     Neither of the four bids met the technical specification, so the tender will be reissued.
+     は意味も正解 None と完全に同じになるため、旧 (A) は第二の正解だった。
+     (A) を Every に差し替えて構造で閉じた：every は限定詞（determiner）としてのみ機能し、
+     each のように代名詞として of 句を直接取ることができない（*Every of the four bids。
+     「その全部」と言うには every one of the four bids のように one を挟む必要がある）。
+     この規則は同ファイル系列の quant-04r why(A) と同じもの。
+     (C) Either は選択肢・stem とも変えていない。Either of the four bids met the technical
+     specification. は統語的に成立しうるが、either が「どちらでもよい」という自由選択の読みを
+     持つのは法助動詞・総称文・否定文・疑問文の環境に限られ、本問のような肯定・過去の
+     一回的な断定文の主語には立てない（英語版 Wikipedia insource で either of the three/four
+     の実例を1件ずつ確認したところ、真正のヒットはすべて法助動詞・総称・可能の環境で、
+     肯定・過去の一回的断定文の主語の例は0件）。したがって「2 者のうち一方」という数の規則を
+     根拠にせず、この環境制約を根拠にして閉じてある。件数だけで判定すると either of the four
+     のヒットが Neither of the four の内部一致で水増しされるため、1件ずつ中身を読んで判定した。
+     (B) Both は据え置き（both = 2 者は辞書・コーパスとも裏が取れた本物の規則）。 */
+  { id: 'v1-p5-117r', part: 5, kind: 'single', topics: ['quant'], level: 4,
+    questions: [{
+      id: 'v1q117r', no: 117,
+      stem: '------- of the four bids met the technical specification, so the tender will be reissued.',
+      choices: ['Every', 'Both', 'Either', 'None'],
+      answer: 3,
+      exp: '選択肢のうち、4 件（3 者以上）についての全否定を表せるのは none だけ。every は限定詞としてのみ機能し、代名詞のように of 句を直接続けることができない（*every of the four bids。「その全部」と言うには every one of the four bids のように one を挟む必要がある）。both は語義そのものに「2 者の」を含み、four bids という数と衝突するうえ、成立させると「4 件とも仕様を満たした」ことになり、後半の so the tender will be reissued（だから再入札する）と正反対になる。either は法助動詞・総称文・否定文などの環境でのみ自由選択の読みを持ち、本問のような肯定・過去の一回的な断定文の主語には立てない。したがって none だけが後半の「再入札」という帰結とも整合する。',
+      why: ['統語的に不可。every は限定詞（determiner）としてのみ働き、each のように代名詞として of 句を直接取ることができない。「4 件のすべて」と言うには every one of the four bids のように one を挟む必要があり、Every of the four bids という形自体が成り立たない。',
+            '「2 者の両方」。主要辞書はいずれも both を 2 者の語として定義しており、four bids という数と衝突する。加えて成立させると「4 件とも仕様を満たした」という内容になり、so the tender will be reissued（だから再入札する）と正反対になる。',
+            '「どちらか一方」。either が「どちらでもよい」という自由選択の読みを持つのは、法助動詞・総称文・否定文・疑問文の環境に限られ、本問のような肯定・過去の一回的な断定文の主語には立てない（Either of the four bids met the specification. は成立しない）。仮に成立させれば「1 件は満たした」ことになり、再入札の理由が消える。',
+            '正解。3 者以上について「1 つも〜ない」を表すのは none。'],
+      ja: '4 件の入札のいずれも技術仕様を満たさなかったため、入札はやり直される。',
+      topics: ['quant'],
+    }],
+  },
 
-  p5(118, { t: ['voice'], lv: 4,
-    s: 'A discrepancy in the stock count ------- during last Friday\'s spot check.',
-    c: ['was arisen', 'has arisen', 'was arising', 'arose'],
-    a: 3,
-    e: 'arise は自動詞で受動態にできない。last Friday という過去の時点があるので過去形。',
-    w: ['自動詞に受動態は不可。', '現在完了は明確な過去時点と併用できない。', '進行形は瞬間的な発生に合わない。', '正解。'],
-    ja: '先週金曜の抜き取り検査中に、在庫数の不一致が判明した。' }),
+  /* id は v1q118r（no は 118 を維持。誤答を差し替えたため設問 id を新規採番）。
+     旧 (C) was arising の排除根拠が相の意味論だけだった（arise の進行形は Ngrams で
+     was arising 2.198e-08 と実在し、during 〜 という持続の枠は進行形と相性が良いため、
+     単純な意味論では閉じない）。ドリル grammar2.js の voice-01（自動詞の受動態を問う同型の
+     設問）を第二の正解として非定形に差し替えて統一したのに合わせ、本問の (C) も
+     非定形の過去分詞 arisen に差し替えた。arisen は助動詞（has/had/was 等）を伴わない
+     裸の過去分詞で、この文の定形の述語動詞になれないため構造で閉じる。
+     p5() ヘルパーは id を no から自動生成し no を変えずに id だけ変える手段がないため、
+     このユニットだけはヘルパーを使わず直接記述する。 */
+  { id: 'v1-p5-118r', part: 5, kind: 'single', topics: ['voice'], level: 4,
+    questions: [{
+      id: 'v1q118r', no: 118,
+      stem: 'A discrepancy in the stock count ------- during last Friday\'s spot check.',
+      choices: ['was arisen', 'has arisen', 'arisen', 'arose'],
+      answer: 3,
+      exp: 'arise は自動詞で受動態にできない。last Friday という明確な過去の時点があるので、現在完了ではなく過去形。空所には文の定形の述語動詞が入るので、助動詞を伴わない裸の過去分詞（非定形）も置けない。',
+      why: ['自動詞に受動態は不可。',
+            '現在完了は明確な過去時点と併用できない。',
+            '過去分詞。has や was のような助動詞を伴わない裸の過去分詞は、この文の定形の述語動詞になれない。',
+            '正解。'],
+      ja: '先週金曜の抜き取り検査中に、在庫数の不一致が判明した。',
+      topics: ['voice'],
+    }],
+  },
 
   p5(119, { t: ['adv'], lv: 5,
     s: 'Two of the three panellists withdrew; -------, the session was reduced to a single presentation.',
@@ -485,7 +549,7 @@ export const R1 = [
       answer: 0,
       exp: '程度を表す so ＋ 形容詞 が文頭に出ると、続く主節は〈so ＋ 形容詞 ＋ be 動詞 ＋ 主語 ＋ that 節〉の順に倒置される。so は形容詞・副詞を修飾する語なので直後には形容詞 heavy が来なければならず、その次に be 動詞、そのあとに主語が置かれる。主語は空所の右にある the demand で単数だから was。',
       why: ['正解。So heavy was the demand ... that ...「需要があまりに大きかったので〜」。倒置した主語 the demand は be 動詞の右に来る。',
-            'so が程度を修飾するのは形容詞か副詞で、定形動詞を直接続けることはできない（動詞の程度を言うなら so much）。so の直後に修飾対象の形容詞が来ていないため、heavy が宙に浮く。',
+            'so ... that の相関構文で、so が程度を修飾するのは形容詞か副詞である（この倒置は〈so ＋ 修飾語 ＋ be 動詞 ＋ 主語〉の語順を取る）。was heavy はこの順序を逆にしており、修飾語 heavy が so の直後ではなく be 動詞の後ろに来ているため、この倒置の型に合わない。',
             'heavily は副詞。be 動詞の補語になれるのは形容詞か名詞で、副詞は補語にならない。so heavily was ... という並び自体は実在するが、それは so heavily was the region affected のように後ろに過去分詞があって副詞がそれを修飾する場合である。この文は that the operator scheduled a second departure the same afternoon. で終わり、空所より右に分詞が一つも無いので heavily の掛かる先が作れない。',
             '倒置文の主語は be 動詞の右にある the demand で、単数。were は複数主語を受ける形なので一致しない（So heavy were the losses that ... のように、この語順で were が立つのは主語が複数のとき）。単数主語に were が付くのは If the demand were higher ... のような仮定法過去のときだけだが、この文は that 以下が the operator scheduled と直説法の過去で実際に起きた結果を述べているので仮定法にはならない。数を決める主語が空所の右側にあるのが、この語順の読みにくいところ。'],
       ja: '土曜の便の需要があまりに大きかったため、運航会社は同じ日の午後に 2 便目を設定した。',
@@ -525,7 +589,7 @@ export const R1 = [
     c: ['Seeing', 'Seen', 'To see', 'Sees'],
     a: 1,
     e: '分詞構文の意味上の主語は主節の主語 the reservoir。貯水池は「見られる」側なので過去分詞。',
-    w: ['現在分詞。貯水池が見ることになる。', '正解。', '不定詞。目的を表し文意に合わない。', '定形動詞。'],
+    w: ['現在分詞。貯水池が見ることになる。', '正解。', '不定詞。不定詞の意味上の主語は主節の主語 the reservoir になり、貯水池が「見る」側になってしまう。貯水池は「見られる」側なので、能動の不定詞では意味上の主語が合わない。', '定形動詞。'],
     ja: '展望デッキから見ると、その貯水池はほぼ完全な長方形に見える。' }),
 
   /* id は v1q128r2（no は 128 を維持。設問を丸ごと差し替えたため設問 id は三度目の新規採番）。
@@ -836,11 +900,18 @@ export const R1 = [
             '正解。will be processed。process の目的語にあたるものが主語に立った受動態で、開始は 10 月 1 日なので未来形。',
             '受動態だが現在完了。現在完了は現在を終点とする期間について述べる形で、10 月 1 日を起点とする期間には使えない。ヘッダの日付は 9 月 4 日なので、その期間はまだ始まっていない。',
             '能動の未来進行形。process は目的語となる名詞句を必要とするが、空所の後ろに目的語が無い。'] },
-      { tag: '接続語', t: ['connect'],
-        c: ['However', 'Otherwise', 'For example', 'Likewise'],
+      /* id は v1q132r（no は 132 のまま）。初版の (B)「Otherwise」は、「Otherwise, if 〜」
+         という条件を導く定型として成立する第二の正解だった（英語版 Wikipedia insource で
+         Otherwise, if the dog is under exertion, ... / Otherwise, if the inconsistency is
+         not resolved, ... のような同型が 14 件）。空所の内容語ではなく話題転換の性質が違う
+         Meanwhile に差し替えた。誤答を差し替えたため設問 id を新規採番している。 */
+      { tag: '接続語', t: ['connect'], id: 'v1q132r',
+        c: ['However', 'Meanwhile', 'For example', 'Likewise'],
         a: 0,
         e: '「通常は数分で消える」→「しかし翌日も残っていたら」と、通常と例外を対比している。逆接の However。',
-        w: ['正解。', '「さもなければ」。仮定の帰結を表す。', '例示ではない。', '並列ではない。'] },
+        w: ['正解。',
+            '「その間に」。同じ時間帯に進行している別の話題・別の出来事へ転換する語で、いま話している題材とは別のものを並べるときに使う（The trial resumed. Meanwhile, the defendant remained in custody. のように）。ここで空所のあとに続くのは、いま話している同じ返却物が翌日も表示され続けた場合の対処であり、話題を切り替えて別の出来事を並べているのではない。「数分で消える」という期間が終わったあとの話でもあるので、その期間と並行する出来事という読みも成り立たない。',
+            '例示ではない。', '並列ではない。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'The library will close for two days during the changeover.',
@@ -851,11 +922,17 @@ export const R1 = [
         a: 2,
         e: '直後の文が「説明書を読むより一度やって見せてほしい人のために職員を配置する」と続く。その前提として「操作手順」を示す文が必要。(C) が手順を述べており、instructions と自然につながる。',
         w: ['休館の話は本文のどこにも出てこない。', '所要時間の比較では、次文の「説明」につながらない。', '正解。', '延滞料の話は文脈から外れる。'] },
-      { tag: '語彙', t: ['quant'],
-        c: ['nearly', 'much', 'only', 'rather'],
+      /* id は v1q134r（no は 134 のまま）。初版の (D)「rather」は予測限定詞（predeterminer）
+         として rather a + 形容詞 + 名詞 の語順を取れ、rather a small proportion が第二の正解
+         として成立していた（LDOCE: rather a difficult child／Ngrams: rather a small
+         proportion 1.430e-10）。a の前には置けない語 very に差し替え、語順で閉じた。
+         誤答を差し替えたため設問 id を新規採番している。 */
+      { tag: '語彙', t: ['quant'], id: 'v1q134r',
+        c: ['nearly', 'much', 'only', 'very'],
         a: 2,
         e: '「ごく一部にすぎない」→「だから大半の利用者には影響しない」という流れ。only a small proportion が自然。',
-        w: ['「ほぼ」。少なさを強調しない。', '不可算を修飾する語で、a small proportion には付かない。', '正解。', '「かなり」。後半の「影響しない」と噛み合わない。'] },
+        w: ['「ほぼ」。少なさを強調しない。', '不可算を修飾する語で、a small proportion には付かない。', '正解。',
+            'very は形容詞 small を直接修飾する副詞で、冠詞 a の前には置けない（a very small proportion のように a の直後・形容詞の直前に置く語順で、a の前に立てる predeterminer ではない）。a small proportion の前のこの位置には入らない。'] },
       ].map((x, i) => ({ ...x, s: null })),
   }),
 
@@ -882,13 +959,28 @@ export const R1 = [
         e: 'この文は「借家契約書を提示すれば管理事務所でフォブを受け取れる」という常時の手続きを述べている。手続き・規則は単純現在形で書く。主語 fobs は複数で、フォブは事務所が発行して渡す側の物なので are issued。',
         w: ['受動態だが単数の was。主語 fobs は複数なので数が合わない。過去形である点も、これから入居者が受け取る手続きの説明と合わない。',
             '正解。are issued。複数主語 fobs に対応する単純現在の受動態で、常時の手続きを述べる形。',
-            '進行形。進行形は発話時に進行中の出来事を述べる形で、on production of a tenancy agreement という条件付きの常時の規則は表せない（規則は単純現在形で書く）。',
-            '現在完了。現在完了は現在までに完了した出来事を報告する形で、規則そのものを述べる働きを持たない。第 2 段落の when collecting a fob が示すとおり、受け取りはこれからの行為でもある。'] },
-      { tag: '接続語', t: ['connect', 'conjprep'],
-        c: ['but', 'unless', 'because', 'so'],
+            '進行形。進行形は発話時に進行中の出来事を述べる形で、on production of a tenancy agreement という条件付きの常時の規則は表せない（規則は単純現在形で書く）。issue には「（物が）〜から出てくる」という自動詞用法（LDOCE は literary と記す）もあるが、その読みでも進行形は常時の手続きを述べる働きを持たないので、いずれにせよ成立しない。',
+            '現在完了。現在完了は現在までに完了した出来事を報告する形で、規則そのものを述べる働きを持たない。第 2 段落の when collecting a fob が示すとおり、受け取りはこれからの行為でもある。issue の自動詞用法（LDOCE: literary、「〜から出てくる」）で読んでも、完了形は常時の規則を述べる働きを持たないので、いずれにせよ成立しない。'] },
+      /* id は v1q136r（no は 136 のまま）。初版の (D)「so」は、等位接続詞が挿入された
+         非制限関係節をまたいで主節（Upper-tier spaces require the use of a gas-assisted
+         lift arm ...）に掛かる読みで「だから下段を希望する人は申し出を」という完全な因果に
+         なり、第二の正解として成立していた（英語版 Wikipedia insource で「, which ..., so
+         it/they/the ...」型の運びが複数実在し、関係節をまたいで主節に掛かるのが等位接続詞の
+         既定の解析であることを確認）。本文をいったん「肩や背中に故障のある人には勧められない」
+         に差し替えたが、この文言でも so が主節に完全な因果として掛かることが判明し（差し替え
+         ても穴の位置は動いていなかった）、本文を HEAD の文言に戻したうえで (D) を、定形節を
+         取れない前置詞 owing to に差し替えた。owing to は目的語に名詞句しか取れないため、
+         直後の anyone who would prefer a lower space を目的語に取ると should say so 以下が
+         主語を失い、構造で閉じる。誤答を差し替えたため設問 id は新規採番のまま
+         （v1q136r・no は不変）。 */
+      { tag: '接続語', t: ['connect', 'conjprep'], id: 'v1q136r',
+        c: ['but', 'unless', 'because', 'owing to'],
         a: 0,
-        e: '「大半の住民は問題なく扱える」に対し「下段を希望する人は申し出を」と例外を示す。逆接の but。',
-        w: ['正解。', '条件。', '因果。', '因果。前後は対立している。'] },
+        e: '「大半の住民は問題なく扱える」という一般的な事実と、「下段を希望する人は申し出るように」という個別の対応を対比している。逆接の but。',
+        w: ['正解。Upper-tier spaces require the use of a gas-assisted lift arm, which most residents find manageable, but anyone who would prefer a lower space should say so when collecting a fob.「大半は問題なく扱えるが、下段を希望する人はフォブを受け取る際に申し出るように」という対比。',
+            '「〜でない限り」。unless は、直前の内容が成り立たなくなる条件を導く語で、規則や指示をあとから条件によって解除するときに使う。ここで前半が述べているのは「上段スペースという区分がリフトアームの使用を要する」という、その区分自体の構造的な性質であり、ある住民が下段を希望すると申し出ても、上段スペースがリフトアームを要するという事実そのものは打ち消されない。申し出によって変わるのはその人にどちらの段を割り当てるかであって、上段の要件が条件付きで解除されるわけではない。加えて、本文の should say so は住民への指示（deontic、「申し出るように」）であり、unless が要求する条件節の should（putative、起こりうる事態を仮定する用法）とは別物で、unless anyone should say so のような型自体、英語版 Wikipedia の全文検索でもほとんど用例が無い。',
+            '「なぜなら」。「大半の住民が扱いやすいと感じている」ことの理由が「下段を希望する人は申し出るように」になってしまい、原因と結果が逆転していて筋が通らない。',
+            '前置詞（句）。owing to は目的語に名詞句を取り、後ろに定形節を続けることはできない。owing to の直後に anyone who would prefer a lower space という名詞句を置くと、それだけで前置詞句が完結してしまい、続く should say so when collecting a fob には主語が無くなって文が成立しない。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'The racks were installed by an external contractor in June.',
@@ -903,7 +995,8 @@ export const R1 = [
         c: ['their', 'its', 'his', 'our'],
         a: 0,
         e: '主語 Residents（複数）を受ける所有格。their own contents policy「各自の家財保険」。',
-        w: ['正解。', '単数の所有格。', '男性単数に限定され、Residents を受けられない。', '書き手側を指すことになり文意が変わる。'] },
+        w: ['正解。', '単数の所有格。', '男性単数に限定され、Residents を受けられない。',
+            '直前の文が The store ... is not insured by the freeholder.（freeholder は保険を掛けていない）と述べている。our は書き手（管理者）側を指すことになり、住民に対して書き手自身の保険の有無を確認させる指示になって、直前の文とかみ合わない。'] },
       ].map(x => ({ ...x, s: null })),
   }),
 
@@ -914,23 +1007,33 @@ export const R1 = [
       title: 'Riverbank Path Reopens After Two-Year Closure',
       head: 'LANGDON — 12 May',
       body: [
-        'The riverbank path between Mill Bridge and Ashe Lock {{1}} to walkers on Saturday, two years after erosion forced the council to close it.',
+        'The riverbank path between Mill Bridge and Ashe Lock {{1}} to walkers last Saturday, two years after erosion forced the council to close it.',
         'The delay was not caused by the repair work itself, which took eleven weeks. {{2}} the council had to establish who owned a ninety-metre stretch behind the old maltings, a question that took eighteen months to settle in the land registry.',
         'The rebuilt section sits on a concrete shelf set back from the water. Engineers say this should prevent a repeat of the undercutting {{3}} damaged the original path.',
         '{{4}} Volunteers from the Langdon Ramblers have already scheduled a guided walk for the last Sunday in May.',
       ],
     },
     q: [
-      { tag: '時制', t: ['ctense'],
+      /* id は v1q139r（no は 139 のまま）。初版は on Saturday だけで、その土曜が記事の日付
+         （5 月 12 日）より前かどうかを決める標識が本文のどこにも無く、reopens（予定の現在形）・
+         reopened・will reopen のいずれとも矛盾しなかった。on Saturday を last Saturday に
+         差し替え、はっきり過去を指す時の副詞句にした。last ～ は単純過去としか共起しない
+         （現在形・現在完了・未来形のいずれとも同じ文の中で両立しない）ので、時制の一致で閉じる。
+         本文（stem 相当）を変えたため設問 id を新規採番。 */
+      { tag: '時制', t: ['ctense'], id: 'v1q139r',
         c: ['reopens', 'has reopened', 'reopened', 'will reopen'],
         a: 2,
-        e: '記事の日付は 5 月 12 日で、本文は「土曜日に」と過去の出来事を述べている。過去形。',
-        w: ['現在形。', '現在完了は明確な過去時点を示す語句と併用しにくい。', '正解。', '未来形。既に再開している。'] },
+        e: '本文は「先週の土曜日に」と、はっきり過去を指す語句 last Saturday で再開を述べている。last ～ のような明確な過去の一時点を示す語句は、単純過去としか共起しない。',
+        w: ['現在形。予定・習慣を表す現在形は使えるが、last Saturday のような明確に過去を指す語句とは共起しない。',
+            '現在完了。現在完了は last Saturday のような明確な過去の一時点を示す語句とは同じ文の中で両立しない。',
+            '正解。reopened last Saturday「先週の土曜日に再開した」。単純過去は last ～ のような特定の過去の時点を表す語句と共起する。',
+            '未来形。last Saturday は過去を指す語句なので、未来形とは共起しない。'] },
       { tag: '接続語', t: ['connect'],
         c: ['Therefore', 'Similarly', 'Instead', 'Meanwhile'],
         a: 2,
         e: '「遅延の原因は工事そのものではなかった」→「そうではなく、所有者の特定が必要だった」という否定＋訂正の流れ。Instead が入る。',
-        w: ['因果。前文を受けた結果ではない。', '並列。', '正解。', '同時進行。'] },
+        w: ['因果。前文を受けた結果ではない。', '並列。', '正解。',
+            '「その間に」。前文が The delay was not caused by the repair work itself と原因を否定しているので、この段落は遅延の本当の原因を示す訂正が続かなければ、遅延の理由を示さないまま終わってしまう。Meanwhile は工事と並行する別の出来事を並べるだけで、原因の訂正を導く働きを持たないため、段落の役目を果たせない。'] },
       { tag: '関係詞', t: ['rel'],
         c: ['where', 'what', 'whose', 'that'],
         a: 3,
@@ -984,7 +1087,8 @@ export const R1 = [
         ],
         a: 1,
         e: '直前で写真 2 枚の要件を示している。段落を締めるには、写真をアップロードするうえでの実務的な懸念（通信量・容量）を先回りして解消する文が自然。(B) がそれに当たる。',
-        w: ['予備バッテリーは写真要件の説明とつながらない。', '正解。', '満足度の数値は段落の主題から外れる。', '車載カメラは別の施策。'] },
+        w: ['予備電池は写真撮影の実務そのものには関わるが、この文だけを読んでも直前の内容とつながる手がかりが無い。正解の (B) は The app という定冠詞付きの名詞句で、第 1 段落の through the mobile app を受けている（同一のアプリを指し直している）。(A) にはこの種の照応が無く、話題が変わったように読める。',
+            '正解。', '満足度の数値は段落の主題から外れる。', '車載カメラは別の施策。'] },
       { tag: '接続語', t: ['conjprep'],
         c: ['while', 'before', 'despite', 'unless'],
         a: 1,
@@ -992,7 +1096,7 @@ export const R1 = [
         w: ['「〜している間に」。撮影と同時に動かす指示になり、顧客が特定される物を写さないという直前の指示（do not photograph anything that identifies the customer）を果たせない。移動が撮影より先である必要がある。',
             '正解。',
             '「〜にもかかわらず」。譲歩を表す前置詞で、片づけと撮影の間に対立関係はない。',
-            '接続詞なので後ろには主語と動詞のある節が必要で、動名詞句を直接取れない。'] },
+            'unless は縮約節（動名詞・分詞などの無動詞節）も取れる語で、ここに入れると「撮影しているとき以外は枠外へ動かせ」という意味になる。これは直前の「顧客が特定される物を写すな（do not photograph anything that identifies the customer）」という指示と正反対で、撮影中こそ動かしてはいけない物をそのままにしてよいと述べてしまう。'] },
       ].map(x => ({ ...x, s: null })),
   }),
 ];

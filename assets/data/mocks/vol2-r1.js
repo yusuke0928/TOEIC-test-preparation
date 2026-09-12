@@ -14,7 +14,7 @@ const p6 = (o) => ({
   id: `v2-p6-${o.n[0]}`, part: 6, kind: 'doc', topics: o.t, level: o.lv ?? 4, docCount: 1,
   docs: [o.doc],
   questions: o.q.map((x, i) => ({
-    id: `v2q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
+    id: x.id ?? `v2q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t, tag: x.tag,
   })),
 });
@@ -89,7 +89,9 @@ export const R1 = [
     c: ['accommodating', 'accommodate', 'to accommodate', 'accommodated'],
     a: 3,
     e: '宿泊客は「収容される」側なので過去分詞が後置修飾する。be accommodated in「〜に宿泊する」。',
-    w: ['現在分詞。客が収容することになる。', '原形。', '不定詞。', '正解。'],
+    w: ['現在分詞。客が収容することになる。', '原形。',
+        '不定詞関係節の可能性がある（Guests to accommodate ... のように「（これから）収容すべき客」という受動的な意味の裸の不定詞関係節。cf. Factors to consider in the design include ...）。しかしその読みでは Guests が「こちらが収容する対象」になり、続く should use the side entrance が呼びかけている「客」自身と一致しない。文全体は一貫して宿泊客に呼びかけているので、この読みは成立しない。',
+        '正解。'],
     ja: '東棟にご宿泊のお客様は、午後 10 時以降は側面の入口をご利用ください。' }),
 
   p5(109, { t: ['biz'], lv: 5,
@@ -111,13 +113,50 @@ export const R1 = [
     w: ['原級。than と組み合わない。', '正解。', '副詞。', '最上級。than とは結び付かない。'],
     ja: '改訂後の手順は従来のものよりはるかに簡潔で、それが遵守率の改善につながっている。' }),
 
-  p5(111, { t: ['subj'], lv: 5,
-    s: 'It is imperative that every visitor ------- a badge before proceeding beyond reception.',
-    c: ['collect', 'is collecting', 'collected', 'collects'],
-    a: 0,
-    e: 'It is imperative that ... の that 節は原形（仮定法現在）。',
-    w: ['正解。', '進行形。', '過去形。', '三単現の s。'],
-    ja: '受付から先へ進む前に、来訪者全員がバッジを受け取ることが必須です。' }),
+  /* id は v2q111r2（no は 111 を維持。前版 v2q111r は今回の巡で新設した id で HEAD には無く、
+     まだコミット・配布されていないため SRS 履歴が存在せず、内容を作り替えても据え置きでよいが、
+     stem を丸ごと差し替えるため区別のため r2 とした）。
+     第3巡監査で、前版の (B) have collected が第二の正解であることが確定した——要求・提案の
+     that 節では主語・動詞の一致が停止し、原形は HAVE の原形＝have なので、have collected は
+     完了仮定法として正文（"it is required that the candidate have completed specialist
+     officer training" ほか、英語版 Wikipedia insource で多数確認）。しかも before proceeding
+     beyond reception が期限を立てるため、前時性を表す完了形はむしろ自然に成立してしまっていた。
+     DECISIONS.md D1再改訂のとおり、肯定形のまま4本とも定形にする型は
+     「will は動詞ごとに開閉が割れる」「have V-en は完了仮定法として必ず開く」の両方に当たるため
+     採らず、`not` を空所の前に置く型（subj-28 と同型）に作り替えた。
+     not が空所の前にあるので、直説法（is/were 等）・完了仮定法（have/has been V-en）・助動詞
+     （will V）はすべて「not は定形の直前ではなく助動詞・be動詞の直後に置く」という語順のみで
+     同時に落ちる（is not V / did not V / was not V-ing の語順にしかならず、not の直後に定形を
+     直接置くことはできない）。誤答3本が同一の語順規則ひとつで一括消去できるため、
+     CLAUDE.md の目盛りに従い level は 3（前版の5から変更）。
+     stem は badge / every visitor から完全に離した（前版は v5q115r と主語・目的語まで一致し、
+     「前の巻の記憶から答えが手に入る」重複になっていた。今回の書き替えで解消）。
+     トリガーは imperative のまま残したが、対象を night-shift operator / emergency shutoff /
+     site manager に変え、grammar.js の subj-28（暗号鍵／critical／受動）・subj-02r（試験区域／
+     mandatory／能動）・vol4-r1.js の v4q115r（会則／require／受動）のいずれとも語彙・態が
+     重ならないようにした（本問は能動・人物主語）。
+     `not` 先行型なので will の可否を動詞ごとに測り直す必要は無い（語順だけで閉じるため）。
+     p5() ヘルパーは設問 id を no から自動生成するため、このユニットだけ直接記述する。
+
+     追記（第3巡監査）：末尾の "without first alerting the site manager" を含め、
+     T1（not 先行型）8問中4問が without で終わっていた偏りが指摘された。末尾を
+     until 節に差し替えて分散させた。stem を変えたため id を v2q111r3 に採番し直す。
+     choices・answer・exp・why・論点は変えていない。 */
+  { id: 'v2-p5-111r3', part: 5, kind: 'single', topics: ['subj'], level: 3,
+    questions: [{
+      id: 'v2q111r3', no: 111,
+      stem: 'It is imperative that the night-shift operator not ------- the emergency shutoff until the site manager has been notified.',
+      choices: ['override', 'overrides', 'overrode', 'is overriding'],
+      answer: 0,
+      exp: 'imperative that ... の that 節を否定するときは、do 支援を使わず not を原形の直前に置く（not + 原形）。定形の活用形（三人称単数現在・過去形・現在進行形）を否定するときは、not を助動詞・be動詞の直後に置く語順（does not override / did not override / is not overriding）になるため、not の直後にそのまま定形を置くことはできず、この位置に入れられるのは原形だけになる。',
+      why: ['正解。imperative that ... の that 節は原形（仮定法現在）を取り、否定は not ＋ 原形。',
+            '三人称単数現在の定形。定形の直説法を否定するには does not override と do 支援が要るので、not を動詞の直前に置いたこの語順は作れない。',
+            '過去形の定形。否定形は did not override となるため、not を動詞の直前に置いたこの語順は作れない。',
+            '現在進行形。否定形は is not overriding となるため、not の直後にこの形をそのまま置くことはできない。'],
+      ja: '施設責任者に通知が行われるまで緊急停止装置を無効化しないことが、夜勤の運転員には必須である。',
+      topics: ['subj'],
+    }],
+  },
 
   p5(112, { t: ['vusage'], lv: 5,
     s: 'Please ------- the reception desk of any dietary requirements at least a week in advance.',
@@ -229,7 +268,10 @@ export const R1 = [
     c: ['offers', 'offered', 'has offered', 'will offer'],
     a: 2,
     e: 'since 2019 という起点があるので現在完了。過去から現在まで継続している。',
-    w: ['現在形。継続の意味を表さない。', '過去形。since と併用しない。', '正解。', '未来形。'],
+    w: ['現在形。継続の意味を表さない。',
+        '過去形。`since it reopened in 2019` の since は起点を示す時間の接続詞として読まれ、その場合主節は現在完了でなければ 2019 年から続く継続を表せない。過去形は特定の一時点の出来事を表すだけで、起点からの継続は示せない。',
+        '正解。',
+        '未来形。since は起点からの継続を表す接続詞であり、未来形では 2019 年から現在まで続いてきたという事実を表せない。'],
     ja: 'その美術館は 2019 年の再開以来、毎月第 1 日曜に入場を無料としている。' }),
 
   p5(123, { t: ['adjprep'], lv: 5,
@@ -308,13 +350,33 @@ export const R1 = [
         'loosely は「大まかに、ゆるく」で、結び付きの厳密さを言う（loosely based on a true story）。理由の主従を示す語ではない。'],
     ja: 'その試験は早期に中止された。主な理由は、最初の週に参加者 2 名が離脱したことである。' }),
 
-  p5(129, { t: ['conjprep'], lv: 5,
-    s: 'Invoices are payable within thirty days ------- otherwise agreed in writing.',
-    c: ['without', 'except', 'unless', 'besides'],
-    a: 2,
-    e: 'unless (it is) otherwise agreed「別段の合意がない限り」。省略構文で、unless は接続詞。',
-    w: ['前置詞。', 'except は通常 for や that を伴う。', '正解。', '前置詞・副詞。'],
-    ja: '書面で別段の合意がない限り、請求書は 30 日以内にお支払いいただきます。' }),
+  /* No.129 の id は v2q129r（no は 129 を維持。誤答 (B) が第二の正解だったための新規採番）。
+     前回の巡は (B) を except のまま残し、「except は主語＋be動詞の省略節を従えられない」という
+     新しい排除根拠に差し替えたが、これは偽（英語版 Wikipedia insource で
+     "except otherwise provided by law"〈New York City Charter §6〉ほか計26件が実在し、
+     本問の except otherwise agreed も同じ語義〈別段の合意がある場合を除き〉で成立してしまう。
+     第二の正解）。(B) を because に差し替えた。because は if / unless / when / while / although /
+     though のような条件・譲歩・時を表す接続詞の仲間には入らず、理由を表す接続詞であり、
+     文脈から復元できる主語＋be動詞を省いた節（otherwise agreed のような分詞句）を従えられない
+     （Wikipedia insource: "because otherwise agreed" = 0件。対照に "unless otherwise agreed" =
+     28件で、検索そのものは生きている）。
+     併せて (A) without・(D) besides の why に排除理由を明記した（前回は「前置詞。」
+     「前置詞・副詞。」とだけ書かれ、理由が無かった）。 */
+  { id: 'v2-p5-129r', part: 5, kind: 'single', topics: ['conjprep'], level: 5,
+    questions: [{
+      id: 'v2q129r', no: 129,
+      stem: 'Invoices are payable within thirty days ------- otherwise agreed in writing.',
+      choices: ['without', 'because', 'unless', 'besides'],
+      answer: 2,
+      exp: 'unless (it is) otherwise agreed「別段の合意がない限り」。unless は、文脈から復元できる主語＋be動詞を省いた節（otherwise agreed のような分詞句）を直接従えられる接続詞。without・besides は前置詞で、目的語には名詞句か動名詞しか取れない。because は接続詞だが理由を表すため、この省略は認められない。',
+      why: ['前置詞。目的語には名詞句か動名詞を取るが、otherwise agreed は主語＋be動詞を省いた分詞節であり、名詞句でも動名詞でもないため without の直後には置けない。',
+            '接続詞。ただし、文脈から復元できる主語＋be動詞を省いた節を従えられるのは if / unless / when / while / although / though のような条件・譲歩・時を表す接続詞に限られる。理由を表す because にはこの省略が認められておらず、because otherwise agreed という形は成立しない（英語版 Wikipedia insource でも一致0件。対照に unless otherwise agreed は28件検出され、検索そのものは生きている）。',
+            '正解。unless (it is) otherwise agreed。',
+            '前置詞・副詞。前置詞として使う場合の目的語も名詞句か動名詞に限られ、without と同じ理由で otherwise agreed という分詞節を直接続けられない。'],
+      ja: '書面で別段の合意がない限り、請求書は 30 日以内にお支払いいただきます。',
+      topics: ['conjprep'],
+    }],
+  },
 
   p5(130, { t: ['vusage'], lv: 5,
     s: 'The organizers have ------- the venue with an additional exit at their own expense.',
@@ -371,26 +433,37 @@ export const R1 = [
       ],
   }),
 
+  /* No.135 の id は v2q135r（no は 135 を維持。誤答 (A) will move が第二の正解だったための新規採番）。
+     move は能格動詞で、(A) will move はラック自身が能動的に移動する自動詞用法として成立してしまっていた。
+     初回修正では本文に by our contractor を足して能動態を閉じたが、同一文書 No.137（文挿入）の排除根拠
+     （定冠詞 The contractor が、本来は後続文で初出する our contractor より前に来て前方照応できない）
+     を壊す副作用が出たため差し戻された。本文は by our contractor を加えない HEAD の文に戻し、代わりに
+     動詞を dismantle（他動詞専用。LDOCE [transitive]、AHD・Collins・Random House もいずれも自動詞の語義を
+     立てない）に差し替えた。「解体して再設置する」という意味にするため and re-erected でつなぎ、目的語の
+     無い能動態はそもそも成立しないという構造で (A)(C) を閉じる。
+     この一文にしか {{1}} は無く、他の設問（136–138）は別の段落を参照するため影響しない。
+     p6() ヘルパーは o.q[i].id があればそれを使うよう変更済み（無指定なら従来どおり自動生成）。 */
   p6({
     n: [135, 136, 137, 138], lv: 5, t: ['cohesion', 'p6ins'],
     doc: {
       label: 'Notice',
       title: 'Cycle Parking — Change of Location',
       body: [
-        'From Monday 6 October, the cycle racks currently outside the main entrance {{1}} to the covered area beside the loading bay.',
+        'From Monday 6 October, the cycle racks currently outside the main entrance {{1}} and re-erected in the covered area beside the loading bay.',
         'The move is not a downgrade. The new location is under cover, has lighting on a motion sensor, and is within view of the security desk, {{2}} the racks outside the entrance have neither shelter nor direct surveillance.',
         '{{3}} Please remove any bicycle left in the old racks before Friday 3 October; anything remaining after that date will be moved by our contractor and stored at the goods entrance for one month.',
         'The number of spaces increases from twenty-four to thirty-six, so it should no longer be necessary to lock bicycles to the railings — a practice that has blocked the ramp on several occasions and {{4}} a complaint from the accessibility officer.',
       ],
     },
     q: [
-      { tag: '態・時制', t: ['voice', 'ctense'],
-        c: ['will move', 'will be moved', 'have been moving', 'have been moved'],
+      { tag: '態・時制', t: ['voice', 'ctense'], id: 'v2q135r',
+        c: ['will dismantle', 'will be dismantled', 'have been dismantling', 'have been dismantled'],
         a: 1,
-        e: 'ラックは「移設される」側なので受動態。10 月 6 日からという未来の予定なので未来形。',
-        w: ['能動態。ラックが自ら移動することになる。', '正解。',
-            '能動の現在完了進行形。ラックには行為主体がなく、currently outside the main entrance という記述からまだ移動が始まっていないと分かるため、既に始まっている継続的動作を表すこの形とは矛盾する。受動態の未来形が必要。',
-            '現在完了・受動態。currently outside the main entrance が示す「今もまだ元の位置にある」という状態と、既に移動を終えたことを表すこの形は矛盾する。10 月 6 日から始まる今後の移設には未来形が必要。'] },
+        e: '空所は and re-erected と等位接続されているので、re-erected と並べられる形（be + 過去分詞）でなければならない。ラックは「解体される」側なので受動態、10 月 6 日からという未来の予定なので未来形。dismantle は他動詞専用（自動詞用法を持たない）なので、目的語の無い能動態はそもそも成立しない。',
+        w: ['空所は and re-erected と等位接続されているので、re-erected と並べられる形（be + 過去分詞）でなければならない。will dismantle and re-erected は等位接続そのものが成立しない。加えて dismantle は他動詞専用（LDOCE: [transitive]。AHD・Collins・Random House もいずれも自動詞の語義を立てていない）で、目的語を伴わずに使うことはできない。ラックは解体「する」側ではなく「される」側なので、この能動態の形は成立しない。',
+            '正解。受動態の未来形 will be dismantled and re-erected …。re-erected と等位接続できる be + 過去分詞の形であり、10 月 6 日からという未来の予定と、ラックが解体・再設置「される」側であることの両方に合う。',
+            '空所は and re-erected と等位接続されているので、re-erected と並べられる形（be + 過去分詞）でなければならない。have been dismantling and re-erected は等位接続そのものが成立しない。加えて dismantle は目的語を伴わずに使うことはできないうえ、currently outside the main entrance（まだ元の位置にある）という記述と、既に始まっている継続的動作を表すこの形は矛盾する。',
+            '受動態の現在完了。態は正しいが、currently outside the main entrance が示す「今もまだ元の位置にある」という状態と、既に解体を終えたことを表すこの形は矛盾する。10 月 6 日から始まる今後の作業には未来形が必要。'] },
       { tag: '接続語', t: ['connect'],
         c: ['because', 'whereas', 'provided that', 'as soon as'],
         a: 1,
@@ -432,7 +505,9 @@ export const R1 = [
         c: ['welcomes', 'has welcomed', 'welcomed', 'will welcome'],
         a: 2,
         e: '記事の日付は 6 月 30 日で、本文は「土曜日に」と過去の出来事を述べている。',
-        w: ['現在形。', '現在完了は明確な過去時点と併用しにくい。', '正解。', '未来形。'] },
+        w: ['現在形。',
+            '現在完了は明確な過去時点（on Saturday）と併用できない。同じ文書の Visitors on Saturday were able to watch the wheel turn on the ebb tide が、土曜日を過去の事実として確定させている。',
+            '正解。', '未来形。'] },
       { tag: '語彙', t: ['adjprep'],
         c: ['able', 'capable', 'possible', 'skilled'],
         a: 1,
@@ -456,6 +531,27 @@ export const R1 = [
       ],
   }),
 
+  /* No.143 の id は v2q143r（no は 143 を維持。誤答 (B) is removed が第二の正解だったための新規採番）。
+     is removed は「予定を表す現在形」（The paper sheet is published next week. 型）として読めてしまっていた。
+     目的語なしの能動 is removing に差し替え済み。remove には自動詞の語義（AHD「移転する」・Collins「移転する」、
+     中間構文の「（塗料などが）落ちる」）が実在するので、他動詞専用という書誌的な理由では閉じない。
+     いったん「自動詞の remove は方向の補部を要求する」という構造規則で閉じたが、これは AHD 5th の
+     v.intr.2「To go away; depart.」・Random House v.i.8「to go away; disappear.」が方向の補部を
+     伴わない語義を立項しているため断定として成立しなかった（再監査で指摘）。
+     正しい閉じ手は主語の選択：自動詞 remove の主語になるのは「住居や事業所を移す」「立ち去る」の
+     いずれの語義でも人・組織で、掲示された紙は自ら移動も退出もしないためこの主語になれない。
+     中間構文（「〜が落ちる、取れる」）は総称の単純現在で使う形で進行形を取らない。
+     この2点で is removing はどちらの自動詞の読みでも成立しない。
+     why[2]（was removed）は、前の巡で HEAD の文脈根拠「過去形。まだ撤去されていない。」を
+     「at the end of this week という未来の時の副詞句と共起しない」という一般規則の断定に
+     置き換えていたが、金曜の夕方に発話すれば was removed at the end of this week は成立するため
+     反例を持つ。実際に効いているのは 1 月 11 日付のメモの時点で用紙がまだ撤去されていないという
+     文脈のほうなので、その根拠に戻した。
+     No.144 の id は v2q144r（no は 144 を維持。誤答 (D) would rather が第二の正解だったための新規採番）。
+     was would rather / may はいずれも意味の推論でしか排除できていなかった（統語的には正しい）。
+     to を要求する法助動詞的表現（ought / be able to）に差し替え、to 無しでは原形を直接取れないという
+     構造で閉じた（*ought charge / *are able charge はいずれも不可）。
+     p6() ヘルパーは o.q[i].id があればそれを使うよう変更済み。 */
   p6({
     n: [143, 144, 145, 146], lv: 5, t: ['cohesion', 'connect'],
     doc: {
@@ -469,16 +565,20 @@ export const R1 = [
       ],
     },
     q: [
-      { tag: '時制', t: ['ctense', 'voice'],
-        c: ['will be removed', 'is removed', 'was removed', 'has been removed'],
+      { tag: '時制', t: ['ctense', 'voice'], id: 'v2q143r',
+        c: ['will be removed', 'is removing', 'was removed', 'has been removed'],
         a: 0,
         e: 'メモの日付は 1 月 11 日、「今週末に」という未来の予定なので未来形。用紙は「撤去される」側なので受動態。',
-        w: ['正解。', '現在形。予定を表すには弱い。', '過去形。まだ撤去されていない。', '現在完了。'] },
-      { tag: '語彙', t: ['vform'],
-        c: ['may', 'must', 'used to', 'would rather'],
+        w: ['正解。',
+            '現在進行形・能動態。remove を自動詞で使うときの主語は人・組織で、語義は「住居や事業所を移す」（"In 1751, I removed from the country to the town"）か「立ち去る」。掲示された紙は自ら移動も退出もしないので、この主語にはなれない。remove には「（塗料・染みが）落ちる、取れる」という中間構文の語義もあるが（paint that removes with water）、これは手段・様態の副詞を伴う総称の単純現在で使う形で進行形を取らない。したがって目的語を持たない The paper sheet is removing … は、どの自動詞の読みでも成立しない。',
+            '過去形。メモの日付は 1 月 11 日で、用紙はまだ撤去されておらず、撤去は今週末に行われる予定である。', '現在完了。at the end of this week という未来の時の副詞句と共起しない。'] },
+      { tag: '語彙', t: ['vform'], id: 'v2q144r',
+        c: ['are able', 'must', 'used to', 'ought'],
         a: 1,
         e: '「正しい予算に時間を付け替える必要がある」という義務。だからコードのない予約は削除される、という因果になる。',
-        w: ['許可・可能性では削除の理由にならない。', '正解。', '過去の習慣。', '選好。義務を表さない。'] },
+        w: ['「be able to do」の型。to が無ければ動詞の原形を直接続けられない（*are able charge は不可）。',
+            '正解。', '過去の習慣。',
+            '「ought to do」の型。to が無ければ動詞の原形を直接続けられない（*ought charge は不可）。'] },
       { tag: '文挿入', t: ['p6ins'],
         c: [
           'The chamber was serviced during the winter closure.',

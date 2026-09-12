@@ -14,7 +14,7 @@ const p6 = (o) => ({
   id: `v3-p6-${o.n[0]}`, part: 6, kind: 'doc', topics: o.t, level: o.lv ?? 4, docCount: 1,
   docs: [o.doc],
   questions: o.q.map((x, i) => ({
-    id: `v3q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
+    id: x.id ?? `v3q${o.n[i]}`, no: o.n[i], stem: null, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t, tag: x.tag,
   })),
 });
@@ -62,7 +62,7 @@ export const R1 = [
     c: ['Confirming', 'Confirms', 'To confirm', 'Confirmed'],
     a: 3,
     e: '分詞構文の意味上の主語は the results。結果は「確認される」側なので過去分詞。',
-    w: ['現在分詞。結果が確認することになる。', '定形動詞。', '不定詞。', '正解。'],
+    w: ['現在分詞。結果が確認することになる。', '定形動詞。', '不定詞。文頭の非定形節の意味上の主語は主節の主語 the results と一致する。to confirm は能動形で the results が確認する側になってしまうが、by three independent laboratories が示すのは確認する側（研究機関）が別にいるという受動の関係であり、矛盾する。', '正解。'],
     ja: '独立した 3 つの研究機関によって確認されたことで、その結果は現在では信頼できるとみなされている。' }),
 
   p5(106, { t: ['pron'], lv: 4,
@@ -70,7 +70,7 @@ export const R1 = [
     c: ['this', 'these', 'those', 'that'],
     a: 2,
     e: '前出の複数名詞 transcripts の反復を避ける those。後ろに分詞句 sent by ... が続く形も those の特徴。',
-    w: ['単数の指示語。', '後ろに修飾語を伴う用法は取りにくい。', '正解。', '単数。transcripts は複数。'],
+    w: ['単数の指示語。', '前出の名詞を受け直す代用形として、後置修飾（of 句・分詞句）を従えて指示対象を絞り込むのは that / those の働き。this / these は指示対象をそれ自体で特定する代名詞で、後ろに修飾語を足して絞り込む代用形の働きを持たない。ここは「第三者が送ったもの」という条件で絞り込む必要があるので those が要る。', '正解。', '単数。transcripts は複数。'],
     ja: '応募者は自身の成績証明書を提出しなければならず、第三者から送られたものは受理できません。' }),
 
   p5(107, { t: ['adjprep'], lv: 5,
@@ -127,13 +127,44 @@ export const R1 = [
     w: ['「居住する」。', '「辞任する」。', '正解。', '「似ている」。'],
     ja: 'この条項により、業績目標が達成されない場合はいずれの当事者も契約を解除できる。' }),
 
-  p5(113, { t: ['verbal'], lv: 5,
-    s: 'The department has committed to ------- its energy consumption by a fifth within three years.',
-    c: ['reducing', 'reduce', 'reduced', 'be reduced'],
-    a: 0,
-    e: 'be committed to の to は前置詞なので動名詞。',
-    w: ['正解。', '原形。前置詞の後には置けない。', '過去分詞。', '受動の原形。'],
-    ja: '当部門は 3 年以内にエネルギー消費量を 5 分の 1 削減することを約束している。' }),
+  /* id は v3q113r2（no は 113 のまま。設問ごと2回目の差し替えのため新規採番）。
+     1回目（v3q113r。"The vendor is looking forward to ------- the updated proposal ..."、
+     正解 submitting）は再監査で差し戻された。誤答3本は閉じていたが、drills/grammar4.js の
+     verbal-09（"is looking forward to formally ------- the new product line ..."、正解
+     unveiling）と装置が同一（引き金が同じ look forward to／4形の組み合わせが同じ／exp・why の
+     最終項がほぼ同文）で、答えの根拠が丸ごと重複していた。加えて topics.js の verbal の key
+     「『look forward to -ing』の to は前置詞」が画面に印字されており、読めば解ける状態だった。
+     今回は判別の決め手を「to は前置詞」から切り離し、動詞 resume 自体の目的語選択（動名詞のみを
+     取り、to 不定詞・定形・裸の過去分詞のいずれも取らない）に移した。resume は topics.js の
+     verbal の key・pitfall（be committed to / look forward to / avoid・consider・postpone）に
+     無く、verbal-01〜verbal-20 のどの引き金（postpone / committed to / wish / permit /
+     rather than / enable / regret / worth / look forward to / when it comes to /
+     with a view to / advise / cannot help / have difficulty / object to / insist on /
+     refrain from / remember / in addition to / used to）とも重ならない（grep 照合済み）。
+     LDOCE「resume」語義1 [transitive] は用例欄に "resume doing something" を明記し
+     ("He will resume training as soon as the injury is better.")、to 不定詞を伴う形は
+     立項していない。Google Books Ngrams（1990–2019, en-2019, smoothing=0）で
+     resumed flying 1.996e-09・resume flying 1.963e-09（いずれも全30年でヒットあり）に対し、
+     resume to fly・resumed to fly はデータ自体が返らない。英語版 Wikipedia insource でも
+     "resume to fly"「0件」・"resumed to fly"「0件」・"will resume flying"「0件」で、
+     "resume to do" の3件はいずれも presume との誤検出（First Taranaki War 等）か resume
+     （名詞「履歴書」）が別の語に接続した偽陽性（"sending out his resume to dozens of..."）で、
+     resume + to不定詞の実例ではない。stem・語彙（airline / northern destinations / runway
+     repairs）は assets/data/ 全体と grep 照合し衝突なしを確認済み。 */
+  { id: 'v3-p5-113r2', part: 5, kind: 'single', topics: ['verbal'], level: 4,
+    questions: [{
+      id: 'v3q113r2', no: 113,
+      stem: 'The airline will resume ------- to its northern destinations once the runway repairs are finished.',
+      choices: ['flying', 'to fly', 'flew', 'flown'],
+      answer: 0,
+      exp: 'resume doing something「〜するのを再開する」。resume が他動詞として補部に取るのは動名詞で、辞書の用例も resume doing something の形（He will resume training as soon as the injury is better.）。resume を自動詞で読んで to fly を目的の不定詞に取る逃げ道も無い。自動詞の resume が主語に取るのは中断されていた出来事・活動そのもの（the meeting resumed / normal service resumed）で、ここで中断されていたのは運航であって航空会社ではないため、The airline will resume だけでは完結した節にならず、目的の不定詞を掛ける先が作れない。',
+      why: ['正解。resume flying「運航を再開する」。resume の目的語となる動名詞。',
+            '不定詞。resume が他動詞として補部に取るのは動名詞で、辞書の用例も resume doing something の形。resume を自動詞で読んで to fly を「〜するために」の目的の不定詞に取る逃げ道も無い。自動詞の resume が主語に取るのは中断されていた出来事・活動そのもの（the meeting resumed / normal service resumed）で、ここで中断されていたのは運航であって航空会社ではないため、The airline will resume だけでは完結した節にならず、目的の不定詞を掛ける先が作れない。',
+            '過去形の定形動詞。will の後に続く resume の目的語位置には非定形の要素しか入らず、そこにさらに独立した定形動詞 flew を続けることはできない。',
+            '過去分詞。resume の目的語になれるのは動名詞であって、裸の過去分詞をその位置に置く形は無い。'],
+      ja: '滑走路の修理が終わり次第、その航空会社は北部の就航先への運航を再開する。',
+      topics: ['verbal'],
+    }] },
 
   p5(114, { t: ['adv'], lv: 5,
     s: 'The two accounts of the incident differ ------- on the question of who gave the instruction.',
@@ -222,13 +253,36 @@ export const R1 = [
     w: ['動詞。', '形容詞。形容詞を修飾できない。', '名詞。', '正解。'],
     ja: '委員会は、その証拠が全面的な再検討を正当化するに足るほど説得力があると判断した。' }),
 
-  p5(122, { t: ['cohesion', 'pron'], lv: 5,
-    s: 'The building has two staircases; ------- of them is accessible from the loading area.',
-    c: ['each', 'either', 'both', 'neither'],
-    a: 3,
-    e: '2 者の全否定は neither。動詞 is が単数形であることも根拠。',
-    w: ['each of them is も可だが、文意は「どちらも〜ない」。', '「どちらか一方」。肯定になる。', '複数扱いで are になる。', '正解。'],
-    ja: 'この建物には階段が 2 つあるが、どちらも荷役区画からは入れない。' }),
+  /* id は v3q122r（no は 122 のまま。設問ごと差し替えたため新規採番）。
+     旧版は "two staircases; ------- of them is accessible ..."（正解 neither、誤答に each /
+     either / both）だったが、単数の is が排除できるのは複数扱いの both だけで、each of them
+     is も either of them is もそれ自体は正しい英語として成立し（"each of them is accessible"＝
+     2 つとも入れる、"either of them is accessible"＝どちらか一方から入れる、"neither of them
+     is accessible"＝どちらも入れない、の3つとも文法的に閉じた文）、単文に肯定・否定どちらの
+     内容かを決める材料が無いため第二の正解だった（旧 why[0] も "each of them is も可だが" と
+     明示的に認めていた）。加えて論点 cohesion は topics.js で Part 6 の文書結束性として定義
+     されており、談話の無い Part 5 の1文に載せていたこと自体が閉じ手を文外に求める構造に
+     なっていた（担当外・topics.js の定義自体はメインの判断事項のため報告のみ）。
+     単数・複数の対立ではなく「単数の代名詞のうち後ろに of 句を続けて比較対象を示せるのは
+     that だけ（those / ones はいずれも複数形で単数の先行詞と数が合わない）」という数の一致
+     だけで閉じる枠に作り替えた。vol6-r1.js の v6q105r が the other / others / one another /
+     other という別の指示代名詞の対立をすでに扱っているため、それとは異なる that of の型を
+     選び、stem の語彙（manufacturing cost / blueprint 等）も既存のどの設問とも重ならない
+     ことを確認済み（grep 照合済み）。 */
+  { id: 'v3-p5-122r', part: 5, kind: 'single', topics: ['cohesion', 'pron'], level: 5,
+    questions: [{
+      id: 'v3q122r', no: 122,
+      stem: 'The manufacturing cost of the revised model is lower than ------- the original blueprint.',
+      choices: ['that of', 'those of', 'the ones of', 'ones of'],
+      answer: 0,
+      exp: 'than の後ろは、前に出た単数の名詞 manufacturing cost を受ける代名詞＋比較対象を示す of 句。単数の先行詞を受けるのは that で、of the original blueprint（どちらのものか）が続く that of ... の定型になる。',
+      why: ['正解。that of ...「〜のそれ」。前出の単数の名詞 manufacturing cost を受け、of 以下でその帰属先を示す。',
+            'those は複数の名詞を受ける代名詞。前出の manufacturing cost は単数（主語の is とも一致する単数扱い）で、複数形の those とは数が合わない。',
+            'ones も複数の名詞を受ける代名詞で、単数の manufacturing cost とは数が合わない。the ones of という形もこの比較の型では使われない。',
+            'ones は複数形であることに加え、限定詞を伴わない裸の ones は代名詞として単独では使えない（the ones や which ones のように限定詞・疑問詞を伴う必要がある）。単数の manufacturing cost とも数が合わない。'],
+      ja: '改訂版モデルの製造コストは、当初の設計図の製造コストよりも低い。',
+      topics: ['cohesion', 'pron'],
+    }] },
 
   p5(123, { t: ['colloc'], lv: 5,
     s: 'The auditor was unable to ------- the discrepancy between the two sets of figures.',
@@ -249,13 +303,32 @@ export const R1 = [
     w: ['正解。', '前置詞。', '前置詞句。', '前置詞句。'],
     ja: 'その許可は、保有者が付帯条件を満たし続ける限り有効である。' }),
 
-  p5(125, { t: ['ptcp'], lv: 5,
-    s: 'With the main road ------- for resurfacing, deliveries are being routed through the industrial estate.',
-    c: ['closed', 'closing', 'closes', 'to close'],
-    a: 0,
-    e: '付帯状況の with + O + 分詞。道路は「閉鎖される」側なので過去分詞。',
-    w: ['正解。', '現在分詞。道路が自ら閉じることになる。', '定形動詞。', '不定詞。'],
-    ja: '主要道路が舗装のため閉鎖されているため、配送は工業団地経由に振り替えられている。' }),
+  /* id は v3q125r（no は 125 のまま。設問ごと差し替えたため新規採番）。
+     旧版は "With the main road ------- for resurfacing, ..."（正解 closed、誤答に現在分詞
+     closing）だったが、close は能格動詞（LDOCE close 語義3 [intransitive, transitive]
+     "The shops close at six."）で「道路が自ら閉じることになる」という旧 why[1] の排除根拠は
+     偽の規則だった。"With the main road closing for resurfacing, ..." は道路を主語にした
+     能格用法として実在する（英語版 Wikipedia insource「the road closes for the season」
+     「with the station closing for freight on 2 November 1964」）。
+     枠を能格用法を持たない他動詞 renovate に移した（Wiktionary の renovate は2語義とも
+     transitive のみ）。加えて旧版は誤答 (D) to close（with + NP + to V の「まだやり残して
+     いる」構文）も閉じ切れていなかったため、空所の節に past-time の副詞 last month を隣接
+     させ、裸の不定詞が定形の過去時点を表せない（to have renovated の形が要る）ことで (D) も
+     構造的に排除した。 */
+  { id: 'v3-p5-125r', part: 5, kind: 'single', topics: ['ptcp'], level: 5,
+    questions: [{
+      id: 'v3q125r', no: 125,
+      stem: 'With the reception area ------- last month, this year\'s facilities budget will focus on the loading dock instead.',
+      choices: ['renovated', 'renovating', 'renovates', 'to renovate'],
+      answer: 0,
+      exp: '付帯状況の with + O + 分詞。renovate は目的語を必要とする他動詞で（Wiktionary の2語義ともに transitive）、空所の後ろは last month という時の副詞だけで目的語が無い。reception area は「改修される」側なので過去分詞。',
+      why: ['正解。with the reception area renovated last month「先月に受付エリアが改修されたので」。',
+            '現在分詞。renovate は目的語を必要とする他動詞だが、空所の後ろに目的語が無い。reception area 自身が改修する側になってしまう点でも成り立たない（改修するのは業者であり、場所自体ではない）。',
+            '定形動詞。with + O + 分詞の絶対構文には非定形の分詞が入る。加えて現在形は last month という確定した過去の時点と両立しない。',
+            '不定詞。裸の不定詞は確定した過去の時点を単独では表せない（to have renovated のように完了形にする必要がある）。to renovate last month は時制の点で成り立たない。'],
+      ja: '先月に受付エリアが改修されたので、今年度の施設予算は代わりに搬入口に充てられる予定である。',
+      topics: ['ptcp'],
+    }] },
 
   p5(126, { t: ['biz'], lv: 5,
     s: 'Payment is due within thirty days; thereafter interest ------- at the statutory rate.',
@@ -358,13 +431,21 @@ export const R1 = [
         choices: ['will be shut off', 'shuts off', 'has been shut off', 'will shut off'],
         answer: 0,
         exp: '水道本管は「止められる」側なので受動態。5 月 12 日からという未来の予定なので未来形。',
-        why: ['正解。', '現在形。', '現在完了。まだ止まっていない。', '能動態。'],
+        why: ['正解。', '現在形は確定した予定を表せるが、shuts off は能動態。shut off の自動詞用法（The iron shuts off automatically.）は自ら停止する機械・器具に限られ、water main（本管）はその型に当たらない。同じ文の while the supplier replaces a section of failing pipe が外部の動作主（供給業者）を明示しており、本管は「止められる」側である。', '現在完了。まだ止まっていない。', 'will shut off も同じ理由で不可。能動態であり、shut off の自動詞用法が使えるのは自ら停止する機械・器具に限られる。water main は外部（供給業者）によって止められる側であり、同じ文がその動作主を明示している。'],
         topics: ['ctense', 'voice'], tag: '態・時制' },
-      { id: 'v3q132', no: 132, stem: null,
-        choices: ['Nevertheless', 'Otherwise', 'Accordingly', 'Likewise'],
+      /* id は v3q132r（no は 132 のまま。誤答 (A) を差し替えたため新規採番）。
+         旧版は誤答 (A) に Nevertheless を置いていたが、「水が出ない」という前文の含意（水が
+         手に入らない）に対し「給水車を用意した」という後文は緩和策の提示であり、譲歩
+         （Nevertheless / However）としても意味が通ってしまう第二の正解だった（旧 why[0]
+         「逆接。」はこの位置で逆接が成立しない理由を名指ししていなかった）。
+         For example に差し替えた。for example は前文を具体例として例示する働きしか持たず、
+         「水が出ない」ことの具体例としてボウザーの手配（対応策）を挙げることはできないため、
+         意味の関係の種類そのもので排除できる。 */
+      { id: 'v3q132r', no: 132, stem: null,
+        choices: ['For example', 'Otherwise', 'Accordingly', 'Likewise'],
         answer: 2,
         exp: '「水が出ない」→「そこで給水車を手配した」という対応の関係。Accordingly。',
-        why: ['逆接。', '「さもなければ」。', '正解。', '並列。'],
+        why: ['for example は前文の内容を具体例として例示する語で、後ろには前文の一事例が続く必要がある。給水車の手配は「水が出ないこと」の一事例ではなく、それに対する対応策であり、例示の関係にならない。', '「さもなければ」。', '正解。', '並列。'],
         topics: ['connect'], tag: '接続語' },
       { id: 'v3q133', no: 133, stem: null,
         choices: [
@@ -394,18 +475,28 @@ export const R1 = [
       label: 'Article',
       title: 'A Bookshop That Sells Fewer Books',
       body: [
-        'When Orla Feeney took over the Anchor Bookshop in 2022, it carried about eleven thousand titles. It now carries four thousand, and turnover {{1}} by nineteen percent.',
+        'When Orla Feeney took over the Anchor Bookshop in 2022, it carried about eleven thousand titles. It now carries four thousand, and turnover {{1}} by nineteen percent to date.',
         'The reduction was not a cost-cutting measure. Ms. Feeney describes it as a change in what the shop is for. "A shop with eleven thousand titles is a warehouse you can walk into," she says. "Nobody needs that any more. There is not {{2}} in a warehouse like that they cannot get in two clicks."',
         '{{3}} Each of the four thousand is there because a member of staff has read it and can say something about it. Shelf labels carry initials, and customers ask for the person rather than the section.',
         'Not every category survived the cut. Reference and travel went almost entirely, {{4}} the shop\'s children\'s section doubled.',
       ],
     },
+      /* id は v3q135r（no は 135 のまま。本文に to date を追加し正解を閉じたため新規採番）。
+         旧版は現在完了を強制する時間標識が空所の節に無く、過去形 rose でも
+         "It now carries four thousand, and turnover rose by nineteen percent." は普通の英文
+         として成立していた（Google Books Ngrams で turnover rose by 2.087e-09 に対し
+         turnover has risen by 2.603e-10、単純過去のほうが8倍多い）。topics.js の ctense 自身が
+         「日付・last week・as of などが決定打」と定義しており、本問はその決定打を欠いていた。
+         文末に to date を足して現在完了を強制する標識を明示した（to date「現在までに」は
+         現在完了と結び付く定型で、Wiktionary も "typically used with present perfect tense
+         constructions" と説明。so far は「そこまで／それほど」という程度の副詞義もあり
+         Ngrams で rose so far が高頻度に出るため避けた）。 */
     q: [
-      { tag: '時制', t: ['ctense'],
+      { tag: '時制', t: ['ctense'], id: 'v3q135r',
         c: ['rose', 'will rise', 'rises', 'has risen'],
         a: 3,
-        e: '2022 年の引き継ぎから現在までの変化を述べており、直前の carries（現在形）と並ぶ。現在完了が自然。',
-        w: ['過去形。現在に至る変化を表しにくい。', '未来形。', '現在形。変化を表さない。', '正解。'] },
+        e: '2022 年の引き継ぎから現在までの変化を述べており、直前の carries（現在形）と文末の to date（現在までに、の意）が現在完了を要求する。',
+        w: ['過去形。文末の to date は「現在までに」の意で、現在完了と結び付く標識であり単純過去とは共起しない。', '未来形。', '現在形。変化を表さない。', '正解。'] },
       { tag: '結束性', t: ['cohesion', 'pron'],
         c: ['something', 'everything', 'anything', 'nothing'],
         a: 2,
@@ -508,7 +599,7 @@ export const R1 = [
         choices: ['whereas', 'despite', 'unless', 'provided'],
         answer: 3,
         exp: '「本体が健全であれば」という条件。provided (that)。',
-        why: ['対比。', '前置詞。', '条件だが否定になり文意が逆。', '正解。'],
+        why: ['対比。', '前置詞。', 'unless で読むと「本体が健全でなければ交換は経済的」となる。これは次段落の the calculation changes（主基板が壊れた場合は計算が変わる）と、前段を「単純なケース」と総括する挿入文 That is the straightforward case.（No.145 の正解）が置く読み――本体が健全な場合を「経済的」側とする――に正面から矛盾する。文書内の記述で読みが確定するため unless は使えない。', '正解。'],
         topics: ['conjprep'], tag: '接続語' },
       { id: 'v3q145', no: 145, stem: null,
         choices: [

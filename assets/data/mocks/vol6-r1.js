@@ -31,7 +31,7 @@ export const R1 = [
     a: 0,
     e: '文の要素はすべてそろっており、空所には動詞 inspects を修飾する副詞が入る。quarterly は monthly / weekly / daily などと同じく、形容詞と副詞を兼ねる語。',
     w: ['正解。動詞 inspects を修飾する副詞としての quarterly。',
-        '名詞の複数形。動詞の直後は副詞の位置で、名詞は置けない。',
+        '名詞の複数形。空所は目的語 the loading-dock doors の後ろで、動詞句を修飾する副詞の位置。quarterly は形容詞と副詞を兼ねるが、quarters にはその副詞用法が無い。',
         '名詞（定期刊行物）の複数形。quarterly を可算名詞として複数化した形で、この位置には合わない。',
         '名詞の単数形（四半期、の意味）。冠詞も前置詞もなく置けない。'],
     ja: '保守担当の責任者は搬入口の扉を四半期ごとに点検し、摩耗があればシフト報告書に記録している。' }),
@@ -115,16 +115,32 @@ export const R1 = [
       topics: ['vusage'],
     }] },
 
-  p5(105, { t: ['pron'], lv: 3,
-    s: 'The supplier shipped the replacement parts in two separate boxes: one arrived within a week, but ------- did not arrive until the following month.',
-    c: ['other', 'another', 'the others', 'the other'],
-    a: 3,
-    e: 'two separate boxes という閉じた集合のうち一つは one で受けているので、残る一つを指すのは the other。',
-    w: ['other は限定詞や the を伴わずに単独の代名詞としては使えない語で、the other や another、others の形でしか立たない。',
-        'another は「（今ある物とは別に）もう一つ」で、既出の集合の外に新たな一つがあることを含意する。two separate boxes という閉じた集合と矛盾する。',
-        'the others は「残り全部」を指す複数形。two separate boxes から one を除いた残りは箱一つなので、複数形では数が合わない。',
-        '正解。two separate boxes のうち一つは one で受けたので、残る一つを指すのは the other。'],
-    ja: 'サプライヤーは交換部品を2つの箱に分けて発送し、一方は1週間以内に届いたが、もう一方は翌月まで届かなかった。' }),
+  /* id は v6q105r（no は 105 のまま。誤答 (B) another が第二の正解になっていたため差し替え、
+     設問 id を新規採番した。two separate boxes という「ちょうど2つ」の閉じた集合を明示していても、
+     one … , and/but another … という言い方は編集された英文に普通に実在する（英語版 Wikipedia
+     insource 検索で "two [a-z]+s: one [a-z]+ [a-z ]+, and another" が48件、定形節を続けた形
+     "two [a-z]+s\. One [a-z ]{5,40} another [a-z]+" も8件——A single tap shoe has two taps: one
+     under the heel, and another under the toes. など）。「2つのうち残りは the other」という規範は
+     日本の学校文法の単純化であって、編集された英文の実態ではない。
+     誤答 (B) を one another に差し替えた。相互代名詞は複数の先行詞を要求し、かつ主語の位置に
+     立てないため、but one another did not arrive ... は構造だけで排除できる。
+     assets/data/ 全体で選択肢に another を持つ設問は他に vol1-r1.js No.105（正解 both、one による
+     分割が先行しないため同じ穴は無い）のみで、伝播は無い。topics.js の pron にも供給源は無い。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
+  { id: 'v6-p5-105r', part: 5, kind: 'single', topics: ['pron'], level: 3,
+    questions: [{
+      id: 'v6q105r', no: 105,
+      stem: 'The supplier shipped the replacement parts in two separate boxes: one arrived within a week, but ------- did not arrive until the following month.',
+      choices: ['other', 'one another', 'the others', 'the other'],
+      answer: 3,
+      exp: 'two separate boxes という閉じた集合のうち一つは one で受けたので、残る一つを指すのは the other。',
+      why: ['other は限定詞や the を伴わずに単独の代名詞としては使えない語で、the other や another、others の形でしか立たない。',
+            'one another は相互代名詞で、複数の対象が互いに対して行う行為を表すときに使う語。すでに登場した複数の主語を受ける目的語・補語の位置で使い（They greeted one another.）、それ自体が節の主語に立つ形を持たない。ここは接続詞 but の後ろの主語の位置なので、one another を置くことはできない。',
+            'the others は「残り全部」を指す複数形。two separate boxes から one を除いた残りは箱一つなので、複数形では数が合わない。',
+            '正解。two separate boxes のうち一つは one で受けたので、残る一つを指すのは the other。'],
+      ja: 'サプライヤーは交換部品を2つの箱に分けて発送し、一方は1週間以内に届いたが、もう一方は翌月まで届かなかった。',
+      topics: ['pron'],
+    }] },
 
   p5(106, { t: ['biz'], lv: 5,
     s: "Customers who believe they have been overcharged on their monthly statement may seek ------- through the ombudsman's office rather than through the courts.",
@@ -181,35 +197,46 @@ export const R1 = [
         '接続詞（条件）。後ろに節が必要。'],
     ja: 'この地域で有資格の電気技師が不足しているため、パネルの設置は9月下旬に延期された。' }),
 
-  /* id は v6q111r（no は 111 のまま。stem を全面的に差し替えたため設問 id は新規採番）。
-     2026-08-18 の一括照合で、まず動詞を reduce から suspend に替えた。
-     旧版の選択肢 to reduce / reduce / reduced / reducing は drills/grammar4.js の verbal-11
-     （with a view to ------- delivery times、正解 reducing）と4語すべてが一致し、正解の形まで
-     同じだった。vol3-r1.js の No.113（committed to ------- its energy consumption、正解 reducing）
-     とも3語が重なっていた。
-     同日の監査で、その差し替え後の stem
-     「Despite mounting pressure from shareholders, the board resisted ------- the dividend for a
-     third consecutive year.」に二つの難点が出たため、stem の内容だけを入れ替えた。
-     (1) for a third consecutive year を suspending に掛けて読むと「すでに2年止めている配当を
-     3年目も止める」ことに抵抗した、となり、抵抗している側が現状維持を拒んでいるのか続行を
-     拒んでいるのか読みが定まらない。
-     (2) 株主が「配当の停止」を求めて圧力をかけるという向きが、ビジネス文書として逆である
-     （株主が求めるのは通常は配当のほうで、止めろと迫る側ではない）。
-     株主が中止を迫る対象を、費用のかさむ海外展開に替えて向きをそろえた。
-     resist ＋ 動名詞という論点、選択肢4語、正解の位置（D）はいずれも変えていない。
+  /* id は v6q111r3（no は 111 のまま。stem の主動詞を差し替えたため設問 id を新規採番）。
+     2026-08-18 の一括照合で、まず動詞を reduce から suspend に替えた（経緯は旧コメントのとおり）。
+     2026-09-03 の監査で、誤答 (A) to suspend に「resist を目的語なしの自動詞として使い、
+     to suspend ... を目的の副詞句として読む」という別解析が残ると指摘され、株主の圧力の中身を
+     to scale back overseas と明示して目的読みの向きを衝突させる対処を入れたが、
+     2026-09-12 の再監査で、この対処は①構造ではなく③意味の推論（「抵抗の目的が株主の求める
+     方向と重なって resist の意味と矛盾する」）に過ぎないと差し戻された。resist は LDOCE の
+     intransitive 用法を持ち、目的語を言語化しない読みを排除できない。目的の不定詞はどの VP にも
+     付けられる付加詞なので、resist の語彙情報だけでは塞げない。
+     また旧コメントの「insource:/resisted in order to/ は0件」は誤りで、実測すると1件ヒットする
+     （Historikerstreit: "'perversions' … must be resisted in order to ensure the German
+     people a better future"）。resisted to + 不定詞の実例も英語版 Wikipedia に母語話者の
+     文学作品からの引用（Strong Poison ほか）を含め複数あり、resist ＋ 目的の不定詞は
+     母語話者の編集文に実在する。頻度が低いだけで「不可能」ではないため、閉じ方の②③には使えない。
+
+     是正：主動詞を resisted → ruled out に差し替えた。rule out は目的語を必ず伴う句動詞で、
+     目的語を省いた絶対用法を持たない（*the board ruled out. は非文）。したがって
+     to suspend ... を目的の副詞句として読もうとしても、rule out の目的語がどこにも残らず
+     文が成立しない——①構造で閉じる。Google Books Ngrams（en-2019）で ruled out any
+     possibility が 7.522e-09、has not ruled out running（動名詞）が 1.293e-10 と実測できるのに
+     対し、ruled out to run・has not ruled out to はいずれもデータなし（検出限界以下）。
+     狙った論点（他動詞の補部に不定詞か動名詞か）も生きている——rule out を decided に
+     替えると正解は to suspend 側に移る。assets/data 内の rule(s|d) out はすべてリスニング本文
+     （vol1-l3, vol2-l3, vol2-l2b, vol3-l2b, vol4-l2b, vol1-r4）で、Part 5 の論点としては
+     使われておらず重複しない。第二の正解を閉じる修正のため新規採番。
+     resist ＋ 動名詞という論点は失われるが verbal（他動詞の補部の型）という上位論点は
+     不変で、選択肢4語・正解の位置（D）はいずれも変えていない。
      p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
-  { id: 'v6-p5-111r', part: 5, kind: 'single', topics: ['verbal'], level: 3,
+  { id: 'v6-p5-111r3', part: 5, kind: 'single', topics: ['verbal'], level: 3,
     questions: [{
-      id: 'v6q111r', no: 111,
-      stem: 'Despite mounting pressure from shareholders, the board resisted ------- the overseas expansion, arguing that the pilot stores had not yet completed a full year of trading.',
+      id: 'v6q111r3', no: 111,
+      stem: 'Despite mounting pressure from shareholders to scale back overseas, the board ruled out ------- the overseas expansion, arguing that the pilot stores had not yet completed a full year of trading.',
       choices: ['to suspend', 'suspend', 'suspended', 'suspending'],
       answer: 3,
-      exp: 'resist が目的語に取るのは名詞句か動名詞句で、to 不定詞を補部に取る型を持たない。空所は他動詞 resist の目的語の位置なので、動詞を置くなら動名詞。',
-      why: ['不定詞。resist が取る目的語は名詞句か動名詞句で、to 不定詞を補部に取る型を持たない。',
-            '原形。他動詞 resist の目的語の位置に立てるのは名詞相当の形で、動詞なら動名詞。原形は入らない。',
-            '過去分詞・過去形。これも名詞相当の形ではなく、他動詞 resist の目的語の位置に立てない。',
-            '正解。resist doing something。resist の目的語になるのは名詞句か動名詞句。'],
-      ja: '株主からの圧力が強まる中でも、取締役会は、試験店舗がまだ丸1年の営業を終えていないことを理由に、海外展開を中断することに抵抗した。',
+      exp: 'rule out が目的語に取るのは名詞句か動名詞句で、to 不定詞を補部に取る型を持たない。rule out は目的語を必ず伴う句動詞で目的語を省いた絶対用法を持たないため、to suspend ... を目的の副詞句として読む余地もない（読もうとすると rule out 自身の目的語がどこにも残らず文が成立しない）。空所は他動詞 rule out の目的語の位置なので、動詞を置くなら動名詞。',
+      why: ['不定詞。rule out が取る目的語は名詞句か動名詞句で、to 不定詞を補部に取る型を持たない。rule out は目的語を必ず伴う句動詞で、目的語を省いた絶対用法を持たないため、to suspend ... を目的の副詞句とする読みも成り立たない——その読みでは rule out の目的語がどこにも残らず、文が成立しない。',
+            '原形。他動詞 rule out の目的語の位置に立てるのは名詞相当の形で、動詞なら動名詞。原形は入らない。',
+            '過去分詞・過去形。これも名詞相当の形ではなく、他動詞 rule out の目的語の位置に立てない。',
+            '正解。rule out doing something。rule out の目的語になるのは名詞句か動名詞句。'],
+      ja: '海外展開を縮小せよという株主からの圧力が強まる中でも、取締役会は、試験店舗がまだ丸1年の営業を終えていないことを理由に、海外展開を中断する案を退けた。',
       topics: ['verbal'],
     }] },
 
@@ -256,21 +283,50 @@ export const R1 = [
         '動詞の原形。所有格の直後には来ない。'],
     ja: '審査委員会が改訂版の安全計画を承認したことで、予定通り工事を再開できるようになった。' }),
 
-  /* 2026-08-18 の一括照合で、動詞を complete から undertake に替えた。
+  /* id は v6q115r（no は 115 のまま。誤答 (A)(D) を非定形に差し替えたため設問 id は新規採番）。
+     2026-08-18 の一括照合で、動詞を complete から undertake に替えた。
      旧版の選択肢 completes / complete / will complete / completed は drills/grammar3.js の
      vform-22（until the ventilation contractor ------- the final inspection、正解 completes）と
      2語が重なり、stem の inspection まで共通していた。装置は別（仮定法現在 と 時の副詞節の現在形）
-     だが表層が近いので、語彙だけを入れ替えてある。 */
-  p5(115, { t: ['subj'], lv: 3,
-    s: 'The safety officer recommended that each forklift operator ------- a refresher course before the annual audit.',
-    c: ['undertakes', 'undertake', 'will undertake', 'undertook'],
-    a: 1,
-    e: 'recommend that ... の that 節は仮定法現在（原形）。三単現の s は付けない。',
-    w: ['三単現の定形。recommend / require / suggest など要求・提案を表す動詞に続く that 節では、動詞は主語の人称・数にかかわらず原形をとり、s は付かない。',
-        '正解。要求・提案の動詞に続く that 節は原形（仮定法現在）。',
-        '未来形。この that 節の動詞は時制を持たない原形で表すため、助動詞 will を立てられない。',
-        '過去形。この that 節の動詞は時制を持たない原形で表すため、過去形は入らない。'],
-    ja: '安全管理者は、年次監査の前に各フォークリフト運転者が再研修を受けるよう勧告した。' }),
+     だが表層が近いので、語彙だけを入れ替えてある。
+
+     2026-09-03 の監査で、誤答 (A) undertakes（現在の定形）は BrE 書籍コーパスでも
+     recommended that he is が検出限界以下で閉じているが、誤答 (D) undertook は要求・提案動詞に
+     続く that 節を直説法過去（mandative indicative）で書く BrE の型に実在すると指摘された
+     （英語版 Wikipedia: A review ... recommended that the council was formed of a reduced
+     number of 90 members）。他巻・ドリルの同型設問（T1：要求・提案の that 節）と方針を統一し、
+     定形の直説法の誤答（現在・過去・完了）はすべて非定形に差し替える規則を適用した。
+     (A) undertakes → to undertake（不定詞）、(D) undertook → having undertaken（完了分詞）に
+     差し替え、(C) will undertake は仮定法現在の枠に助動詞を立てられないという別の構造理由で
+     元のまま残す。第二の正解を閉じる修正なので id を新規採番した。
+
+     2026-09-03 の再監査で、上の差し替え直後は選択肢が to undertake / undertake /
+     will undertake / having undertaken（語数2/1/2/2）となり、正解 (B) undertake だけが
+     単独最短かつ唯一の裸形になる「形の漏れ」が新たに生じたと指摘された（Vol.6 Part 5・
+     subj 論点のいずれでも他に類例が無く、T1 を適用した同型設問はすべて分詞形の誤答を
+     残して裸形を2本にしている）。(D) を having undertaken → undertaking（動名詞・現在分詞、
+     非定形のまま）に差し替え、語数を2/1/2/1・裸形2本に揃えて閉じた。id は誤答1本の
+     差し替えのみで stem・正解に変更が無いため据え置く。
+
+     第3巡監査で why[C] の「英式なら would undertake の側になる」という一節が誤りかつ
+     循環と指摘された（英式の代替形は should ＋ 原形か直説法現在であって would/will
+     ではなく、would は will の後方転移形なので「will が入らない」ことを示すのに would を
+     持ち出すのは結論を前提にしている）。recommend が断定の語義を持たないという語義の型で
+     切る書き方に差し替えた。stem・choices・answer は変えていないため id は据え置く。 */
+  { id: 'v6-p5-115r', part: 5, kind: 'single', topics: ['subj'], level: 3,
+    questions: [{
+      id: 'v6q115r', no: 115,
+      stem: 'The safety officer recommended that each forklift operator ------- a refresher course before the annual audit.',
+      choices: ['to undertake', 'undertake', 'will undertake', 'undertaking'],
+      answer: 1,
+      exp: '要求・提案の that 節の述語は原形（仮定法現在）。to 不定詞・分詞は述語になれず、助動詞を立てる形もこの枠に入らない。',
+      why: ['不定詞。to 不定詞は時制を持たない非定形で、主語 each forklift operator を受ける that 節の述語動詞にはなれない。',
+            '正解。要求・提案の動詞に続く that 節は原形（仮定法現在）。',
+            '未来形。recommend は「そうなるだろう」と断定する語義を持たない動詞で、その that 節は「実現させるべき事柄」を述べる枠（mandative）にしかならない。この枠の述語は仮定法現在の原形で、時制や未来を指定する助動詞はここに立たない（insist のように断定の語義も持つ動詞なら He insisted that he will not resign. のような直説法の that 節が別に成立するが、recommend にはその語義が無い）。',
+            '動名詞・現在分詞。undertaking も時制を持たない非定形で、that 節の述語動詞にはなれない。'],
+      ja: '安全管理者は、年次監査の前に各フォークリフト運転者が再研修を受けるよう勧告した。',
+      topics: ['subj'],
+    }] },
 
   p5(116, { t: ['confuse'], lv: 4,
     s: 'Because the serial number on the damaged unit was barely ------- to the naked eye, the warranty claim had to be processed manually.',
@@ -378,11 +434,11 @@ export const R1 = [
     c: ['do', 'had', 'did', 'were'],
     a: 2,
     e: '否定的限定を表す Little が文頭に出ると倒置が起こる。後ろの動詞 know が原形なので、対応する助動詞は過去形の did。',
-    w: ['do は現在の助動詞。文全体は last spring という過去の出来事を報じており、時制が合わない。',
+    w: ['do は現在の助動詞。目的語節の would soon uncover は過去を起点にした未来を表す形で、主節が過去でなければ成立しない。現在の助動詞 do とは結び付かない。',
         'had なら後ろは過去分詞 known でなければならず、原形 know とは結び付かない。',
         '正解。Little did the interns know that ...「~とは知る由もなかった」。',
         'were は be 動詞。一般動詞 know を伴う疑問文型の倒置には do/does/did が要る。'],
-    ja: 'インターンたちは、この春実施された定例監査が10年越しの記帳ミスを間もなく明るみに出すことになるとは、思いもしなかった。' }),
+    ja: 'インターンたちは、昨春実施された定例監査が10年越しの記帳ミスを間もなく明るみに出すことになるとは、思いもしなかった。' }),
 
   p5(124, { t: ['biz'], lv: 5,
     s: 'Under the reimbursement policy, the ------- is on the employee to keep the original receipt until the claim has been fully processed.',
@@ -502,7 +558,7 @@ export const R1 = [
         a: 0,
         e: '基数＋複数名詞（twenty-five stalls）を前から直接修飾できるのは only。quite / most / very はこの型を取らない。',
         w: ['正解。only + 数 + 複数名詞「わずか~」。',
-            'quite は quite a few のように不定冠詞を介する言い方はあるが、quite twenty-five stalls のように基数を直接前に置く型は持たない。',
+            'quite を基数の前に置く型（quite twenty-five「たっぷり二十五」のような）は英国用法にあるが、その意味はプラスの含みで、直前の「中庭は芝生より閲覧スペースが狭い」・直後の「通常の四十に対して」が示す減少の向きと逆になる。',
             'most は most of the stalls や無冠詞複数の most stalls の形を取り、most twenty-five stalls のように基数の直前には置けない。',
             'very は very many のように many を介して数量を強めることはあっても、基数を直接修飾する型は持たない。'] },
       /* id は v6q133r（no は 133 のまま。選択肢を差し替えたため設問 id は新規採番）。
@@ -519,7 +575,7 @@ export const R1 = [
         ],
         a: 3,
         e: '直前で「予約した植物は会員名を付けて受付台で保管する」、直後で「30分以内に受け取らなければ他の買い手に回す」と述べている。受け取りに必要な持ち物を示す文が間に入って初めて2文がつながる。',
-        w: ['the spring show と既知のもののように指しているが、その催しは本文のどこにも出ておらず指示先が無い。段落は予約から受け取りまでの手順を追っており、品種の在庫数はこの連鎖に入らない。',
+        w: ['段落は「予約した植物は受取台で保管する」→「受け取りに要る手続き」→「30分以内に受け取らなければ他の買い手に回す」という、予約から受け取りまでの手順を追っている。品種の在庫数を述べる the spring show の話題はこの連鎖に入らない。',
             '同じ段落の冒頭で「会員はオンラインで最大5鉢まで予約できる」と述べており、「事務所に出向くか電話しなければ予約できない」も、これと矛盾する。',
             '直前の文が「予約した植物は中庭入口そばの受取台で保管する」と保管場所を定めており、「正門に置かれたままになる」はこれと矛盾する。直後の「開場から30分以内に受け取らなければ他の買い手に回す」とも、閉場まで置いておくという記述が両立しない。',
             '正解。'] },
@@ -621,15 +677,21 @@ export const R1 = [
         a: 3,
         e: '先行詞 Halbrook Freight Terminal に container volumes という所有関係を続けるので、所有格の関係代名詞 whose が入る。',
         w: ['which は直後に名詞を伴って所有を表す働きを持たない。which container volumes という並びは作れない。',
-            '先行詞 Halbrook Freight Terminal は施設名で人ではない。',
-            'コンマの後ろに続く非制限用法の関係詞節に that は使えない。',
+            '先行詞 Halbrook Freight Terminal は施設名で人ではない。who は直後に名詞を従えて所有を表す働きを持たず、節内（container volumes have climbed）にも who が受け止める空所が無い。',
+            'コンマの後ろに続く非制限用法の関係詞節に that は使えない。that も直後に名詞を従える働きを持たず、節内に空所も無い。',
             '正解。所有格の関係代名詞 whose。Halbrook Freight Terminal の container volumes、という所有関係を表す。'] },
-      { tag: '時制', t: ['ctense'],
-        c: ['has added', 'added', 'adds', 'will add'],
+      /* id は v6q140r（no は 140 のまま。中身を差し替えたため設問 id は新規採番）。
+         2026-09-03 の再監査で、誤答 (B) added を「過去形は…原則」で切っていたのが
+         「It/This is the first time … that S 過去形」という実例（英語版Wikipediaに存在）
+         を残したままの原則ベースの排除にとどまっていると指摘された。
+         (B) を非定形 adding に差し替え、「that 節の述語になれるのは定形動詞だけ」という
+         構造的閉じ方に一本化した。語数は 2/1/1/2 のまま変えていない。 */
+      { tag: '時制', t: ['ctense'], id: 'v6q140r',
+        c: ['has added', 'adding', 'adds', 'will add'],
         a: 0,
-        e: '主節が This is と現在形で、in over a decade が「現在までの10年余り」という現在を終点とする期間を測っている。その期間内に何度あったかを数える節なので、現在までの回数・経験を表す現在完了で受ける。',
+        e: 'that 節の述語になれるのは定形動詞だけ。その中で、主節が This is と現在形、in over a decade が「現在までの10年余り」という現在を終点とする期間を測っているので、その期間内に何度あったかを数える現在までの回数・経験を表す現在完了で受ける。',
         w: ['正解。This is the first time (that) S has done ... の型。in over a decade が現在を終点とする期間なので現在完了で受ける。',
-            '過去形は現在と切り離された一時点の出来事を述べる形で、現在を終点とする in over a decade の期間内に何度あったかを数える働きを持たない。主節が This is と現在形である点とも合わない。',
+            '現在分詞・動名詞。定形の時制標識を持たない非定形なので、that 節の述語動詞になれない。',
             '現在形は現在の習慣・状態を表す形で、期間内に何度あったかを数える働きを持たない。',
             '未来形。第1段落で「先月 新しい深夜シフトを開設した」と既に実現した事実として述べており、これから起こることではない。'] },
       { tag: '文挿入', t: ['p6ins'],
