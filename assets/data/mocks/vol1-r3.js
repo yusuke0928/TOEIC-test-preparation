@@ -80,11 +80,11 @@ export const R3 = [
     }],
     q: [
       { tag: '概要', s: 'What is the main purpose of the letter?',
-        c: ['To dispute a neighbour\'s claim and demand the hedge\'s removal', 'To arrange a further site visit and a second measurement',
+        c: ['To dispute a neighbour\'s claim and demand the hedge\'s removal', 'To request a further survey and revise earlier advice',
             'To request payment for completed work by the end of October', 'To report survey findings and give advice'],
         a: 3,
         e: '測量結果を報告し、その扱いについて助言している。',
-        w: ['手紙は「生垣を動かさないように」と助言しており、隣人（菜園側）の主張に異議を述べる箇所も、生垣の撤去を求める箇所も無い。', '現地調査は10月2日に完了しており、再訪問も再測量も依頼していない。同封しているのは調査済みの敷地図と譲渡証書の抜粋である。', '£780 という料金は今後の登記手続き（境界確定の申請）の見積もりであり、完了した作業への支払い請求ではない。10月末という期限の記述もない。', '正解。'] },
+        w: ['手紙は「生垣を動かさないように」と助言しており、隣人（菜園側）の主張に異議を述べる箇所も、生垣の撤去を求める箇所も無い。', '"We attended the site on 2 October and have now compared our measurements with the 1974 conveyance plan you supplied." とあり、調査はすでに完了し結果も報告済みである。追加調査を求める記述ではない。また本文には以前の助言に触れる箇所はなく、"My advice, therefore, is not to move the hedge." を修正するという記述もない。', '£780 という料金は今後の登記手続き（境界確定の申請）の見積もりであり、完了した作業への支払い請求ではない。10月末という期限の記述もない。', '正解。'] },
       { tag: '詳細', s: 'What did the survey find?',
         c: ['The hedge encroaches on the allotments by several metres.', 'The hedge stands inside Ms. Byrne\'s land.',
             'The conveyance plan is not from 1974.', 'The boundary has never appeared in any document.'],

@@ -7,7 +7,7 @@ const mp = (o) => ({
   id: `v5-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7cross'],
   level: o.lv ?? 5, docCount: o.docs.length, docs: o.docs,
   questions: o.q.map((x, i) => ({
-    id: `v5q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.id ?? `v5q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || ['p7cross'], tag: x.tag,
   })),
 });
@@ -315,7 +315,7 @@ export const R4 = [
               ['Large (12m x 18m)', '150', '4 riggers', '€780'],
               ['Extra-large (15m x 24m)', '220', '5 riggers', '€980'],
             ] },
-          'Rates cover setup and breakdown within a single day and up to 30 km of round-trip travel from our depot. Beyond either limit, €1.20 per additional kilometre and €45 per additional rigger-hour apply.',
+          'Rates cover setup and breakdown within a single day and up to 30 km of travel from our depot, each way. Beyond either limit, €1.20 per additional kilometre and €45 per additional rigger-hour apply.',
           'For a sprung dance floor of any size, one additional rigger is required at €140 for the day, regardless of marquee size, because the floor must be levelled separately from the marquee frame.',
           'Bookings made more than sixty days in advance receive an 8 percent reduction, which cannot be combined with the returning-customer rate.',
         ],
@@ -368,12 +368,18 @@ export const R4 = [
         a: 3,
         e: '「距離は含まれる範囲内なのでキロ単価の請求はない」と明記されている。',
         w: ['開始時刻の指定はない。', '追加請求はないと明記。', '文書 3 に "Your distance of 22 km is within our included allowance, so there\'s no per-kilometre charge." とあり、業者は距離について明確に回答している。回答されていないとするこの記述は本文と正面から矛盾する。', '正解。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What does Mr. Boyle imply about the dance-floor rigger charge?',
-        c: ['The company reduces it for parties of fewer than one hundred guests.', 'It would be the same even with a larger marquee.',
-            'It applies only to weekend bookings.', 'The company will waive it for customers who qualify for the returning-customer rate.'],
+      // No.200 は id v5q200r（no は模試の通し番号として 200 を維持するが、旧設問が No.197 と
+      // 同じ事実〈追加要員はマルキーの規模を問わず必要〉を問い、先読みで正解が漏れていたため、
+      // 本文で未使用だった文末の一文に差し替え、中身を変えたため新規採番）
+      { id: 'v5q200r', tag: '推測', t: ['p7inf'], s: 'What does Mr. Boyle imply about the seven-day deadline he gives Ms. Fitzgerald?',
+        c: ['Mr. Boyle has not yet reserved the date for Ms. Fitzgerald.', 'The reservation may be released if she does not reply within seven days.',
+            'Full payment must be received within seven days to secure the booking.', 'She will qualify for the returning-customer rate if she replies within seven days.'],
         a: 1,
-        e: '「Large でも Extra-large でも同額」＝マルキーの規模とは無関係の固定料金であることを示している。',
-        w: ['「規模にかかわらず定額（flat rate）」と明記されており、人数によって増減しない。', '正解。', '週末限定の記載はない。', '常連客料金は 8 パーセント割引と併用できないと述べられているだけで、この追加要員費用が免除されるという記載はない。'] },
+        e: '文書3の末尾 "I\'ve held the date. Please confirm within seven days." は、（1）日付はすでに確保済みであること、（2）期限内に確定の連絡が無ければその確保が解かれうることの両方を含意している。',
+        w: ['"I\'ve held the date."（現在完了形）とあり、すでに確保済みであることを述べている。hold は相手のために取っておくという意味でreserveと同じ事態を指し、「仮押さえであって予約ではない」とは言えない。まだ確保していないというこの記述は正面から矛盾する。',
+            '正解。「日付を確保してあります。7日以内に確定のご連絡をください」という一文は、期限内に確定の連絡が無ければ確保が解かれうることを含意している。',
+            '7日以内に求められているのは confirm（確定の連絡）であって、支払いの期限を示す記述は無い。',
+            '常連客料金は過去の利用歴によって決まる資格であり、今回7日以内に返信することで新たに得られる性質のものではない。7日の期限は "I\'ve held the date" に結びつけて述べられており、料金区分とは結びつけられていない。'] },
     ],
   }),
 ];
