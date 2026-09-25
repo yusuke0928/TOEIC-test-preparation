@@ -5,8 +5,11 @@
 const sp = (o) => ({
   id: `v1-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7detail'],
   level: o.lv ?? 4, docCount: o.docs.length, docs: o.docs,
+  /* 設問 id は通し番号 no から自動生成するが、中身を差し替えた設問だけは
+     x.id で新規採番を明示できるようにしてある（id を使い回すと SRS の履歴が
+     別問題に引き継がれるため。vol1-r1.js の p6() ヘルパーと同じ仕組み）。 */
   questions: o.q.map((x, i) => ({
-    id: `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.id ?? `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || ['p7detail'], tag: x.tag,
     insertAt: x.insertAt, sentence: x.sentence,
   })),
@@ -228,39 +231,60 @@ export const R2 = [
     n: [161, 162, 163, 164], lv: 5, t: ['p7ins'],
     docs: [{
       label: 'Article',
-      title: 'Why the Night Bus Now Runs Every Twelve Minutes',
+      title: 'Calderport\'s N3',
       head: 'Transit Review — Issue 88',
       body: [
         'When Calderport extended its N3 night service in 2022, planners expected the extra buses to be used mainly by hospitality workers finishing shifts after midnight. — [[1]] — The passenger surveys told a different story.',
         'Only about a third of night riders work in bars and restaurants. — [[2]] — The largest single group, at forty-one percent, is made up of shift workers at the two distribution centres on the eastern edge of the city, whose shifts change at 02:00 and 06:00.',
-        'That finding changed the timetable. The original plan ran buses at a steady twenty-minute interval all night. — [[3]] — The revised schedule concentrates services either side of the two shift changes, dropping to thirty minutes in the quiet hours between.',
-        'Passenger numbers rose thirty-one percent in the first year of the revised timetable, against four percent in the year before it. — [[4]] — The council has since applied the same method to the N7, with a review due in autumn.',
+        'That finding changed the timetable. The original plan ran buses at a steady twenty-minute interval all night. — [[3]] — The revised schedule tackles both problems by concentrating services either side of the two shift changes, dropping to thirty minutes in the quiet hours between.',
+        'Passenger numbers rose thirty-one percent in the first year of the revised timetable. — [[4]] — The council has since applied the same method to the N7, with a review due in autumn.',
         'Not every outcome has been positive. Residents along Calder Road have complained about the concentration of buses in short bursts, and the council has agreed to trial a quieter vehicle on that section.',
       ],
     }],
     q: [
-      { tag: '詳細', s: 'What did planners originally assume about night bus users?',
+      /* id は v1q161r（no は 161 を維持。誤答 D「均等な需要」が、[3] の直前の当初計画
+         （一晩中 20 分間隔＝需要が均等という前提）と地続きで、本文自身の論理からも
+         真になり得る第二の正解だったため、本文と直接矛盾する誤答に差し替えて
+         新規採番した）。 */
+      { tag: '詳細', s: 'What did planners originally assume about night bus users?', id: 'v1q161r',
         c: ['That most would be hospitality staff', 'That numbers would fall in winter',
-            'That most would travel westward', 'That demand would be evenly spread'],
+            'That most would travel westward', 'That demand would fade after midnight'],
         a: 0,
         e: '「深夜勤務明けの飲食業従事者が主な利用者になると見込んでいた」が根拠。',
-        w: ['正解。', '季節の話は出ていない。', '方向の話はない。', '均等な需要は計画上の前提だが、想定した利用者層の話ではない。'] },
+        w: ['正解。', '季節の話は出ていない。', '方向の話はない。',
+            '深夜 0 時以降に需要が徐々に減っていくという想定を示す記述はない。増便自体が「深夜勤務明けの飲食業従事者向け」（"planners expected the extra buses to be used mainly by hospitality workers finishing shifts after midnight"）として計画されており、これは深夜 0 時以降にこそ需要が生じると見込んでいたということで、"fade after midnight"（0 時以降に減っていく）とは逆方向である。さらに当初の運行計画も「一晩中 20 分間隔」（"The original plan ran buses at a steady twenty-minute interval all night"）と一律で、時間とともに需要が先細ることを見込んだ設計にはなっていない。'] },
       { tag: '詳細', s: 'How was the timetable changed?',
         c: ['Buses run only during shift changes.', 'The route was extended eastward.',
             'Service was concentrated around two times of night.', 'The interval was fixed at twenty minutes.'],
         a: 2,
         e: '「2 回の交代時刻の前後に便を集中させ、その間の閑散時間帯は 30 分間隔に落とす」とある。',
         w: ['閑散時間帯も 30 分間隔で運行している。', '路線延長の話はない。', '正解。', '20 分間隔は改定前の設定。'] },
-      { tag: '位置選択', t: ['p7ins'], insertAt: 3,
-        sentence: 'That assumption produced a service that was half empty at one o\'clock and overcrowded at two.',
-        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That assumption produced a service that was half empty at one o\'clock and overcrowded at two."',
+      /* id は v1q163r のまま（no は 163 を維持。今回は挿入文・正解を変えず、本文だけを
+         直したため再採番していない）。
+         2026-09-25 の監査で [4] が開くと指摘された：That even spacing は自分で先行詞を
+         言い直す指示名詞句なので、[3] の直前の文まで距離を跨いで受けられてしまい、
+         隣接による排除が効かなかった（さらに [4] の直前「against four percent in the
+         year before it」が旧ダイヤの年を指すため、局所的にも成立して見えた）。
+         そこで逆向きの初出違反で閉じ直した：[3] の直後の文に "tackles both problems" を足し、
+         挿入文が初めて導入する「1 時は空席・2 時は過密」という2つの不具合に依存させた。
+         これで閉じるのは [4] だけである（挿入文を [4] に置くと、その手前にある
+         "both problems" が本文のどこにも先行詞を持たない段階で登場することになるため。
+         [1]・[2] は "both problems" より前なので、この仕掛けでは閉じない）。
+         [1]・[2] は従来どおり That even spacing 自身の順方向の初出違反
+         （運行間隔の話がまだ出ていない）で閉じている。
+         つまり：[4] は both problems の逆向きの初出違反、[1]・[2] は That even spacing の
+         順方向の初出違反で閉じる。取っ手は2つあり、どちらを外しても開く。[4] の直前の
+         「前年比 4%」の橋も削除し、局所的な成立の余地も無くした。 */
+      { tag: '位置選択', t: ['p7ins'], insertAt: 3, id: 'v1q163r',
+        sentence: 'That even spacing left buses half empty at one o\'clock and overcrowded at two.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That even spacing left buses half empty at one o\'clock and overcrowded at two."',
         c: ['[1]', '[2]', '[3]', '[4]'],
         a: 2,
-        e: '挿入文の That assumption は直前の「一晩中 20 分間隔で走らせる当初計画」を指し、直後の「改定後は交代時刻の前後に集中させた」につながる。問題 → 解決の順序が [3] で完成する。',
-        w: ['[1] の時点では「その前提」が生む具体的な不都合はまだ語られていない。',
-            '[2] の前後は利用者の内訳の話で、時刻表の話ではない。',
+        e: '挿入文の That even spacing が指せるのは、運行間隔が均等だったことを述べた文だけである。本文でその内容が初めて出るのは [3] の直前の「一晩中 20 分間隔で走らせる」という記述で、直後の「その両方の不具合に対処した」（"The revised schedule tackles both problems by concentrating services…"）が挿入文の2つの不具合（1 時は空席・2 時は過密）を直接受けて自然につながる。',
+        w: ['[1] の時点では運行間隔についての記述がまだ一度も出ていない。直前にあるのは利用者の属性についての想定（"planners expected the extra buses to be used mainly by hospitality workers…"）で、間隔が均等だったという内容の先行詞になり得ない。',
+            '[2] の前後も利用者の内訳の話（全体の 3 分の 1・最大勢力 41% など）で、運行間隔にはまだ触れていない。ここにも That even spacing の指す内容が無い。',
             '正解。',
-            '[4] の前後は改定後の実績で、問題の指摘を挟むと流れが逆行する。'] },
+            '[4] に置くと、[3] の直後にある「その両方の不具合に対処した」（"tackles both problems"）という記述の時点で、挿入文が述べる「1 時は空席・2 時は過密」という2つの不具合が本文のどこにもまだ登場しておらず、both problems の指す内容が無い。'] },
       { tag: '推測', t: ['p7inf'], s: 'What is suggested about the N7 route?',
         c: ['It has been discontinued.', 'It runs only at weekends.',
             'It serves the distribution centres.', 'It is being redesigned using the same approach.'],
