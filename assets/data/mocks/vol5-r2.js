@@ -211,7 +211,7 @@ export const R2 = [
             'The new holder must pay an additional fee.', 'The new holder must live within the local area.'],
         a: 0,
         e: '「過去 1 年以内に委員会の会合に 1 回以上出席していれば自動承認」と明記。',
-        w: ['正解。', 'むしろ他に区画を持っていないことが前提。', '追加料金の記載はない。', '居住地の条件はない。'] },
+        w: ['正解。', '自動承認の条件を定めた一文は "the new holder has attended at least one committee meeting in the past year" という provided 節ひとつだけを条件として挙げており、他区画の保有は条件として挙がっていない。', '追加料金の記載はない。', '居住地の条件はない。'] },
       { tag: '推測', t: ['p7inf'], s: 'What can be inferred if the new holder has not attended a committee meeting?',
         c: ['The transfer will be approved for one season only.', 'The transfer will be rejected outright without any further review process.',
             'A late fee will be charged when the transfer is processed.', 'The current holder will lose their remaining plot within the growing season.'],

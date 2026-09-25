@@ -373,7 +373,7 @@ export const L3 = [
             'It weighs more than the printing press in the building can handle.', 'It costs more than the budget approved for last quarter\'s printing.'],
         a: 1,
         e: '入荷が木曜で、その時点から納品日までは 4 営業日しか残らないため、Standard（6 営業日）のままでは間に合わない。',
-        w: ['本文は「フィンランドの製紙工場から来る」と現在形で述べており、供給は続いている。入荷が木曜になるだけで、供給が止まったという記述はない。', '正解。', '実際の差は「ごくわずかに軽い」代替紙との比較であり、機械が扱えないほど重いという記述はない。', '用紙代や予算超過の話は出ていない。'] },
+        w: ['男性は "our own delivery is Thursday" と述べたうえで "either we wait for the stock and move up one level of turnaround to still make the date" と続けており、待てば規定の用紙が届く前提で話を進めている。フィンランドからの供給が今年止まったとするこの記述は、この前提と正面から矛盾する。', '正解。', '実際の差は「ごくわずかに軽い」代替紙との比較であり、機械が扱えないほど重いという記述はない。', '用紙代や予算超過の話は出ていない。'] },
       { tag: '推測', s: 'What does the speaker recommend?',
         c: ['Using the stock already held', 'Delaying the delivery date',
             'Reducing the number of booklets', 'Printing at a different site'],
