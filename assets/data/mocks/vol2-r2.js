@@ -6,7 +6,7 @@ const sp = (o) => ({
   id: `v2-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7detail'],
   level: o.lv ?? 4, docCount: o.docs.length, docs: o.docs,
   questions: o.q.map((x, i) => ({
-    id: `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.qid || `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || ['p7detail'], tag: x.tag,
     insertAt: x.insertAt, sentence: x.sentence,
   })),
@@ -76,37 +76,51 @@ export const R2 = [
     ],
   }),
 
-  /* ── 151–152 広告 ─────────────────────────────────── */
+  /* ── 151–152 広告 ── */
   sp({
-    n: [151, 152], lv: 4,
+    n: [151, 152], lv: 3,
     docs: [{
       label: 'Advertisement',
-      title: 'Bramley & Cole — Shoe Repair, Established 1954',
+      title: 'Redwing Onsite Shredding',
       body: [
-        'We resole, restitch and rebuild. What we do not do is tell you a shoe is beyond saving when it is not.',
-        { t: 'list', items: [
-          'Leather resoling from £48, including a new heel',
-          'Stitch repair to uppers from £22',
-          'Free assessment — bring the shoes in or post them to us',
-          'Turnaround of ten working days; we do not offer an express service',
-        ] },
-        'We are often asked why we have no rush option. The answer is that the adhesives we use need seventy-two hours to cure properly at each stage, and rushing that is how a repair fails in six months.',
-        'If we think a repair is not worth the money, we will say so and return the shoes at no charge. Roughly one pair in twelve falls into that category.',
+        "Redwing Onsite Shredding brings a truck-mounted shredder directly to your car park, so confidential paper never leaves your premises intact. A technician loads your locked bins into the machine while you watch through a viewing window, and the shredded paper is compacted for recycling on the spot.",
+        "Book at least two working days ahead to secure a convenient time, as our two trucks cover a wide area and slots fill quickly toward the end of each month.",
+        "Every visit ends with a certificate that lists the total weight of paper destroyed that day, which many clients file away for their own compliance records. Regular clients can also arrange a fixed weekly or monthly round instead of booking each visit separately.",
       ],
+      sig: "Redwing Onsite Shredding\nUnit 4, Culver Trading Estate, Grayling\nwww.redwingshred.example  •  0808 157 0094",
     }],
     q: [
-      { tag: '詳細', s: 'Why does the shop not offer a faster service?',
-        c: ['It has too few staff.', 'Customers rarely request it during the busiest trading weeks.',
-            'Postal delays make express delivery unreliable for customers.', 'The materials require a fixed setting time.'],
+      {
+        tag: '詳細', qid: 'v2q151r',
+        s: "What is indicated about Redwing's shredding service?",
+        c: [
+          "It does not have more than one truck in service.",
+          "It asks clients to leave the car park during shredding.",
+          "It sells the collected paper for reuse rather than recycling.",
+          "It gives clients a written record of the weight destroyed.",
+        ],
         a: 3,
-        e: '「接着剤は各工程で 72 時間の硬化を要し、急ぐと 6 か月で修理が失敗する」と説明されている。',
-        w: ['人員の話はない。', '需要の話ではなく、時期についての言及もない。', '郵送の遅延には触れておらず、根拠は硬化時間である。', '正解。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What is suggested about the shop\'s assessments?',
-        c: ['They must be booked in advance.', 'They are charged at a fixed rate.',
-            'They sometimes result in no work being done.', 'They are carried out by post only.'],
-        a: 2,
-        e: '「修理する価値がないと判断すればそう伝え、無料で返送する。12 足に 1 足程度」とある。',
-        w: ['予約の記載はない。', '無料と明記。', '正解。', '持ち込みも郵送も可。'] },
+        e: "本文には、訪問のたびに、その日に廃棄した紙の総重量を記載した証明書が発行されると明記されている。他の3つの記述はそれぞれ本文の別の箇所と矛盾する。",
+        w: [
+          '矛盾。"our two trucks cover a wide area" とあり、稼働しているトラックは2台である。1台しか稼働していないとするこの記述は本文と矛盾する。',
+          '矛盾。"A technician loads your locked bins into the machine while you watch through a viewing window" とあり、客は作業中も窓越しに見守ると述べられている。作業中に駐車場を離れるよう求めるという記述と矛盾する。',
+          '矛盾。"the shredded paper is compacted for recycling on the spot" とあり、回収した紙は転売ではなくリサイクルに回される。',
+          '正解。"Every visit ends with a certificate that lists the total weight of paper destroyed that day" と一致する。',
+        ],
+      },
+      {
+        tag: '同義語', qid: 'v2q152r', t: ['p7syn'],
+        s: 'In paragraph 2, the word "secure" is closest in meaning to',
+        c: ['fasten', 'obtain', 'protect', 'detain'],
+        a: 1,
+        e: 'この secure は「(競合の中で)予約して確保する・手に入れる」の語義で使われており、これに最も近いのは obtain。fasten(結び留めて固定する)・protect(危害から守る)・detain(拘留する・引き留める)はいずれも secure の別の語義に対応する語で、この文の a convenient time をその語義では読めない。',
+        w: [
+          'fasten は「物を結び留めて固定する」の語義。この文の secure は、埋まりやすい時間帯を予約で先に押さえるという行為を述べており、fasten の語義では読めない。',
+          '正解。この secure は「(競合の中で)努力して確保する・獲得する」の語義で使われており、obtain が最も近い。',
+          'protect は「危険・損害から守る」の語義。この文の secure は、まだ自分のものになっていない時間帯を先に押さえる行為を述べており、まだ手にしていないものを守るという protect の語義では読めない。',
+          'detain は「拘留する・引き留める」(「遅らせる」の語義もある)を表す語で、secure の『(人を)拘束する』の語義(secured the suspect in the squad car のような用法)に対応する。この文の目的語は a convenient time という抽象的な時間帯で、人を拘束するという意味では読めない。',
+        ],
+      },
     ],
   }),
 
@@ -185,42 +199,74 @@ export const R2 = [
     ],
   }),
 
-  /* ── 159–160 フォーム ─────────────────────────────── */
+  /* ── 159–160 請求書 ── */
   sp({
-    n: [159, 160], lv: 4,
+    n: [159, 160], lv: 3,
     docs: [{
-      label: 'Form',
-      title: 'Coldharbour Storage — Access Card Request',
+      label: 'Invoice',
+      title: 'Two Wheels Collective — Delivery Invoice',
       body: [
-        { t: 'kv', pairs: [
-          ['Account', 'Wren & Sons Joinery (unit 14C)'],
-          ['Requested by', 'A. Whitmore, office manager'],
-          ['Date', '7 May'],
-          ['Cards currently held', '3 of a maximum of 5'],
-        ] },
-        { t: 'table',
-          head: ['Name', 'Role', 'Access hours requested'],
+        {
+          t: 'kv', pairs: [
+            ['Invoice No.', 'CB-1147'],
+            ['Customer', 'Colbeck Grocer'],
+            ['Invoice date', '14 Apr'],
+            ['Period', '1–13 Apr'],
+            ['Scheduled deliveries', 'Tuesdays and Fridays'],
+            ['Amount due', '£194.50'],
+            ['Payment due', '14 May'],
+          ],
+        },
+        {
+          t: 'table', head: ['Date', 'Description', 'Amount'],
           rows: [
-            ['R. Duffy', 'Workshop supervisor', '24 hours'],
-            ['M. Castellanos', 'Delivery driver', '06:00–18:00'],
-          ] },
-        'Site use only: 24-hour access is issued only where the account holder confirms in writing that the named person has completed the out-of-hours safety briefing. Requests without this confirmation will be issued as daytime access and can be upgraded later at no charge.',
-        'Cards are produced on Tuesdays and Fridays and must be collected in person by the person named.',
+            ['3 Apr', 'Delivery', '£42.00'],
+            ['6 Apr', 'Delivery', '£42.00'],
+            ['10 Apr', 'Delivery', '£42.00'],
+            ['12 Apr', 'Extra delivery (flour)', '£26.50'],
+            ['13 Apr', 'Delivery', '£42.00'],
+          ],
+        },
+        "The 12 April delivery was added after a flour delivery from your usual supplier fell through. Riders leave your order at the side door if your shop is not yet open.",
       ],
     }],
     q: [
-      { tag: '詳細', s: 'What condition applies to 24-hour access?',
-        c: ['It requires written confirmation of a safety briefing.', 'It is limited to two named people per account holder.',
-            'It carries an additional monthly charge.', 'It must be renewed every six months without exception.'],
-        a: 0,
-        e: '「時間外の安全説明を受けたことを口座名義人が書面で確認した場合にのみ発行」と明記。',
-        w: ['正解。', '人数制限の記載はカード枚数のみで、名義指定の記述はない。', '追加料金の記載はない。', '更新の話はなく、例外の規定もない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What can be inferred if the confirmation is missing?',
-        c: ['The request will be rejected and a new application will be required.', 'One card will be issued with restricted hours.',
-            'The account will be suspended pending review by a manager.', 'A fee will be charged for early reissue requests.'],
-        a: 1,
-        e: '「確認がない場合は日中アクセスとして発行され、後で無料で切り替えられる」とある。24 時間を求めた R. Duffy の分が日中に制限される。',
-        w: ['却下・再申請ではなく、条件付き（日中アクセス）で発行される。', '正解。', '停止の話はなく、確認が無い場合も日中アクセスとして発行されると明記されている。', '切り替え（アップグレード）は無料と明記されており、早期再発行の料金の記載もない。'] },
+      {
+        tag: '詳細', qid: 'v2q159r',
+        s: 'According to the invoice, what should a rider do if the shop is not yet open?',
+        c: [
+          'Take the order to a neighbouring shop.',
+          'Wait by the door until a staff member arrives.',
+          'Drop the order at the side entrance.',
+          'Bring the order back for redelivery the next day.',
+        ],
+        a: 2,
+        e: '注記に "Riders leave your order at the side door if your shop is not yet open." とあり、店がまだ開いていない場合はサイドドアに置いていく。',
+        w: [
+          '矛盾。注記は "Riders leave your order at the side door if your shop is not yet open." とサイドドアに置くと定めており、近隣の別の店に持って行くという対応とは両立しない。',
+          '矛盾。注記は "Riders leave your order at the side door if your shop is not yet open." とサイドドアに置くと定めており、スタッフの到着を待つという対応とは両立しない。',
+          '正解。"Riders leave your order at the side door if your shop is not yet open." と一致する。',
+          '矛盾。注記は "Riders leave your order at the side door if your shop is not yet open." とサイドドアに置くと定めており、持ち帰って翌日再配達するという対応とは両立しない。',
+        ],
+      },
+      {
+        tag: '推測', qid: 'v2q160r', t: ['p7inf'],
+        s: 'What is suggested about Colbeck Grocer?',
+        c: [
+          'It normally receives deliveries three times a week.',
+          'It pays the same amount for every delivery.',
+          'It sometimes needs more deliveries than it has scheduled.',
+          "It doesn't owe anything for the 12 April delivery.",
+        ],
+        a: 2,
+        e: '請求書上部の欄の "Scheduled deliveries: Tuesdays and Fridays" という通常の配送予定と、注記の "The 12 April delivery was added after a flour delivery from your usual supplier fell through." という記述を合わせると、通常予定に加えて配送が必要になることがあるとわかる。',
+        w: [
+          '誤り。本文から週3回を導く記述は無い。Two Wheels の定期便は "Scheduled deliveries: Tuesdays and Fridays" の週2回で、表でも3日・6日、10日・13日と各週2回。10日〜13日の週に3回届いているのは "Extra delivery (flour)" の臨時便が加わったためで、normally（通常）の回数ではない。通常の仕入れ先（usual supplier）からの配送回数も書かれていないので、店全体の回数としても週3回は導けない。',
+          '矛盾。表では通常便の "Delivery" が各 £42.00、12 Apr の "Extra delivery (flour)" が £26.50 で、便によって請求額が異なる。',
+          '正解。通常の配送予定(Tuesdays and Fridays)に加えて、12日に "Extra delivery (flour)" が発生しており、予定より多くの配送が必要になることがあるとわかる。',
+          '矛盾。請求書上部の欄の Amount due: £194.50 は表の5件の合計(£42.00×4+£26.50)と一致し、12 Aprの便(Extra delivery, £26.50)分もこの請求額に含まれている。12 Aprの便について何も支払う必要がないというこの記述は本文と正面から矛盾する。',
+        ],
+      },
     ],
   }),
 
