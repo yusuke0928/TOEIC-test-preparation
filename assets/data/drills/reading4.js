@@ -495,7 +495,7 @@ export const UNITS = [
   /* ── 9. ダブルパッセージ：研修カタログ × 申込メール ── */
   {
     id: 'u-p7q-09', part: 7, kind: 'doc', level: 5, docCount: 2,
-    topics: ['p7cross', 'p7inf', 'p7detail'],
+    topics: ['p7cross', 'p7inf'],
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -583,21 +583,16 @@ export const UNITS = [
               'SV-210（オンライン形式）にも認定証は付与されるため、オンサイトに限らない。'],
         vocab: [['review', '審査']] },
 
-      { id: 'p7q-09-5', topics: ['p7detail'], tag: '詳細',
-        stem: 'Why does Ms. Solano specify that the course must include a certificate?',
-        choices: [
-          'Corvid requires a certificate for all group enrollments of nine or more people.',
-          'Two of the leads need it for a promotion review in October.',
-          'It is a listed condition of the eleventh-enrollment group discount for the client company this year.',
-          'A warehouse safety authority requires a certificate for every shift lead in the company.',
-        ],
+      { id: 'p7q-09-5r', topics: ['p7cross'], tag: 'クロス',
+        stem: 'If Corvid receives the booking on the date of the e-mail, what is the earliest date an on-site session could begin?',
+        choices: ['15 August', '29 August', '12 September', '26 September'],
         answer: 1,
-        exp: 'メールに「9名のうち2名が10月の昇進審査対象で、その審査には認定証が必須条件として挙げられている」と明記されている。',
-        why: ['全団体登録に必須という規定は文書にない。人数条件を課しているという記述もない。',
-              '正解。昇進審査の条件だと明記されている。',
-              '割引の条件についての記述ではない。11件目以降の割引と認定証の必須化を結びつける記述もない。',
-              '安全機関の規定への言及はない。オスターランド社内の要件として述べているものでもない。'],
-        vocab: [['listed requirement', '明記された必須条件']] },
+        exp: '文書2のメールは8月1日付。文書1の規定「オンサイト講座は希望日の少なくとも4週間前までに予約が必要」に当てはめると、8月1日から4週間（28日）後は8月29日で、これが予約可能な最も早い開始日になる。',
+        why: ['8月1日から2週間後の日付であり、文書1が定める「4週間前」の規定に届かない。',
+              '正解。8月1日から4週間後の8月29日が、文書1の規定を満たす最も早い開始日である。',
+              '8月1日から6週間後の日付であり、文書1の「4週間前まで」という規定は満たすが、8月29日のほうがより早く開始できる。',
+              '8月1日から8週間後の日付であり、文書1の「4週間前まで」という規定は満たすが、8月29日のほうがより早く開始できる。'],
+        vocab: [['on-site', '対面・現地開催の']] },
     ],
   },
 
