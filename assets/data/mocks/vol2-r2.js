@@ -129,7 +129,7 @@ export const R2 = [
     n: [153, 154, 155], lv: 5,
     docs: [{
       label: 'E-mail',
-      head: 'To: t.andersen@nordbygruppen.no\nFrom: j.mercier@atelier-mercier.fr\nDate: 3 April\nSubject: Commission — reading room chairs',
+      head: 'To: t.andersen@nordbygruppen.no\nFrom: j.mercier@atelier-mercier.fr\nDate: 3 April\nSubject: Reading room chairs',
       body: [
         'Dear Mr. Andersen,',
         'Thank you for the site visit last week and for letting me sit in the reading room for an hour. That hour changed my proposal.',
@@ -167,7 +167,7 @@ export const R2 = [
     n: [156, 157, 158], lv: 5,
     docs: [{
       label: 'Article',
-      title: 'What Happened When One Town Removed Its Road Markings',
+      title: 'A Different Kind of Traffic Study',
       head: 'Urban Notes, Issue 41',
       body: [
         'In 2021 the council of Vestmark, a town of nineteen thousand, removed the centre line from four kilometres of its main road. No other change was made: the speed limit, the surface and the signage all stayed as they were.',
