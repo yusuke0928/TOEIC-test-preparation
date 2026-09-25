@@ -138,10 +138,10 @@ export const L1 = [
   /* ══════════ PART 2 ══════════ */
   p2(7, { t: ['p2wh'], lv: 3, sa: 'W-Am', sb: 'M-Br',
     p: 'How many attendees are we expecting for the product demo?',
-    c: ['At the downtown convention venue.', 'Yes, it was demonstrated.', 'Around forty, based on RSVPs.'],
+    c: ['At the downtown convention venue.', 'No, it wasn\'t demonstrated.', 'Around forty, based on RSVPs.'],
     a: 2,
     e: 'How many に人数で答えている。',
-    w: ['Where への回答。', 'demo の反復で数を答えていない。', '正解。'],
+    w: ['Where への回答。', 'demo の反復。実演されたかどうかを答えているだけで、人数には触れていない。', '正解。'],
     ja: '製品デモの出席予定人数はどのくらいですか。→ (C) 出欠確認によるとおよそ40名です。' }),
 
   p2(8, { t: ['p2ind'], lv: 5, sa: 'M-Am', sb: 'W-Au',
@@ -154,10 +154,10 @@ export const L1 = [
 
   p2(9, { t: ['p2wh'], lv: 4, sa: 'W-Br', sb: 'M-Cn',
     p: 'Where did you leave the master key?',
-    c: ['It opens every door.', 'On the hook by the fire exit.', 'Yes, I found it.'],
+    c: ['It does not fit the side door.', 'On the hook by the fire exit.', 'Yes, I found it.'],
     a: 1,
     e: 'Where に場所で答えている。',
-    w: ['鍵の機能説明で場所ではない。', '正解。', 'Where に Yes は不可。'],
+    w: ['It が指すのは master key だが、その鍵がどの扉に合うかという事柄は、"Where did you leave the master key?" が求めている置き場所とは論理的に独立で、場所を答えていない。', '正解。', 'Where に Yes は不可。'],
     ja: 'マスターキーはどこに置きましたか。→ (B) 非常口のそばのフックです。' }),
 
   /* id は v4q10r（no は模試の通し番号として 10 を維持するが、選択肢を差し替えたため
@@ -199,10 +199,10 @@ export const L1 = [
 
   p2(13, { t: ['p2ind'], lv: 4, sa: 'W-Am', sb: 'M-Au',
     p: 'Who is covering the reception desk this afternoon?',
-    c: ['Around three o\'clock.', 'It covers the whole lobby.', 'Nobody has volunteered yet.'],
+    c: ['Around three o\'clock.', 'It doesn\'t cover the whole lobby.', 'Nobody has volunteered yet.'],
     a: 2,
     e: 'Who に対し「まだ誰も名乗り出ていない」と未定であることで間接的に答える。',
-    w: ['When への回答。', 'cover の別の意味を使った引っ掛け。', '正解。'],
+    w: ['When への回答。', 'cover の別の意味を使った引っ掛け。担当範囲を否定しているだけで、誰が受付を担当するかには触れていない。', '正解。'],
     ja: '今日の午後、受付は誰が担当しますか。→ (C) まだ誰も名乗り出ていません。' }),
 
   p2(14, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Cn',
@@ -315,10 +315,10 @@ export const L1 = [
 
   p2(25, { t: ['p2wh'], lv: 3, sa: 'W-Br', sb: 'M-Cn',
     p: 'How much does the annual maintenance plan cost?',
-    c: ['It covers all repairs, replacement parts, and labour.', 'About eight hundred a year.', 'Maintenance is scheduled once a month.'],
+    c: ['It covers all repairs, replacement parts, and labour.', 'About eight hundred a year.', 'Maintenance is carried out without notice.'],
     a: 1,
     e: 'How much に金額で答えている。',
-    w: ['内容の説明で金額ではない。', '正解。', '頻度の話で金額ではない。'],
+    w: ['内容の説明で金額ではない。', '正解。', 'maintenance の反復。予告の有無という別の事柄を否定しているだけで、How much が求める金額には答えていない。'],
     ja: '年間保守プランの費用はいくらですか。→ (B) 年間およそ800です。' }),
 
   p2(26, { t: ['p2ind'], lv: 5, sa: 'M-Br', sb: 'W-Au',
@@ -331,10 +331,10 @@ export const L1 = [
 
   p2(27, { t: ['p2wh'], lv: 4, sa: 'W-Am', sb: 'M-Am',
     p: 'What time does the warehouse gate open on Mondays?',
-    c: ['About fifty pallets.', 'Six, but deliveries can arrive earlier by arrangement.', 'Yes, it opened this morning.'],
+    c: ['No pallets arrived today.', 'Six, but deliveries can arrive earlier by arrangement.', 'Yes, it opened this morning.'],
     a: 1,
     e: '時刻を答えたうえで例外の手配にも触れている。',
-    w: ['How many への回答。', '正解。', 'What time に Yes は不可。'],
+    w: ['荷の数を否定した文で、How many への回答にあたる。What time が求める開門時刻には答えていない。', '正解。', 'What time に Yes は不可。'],
     ja: '月曜日、倉庫のゲートは何時に開きますか。→ (B) 6時ですが、事前調整で早められます。' }),
 
   p2(28, { t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',

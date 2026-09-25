@@ -181,7 +181,7 @@ export const UNITS = [
         choices: [
           "It has been moved to the room used for this morning's watercolor class.",
           'It will begin later than the printed schedule states.',
-          "It has reached its maximum capacity for today's session, according to the front desk.",
+          'It has reached its maximum capacity for today\'s session, according to the front desk.',
           'It has been canceled for today because of a scheduling conflict with another room.',
         ],
         answer: 1,
@@ -505,14 +505,14 @@ export const UNITS = [
         choices: [
           'He wants to cancel the booth setup.',
           'He is certain no solution exists.',
-          'He is asking her to contact the supplier again.',
+          'He does not expect the replacements to arrive at all.',
           'He is inviting her to suggest an alternative.',
         ],
         answer: 3,
         exp: '交換が間に合わないと確認した直後の発言。自分には解決策がないことを示しつつ、相手に代案を出すよう促している。',
         why: ['ブース設営の中止は述べていない。',
               '解決策がないと断定しているのではなく、相手に案を求めている。',
-              '業者への再連絡を頼んではいない。',
+              '男性は "They say Thursday at the earliest." と述べており、交換品が届くこと自体は見込んでいる。到着を全面的に否定するこの記述は本文と正面から矛盾する。',
               '正解。代案を出すよう促している。'],
         vocab: [['alternative', '代案']] },
 

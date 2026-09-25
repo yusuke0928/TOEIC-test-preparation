@@ -135,10 +135,10 @@ export const L2B = [
          vol4-l2b.js の No.57（I'd still get it in writing before we commit）とも同じ修辞だった。
          会話の結びを別の行動に組み替えてある。 */
       { tag: '次の行動', id: 'v6q61r', s: 'What will the man do today?',
-        c: ['Postpone the annual lift inspection to next month.', 'Ask the caterers to arrive two hours earlier.', 'Reserve a second venue as a precaution.', 'Cancel the reception booked for the ninth floor.'],
+        c: ['Postpone the annual lift inspection to next month.', 'Ask the engineers not to touch lift three today.', 'Reserve a second venue as a precaution.', 'Cancel the reception booked for the ninth floor.'],
         a: 2,
         e: '「3時も間に合わなければレセプションは下の階に移すことになる。今朝のうちに2階の宴会室を仮押さえし、3号機が動き出したらすぐ解放する」と述べている。今日行うのは代替会場の仮押さえ。',
-        w: ['点検の延期については会話のどこにも出てこない。男性が業者に頼むのは3号機を先に点検して3時までに復旧させることであり、点検自体を延期する話ではない。', 'ケータリング業者にも到着時刻にも触れていない。', '正解。', 'レセプションを中止するとは述べていない。3号機が間に合わなければ下の階に会場を移すと述べており、中止ではなく会場変更である。'] },
+        w: ['点検の延期については会話のどこにも出てこない。男性が業者に頼むのは3号機を先に点検して3時までに復旧させることであり、点検自体を延期する話ではない。', '男性は "I\'ll ask them to take lift three first and have it back in service by three" と述べており、3 号機を最初に点検させるよう頼むつもりでいる。3 号機に手を付けないよう頼むという内容は、この記述と正面から矛盾する。', '正解。', 'レセプションを中止するとは述べていない。3号機が間に合わなければ下の階に会場を移すと述べており、中止ではなく会場変更である。'] },
     ],
   }),
 
@@ -274,10 +274,10 @@ export const L2B = [
         e: 'Returns Pendingは先週返品されたロットと一致すると分かっているが、Electronicsには一致する説明が見つからないと述べている。',
         w: ['男性がより深刻だとしているのは Electronics（31個不足）で、Returns Pending の58個不足より数は少ない。不足数の多さは理由になっていない。', '正解。', 'セキュリティカメラの有無には触れていない。', '報告者の人数には触れていない。'] },
       { tag: '次の行動', t: ['p3detail'], s: 'What does the woman decide to do?',
-        c: ['Arrange a recount before the next shift begins.', 'Order more security cameras.', 'Escalate the issue to head office immediately.', 'Write off the missing units as a loss.'],
+        c: ['Arrange a recount before the next shift begins.', 'Order more security cameras.', 'Escalate the issue to head office immediately.', 'Treat the shortfall as nothing more than a delay.'],
         a: 0,
         e: '「翌朝、シフト開始前に、誰も在庫を動かさない状態で再カウントを行う」と述べている。',
-        w: ['正解。', '追加の防犯カメラの話は出ていない。', '本社への報告には触れていない。', '「記録の遅れではなく食い違いとして扱う」と述べており、損失計上には触れていない。'] },
+        w: ['正解。', '追加の防犯カメラの話は出ていない。', '本社への報告には触れていない。', '女性は "Then we treat it as a discrepancy, not a paperwork lag." と述べており、不足を記録の遅れではなく食い違いとして扱うと決めている。単なる遅れとして扱うという内容は、この記述と正面から矛盾する。'] },
     ],
   }),
 

@@ -447,14 +447,14 @@ export const UNITS = [
         choices: [
           'Some resulted from claims that had not been formally approved.',
           'Some resulted from receipt photos that were difficult to read.',
-          'Some resulted from a sharp rise in claims from the client-services team.',
+          'Some resulted from claims that did not come from the client-services team.',
           'Some resulted from staff being unfamiliar with mobile phones.',
         ],
         answer: 0,
         exp: '「試行期間中、正式な承認を受けないまま経理に届いた申請が原因で長い遅延が生じたケースがいくつかあった」という記述から、遅延の一部が承認漏れに起因していたことがわかる。新方式では承認がシステム上で自動的に記録されるため、この種の遅延は起きなくなると説明されている。',
         why: ['正解。承認を受けていない申請が遅延の一因だったと読み取れる。',
               '写真の読みにくさへの言及はない。',
-              '申請件数の急増には触れていない。',
+              '本文が遅延の原因として挙げているのは正式な承認を経ていない申請であって、申請元の部署の別ではない。部署による切り分けは本文にない。',
               '携帯電話への不慣れには触れていない。'],
         vocab: [['trace back to', '〜に遡る、〜が原因だとわかる'], ['formally approved', '正式に承認された']] },
 
@@ -464,14 +464,14 @@ export const UNITS = [
           'They will be fully exempted from using the new Vantage portal for their own personal claims.',
           'They are expected to make more use of the new approval feature than other staff.',
           'They must attend both training sessions scheduled during the last week of August without any exception.',
-          'Their own claims will be processed faster than other employees\' claims starting once the Vantage portal launches in September.',
+          'They will not be required to approve claims through the portal once the new system launches in September.',
         ],
         answer: 1,
         exp: '申請の承認はポータル上で行うようになるという記述と、チームの申請を承認している社員には研修参加が特に推奨されるという記述を結び付けると、承認業務を担う社員ほど新しい承認機能を使う機会が多くなると推測できる。',
         why: ['ポータルの利用が免除されるとは述べていない。しかも自分自身の申請についての免除という記述もない。',
               '正解。承認機能を使う場面が他の社員より多くなると読み取れる。',
               '出席は任意であり、両方の参加が必須とは述べていない。「例外なく」という強制も述べられていない。',
-              '処理速度の優遇は述べられていない。制度開始（9月）以降に速くなるという記述もない。'],
+              '本文は "Managers who currently approve claims by signing a printed form will instead approve through the portal" と述べており、チームの承認担当者はポータルで承認することになる。承認を求められないとするこの記述は本文と正面から矛盾する。'],
         vocab: [['exempt', '免除された'], ['standing template', '定型の雛形']] },
 
       { id: 'p7q-08-3', topics: ['p7detail'], tag: '詳細',
@@ -495,7 +495,7 @@ export const UNITS = [
   /* ── 9. ダブルパッセージ：研修カタログ × 申込メール ── */
   {
     id: 'u-p7q-09', part: 7, kind: 'doc', level: 5, docCount: 2,
-    topics: ['p7cross', 'p7inf', 'p7detail'],
+    topics: ['p7cross', 'p7inf'],
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -583,21 +583,16 @@ export const UNITS = [
               'SV-210（オンライン形式）にも認定証は付与されるため、オンサイトに限らない。'],
         vocab: [['review', '審査']] },
 
-      { id: 'p7q-09-5', topics: ['p7detail'], tag: '詳細',
-        stem: 'Why does Ms. Solano specify that the course must include a certificate?',
-        choices: [
-          'Corvid requires a certificate for all group enrollments of nine or more people.',
-          'Two of the leads need it for a promotion review in October.',
-          'It is a listed condition of the eleventh-enrollment group discount for the client company this year.',
-          'A warehouse safety authority requires a certificate for every shift lead in the company.',
-        ],
+      { id: 'p7q-09-5r', topics: ['p7cross'], tag: 'クロス',
+        stem: 'If Corvid receives the booking on the date of the e-mail, what is the earliest date an on-site session could begin?',
+        choices: ['15 August', '29 August', '12 September', '26 September'],
         answer: 1,
-        exp: 'メールに「9名のうち2名が10月の昇進審査対象で、その審査には認定証が必須条件として挙げられている」と明記されている。',
-        why: ['全団体登録に必須という規定は文書にない。人数条件を課しているという記述もない。',
-              '正解。昇進審査の条件だと明記されている。',
-              '割引の条件についての記述ではない。11件目以降の割引と認定証の必須化を結びつける記述もない。',
-              '安全機関の規定への言及はない。オスターランド社内の要件として述べているものでもない。'],
-        vocab: [['listed requirement', '明記された必須条件']] },
+        exp: '文書2のメールは8月1日付。文書1の規定「オンサイト講座は希望日の少なくとも4週間前までに予約が必要」に当てはめると、8月1日から4週間（28日）後は8月29日で、これが予約可能な最も早い開始日になる。',
+        why: ['8月1日から2週間後の日付であり、文書1が定める「4週間前」の規定に届かない。',
+              '正解。8月1日から4週間後の8月29日が、文書1の規定を満たす最も早い開始日である。',
+              '8月1日から6週間後の日付であり、文書1の「4週間前まで」という規定は満たすが、8月29日のほうがより早く開始できる。',
+              '8月1日から8週間後の日付であり、文書1の「4週間前まで」という規定は満たすが、8月29日のほうがより早く開始できる。'],
+        vocab: [['on-site', '対面・現地開催の']] },
     ],
   },
 

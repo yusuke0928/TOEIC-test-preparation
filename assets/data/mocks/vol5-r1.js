@@ -368,13 +368,108 @@ export const R1 = [
         '名詞「考慮、対価」。The landlord was consideration では人と「考慮」を同一視することになり、文が成立しない。'],
     ja: '大家は、事情を考慮して最後の月の家賃を免除してくれるほど思いやりがあった。' }),
 
-  p5(117, { t: ['inv'], lv: 5,
-    s: 'Not until the final inspection ------- the wiring fault discovered.',
-    c: ['were', 'it was', 'was', 'did it'],
-    a: 2,
-    e: 'Not until ... が文頭に出ると主節が倒置される。主語 the wiring fault は単数なので was。',
-    w: ['複数形。', '倒置されていない形。', '正解。', 'did it は一般動詞の疑問文・強調構文で使う do-support の形。この形を入れると助動詞 did の後ろに主語 it を置いたことになるが、続く the wiring fault discovered もそれ自体が主語＋動詞の並びなので、文に主語が it と the wiring fault の二つ並ぶことになり成立しない。'],
-    ja: '最終検査になって初めて、配線の不具合が発見された。' }),
+  /* id は v5q117r（no は 117 のまま）。2026-09-25 監査で再設計（このコメントは旧版の
+     経緯を含めて丸ごと差し替える）。
+
+     【旧版（前回の差し替え）の欠陥】"Never ------- two teams coordinated so closely on a
+     single product launch." ／ choices ['has','would','have','did'] ／正解 have。
+     監査の指摘：文頭の Never を消して "Have two teams coordinated ...?" にしても答えは
+     have のまま変わらない。つまり Never（倒置のトリガー）は答えの決定に何も寄与しておらず、
+     実際に効いているのは「空所の直後に来る複数主語 two teams と、助動詞の数を一致させる」
+     という一致だけ。これは inv（倒置）ではなく vform（数の一致）の問題で、
+     drills/grammar3.js の vform-23（"A number of retailers ------- already contacted ..."
+     ／ has/is/have/was ／正解 have）や vol3-r1.js No.128（"A number of the recommendations
+     ------- already been implemented ..." ／ was/has/is/have ／正解 have、id は
+     p5() 自動生成の v3q128）と同じ判断過程になっていた。しかも choices の並びが
+     was/has/is/have や has/is/have/was と大枠で重なる。
+
+     【新しい設計】メイン指定の型に変更。倒置のトリガー節（Only when ...）の内側に空所を置き、
+     主節側はすでに倒置された形で stem に印字しておく。問うのは
+     「倒置するのは主節であって、Only when が導く副詞節の内部は平叙語順のまま」という点。
+     誤答には、この文の主節の位置に置けば正しい英語になる 3 種類の倒置語順
+     （be 倒置・現在完了倒置・法助動詞倒置）を使う。
+     ・be 倒置 "are the renovation permits approved" は、例えば
+       "Only after a full inspection are the renovation permits approved." の主節なら成立する。
+     ・現在完了倒置 "have the renovation permits been approved" は、例えば
+       "Never have the renovation permits been approved this quickly." の主節なら成立する。
+     ・法助動詞倒置 "will the renovation permits be approved" は、例えば
+       "Only with the mayor's signature will the renovation permits be approved." の
+       主節なら成立する。
+     3 つとも「別の文に置けば正しい英語」ではあるが、排除の根拠は空所に隣接する
+     (Only) when が直接支配している。「Only when が導く副詞節の中は倒置しない」という
+     一つの規則だけで 3 つとも一括して落ち、"Only when ------- …" と副詞節だけを
+     切り出した時点ですでに誤答は成立しなくなる。主節（will residents regain access ...）
+     まで読んで初めて分かる離れた構造ではない。CLAUDE.md の「トリガーが空所を直接支配する
+     隣接語なら lv3 か lv4」に当たり、しかも誤答 3 本が単一規則で一括消去できる点は
+     lv3 の例示（「誤答 3 つが同方向に偏っていて一つの規則で一括消去できる問題も lv3」）
+     そのものなので、level は 3 とした
+     （2026-09-25 の2巡目監査で訂正。1巡目は「主節まで見て初めて分かる離れた構造」
+       ＝lv5(b) と誤って判定していたが、実際には Only when 節を単独で見た時点で
+       誤答を排除できる。誤った根拠を後の役がそのまま写さないよう、この段落ごと
+       書き換える）。
+
+     論点が効いているかの確認（監査の指示どおり）：
+     ・主節の倒置を解いた形にすると "residents will regain access to the building's north
+       wing."（平叙語順）になる。これは倒置の動機（Only when ... の前置）を外しただけの
+       ただの平叙文で、単独では正しい英語。逆に言うと、stem に印字されている
+       "will residents regain access ..." は疑問文ではなく、Only when の前置によって
+       動機づけられた倒置文であることが、この操作で確認できる。
+     ・Only when 節の中身を変えずに主節側だけを見ると、その主節はすでに
+       〈助動詞＋主語＋動詞〉の語順で固定されている。この主節の倒置と、空所に入れる
+       Only when 節内部の語順（平叙）は独立の現象で、後者が前者の真似をする理由が無い
+       ——これが 3 つの誤答が閉じる理由そのもの。
+     ・「その語を消しても同じ答えになるか」：Only を取り除いて平叙の When にしても
+       （"When the renovation permits are approved, residents will regain access ..."）、
+       空所に入るべき内容は the renovation permits are approved のまま変わらない。
+       これは「答えが倒置の知識に依存していない＝欠陥」ということではなく、
+       「倒置の知識は正解を選ぶためではなく、誤答 3 本を退けるためにだけ働く」ことを
+       示している（topics.js の inv の pitfall「倒置は文頭の語の暗記だけでは足りない。
+       ……倒置しない型もある」の範囲に入る）。旧版の Never のように「トリガー語を消すと
+       問題の性質そのものが vform に変わる」という欠陥とは別物であることを確認した。
+     誤答を避けた第二の正解（監査役の指摘＋自己点検）：
+     ・節の中の過去完了平叙形（the renovation permits had been approved）は正文になるため
+       誤答に使わない。
+     ・節の中の強調の did（the renovation permits did get approved）も正文になるため使わない
+       （誤答の did は本問には無いが、他の倒置トリガー型でこの語を使うときの注意として
+       このコメントに残す）。
+     ・主語は the renovation permits（複数、the ＋名詞）とし、a ＋単数名詞にしていない。
+     ・why では「Only when の後は必ず倒置」のような絶対の言い方をせず、
+       「Only when が導くこの時の副詞節の内部は」と対象を限定して書いた
+       （never the twain shall meet のような凍結表現が倒置の一般化に反例を持つため）。
+
+     場面も、点検・不具合の発見（vol3 No.117・旧版 vol5 No.117）と、チームの連携・製品発表
+     （v2q119 と骨格が近いため旧版で避けた案）の両方から離し、改装許可と施設利用という
+     third の場面にした。
+     語順の 4 択（同じ語の並べ替え）にすると vol4 v4q117r（Under no circumstances -------
+     left unaccompanied ... ／ 'a visitor should be'/'a visitor is'/'should a visitor be'/
+     'should be a visitor'）と同じ「固定された語群を並べ替える」装置になるため、
+     本問は語群を固定せず、助動詞そのものを is→are→have→will と替えて避けた。
+
+     drills/vocab5.js の adv-15（"------- when every item on the safety checklist has been
+     verified will the crew be cleared to begin the demolition." ／ Even/Still/Only/Just ／
+     正解 Only）と骨格・場面（何かが完了して初めて許可が下りる）が近いが、装置は別
+     （あちらは「どの語が倒置を起こすか」を選ばせる語彙問題、本問は「倒置するのは主節か
+     when 節の中か」という語順の問題）なので、直す必要は無い。
+
+     重複確認：assets/data 全体を "Only when" ／ "Only if" ／ "renovation permit" ／
+     "regain access" ／ "north wing" で照合し、同じ装置・同じ語彙の設問は無かった
+     （"Only when" は vocab5.js の解説文中・topics.js の記述に語として出るのみで、
+     設問の stem としては使われていない）。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
+  { id: 'v5-p5-117r', part: 5, kind: 'single', topics: ['inv'], level: 3,
+    questions: [{
+      id: 'v5q117r', no: 117,
+      stem: "Only when ------- will residents regain access to the building's north wing.",
+      choices: ['are the renovation permits approved', 'have the renovation permits been approved', 'the renovation permits are approved', 'will the renovation permits be approved'],
+      answer: 2,
+      exp: 'Only when が導く時の副詞節が文頭に置かれても、その副詞節自体の内部は平叙文と同じ〈主語＋動詞〉の語順のままで、倒置は起こらない。倒置が起こるのは、この副詞節に続く主節の側で、本問でもすでに will residents regain access ... という〈助動詞＋主語＋動詞〉の語順で印字されている。したがって空所には、副詞節の中身として平叙語順の the renovation permits are approved が入る。',
+      why: ['〈be動詞＋主語＋過去分詞〉という倒置の語順。Only after a full inspection are the renovation permits approved. のように、別の限定的な語句が前置された文の主節であれば正しい語順だが、本問の空所は Only when が導く副詞節の内部であり、この位置には平叙語順が入る。',
+            '〈have＋主語＋過去分詞〉という現在完了の倒置の語順。Never have the renovation permits been approved this quickly. のように、否定的な語句が前置された文の主節であれば正しい語順だが、本問の空所は Only when 節の内部なので、この倒置形は入らない。',
+            '正解。Only when the renovation permits are approved ...「改装の許可が下りて初めて」。Only when が導く副詞節の内部は平叙語順のまま。主節側の will residents regain access ... がすでに倒置された形で示されている。',
+            '〈will＋主語＋受動の原形〉という倒置の語順。Only with the mayor\'s signature will the renovation permits be approved. のように、別の限定的な語句が前置された文の主節であれば正しい語順だが、本問の空所は Only when 節の内部なので入らない。'],
+      ja: '改装の許可が下りて初めて、住民たちは建物の北棟を再び利用できるようになる。',
+      topics: ['inv'],
+    }] },
 
   /* id は v5q118r（no は 118 のまま。stem・選択肢とも差し替えたため設問 id は新規採番）。
      旧 v5q118 は The consultant ------- the board that further delays would jeopardise the
@@ -456,13 +551,81 @@ export const R1 = [
     }],
   },
 
-  p5(121, { t: ['pos'], lv: 5,
-    s: 'The inspector found the wiring ------- adequate to meet current safety standards.',
-    c: ['sufficiently', 'sufficient', 'sufficiency', 'suffice'],
-    a: 0,
-    e: '形容詞 adequate を修飾するので副詞。',
-    w: ['正解。', '形容詞。形容詞を修飾できない。', '名詞。', '動詞。'],
-    ja: '検査官は、その配線が現行の安全基準を満たすのに十分に適切であると判断した。' }),
+  /* id は v5q121r（no は 121 のまま）。2026-09-25 監査で is 修正（stem の動詞を替える）。
+
+     【旧版（前回の差し替え）の欠陥】stem の動詞に performs を使い、why[2]（reliability）で
+     「perform は task / duty / operation / function / ceremony のように遂行すべき活動
+     そのものを目的語に取る動詞で、reliability のような性質を表す抽象名詞を単独の目的語には
+     取らない（LDOCE）」と書いていたが、これは辞書と衝突する偽の断定だった。
+     Wiktionary の perform には (by extension, transitive) "To behave theatrically so as to
+     give the impression of (a quality, emotion, or identity)." という語義があり、
+     "perform masculinity"（社会学で使われる表現）のように、まさに性質を表す抽象名詞を
+     目的語に取る用例が実在する。LDOCE の記載はあくまで「よく取る目的語の例」を列挙した
+     ものであって「これ以外は取らない」という排他的な記述ではなく、それを排他的であるかの
+     ように書いたのが誤り。またこのとき why[1]・why[2] に「Wikipedia insource で0件」
+     「唯一ヒットしたのは reliability testing の一部だった」という検索の経緯（書誌的な
+     否定形・制作メモ）をそのまま学習者向けの本文に書いていたのも是正対象
+     （CLAUDE.md「排除の根拠は……書誌的な否定形ではなく、肯定形の構造規則で書く」）。
+
+     【直し方】stem の動詞を performs から functions に差し替えた。LDOCE 本体（Business
+     辞書のセクションではない一般の見出し）は function の動詞の語義1を
+     "to work in the correct or intended way" と定義し、[intransitive] とラベル付けして
+     他動詞の語義を一切載せない（Business 辞書セクションは別に "to work or operate" という
+     語義を [intransitive] で載せており、こちらは exp では引用しなかった）。
+     2026-09-25 に function の動詞としての全語義を自分で確認した:
+     ・LDOCE：[intransitive] の 2 語義のみ（一般用法、Business 用法）。transitive の記載なし。
+     ・Wiktionary：Verb 節の 2 語義（"To have a function." / "To carry out a function; to be
+       in action."）がともに (intransitive) のラベルで、transitive の語義は無い。
+     ・American Heritage Dictionary（TheFreeDictionary 経由、curl＋Safari UA で取得。
+       Merriam-Webster・Oxford Learner's は直接 WebFetch で 403、取得できなかった）：
+       "intr.v. func·tioned, func·tion·ing, func·tions" の1見出しのみで、tr.v. の見出しは
+       ページ内に存在しない。
+     ・Random House（同ページ内）："v.i." として2語義（"to work; operate" / "to have or
+       exercise a function; serve"）のみ。"v.t." の見出しは無い。
+     ・Collins 12th（同ページ内。前回の報告で「verb の項目が見当たらず取得できなかった」
+       と書いたのは誤りで、訂正する）："vb (intr)" として2語義（"to operate or perform as
+       specified; work properly" / "(foll by as) to perform the action or role (of something
+       or someone else)"）が実際には載っており、これも intransitive のみで transitive の
+       語義は無い。
+     5 種の辞書が独立に「function は自動詞のみで、目的語を取る語義が一つも無い」と一致して
+     おり、perform のときのような「取りうる目的語の種類」という語彙的な制限ではなく、
+     「そもそも目的語を取れない」という構造的な制限に置き換わったため、reliability を
+     排除する根拠が辞書と衝突しない肯定形の構造規則になった。
+     why からは検索の経緯（0件・唯一のヒットなど）や辞書名の列挙といった書誌的な否定形の
+     記述も削除し、「function は自動詞で目的語を取らない」という肯定形の構造規則だけにした
+     （2026-09-25 の2巡目監査で指摘され是正）。
+     why[3]（rely）にも一文足した。sensor functions を「センサーの機能」という名詞句と読み、
+     rely を述語に見立てる読み方を封じるため——rely は on / upon を伴って対象を示す動詞なので、
+     前置詞なしに across を直接続けることはできない。
+     stem の他の部分（across a wide range of operating temperatures ...）と選択肢
+     （reliably/reliable/reliability/rely）は変えていない。
+
+     重複確認：drills/grammar2.js の comp-07（"Few materials perform ------- under repeated
+     thermal stress as ..." ／ ['as reliably','more reliable','so reliable','reliably'] ／
+     正解 as reliably）とは reliably という語を共有するが、あちらは perform を使った
+     原級比較 as ... as の語順を問う comp 問題で判断過程が別（前回の報告どおり、担当外の
+     ファイルなので直さず報告のみ）。"functions -------" ／ "functions reliably" で
+     assets/data 全体を再照合し、同じ装置の設問はなかった。
+
+     level は前回の 4 から 3 に下げた（監査の指示）。「動詞＋空所＋前置詞句 → 副詞」という
+     枠は、修飾すべき語（動詞）の直後に空所があり、後ろに続くのが前置詞句であることも
+     隣接して分かる、最も基本的な品詞識別の型で、誤答 3 本（形容詞・名詞・動詞原形）は
+     いずれも「この位置には副詞以外置けない」という一つの規則で一括して消去できる。
+     p5() ヘルパーは id を no から自動生成するため、このユニットだけは直接記述する。 */
+  { id: 'v5-p5-121r', part: 5, kind: 'single', topics: ['pos'], level: 3,
+    questions: [{
+      id: 'v5q121r', no: 121,
+      stem: "The new sensor functions ------- across a wide range of operating temperatures, according to the manufacturer's test results.",
+      choices: ['reliably', 'reliable', 'reliability', 'rely'],
+      answer: 0,
+      exp: '動詞 functions を修飾するのは副詞。function は [intransitive] の動詞で、LDOCE は「to work in the correct or intended way」と定義しており、目的語を取らず well / properly / reliably のような様態の副詞を伴うのが定型。functions の直後に続くのは前置詞句 across ... だけで、修飾できる名詞も、補語を取る be 動詞もこの位置には無いため、動詞を直接修飾できる副詞 reliably だけが入る。',
+      why: ['正解。functions reliably「安定して機能する」。',
+            '形容詞。形容詞は名詞を修飾するか be 動詞などの補語になるが、この位置は動詞 functions の直後で、次に続くのは前置詞 across であり、修飾できる名詞も補語を取る be 動詞も無い。',
+            '名詞。function は自動詞（辞書では [I] / intransitive と表示される）で、目的語を取らない。目的語そのものを取れない動詞なので、reliability を直後に続けることはできない。',
+            '動詞の原形。定形動詞 functions のすぐ後ろに、to も伴わない別の動詞の原形を続けることはできない。sensor functions を「センサーの機能」という名詞句と読み、rely をその述語に見立てても、rely は on / upon を伴って対象を示す動詞なので、前置詞なしに across を直接続けることはできない。'],
+      ja: '製造元の試験結果によると、その新しいセンサーは幅広い動作温度域にわたって安定して機能する。',
+      topics: ['pos'],
+    }] },
 
   /* id は v5q122r（no は 122 のまま。stem を差し替えたため設問 id は新規採番）。
      旧 stem は The factory operates two production lines; ------- runs a different shift pattern.

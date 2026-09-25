@@ -42,11 +42,11 @@ export const R2 = [
             '第2段落は「café の家具が保管中で、席はベンチ2つに限られる」と述べており、通常より席が増えるという記述と正面から矛盾する。',
             '正解。', '第3段落で上階の自販機は「この工事の影響を受けず、通常どおり補充される」と明記されており、置き換えではない。'] },
       { tag: '推測', t: ['p7inf'], s: 'What is implied about Merrifield Realty Group?',
-        c: ['It manages only the ground-floor café.', 'It will provide free coffee during the closure.',
+        c: ['It has closed the fourth-floor meeting suite.', 'It will provide free coffee during the closure.',
             'It owns the fourth-floor meeting suite exclusively for visitors.', 'It is having the renovation carried out by an outside company.'],
         a: 3,
         e: '最終段落に「Ravenscourt Contracting が Merrifield Realty Group に代わって工事を行っている」とある。別の社名を持つ事業者が代わりに作業する以上、工事は自社ではなく外部に委託されていると分かる。',
-        w: ['見出しに「Merrifield Realty Group, Building Management 発行」とあり、本文も上階の自販機・4階の会議室・テナント全般に及ぶ。管理対象がカフェのみだという記述と矛盾する。',
+        w: ['第4段落に "Tenants needing a private space for outside visitors should reserve the fourth-floor meeting suite in advance" とあり、事前に予約すれば4階の会議室を使えると分かる。会議室を閉鎖したとするこの記述は本文と正面から矛盾する。',
             '無料提供の記述はない。飲み物の代金については本文のどこにも触れていない。',
             '第4段落は「外部からの来客用に個室が要るテナントは事前に予約すること」と述べるだけで、来客対応専用だとは書かれていない。', '正解。'] },
     ],
@@ -153,7 +153,7 @@ export const R2 = [
     n: [153, 154, 155], lv: 5,
     docs: [{
       label: 'E-mail',
-      head: 'To: d.mostyn@larkmeadhotel.com\nFrom: r.teixeira@quennell-linen.com\nDate: 4 October\nSubject: Larkmead collections moving to the morning run',
+      head: 'To: d.mostyn@larkmeadhotel.com\nFrom: r.teixeira@quennell-linen.com\nDate: 4 October\nSubject: Larkmead Hotel — Linen Service',
       body: [
         'Dear Mr. Mostyn,',
         'From Monday 20 October the soiled-linen collection at Larkmead moves from 19:30 to 05:45. Our evening vehicle has been committed elsewhere, and only the morning run has the capacity for your volume. Deliveries of clean linen are unaffected and will keep to 14:00.',
@@ -167,13 +167,13 @@ export const R2 = [
       { tag: '概要', qid: 'v6q153r', s: 'Why did Ms. Teixeira write to Mr. Mostyn?',
         c: ['To apologize for a missed collection and to arrange a replacement visit',
             'To explain a change of collection time and what it will require',
-            'To announce an increase in the charge for each bag of linen',
+            'To warn that clean linen deliveries will no longer keep to their schedule',
             'To ask the hotel to move its clean-linen delivery to the morning'],
         a: 1,
         e: '第2段落で10月20日から回収時刻が19:30から05:45に移ることを告げ、第3段落以降で、そのために宿泊施設の側で何が変わるか（5:30までに袋を出すこと、染み抜きの必要な品の出し方）を順に説明している。変更の通知と、それに伴って相手側がすべきことの説明が用件である。',
         w: ['回収漏れには一言も触れていない。本文が扱っているのは10月20日以降の回収時刻の変更であって、過去の回収についての詫びや代替の手配ではない。',
             '正解。',
-            '料金には一切触れていない。金曜までに返答を求めているのも、袋を置く搬入口の扉がどちらかという点である。',
+            '第2段落に "Deliveries of clean linen are unaffected and will keep to 14:00." とあり、清潔なリネンの配達は 14:00 のまま守られる。予定を守らなくなるとするこの記述は本文と正面から矛盾する。',
             '第2段落に「清潔なリネンの配達は影響を受けず、これまでどおり14:00のままだ」とあり、配達を朝に移すよう求めているという内容と矛盾する。'] },
       { tag: '詳細', qid: 'v6q154r', s: 'What does the e-mail say must be done by 05:30?',
         c: ['The linen bags must be waiting on the goods dock.',
@@ -190,13 +190,13 @@ export const R2 = [
         c: ['They will no longer be accepted by the laundry.',
             'They will have to be identified before the driver arrives.',
             'They cost more to launder than they did before.',
-            'They are collected on a vehicle separate from the rest.'],
+            'They will not be collected on the morning run.'],
         a: 1,
         e: '第4段落によれば、これまでは運転手が積み込む場に居合わせた現場スタッフが染み抜きの必要な品を指し示し、運転手がそれを脇に取り分けていた。しかし朝の便では搬入口に人がいない。そのため本文は、客室からリネンを外す時点で赤い袋に入れて封をし、表示を付けるよう求めている。選別は運転手が着く前に済ませておかなければならない、ということである。',
         w: ['第4段落は染み抜きの必要な品を赤い袋に入れて出すよう求めており、今後は受け付けないという内容と矛盾する。',
             '正解。',
             '料金については本文のどこにも触れていない。',
-            '別の車両で回収するという記述は本文のどこにもない。第2段落によれば回収は朝の便に一本化される。'] },
+            '第2段落に "the soiled-linen collection at Larkmead moves from 19:30 to 05:45" 、"only the morning run has the capacity for your volume" とあり、汚れたリネンの回収は朝便に一本化される。朝便では回収されないとするこの記述は本文と正面から矛盾する。'] },
     ],
   }),
 
@@ -269,12 +269,12 @@ export const R2 = [
     }],
     q: [
       { tag: '詳細', s: 'What do the notes say about the net winder?',
-        c: ['It has been reported by more than one person.', 'It was repaired by the section during the previous week.',
+        c: ['It has been reported by more than one person.', 'It was not passed to the duty technician for repair.',
             'It is the item left by the court 3 entrance.', 'It is to be replaced rather than repaired.'],
         a: 0,
         e: '表のネットワインダーの行の備考に「金曜以降、コーチ2名から報告あり」とあり、報告者が複数いることが読み取れる。',
         w: ['正解。',
-            '先週セクションが交換したのは得点板の電池で、これは得点板の行の備考である。ネットワインダーの行に修理の記録はない。',
+            '注記は items marked "Urgent" are passed to the duty technician on the day of submission と定めており、表のネットワインダーの行は Priority が Urgent である。したがって提出日に当直技術者へ回されている。回されていないとするこの記述は書式と正面から矛盾するので偽。',
             'コート3の入口に置かれているのはシャトルコック用ボックスで、これは別の行の備考である。',
             '交換するか修理するかについては、表にも注記にも記載がない。'] },
       { tag: '推測', t: ['p7inf'], s: 'What can be inferred about the scoreboard?',
@@ -325,14 +325,18 @@ export const R2 = [
       /* id は v6q163r（no は 163 のまま。挿入文を差し替えたため設問 id は新規採番）。
          2026-08-18 の一括照合で差し替え。旧挿入文「That single fact reframed everything the
          trial had seemed to prove, and it sent the box office looking for a garage rather than
-         a discount.」は、vol1-r2.js の同じスロット No.163（挿入文「That assumption produced a
-         service that was half empty at one o'clock and overcrowded at two.」・正解も同じ [3]）と
-         装置が完全に同型だった——どちらも〈That ＋ 直前の原因を受ける指示語〉で後ろ向きに繋ぎ、
-         後半で「だから対策に向かった」と前向きに繋ぐ橋渡し文で、正解位置まで同じ。
+         a discount.」は、当時の vol1-r2.js の同じスロット No.163（挿入文「That assumption
+         produced a service that was half empty at one o'clock and overcrowded at two.」・
+         正解も同じ [3]）と装置が完全に同型だった——どちらも〈That ＋ 直前の原因を受ける指示語〉で
+         後ろ向きに繋ぎ、後半で「だから対策に向かった」と前向きに繋ぐ橋渡し文で、正解位置まで同じ。
          記事の筋書き自体（当初の思い込み → データが覆す → 運用を改める → 実績が約3割向上 →
          残った不満）も vol1 と同型で、REWRITE.md が禁じた雛形に当たる。
          差し替え版は指示語を使わず、「なぜ向かいの駐車場ではなく2ブロック北のガレージなのか」という
-         本文の欠落した因果を埋める文にしてある（受け先の作り方が別の型になる）。 */
+         本文の欠落した因果を埋める文にしてある（受け先の作り方が別の型になる）。
+         注記（2026-09-25）：比較対象だった vol1-r2.js No.163 の挿入文は、その後の是正で
+         「That even spacing left buses half empty at one o'clock and overcrowded at two.」に
+         差し替わっている。上記の同型判定は 2026-08-18 時点の記録であり、vol1 側の現在の文言とは
+         もう一致しない。 */
       { tag: '位置選択', t: ['p7ins'], insertAt: 3, qid: 'v6q163r',
         sentence: 'The car park across the street declined to change its daytime tariff for a single tenant.',
         s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"The car park across the street declined to change its daytime tariff for a single tenant."',

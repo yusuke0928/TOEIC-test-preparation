@@ -30,10 +30,10 @@ export const L2A = [
     v: [['back order', '入荷待ち'], ['split an order', '注文を分割する'], ['in stock', '在庫がある']],
     q: [
       { tag: '概要', s: 'Why is the woman calling?',
-        c: ['To change a delivery address', 'To request a refund', 'To ask about a shipment that has not moved', 'To return a defective product'],
+        c: ['To say the address hasn\'t changed', 'To request a refund', 'To ask about a shipment that has not moved', 'To return a defective product'],
         a: 2,
         e: '冒頭で「追跡情報が label created のままだ」と述べている。発送が進んでいないことへの問い合わせ。',
-        w: ['住所変更の話は出ていない。', '返金は求めていない。', '正解。', '不良品の返品ではない。'] },
+        w: ['住所の話は出ていない。否定形にしても、追跡が動いていないことへの問い合わせ（正解）とは別の用件になる。', '返金は求めていない。', '正解。', '不良品の返品ではない。'] },
       { tag: '詳細', s: 'What does the man say is causing the problem?',
         c: ['No payment ever went through.', 'One item is not yet available.', 'The warehouse closed early for inventory.', 'The address failed the verification check.'],
         a: 1,

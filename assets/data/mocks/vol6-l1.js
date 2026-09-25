@@ -424,7 +424,7 @@ export const L1 = [
   p2(18, {
     t: ['p2wh'], lv: 4, sa: 'M-Cn', sb: 'W-Br',
     p: 'Should we visit the mill on Thursday, or wait until Friday?',
-    c: ['Yes, the mill tour was very informative.', 'Thursday — Friday is a public holiday there.', 'It takes about two hours to drive out there.'],
+    c: ['Yes, the mill tour was very informative.', 'Thursday — Friday is a public holiday there.', "It doesn't take two hours to drive out there."],
     a: 1,
     e: '「木曜に行く」か「金曜まで待つ」かを問う選択疑問。応答はどちらかを選ぶか、選べない事情を述べるかのどちらかになる。or の後ろは独立した文ではなく共通の Should we に掛かる動詞句なので、Yes で始めてもどちらを選んだのかは決まらない。',
     w: [
@@ -442,7 +442,7 @@ export const L1 = [
        後半に掛かって「はい、そうです」と読め、Yes で始まる誤答が第二の正解になっていた。
        ここでは or の後ろを共通の put the team up に掛かる場所の句にしてある。 */
     p: "Should we put the team up near the airport, or somewhere closer to the client's office?",
-    c: ["That's really up to whoever is handling the travel budget.", "Yes, the client's office moved last year.", 'The flights are already booked.'],
+    c: ["That's really up to whoever is handling the travel budget.", "Yes, the client's office moved last year.", "The flights are already booked."],
     a: 0,
     e: '「空港の近くに泊める」か「取引先の事務所の近くに泊める」かを問う選択疑問。判断は出張費を管理している人次第だと述べ、決定を第三者に委ねる間接応答が正解。二択のどちらも選んでいないが、選べない事情を示しているので応答として成立する。',
     w: [
@@ -512,7 +512,7 @@ export const L1 = [
   p2(24, {
     t: ['p2ind'], lv: 5, sa: 'M-Cn', sb: 'W-Br',
     p: 'This trolley tips over if I stack more than three crates on it.',
-    c: ['I stacked the shelves this morning.', 'The crates came in on Monday.', "That one isn't meant for heavy loads."],
+    c: ['I stacked the shelves this morning.', "The crates didn't come in until Monday.", "That one isn't meant for heavy loads."],
     a: 2,
     e: '不具合の訴えに対し、その台車の想定用途を示して「故障ではない」と答える応答。訴えにそのまま同意せず、事実を返す型。',
     w: [

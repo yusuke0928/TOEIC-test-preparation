@@ -185,14 +185,14 @@ export const L1 = [
       prompt: 'The extended warranty on these laptops is still just one year, isn\'t it?',
       speakerA: 'W-Au', speakerB: 'M-Br',
       choices: [
-        'It appears as a separate line item on the invoice.',
+        'It doesn\'t appear as a separate line item on the invoice.',
         'It went up to two years starting with this year\'s models.',
         'It only covers manufacturing defects, not accidental damage or normal wear and tear.',
       ],
       answer: 1,
       exp: '付加疑問 "..., isn\'t it?" は「延長保証は今も1年のままだ」という命題の真偽を相手に確かめる形なので、応答はその命題を肯定するか、否定するか、または自分には判断できない事情を述べるかのいずれかになる。正解は Yes / No を使わず、「今年のモデルから2年になった」と保証期間そのものの新しい値を挙げて「まだ1年」を否定している。go up は LDOCE が "to increase in price, amount, level etc" と定義し go up from something to something の型を挙げる語で、数量が上がることを表す。starting with は切り替わりの起点を示し、一回限りの変更ではなく仕様そのものが改まったことを表す。誤答2つは保証にまつわる語（invoice / line item / manufacturing defects）を並べているが、述べている内容は保証期間の長さと論理的に独立していて、期間が1年であっても2年であっても同じように成り立つ。話題が同じでも命題として独立していれば応答にならない、というのが Part 2 の急所。',
       why: [
-        '請求書上の計上方法を述べた文。保証料が独立した項目として立っているかどうかは保証期間の長さとは別の事柄で、期間が1年でも2年でも同じように成り立つ。つまり付加疑問が求める極性の判断をまったく含んでいない。「保証期間は自分の担当外だ」という含みで読もうとしても、この文にはそう読ませる語（I / not sure / you\'d have to ask など）が一つも無く、保証の扱いを承知している話し手の断定になっている。',
+        '請求書上の計上のしかたを述べた文で、保証期間の長さとは別の事柄。保証料が独立した項目として立っているかどうかは、期間が 1 年でも 2 年でも同じように成り立つので、付加疑問が求める極性の判断をまったく含んでいない。「保証期間は自分の担当外だ」という含みで読もうとしても、この文にはそう読ませる語（I / not sure / you\'d have to ask など）が一つも無く、保証の扱いを承知している話し手の断定になっている。',
         '正解。「今年のモデルから2年になった」と保証期間そのものの新しい値を挙げ、「まだ1年」を否定している。Yes / No を使わずに相手の前提を訂正する型。',
         '保証の適用範囲を述べた文。製造上の欠陥が対象で、偶発的な損傷や通常の摩耗は対象外という範囲の話は、期間が1年でも2年でも変わらず成り立つので、「まだ1年か」への答えにはならない。X, not Y という訂正の形をしているが、訂正しているのは相手が口にしていない補償範囲のほうで、問われている期間には手が付いていない。',
       ],
@@ -338,10 +338,10 @@ export const L1 = [
 
   p2(27, { t: ['p2ind'], lv: 4, sa: 'W-Br', sb: 'M-Au',
     p: 'Where should visitors sign in?',
-    c: ['The sign was replaced in the spring.', 'Visitors arrive at nine on weekdays.', 'Whoever\'s at the front desk will show them.'],
+    c: ['The sign was replaced in the spring.', 'Visitors don\'t arrive until nine on weekdays.', 'Whoever\'s at the front desk will show them.'],
     a: 2,
     e: '場所を尋ねられ、「受付にいる人が案内する」と間接的に答える応答。',
-    w: ['sign を「標識」の意味に取った引っ掛け。受付の場所には触れていない。', '到着時刻を述べており、受付の場所には答えていない。', '正解。'],
+    w: ['sign を「標識」の意味に取った引っ掛け。受付の場所には触れていない。', '来訪者が来ない時間帯を述べており、受付の場所には答えていない。', '正解。'],
     ja: '来訪者はどこで受付をすればよいですか。→ (C) その時フロントにいる人が案内します。' }),
 
   p2(28, { t: ['p2wh'], lv: 5, sa: 'M-Am', sb: 'W-Au',
@@ -362,10 +362,10 @@ export const L1 = [
 
   p2(30, { t: ['p2ind'], lv: 4, sa: 'M-Br', sb: 'W-Br',
     p: 'This scanner has been jammed all week.',
-    c: ['There\'s a spare one in the mail room.', 'That model scans fifty pages a minute.', 'The week went quickly this time.'],
+    c: ['There\'s a spare one in the mail room.', 'That model doesn\'t scan fifty pages a minute.', 'The week went quickly this time.'],
     a: 0,
     e: '不満の表明に対し、代替手段を示す応答。',
-    w: ['正解。', '処理速度を述べており、詰まって使えないという苦情への応答になっていない。', 'week の反復。週の感想は苦情への応答になっていない。'],
+    w: ['正解。', '仕様上の処理速度を述べた文で、いま詰まって使えないという訴えとは論理的に独立している。毎分 50 枚出るかどうかは、紙詰まりが起きているかどうかを何も決めない。', 'week の反復。週の感想は苦情への応答になっていない。'],
     ja: 'このスキャナー、今週ずっと詰まったままです。→ (A) 郵便室に予備が 1 台ありますよ。' }),
 
   p2(31, { t: ['p2wh'], lv: 5, sa: 'W-Au', sb: 'M-Am',
