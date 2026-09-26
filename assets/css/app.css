@@ -161,6 +161,13 @@ body{
   width:.85rem;height:.85rem;border-radius:99px;border:1.5px solid currentColor;
   background:linear-gradient(90deg,currentColor 50%,transparent 50%)
 }
+/* 版（バージョン）表示。目立たせすぎない小さな1行。881px未満はタブバー幅の
+   都合で上端バーに詰め込むと崩れるため display:none にし、扉(home.js)側の
+   .home-version に出す（下のモバイル用 @media 参照）。 */
+.spine__version{
+  margin-top:.5rem;font-size:.6rem;letter-spacing:.08em;color:var(--ink-3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
 
 /* ═══ PAGE ════════════════════════════════════════════════ */
 .page{padding:var(--sp) clamp(1.1rem,3.4vw,3.4rem) 6rem;max-width:78rem;outline:0}
@@ -717,6 +724,10 @@ body{
 
 /* ── mobile ────────────────────────────────────────────── */
 .tabbar{display:none}
+/* 881px以上では .spine__version（背表紙）に版が出るため、扉のここは隠す。
+   880px以下ではタブバーに設定画面への導線が無く設定画面（版の詳細表示）に
+   到達できないため、この扉の末尾にだけ小さく出す（下の @media で表示に切替）。 */
+.home-version{display:none}
 @media(max-width:880px){
   .shell{grid-template-columns:1fr}
   .spine{
@@ -731,7 +742,13 @@ body{
   .spine__latin{margin-top:0;font-size:.55rem;letter-spacing:.3em}
   .nav{display:none}
   .spine__foot{margin-left:auto;padding:0;border-top:0}
+  /* 上端の1行バーに詰め込むと崩れるため隠す。版は代わりに .home-version に出す。 */
+  .spine__version{display:none}
   .page{padding-bottom:5.6rem}
+  .home-version{
+    display:block;margin-top:1.6rem;padding-top:1rem;border-top:1px dashed var(--rule);
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;color:var(--ink-3);text-align:center
+  }
   .exambar{
     margin-left:calc(-1*clamp(1.1rem,3.4vw,3.4rem));margin-right:calc(-1*clamp(1.1rem,3.4vw,3.4rem));top:2.9rem;
     padding:.55rem .8rem;gap:.5rem

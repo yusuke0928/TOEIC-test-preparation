@@ -17,12 +17,12 @@
    ============================================================= */
 
 import { chromium } from 'playwright';
-import { spawn } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
 import {
   mkdirSync, rmSync, symlinkSync, readdirSync, statSync, readFileSync,
 } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');          // リポジトリ直下
@@ -1244,6 +1244,74 @@ async function test37({ page }) {
     `直後に中断したのに「たった今中断」の表示が見つかりません（relTime の挙動が変わった可能性。本文冒頭: ${bodyText.slice(0, 300)}）`);
 }
 
+/* 38 版（バージョン）表示: 設定画面・背表紙に版が出て assets/js/version.js の
+   中身と一致する。pages.yml の stamp-version 手順が Upload artifact より前にある。
+   stamp-version.mjs --out <一時パス> の書き出しが正しい形式である。 */
+function parseVersionSource(src) {
+  const grab = (key) => {
+    const m = new RegExp(`${key}:\\s*(null|"([^"]*)")`).exec(src);
+    if (!m) return undefined;
+    return m[1] === 'null' ? null : m[2];
+  };
+  return { label: grab('label'), date: grab('date'), commit: grab('commit') };
+}
+
+async function test38({ page }) {
+  // (a) assets/js/version.js の中身をディスクから直接読む（表示側と独立した正）
+  const verSrc = readFileSync(path.join(ROOT, 'assets/js/version.js'), 'utf8');
+  const ver = parseVersionSource(verSrc);
+  assert(ver.label !== undefined && ver.commit !== undefined, 'assets/js/version.js から label/commit を読み取れません（書式が変わっている可能性）');
+
+  const expectSpine = ver.label ? `版 ${ver.label}` : '開発版';
+  const expectHomeDev = '開発版（手元のファイル）';
+
+  // (b) 背表紙（このテストのビューポートは既定 1280×900 = 881px 以上）に版が表示され、一致する
+  await gotoHash(page, BASE, '/');
+  await page.waitForSelector('.phead__title', { timeout: 15000 });
+  await page.waitForSelector('#spine-version', { timeout: 8000 });
+  const spineText = (await page.locator('#spine-version').innerText()).trim();
+  assert(spineText === expectSpine, `背表紙の版表示が version.js と一致しません（実際: 「${spineText}」／期待: 「${expectSpine}」）`);
+
+  // (c) 扉（880px以下でのみ .home-version が見えるが、DOM自体には常に出ている）にも一致する表示がある
+  const homeText = await page.locator('.home-version').innerText();
+  const expectHome = ver.label ? `版 ${ver.label}` : expectHomeDev;
+  assert(homeText.trim() === expectHome, `扉の版表示が version.js と一致しません（実際: 「${homeText.trim()}」／期待: 「${expectHome}」）`);
+
+  // (d) 設定画面に版・公開日時・コミットが表示される
+  await gotoHash(page, BASE, '/settings');
+  await page.waitForSelector('#export', { timeout: 10000 });
+  const settingsText = await page.locator('#app').innerText();
+  if (ver.label) {
+    assert(settingsText.includes(ver.label), '設定画面に版ラベルが表示されません');
+    assert(ver.commit && settingsText.includes(ver.commit), '設定画面にコミットの短縮SHAが表示されません');
+    assert(ver.date && settingsText.includes(ver.date), '設定画面に公開日時が表示されません');
+  } else {
+    assert(settingsText.includes('開発版'), '設定画面に「開発版」の表示がありません');
+  }
+
+  // (e) pages.yml: stamp-version の手順が Upload artifact より前にある
+  const yml = readFileSync(path.join(ROOT, '.github/workflows/pages.yml'), 'utf8');
+  const stampIdx = yml.indexOf('stamp-version.mjs');
+  const uploadIdx = yml.indexOf('Upload artifact');
+  assert(stampIdx >= 0, 'pages.yml に stamp-version.mjs の実行手順が見つかりません');
+  assert(uploadIdx >= 0, 'pages.yml に Upload artifact の手順が見つかりません');
+  assert(stampIdx < uploadIdx, 'pages.yml の stamp-version 手順が Upload artifact より後ろにあります');
+
+  // (f) stamp-version.mjs --out <一時パス> の書き出し内容を検査（追跡ファイルは汚さない）
+  mkdirSync(OUT_DIR, { recursive: true });
+  const tmpOut = path.join(OUT_DIR, 'version-stamp-check.mjs');
+  try { rmSync(tmpOut, { force: true }); } catch { /* noop */ }
+  execFileSync('node', [path.join(ROOT, 'tools/stamp-version.mjs'), '--out', tmpOut], { cwd: ROOT });
+  const stamped = await import(`${pathToFileURL(tmpOut).href}?t=${Date.now()}`);
+  assert(/^\d{4}\.\d{2}\.\d{2}$/.test(stamped.VERSION.label || ''),
+    `stamp-version.mjs が出力したラベルの形式が違います（${stamped.VERSION.label}）`);
+  assert(/^[0-9a-f]{7}$/.test(stamped.VERSION.commit || ''),
+    `stamp-version.mjs が出力したコミットSHAの形式が違います（${stamped.VERSION.commit}）`);
+  assert(typeof stamped.VERSION.date === 'string' && stamped.VERSION.date.length > 0,
+    'stamp-version.mjs が出力した日時が空です');
+  rmSync(tmpOut, { force: true });
+}
+
 /* =============================================================
    実行制御
    ============================================================= */
@@ -1285,6 +1353,7 @@ const TESTS = [
   ['35_是正2：時間制限つきセッションのカードに残り時間が表示され、残りわずか／時間切れは強調される', test35],
   ['36_是正3：模試のパート別中断が模試一覧・模試詳細の両方に表示され、専用ボタンで再開できる', test36],
   ['37_是正4：「たった今に中断」という助詞の壊れた表示が出ない', test37],
+  ['38_版（バージョン）：設定画面・背表紙・扉の表示がversion.jsと一致し、pages.ymlの手順順序とstamp-version.mjsの出力形式も正しい', test38],
 ];
 
 function slug(name) { return name.replace(/[^\w一-龠ぁ-んァ-ヶー]+/g, '-').slice(0, 80); }
