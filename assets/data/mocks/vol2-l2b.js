@@ -85,7 +85,7 @@ export const L2B = [
         ],
         topics: ['p3detail'] },
       { id: 'v2q55', no: 55, tag: '詳細', stem: 'What is the woman told to bring?',
-        choices: ['A printed booking confirmation', 'A second form of payment', 'Her original driving licence', 'Proof of insurance'],
+        choices: ['A printed booking confirmation', 'Some other form of payment', 'Her original driving licence', 'Proof of insurance'],
         answer: 2,
         exp: '「免許証を持参。写真では不可」＝原本が必要。',
         why: ['予約確認書の話はない。', '別の支払い手段は求められていない。', '正解。', '保険証明には触れていない。'],

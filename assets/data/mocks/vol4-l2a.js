@@ -384,7 +384,7 @@ export const L2A = [
         e: '「その週、積み込み場のカメラが故障していた」ため目視で確認できないと述べている。',
         w: ['正解。', '書類の破棄については会話のどこにも出てこない。', 'ケンジ自身が調査しており、勤務していなかったとは述べていない。', 'トラックの塗装については会話のどこにも出てこない。'] },
       { tag: '推測', s: 'Why is the woman concerned about other pallets?',
-        c: ['They have already caused a second incident this month.', 'They are due for a scheduled audit next quarter.',
+        c: ['They have already caused a second incident this month.', 'A scheduled audit is due for them next quarter.',
             'Those belong to a different client\'s warehouse account.', 'A mislabelling problem could recur on any pallet.'],
         a: 3,
         e: '「表示ミスなら、これ 1 件に限らず他のパレットでも容易に起こり得る」と懸念している。',

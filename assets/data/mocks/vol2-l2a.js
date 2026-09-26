@@ -217,11 +217,11 @@ export const L2A = [
     v: [['tasting menu', 'コース料理'], ['à la carte', '単品料理'], ['one short', '1 名不足で']],
     q: [
       { tag: '詳細', s: 'What problem does the woman mention about the window table?',
-        c: ['The heating there is not working.', 'It seats fewer people than requested.',
+        c: ['The heating there is not working.', 'The table seats fewer than requested.',
             'It has already been given to another party.', 'Its spot is beside the kitchen door.'],
         a: 0,
         e: '「その一角の暖房が今夜は効いていない」と説明されている。',
-        w: ['正解。', '窮屈なのは中央の席。', '他客への割り当てはない。', '厨房の位置には触れていない。'] },
+        w: ['正解。', '窓際の席について女性が挙げた問題は暖房（"the heating in that corner isn\'t working"）だけ。席数に触れたのは移動先の中央の席についての "that table seats six rather tightly" で、それも窮屈ながら6人は座れるという意味であり、予約の "a table for six" より少なくはない。', '他客への割り当てはない。', '厨房の位置には触れていない。'] },
       { tag: '詳細', s: 'Why does the man decline to move?',
         c: ['Some guests will welcome the cooler air.', 'The alternative table is too small.',
             'He prefers the view from the window.', 'Moving would delay their meal.'],

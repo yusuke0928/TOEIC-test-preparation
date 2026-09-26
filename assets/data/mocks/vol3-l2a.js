@@ -107,10 +107,10 @@ export const L2A = [
     q: [
       { tag: '詳細', s: 'What is the reported symptom?',
         c: ['The lights flicker continuously.', 'A circuit breaker trips at the panel.',
-            'The lights fail to come on at all.', 'Some lights switch off after a short time.'],
+            'Some rows of lights take turns failing daily.', 'Some lights switch off after a short time.'],
         a: 3,
         e: '「点灯後 10 分ほどで半数が消える」が症状。',
-        w: ['ちらつきの記述はない。', '分電盤のブレーカーの話ではない。', '点灯はする。', '正解。'] },
+        w: ['ちらつきの記述はない。', '分電盤のブレーカーの話ではない。', '女性が "Same half every time?" と尋ねたのに対し、男性は "Yes. The row nearest the roller shutter." と答えており、日によって別の列が交代で故障するとは食い違う。', '正解。'] },
       { tag: '詳細', s: 'What does the woman believe is the cause?',
         c: ['Overheating caused by sunlight', 'A fault in the roller shutter motor',
             'An incorrect switch setting from the last inspection', 'Faulty wiring in the workshop'],

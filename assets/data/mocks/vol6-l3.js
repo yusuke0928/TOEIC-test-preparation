@@ -248,10 +248,10 @@ export const L3 = [
     v: [['frost', '霜、氷点下の冷え込み'], ['orchard', '果樹園'], ['forecast', '（動詞で）予報する'], ['under way', 'すでに始まって']],
     q: [
       { tag: '詳細', s: 'Why does the college say the warnings may differ from the regional forecast?',
-        c: ['Cold air collects at the bottom of the valley.', 'The regional forecast is issued only once a day.', 'Rainfall is also recorded by the sensors.', 'The forecast does not cover the whole county.'],
+        c: ['Cold air collects at the bottom of the valley.', 'The regional forecast is issued only once a day.', 'Rainfall is also recorded by the sensors.', 'Cold readings from a single orchard do not count.'],
         a: 0,
         e: '「警報はセンサーに基づくもので地域予報に基づくものではない。冷気は谷底にたまるため、風のない夜には両者が数度違うことがある」と述べている。',
-        w: ['正解。', '地域予報の発表回数には触れていない。', 'センサーが測ると述べているのは気温で、降水量の記録には言及がない。', '予報の対象範囲についての言及はない。'] },
+        w: ['正解。', '地域予報の発表回数には触れていない。', 'センサーが測ると述べているのは気温で、降水量の記録には言及がない。', '放送は "whenever the reading at any of them is forecast to fall below freezing overnight, a text goes out" と述べており、11か所のうちどれか1か所の測定値だけでも警報の根拠になる。1か所の測定値は数に入らないとするこの記述は本文と正面から矛盾する。'] },
       { tag: '詳細', s: 'What must growers do in order to receive the warnings?',
         c: ['Register a mobile number before the end of March', 'Install a sensor in their own orchard before March ends', 'Attend a training session at the agricultural college every spring and autumn', 'Pay a fee before the start of the first season'],
         a: 0,
