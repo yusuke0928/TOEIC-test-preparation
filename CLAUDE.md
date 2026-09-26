@@ -110,6 +110,7 @@ index.html
 assets/css/app.css        デザイン（紙/藍墨/朱の3色、light+dark）
 assets/js/                app.js(ルータ) quiz.js(出題エンジン) store.js(localStorage/SRS)
                           analytics.js score.js audio.js charts.js render.js ui.js runtime.js
+                          version.js（版。手で書き換えない。下の「版の表示」）
 assets/js/views/          home drills mocks review analytics settings result exam
 assets/data/topics.js     論点マスタ（37論点）
 assets/data/scenes.js     Part 1 の SVG 場面（30種。模試30問とドリル9問が使う）。部品系は design/part1/SPEC.md に従う
@@ -124,6 +125,14 @@ tools/                    品質管理ツール（下記）。依存は tools/pa
 ```
 python3 -m http.server 8777     # file:// では ES モジュールが動かない
 ```
+
+## 版の表示（2026-09-26 追加）
+背表紙（881px 以上）・扉の末尾（880px 以下。タブバーに設定が無いため）・設定の「このアプリについて」に版を出す。
+**版は手で上げない。**`.github/workflows/pages.yml` が `Upload artifact` の直前に `node tools/stamp-version.mjs` を走らせ、
+デプロイするコミットの日時（日本時間）と短縮 SHA を `assets/js/version.js` に刻む（表示は `2026.09.26`、同日の複数公開は SHA で区別）。
+**リポジトリの `version.js` は開発版の既定値（`null`）のままにしておくこと。**手元で開くと「開発版」と出る。
+試すときは `node tools/stamp-version.mjs --out <scratchpad のパス>`（引数なしで走らせると追跡ファイルを書き換える）。
+`smoke.mjs` の 38 が、表示と `version.js` の一致・`pages.yml` の手順の順序・刻んだ形式を見る。
 
 ## 品質管理ツール（`tools/`）
 - `tools/validate.mjs` — 整合性チェック（パート別問題数・設問番号連番・選択肢数・`answer` 範囲・論点ID・
@@ -166,7 +175,7 @@ python3 -m http.server 8777     # file:// では ES モジュールが動かな�
   `validate.mjs` の検査G〜J が「1つの設問の中で正解が浮いていないか」を見るのに対し、
   これは**設問と設問のあいだ**を見る。`node tools/dupcheck.mjs <ルート>` で別ツリー（HEAD 等）とも比べられる。
   **並行して複数の役が直しているあいだは意味を持たない。**全員が止まってから1回かけること
-- `tools/smoke.mjs` — Playwright による実ブラウザ通しテスト（**37項目**）。ポートが他プロセスに占有されて
+- `tools/smoke.mjs` — Playwright による実ブラウザ通しテスト（**38項目**）。ポートが他プロセスに占有されて
   いれば自動で隣にずれる
 - `tools/shots.mjs` — 主要画面のスクリーンショット取得
 - `tools/scenecheck.mjs` — Part 1 線画の幾何検査（12項目）。Chromium で実描画し `getCTM()` で
