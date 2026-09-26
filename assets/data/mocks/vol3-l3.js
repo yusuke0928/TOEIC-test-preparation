@@ -213,10 +213,10 @@ export const L3 = [
         w: ['土曜のみは事務局。', '正解。', '各門に掲示されている。', '夜間対応ではない。'] },
       { tag: '詳細', s: 'What change is announced?',
         c: ['An inspection has been brought forward.', 'The office will close permanently.',
-            'The website is being replaced.', 'Plot fees will rise in June.'],
+            'An online form is being introduced.', 'Plot fees will rise in June.'],
         a: 0,
         e: '「年次の区画検査は例年より 1 か月早い 6 月第 2 週」と述べている。',
-        w: ['正解。', '閉鎖の話はない。', 'サイトの更新には触れていない。', '料金の話も出ていない。'] },
+        w: ['正解。', '閉鎖の話はない。', '音声は "The list is managed entirely through the form on our website" と述べており、そのフォームはすでに稼働している。新たに導入されるとするこの記述は本文と正面から矛盾する。', '料金の話も出ていない。'] },
     ],
   }),
 

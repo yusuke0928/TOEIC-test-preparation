@@ -350,7 +350,7 @@ export const L2B = [
     q: [
       { tag: '詳細', s: 'Why does the woman want to switch suppliers?',
         c: ['A sudden price increase', 'Repeated short deliveries',
-            'Poor packaging quality', 'A change in ownership'],
+            'Poor packaging quality', 'Change in company ownership'],
         a: 1,
         e: '「今四半期 3 回目の数量不足」が理由。',
         w: ['値上げの話はない。', '正解。', '梱包品質には触れていない。', '経営者交代の話もない。'] },
@@ -396,7 +396,7 @@ export const L2B = [
         e: '「廃止ではなく昼休みの時間帯に移そう」と提案している。',
         w: ['統合の提案ではない。', '正解。', '無料化の話はない。', '講師交代の話もない。'] },
       { tag: '次の行動', s: 'What will the man check?',
-        c: ['The cost of new equipment', 'Member feedback from last month',
+        c: ['Costs of the new equipment', 'Member feedback from last month',
             'Instructor availability at noon', 'The room booking system'],
         a: 2,
         e: '「正午に空いているインストラクターがいるか確認する」と述べている。',
