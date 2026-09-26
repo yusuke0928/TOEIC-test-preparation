@@ -45,6 +45,10 @@
        「模試+ドリル全体を合わせた合算」も見る（対象になる設問自体が全データで
        42問しかなく、模試側とドリル側を別々に合算すると実際の事故〈7問〉が
        どちらの母数〈8件以上〉にも届かず検出できないため）
+     ・選択肢のうち「先頭の語が同じもの2本＋それぞれ別の語1本ずつ」に分かれる
+       設問（2+1+1）で、その2本組に正解が入る率が偶然(50%)から統計的に外れて
+       いないか（検査L。正解の枠組みを写して誤答を1本だけ作る／誤答どうしを
+       同じ枠組みで作る、という書き癖を見る。検査G〜Kと同じ単位・同じ合算で判定）
      ・図表（graphic）— topics（ユニット・設問）に "graphic" 論点があるか、
        設問 tag に「図表」を含むのに、そのユニットが graphic オブジェクトを
        持っていなければエラー（Vol.1〜3 のヘルパーが `graphic: o.g` と誤記していて
@@ -1532,6 +1536,103 @@ function checkNegationK(key, byPart) {
 }
 for (const [key, byPart] of shapeDist) checkNegationK(key, byPart);
 
+/* ── 検査L：2本組の軸から正解が漏れていないか（模試・ドリル・--extra・WARN） ──
+   CLAUDE.md「さらに4つの軸（2026-09-25）」の2「2本組」に対応する計器。
+   検査G(語数)・H(複合/先頭語)・I(受動態)・J(定形性)・K(否定語)は、どれも選択肢を
+   1本ずつ独立に見る軸だった。検査Lは唯一「選択肢どうしの関係」を見る——
+   4本のうちちょうど2本が同じ語で始まり、残り2本はそれぞれ別の語で始まる
+   （2+1+1）という組の形で、正解がその2本組に入るかどうかを調べる。
+   実測（CLAUDE.md）：書き下ろしの新しい設問では10問中10問で正解がこの2本組に
+   入っていた（「正解の枠組みを写して誤答を1本だけ作る」書き癖）一方、既存の
+   模試 Part3 は逆に正解が組を避ける方向に偏っていた（17%・z=-4.42。「誤答
+   どうしを同じ枠組みで作る」書き癖）。どちらも、組の2本のどちらかを選ぶ／
+   捨てるだけで4択が実質2択に落ちる同じ種類の漏れなので、検査H〜Kと同じく
+   両側で判定する（是正で片方向だけ潰すと逆向きの指紋になるため）。
+
+   「同じ語で始まる」は先頭語1語ではなく、4本すべてに共通する先頭の語列を
+   取り除いた「分岐点（4本が最初に分かれる位置）」の語で判定する。例えば
+     It will X | It will Y | It has Z | It is W
+   は先頭語だけ見ると4本とも "it" で埋まってしまい組が見えないが、共通部分
+   "it" を除いた次の語は will/will/has/is で、will の2本が組になる（模試の
+   Part7 は4択の半数以上が4本とも同じ語――"The" "It" 等――で始まるため、
+   先頭語1語の比較では検査Lの対象がほとんど見えなくなる。だから検査Hの
+   leadWord() をそのまま流用せず、分岐点を求める branchKeysL() を新設する）。
+
+   Part2（3択）は対象外にする。3択で「2本が同じ語・1本が別の語」という形は、
+   検査Hの「先頭語がちょうど1本だけ他と違う」（loneOutlierIndex、3択なら
+   2+1 は必然的にこれと同じ構図になる）が既に見ている信号そのもので、
+   二重に数えると同じ漏れを2つの検査で水増しして報告することになるため。
+
+   単位・母数・合算の考え方は検査H〜Kと同じ「1巻×1パート」「1ファイル×1パート」
+   （個別・該当8件未満は判定しない）／「模試6巻を合算したパート別」「ドリル
+   全ファイルを合算したパート別」（[合算]・下限 AGG_MIN）。収集は検査Hと同じ
+   shapeDist をそのまま使う（insertAt 除外・全選択肢が文字列・3語以上の
+   選択肢を1本以上含む、という絞り込み済みの生データ。新しい収集は足さない）。
+
+   対象は「キーの出現回数がちょうど {2,1,1}」になる設問だけ（2+2・3+1・4本
+   同じ・4本ばらばらは対象外）。4本のキーの値の種類がちょうど3つなら、
+   4=2+1+1 以外の内訳はあり得ない（3種類でそれぞれ最低1回ずつ使うと3、
+   残り1回をどれかに足すしかない）ので、種類数が3かどうかだけで判定できる。
+   組のキー（出現2回の語）が空文字列（＝共通部分だけで選択肢が尽きた）の
+   設問は数えない。 */
+function branchWordsL(choice) {
+  if (typeof choice !== 'string') return [];
+  return choice.trim().split(/\s+/)
+    .map(w => w.toLowerCase().replace(/[^a-z']/g, ''))
+    .filter(Boolean);
+}
+/** 4本（以上）の語配列に共通する先頭の語列を取り除き、その次の語（無ければ
+   空文字列）を各選択肢のキーとして返す。 */
+function branchKeysL(wordLists) {
+  const minLen = Math.min(...wordLists.map(ws => ws.length));
+  let at = 0;
+  while (at < minLen && wordLists.every(ws => ws[at] === wordLists[0][at])) at++;
+  return wordLists.map(ws => (at < ws.length ? ws[at] : ''));
+}
+function checkPairAxisL(key, byPart) {
+  for (const p of PART_LIST) {
+    if (p === 2) continue;   // Part2（3択）は検査Hと信号が重複するため対象外
+    const entries = byPart[p];
+    if (!entries) continue;
+    const filtered = entries.filter(e => e.n === 4);
+
+    let n = 0, hitsInPair = 0;
+    const inPairLabels = [], outPairLabels = [];
+    for (const e of filtered) {
+      const keys = branchKeysL(e.choices.map(branchWordsL));
+      const counts = new Map();
+      keys.forEach(kk => counts.set(kk, (counts.get(kk) || 0) + 1));
+      if (counts.size !== 3) continue;
+      let pairKey = null;
+      for (const [kk, c] of counts) if (c === 2) { pairKey = kk; break; }
+      if (pairKey === null || pairKey === '') continue;
+      n++;
+      const label = `${e.label}(${pairKey})`;
+      if (keys[e.answer] === pairKey) { hitsInPair++; inPairLabels.push(label); }
+      else outPairLabels.push(label);
+    }
+    if (n < 8) continue;
+    const pChance = 0.5;
+    const rate = hitsInPair / n;
+    const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+    const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+    if (Math.abs(z) < 2.0) continue;
+    if (z > 0) {
+      warn(key,
+        `Part${p} は、先頭の語が同じ2本組のどちらかを選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+        `（偶然は50%、該当${n}問中${hitsInPair}問、z=${z.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。正解の枠組みを写して誤答を1本作る書き癖の疑い。該当設問: ${formatLabels(inPairLabels)}）`);
+    } else {
+      const outHits = n - hitsInPair;
+      warn(key,
+        `Part${p} は、先頭の語が同じ2本組を捨てるだけで正解が残り2本に ${(outHits / n * 100).toFixed(0)}% 入る` +
+        `（偶然は50%、該当${n}問中${outHits}問、z=${z.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。誤答どうしを同じ枠組みで作る書き癖の疑い。該当設問: ${formatLabels(outPairLabels)}）`);
+    }
+  }
+}
+for (const [key, byPart] of shapeDist) checkPairAxisL(key, byPart);
+
 /* ── 検査G・H・I の合算判定（模試6巻合算／ドリル全ファイル合算、パート別・WARN） ──
    上の checkWordLenG / checkShapeH / checkPassiveI は「1巻×1パート」
    「1ファイル×1パート」単位で見ている。この単位だと、1巻・1ファイルあたりの
@@ -1781,6 +1882,50 @@ function checkNegationKAggregate(label, byPart) {
   }
 }
 
+/* checkPairAxisL と同じ計算だが、母数の下限（AGG_MIN）とキー（[合算] 付き）だけが違う。 */
+function checkPairAxisLAggregate(label, byPart) {
+  for (const p of PART_LIST) {
+    if (p === 2) continue;
+    const entries = byPart[p];
+    if (!entries) continue;
+    const filtered = entries.filter(e => e.n === 4);
+
+    let n = 0, hitsInPair = 0;
+    const inPairLabels = [], outPairLabels = [];
+    for (const e of filtered) {
+      const keys = branchKeysL(e.choices.map(branchWordsL));
+      const counts = new Map();
+      keys.forEach(kk => counts.set(kk, (counts.get(kk) || 0) + 1));
+      if (counts.size !== 3) continue;
+      let pairKey = null;
+      for (const [kk, c] of counts) if (c === 2) { pairKey = kk; break; }
+      if (pairKey === null || pairKey === '') continue;
+      n++;
+      const label = `${e.label}(${pairKey})`;
+      if (keys[e.answer] === pairKey) { hitsInPair++; inPairLabels.push(label); }
+      else outPairLabels.push(label);
+    }
+    if (n < AGG_MIN) continue;
+    const pChance = 0.5;
+    const rate = hitsInPair / n;
+    const stdNull = Math.sqrt(pChance * (1 - pChance) / n);
+    const z = stdNull > 0 ? (rate - pChance) / stdNull : 0;
+    if (Math.abs(z) < 2.0) continue;
+    if (z > 0) {
+      warn(`[合算] ${label}`,
+        `Part${p} は、先頭の語が同じ2本組のどちらかを選ぶだけで正解が ${(rate * 100).toFixed(0)}% 当たる` +
+        `（偶然は50%、該当${n}問中${hitsInPair}問、z=${z.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。正解の枠組みを写して誤答を1本作る書き癖の疑い。該当設問: ${formatLabels(inPairLabels)}）`);
+    } else {
+      const outHits = n - hitsInPair;
+      warn(`[合算] ${label}`,
+        `Part${p} は、先頭の語が同じ2本組を捨てるだけで正解が残り2本に ${(outHits / n * 100).toFixed(0)}% 入る` +
+        `（偶然は50%、該当${n}問中${outHits}問、z=${z.toFixed(2)}` +
+        `／目安|z|>=2.0でWARN。誤答どうしを同じ枠組みで作る書き癖の疑い。該当設問: ${formatLabels(outPairLabels)}）`);
+    }
+  }
+}
+
 checkWordLenGAggregate('模試6巻合算', aggregateByGroup(wordLenDist, mockKeySet));
 checkWordLenGAggregate('ドリル全体合算', aggregateByGroup(wordLenDist, drillKeySet));
 checkShapeHAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
@@ -1805,6 +1950,13 @@ checkNegationKAggregate('ドリル全体合算', aggregateByGroup(shapeDist, dri
    区画が多い。模試とドリルを合わせた母数なら、同じ書き癖が両方に跨がって出て
    いる場合を取り逃がさない。 */
 checkNegationKAggregate('模試+ドリル全体合算', aggregateByGroup(shapeDist, new Set([...mockKeySet, ...drillKeySet])));
+/* 検査Lは検査H・Iと同じ区分（模試6巻合算／ドリル全体合算の2つ）だけを見る。
+   検査J・Kが加えている「模試+ドリル全体合算」は、それぞれ対象設問が42問しか
+   ない（J）／ドリル側の該当kが単独ではAGG_MINに届かない区画が多い（K）という
+   個別の事情への対応であり、検査Lの指示書にはその事情が明記されていないため、
+   検査H・Iの基本形（2区分）に揃えた。 */
+checkPairAxisLAggregate('模試6巻合算', aggregateByGroup(shapeDist, mockKeySet));
+checkPairAxisLAggregate('ドリル全体合算', aggregateByGroup(shapeDist, drillKeySet));
 
 for (const [tp, c] of drillDist) {
   // Part2 論点（p2ind/p2wh）は選択肢が3つ（A/B/C）しかなく、D は最初から存在しない。
@@ -1881,8 +2033,9 @@ if (errorList.length) process.exitCode = 1;
 export const __test__ = {
   AGG_MIN, mockKeySet, drillKeySet,
   aggregateByGroup, checkWordLenGAggregate, checkShapeHAggregate, checkPassiveIAggregate,
-  checkFiniteJAggregate, checkNegationKAggregate,
-  checkWordLenG, checkShapeH, checkPassiveI, checkFiniteJ, checkNegationK,
+  checkFiniteJAggregate, checkNegationKAggregate, checkPairAxisLAggregate,
+  checkWordLenG, checkShapeH, checkPassiveI, checkFiniteJ, checkNegationK, checkPairAxisL,
   loneOutlierIndex, hasAndOr, leadWord, formatLabels, isPassive, classifyFiniteness, isNegated,
+  branchWordsL, branchKeysL,
   wordLenDist, shapeDist, finiteDist, issues, warn,
 };
