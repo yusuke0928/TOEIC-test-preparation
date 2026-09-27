@@ -6,6 +6,7 @@ import { state, save, setSetting, exportJSON, importJSON, mergeJSON, resetAll, r
 import { pageHead, sectionHead, esc, toast, empty } from '../ui.js';
 import * as audio from '../audio.js';
 import * as A from '../analytics.js';
+import { VERSION } from '../version.js';
 
 export default async function settings(el) {
   await audio.loadVoices();
@@ -166,6 +167,20 @@ export default async function settings(el) {
         TOEIC is a registered trademark of ETS. This application is not endorsed or approved by ETS.<br>
         音声は端末の Web Speech API による合成音声です。実際の試験音声とは異なります。
       </p>
+      <div class="mt2" style="border-top:1px dashed var(--rule);padding-top:.9rem">
+        <div class="stat__k">版</div>
+        <p class="mono" style="font-size:.86rem;margin-top:.4rem;line-height:1.7">
+          ${VERSION.label
+            ? `${esc(VERSION.label)}　<span class="note">公開 ${esc(VERSION.date)}・commit ${esc(VERSION.commit)}</span>`
+            : `開発版（手元のファイル）`}
+        </p>
+        <p class="note mt">
+          ${VERSION.label
+            ? '公開のたびに自動で刻まれます。'
+            : 'python3 -m http.server などで手元のファイルを直接開いています。公開版とは版が異なる場合があります。'}
+          不具合を報告するときは、この版の表示を書き添えてください。
+        </p>
+      </div>
     </div>
   `;
 

@@ -31,6 +31,12 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      # assets/js/version.js に版（日付ラベル・コミット日時・短縮SHA）を刻む。
+      # Node 標準ライブラリのみで書いてあり、tools/package.json の依存は不要
+      # （ubuntu-latest には Node が入っているため setup-node も不要）。
+      - name: Stamp version
+        run: node tools/stamp-version.mjs
+
       # ビルド工程は無い。リポジトリ直下をそのまま公開する
       # （.nojekyll があるため assets/ が Jekyll に無視されない）
       - name: Upload artifact

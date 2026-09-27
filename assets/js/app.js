@@ -6,6 +6,7 @@ import { state, save, dueCount } from './store.js';
 import { $, $$, toast, unbindKeys } from './ui.js';
 import * as audio from './audio.js';
 import { getRun } from './runtime.js';
+import { VERSION } from './version.js';
 
 const app = document.getElementById('app');
 
@@ -96,8 +97,24 @@ $('#theme-toggle')?.addEventListener('click', () => {
   save(); applyTheme();
 });
 
+/* ── 版（背表紙。881px 以上でのみ表示。881px 未満は spine__version を
+   assets/css/app.css の @media(max-width:880px) で display:none にして
+   上端バーへ詰め込まないようにし、代わりに扉（home.js）の末尾に出す） ── */
+function applyVersion() {
+  const el = $('#spine-version');
+  if (!el) return;
+  if (VERSION.label) {
+    el.textContent = `版 ${VERSION.label}`;
+    el.title = `公開: ${VERSION.date} / commit ${VERSION.commit}`;
+  } else {
+    el.textContent = '開発版';
+    el.title = '手元のファイル（未公開の変更を含みます。python3 -m http.server 等で開いています）';
+  }
+}
+
 /* ── 起動 ────────────────────────────────────────────── */
 applyTheme();
+applyVersion();
 window.addEventListener('hashchange', render);
 window.addEventListener('beforeunload', () => {
   const r = getRun(); if (r && !r.finished) r.persist();

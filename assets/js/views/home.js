@@ -11,6 +11,7 @@ import { TOPICS, topicName } from '../../data/topics.js';
 import { availableMocks, unitsForTopic, unitsForQuestionIds } from '../../data/registry.js';
 import { launchOrResume, resumeFromSession } from '../runtime.js';
 import { dueItems } from '../store.js';
+import { VERSION } from '../version.js';
 
 export default async function home(el) {
   const today = A.todayCount();
@@ -52,7 +53,8 @@ export default async function home(el) {
           <a class="btn btn--ghost" href="#/drills">論点を選ぶ</a>
         </div>
         <p class="note mt2">記録はこの端末のブラウザ内にだけ保存されます。サーバには何も送信しません。</p>
-      </div>`;
+      </div>
+      ${homeVersionLine()}`;
     el.querySelector('#first-run')?.addEventListener('click', async () => {
       const { loadDrills } = await import('../../data/registry.js');
       const { shuffle } = await import('../quiz.js');
@@ -182,6 +184,7 @@ export default async function home(el) {
         </a>`;
       }).join('')}</div>` : empty('無', 'まだ演習の記録がありません。', '<a class="btn" href="#/drills">個別論点から始める</a>')}
     </div>
+    ${homeVersionLine()}
   `;
 
   /* ── 操作 ──
@@ -324,6 +327,18 @@ function shortfallNote(est) {
   if (!est.estimableL) need.push(`リスニングをあと ${est.minSectionN - est.lN} 問`);
   if (!est.estimableR) need.push(`リーディングをあと ${est.minSectionN - est.rN} 問`);
   return `スコアを出すにはデータが足りません。${need.join('、')}こなすと表示されます。`;
+}
+
+/**
+ * 扉の末尾に出す小さな版表示。881px 以上では背表紙
+ * （spine__foot の #spine-version、app.js の applyVersion() が描画）に出ているが、
+ * 880px 以下ではタブバーに設定への導線が無く設定画面（版の詳細）に到達できないため、
+ * この扉にも出す。表示の可否自体は assets/css/app.css の .home-version が
+ * 幅で切り替える（881px 以上では display:none）。
+ */
+function homeVersionLine() {
+  const label = VERSION.label ? `版 ${esc(VERSION.label)}` : '開発版（手元のファイル）';
+  return `<div class="home-version">${label}</div>`;
 }
 
 function todoCard(title, bodyHtml, action) {
