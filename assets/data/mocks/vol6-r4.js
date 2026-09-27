@@ -17,454 +17,539 @@ const mp = (o) => ({
 
 export const R4 = [
 
-  /* ══ 176–180 ダブルパッセージ ══════════════════════ */
-  /* 2026-08-18 の一括照合で、応募要件の1項目を書き換えた。
-     旧版「A minimum of two years in work that involved dealing with the public, in any sector」は
-     drills/reading3.js の u-p7s-12（Client Support Specialist (Bilingual) — Marlow & Kent Logistics）の
-     「At least two years in a customer-facing role, in any industry」の逐語的な言い換えで、
-     年数・「業種は問わない」という但し書きまで一致していた。No.176 はこの下限との比較で解く設問なので、
-     ドリルを解いた学習者は求人票を読まずに下限を持ち込めた。年数と職務の書き方を替えてある。
-     （求人票＋応募メールという組み合わせ自体は TOEIC の定型なので残す。他の3項目——遅番、
-     チケッティングシステム、就労資格——は既に別内容になっている。） */
+  /* ══ 176–180 ダブルパッセージ ══════════════════════
+     先読み対策・第2案（2026-09-26）：stem と選択肢は監査役の設問案で凍結し、正解はくじで
+     決めたあと本文を新規に書き下ろした（pilot/method2.md）。求人票＋応募メールという
+     組み合わせ自体は既存のまま、題材・固有名・本文はすべて新規。
+     Q176・Q177の2問がクロス。文書を1つずつ隠すと：
+       - 求人票だけでは、応募者の実務年数・保有資格・使用ソフト・前職の勤務先が分からず
+         Q176 は決まらない。応募メールだけでは、求人側の下限・優遇資格・ソフト名・
+         提携船会社が分からず同様に決まらない。
+       - Q177 は求人票の「6週間の照会期間」とメールの「4週間の予告期間」の両方が要る
+         （長いほうが効くため。月曜始業の規則は曜日が本文に無く年に依存するため削除した）。
+       - Q178・Q180 は求人票のみ、Q179 は応募メールのみで決まる単一文書の詳細設問。
+     監査の是正（review-r4）：Q176 はメールの根拠文から「求人の下限を満たす」「優遇資格ではない」
+     という結論そのものを消し事実だけにした。Q177 は月曜始業を削り照会期間を6週間・予告期間を
+     4週間にして曜日非依存にした。Q180 は「研修を受けて昇格」から「6か月の考課で昇格」に変え、
+     Aの部分的真を消した。 */
   mp({
     n: [176, 177, 178, 179, 180],
+    lv: 4,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
-        title: 'Verhoeven Language Bureau — Bookings Coordinator, Ghent Office',
+        title: 'Warrendale Freight Forwarding — Import Documentation Clerk',
         body: [
-          'We are recruiting one Bookings Coordinator to take scheduling calls and written requests in English and in at least one of French, Spanish, or Portuguese, at a standard suitable for settling deadlines over the telephone.',
+          "We are looking for an Import Documentation Clerk to join our office team. Day to day, the postholder's central task is to keep clients up to date on the whereabouts of their shipments while goods sit in the warehouse or at the port awaiting onward transport.",
           { t: 'list', items: [
-            'Eighteen months or more of front-desk or switchboard work; the field it was in does not matter',
-            'Able to cover two late shifts a week, staffing the desk until 20:00',
-            'Familiarity with a ticketing system such as Ticketra or Deskmark counts in your favour but is not essential — we train on ours',
-            'Applicants must already be entitled to work in Belgium; we cannot arrange a work permit for this post',
+            'At least eighteen months spent handling import or export documentation, in any sector',
+            'A certificate in international trade compliance from a recognised awarding body is an advantage, though not required',
+            "Comfortable working with our documentation platform, Wintrace; anyone who hasn't used it before will be appointed one grade below the advertised level and regraded after a satisfactory six-month review",
+            'Right to work in the country from the date of starting',
           ] },
-          'Send a short covering note with your CV to hiring@verhoevenbureau.be.',
+          "You'll be tracking shipments carried mainly by our two regular ocean partners, Wintermere Line and Vasterling Shipping.",
+          'Once you accept an offer, we ask for six weeks before you start, to allow time for reference, right-to-work and background checks.',
+          'Send a covering letter and CV to hiring@warrendalefreight.com.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: hiring@verhoevenbureau.be\nFrom: a.moretti@fastmail.com\nDate: 14 February\nSubject: Application — Bookings Coordinator',
+        head: 'To: hiring@warrendalefreight.com\nFrom: e.wexcombe@fastmail.com\nDate: 5 May\nSubject: Application — Import Documentation Clerk',
         body: [
           'Dear Hiring Team,',
-          'I would like to be considered for the Bookings Coordinator post advertised for your Ghent office.',
-          'For the past three years I have run the front desk of a veterinary practice, dealing with owners in person and over the phone all day.',
-          'Spanish and Italian are both first languages for me — I grew up between Seville and Turin — and I read English at university.',
-          'Late shifts are not a problem on most days, but Thursdays are fixed: I collect my son from a music lesson that ends at 19:45.',
-          'I have never worked in Ticketra or Deskmark, but I did spend about a year on a comparable ticketing system, Casewell, in my previous post.',
-          'I already hold a Belgian residence card that carries the right to work without restriction, so no permit would need to be arranged.',
+          'I would like to apply for the Import Documentation Clerk post advertised for your office.',
+          'For the past three years I have handled import documentation at Wrixham Forwarding, a freight-forwarding company.',
+          'I also hold a certificate in supply chain management, if that is of interest.',
+          "I've used Wintrace daily in my current role, so I would need no time at all to learn your systems.",
+          'Before I hand in my notice, could you confirm whether the post would ever require me to work on a Saturday or Sunday? My childcare arrangement means I need to know that up front.',
+          "I would need to give my current employer four weeks' notice once I accept an offer.",
           'My CV is attached.',
-          'Kind regards,\nAlba Moretti',
+          'Kind regards,\nElena Wexcombe',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: "What is indicated about Ms. Moretti?",
-        c: ['She has less experience dealing with the public than the minimum the posting sets out.',
-            'She has more experience dealing with the public than the minimum the posting states.',
-            'She has no experience with any ticketing system used in any of her previous posts.',
-            'She does not have the right to work in Belgium.'],
-        a: 1,
-        e: '求人の応募要件は「受付または電話交換の実務が18か月以上、分野は問わない」。Morettiさんのメールでは、動物病院の受付を3年間担当し、対面と電話の両方で飼い主に対応してきたと述べている。3年は求人の下限である18か月を上回る。',
-        w: ['求人の下限は「受付または電話交換の実務が18か月以上」。メールでは動物病院の受付を3年間担当したと述べており、下限を上回っている。逆の内容。', '正解。',
-            'メールに「前職ではCasewellという同種のチケッティングシステムを1年ほど使った」と明記されており、前職でチケッティングシステムを扱った経験が無いという記述と正面から矛盾する。',
-            'メールでは制限なく働ける権利を伴うベルギーの在留カードを保持していると明記されており、矛盾する。'] },
-      { tag: 'クロス', s: "Which language will most likely allow Ms. Moretti to satisfy the language requirement in the posting, in addition to English?",
-        c: ['Spanish', 'French', 'Portuguese', 'Italian'],
+      { tag: 'クロス', qid: 'v6q176p', s: 'What is indicated about Ms. Wexcombe?',
+        c: ["Her experience in the field is longer than the posting's minimum.",
+            'A certificate she holds is one the posting lists as preferred.',
+            'The software she has used differs from the one the posting names.',
+            'She has worked for one of the carriers the posting mentions.'],
         a: 0,
-        e: '求人はEnglishに加えてFrench・Spanish・Portugueseのいずれかを電話でのやり取りに十分な水準で扱えることを求めている。メールでMorettiさんが挙げている言語はSpanishとItalianの2つだが、求人の対象言語リストに含まれるのはSpanishだけで、Italianはリストに無い。',
-        w: ['正解。', 'メールにFrenchへの言及は無い。', 'メールにPortugueseへの言及は無い。',
-            'Italianは第一言語だと述べているが、求人が挙げる対象言語（French・Spanish・Portuguese）に含まれない。'] },
-      { tag: '詳細', s: "What does Ms. Moretti say limits her availability for late shifts?",
-        c: ['A part-time class she attends herself on weekday evenings', 'A second job that runs until 21:00',
-            'A journey home that takes over an hour', 'A fixed commitment on Thursday evenings'],
-        a: 3,
-        e: '「木曜日は決まっていて、19時45分に終わる息子の音楽のレッスンの迎えがある」と述べている。',
-        w: ['自分自身が通う講座ではなく、息子の迎えだと述べている。', '副業には触れていない。', '帰宅にかかる時間には触れていない。', '正解。'] },
-      { tag: '詳細', s: "What does the job posting say is helpful but not essential for applicants?",
-        c: ['Fluency in a fourth language and a recognised qualification in written translation', 'Prior experience working late shifts at another local employer in the same city area',
-            'Familiarity with a ticketing system such as Ticketra or Deskmark', 'A university degree in a related field, such as tourism studies'],
-        a: 2,
-        e: '「Ticketra や Deskmark のようなチケッティングシステムに慣れていれば評価されるが必須ではなく、自社のシステムは研修で教える」と明記されている。',
-        w: ['求人が求めている言語は「英語に加えてフランス語・スペイン語・ポルトガル語のいずれか」で、これは必須要件である。第4言語や翻訳の資格については本文のどこにも触れていない。','遅番の勤務経験そのものは要件として挙げられていない。求人が求めているのは週2回の遅番に入れることであって、その経験ではない。他社での勤務地についての言及もない。', '正解。', '学位や特定分野（観光・接客など）の要件には触れていない。'] },
-      { tag: '詳細', s: "What does Ms. Moretti state about her entitlement to work in Belgium?",
-        c: ['She is currently applying for a work permit.', 'She holds a residence card that allows her to work without restriction.',
-            'She would need the company to arrange a work permit for her.', 'She has dual citizenship in Belgium and Italy.'],
+        e: '求人の応募要件は「輸出入書類業務の経験が18か月以上、分野は問わない」。Wexcombeさんのメールは、貨物利用運送会社Wrixham Forwardingで3年間その業務を担当してきたと述べている。3年は18か月を上回るので、求人の下限より長い経験を持つ、が正しい。',
+        w: ['正解。',
+            '求人が優遇するとしているのは国際貿易コンプライアンスの認定資格。メールでWexcombeさんが保有すると述べているのはサプライチェーンマネジメントの資格で、求人が挙げる国際貿易コンプライアンスの資格ではない。',
+            'メールに「現在の職場でもWintraceを日常的に使っているので、御社のシステムを覚える時間は要らない」とあり、求人が名指しするソフトウェアと同じものを使ってきたことになる。異なるという内容とは矛盾する。',
+            '求人が挙げているのは輸送を担う船会社のWintermere LineとVasterling Shipping。メールでWexcombeさんが自分の勤務先として挙げているのは貨物利用運送会社のWrixham Forwardingで、いずれの船会社とも一致しない。'] },
+      { tag: 'クロス', qid: 'v6q177p', s: "If Ms. Wexcombe accepts an offer and gives notice on the date of her e-mail, what is the earliest date she could start at Warrendale?",
+        c: ['9 June', '16 June', '23 June', '30 June'],
         a: 1,
-        e: '「制限なく働ける権利を伴うベルギーの在留カードを既に保持しているため、就労許可を手配する必要はない」と述べている。',
-        w: ['申請中とは述べていない。既に在留カードを保持している。', '正解。', '就労許可の手配は不要だと明記しており、矛盾する。', '二重国籍には触れていない。'] },
+        e: '求人票は、内定承諾後に照会のため6週間を置くことを定めている。メールの日付は5月5日で、Wexcombeさんは現在の勤務先に4週間の予告が必要だと述べている。開始日を決めるのはこの2つのうち長いほうなので、6週間の照会期間のほうが効き、5月5日から6週間後の6月16日が最も早い開始日になる。',
+        w: ['5月5日から5週間後の日付。4週間の予告期間（6月2日）とも、6週間の照会期間（6月16日）とも合わない。',
+            '正解。',
+            '5月5日から7週間後の日付。6週間・4週間のどちらとも、その和の10週間（7月14日）とも合わない。',
+            '5月5日から8週間後の日付。6週間・4週間のどちらとも、その和の10週間（7月14日）とも合わない。'] },
+      { tag: '詳細', qid: 'v6q178p', s: 'What does the job posting say the position mainly involves?',
+        c: ['Preparing customs declarations for goods arriving by sea',
+            "Checking suppliers' invoices against the goods received",
+            'Keeping clients informed about where their cargo is held',
+            'Filing the records of shipments once they are completed'],
+        a: 2,
+        e: '求人票は「日々の中心業務は、貨物が倉庫や港で次の輸送を待っている間、その所在について依頼主に最新情報を伝え続けることだ」としている。',
+        w: ['税関申告書の作成には触れていない。',
+            '仕入先の請求書と入荷物の照合には触れていない。',
+            '正解。',
+            '出荷完了後の記録のファイリングには触れていない。'] },
+      { tag: '詳細', qid: 'v6q179p', s: 'What does Ms. Wexcombe ask the hiring team to confirm before she gives notice to her current employer?',
+        c: ['Whether the contract would be permanent from the start',
+            'Whether she could work from home on some days',
+            'Whether help with moving costs would be available',
+            'Whether weekend shifts would be part of her schedule'],
+        a: 3,
+        e: 'メールで「現在の職場に予告を出す前に、この職に週末シフトが含まれるかどうか確認してほしい。育児の都合で前もって知る必要がある」と述べている。',
+        w: ['最初から正社員契約かどうかの確認は求めていない。',
+            '在宅勤務の可否については触れていない。',
+            '引っ越し費用の援助については触れていない。',
+            '正解。'] },
+      { tag: '詳細', qid: 'v6q180p', s: 'What does the job posting say happens if an applicant lacks experience with the named software platform?',
+        c: ['They receive training on it during their first month.',
+            'They join at a junior grade of the post.',
+            'They sit a short practical exercise on it at interview.',
+            'They describe a comparable system they know in their letter.'],
+        a: 1,
+        e: '求人票は「Wintraceの経験が無い応募者は、募集要項に示された等級より1段階下で採用され、6か月間の考課の結果が良好であれば昇格する」としている。',
+        w: ['研修の実施については触れておらず、6か月間の考課を経て昇格するとしているだけである。',
+            '正解。',
+            '面接での実技試験には触れていない。',
+            '応募書類で類似システムの経験を説明するようにとは求めていない。'] },
     ],
   }),
 
-  /* ══ 181–185 ダブルパッセージ ══════════════════════ */
-  /* 2026-08-18 の一括照合で、No.181 の stem が「1600mm standing desks」と品目名を直書きしており、
-     No.185（正解: Standing desk, 1600mm）を文書を読まずに解ける状態だったため是正した。
-     stem から品目名を外し「How many units …」に一般化（EC-4チェアは在庫9台=注文9台で入荷待ちが
-     生じないため、答えの5は変わらない。ただし解説は両品目を確認する記述に更新した）。
-     あわせて No.182 の stem も「backordered desks」→「backordered items」に変え、品目カテゴリ
-     （デスクだと確定できる情報）が先に漏れないようにした。182・183・184 は他に品目名を含まないことを確認済み。 */
+  /* ══ 181–185 ダブルパッセージ ══════════════════════
+     先読み対策・第2案。飲食店向けの什器卸という場面（メインの修正）を保ち、本文は新規。
+     文書を1つずつ隠すと：在庫・納期の案内だけでは発注数量が、発注メールだけでは在庫数・
+     リードタイム・起算日の規則が分からないため、Q181・Q182・Q185 はいずれも両文書が要る。
+     Q183 は案内のみ、Q184（推測）はメールのみで決まる単一文書の設問。
+     監査の是正（review-r4）：棚のリードタイムを3週間→9週間にした。棚は在庫10台に対し
+     発注6台で在庫の範囲内に収まり入荷待ちにならないため、Q181の合計・Q182の到着日は
+     変わらないが、在庫表の中で最長のリードタイムを持つのが棚（9週間・非入荷待ち）になり、
+     「表だけで最長行を選ぶ」だけではQ185が解けなくなった（発注数との照合が要る）。 */
   mp({
     n: [181, 182, 183, 184, 185],
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
-        title: 'Bramfield Office Supplies — Current Stock & Lead Times',
+        title: 'Vantree Catering Supplies — Current Stock & Lead Times',
         body: [
           { t: 'table',
             head: ['Item', 'In stock (this week)', 'Lead time if backordered'],
             rows: [
-              ['Ergonomic desk chair (EC-4)', '9', '3 weeks'],
-              ['Standing desk, 1200mm', '4', '5 weeks'],
-              ['Standing desk, 1600mm', '3', '6 weeks'],
-              ['Filing cabinet, 3-drawer', '15', '2 weeks'],
+              ['Stacking dining chairs', '6', '8 weeks'],
+              ['Square café tables', '5', '5 weeks'],
+              ['Upholstered bar stools', '9', '6 weeks'],
+              ['Wall-mounted shelving units', '10', '9 weeks'],
             ] },
           'Stock figures are counted every Friday and reflect items physically on our premises. The price of each item is the same whether it ships immediately or after a wait.',
-          'Lead time for a backordered item is counted from the date we receive payment in full, not from the date the order is placed.',
+          'Lead time for a backordered item is counted from the day your countersigned quote reaches us, not from the date you submit your order.',
           'An order that combines in-stock and backordered items ships as a single delivery once the backordered portion arrives, unless split shipping is requested; in that case the in-stock portion ships immediately and the remainder follows separately.',
           'Deliveries are made by our own van fleet within a 50-kilometre radius of the warehouse; further afield we use a courier partner, which does not change the lead times shown above.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: orders@bramfieldoffice.com\nFrom: o.faulkner@redbournelegal.com\nDate: 3 September\nSubject: Furniture order — new office',
+        head: 'To: orders@vantreecatering.com\nFrom: m.winlock@verrickskitchen.com\nDate: 30 January\nSubject: Order for Verrick\'s Kitchen',
         body: [
           'Hello,',
-          "This is our first order with Bramfield, so please flag anything else you need from us to get it processed smoothly.",
-          'We are opening a new office and need to place an order today: eight of the 1600mm standing desks and nine of the EC-4 ergonomic chairs.',
-          'Our accounts team can release payment on 15 September, once the current invoicing cycle closes.',
-          "We would like everything to arrive together in a single delivery if at all possible — we don't have anywhere to store furniture that turns up before the rest, so multiple deliveries would be difficult for us.",
-          'Our team moves into the new space on 3 November. Please let me know whether that timeline is realistic.',
-          "We're also considering a follow-up order for the reception area once this one is confirmed.",
-          'Thank you,\nOwen Faulkner\nRedbourne Legal Partners',
+          "We used to order from Vantree for our first restaurant, years ago, before we switched suppliers; now that we're opening Verrick's Kitchen, we'd like to come back to you for this order.",
+          'We need eight of the stacking dining chairs, nine of the square café tables, twelve of the upholstered bar stools, and six of the wall-mounted shelving units.',
+          'We are placing this order today, and we will sign and return the quotation by 7 February.',
+          "We would like everything to arrive together in a single delivery if at all possible — we don't have anywhere to store furniture that turns up before the rest.",
+          'Our team moves into the new space on 15 April. Please let me know whether that timeline is realistic.',
+          "Thank you,\nMarta Winlock\nVerrick's Kitchen",
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: "How many units will need to be backordered to complete this order?",
-        c: ['3', '5', '8', '11'],
-        a: 1,
-        e: 'Mr. Faulknerはこの注文で1600mm規格のスタンディングデスクを8台、EC-4チェアを9台注文している。文書1の在庫表によれば、EC-4チェアは在庫9台で注文数と一致するため入荷待ちは生じない。1600mmデスクは在庫3台なので、8－3＝5台が入荷待ちとなる。したがって、この注文全体で入荷待ちとなるのは1600mmデスクの5台のみ。',
-        w: ['1600mmデスクの在庫台数（3台）そのもので、注文数から差し引く前の数値。', '正解。', '1600mmデスクの注文台数（8台）そのもので、在庫分（3台）を差し引いていない。',
-            '注文台数と在庫台数を誤って合算した数（8＋3＝11）。'] },
-      { tag: 'クロス', s: "Based on the payment date given in the e-mail, by what date can the backordered items be expected to arrive?",
-        c: ['6 October', '15 October', '20 October', '27 October'],
+      { tag: 'クロス', qid: 'v6q181p', s: 'How many units will need to be backordered to complete this order?',
+        c: ['2', '4', '6', '9'],
         a: 3,
-        e: '1600mmデスクの入荷待ちのリードタイムは6週間で、文書1により起算日は支払いが完了した日。Faulkner氏のメールでは支払いは9月15日に行われる予定なので、9月15日から6週間後の10月27日が到着見込み日になる。',
-        w: ['支払日（9月15日）にチェア（EC-4）のリードタイムである3週間を誤って適用した日付（9月15日＋3週間＝10月6日）。',
-            '支払日ではなく注文提出日（9月3日）を起算日と誤って用いた場合の日付（9月3日＋6週間＝10月15日）。',
-            '支払日（9月15日）に1200mmデスクのリードタイムである5週間を誤って適用した日付（9月15日＋5週間＝10月20日）。',
+        e: '在庫表と発注メールを照合すると、椅子は発注8脚に対し在庫6脚で2脚、テーブルは発注9台に対し在庫5台で4台、スツールは発注12脚に対し在庫9脚で3脚、それぞれ入荷待ちとなる。棚は在庫10台に対し発注6台で在庫の範囲内に収まり、入荷待ちは生じない。したがって入荷待ちの合計は2＋4＋3＝9台。',
+        w: ['椅子1品目だけの入荷待ち数（2脚）で、注文全体の入荷待ち数ではない。',
+            'テーブル1品目だけの入荷待ち数（4台）で、注文全体の入荷待ち数ではない。',
+            '椅子とテーブルの入荷待ち数だけを合計した数（2＋4＝6）で、スツールの分（3脚）を数え忘れている。',
             '正解。'] },
-      { tag: '詳細', s: "What does the notice say determines when the lead time for a backordered item begins?",
-        c: ['The date payment is received in full', 'The date the order is placed',
-            "The date the item is restocked at the supplier's main warehouse", "The date the customer confirms the delivery address"],
+      { tag: 'クロス', qid: 'v6q182p', s: 'Based on the dates given in the e-mail, by what date can the whole order be expected to arrive?',
+        c: ['4 April', '11 April', '18 April', '25 April'],
         a: 0,
-        e: '「入荷待ち品のリードタイムは、注文日ではなく、支払いを全額受領した日から起算する」と明記されている。',
-        w: ['正解。', '本文はむしろ「注文日ではない」と明記している。', '本社倉庫での再入荷日には触れていない。', '配送先住所の確認日には触れていない。'] },
-      { tag: '推測', t: ['p7inf'], s: "What is suggested about Mr. Faulkner's dealings with Bramfield Office Supplies?",
-        c: ["He has placed several orders with Bramfield since his firm's last office move.", 'He has already settled the invoice for this order without waiting for the September cycle.',
-            "He has visited the company's warehouse in person on several occasions over the past few months.", 'He is not yet familiar with what the company asks of a new customer.'],
+        e: '在庫表は「入荷待ち品のリードタイムは、注文日ではなく署名済みの見積書を返送してもらった日から起算する」と定めている。メールでは見積書を2月7日に返送するとしている。単一配送を希望しているため、到着日は入荷待ちとなる品の中で最も長くかかるものに合わせて決まる。入荷待ちとなる椅子（8週間）・テーブル（5週間）・スツール（6週間）のうち最長は椅子の8週間で、2月7日から8週間後は4月4日。',
+        w: ['正解。',
+            '入荷待ちにならない棚のリードタイム（9週間）を、椅子の8週間の代わりに使った場合に出やすい日付（2月7日＋9週間＝4月11日）。棚は在庫10台に対し発注6台で在庫の範囲内に収まり、入荷待ちが生じない。',
+            '2月7日から10週間後の日付。表のどのリードタイム（5・6・8・9週間）とも合わない。',
+            '2月7日から11週間後の日付。表のどのリードタイム（5・6・8・9週間）とも合わない。'] },
+      { tag: '詳細', qid: 'v6q183p', s: 'According to the notice, what marks the start of the lead time for an item that is backordered?',
+        c: ['The date the full payment is received', 'The date the purchase order is sent',
+            'The date the deposit is received', 'The date the signed quotation is returned'],
         a: 3,
-        e: 'メールの冒頭で「Bramfieldへの発注は今回が初めてなので、手続きが滞りなく進むよう、他に必要なものがあれば知らせてほしい」と書いている。取引が初めてで、相手が新規顧客に何を求めるかをまだ把握していないことが読み取れる。',
-        w: ['メールの冒頭で「Bramfieldへの発注は今回が初めてだ」と述べており、矛盾する。過去の移転時にも発注していたという記述はない。',
-            'メールは「経理が9月15日、現在の請求サイクルが締まってから支払いを実行できる」と述べており、支払いはまだ済んでいない。サイクルを待たずに決済したという記述はない。',
-            '倉庫を訪ねたという記述は無く、複数回の訪問についても触れられていない。', '正解。'] },
-      { tag: 'クロス', s: "Which item's stock level will determine when the whole order is delivered?",
-        c: ['Ergonomic desk chair (EC-4)', 'Standing desk, 1200mm', 'Standing desk, 1600mm', 'Filing cabinet, 3-drawer'],
-        a: 2,
-        e: 'Faulkner氏は単一配送を希望している。注文に含まれる品目（1600mmデスクとEC-4チェア）のうち、在庫表で在庫が不足し入荷待ちになるのは1600mmデスクだけ（在庫3台に対し注文8台）。EC-4チェアは在庫9台で注文9台とちょうど足りる。単一配送である以上、全体の到着日は最も遅い品目、すなわち1600mmデスクの入荷待ち分で決まる。',
-        w: ['在庫9台に対し注文も9台で、入荷待ちは生じない。', 'メールの注文品目は1600mm規格のデスクとEC-4チェアの2点だけで、1200mm規格のデスクは注文されていない。', '正解。', 'メールの注文品目は1600mm規格のデスクとEC-4チェアの2点だけで、書類キャビネットは注文されていない。'] },
+        e: '「入荷待ち品のリードタイムは、注文書を送った日ではなく、署名済みの見積書を返送してもらった日から起算する」と明記されている。',
+        w: ['支払いの受領時期には触れていない。',
+            '本文はむしろ「注文書を送った日ではない」と明記している。',
+            '手付金の受領時期には触れていない。',
+            '正解。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v6q184p', s: "What is suggested about Ms. Winlock's history with Vantree Catering Supplies?",
+        c: ['She currently orders from Vantree for another restaurant she runs.',
+            'She has bought from Vantree once before, for a small item.',
+            'She is ordering from Vantree for the first time.',
+            'She left Vantree for another supplier some years ago.'],
+        a: 3,
+        e: 'メールで「以前、最初の店のときにVantreeから仕入れていたが、その後仕入先を変えた。Verrick’s Kitchenの開業にあたり、今回改めてVantreeに注文したい」と述べている。過去に取引があり、その後いったん離れて別の仕入先に移っていたことが読み取れる。',
+        w: ['メールは現在ほかの店舗でVantreeから仕入れているとは述べておらず、むしろ一度離れたと述べている。',
+            '「最初の店のとき」に仕入れていたとあり、単発の小さな買い物だったという内容は読み取れない。',
+            'メールは「以前にも仕入れていた」と明記しており、今回が初めての取引だとする内容と矛盾する。',
+            '正解。'] },
+      { tag: 'クロス', qid: 'v6q185p', s: "Which item's stock level will determine when the whole order is delivered?",
+        c: ['Wall-mounted shelving units', 'Square café tables', 'Upholstered bar stools', 'Stacking dining chairs'],
+        a: 3,
+        e: '今回の注文で入荷待ちとなるのは椅子（2脚）・テーブル（4台）・スツール（3脚）の3品目で、棚は在庫10台に対し発注6台で在庫の範囲内に収まり入荷待ちが生じない。単一配送である以上、到着日は実際に入荷待ちとなる品の中で最も長くかかるものに合わせて決まる。入荷待ちとなる3品目のリードタイムは椅子8週間・テーブル5週間・スツール6週間で、椅子が最も長い。在庫表では棚が9週間といちばん長いリードタイムを示しているが、棚は在庫が発注数を上回るため入荷待ちにならず、納期には影響しない。したがって、全体の到着日を左右するのは椅子の在庫水準である。',
+        w: ['棚は発注6台に対し在庫10台で在庫の範囲内に収まり、入荷待ちが生じない（在庫表のリードタイム9週間は最長だが、入荷待ちにならないため納期には関係しない）。',
+            'テーブルは入荷待ちとなるが、リードタイムは5週間で、椅子の8週間より短い。',
+            'スツールは入荷待ちとなるが、リードタイムは6週間で、椅子の8週間より短い。',
+            '正解。'] },
     ],
   }),
 
-  /* ══ 186–190 トリプルパッセージ ════════════════════ */
-  /* 2026-08-18 の一括照合で、No.189 の正解選択肢が「a 3-hour Regulatory Update webinar」と
-     時間数を含んでおり、No.186（Regulatory Updateの不足時間＝3）の答えが選択肢の文面から
-     透けていたため、選択肢から「3-hour」を外した（文書3の他の記述と照合しても、この選択肢は
-     依然として一意に正解として特定できる）。 */
+  /* ══ 186–190 トリプルパッセージ ════════════════════
+     先読み対策・第2案。研修時間の要件通知＋会員からの確認メール＋事務局の返信、という
+     場面を保ち、本文は新規。文書を1つずつ隠すと：通知だけでは会員本人の実績が、
+     確認メールだけでは必須時間数・上限規則が分からないため Q186・Q187 は両方が要る。
+     返信（文書3）には不足時間数を書かず（Q186 が文書3だけで解けるのを防ぐ）、
+     提案する研修（Q189）にも時間数を書いていない（Q186 の答えと数字が一致して
+     漏れるのを防ぐ）。Q188・Q190 は通知のみで決まる単一文書の設問。
+     監査の是正（review-r4）：オンライン講座1件あたりの算入上限を6時間→3時間にし、
+     Vantreyさんの Vehicle Safety Systems の報告を「11時間のオンライン講座＋対面の3時間の
+     講習」に変えた（対面分は上限の対象外なので算入は3＋3＝6のまま、Q187 の答えは変わらない）。
+     文書3は「2区分で不足」の `not one` を削って明示の否定を減らし、VSS 側の不足理由も
+     具体的な時間数を出さずに一文で説明を足した。Q188 は「更新保留」「手数料なし」という
+     誤答を消すためだけの一文を削った。固有名 Northfield は既存の別ファイルで使用済みのため
+     Wellsgate に差し替えた。 */
   mp({
     n: [186, 187, 188, 189, 190],
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
-        title: 'Federation of Property Assessors — Continuing Professional Development Requirements',
+        title: 'Wexbridge Institute of Transport Professionals — Continuing Professional Development Requirements',
         body: [
-          'Members must record at least 30 hours of continuing professional development (CPD) in the membership year ending 31 December, made up of at least 12 hours in Technical Practice, at least 7 hours in Regulatory Update, and the remainder in any category, including Business Skills.',
-          'Hours from a single online course count toward the Technical Practice minimum only up to 8 hours; any hours beyond 8 from the same course still count toward the overall 30-hour total.',
+          'Members must record at least 25 hours of continuing professional development (CPD) in the membership year ending 31 December, made up of at least 10 hours in Vehicle Safety Systems, at least 5 hours in Regulatory Compliance Updates, and the remainder in any category, including Driver Wellbeing, which counts as a recognised category for the first time this year.',
+          'Hours from a single online course count toward the Vehicle Safety Systems minimum only up to 3 hours; any hours beyond 3 from the same course still count toward the overall 25-hour total.',
           'This requirement applies to all practising members, including those working part-time. Hours must be logged through the online CPD portal within 60 days of the activity to be counted.',
-          'Members who have not met the requirement by 31 December are placed on probationary status and must complete the shortfall by 31 March, or renewal is suspended.',
+          'Members who have not logged the full requirement by 31 December move to probationary status; they then have until 31 March to make good the shortfall, which is kept separate from the following year’s new requirement.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: cpd@propertyassessors.org\nFrom: f.chowdhury@bexleighassessment.com\nDate: 18 November\nSubject: CPD hours — can you confirm my total?',
+        head: 'To: cpd@wexbridgeinstitute.org\nFrom: f.vantrey@winmarshhaulage.com\nDate: 18 November\nSubject: CPD hours — can you confirm my total?',
         body: [
           'Hello,',
-          "Could you confirm whether I have met this year's CPD requirement before the year closes? Here is what I have logged so far.",
-          "Technical Practice: a 14-hour online course, 'Foundation Assessment Methods,' plus a 3-hour in-person seminar, 'Defect Diagnosis on Site.'",
-          'Regulatory Update: a 4-hour session I attended in June.',
-          'Business Skills: a 5-hour negotiation workshop in August.',
-          'If I am short anywhere, please let me know exactly which category, since I would like to fix it before 31 December rather than wait for the probation period.',
-          'I keep the attendance certificates for all of these on file, in case anything needs to be checked.',
-          'Thank you,\nFarida Chowdhury',
+          "Could you confirm whether I've met this year's CPD requirement before the year closes? Here is what I've logged so far.",
+          "Vehicle Safety Systems: an 11-hour online course, 'Braking and Stability Systems,' and a 3-hour in-person workshop on trailer coupling checks in April.",
+          "Regulatory Compliance Updates: a 4-hour online session, 'Recent Regulatory Amendments,' in June.",
+          'Business Skills: a 9-hour project-management workshop in August.',
+          'Driver Wellbeing: a 5-hour peer-support session in September.',
+          "I'm also attending the Wellsgate Haulage Trade Conference next month, if that's any help.",
+          "If I'm short anywhere, please let me know exactly which category, since I'd like to fix it before 31 December rather than wait for the probation period.",
+          'Thank you,\nFarah Vantrey',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: f.chowdhury@bexleighassessment.com\nFrom: cpd@propertyassessors.org\nDate: 19 November\nSubject: RE: CPD hours — can you confirm my total?',
+        head: 'To: f.vantrey@winmarshhaulage.com\nFrom: cpd@wexbridgeinstitute.org\nDate: 19 November\nSubject: RE: CPD hours — can you confirm my total?',
         body: [
-          'Dear Ms. Chowdhury,',
+          'Dear Ms. Vantrey,',
           'Thank you for logging your hours promptly.',
-          'You are short in two categories, not one, and the totals are related: closing both would also close your overall shortfall.',
-          "There is a 3-hour Regulatory Update webinar on 12 December titled 'Recent Amendments to Assessment Standards.' Attending that alone would not fully resolve things, but it is the fastest single session we currently have listed before the year closes.",
+          "You're short of this year's requirement in two categories.",
+          'For Regulatory Compliance Updates, the Wellsgate Haulage Trade Conference you mentioned has a recognised regulatory-update session in its programme; logging that, once you have your attendance certificate, should help close the gap in this category.',
+          "In Vehicle Safety Systems, the limit on hours from a single online course means your course doesn't count in full toward the minimum for that category.",
           'If it would help, I can also send a reminder two weeks before the year-end deadline.',
           'Kind regards,\nCPD Team',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: "How many additional hours of Regulatory Update does Ms. Chowdhury need to meet this year's requirement?",
+      { tag: 'クロス', qid: 'v6q186p', s: "How many additional hours of Regulatory Compliance Updates does Ms. Vantrey need to meet this year's requirement?",
         c: ['1', '2', '3', '4'],
-        a: 2,
-        e: 'Regulatory Updateの必須時間数は文書1で7時間。Chowdhuryさんは文書2で6月に4時間出席したと報告しており、7－4＝3時間不足している。',
-        w: ['Technical Practiceの不足分（必須12時間に対し算入11時間で1時間不足）で、Regulatory Updateの不足分ではない。',
-            'Regulatory Updateの必須7時間と実績4時間の差は3時間であり、2時間ではない。', '正解。',
-            '全体（30時間枠）の不足分（合計26時間で4時間不足）で、Regulatory Update単独の不足分ではない。'] },
-      { tag: 'クロス', s: "How many of the hours Ms. Chowdhury reports count toward the 12-hour Technical Practice minimum?",
-        c: ['8', '11', '14', '17'],
-        a: 1,
-        e: '文書1は「単一のオンライン講座がTechnical Practiceの必須時間数に算入されるのは8時間まで」と定めている。文書2でChowdhuryさんがTechnical Practiceとして挙げているのは14時間のオンライン講座と3時間の対面セミナー。オンライン講座は8時間までしか算入されないので、8＋3＝11時間が必須時間数に算入される。',
-        w: ['オンライン講座の上限（8時間）だけを数え、3時間の対面セミナーを加えていない数値。',
-            '正解。',
-            'オンライン講座の14時間をそのまま数えた数値で、8時間という上限を適用しておらず、対面セミナーの3時間も加えていない。',
-            '14時間と3時間をそのまま合算した数値（14＋3＝17）で、オンライン講座の8時間という上限を適用していない。'] },
-      { tag: '詳細', s: "What happens to members who have not met the CPD requirement by 31 December?",
-        c: ['Their membership is cancelled immediately, with no right of appeal to the board or committee.', 'They are charged a late fee equal to the shortfall in hours and lose voting rights.',
-            'They are given an additional 30 hours to complete by the following June without any penalty.', 'They are placed on probationary status and must complete the shortfall by 31 March.'],
-        a: 3,
-        e: '「12月31日までに要件を満たしていない会員は保留資格となり、3月31日までに不足分を解消しなければ更新が停止される」と明記されている。',
-        w: ['即時の資格取消しとは述べておらず、上訴不可という規定もない。', '延滞金には触れておらず、議決権の喪失についても規定がない。', '追加で30時間、6月まで、という規定は無く、無条件で免除されるという記述もない。', '正解。'] },
-      { tag: '詳細', s: "What does the CPD Team recommend to Ms. Chowdhury?",
-        c: ['Attending a Regulatory Update webinar on 12 December', 'Repeating the online course she already completed',
-            'Submitting a written appeal to waive the shortfall', "Transferring hours from next year's requirement"],
         a: 0,
-        e: '返信メールで「12月12日に3時間のRegulatory Update ウェビナーがあり、それだけでは全て解消しないが、年内に組める最速の1件だ」と勧めている。',
-        w: ['正解。', '同じ講座の再受講は勧めていない。', '免除の申立てには触れていない。', '翌年からの繰り越しには触れていない。'] },
-      { tag: '推測', t: ['p7inf'], s: "What is suggested about the Business Skills category?",
-        c: ['It requires more hours than Technical Practice from members working part-time.', "It no longer counts toward this year's requirement after last year's review.",
-            'It does not have its own minimum hour requirement.', 'It cannot include a negotiation workshop offered by outside providers.'],
-        a: 2,
-        e: '文書1は必須時間数を明記しているのはTechnical Practice（12時間）とRegulatory Update（7時間）の2区分だけで、残りは「Business Skillsを含むどの区分でもよい」としている。特定の下限が定められていないことが読み取れる。',
-        w: ['文書1が下限を定めているのは Technical Practice（12時間）だけで、Business Skills には下限が無い。さらに文書1は「この要件は非常勤を含むすべての実務会員に適用される」と明記しており、勤務形態によって必要時間が変わるという記述もない。',
-            '文書1は「the remainder in any category, including Business Skills」と明記しており、Business Skills は現に今年度の30時間要件に算入される区分として挙げられている。今年度の要件から外れたとは述べていない。', '正解。',
-            '文書2でChowdhuryさんは5時間の交渉ワークショップをBusiness Skillsとして計上し、文書3の事務局もその計上を前提に不足分を計算しているので、提供元を問わず算入されると分かる。'] },
+        e: 'Regulatory Compliance Updatesの必須時間数は文書1で5時間。Vantreyさんは文書2で6月に4時間出席したと報告しており、5－4＝1時間不足している。',
+        w: ['正解。',
+            'RCUの4時間のオンラインセッションにも、Vehicle Safety Systemsにだけ適用される単一オンライン講座の算入上限（3時間）を当てはめた場合の不足分（5－3＝2）。この上限はVehicle Safety Systemsの必須時間数に限った規定で、RCUの4時間はそのまま算入される。',
+            'RCUの不足分ではなく、Vehicle Safety Systemsの単一のオンライン講座に適用される算入上限（3時間）の数値を、そのままRCUの不足分と取り違えた場合に出やすい数。',
+            'Regulatory Compliance Updatesではなく、Vehicle Safety Systemsの不足分（必須10時間に対し算入6時間で4時間不足）。設問が尋ねているのはRCUの不足分である。'] },
+      { tag: 'クロス', qid: 'v6q187p', s: 'How many of the hours Ms. Vantrey reports count toward the minimum for Vehicle Safety Systems?',
+        c: ['6', '9', '11', '14'],
+        a: 0,
+        e: '文書1は「単一のオンライン講座がVehicle Safety Systemsの必須時間数に算入されるのは3時間まで」と定めている。文書2でVantreyさんがVehicle Safety Systemsとして挙げているのは、11時間のオンライン講座1件と、対面の3時間の講習1件。オンライン講座分は上限の3時間までしか算入されないが、対面の講習は単一のオンライン講座には当たらないため上限の対象外で、3時間がそのまま算入される。したがって算入されるのは3＋3＝6時間。',
+        w: ['正解。',
+            '文書2でBusiness Skillsとして報告されている9時間のワークショップの数値で、Vehicle Safety Systemsの算入時間ではない。',
+            'オンライン講座の11時間を、上限を適用せずそのまま数えた数値で、対面の講習の3時間は含めていない。',
+            'オンライン講座と対面の講習の時間をどちらも上限を適用せずに合計した数値（11＋3＝14）で、Vehicle Safety Systemsの算入時間ではなく、Vantreyさんが実際に費やした時間の合計である。'] },
+      { tag: '詳細', qid: 'v6q188p', s: 'What happens to members who have not met the requirement by the year-end deadline?',
+        c: ['Their membership is suspended from the start of the new year.',
+            'They are given three more months to make up the hours.',
+            "The missing hours are added to next year's total.",
+            'A fee is charged when they renew their membership.'],
+        a: 1,
+        e: '「12月31日までに要件を満たしていない会員は仮資格（条件付きで資格を保つ状態。停止ではない）に移行し、3月31日までに不足分を解消する。これは翌年分の新しい要件とは別扱いとされる」と定めている。12月31日から3月31日までは3か月。',
+        w: ['仮資格（条件付きで資格を保つ状態。停止ではない）に移行するとしており、新年の初めに資格が停止されるとは述べていない。',
+            '正解。',
+            '不足分は翌年の必須時間数とは別に解消するとしており、翌年分に繰り込まれるという内容とは矛盾する。',
+            '更新時に手数料が発生するとは述べていない。'] },
+      { tag: '詳細', qid: 'v6q189p', s: 'What does the Institute suggest Ms. Vantrey do about her Regulatory Compliance Updates hours?',
+        c: ['Attend a live briefing that the Institute runs online',
+            'Complete a self-study module with a short quiz',
+            'Submit a record of a training day at her company',
+            'Log the hours from a trade conference she will attend'],
+        a: 3,
+        e: '返信で「あなたが触れていたWellsgate Haulage Trade Conferenceのプログラムには、規制改正を扱う認定セッションが含まれており、出席証明を得たうえでこの区分に記録すれば不足を埋められるはずだ」と勧めている。',
+        w: ['オンラインのライブ配信講習には触れていない。',
+            '自習形式の講座には触れていない。',
+            '自社での研修日の記録提出には触れていない。',
+            '正解。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v6q190p', s: 'What is suggested about the Driver Wellbeing category?',
+        c: ['It became one of the categories this year.',
+            'Its hours count toward the total up to a limit.',
+            "Sessions in it need the Institute's approval in advance.",
+            'Members can attend its sessions free of charge.'],
+        a: 0,
+        e: '文書1は「Driver Wellbeingは今年から新たに認定区分に加わった」と述べている。',
+        w: ['正解。',
+            '上限が定められているのは、単一のオンライン講座がVehicle Safety Systemsの必須時間数に算入される場合だけで、Driver Wellbeingに上限があるとは述べていない。',
+            '事前承認が必要だとは述べていない。',
+            '無料で参加できるとは述べていない。'] },
     ],
   }),
 
-  /* ══ 191–195 トリプルパッセージ ════════════════════ */
-  /* 2026-08-18 の再監査で全面差し替え。旧版（会議の参加登録）は 181–185 と同じ装置——
-     「起点になるのは書類の日付ではなく入金日」——で作られており、しかも同じ誤答
-     （申込書・注文書の日付を起算日に使ってしまう）を置いていた。同じ巻で2回になるため、
-     こちらの計算の軸を日付から外し、「料金帯を決めるのは届いた数ではなく実際に試験する数」
-     という数量の閾値に組み替えた。文書・設問とも全面的に書き直し、設問 id も新規採番している。
-     2026-08-18 のレビューで、さらに2点直した。
-     (1) No.192 は文書1だけで解けていた。証明に関する規定が「排水計画書」ひとつしか無く、
-         文書2を読まなくても他の3択が消えて当たってしまう。文書1の規定を池の種類で2分岐にし
-         （屋根の雨水だけの池＝流入口の写真／舗装ヤードの表面水も受ける池＝排水計画書）、
-         誤答に前者の要件を置いた。文書2の「工場棟の屋根と舗装ヤードの両方」を読まないと
-         どちらの分岐か決まらない。
-     (2) No.193 は4択のうち正解だけが and で結ぶ複合構造だった（CLAUDE.md の既知の書き癖）。
-         誤答Dを同じ「標準パネル＋α」の形に替えて、形だけで正解が浮かないようにした。
-     2026-08-18 の再々監査で、(1) の直しがまだ閉じていないことが分かり文書1を1文だけ直した。
-     旧文「Testing proceeds without the document, but the results cannot be certified …」は、
-     定冠詞の the document が直前の the site drainage plan しか受けられず、
-     「証明に関わる書類＝排水計画書」と文書1だけで読めてしまう（写真の分岐には証明の話が付いて
-     いなかった）。証明の条件を「その池に求められる方の書類」と両分岐に対称に掛け直したので、
-     文書1だけでは A（排水計画書）と B（流入口の写真）が 50/50 のまま残り、
-     文書2の「屋根と舗装ヤードの両方」を読んで初めて決まる。あわせて文書2を
-     「Each of the ponds takes run-off from …」に変え、「一部の池は屋根だけ」という分配読みで
-     誤答B（流入口の写真）も必要になる余地を消した。 */
+  /* ══ 191–195 トリプルパッセージ ════════════════════
+     先読み対策・第2案。全面差し替え（旧版は191–195と196–200の間で装置が競合していたため、
+     監査役の案どおり印刷の料金帯という新しい装置に組み替えた）。
+     監査の是正（review-r4）：Q191 の設計上の問題（誤答がすべて「同じ帯の別の単価」で、
+     料金表と4択だけから逆算すると正解の帯しか成立しなかった）を、メインの決定に従い
+     料金表を「枚数の帯」から「用紙（Standard／Recycled）×仕上げ（Matt／Gloss）」の2×2に
+     組み替えて解消した。4つの単価はどの組み合わせにも一対一で割り当てており、用紙単独・
+     仕上げ単独のどちらでも安いほうを選ぶだけでは正解の帯（Recycled×Gloss＝$0.17）に
+     たどり着けない（Standardでは Matt のほうが Gloss より安く、Recycledでは逆に Gloss の
+     ほうが Matt より安いので、片方の属性だけを見ても価格は決まらない）。用紙は文書2、
+     仕上げは文書3でそれぞれ1つずつ確定するため、Q191 は両文書が要る。
+     文書を1つずつ隠すと：料金ページだけでは発注枚数・用紙・仕上げが、発注メールだけでは
+     用紙は分かるが仕上げ・料金帯が、返信だけでは仕上げは分かるが用紙・枚数・料金帯が
+     分からない。Q192 はターンアラウンドの規則（文書1）と、ファイルが届いた曜日（文書3）・
+     発注メールの日付（文書2）の両方が要る（曜日は本文の「月曜日に届いた」という一文と
+     文書2の日付から逆算する形にし、特定の年に依存しないようにした）。Q193 は料金ページのみ、
+     Q194 は返信メールのみで決まる単一文書の設問。合計枚数は「部数×1点あたりのページ数」で
+     出す形にし、単一の数値としては書いていない。 */
   mp({
     n: [191, 192, 193, 194, 195],
+    lv: 4,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
-        title: 'Cranmore Analytical Services — Sediment Testing: Charges and Submission Rules',
+        title: 'Wrenburn Print Solutions — Pricing and Submission Rules',
         body: [
           { t: 'table',
-            head: ['Samples tested in one submission', 'Charge per sample'],
+            head: ['Paper', 'Finish', 'Price per sheet'],
             rows: [
-              ['1–9', '$46'],
-              ['10–24', '$38'],
-              ['25 or more', '$31'],
+              ['Standard', 'Matt', '$0.19'],
+              ['Standard', 'Gloss', '$0.21'],
+              ['Recycled', 'Matt', '$0.23'],
+              ['Recycled', 'Gloss', '$0.17'],
             ] },
-          'A submission is everything that reaches us under a single job number. The band above is fixed by the number of samples we test, not by the number that arrive.',
-          'Every sample is moisture-checked on arrival. Samples above the limit cannot be run: they go back untested, are not charged for, and are left out of the count that fixes the band. Returned samples are held at reception for fourteen days, then disposed of.',
-          'The charge per sample covers the standard panel and one summary report for the job. Individual data sheets are charged separately. Submitters arrange delivery; we do not collect.',
-          'Where a pond is fed by roof water alone, a photograph of the inlet is all we need. Where a pond also takes run-off from a paved yard, the site drainage plan must accompany the submission instead. Testing proceeds either way, but the results can be certified for a regulatory filing only where the item required for that pond, whether the photograph or the drainage plan, has been supplied.',
+          'Each combination of paper and finish has its own rate per sheet, as shown above. The total price is that rate multiplied by the total number of sheets we print, calculated as the number of copies multiplied by the number of pages in each copy.',
+          'The price per sheet covers the printing itself and cutting each printed sheet down to the dimensions you specify. A printed proof, delivery to your premises (jobs can otherwise be collected from our counter), and a full check of your artwork’s content and colours are each available as separate paid add-ons.',
+          'Standard turnaround is seven working days from the date we receive print-ready files.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: reception@cranmoreanalytical.com\nFrom: h.brekkan@winsdaleaggregates.com\nDate: 9 February\nSubject: Sediment samples from the Winsdale ponds',
+        head: 'To: orders@wrenburnprint.com\nFrom: n.vantwerp@westhollowmarketing.com\nDate: 3 March\nSubject: Brochure order — Westhollow Marketing',
         body: [
           'Hello,',
-          'Our driver is bringing twenty-six sediment samples this afternoon, all from the settling ponds at the Winsdale site and all under one job number.',
-          'Each of the ponds takes run-off from the workshop roofs and from the paved yard where the loading shovels stand.',
-          'The figures are for our discharge consent renewal, which the regulator will not process without certified results.',
-          'Could you confirm what the job will come to?',
-          'Many thanks,\nHedda Brekkan\nEnvironmental Officer, Winsdale Aggregates',
+          "We'd like 1,200 copies of our new company brochure, A5 size, three pages each, printed on your recycled stock, using the artwork files attached.",
+          "We haven't decided between a matt and a gloss finish — could you recommend one?",
+          'The brochure was designed for us by a freelance graphic designer, so if there are any questions about the artwork, we may need a day or two to check with her.',
+          'Also, please make sure the invoice shows our current address, which is on the purchase order attached. We relocated across town last year, and some online directories still list our old one.',
+          "Please let me know the price and the timeline once you've had a chance to look at the files.",
+          'Thank you,\nNoor Vantwerp\nWesthollow Marketing',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: h.brekkan@winsdaleaggregates.com\nFrom: o.sowande@cranmoreanalytical.com\nDate: 10 February\nSubject: RE: Sediment samples from the Winsdale ponds',
+        head: 'To: n.vantwerp@westhollowmarketing.com\nFrom: orders@wrenburnprint.com\nDate: 5 March\nSubject: RE: Brochure order — Westhollow Marketing',
         body: [
-          'Dear Ms. Brekkan,',
-          'The samples reached us safely. Two were above the moisture limit and cannot be run; those two are on the shelf here for your driver. The rest are booked in as job CR-3318.',
-          'Your delivery note lists the ponds as P1 to P4, but the tubs carry only dates. I have logged them by date so that testing can start on schedule. If you need the results broken down by pond, send me a list matching dates to ponds.',
-          'One further point: individual data sheets have to be asked for before the report is signed off; they cannot be added afterwards.',
-          'Kind regards,\nOttilie Sowande\nSample Reception, Cranmore Analytical Services',
+          'Dear Ms. Vantwerp,',
+          "When your files first arrived on Monday, we noticed the artwork was laid out for A4 rather than the A5 size you'd ordered, so we asked you to resend.",
+          'Thanks for sending the corrected files this morning — we can now book the job in.',
+          "For the finish, we'd suggest gloss for a brochure like this, so we've gone ahead with that.",
+          "We'll send the invoice to the address on your purchase order.",
+          'The order confirmation, with the price and the date the job will be ready, is attached.',
+          'Kind regards,\nWrenburn Print Solutions',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', qid: 'v6q191r', s: 'What will Cranmore Analytical Services charge for the Winsdale job?',
-        c: ['$744', '$806', '$912', '$988'],
-        a: 2,
-        e: '文書2でBrekkanさんは26点を1つのジョブ番号で送ると述べている。文書3によれば、そのうち2点は水分量が上限を超えて試験できず、返却されている。文書1は「返却された試料は課金せず、料金帯を決める数にも入れない」と定めているので、課金の対象は24点。24点は表の「10–24」の帯に入るから1点あたり$38で、24×$38＝$912となる。',
-        w: ['料金帯を「届いた26点」で判定して「25 or more」の$31を当てはめ、課金は24点で計算した額（24×$31＝$744）。文書1は帯を決めるのは実際に試験する数だと明記している。',
-            '届いた26点を、帯の判定にも課金する点数にもそのまま使った額（26×$31＝$806）。試験できなかった2点は帯の判定からも課金からも外れる。',
-            '正解。',
-            '帯は正しく$38を取りながら、返却された2点まで課金してしまった額（26×$38＝$988）。文書1は返却された試料は課金しないと定めている。'] },
-      { tag: 'クロス', qid: 'v6q192r', s: 'What will Winsdale Aggregates have to provide if the results are to be certified?',
-        c: ['A drainage plan for the site',
-            'A photograph of the pond inlet',
-            'Moisture readings taken before dispatch',
-            'A separate job number for each pond'],
+      { tag: 'クロス', qid: 'v6q191p', s: 'What will Wrenburn Print Solutions charge for the Westhollow job?',
+        c: ['$612', '$684', '$756', '$828'],
         a: 0,
-        e: '文書1は池の種類で2つに分けている。屋根の雨水だけを受ける池なら流入口の写真、舗装ヤードからの表面水も受ける池なら敷地の排水計画書を提出物に添える必要があり、その池に求められる方が添えられていなければ結果を規制当局への届出用に証明できない。文書2でBrekkanさんは「どの池も工場棟の屋根と、積込機の置かれた舗装ヤードの表面水を受けている」と述べているので後者に当たり、必要なのは排水計画書。どちらの分岐に当たるかは文書2を読まないと決まらない。',
+        e: '文書2によれば注文は1,200部・各3ページのブローシュアで、用紙は再生紙（recycled stock）を使うとしている。仕上げについては文書2の時点では未定だが、文書3で光沢（gloss）仕上げを提案し、それを採用したとしている。印刷枚数の合計は1,200×3＝3,600枚。文書1の料金表で「再生紙×光沢」の単価は1枚$0.17なので、3,600×$0.17＝$612。',
         w: ['正解。',
-            '文書1が流入口の写真で足りるとしているのは「屋根の雨水だけを受ける池」の場合。文書2は池が舗装ヤードの表面水も受けていると述べており、この条件に当たらない。',
-            '文書1によれば水分量の測定は受入時に試験所側が全点について行う。提出者が測って添えるという規定はない。',
-            '文書1は「1つのジョブ番号でまとめて届いたもの全体が1件の提出である」と定めており、池ごとに番号を分けるという規定はない。文書3も残りをまとめて1件（CR-3318）として登録している。'] },
-      { tag: '詳細', qid: 'v6q193r', s: 'According to the Web page, what does the charge per sample include?',
-        c: ['Collection of the samples from the submitter’s site',
-            'The standard panel and a set of data sheets',
-            'A summary report for each sample tested',
-            'The standard panel and one summary report'],
-        a: 3,
-        e: '文書1に「1点あたりの料金には標準パネルの試験と、そのジョブ1件分の要約報告書が含まれる」と明記されている。',
-        w: ['文書1は「配送は提出者が手配する。当社は集荷しない」と明記しており、矛盾する。',
-            '標準パネルは含まれるが、個票一式は別料金である。文書1が1点あたりの料金に含めているのは、標準パネルと、そのジョブ1件分の要約報告書だけ。',
-            '文書1が1点あたりの料金に含めているのは「そのジョブ1件分の要約報告書」であり、要約報告書はジョブごとに1通である。試料ごとに1通発行されるという記述はない。',
-            '正解。'] },
-      { tag: '詳細', qid: 'v6q194r', s: 'What does Ms. Sowande say about the individual data sheets?',
-        c: ['They are sent automatically with the summary report.',
-            'They are available only where a report is certified by the lab.',
-            'They are not charged separately from the rest of the job.',
-            'They must be requested before the report is signed off.'],
-        a: 3,
-        e: '文書3の末尾に「個票は報告書が承認される前に依頼しておく必要があり、承認されたあとには追加できない」とある。',
-        w: ['文書3は「報告書が承認される前に依頼しておく必要がある」と明記しており、依頼なしに自動で付くという内容と矛盾する。',
-            '証明付きの報告書に限るという条件は文書3のどこにも述べられていない。検査機関側が承認した場合に限るという条件も述べられていない。',
-            '文書1は Individual data sheets are charged separately と、個票が別料金であることを明記している。まとめて課金され別立てにならないとするこの記述は文書1と正面から矛盾するので偽。',
-            '正解。'] },
-      { tag: '推測', t: ['p7inf'], qid: 'v6q195r', s: 'What is suggested about the results as the samples are currently logged?',
-        c: ['They will be delayed until the labelling is corrected.',
-            'They will not show which pond each sample came from.',
-            'They will be grouped by pond rather than by date.',
-            'They will have to be checked against the delivery note by the client.'],
-        a: 1,
-        e: '文書3によれば、納品書には池がP1からP4と記されているのに、容器そのものには日付しか書かれていない。Sowandeさんは日付で登録したと述べ、池ごとに分けた結果が必要なら日付と池の対応表を送るよう求めている。裏返せば、対応表が届かない限り、報告書は各試料がどの池のものかを示さないことになる。',
-        w: ['文書3は「試験を予定どおり始められるよう日付で登録した」と述べており、遅れるという内容と矛盾する。',
+            '「標準紙×つや消し」の単価$0.19を使った場合の額（3,600×$0.19＝$684）。用紙・仕上げのどちらも今回の注文とは異なる。',
+            '「標準紙×光沢」の単価$0.21を使った場合の額（3,600×$0.21＝$756）。仕上げは光沢で合っているが、用紙を再生紙ではなく標準紙と取り違えている。',
+            '「再生紙×つや消し」の単価$0.23を使った場合の額（3,600×$0.23＝$828）。用紙は再生紙で合っているが、仕上げを光沢ではなくつや消しと取り違えている。'] },
+      { tag: 'クロス', qid: 'v6q192p', s: 'By what date should Ms. Vantwerp expect the finished job to be ready?',
+        c: ['14 March', '18 March', '21 March', '25 March'],
+        a: 0,
+        e: '文書1は「通常の納期は、印刷可能な状態のファイルを受け取った日から7営業日」と定めている。文書3は、最初のファイルが月曜日に届いたとしており、文書2の日付が3月3日であることと合わせると、3月3日が月曜、返信の日付である3月5日は水曜とわかる。修正済みのファイルはこの3月5日の朝に届いたとあるので、この日を起点に7営業日を数える。3月5日の翌営業日から数えて7営業日目にあたるのは3月14日（金曜）。',
+        w: ['正解。',
+            '3月5日から9営業日後の日付で、7営業日の規定より遅い。',
+            '3月5日から12営業日後の日付で、7営業日の規定より遅い。',
+            '3月5日から14営業日後の日付で、7営業日の規定より遅い。'] },
+      { tag: '詳細', qid: 'v6q193p', s: 'According to the Web page, what does the price per sheet include?',
+        c: ['One printed proof for the whole job', 'Delivery to addresses within the city',
+            'Trimming each sheet to its finished size', 'A check of the artwork files before printing'],
+        a: 2,
+        e: '文書1は「1枚あたりの料金には印刷そのものと、指定した寸法までの断裁が含まれる」とし、「校正刷り・お客様先への配送（それ以外は集荷カウンターでの受け取り）・原稿内容や色の全面チェックはいずれも別料金の追加サービスとして提供する」としている。',
+        w: ['校正刷りは別料金の追加サービスだと明記されている。',
+            '配送は、お客様先への配送であれば別料金で、それ以外は集荷カウンターでの受け取りだと述べている。市内かどうかという区別には触れていない。',
             '正解。',
-            '文書3は「日付で登録した」と明記しており、池ごとにまとめるという内容と矛盾する。池ごとに分けた結果が要るなら、日付と池の対応表を送る必要がある。',
-            '納品書との照合を客に求める記述はない。求められているのは、日付と池の対応表を送ることである。'] },
+            '原稿内容や色の全面チェックは別料金の追加サービスだと明記されている。'] },
+      { tag: '詳細', qid: 'v6q194p', s: "What does Wrenburn's reply say about the files Ms. Vantwerp sent?",
+        c: ['Some of the images in them are too low in resolution.',
+            'Their colour settings suit screens rather than printed paper.',
+            'The page size in them differs from the size ordered.',
+            'They are in a format the press has to convert first.'],
+        a: 2,
+        e: '返信で「届いた原稿はA5で発注されているのにA4のレイアウトになっていたため、再送を依頼した」と述べている。',
+        w: ['画像の解像度については触れていない。',
+            '色の設定については触れていない。',
+            '正解。',
+            'ファイル形式の変換については触れていない。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v6q195p', s: 'What is suggested about Westhollow Marketing?',
+        c: ['Wrenburn has printed jobs for it in the past.', 'It needs the items for a trade show.',
+            'Its offices moved to a new building last year.', 'Designers on its own staff produced the artwork.'],
+        a: 2,
+        e: '発注メールで「昨年、町の反対側に移転しており、一部のオンラインディレクトリにはまだ旧住所が載っている」と述べ、請求書には発注書記載の現在の住所を使うよう念を押している。',
+        w: ['Wrenburnとの過去の取引の有無には触れていない。',
+            '展示会への言及はない。',
+            '正解。',
+            'ブローシュアのデザインは外部のフリーランスデザイナーに依頼したと明記されており、自社デザイナーが手がけたという内容とは矛盾する。'] },
     ],
   }),
 
-  /* ══ 196–200 トリプルパッセージ ════════════════════ */
-  /* 2026-08-18 の一括照合で、旧版のNo.200「店舗の在庫について何が示唆されるか」（正解:
-     大半が販売できなくなる）が、No.196（対象範囲内の台数＝5）と同じ「6台中5台が対象範囲内」
-     という事実の言い換えに過ぎず、どちらか一方の答えが分かればもう一方も絞れる状態だったため、
-     No.200 を別の事実（新規入荷品の確認手順を変更したこと。文書3の末尾）を問う設問に差し替えた。
-     正解位置（index 0）は変更していないが、正解の中身が変わったため id を新規採番した
-     （qid: 'v6q200r'）。196・197・198・199 は互いに独立した事実を問うており、この重複は無いことを確認済み。 */
+  /* ══ 196–200 トリプルパッセージ ════════════════════
+     先読み対策・第2案。リコール通知＋店舗向け手順メモ＋店舗からの報告メール、という場面は
+     保ち、品目を携帯コンロに変更、本文は新規。文書を1つずつ隠すと：報告メールだけでは対象の
+     連番範囲が、通知だけでは点検で見つかった連番が分からず Q196 は両方が要る。Q199 も、客の持込品の
+     連番（文書3）と、対象範囲内の返金規定（文書1・文書2）の両方が要る。メールには連番を
+     並べ、台数そのものは書いていない。Q197・Q198・Q200 は単一文書で決まる詳細設問。
+     監査の是正（review-r4）：Q197 は対象範囲の境界（対象は4月22日製造分まで）と設計変更の
+     導入日（`introduced that date`＝4月22日）が矛盾していたため、設計変更の導入日を
+     4月23日に直した。原因の記述もQ197の選択肢と逐語一致していたため言い換えた。
+     Q198 は「範囲外の製品を陳列に戻さない」という、Aを消すためだけの否定文を削り、
+     肯定文（別箱にまとめて移送する）だけで足りる形にした。Q196 の why B（誤答「3」）を、
+     「FS140-3で始まる連番だけを数えた」という具体的な取り違えの説明に書き直した。
+     固有名 Briony は既存の別ファイル（Part 3）の人物と重複していたため Wilma に差し替えた
+     （頭文字は W のまま）。 */
   mp({
     n: [196, 197, 198, 199, 200],
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
-        title: 'Halvern Home Appliances — Voluntary Recall Notice: Countertop Kettle, Model CK-210',
+        title: 'Wexmoor Outdoor Equipment — Voluntary Recall Notice: Portable Camping Stove, Model FS-140',
         body: [
-          'We are recalling countertop kettles, Model CK-210, with serial numbers between CK210-40000 and CK210-52999, manufactured between 12 October last year and 19 April this year.',
-          'In a small number of units within this range, the base connector can overheat if the kettle is boiled more than fifteen times in quick succession without a cooling break.',
-          'Units with serial numbers outside this range, and all CK-210 units manufactured after 19 April, are not affected; a design change introduced on 20 April resolved the issue.',
-          'Customers with an affected unit should stop using it and may return it to any Halvern retail partner for a full refund or a replacement of a different model. No receipt is required for a return under this notice.',
+          'We are recalling portable camping stoves, Model FS-140, with serial numbers between FS140-30000 and FS140-42999, manufactured between 3 November last year and 22 April this year.',
+          'In a small number of units within this range, the valve that controls the gas flow can jam if the stove is lit again before it has cooled, which can cause a delay before the burner catches or, in rare cases, a brief flare-up.',
+          'Units with serial numbers outside this range, and all FS-140 units manufactured after 22 April, are not affected; a design change introduced on 23 April resolved the issue.',
+          'Customers with an affected unit should stop using it and may return it to any Verrow Outdoor Retail store for a refund or a replacement of a different model. Where the customer can show proof of purchase, we will process a full refund; without proof of purchase, we can only offer a replacement.',
           'Customers can also check their own serial number against the recalled range using the lookup tool on our support pages, which will remain posted until the recall is closed.',
         ],
       },
       {
         label: 'Memo', meta: 'Document 2',
-        title: 'Halvern Retail Partners — In-Store Procedure for the CK-210 Recall',
+        title: 'Verrow Outdoor Retail — In-Store Procedure for the FS-140 Recall',
         body: [
           { t: 'ol', items: [
-            'Remove all CK-210 stock from display and check the serial number printed on the base of each unit against the recalled range, CK210-40000 to CK210-52999.',
+            'Remove all FS-140 stock from display and check the serial number printed on the base of each unit against the recalled range, FS140-30000 to FS140-42999.',
             'Units within that range: place in the marked return bin for collection; do not return them to display or resell them.',
-            'Units outside that range: return to display and mark them as checked on the inventory sheet.',
-            "Customers presenting a CK-210 for return: check the serial number the same way. If it falls within the recalled range, process a refund or replacement per the notice, and no receipt is required. If it falls outside the range, the recall does not apply, and this store's standard return policy governs instead — returns are accepted only within 30 days of purchase and only with a receipt.",
+            'Units outside that range: box these separately for transfer. Head office is currently redistributing surplus stock to branches that are running low, and the courier collecting the recalled units will also take these.',
+            'Customers presenting an FS-140 for return: check the serial number the same way. If it falls within the recalled range, follow the manufacturer’s notice — a refund with proof of purchase, or a replacement without. If it falls outside the range, the recall does not apply, and this store’s standard return policy governs instead: returns are accepted only within 30 days of purchase and only with a receipt.',
             'Log every check, whether the unit is within range or not, on the attached inventory sheet so head office can confirm the store has completed it.',
           ] },
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: safety@halvernappliances.com\nFrom: r.attah@kelbrookhomegoods.com\nDate: 6 May\nSubject: CK-210 recall — stock check and a customer return',
+        head: 'To: safety@wexmoorequipment.com\nFrom: w.winmore@verrowoutdoor.com\nDate: 6 May\nSubject: FS-140 recall — stock check and a customer return',
         body: [
           'Hello,',
-          'We completed the stock check this morning. We had six CK-210 units in the store: five have serial numbers in the 46000s, and one is CK210-53100.',
-          "A customer also brought in her CK-210 today, serial number CK210-51500. She bought it about four months ago and does not have the receipt. She's asking for a refund.",
-          "Could you confirm we're handling both situations correctly before we finish for the day?",
-          "We've also updated our shelf signage to note that any new CK-210 stock should be checked immediately on delivery, not just when a customer asks.",
-          'Thanks,\nRuth Attah\nKelbrook Home Goods',
+          'We completed the stock check this morning. We had seven FS-140 units in the store; serial numbers were FS140-31200, FS140-33450, FS140-41800, FS140-43700, FS140-29950, FS140-38810, and FS140-42500.',
+          'A customer also brought in her FS-140 today, serial number FS140-36700, and is asking for a refund.',
+          'Could you confirm what we should ask her for before we process it?',
+          "We've also sent an e-mail to every customer on record as having purchased an FS-140 from us, letting them know about the recall and how to check their own serial number.",
+          'Thanks,\nWilma Winmore\nVerrow Outdoor Retail',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: "How many of the six CK-210 units found in the store fall within the recalled serial range?",
-        c: ['1', '4', '5', '6'],
+      { tag: 'クロス', qid: 'v6q196p', s: "How many of the stoves found during the store's stock check fall within the recalled serial range?",
+        c: ['1', '3', '5', '7'],
         a: 2,
-        e: 'リコール対象の連番範囲は文書1でCK210-40000からCK210-52999。文書3によれば店舗にあった6台のうち5台は46000番台で範囲内、残り1台のCK210-53100は52999を超えるため範囲外。したがって範囲内は5台。',
-        w: ['範囲外だった台数（CK210-53100の1台）で、範囲内の台数ではない。',
-            '文書3が範囲内の台数として挙げているのは46000番台の5台であり、4台という数値は文書3のどの記述からも出てこない。', '正解。',
-            '店舗にあった台数の総数（6台）で、CK210-53100の1台を範囲内と誤って数えた場合の値。この番号は上限のCK210-52999を超えている。'] },
-      { tag: '詳細', s: "What is given as the cause of the CK-210 issue?",
-        c: ['A cracked plastic handle that can break under normal daily use after a few months', 'A power cord that was fitted with the wrong wire gauge before the April design change',
-            'A water reservoir that can leak onto the base while boiling if overfilled past the marked line', 'A base connector that can overheat after repeated use without a cooling break'],
-        a: 3,
-        e: '「冷却の間隔を空けずに15回を超えて連続で沸かすと、ベース部のコネクタが過熱することがある」と明記されている。',
-        w: ['ハンドルの破損や経年劣化には触れていない。通知が挙げている不具合はベース部コネクタの過熱だけである。', '電源コードの線材には触れていない。4月20日の設計変更は本文にあるが、それが解消したのはベース部コネクタの過熱であって配線ではない。', '水漏れや満水線を超えた注水についての記述はない。', '正解。'] },
-      { tag: '詳細', s: "What should staff do with CK-210 units whose serial numbers fall outside the recalled range?",
-        c: ['Return them to display and mark them as checked on the inventory sheet', 'Place them in the marked return bin for collection along with the affected units',
-            'Send them back to Halvern for inspection regardless of the serial number range shown on the base', 'Offer customers a discount and a free inspection on their next visit to the store'],
-        a: 0,
-        e: '「対象範囲外の製品は、陳列に戻し、在庫確認表にチェック済みと記録する」と明記されている。',
-        w: ['正解。', '文書2が「回収用に返品ビンへ入れる」と定めているのは連番が範囲内の製品だけで、範囲外の製品は陳列に戻すと明記されている。','一律に Halvern へ送り返せという指示は文書2のどこにもない。ベース部に印字されているのは各機の連番であって、リコール対象の範囲そのものではない。範囲外の製品は陳列に戻すと明記されている。', '値引き販売や無料点検の申し出には触れていない。'] },
-      { tag: 'クロス', s: "Will the store need to see a receipt before refunding the kettle the customer brought in?",
-        c: ["Yes, because her purchase falls outside the standard 30-day return window.", "No, because her kettle's serial number falls within the recalled range.",
-            'No, because the notice requires a replacement rather than a refund.', 'Yes, because her serial number falls outside the recalled range.'],
+        e: 'リコール対象の連番範囲は文書1でFS140-30000からFS140-42999。文書3が報告する在庫点検時の7台の連番のうち、この範囲に入るのはFS140-31200・33450・41800・38810・42500の5台。範囲外は下限未満のFS140-29950と上限超のFS140-43700の2台。',
+        w: ['在庫点検で見つかった7台のうち、範囲内に入るのは1台だけではない。実際は5台（FS140-31200・33450・41800・38810・42500）が範囲内に入る。',
+            'FS140-3で始まる3台（31200・33450・38810）だけを数えた数。上限はFS140-42999なので、41800・42500も範囲内に入る。',
+            '正解。',
+            '在庫点検で見つかった台数の総数（7台）で、範囲外の2台（FS140-29950・43700）まで範囲内に含めてしまった数。'] },
+      { tag: '詳細', qid: 'v6q197p', s: 'What is given as the cause of the issue described in the notice?',
+        c: ['A handle that can come loose after a few months of use',
+            'A gas valve that can stick when relit while still hot',
+            'A fuel line that can crack from long exposure to heat',
+            'An ignition switch that can corrode after exposure to damp air'],
         a: 1,
-        e: '文書3によれば、客が持ち込んだ製品の連番はCK210-51500で、文書1が示すリコール対象範囲（CK210-40000〜CK210-52999）内にある。文書2は、対象範囲内の製品には通常の店舗方針（30日以内・レシート必須）ではなくリコール通知の規定が適用され、レシートは不要だと定めている。',
-        w: ['30日以内・レシート必須という規定は、文書2により対象範囲外の製品にのみ適用される通常方針であり、この客の製品には当てはまらない。', '正解。',
-            '文書1は「全額返金または別モデルへの交換」としており、交換に限定していない。', 'CK210-51500は40000から52999の範囲内にあり、範囲外ではない。'] },
-      { tag: '詳細', qid: 'v6q200r', s: "What does Ms. Attah say the store has changed about handling new CK-210 stock?",
-        c: ['It will wait for a customer to ask before checking new stock.', 'It will no longer update its shelf signage.',
-            'It will post the recall notice next to all new stock.', "It will check new stock's serial numbers immediately upon delivery."],
+        e: '「対象範囲内の一部の製品では、まだ熱いうちに再点火するとガスバルブが固着することがあり、バーナーの着火が遅れたり、まれに炎が一瞬大きくなったりすることがある」と明記されている。',
+        w: ['取っ手の破損には触れていない。',
+            '正解。',
+            '燃料ラインのひび割れには触れていない。',
+            '点火スイッチの腐食には触れていない。'] },
+      { tag: '詳細', qid: 'v6q198p', s: 'What should staff do with stoves whose serial numbers fall outside the recalled range?',
+        c: ['Put them back on display for sale as usual',
+            'Keep them in the stockroom until head office confirms',
+            "Send them on to the chain's regional warehouse",
+            'Transfer them to a branch that needs more stock'],
         a: 3,
-        e: '文書3の末尾で「新しく届くCK-210の在庫は、客に聞かれたときだけでなく、入荷した時点ですぐに確認するよう、陳列棚の表示を更新した」と述べている。',
-        w: ['文書3はむしろ「客に聞かれたときだけでなく」入荷時点で確認すると述べており、客の申し出を待つという内容と正反対。', '文書 3 に "We\'ve also updated our shelf signage to note that any new CK-210 stock should be checked immediately on delivery" とあり、陳列棚の表示は実際に更新されている。今後は更新しないとするこの記述は本文と正面から矛盾する。', '新規入荷品の脇にリコール通知を掲示するとは述べていない。',
+        e: 'メモは「対象範囲外の製品は、本社が在庫の少ない店舗へ余剰在庫を回しているところなので、移送用に別箱にまとめておき、回収対象の製品を引き取る配送業者に一緒に回収させる」と定めている。',
+        w: ['メモは、範囲外の製品を移送用に別箱にまとめるとしており、通常どおり陳列に戻すという内容とは両立しない。',
+            '本社の確認を待って在庫室に留め置くとは述べていない。',
+            '系列の地域倉庫に送るとは述べていない。',
             '正解。'] },
+      { tag: 'クロス', qid: 'v6q199p', s: 'Will the store need to see a receipt before refunding the stove the customer brought in?',
+        c: ["No, because her stove's serial number is within the recalled range.",
+            'No, because her purchase is on record through her loyalty card.',
+            "Yes, because her stove's serial number is outside the recalled range.",
+            'Yes, because the notice makes refunds depend on proof of purchase.'],
+        a: 3,
+        e: '文書3によれば、客が持ち込んだ製品の連番はFS140-36700で、文書1が示すリコール対象範囲（FS140-30000〜FS140-42999）内にある。文書1・文書2はいずれも、対象範囲内の製品でも返金には購入証明が要り、証明があれば全額返金、無ければ交換のみと定めている。したがって返金を受けるには購入証明の提示が必要になる。',
+        w: ['対象範囲内であることは、証明なしで返金できることを意味しない。文書1・文書2はむしろ、対象範囲内の製品でも返金には購入証明が要ると定めている。',
+            'ポイントカードによる購入記録には触れていない。文書3の on record は、店が購入記録のある客にメールを送ったという話で、この客の購入が記録にあるかどうかは述べていない。',
+            'FS140-36700は上限のFS140-42999を超えておらず、対象範囲外ではない。',
+            '正解。'] },
+      { tag: '詳細', qid: 'v6q200p', s: "What does Ms. Winmore say the store has done in addition to the stock check?",
+        c: ['Posted a notice about the recall beside the tills',
+            'E-mailed customers who bought the stove through the store',
+            'Set up a separate counter for recall returns',
+            'Briefed weekend staff on how to handle returns'],
+        a: 1,
+        e: 'メールの末尾で「この店でFS-140を購入した記録のある客全員にメールを送り、リコールと連番の確認方法を知らせた」と述べている。',
+        w: ['レジ脇への掲示には触れていない。',
+            '正解。',
+            '回収専用のカウンター設置には触れていない。',
+            '週末スタッフへの説明には触れていない。'] },
     ],
   }),
 ];

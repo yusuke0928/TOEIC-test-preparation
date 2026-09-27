@@ -18,168 +18,262 @@ const sp = (o) => ({
 export const R3 = [
 
   /* ── 165–168 オンラインチャット（4 名）───────────── */
+  /* 2026-09-26 の先読み対策パイロット第2案（method2.md）でユニット全体を書き直した。
+     stem・4択はメインが凍結し、正解はメインがくじで決定（Q165=A、Q166=B、Q167=C、Q168=C）。
+     旧版（Grimsby の労災件数をめぐる社内チャット）の題材・人物名・言い回しは一切流用せず、
+     本文を新規に書き下ろした。設問 id は全問新規採番（v6q165p〜v6q168p）。
+     申し送り対応：Q165=A と Q168=B の相関は、施設への確認連絡をプルーエット氏の役割として
+     ケタリング氏の行動とは切り離すことで閉じた。Q165=B（未確定ゲスト数）と Q168=D（ゲストリスト
+     更新）はチャットで一切話題にせず、相関そのものが生じないようにした。
+     2026-09-27 監査反映（review-r3.md）：15:03 のポータス氏の発言が意味を取りにくく、(C)（業者
+     スタッフの到着時刻）の領域に踏み込んでいた（申し送り違反）ため、監査役の案どおり14:58・
+     15:00・15:03 を差し替え、"like" を "insist on" に替えて「好み」の読みを消した。15:16 は
+     「学部長の事務所に電話してみてもよい」という申し出を撤回する不自然な流れが (A) を誤って
+     補強していたため、単なる確認の問いに差し替えた。15:26 は "I'll forward it to her directly"
+     が選択肢 168(C) と逐語で重なり "it" の先行詞も遠かったため、"Prentice's e-mail" と明示する
+     形に差し替えた（15:12は "a forty-pound charge" のまま。簡略化はしていない）。
+     Q167 の why は、(A) を「学部長に月曜まで一切連絡が取れなくなる」という言い過ぎではなく
+     「4時半が捕まえる期限であり、それを過ぎた電話は間に合わない」という期限の話に、(B)(D) を
+     「言及なし」ではなく15:26以降の応答（電話でなくメール転送に切り替え、追いかける必要はない
+     という15:27の追認）を根拠にする形に書き直した。
+     2026-09-27 第2巡監査反映（polish-l2a-r3.md）：15:16（パラント氏「追加費用についても
+     知らせるべきか」）と15:17（ケタリング氏の返答）の2行を削除した。15:16 が「電話をかける役」に
+     パラント氏を位置づけてしまい、15:24 の "I'm free after half past four." を (A)（自分が後で
+     かけ直す）にも読ませていたため。15:12 が学部長の承認の要をすでに述べているので、削っても
+     失われる情報は無い（"the figure" は15:17にしか無く、本文から消えるため Q165 why[1] の
+     「言及なし」はそのまま成り立つ）。Q167 の exp から15:17への言及を外した。 */
   sp({
-    n: [165, 166, 167, 168], lv: 5, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 4, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
-        { who: 'Ilona Szymanski', time: '15:10', text: 'One thing before we file the safety report: the Grimsby injury count does not match the log. One entry is logged twice.' },
-        { who: 'Marlise Brennecke', time: '15:12', text: 'Can you confirm with the site before we submit?' },
-        { who: 'Ilona Szymanski', time: '15:14', text: 'I have called twice. The supervisor is on the depot floor until at least four.' },
-        { who: 'Kaveh Hosseini', time: '15:16', text: 'The portal locks at 17:00 sharp and fines apply per day late, no exceptions for pending confirmation.' },
-        { who: 'Torvald Ness', time: '15:18', text: 'We do not need to wait. File the corrected count now, treating the duplicate as removed, and amend once Grimsby confirms.' },
-        { who: 'Kaveh Hosseini', time: '15:20', text: 'Amendments are free with no deadline, so that is less risky than missing 17:00.' },
-        { who: 'Ilona Szymanski', time: '15:22', text: 'If Grimsby says both entries were genuine, can a correction raise the count back up too?' },
-        { who: 'Torvald Ness', time: '15:24', text: 'Yes — amendments work either way. The portal only restricts the original submission.' },
-        { who: 'Marlise Brennecke', time: '15:26', text: 'Waiting buys us nothing, then. Ilona, submit the corrected figure by five, and flag the Grimsby entry for an amendment either way.' },
-        { who: 'Ilona Szymanski', time: '15:28', text: 'Will do. I will call the supervisor again at four in case he confirms first.' },
-        { who: 'Kaveh Hosseini', time: '15:30', text: 'Good — if he confirms in time, we can file the right number the first time and skip the amendment.' },
+        { who: 'Marcus Kettering', time: '14:58', text: 'Bad news — we\'ve lost the Refectory for this year\'s symposium dinner. A conference has first claim on it for the 14th.' },
+        { who: 'Ines Pruett', time: '15:00', text: 'Is there anywhere else that seats forty?' },
+        { who: 'Marcus Kettering', time: '15:01', text: 'Maybe the Small Hall in the Old Library wing. I haven\'t checked whether it\'s free that evening.' },
+        { who: 'Callum Portas', time: '15:03', text: 'Whatever we pick has to be free well before the dinner — Prentice\'s crew insist on a full two hours in the room before doors open. It\'s our first year with them, and I\'d like the evening to go smoothly.' },
+        { who: 'Ines Pruett', time: '15:05', text: 'I\'ll ring the estates office about the Small Hall now, before their line shuts at four.' },
+        { who: 'Marcus Kettering', time: '15:12', text: 'An e-mail\'s just come in from Prentice — moving rooms adds a forty-pound charge. That needs the dean\'s sign-off before it goes any further.' },
+        { who: 'Callum Portas', time: '15:14', text: 'Can one of us catch her before half four? She\'s off-site after that until Monday.' },
+        { who: 'Odalys Pallant', time: '15:24', text: 'I\'m free after half past four.' },
+        { who: 'Marcus Kettering', time: '15:26', text: 'No matter. I\'ll pass Prentice\'s e-mail straight on to her and ask her to confirm whenever she\'s free — simpler than catching her by phone.' },
+        { who: 'Callum Portas', time: '15:27', text: 'Good — no need to chase her down at all, then.' },
       ] }],
     }],
     q: [
-      { tag: '概要', s: 'What issue are the four writers trying to resolve?',
-        c: ['How to obtain an extension from the regulator despite the fixed 17:00 deadline', 'Whether to dispute the injury count with Grimsby directly before the deadline',
-            'How to submit the report on time despite an unconfirmed figure', 'Whether to close the incident investigation early instead of waiting for Grimsby'],
-        a: 2,
-        e: '未確認の数値がある状況で、17:00 の期限に間に合わせるため、修正した数値でひとまず提出し、確定後に訂正申請を出す案が決定される。',
-        w: ['延長の話題は出ていない。ホセイニが「ポータルは17:00で締まり、確認待ちでも例外なく延滞日数分の罰金がかかる」と述べており、期限は動かせないものとして扱われている。', 'グリムズビーへの異議申し立てではなく確認待ちの状態であり、期限前に争う方針も示されていない。',
-            '正解。', '調査を打ち切る話ではない。グリムズビーの確認は待たずに提出し、後で訂正申請を出す方針である。'] },
-      { tag: '詳細', s: 'Why is submitting after 17:00 not a good option?',
-        c: ['The regulator would reject the report outright.', 'A fine applies for each day the submission is late.',
-            'The portal deletes any data entered after the deadline.', 'Grimsby would no longer be able to confirm the figure.'],
+      { tag: '概要', qid: 'v6q165p', s: 'What issue are the four colleagues trying to resolve?',
+        c: ['Where to hold the dinner now the usual hall is taken.', 'What figure to enter for one laboratory\'s unconfirmed guests.',
+            'When the caterer\'s staff should arrive to set up.', 'Whether the planned menu suits guests with food allergies.'],
+        a: 0,
+        e: '冒頭でケタリング氏が「今年のシンポジウム夕食のためにレクタリーを確保できず、14日は学会が優先権を持っている」と伝え、以降のやり取り全体が代わりの部屋探しと、それに伴う追加費用の承認という、会場変更に起因する話題で進む。',
+        w: ['正解。',
+            '確定していないゲスト数や、記入すべき数値についての言及はチャットのどこにも無い（言及なし）。',
+            '"Whatever we pick has to be free well before the dinner — Prentice\'s crew insist on a full two hours in the room before doors open." とあるとおり、プレンティス側の所要時間はすでに分かっており、代わりの部屋を選ぶ際に満たすべき条件として触れられているだけで、到着時刻そのものを話し合って決めている場面ではない。',
+            'メニューやアレルギーへの言及はチャットのどこにも無い（言及なし）。'] },
+      { tag: '詳細', qid: 'v6q166p', s: 'What does Mr. Portas say about Prentice Catering Co.?',
+        c: ['It has catered the institute\'s dinners for several years.', 'Its staff need two hours to set up a room.',
+            'Orders confirmed a week early receive a discount.', 'A new manager has taken over its bookings desk.'],
         a: 1,
-        e: 'ホセイニの発言「ポータルは17:00で締まり、確認待ちでも例外なく延滞日数分の罰金がかかる」が根拠。',
-        w: ['本文にあるのは「17:00 でポータルが閉じる」「延滞日数分の罰金」だけで、却下という記述は無い。', '正解。',
-            'ポータルは締まる（locks）とあるだけで、入力済みデータの削除には触れていない。',
-            '17:00 を過ぎるとグリムズビーが確認できなくなる、という記述は無い。監督者に連絡が取れるかは現場の都合で、ポータルの期限とは別の話。'] },
-      { tag: '意図', t: ['p7intent'],
-        s: 'At 15:26, what does Ms. Brennecke most likely mean when she writes, "Waiting buys us nothing, then"?',
-        c: ['She agrees that the corrected figure should be submitted now, with an amendment filed later.', 'She has decided to wait for Grimsby before submitting anything.',
-            'She believes the amendment process will not be needed at all because the original figure was correct.', 'She thinks the discrepancy in the log can be safely ignored until the following Friday\'s meeting.'],
-        a: 0,
-        e: '15:24 でネスが「訂正申請はどちらの方向にも出せる。制限があるのは当初提出だけだ」と確認している。数値は提出後に上にも下にも直せるのだから、グリムズビーの確認を待って提出を遅らせても得るものは無い、という意味。ブレネッケは同じ発言の後半で、修正済みの数値を5時までに提出し、グリムズビーの記録は訂正申請の対象として立てておくよう指示している。',
-        w: ['正解。', 'その逆で、待つことに利がないから待たない、という趣旨である。',
-            '15:10 でシマンスキーが「1件が二重に記録されている」と報告しており、ブレネッケ自身も「重複を除いた修正済みの数値を5時までに提出せよ」と指示している。当初の数値が正しいという前提はどこにも無い。さらに同じ発言で「どちらに転んでも訂正申請の対象として立てておけ」と述べており、訂正申請が不要とも考えていない。', '食い違いを無視するのではなく、重複を除いた「修正済みの数値」を提出すると決めている。金曜の会議まで放置するという記述もない。'] },
-      { tag: '次の行動', s: 'What will Ms. Szymanski do?',
-        c: ['Call the Grimsby supervisor again before the deadline', 'Submit the report using outdated figures',
-            'File a formal amendment together with the original submission', 'Ask the regulator for permission to delay past today\'s deadline'],
-        a: 0,
-        e: 'シマンスキー自身が「4時にもう一度監督者に電話する」と述べている。',
-        w: ['正解。', '古い数値を使うとは述べていない（修正済みの数値を使うと決まっている）。',
-            'ネスが 15:24 で「制限があるのは当初提出だけで、訂正申請は後からどちらの方向にも出せる」と述べている。訂正申請は確認が取れたあとに出すもので、当初提出と同時に出すものではない。', '延長を求める話は出ていない。今日の期限を過ぎることを前提にした記述もない。'] },
+        e: 'ポータス氏の発言「プレンティスのスタッフは開場前に丸2時間の作業を要求している」が根拠。',
+        w: ['ポータス氏自身が同じ発言で "It\'s our first year with them" と述べており、今年が初めての依頼だとしている。数年来担当してきたという内容と正面から矛盾する。',
+            '正解。',
+            '早期に確定した注文への割引についての言及はチャットのどこにも無い（言及なし）。',
+            '予約窓口の担当者交代についての言及はチャットのどこにも無い（言及なし）。'] },
+      { tag: '意図', t: ['p7intent'], qid: 'v6q167p',
+        s: 'At 15:24, what does Ms. Pallant most likely mean when she writes, "I\'m free after half past four"?',
+        c: ['She agrees to make the call later in the afternoon.', 'She would like a colleague to phone her later on.',
+            'She thinks one of the others should handle the task.', 'She wants the four of them to meet in person.'],
+        a: 2,
+        e: 'ポータス氏が15:14で「4時半までに誰かが学部長を捕まえられるか、それを過ぎると彼女は月曜まで学外にいる」と期限を示している。パラント氏の15:24の発言「4時半を過ぎたら空く」は、期限である4時半より後にしか自分は動けないという意味であり、期限内に対応できるのはほかの誰かだという趣旨になる。',
+        w: ['15:14で「4時半までに誰かが学部長を捕まえられるか」という形で期限が示されている。4時半は学部長を捕まえる期限であって、それを過ぎてから電話をかけても間に合わない。パラント氏が空くのはその期限を過ぎてからであり、遅い時間に自分が電話をかけると申し出た内容とは相容れない。',
+            '15:26でケタリング氏が「電話で捕まえるより、プレンティスのメールをそのまま転送する方が簡単だ」と方針を切り替えており、パラント氏や他の同僚が学部長に電話をかけ直すという流れにはなっていない。話題は学部長への連絡方法であって、パラント氏自身にほかの誰かが電話をかけ直すことを望んでいるという内容ではない。',
+            '正解。',
+            '15:26でケタリング氏はメールの転送で対応する方針に決め、15:27でポータス氏も「追いかける必要はもうない」と応じている。4人が対面する場を持つという流れにはなっていない。'] },
+      { tag: '次の行動', qid: 'v6q168p', s: 'What will Mr. Kettering do?',
+        c: ['Send the draft seating plan to the others.', 'Check the room booking with the facilities office.',
+            'Forward the caterer\'s latest e-mail to the dean.', 'Update the guest list on the shared drive.'],
+        a: 2,
+        e: 'ケタリング氏が15:26で「構わない、プレンティスのメールをそのまま彼女に回し、手が空いたときに確認してもらう」と述べている。',
+        w: ['座席表についての言及はチャットのどこにも無い（言及なし）。',
+            '"I\'ll ring the estates office about the Small Hall now, before their line shuts at four." とあるとおり、施設担当への確認はプルーエット氏がすでに引き受けており、ケタリング氏の役割ではない。',
+            '正解。',
+            'ゲストリストについての言及はチャットのどこにも無い（言及なし）。'] },
     ],
   }),
 
   /* ── 169–171 手紙 ─────────────────────────────────── */
-  /* 2026-08-18 の再監査で全面差し替え。旧版は「外部の専門家が文化施設を訪問したあとに書く
-     所見の手紙 → 全面改修は今は勧めない、限定的な代替策を推す → ただし別件を別部署に上げてほしい」
-     という4段構成で、vol1〜vol5 の r3 スロットに5巻続けて出ている「専門職事務所の意見書」一族の
-     変種だった。No.169（目的）の正解もその一族の共通命題（点検の結果を伝え、締切前の進め方を勧める）
-     に乗っていた。訪問も所見も勧告も持たない別種の手紙（競売の結果通知）に組み替え、
-     設問 id も新規採番している。
-     2026-08-18 のレビューで、第5段落の photographed を photographed afresh に変えた。
-     No.171 は「9月の売立てに残すと図版料が改めて発生する」ことを問う設問だが、撮り直しが
-     明示されていないと「同じ写真を使い回すなら再度は生じない」という別の結論に達しうるため。 */
+  /* 2026-09-26 の先読み対策パイロット第2案（method2.md）でユニット全体を書き直した。
+     stem・4択はメインが凍結し、正解はメインがくじで決定（Q169=A、Q170=B、Q171=C）。
+     旧版（2026-08-18 の全面差し替え版と、直前の 2026-09-26 第1案〈誤答のみ差し替え〉）の
+     ロット番号・人物名・手数料設定・言い回しは一切流用せず、本文を新規に書き下ろした。
+     設問 id は全問新規採番（v6q169p / v6q170p / v6q171p）。tag は凍結案の [目的][詳細][推測]
+     をそのまま使用。
+     2026-09-26 監査反映：第5・第6段落と、231番の入札を述べる文を書き直した。
+     旧稿の第6段落に "our invoice for commission" があり、stem の "the fee mentioned in
+     the letter" が commission（出品手数料）とも読めてしまっていた（致命的）。第6段落から
+     commission への言及を削り、"a full statement of account" とだけ述べる形に改めた。
+     No.171 の正解を支える文も "we will set the charge aside"（据え置く、とも読める）から
+     "we normally excuse him from the charge"（免除する、と一義的に読める）に差し替え、
+     exp・why の「据え置く」の訳も「免除する」に直した。
+     231番の入札を述べる文も "sold to a single commission bid" から
+     "drew just one bid — a commission bid …" に差し替えた。前者は「委任入札1件で落札」を
+     述べるだけで、会場の入札が留保価格の手前で止まっていた可能性を排除しきれず、
+     No.170 A（複数の入札者）を閉じきれていなかった。
+     現行版は次の方針で閉じている:
+     ・169B（不落札品の扱いを尋ねる）／169D（条件確認の依頼）は、"Both found buyers" という
+       肯定の事実と、手紙のどこにも確認・返信を求める文が無いことで閉じ、打ち消し専用の文は
+       置いていない。169C（手数料の説明が目的）は、延滞引き取り料が「引き取りが遅れた品にだけ」
+       かかる条件付きの料金であって "each item" と呼べるものではないこと、かつミセス・オズグッドの
+       精算額を安心させるための付随的な一文にすぎないことの両方で閉じる。
+     ・170A（複数入札者）は「入札は一件しか無かった」という肯定の事実で閉じ、170C（次の売立てに
+       入る）は「すでに買い手に渡り引き取りを待っている」という肯定の事実で閉じる。170D（要修理）
+       は本文に修理・状態への言及が無いことで閉じる（"What does the writer say about Lot 231?"
+       型の設問として、述べられていない事項は述べられていないことをもって偽とした）。
+     ・171（推測）は、料金を「買い手が実在し、かつ引き取りを遅らせた場合にのみ生じる」肯定の条件で
+       立てて171A（売れても売れなくても生じる）を閉じ、「定額」という肯定の性質で171D（複数回の
+       出品で増額）を閉じた。171B（精算額から差し引かれる）だけは
+       "does not affect the amount you are due" という明示的な否定文1本で閉じている
+       （ユニット全体の明示的な否定・訂正はこの1本のみで、上限の2本以内）。
+     he/him（総称の男性代名詞）は使っていない。本文中の he/him はいずれも Lot 231 の買い手という
+     特定の人物のみを指す。 */
   sp({
     n: [169, 170, 171], lv: 5,
     docs: [{
       label: 'Letter',
-      head: 'Petherton Auction Rooms — Consignments Office\n21 June',
+      head: 'Marrowfield Rooms — Client Accounts\n6 August',
       body: [
-        'Dear Ms. Loxley,',
-        'I am writing with the results of the sale held on 14 June, at which we offered the two lots you consigned in April. The saleroom was busier than we expected for the time of year, with a good deal of interest from outside the county.',
-        'Lot 214, the set of brass drawing instruments in its fitted case, was bought by a telephone bidder at $520, against a pre-sale estimate of $300 to $400. Two telephone bidders were still competing well past the upper figure. Our commission of twelve per cent of the hammer price is deducted before payment, and a remittance advice will reach you within a fortnight.',
-        'Lot 215, the mahogany plan chest, did not sell. The highest bid on the day was $260, short of the $400 reserve you placed on it, and our conditions of sale do not allow a lot to be knocked down below its reserve. The chest has gone into our unsold store.',
-        'Unsold lots are entered in the following sale at the same reserve unless the consignor instructs us otherwise, and every lot in a sale is photographed afresh and given its own catalogue entry. The illustration charge of $40 for each catalogue entry falls due whether or not the lot finds a buyer. A reserve may be lowered by writing to this office at least ten days before the sale date; we are not able to act on instructions given by telephone.',
-        'Our next sale is on 12 September and entries close on 22 August. Do let me know before then how you would like to proceed with the chest; if I hear nothing, it will go forward as it stands.',
-        'Yours sincerely,\nGareth Pomeroy\nConsignments Office, Petherton Auction Rooms',
+        'Dear Mrs. Osgood,',
+        'I am writing to let you know how the two pieces you sent us in June fared at the sale on 3 August. Both found buyers on the day, and the saleroom was livelier than we had expected for a summer date.',
+        'Lot 231, the walnut-cased carriage clock, drew just one bid — a commission bid left with us ahead of the sale — and went for the reserve of $340. The buyer has arranged to collect it later this month, and for now it is being kept in our holding room; your remittance for this lot will follow once he has done so.',
+        'Lot 258, the set of six oak dining chairs, drew far more attention: three bidders pursued it well past our top estimate of $650, and it eventually sold for $875 to a bidder in the room.',
+        'Under our standard terms, a buyer who leaves a lot uncollected for more than a fortnight pays a late-collection charge of $15 a week. The charge is billed to the buyer separately, at a flat rate, and does not affect the amount you are due. If the buyer of Lot 231 writes to us before the fortnight is up to ask for more time, we normally excuse him from the charge, in which case your remittance for this lot may reach you a little later.',
+        'A full statement of account will follow by post within the week. Thank you again for choosing to consign with us.',
+        'Yours sincerely,\nJulius Corbett\nClient Accounts, Marrowfield Rooms',
       ],
     }],
     q: [
-      { tag: '概要', qid: 'v6q169r', s: 'Why did Mr. Pomeroy write to Ms. Loxley?',
-        c: ['To report how two items she consigned performed at a sale',
-            'To invite her to view the lots entered in a coming sale',
-            'To ask her to collect an item from the saleroom',
-            'To report that the June sale drew very little interest overall'],
+      { tag: '目的', qid: 'v6q169p', s: 'Why did the writer write to the recipient?',
+        c: ['To report the outcome of the items sold',
+            'To ask how to handle an unsold item',
+            'To explain a fee charged on each item',
+            'To request that certain sale conditions be confirmed'],
         a: 0,
-        e: '冒頭に「4月にお預かりした2点を出品した6月14日の売立ての結果をお知らせします」とあり、以下214番の落札額と手数料、215番の不落札とその後の扱いが順に述べられる。2点の結果の報告が用件である。',
+        e: '第2段落で「6月に送った2点が8月3日の売立てでどうなったか知らせる」という用件が示され、第3段落で231番、第4段落で258番、それぞれの結果が報告される。2点とも買い手がついており、指示や条件確認を求める記述は無い。',
         w: ['正解。',
-            '下見や来場を勧める記述はない。9月12日の売立てに触れているのは、売れ残った品の次の出品先としてであって、招待ではない。',
-            '引き取りを求める記述はない。売れ残ったプランチェストは「当社の未落札品保管庫に入った」と述べられ、指示がなければそのまま次の売立てに回ると説明されている。',
-            '第2段落に "The saleroom was busier than we expected for the time of year, with a good deal of interest from outside the county." とあり、この売立ては予想以上ににぎわい、県外からの関心も集めたと述べている。全体として関心が乏しかったとするこの記述は本文と正面から矛盾する。'] },
-      { tag: '詳細', qid: 'v6q170r', s: 'What does Mr. Pomeroy report about Lot 214?',
-        c: ['It was bought without competition from the other bidders.',
-            'It was offered with a reserve of $400.',
-            'It will be entered in the sale on 12 September.',
-            'It sold for more than its highest estimate.'],
-        a: 3,
-        e: '214番は520ドルで落札されており、事前見積りは「300ドルから400ドル」である。落札額は見積りの上限を上回っている。',
-        w: ['第3段落は Two telephone bidders were still competing well past the upper figure と、見積り上限を超えたあとも電話入札者2名が競り合っていたことを明記している。競合がなかったとするこの記述は本文と正面から矛盾するので偽。',
-            '214番について本文が示しているのは事前見積り（300ドルから400ドル）であって、留保価格ではない。400ドルの留保価格が置かれているのは215番のプランチェストのほうである。',
-            '次の売立てに回るのは売れ残った品だと本文は述べており、214番は6月14日に落札されている。9月12日の売立てに関わるのは215番である。',
-            '正解。'] },
-      { tag: '推測', t: ['p7inf'], qid: 'v6q171r', s: 'What is suggested about leaving the plan chest in the September sale?',
-        c: ['A lower reserve of $260 would apply automatically.',
-            'The same reserve would not apply again.',
-            'The chest would be offered without a catalogue entry.',
-            'Another illustration charge of $40 would become payable.'],
-        a: 3,
-        e: '第5段落は「売立てに出る品はすべて写真を撮り直し、それぞれに固有のカタログ項目が与えられる」「カタログ項目1件につき40ドルの図版料が、落札の有無にかかわらず発生する」と述べている。チェストを9月の売立てに残せば新たなカタログ項目が作られるのだから、そのぶんの図版料が改めて生じることになる。',
-        w: ['第5段落は「委託者から別段の指示がない限り同じ留保価格のまま次の売立てに出す」と述べており、自動的に下がるという内容と矛盾する。留保価格を下げるには売立て日の10日前までに書面で申し出る必要がある。',
-            '第5段落に "Unsold lots are entered in the following sale at the same reserve unless the consignor instructs us otherwise" とあり、別段の指示がない限り同じ留保価格が次の売立てにも適用される。同じ留保価格が再び適用されないとするこの記述は本文と正面から矛盾する。',
-            '第5段落は「売立てに出る品はすべて写真を撮り直し、それぞれにカタログ項目が与えられる」と述べており、カタログ項目なしで出品されるという内容と矛盾する。',
-            '正解。'] },
+            '第2段落に "Both found buyers on the day" とあり、2点とも即日買い手がついたと明記されている。不落札の品は存在しないので、その扱いを尋ねる目的はありえない。',
+            '手数料に触れているのは第5段落だけで、そこで説明されているのは「引き取りが2週間を超えて遅れた品にだけかかる延滞料」であり、売れた品すべてに一律にかかる "each item" の手数料ではない。しかも "does not affect the amount you are due" とあるとおり、この手数料はミセス・オズグッドの精算額にも影響しない、231番の買い手側の負担についての付随的な説明にすぎない。手紙の主眼はあくまで第2〜4段落の結果報告である。',
+            '手紙のどこにも売立て条件の確認を求める記述はない。第2段落は結果を知らせるとだけ述べており、返信や確認を求める文はどこにもない。'] },
+      { tag: '詳細', qid: 'v6q170p', s: 'What does the writer say about Lot 231?',
+        c: ['It attracted interest from more than one bidder.',
+            'It has been placed in the storage area.',
+            'It will be entered in the next sale.',
+            'It needed repair before it could be sold.'],
+        a: 1,
+        e: '第3段落に「委任入札一件のほかには入札が無く、そのまま留保価格の340ドルで落札された」「買い手が今月中に引き取る予定なので、現在は当方の保管室に置いている」とある。231番は保管室に置かれている、が正しい。',
+        w: ['第3段落は "drew just one bid — a commission bid left with us ahead of the sale" と述べており、事前に預けられた一件の委任入札のほかには入札が無かったと明記している。複数の入札者が関心を示したとするこの記述とは両立しない。',
+            '正解。',
+            '第3段落は231番についてすでに買い手が決まり引き取りを待っている状態だと述べている（"The buyer has arranged to collect it later this month" "your remittance for this lot will follow once he has done so"）。落札済みで買い手の引き取りを待つ品が次の売立てに入るという内容と両立しない。',
+            '第3段落が231番について述べているのは落札の経緯と保管の状況だけで、修理や状態については一切触れていない。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v6q171p', s: 'What is indicated about the fee mentioned in the letter?',
+        c: ['It applies regardless of whether an item sells.',
+            'It is deducted from the final payment.',
+            'It can be waived upon written request.',
+            'It increases for items entered more than once.'],
+        a: 2,
+        e: '第5段落は「引き取らずに2週間を超えて放置した買い手には週15ドルの延滞引き取り料がかかる」「231番の買い手が期限前に書面で申し出れば、通常はその料金を免除する」と述べている。書面で申し出れば料金が免除される、ということである。',
+        w: ['第5段落は "a buyer who leaves a lot uncollected for more than a fortnight pays a late-collection charge" と述べており、この料金は買い手が実在し、かつ引き取りを遅らせている場合にのみ生じる。品が売れなかった場合には買い手自体が存在せず、生じようがない。落札の有無にかかわらず生じるという内容とは相容れない。',
+            '第5段落は "The charge is billed to the buyer separately, at a flat rate, and does not affect the amount you are due." と述べており、この料金がミセス・オズグッドの受け取る精算額に影響しないと明記している。最終的な支払いから差し引かれるという内容と正面から矛盾する。',
+            '正解。',
+            '第5段落は "billed to the buyer separately, at a flat rate" と述べており、料金は定額であると明記している。定額である以上、複数回の出品によって増額されるという内容とは相容れない。'] },
     ],
   }),
 
   /* ── 172–175 報告書（文挿入あり）───────────────── */
+  /* 2026-09-26 の先読み対策パイロット第2案（method2.md）でユニット全体を書き直した。
+     stem・4択・挿入文はメインが凍結し、正解はメインがくじで決定
+     （Q172=B、Q173=B、Q174=位置[2]、Q175=A）。旧版（Fenmore Retail Group の返品キオスク
+     報告書）の題材・数値・言い換えは一切流用せず、本文を新規に書き下ろした。
+     設問 id は全問新規採番（v6q172p〜v6q175p）。
+     申し送り対応：「新しい設計」（軽量化したごみ箱の設計）は収集担当の作業負担軽減という、
+     Q173 の誤答3本（屋外スペース不足・野生動物・参加開始の遅れ）のいずれとも無関係な理由で
+     導入し、誤答への対策として読めないようにした。満足度の記述は「測り方」の文と「結果」の文を
+     1文ずつに絞り、くじで決まった1本（食品廃棄物の量との無関係性）以外の結果は書いていない。
+     2026-09-27 監査反映（review-r3.md）：No.173 致命的（第4段落の "only once every three
+     weeks rather than fortnightly" が、正解 (B)「3週に1回飛ばす（＝残り2週は来る）」と意味が
+     逆で、しかも両地区とも隔週収集なので周期そのものが噛み合わなかった）。監査役の案どおり、
+     第2段落の "as part of the borough's standard phase-in process" を削り、第3段落の
+     "fortnightly" を "weekly" に改め、第4段落を書き直して「3週に1回だけ別のルートに回されて
+     この地区を丸ごと素通りする」という、(B) と向きが一致する周期に直した。誤答を打ち消すためだけ
+     だった3文（キルクストールとの地勢の類似／両地区共通のロック付きクリップ／同日開始）は削り、
+     (A)(C) は「言及なし」、(D) は第1段落の「両地区とも1月12日に開始」で閉じる形にした。
+     Q174 の解説は、[3][4] の排除理由を「別の話題」から構造上の理由（[3] は直前の "the new day"
+     の先行詞〈moved … to Thursdays〉から切り離される／[4] は "That leaves" が要る直前の起点が
+     無い）に書き直し、日数の一致（7月9日→8月18日＝40日＜6週）を位置の決め手として使う誤りを
+     正し、the second phase への言及が「直前の文」ではなく「2文前」であることも直した。
+     Q172 の why はキルクストールの周期表記を weekly に合わせ、C の否定材料から Q173 と無関係な
+     "no particular difficulty in keeping to the new day" の引用を外した。
+     2026-09-27 第2巡監査反映（polish-l2a-r3.md）：Q173 why[0]・why[2] の「収集ルートの見直し」
+     という言い方が本文の実際の原因（3週に1度ほかのルートに回されて丸ごと素通りする）と厳密には
+     ずれていたため、本文どおりの言い方に直した。Q174 の why[2] が第3段落の曜日変更を「隔週収集」
+     と誤って書いており（第3段落は既に weekly に直っていたのに、この why だけ直し漏れていた）、
+     exp とあわせて weekly の記述に揃え、[3] を落とす理由も「4月から8月18日までは4か月以上あり
+     under six weeks に合わない」という日数の根拠に書き直した。exp も同じ根拠で書き直した。
+     why[3] の「カデー」を正しい表記「キャディー」に直した。第4段落末尾の満足度の一文
+     （"In both wards, …"）を独立した第5段落に分け、"[[4]]" の位置は第4段落の末尾のまま変えていない
+     （直前の一文が変わらないので [4] を落とす理由・[2] を選ぶ理由のいずれにも影響しない）。
+     "the difference traces to collection" は "the difference can be traced to collection" に
+     直した（内容は変えていない）。 */
   sp({
-    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Report',
-      title: 'Progress Update: Automated Returns Kiosk Trial',
-      head: 'Fenmore Retail Group — Customer Services, 9 July',
+      title: 'Composting Pilot: Progress Report',
+      head: 'Prescott District Council — Waste & Recycling Service, 9 July',
       body: [
-        'Fenmore introduced self-service returns kiosks at the Trentbridge and Wrenhaven stores on 8 January, aiming to cut the average wait at the returns counter, which had reached eleven minutes at peak times. — [[1]] — Six months on, the two stores look nothing alike.',
-        'At Trentbridge, the kiosks now handle just over half of all returns, and the average wait for a customer who still needs a staff member has fallen to under four minutes. — [[2]] — Wrenhaven tells a different story: for most of the trial, kiosk use there stayed under one in five returns, and staff reported that customers often abandoned the kiosk partway through and joined the counter queue instead.',
-        'The kiosks require a printed receipt with a barcode. Wrenhaven has run a paperless-receipt promotion since 1 March, so a much larger share of its returns arrive with only a mobile receipt, which the kiosk cannot scan. Staff there began keying the mobile receipt numbers in by hand on 1 June, and kiosk use rose to nearly one in three returns over the following weeks. — [[3]] —',
-        'We recommend extending the manual key-in option to Trentbridge as well, since roughly one in twelve of its returns are still turned away for the same reason, and testing a barcode reader that can scan a mobile receipt directly before the trial’s second phase begins on 1 September. — [[4]] — Customer feedback forms show satisfaction is highest among shoppers making a single, straightforward return, and lowest among those returning part of a larger order.',
+        'Prescott District Council began a kerbside composting pilot in the Kirkstall and Portobello Green wards on 12 January, aiming to cut the food waste sent to landfill and to test whether a full borough rollout would be worthwhile. — [[1]] — Uptake and day-to-day running have differed sharply between the two wards.',
+        'The pilot\'s first phase concludes on 18 August, when a wider second phase begins in three further wards. Ahead of that, officers have also started trialling a lighter bin design intended to ease handling for the collection crews. — [[2]] — Full findings from both wards are set out below.',
+        'In Kirkstall, around two in five eligible households now take part, and the weekly collection was moved from Tuesdays to Thursdays in April, after the round was combined with the garden-waste collection to save a vehicle. — [[3]] — Officers there report no particular difficulty in keeping to the new day.',
+        'Participation in Portobello Green has stayed lower, and the difference can be traced to collection. Since April, the lorry that serves the ward has been called away to cover another round one week in three, and in those weeks it leaves Portobello Green out altogether. Several residents have told officers that a caddy left full for a fortnight puts them off using it. — [[4]]',
+        'In both wards, satisfaction is measured through a short card left with each collection; ratings so far show no link to how much food waste a household says it produces.',
       ],
     }],
     q: [
-      { tag: '詳細', s: 'What is reported about the kiosks at the Trentbridge store?',
-        c: ['They have not reduced wait times at the counter.', 'Just over half of returns are now handled through them.',
-            'Staff removed them after complaints from customers.', 'They are being replaced with a newer model in September.'],
+      { tag: '詳細', qid: 'v6q172p', s: 'What is reported about the composting pilot in Kirkstall?',
+        c: ['Over half of eligible households there now take part.', 'Its collection day changed partway through the pilot.',
+            'Staff there have removed several bins after resident complaints.', 'Households there receive a free supply of caddy liners.'],
         a: 1,
-        e: '第2段落に「トレントブリッジでは、キオスクが返品全体のちょうど半数強を処理している」とある。',
-        w: ['同じ文で「対応が必要な客の待ち時間も4分未満に短縮した」とあり、待ち時間は縮んでいる。', '正解。',
-            '撤去されたという記述は本文のどこにも無い。',
-            '9月に始まるのは試行の第2段階で、本文が勧めているのはその開始前にモバイルレシートを直接読み取れるバーコード読み取り機を試すことである。キオスク自体を新型に入れ替えるとは述べられていない。'] },
-      { tag: '詳細', s: 'According to the report, why has kiosk use at Wrenhaven been low?',
-        c: ['Customers frequently bring items without any receipt at all.', 'The kiosk software crashes when scanning a barcode.',
-            'Many returns there now arrive with only a digital receipt, which the kiosk cannot read.', 'Wrenhaven’s kiosk was installed several months after Trentbridge’s.'],
-        a: 2,
-        e: '第3段落に「レンヘイヴンは3月1日からペーパーレスレシートの推奨キャンペーンを実施しており、そのためモバイルレシートのみを伴って持ち込まれる返品の割合が大幅に増え、キオスクはそれを読み取れない」とある。これが利用率が伸びなかった原因である。',
-        w: ['レシートが手元に無いのではなく、レシートが電子形式でしか存在しない点が問題だと本文は述べている。', 'ソフトウェアの不具合には触れていない。',
-            '正解。', '第1段落に「トレントブリッジとレンヘイヴンの両店に1月8日に導入した」とあり、導入時期は同じである。'] },
-      { tag: '位置選択', qid: 'v6q174r', t: ['p7ins'], insertAt: 4,
-        sentence: 'That leaves less than two months to complete the testing before the deadline.',
-        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That leaves less than two months to complete the testing before the deadline."',
+        e: '第3段落に「キルクストールでは対象世帯のおよそ5分の2が参加しており、4月に毎週収集の曜日が火曜日から木曜日に変更された」とある。庭ごみ収集との統合による曜日変更であり、これが正しい。',
+        w: ['第3段落は "around two in five eligible households now take part" と述べており、参加しているのは対象世帯のおよそ5分の2で、半数を超えてはいない。',
+            '正解。',
+            '住民からの苦情を受けてごみ箱を撤去したという記述はどこにも無い（言及なし）。',
+            '生ごみ入れの内袋を無償配布しているという記述はどこにも無い（言及なし）。'] },
+      { tag: '詳細', qid: 'v6q173p', s: 'According to the report, why has participation in Portobello Green been low?',
+        c: ['Many residents there lack outdoor space for a bin.', 'The collection truck skips that neighbourhood every third week.',
+            'Wildlife frequently gets into bins that are left unlocked.', 'It joined the pilot several months later than Kirkstall did.'],
+        a: 1,
+        e: '第4段落に「4月以降、この地区を担当する収集車は3週に1度、別の収集ルートに回されて、その週はポートベロー・グリーンを丸ごと素通りする」とあり、これが参加率低迷の原因として挙げられている。',
+        w: ['報告書のどこにも住民の屋外スペースの不足についての記述は無い（言及なし）。第4段落が参加率低迷の原因として挙げているのは収集車が3週に1度ほかのルートに回され、その週は収集されないことだけである。',
+            '正解。',
+            '施錠の有無や野生動物についての記述はどこにも無い（言及なし）。第4段落が参加率低迷の原因として挙げているのは収集車が3週に1度ほかのルートに回され、その週は収集されないことだけである。',
+            '第1段落は "Prescott District Council began a kerbside composting pilot in the Kirkstall and Portobello Green wards on 12 January" と述べており、両地区とも1月12日に同時に試行を始めたと明記している。数か月遅れて参加したという内容と正面から矛盾する。'] },
+      { tag: '位置選択', qid: 'v6q174p', t: ['p7ins'], insertAt: 2,
+        sentence: 'That leaves under six weeks to test the new design before the second phase begins.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That leaves under six weeks to test the new design before the second phase begins."',
         c: ['[1]', '[2]', '[3]', '[4]'],
-        a: 3,
-        e: 'この報告書自体の日付は見出しの「7月9日」である。挿入文の the testing と the deadline は、直前の文で初めて示されるバーコード読み取り機の試験と、第2段階の開始日「9月1日」を指す。7月9日から9月1日までは54日で、2か月（7月9日から9月9日までの62日）に満たない。この2つの指示対象と日数の一致が揃うのは [4] だけである。',
-        w: ['[1] の時点では the testing（バーコード読み取り機の試験）も the deadline（9月1日）もまだ本文に一度も登場しておらず、指示対象が無い。',
-            '[2] の時点でも、試験の話も9月1日という期日も本文にまだ出ていない。',
-            '[3] の時点でも、バーコード読み取り機の試験と9月1日はいずれも直後の段落で初めて示される情報であり、まだ指示対象が無い。',
-            '正解。直前の文でバーコード読み取り機の試験と第2段階の開始日「9月1日」が示されており、報告書の日付「7月9日」からその期日までは54日、2か月に満たない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What is indicated about customer satisfaction with the kiosks?',
-        c: ['It is unrelated to the type of return being made.', 'It tends to be lower for more complicated transactions.',
-            'It has declined since the trial began in January.', 'It is measured only at the Trentbridge store.'],
         a: 1,
-        e: '最終段落に「満足度が最も高いのは単品の単純な返品客で、最も低いのは大口注文の一部を返品する客」とある。単純な取引ほど満足度が高く、込み入った取引ほど低いという相関を言い換えると、取引が複雑になるほど満足度は下がる傾向がある、となる。',
-        w: ['返品の種類によって満足度が異なると述べられており、無関係とは言えない。', '正解。',
-            '1月の試行開始からの推移には触れていない。アンケートは現時点の傾向を述べているだけである。',
-            'アンケートの集計対象がトレントブリッジ店に限られるとは述べられていない。'] },
+        e: '文頭の裸の That は直前の文を受け、そこから第2段階までの残り期間を述べる。[2] の直前は『第2段階（8月18日開始）に先立ち、軽量化したごみ箱の試験を始めた』で、報告書の日付7月9日から8月18日までは40日＝6週間未満なので挿入文と合う。the new design は直前の a lighter bin design を、the second phase は2文前の a wider second phase を受ける。[1] では2つとも未登場。[3] の直前は4月の曜日変更で、そこからは4か月以上ある。[4] の直前は住民の声で、残り期間を数える起点にならない。',
+        w: ['[1] の時点では the new design（軽量化したごみ箱の試験）も the second phase（8月18日開始）もまだ本文に一度も登場しておらず、指示対象が無い。',
+            '正解。2文前で第2段階の開始日「8月18日」が、直前の文で軽量化したごみ箱の試験が示されている。報告書の日付「7月9日」から8月18日までは40日で、6週間に満たない。',
+            '[3] の直前は『毎週の収集の曜日を4月に火曜から木曜へ移した』という文である。裸の That はこの4月の変更を受けることになるが、4月から8月18日までは4か月以上あり、"under six weeks" と合わない。',
+            '[4] の直前は「キャディーを2週間放置されると使う気をなくす住民がいる」という一文で終わっており、"That leaves" が受けるべき期限・起点になる語がその直前に無い。裸の That は直前の文に明確な起点を要求するため、ここには置けない。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v6q175p', s: 'What is indicated about resident satisfaction with the composting pilot?',
+        c: ['It is unrelated to a household\'s amount of food waste.', 'It runs higher among households that include young children.',
+            'It has risen steadily since the pilot\'s first month.', 'It comes from a survey sent out each quarter.'],
+        a: 0,
+        e: '最終段落に「両地区とも、満足度は各回収時に手渡す簡単なカードで測定されており、ここまでの評価は各世帯が申告する生ごみの量との関連を示していない」とある。',
+        w: ['正解。',
+            '子どものいる世帯で満足度が高いという記述はどこにも無い（言及なし）。',
+            '満足度が試行開始月から着実に上昇してきたという記述はどこにも無い（言及なし）。',
+            '最終段落は "In both wards, satisfaction is measured through a short card left with each collection" と述べており、四半期ごとのアンケートではなく、収集のたびに手渡すカードで測定されている。'] },
     ],
   }),
 ];
