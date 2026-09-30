@@ -163,7 +163,7 @@ export const L3 = [
       { role: 'M-Cn', text: `One more thing — you'll notice the break room now has a bigger table, so the whole shift can sit together at lunch.` },
       { role: 'M-Cn', text: `That's all for today. Thanks, and let's get started.` },
     ],
-    ja: `化粧品メーカー Joliffe Cosmetics の工場での始業前の打ち合わせ。ローズ&ハニーの保湿クリームに使う植物由来の成分の入荷が遅れ、数日分が不足する見込みであることを伝える。生産を止めないよう、木曜に新しい入荷が届くまでの間、配合をわずかに調整して使用量を減らすと説明する。その調整した配合を本格導入する前に、今朝、空きのあるラインで試したいと述べ、昨日早めに作業が終わったライン2でその試作を行おうと提案する。最後に、休憩室のテーブルが大きい物に替わり、シフト全員が一緒に座れるようになったと伝える。`,
+    ja: `始業前の打ち合わせ。ローズ&ハニーの保湿クリームに使う植物由来の成分の入荷が遅れ、数日分が不足する見込みであることを伝える。生産を止めないよう、木曜に新しい入荷が届くまでの間、配合をわずかに調整して使用量を減らすと説明する。その調整した配合を本格導入する前に、今朝、空きのあるラインで試したいと述べ、昨日早めに作業が終わったライン2でその試作を行おうと提案する。最後に、休憩室のテーブルが大きい物に替わり、シフト全員が一緒に座れるようになったと伝える。`,
     v: [['moisturizer', '保湿剤'], ['plant extract', '植物由来の成分、植物エキス'], ['batch', '（生産の）1回分、バッチ'], ['formula', '配合、処方']],
     q: [
       { tag: '概要', qid: 'v2q77p', s: 'What is the speaker mainly discussing?',
@@ -424,7 +424,7 @@ export const L3 = [
       { role: 'W-Au', text: `At our next rehearsal, I'll be handing out printed copies of the new piece we're adding to the programme, so make sure you're here.` },
       { role: 'W-Au', text: `Right, let's get warming up.` },
     ],
-    ja: `Jessop Community Choir の練習冒頭、指揮者が来月の合唱祭について団員に説明する。先週出場申込書を提出したところ団員から部門を尋ねられたと述べ、今回出演するのは高い声だけの合唱団の部門であると伝える。会場については、200年にわたって舞踏会の会場になってきた建物で歌うと述べる。今年はバスの手配ができなかったため電車で向かうことになり、主催者が団体割引のきっぷを手配したと伝える。次回の練習では、新しく取り入れる曲の楽譜を配布すると案内する。`,
+    ja: `合唱団の練習冒頭、指揮者が来月の合唱祭について団員に説明する。先週出場申込書を提出したところ団員から部門を尋ねられたと述べ、今回出演するのは高い声だけの合唱団の部門であると伝える。会場については、200年にわたって舞踏会の会場になってきた建物で歌うと述べる。今年はバスの手配ができなかったため電車で向かうことになり、主催者が団体割引のきっぷを手配したと伝える。次回の練習では、新しく取り入れる曲の楽譜を配布すると案内する。`,
     v: [['register', '（声の）音域'], ['organiser', '主催者'], ['discounted', '割引の'], ['rehearsal', '練習']],
     q: [
       { tag: '図表', qid: 'v2q89p', s: 'Look at the graphic. Which slot will the choir perform in?',
@@ -479,7 +479,7 @@ export const L3 = [
       { role: 'W-Cn', text: `Our customer service desk on the ground floor is also here to help with any questions.` },
       { role: 'W-Cn', text: `Thank you for shopping with us at Oxendale's.` },
     ],
-    ja: `百貨店 Oxendale's Department Store の店内放送。安全のため、2階と3階の間のエスカレーターが定期点検のため一時停止中であることを伝え、近くのエレベーターの利用と、ご不便への謝罪を述べる。あわせて、Oxendale's のストアカードに登録するだけで本日の抽選に応募できること（購入は不要）を案内する。最後に、退店前に総合案内で駐車券の認証を受けるよう呼びかける（認証がないと出口の機械で満額を請求される）。1階の接客カウンターでも質問を受け付けていると付け加える。`,
+    ja: `Oxendale's の店内放送。安全のため、2階と3階の間のエスカレーターが定期点検のため一時停止中であることを伝え、近くのエレベーターの利用と、ご不便への謝罪を述べる。あわせて、Oxendale's のストアカードに登録するだけで本日の抽選に応募できること（購入は不要）を案内する。最後に、退店前に総合案内で駐車券の認証を受けるよう呼びかける（認証がないと出口の機械で満額を請求される）。1階の接客カウンターでも質問を受け付けていると付け加える。`,
     v: [['escalator', 'エスカレーター'], ['routine maintenance', '定期点検'], ['prize drawing', '抽選'], ['validate', '（駐車券などを）認証する']],
     q: [
       { tag: '概要', qid: 'v2q92p', s: 'What is the announcement mainly about?',

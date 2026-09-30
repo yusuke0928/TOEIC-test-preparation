@@ -394,7 +394,7 @@ export const L3 = [
         e: '直前で「調査を続ける価値があるのか」という疑問に触れたうえで、昨春の目撃件数がそれ以前5年分の合計より多かったと述べ、今こそ観察をやめるべきではないと主張している。',
         w: ['言及なし。重点観察一覧への追加には触れていない。',
             '言及なし。会報の数字を訂正する文脈ではない。',
-            '引用の直後が "so I\'d say now is exactly the wrong time to stop watching" で、数字は調査を続ける根拠として挙げられている。記録の丁寧さを称える言葉は無い。',
+            '同じ文の後半が "so I\'d say now is exactly the wrong time to stop watching" で、数字は調査を続ける根拠として挙げられている。記録の丁寧さを称える言葉は無い。',
             '正解。'] },
       { tag: '詳細', qid: 'v3q96p', s: 'What does the speaker say the society plans to install near the pond?',
         c: ['A weatherproof information sign', 'A raised viewing platform',

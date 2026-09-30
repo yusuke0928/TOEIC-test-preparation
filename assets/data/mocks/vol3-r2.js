@@ -53,7 +53,7 @@ export const R2 = [
       head: 'Sennworth Communications — Internal Memo',
       body: [
         { t: 'kv', pairs: [['To', 'All Account Executives'], ['From', 'Miriam Sattersby, Managing Director'], ['Date', '5 May'], ['Subject', 'A Change to How We Handle Press Release Drafts']] },
-        'From Monday, every press release draft will need to clear one extra step before it goes out. Once a draft leaves your hands, it will go to our in-house lawyers, who will read it through and confirm there is nothing in the wording that could expose a client, or us, to a complaint. Only after the lawyers have signed off will the draft come to me for a final look, which used to be the last stop.',
+        'From Monday, every press release draft will need to clear one extra step before it goes out. Once a draft leaves your hands, it will go to our in-house lawyers, who will read it through and confirm there is nothing in the wording that could expose a client, or us, to a complaint. Only after the lawyers have signed off will the draft come to me for a final look, which until now has been the only check.',
         'I know the extra step will add a day or so to the timetable, so please build that into any deadline you promise a client from now on.',
         'I have left a one-page summary of the new procedure on each of your desks. Please read it, sign the bottom, and drop your signed copy back to my office by Friday afternoon so that I can confirm everyone has seen it. If I have not had your copy by then, I will come and track you down.',
       ],
@@ -63,7 +63,7 @@ export const R2 = [
         c: ['Drafts will require sign-off from a senior editor', 'Drafts will need a reference number before release', "Drafts will need the client's approval in writing", 'Drafts will undergo a review by the legal team'],
         a: 3,
         e: '第1段落に "it will go to our in-house lawyers, who will read it through and confirm there is nothing in the wording that could expose a client, or us, to a complaint" とあり、原稿が社内弁護士の審査を受けるようになる変更だと分かる（これが法務チームによる審査に当たる）。',
-        w: ['本文の承認（"Only after the lawyers have signed off"）は社内弁護士によるもので、その後の "a final look" は差出人の Managing Director が以前から行ってきたもの（"which used to be the last stop"）。上級編集者の承認が新たに加わるという記述は無い。',
+        w: ['本文の承認（"Only after the lawyers have signed off"）は社内弁護士によるもので、その後の "a final look" は差出人の Managing Director がこれまでも行ってきた確認（"which until now has been the only check"）。上級編集者の承認が新たに加わるという記述は無い。',
             '言及なし。整理番号の取得については本文のどこにも触れていない。',
             '言及なし。クライアントによる書面での承認については本文のどこにも触れていない。',
             '正解。'] },

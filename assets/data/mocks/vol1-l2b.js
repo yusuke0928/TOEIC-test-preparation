@@ -174,7 +174,7 @@ export const L2B = [
   /* 図表・正解はくじ（62=A=Model 17, 63=C, 64=D）。表は凍結（Model/Shell/
      Closure）。音声は行名（Model 17 等）も Hard shell / Soft shell / Zip /
      Clasps も一度も読み上げず、申し送りどおりに言い換えている（固いケース＝
-     rigid／留め具＝全周を締めるジッパー、金属の留め金ではない）。殻の硬さと
+     rigid／留め具＝縁を一周する1本の留め具、角の金属の留め金ではない）。殻の硬さと
      留め具の2条件を両方拾って初めて Model 17 に決まる。Q63・Q64 は非図表
      設問のため t を明示した。自己試行：表だけでは4択のまま（どの行が正解か
      手がかりが無い）、音声だけでも4択のまま（モデル番号が分からない）。
@@ -207,18 +207,18 @@ export const L2B = [
       { role: 'M-Cn', text: 'Sure, let\'s find you something. Any particular requirements?' },
       { role: 'W-Br', text: 'I\'d like something rigid this time — my old one used to get squashed flat in the overhead lockers.' },
       { role: 'M-Cn', text: 'That narrows it down. And how do you feel about the fastening?' },
-      { role: 'W-Br', text: 'I\'d rather avoid the ones with metal snap catches on the corners — I had one pop open at an airport once. I\'d feel safer with something that zips all the way round.' },
+      { role: 'W-Br', text: 'I\'d rather avoid the ones with metal snap catches on the corners — I had one pop open at an airport once. I\'d feel safer with something that has one fastening running right the way round the edge.' },
       { role: 'M-Cn', text: 'This one covers both of those. And this week, we\'re including a free pair of handle labels with your monogram stitched on, if you\'d like.' },
       { role: 'W-Br', text: 'Oh, that\'s a nice touch. Yes please.' },
     ],
-    ja: '女性客が旅行かばん店で、姉（妹）と来週リスボンへ行くため旧いケースの代わりを探していると店員の男性に伝える。以前使っていたケースは機内の収納棚でよく潰れていたので、今回は硬いケースが良いと述べる。留め具については、以前空港で金属の留め金が外れた経験があるため、全周を締めるジッパー式のほうが安心だと述べる。男性は両方の条件に合う商品を提示し、さらに今週はモノグラム入りの取っ手用ラベルを無料で付けていると案内する。女性は喜んでそれを受け取ることにする。',
-    v: [['squashed flat', 'ぺしゃんこに潰れる'], ['snap catch', '金属の留め金'], ['zip all the way round', '全周をジッパーで締める'], ['monogram', '組み合わせ頭文字（モノグラム）']],
+    ja: '女性客が旅行かばん店で、姉（妹）と来週リスボンへ行くため旧いケースの代わりを探していると店員の男性に伝える。以前使っていたケースは機内の収納棚でよく潰れていたので、今回は硬いケースが良いと述べる。留め具については、以前空港で金属の留め金が外れた経験があるため、縁をぐるりと一周する1本の留め具のほうが安心だと述べる。男性は両方の条件に合う商品を提示し、さらに今週はモノグラム入りの取っ手用ラベルを無料で付けていると案内する。女性は喜んでそれを受け取ることにする。',
+    v: [['squashed flat', 'ぺしゃんこに潰れる'], ['snap catch', '金属の留め金'], ['one fastening running right the way round the edge', '縁を一周する1本の留め具'], ['monogram', '組み合わせ頭文字（モノグラム）']],
     q: [
       { tag: '図表', qid: 'v1q62p', s: 'Look at the graphic. Which model will the woman most likely buy?',
         c: ['Model 17', 'Model 2', 'Model 26', 'Model 10'],
         a: 0,
-        e: '女性はまず、以前のケースが機内の収納棚でよく潰れていたと述べ、今回は硬いケースが良いと伝えて柔らかい素材のケース（Model 2・Model 10）を除外する。続けて、留め具は金属の留め金ではなく全周を締めるジッパー式が良いと述べ、留め金式のケース（Model 26）も除外される。残るのは硬いケースかつジッパー式の Model 17 だけである。',
-        w: ['正解。', 'Model 2 はジッパー式で留め具の条件は満たすが、柔らかい素材のケースであり女性が求める硬さの条件を満たさない。', 'Model 26 は硬いケースで素材の条件は満たすが、留め金式であり女性が避けたいと述べた留め具である。', 'Model 10 は柔らかい素材かつ留め金式で、どちらの条件も満たさない。'] },
+        e: '女性はまず、以前のケースが機内の収納棚でよく潰れていたと述べ、今回は硬いケースが良いと伝えて柔らかい素材のケース（Model 2・Model 10）を除外する。続けて、留め具は角に付く金属の留め金ではなく、縁を一周する1本の留め具が良いと述べ、留め金式のケース（Model 26）も除外される。表で縁を一周する留め具に当たるのはジッパー式で、残るのは硬いケースかつジッパー式の Model 17 だけである。',
+        w: ['正解。', 'Model 2 は表ではジッパー式で、縁を一周する留め具という条件は満たすが、柔らかい素材のケースであり女性が求める硬さの条件を満たさない。', 'Model 26 は硬いケースで素材の条件は満たすが、留め金式であり女性が避けたいと述べた留め具である。', 'Model 10 は柔らかい素材かつ留め金式で、どちらの条件も満たさない。'] },
       { tag: '詳細', qid: 'v1q63p', t: ['p3detail'], s: 'What does the woman say about her trip?',
         c: ['She leaves on Friday', 'She will be away for a month', 'She is going with her sister', 'She won it in a contest'],
         a: 2,
