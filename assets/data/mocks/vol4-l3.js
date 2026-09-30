@@ -24,17 +24,17 @@ export const L3 = [
      場面・くじ：v15/plans/vol4-final-P4.txt・v15/dice/vol4-l3.txt（71=B, 72=C, 73=C）。
      用件は「決定の遅れの説明」の1つだけに絞り、採用の申し出・勤務時間の変更・忘れ物の話はしない。
      会社の最近の出来事は「自治体との新契約」の1つだけに絞る（第2拠点・車両購入・ドア取付けは無言及）。
-     依頼はウェブフォーム記入の1つだけに絞り、免許証送付・住所確認・折り返し電話には触れない。 */
+     依頼はウェブサイトでの簡単な回答の1つだけに絞り、免許証送付・住所確認・折り返し電話には触れない。 */
   talk({
     n: [71, 72, 73], lv: 3, k: 'telephone message',
     s: [
       { role: 'W-Br', text: "Hi, this is Hedy, calling from Harwick Window Fitters about the fitter position you applied for." },
-      { role: 'W-Br', text: "I'm sorry it's taken us a little longer than planned to get back to you — the two people who were due to hold interviews this week have been pulled onto site because we've just won a new contract with the district council, replacing windows across three of their sheltered housing blocks." },
+      { role: 'W-Br', text: "I'm sorry it's taken us a little longer than planned to get back to you — the two people who were due to hold interviews this week have been pulled onto site because the district council has just awarded us the work of replacing windows across three of their sheltered housing blocks." },
       { role: 'W-Br', text: "With everyone tied up on that for the rest of the month, we won't be able to make a final decision on the role until closer to the end of it, so I wanted to let you know rather than leave you waiting without a word." },
-      { role: 'W-Br', text: "In the meantime, could I ask you to fill in a short form on our website, under the 'Careers' tab? It just asks for your available start date and a contact number where we can reach you." },
+      { role: 'W-Br', text: "In the meantime, could I ask you to go onto our website and answer a few quick questions under the 'Careers' tab? They just ask for your available start date and a contact number where we can reach you." },
       { role: 'W-Br', text: "Thanks again for your patience, and I'll be in touch as soon as a decision's been made." },
     ],
-    ja: '窓・サッシ取付け業者ハーウィック・ウィンドウ・フィッターズの担当ヘディから、応募した取付け作業員の職への留守番電話。当初の予定より返事が遅れていることを詫び、今週面接を担当するはずだった2名が、自治体との新規受注（公営住宅3棟の窓の入れ替え）対応で現場に回されたためだと説明する。今月末近くになるまで最終的な採用可否は決められないため、音沙汰なしにせず連絡したと述べる。差し当たり、ウェブサイトの「Careers」タブにある簡単なフォームに、希望開始日と連絡先電話番号を記入してほしいと依頼する。最後に、待たせていることを重ねて詫び、決定次第連絡すると伝える。',
+    ja: '窓の取付け業者の担当ヘディから、応募した取付け作業員の職への留守番電話。当初の予定より返事が遅れていることを詫び、今週面接を担当するはずだった2名が、自治体から高齢者向け住宅3棟の窓の入れ替え工事を新たに任され、現場に回されたためだと説明する。今月末近くになるまで最終的な採用可否は決められないため、音沙汰なしにせず連絡したと述べる。差し当たり、ウェブサイトの「Careers」タブで簡単な質問に答え、希望開始日と連絡先電話番号を伝えてほしいと依頼する。最後に、待たせていることを重ねて詫び、決定次第連絡すると伝える。',
     v: [['sheltered housing', '高齢者向け住宅'], ['tied up', '手が離せない、かかりきりの'], ['contact number', '連絡先電話番号']],
     q: [
       { tag: '概要', qid: 'v4q71p', s: 'What is the purpose of the message?',
@@ -45,13 +45,13 @@ export const L3 = [
       { tag: '詳細', qid: 'v4q72p', s: 'According to the speaker, what has the company recently done?',
         c: ['Opened a second depot', 'Bought several new vans', 'Won a contract with the council', 'Started fitting front doors'],
         a: 2,
-        e: '"we\'ve just won a new contract with the district council, replacing windows across three of their sheltered housing blocks" と述べており、自治体との新契約獲得が理由として挙げられている。',
-        w: ['第2拠点の開設についての言及はない。', '車両の購入についての言及はない。', '正解。自治体（district council）との新しい契約を獲得したと述べている。', 'ドアの取付けについての言及はない。窓の入れ替え契約としか述べていない。'] },
+        e: '"the district council has just awarded us the work of replacing windows across three of their sheltered housing blocks" と述べており、自治体から窓の入れ替えの仕事を新たに任されたことが、面接が遅れている理由として挙げられている。',
+        w: ['第2拠点の開設についての言及はない。', '車両の購入についての言及はない。', '正解。自治体（district council）から窓の入れ替えの仕事を新たに任されたと述べている(契約を獲得したことの言い換え)。', 'ドアの取付けについての言及はない。窓の入れ替えの仕事としか述べていない。'] },
       { tag: '依頼', qid: 'v4q73p', s: 'What does the speaker ask the listener to do?',
         c: ['Send a copy of a driving licence', 'Confirm a current postal address', 'Fill in a form on the website', 'Call the office back by Friday'],
         a: 2,
-        e: '"could I ask you to fill in a short form on our website, under the \'Careers\' tab" と依頼している。',
-        w: ['免許証の写しの送付についての言及はない。', '住所確認についての言及はない。', '正解。ウェブサイトの「Careers」タブのフォームへの記入を依頼している。', '折り返しの電話についての言及はない。むしろ「決定次第こちらから連絡する」と述べている。'] },
+        e: '"could I ask you to go onto our website and answer a few quick questions under the \'Careers\' tab" と依頼している。ウェブサイト上のフォームへの回答を求めている。',
+        w: ['免許証の写しの送付についての言及はない。', '住所確認についての言及はない。求めているのは希望開始日と連絡先の電話番号である。', '正解。ウェブサイトの「Careers」タブで簡単な質問に答えるよう依頼している。', '折り返しの電話についての言及はない。むしろ「決定次第こちらから連絡する」と述べている。'] },
     ],
   }),
 
@@ -64,13 +64,13 @@ export const L3 = [
     s: [
       { role: 'M-Au', text: 'Good morning, and thank you for travelling with us today.' },
       { role: 'M-Au', text: "We'd like to remind everyone that a large open-air rock concert is being held in the town this Saturday evening, and thousands of fans are expected to pass through this station throughout the day." },
-      { role: 'M-Au', text: "Because of the extra security checks at the gates, we'd advise anyone heading to the show to avoid bringing large bags or rucksacks, as this will help keep the queues moving." },
-      { role: 'M-Au', text: 'Toilets and the station cafe will stay open as usual throughout the evening, so please do stop by if you need anything before your journey home.' },
-      { role: 'M-Au', text: "To help everyone get away afterwards, we'll be running extra trains on the main line every fifteen minutes from six o'clock until midnight." },
+      { role: 'M-Au', text: "Because of the extra security checks at the gates, we'd ask anyone heading to the show to travel light and leave big bags and backpacks at home, as this will help keep the queues moving." },
+      { role: 'M-Au', text: 'The concert is expected to finish shortly before eleven, and the platforms will be at their busiest in the hour after that.' },
+      { role: 'M-Au', text: "To help everyone get away afterwards, we'll be running extra trains on the main line every fifteen minutes from nine o'clock until midnight." },
       { role: 'M-Au', text: 'Thank you for your patience, and we hope you enjoy the show.' },
     ],
-    ja: '鉄道ルドグローブ駅の構内放送。今週土曜の夜に町で大規模な野外ロックコンサートが開催され、多くのファンが終日この駅を利用する見込みだと案内する。ゲートでの追加の保安検査があるため、会場へ向かう人は大きな鞄やリュックの持参を避けるよう勧める（その方が列の進みが早くなるため）。トイレと駅のカフェは夜間も通常どおり営業するので、帰りの前に立ち寄ってよいと伝える。当日の混雑緩和のため、6時から深夜まで本線で15分おきに増発すると案内し、利用への感謝を述べて締めくくる。',
-    v: [['rucksack', 'リュックサック'], ['queue', '行列、列'], ['extra trains', '増発列車']],
+    ja: '駅の構内放送。今週土曜の夜に町で大規模な野外ロックコンサートが開催され、多くのファンが終日この駅を利用する見込みだと案内する。ゲートでの追加の保安検査があるため、会場へ向かう人は身軽な服装で、大きな鞄やリュックは家に置いてくるよう求める（その方が列の進みが早くなるため）。コンサートは11時少し前に終わる見込みで、その後の1時間はホームがいちばん混雑すると伝える。帰りの混雑を和らげるため、9時から深夜まで本線で15分おきに増発すると案内し、利用への感謝を述べて締めくくる。',
+    v: [['travel light', '荷物を少なくして移動する'], ['queue', '行列、列'], ['extra trains', '増発列車']],
     q: [
       { tag: '詳細', qid: 'v4q74p', s: 'According to the announcement, what will take place in the town on Saturday?',
         c: ['A football match', 'A food festival', 'A cycle race', 'A rock concert'],
@@ -80,47 +80,47 @@ export const L3 = [
       { tag: '詳細', qid: 'v4q75p', s: 'What does the speaker advise passengers to do?',
         c: ['Buy return tickets in advance', "Use the station's side entrance", 'Check the timetable online beforehand', 'Avoid bringing large bags'],
         a: 3,
-        e: '"we\'d advise anyone heading to the show to avoid bringing large bags or rucksacks" と助言している。',
-        w: ['往復切符を事前に買う助言はない。', '裏口の利用についての言及はない。', '時刻表を事前に確認する助言はない。', '正解。大きな鞄を持ち込まないよう助言している。'] },
+        e: '"we\'d ask anyone heading to the show to travel light and leave big bags and backpacks at home" と依頼している。大きな鞄は持ち込まないよう求める助言である。',
+        w: ['往復切符を事前に買う助言はない。', '脇の入口の利用についての言及はない。', '時刻表を事前に確認する助言はない。', '正解。大きな鞄やリュックは家に置いてくるよう助言している。'] },
       { tag: '詳細', qid: 'v4q76p', s: 'How often will extra trains run on Saturday?',
         c: ['Every 10 minutes', 'Every 15 minutes', 'Every 20 minutes', 'Every 30 minutes'],
         a: 1,
-        e: '"we\'ll be running extra trains on the main line every fifteen minutes from six o\'clock until midnight" と述べている。',
+        e: '"we\'ll be running extra trains on the main line every fifteen minutes from nine o\'clock until midnight" と述べている。',
         w: ['10分おきという数値は出ていない。', '正解。15分おきに増発すると述べている。', '20分おきという数値は出ていない。', '30分おきという数値は出ていない。'] },
     ],
   }),
 
   /* ── 77–79 会議の抜粋（Langmere Sports） ─────────────────────────────
      主題はボート部のスポンサー契約の1つだけ（見本市・倉庫移転・顧客アンケートには触れない）。
-     Q78 は直前の発言（経理の「据え置き」案への反論）で言語行為を増産支持に決め、
-     引用の直後で「だから増やしたい」と続けて (B) を確定させる。
+     Q78 は直前の発言（経理の「据え置き」案への反論）で言語行為を増産支持に決める。引用は独立した1文で、
+     直後に読みを言い直す文を置かない。
      来週の出来事はデザイナー2名加入の1つだけを述べる。 */
   talk({
     n: [77, 78, 79], lv: 4, k: 'meeting excerpt',
     s: [
       { role: 'M-Am', text: "Morning, team. I want to spend most of today's meeting on the new three-year sponsorship deal we've just signed with a local rowing club." },
-      { role: 'M-Am', text: "Our logo will go on the boats and the team kit, and in exchange we get a stand at every regatta they row in this season, which should put our gear in front of exactly the customers we're trying to reach." },
-      { role: 'M-Am', text: "One more thing before we move on — finance wants us to hold next quarter's factory order at the same level as this one, but I don't think that's right. The first batch sold out in two days, so I'd like to see the run size increased for the next round." },
-      { role: 'M-Am', text: 'And a quick heads-up for next week: two new designers are joining the product team, so please make some room for them in the studio.' },
+      { role: 'M-Am', text: "Our logo will go on the boats and the team's uniforms, and in exchange our gear gets a spot beside the course at every regatta they enter this season, which should put it in front of exactly the customers we're trying to reach." },
+      { role: 'M-Am', text: "One more thing before we move on. Finance would like next quarter's factory order for the new trail jacket kept at exactly the size of the launch order, and I think that's a mistake. The first batch sold out in two days." },
+      { role: 'M-Am', text: "And a quick heads-up for next week: we've taken on two more people for the design side of the product team, and they start on Monday, so please make some room for them in the studio." },
       { role: 'M-Am', text: "Okay, let's get into the sponsorship details." },
     ],
-    ja: 'スポーツ用品メーカー、ラングミア・スポーツの社内会議の抜粋。部門責任者が、地元のボート部との新しい3年間のスポンサー契約に今日の会議の大半を割くと切り出す。自社のロゴをボートとチームのユニフォームに掲出する代わりに、今シーズンそのチームが出場する全レガッタでブースを出せることになり、狙っている客層に直接訴求できると説明する。話題を移す前にもう一点として、経理部門は来四半期の工場発注数を今回と同水準に据え置きたいとしているが、それは違うと思うと述べ、初回出荷分がわずか2日で完売したことを理由に、次回の生産量を増やしたいという考えを示す。さらに来週の連絡事項として、2名の新しいデザイナーが製品チームに加わるのでスタジオに席を用意しておくよう伝え、最後にスポンサー契約の詳細説明に移る。',
-    v: [['regatta', 'レガッタ、ボートレース大会'], ['sponsorship deal', 'スポンサー契約'], ['factory order', '工場への発注']],
+    ja: '会議の抜粋。部門責任者が、地元のボート部との新しい3年間のスポンサー契約に今日の会議の大半を割くと切り出す。自社のロゴをボートとチームのユニフォームに掲出する代わりに、今シーズンそのチームが出場する全レガッタで、コースのそばに自社の用品を置く場所がもらえ、狙っている客層に直接訴求できると説明する。話題を移す前にもう一点として、経理部門は来四半期の新しいトレイルジャケットの工場発注数を初回の発注と同じ規模に据え置きたいとしているが、それは誤りだと思うと述べ、初回出荷分がわずか2日で完売したと伝える。さらに来週の連絡事項として、製品チームのデザイン担当として2名を新たに採用し、月曜日に出社するのでスタジオに場所を空けておくよう伝え、最後にスポンサー契約の詳細説明に移る。',
+    v: [['regatta', 'レガッタ、ボートレース大会'], ['sponsorship deal', 'スポンサー契約'], ['factory order', '工場への発注'], ['launch order', '発売時の発注']],
     q: [
       { tag: '概要', qid: 'v4q77p', s: 'What is the speaker mainly discussing?',
         c: ['Preparations for a trade fair', 'Sponsorship of a rowing club', 'Relocation to a larger warehouse', 'Results of a customer survey'],
         a: 1,
         e: '冒頭で "I want to spend most of today\'s meeting on the new three-year sponsorship deal we\'ve just signed with a local rowing club" と述べ、この話題に大半の時間を割くと明言している。',
-        w: ['見本市の準備についての言及はない。レガッタでのブース出展はボート部のスポンサー契約に伴うもので、見本市とは別である。', '正解。地元のボート部との新しいスポンサー契約について話している。', '倉庫の移転についての言及はない。', '顧客アンケートの結果についての言及はない。'] },
+        w: ['見本市の準備についての言及はない。レガッタでの用品の設置場所はボート部のスポンサー契約に伴うもので、見本市とは別である。', '正解。地元のボート部との新しいスポンサー契約について話している。', '倉庫の移転についての言及はない。', '顧客アンケートの結果についての言及はない。'] },
       { tag: '意図', t: ['p3int'], qid: 'v4q78p', s: 'Why does the speaker say, "The first batch sold out in two days"?',
         c: ["To praise a department's efforts", 'To support a larger production run', 'To explain a shortage in shops', 'To reject a proposed price cut'],
         a: 1,
-        e: 'この発言の直前で "finance wants us to hold next quarter\'s factory order at the same level as this one, but I don\'t think that\'s right" と、生産量を据え置く案に異を唱え、引用の発言のあとで "so I\'d like to see the run size increased for the next round" と続けている。つまりこの発言は、次回の生産量を増やすべきだという主張を裏づける根拠として使われている。',
-        w: ['特定の部署の働きをたたえる文脈ではない。', '正解。生産量を増やすべきだという主張の根拠として使われている。', 'この発言の前後は店の在庫不足の説明ではなく、次回の生産量を増やすべきだという主張のためのものである。', '値下げの提案についての言及はない。'] },
+        e: 'この発言の直前で "Finance would like next quarter\'s factory order for the new trail jacket kept at exactly the size of the launch order, and I think that\'s a mistake." と、発注量を据え置く経理の案に異を唱えたうえで "The first batch sold out in two days." と述べている。初回分が早く売り切れたという事実を、発注量を据え置くべきではないという主張、つまり次回の生産量を増やす方向を支える根拠として挙げている。',
+        w: ['引用の前後で人や部署の働きをほめる発言はない。直前は経理の据え置き案への反論である。', '正解。発注量を据え置く案に反対する根拠として、初回分の早い完売を挙げている。', '早期の完売という事実は述べているが、その目的は据え置き案への反論の根拠であり、店の品不足の理由を説明するためではない。', '退けている提案は発注量を据え置く案であり、値下げの提案は話に出てこない。'] },
       { tag: '詳細', qid: 'v4q79p', s: 'What does the speaker say will happen next week?',
         c: ['A photographer will visit the office', 'Two new designers will join the team', 'Workers will repaint the showroom', 'Local students will tour the factory'],
         a: 1,
-        e: '"a quick heads-up for next week: two new designers are joining the product team" と述べている。',
+        e: '"we\'ve taken on two more people for the design side of the product team, and they start on Monday" と述べており、来週からデザイン担当の新しい2名がチームに加わる。',
         w: ['写真家の来訪についての言及はない。', '正解。2名の新しいデザイナーがチームに加わると述べている。', 'ショールームの塗り直しについての言及はない。', '学生の工場見学についての言及はない。'] },
     ],
   }),
@@ -162,35 +162,35 @@ export const L3 = [
 
   /* ── 83–85 ビジターセンターでの話（Hallworth Nature Reserve） ─────────────
      話の中心はアザラシの繁殖期の1つだけ（雁の飛来・ランの開花・トンボの羽化には触れない）。
-     Q84 は直前の「冬にチームが成し遂げたこと」への言及と直後の「木道はすべて修復済み」で
-     (D) スタッフの働きをたたえる、に決める（(B) 閉鎖中の説明は「再開済み」と矛盾して落ちる）。
+     Q84 は引用の直前の「木道はすべて自分たちのチームが再建した」で
+     (D) スタッフの働きをたたえる、に決める（(B) 閉鎖中の説明は「再開済み」と矛盾して落ちる）。引用は独立した1文で、後ろで言い直さない。
      貸し出すのは折りたたみ式スツールの1つだけを述べる。 */
   talk({
     n: [83, 84, 85], lv: 4, k: 'talk',
     s: [
       { role: 'M-Br', text: 'Good afternoon, everyone, and welcome to Hallworth Nature Reserve.' },
-      { role: 'M-Br', text: "This month our grey seals have come ashore on the shingle to give birth, and if you walk down toward the beach you'll likely spot mothers resting with their pups right along the tideline." },
+      { role: 'M-Br', text: "This month our common seals have come ashore on the shingle to give birth, and if you walk down towards the beach you'll likely spot mothers resting with their pups right along the tideline." },
       { role: 'M-Br', text: "The pups stay close to their mothers for the first few weeks, so please keep well back from the water's edge and keep any dogs on their leads while you're out there." },
-      { role: 'M-Br', text: "Before you head off, I do want to mention what the team managed over the winter. We have three rangers for four hundred hectares, and every boardwalk the storms tore up was rebuilt before the reserve opened again for spring." },
-      { role: 'M-Br', text: "The best spot to watch from is the wooden screen just past the visitor centre, and if you'd like to sit for a while, we keep a folding stool at the front desk you're welcome to borrow." },
+      { role: 'M-Br', text: "Before you head off, a word about the winter. Every boardwalk the storms tore up was rebuilt by our own team before the reserve reopened in spring. We have three rangers for four hundred hectares." },
+      { role: 'M-Br', text: "The best spot to watch from is the wooden screen just past the visitor centre, and if you'd like to sit for a while, we keep a few fold-up stools at the front desk that you're welcome to take out with you." },
     ],
-    ja: '自然保護区ホールワース・ネイチャー・リザーブでのレンジャーによる来館者向けの話。今月、灰色アザラシが出産のため砂利浜に上陸しており、浜へ下りていくと波打ち際で母アザラシと仔が寄り添って休んでいる様子が見られると案内する。仔アザラシは最初の数週間、母親のそばを離れないので、水際からは十分離れ、犬は必ずリードにつなぐよう求める。出かける前に、この冬チームが成し遂げたことにも触れたいとして、「レンジャーは3人しかいないのに400ヘクタールを担当している」と述べ、それでも嵐で壊れた木道はすべて春の再開前に修復を終えたと語り、チームの働きをたたえる。観察に最適な場所はビジターセンターを過ぎたところにある木製のスクリーンで、しばらく座って見ていたい人のために、受付で折りたたみ式のスツールを貸し出しており、自由に借りてよいと伝える。',
-    v: [['shingle', '砂利浜、小石浜'], ['tideline', '波打ち際、潮境線'], ['boardwalk', '木道']],
+    ja: '自然保護区ホールワース・ネイチャー・リザーブでのレンジャーによる来館者向けの話。今月、ゼニガタアザラシが出産のため砂利浜に上陸しており、浜へ下りていくと波打ち際で母アザラシと仔が寄り添って休んでいる様子が見られると案内する。仔アザラシは最初の数週間、母親のそばを離れないので、水際からは十分離れ、犬は必ずリードにつなぐよう求める。出かける前に冬のことに触れ、嵐で壊れた木道はすべて春の再開前に自分たちのチームが再建したと話し、レンジャーは400ヘクタールに3人しかいないと述べて、チームの働きをたたえる。観察に最適な場所はビジターセンターを過ぎたところにある木製のスクリーンで、しばらく座って見ていたい人のために、受付に折りたたみ式のスツールを数脚置いてあり、持ち出して構わないと伝える。',
+    v: [['shingle', '砂利浜、小石浜'], ['tideline', '波打ち際、潮境線'], ['boardwalk', '木道'], ['fold-up', '折りたたみ式の']],
     q: [
       { tag: '概要', qid: 'v4q83p', s: 'What is the speaker mainly talking about?',
         c: ['The arrival of migrating geese', 'The flowering of wild orchids', 'The breeding season of seals', 'The emergence of dragonflies'],
         a: 2,
-        e: '"our grey seals have come ashore on the shingle to give birth" と述べ、出産のため上陸したアザラシについて話している。',
+        e: '"our common seals have come ashore on the shingle to give birth" と述べ、出産のため上陸したアザラシについて話している。',
         w: ['渡り鳥の雁の飛来についての言及はない。', '野生のランの開花についての言及はない。', '正解。アザラシの出産・繁殖期について話している。', 'トンボの羽化についての言及はない。'] },
       { tag: '意図', t: ['p3int'], qid: 'v4q84p', s: 'Why does the speaker say, "We have three rangers for four hundred hectares"?',
         c: ['To appeal to listeners for volunteer help', 'To explain why a path is still closed', 'To decline a request for daily walks', 'To praise what the staff have achieved'],
         a: 3,
-        e: 'この発言の直前で "I do want to mention what the team managed over the winter" と述べ、引用の発言のあとで "every boardwalk the storms tore up was rebuilt before the reserve opened again for spring" と続けている。少人数のチームでありながら冬の間に嵐の被害をすべて修復し終えたという、チームの働きをたたえる発言である。',
-        w: ['ボランティアを募る発言ではない。', '"every boardwalk the storms tore up was rebuilt before the reserve opened again for spring" と、すでに再開済みだと述べており、閉鎖中の道の説明ではない。', 'ガイドウォークの依頼を断る文脈ではない。', '正解。少人数で冬の被害をすべて修復し終えたチームの働きをたたえている。'] },
+        e: 'この発言の直前で "Every boardwalk the storms tore up was rebuilt by our own team before the reserve reopened in spring." と、嵐で壊れた木道をチームが自分たちで再建し終えたことを述べている。そのうえで "We have three rangers for four hundred hectares." と、レンジャーは400ヘクタールに3人しかいないことを添えており、少人数で冬の被害をすべて修復し終えたチームの働きをたたえる発言である。',
+        w: ['話の中にボランティアを求める呼びかけはない。', '"Every boardwalk the storms tore up was rebuilt by our own team before the reserve reopened in spring" と、木道はすべて再建され保護区も再開済みだと述べており、閉鎖中の道の説明ではない。', '毎日の散策を求める依頼は話に出てこない。', '正解。少人数で冬の被害をすべて修復し終えたチームの働きをたたえている。'] },
       { tag: '詳細', qid: 'v4q85p', s: 'What does the speaker say visitors can borrow from the front desk?',
         c: ['A pair of binoculars', 'A walking pole', 'A waterproof poncho', 'A folding stool'],
         a: 3,
-        e: '"we keep a folding stool at the front desk you\'re welcome to borrow" と述べている。',
+        e: '"we keep a few fold-up stools at the front desk that you\'re welcome to take out with you" と述べている。',
         w: ['双眼鏡の貸し出しについての言及はない。', '杖の貸し出しについての言及はない。', '雨具の貸し出しについての言及はない。', '正解。折りたたみ式のスツールを貸し出していると述べている。'] },
     ],
   }),
@@ -205,12 +205,12 @@ export const L3 = [
       { role: 'W-Cn', text: 'Thank you for calling Harkness Blood Donation Centre. Please listen carefully, as some details have changed.' },
       { role: 'W-Cn', text: "At the moment, we're especially short of B positive donors, so if that's your blood type, we'd love to see you at your earliest convenience." },
       { role: 'W-Cn', text: "Please remember to bring a valid form of photo identification with you when you come in, as we can't register new visits without one." },
-      { role: 'W-Cn', text: "From next month, we'll be moving out of this building and into new premises above the central public library on Market Street, so please check our website for the exact date before you travel." },
-      { role: 'W-Cn', text: 'A typical visit, from registration to the recovery area, takes about sixty minutes, so please allow enough time when you book your appointment.' },
+      { role: 'W-Cn', text: "From next month, we'll be moving out of this building and into new premises on the upper floor of the central library building on Market Street, so please check our website for the exact date before you travel." },
+      { role: 'W-Cn', text: 'A typical visit, from the moment you arrive to the moment you leave, takes about sixty minutes, so please allow enough time when you book your appointment.' },
       { role: 'W-Cn', text: 'To book online, visit our website, or press one now to speak with a member of our team.' },
     ],
-    ja: '献血センター、ハークネス・ブラッド・ドネーション・センターの自動音声案内。いくつか変更点があるのでよく聞くよう求めたうえで、現在特にB型Rh陽性の献血者が不足しており、該当する血液型の人にはできるだけ早く来てほしいと案内する。来館時には有効な写真付き身分証明書の持参が必要で、それがないと新規の来館受付ができないと注意する。来月からは、この建物を出て、マーケット・ストリートにある中央公立図書館の上階の新しい施設に移転するため、正確な移転日はウェブサイトで確認してほしいと案内する。受付から休憩エリアまでの一連の来館所要時間はおよそ60分であり、予約の際は十分な時間を見ておくよう求める。最後にオンライン予約の方法と、担当者と話すための操作案内で締めくくる。',
-    v: [['donor', '献血者、提供者'], ['premises', '施設、建物'], ['recovery area', '休憩・回復エリア']],
+    ja: '献血センター、ハークネス・ブラッド・ドネーション・センターの自動音声案内。いくつか変更点があるのでよく聞くよう求めたうえで、現在特にB型Rh陽性の献血者が不足しており、該当する血液型の人にはできるだけ早く来てほしいと案内する。来館時には有効な写真付き身分証明書の持参が必要で、それがないと新規の来館受付ができないと注意する。来月からは、この建物を出て、マーケット・ストリートにある中央図書館の建物の上階の新しい施設に移転するため、正確な移転日はウェブサイトで確認してほしいと案内する。到着してから帰るまでの一般的な来館所要時間はおよそ60分であり、予約の際は十分な時間を見ておくよう求める。最後にオンライン予約の方法と、担当者と話すための操作案内で締めくくる。',
+    v: [['donor', '献血者、提供者'], ['premises', '施設、建物'], ['photo identification', '写真付き身分証明書']],
     q: [
       { tag: '詳細', qid: 'v4q86p', s: 'Which blood type does the message say is most urgently needed?',
         c: ['O negative', 'A negative', 'B positive', 'AB positive'],
@@ -220,12 +220,12 @@ export const L3 = [
       { tag: '詳細', qid: 'v4q87p', s: 'Where will the centre be located from next month?',
         c: ['Inside a shopping centre', 'Next to the railway station', "In a hospital's outpatient wing", 'Above a public library'],
         a: 3,
-        e: '"we\'ll be moving out of this building and into new premises above the central public library on Market Street" と述べている。',
-        w: ['ショッピングセンター内についての言及はない。', '鉄道駅の隣についての言及はない。', '病院の外来棟についての言及はない。', '正解。公立図書館の上階に移転すると述べている。'] },
+        e: '"we\'ll be moving out of this building and into new premises on the upper floor of the central library building on Market Street" と述べている。',
+        w: ['ショッピングセンター内についての言及はない。', '鉄道駅の隣についての言及はない。', '病院の外来棟についての言及はない。', '正解。中央図書館の建物の上階に移転すると述べている。'] },
       { tag: '詳細', qid: 'v4q88p', s: 'How long does the speaker say a typical visit takes?',
         c: ['About 40 minutes', 'About 50 minutes', 'About 60 minutes', 'About 75 minutes'],
         a: 2,
-        e: '"A typical visit, from registration to the recovery area, takes about sixty minutes" と述べている。',
+        e: '"A typical visit, from the moment you arrive to the moment you leave, takes about sixty minutes" と述べている。',
         w: ['40分という数値は出ていない。', '50分という数値は出ていない。', '正解。およそ60分と述べている。', '75分という数値は出ていない。'] },
     ],
   }),
@@ -234,7 +234,7 @@ export const L3 = [
      表は凍結どおり（Route23:Quarry car park→Lake shore／Route26:Forest gate→Village square／
      Route6:Quarry car park→Village square／Route12:Forest gate→Lake shore）。
      表の語（ルート番号・quarry・forest・lake・village・square）は音声に出さない。
-     出発地は「松林の端の門」（Forest gate の言い換え）、到着地は「水辺のすぐそば」（Lake shore の
+     出発地は「松林の始まるところ」（Forest gate の言い換え。gate の語は言わない）、到着地は「水辺のすぐそば」（Lake shore の
      言い換え）を別々の文で伝え、この2つを満たすのは Route 12 だけになる。ルート番号は言わない。
      自己試行：音声だけ（表なし）→ルート番号との対応が不明で 1/4。表だけ（音声なし）→
      4行とも起点・終点の組み合わせが1回ずつで見分けがつかず 1/4。出発地の手がかりだけなら
@@ -254,21 +254,21 @@ export const L3 = [
     },
     s: [
       { role: 'M-Cn', text: "Morning, everyone — great turnout today. Let me run through the plan for this morning's walk." },
-      { role: 'M-Cn', text: "Because of all the rain we had yesterday, I want to keep today's group on drier ground, so this morning we'll be setting off from the gate at the edge of the pine trees." },
+      { role: 'M-Cn', text: "Because of all the rain we had yesterday, I want to keep today's group on drier ground, so this morning we'll be setting off from where the pine woods begin." },
       { role: 'M-Cn', text: "It's an easy grade the whole way, and the walk finishes right down by the water, where the minibus will already be waiting to take you back." },
       { role: 'M-Cn', text: "We'll stop for lunch partway round at a working farm that's opened its little cafe to walkers — they do a very good soup, so bring some cash if you'd like to try it." },
       { role: 'M-Cn', text: "All being well, we should be back at the minibus by half past five, so you've got plenty of time before the evening meal." },
     ],
-    ja: '山岳ガイド会社ハクステーブル・マウンテン・ガイズのガイドが、朝の集合時に参加者へ今日の行程を説明する。昨日の雨のため足場の悪い場所を避けたいとして、今朝は松林の端にある門から出発すると案内する。道のりは終始緩やかな勾配で、ゴール地点は水辺のすぐそばで、そこにはすでに送迎の小型バスが待機しているという。途中、営業中の農場が併設のカフェを歩行者に開放しており、そこで昼食休憩を取れると案内し、スープがおいしいので試したい人は現金を持参するよう勧める。順調にいけば午後5時半には小型バスに戻れる見込みで、夕食までには十分な時間があると締めくくる。',
+    ja: '山岳ガイドが、朝の集合時に参加者へ今日の行程を説明する。昨日の雨のため足場の悪い場所を避けたいとして、今朝は松林の始まるところから出発すると案内する。道のりは終始緩やかな勾配で、ゴール地点は水辺のすぐそばで、そこにはすでに送迎の小型バスが待機しているという。途中、営業中の農場が併設のカフェを歩行者に開放しており、そこで昼食休憩を取れると案内し、スープがおいしいので試したい人は現金を持参するよう勧める。順調にいけば午後5時半には小型バスに戻れる見込みで、夕食までには十分な時間があると締めくくる。',
     v: [['grade', '勾配、傾斜'], ['partway', '途中で'], ['minibus', '小型バス']],
     q: [
       { tag: '図表', qid: 'v4q89p', s: 'Look at the graphic. Which route does the speaker recommend?',
         c: ['Route 23', 'Route 26', 'Route 6', 'Route 12'],
         a: 3,
-        e: '話し手は "we\'ll be setting off from the gate at the edge of the pine trees" と述べており、これは表の Forest gate から出発する2ルート（Route 26・Route 12）のどちらかを指す。さらに "the walk finishes right down by the water" とも述べており、これは表の Lake shore で終わる2ルート（Route 23・Route 12）のどちらかを指す。両方を満たすのは Route 12（Forest gate → Lake shore）だけである。',
-        w: ['出発地が Quarry car park のルートであり、話し手が述べた「松林の端の門」から出発するという説明と合わない。', '出発地は合うが、到着地が Village square であり、話し手が述べた「水辺のすぐそば」で終わるという説明と合わない。', '出発地・到着地のどちらも話し手の説明と合わない。', '正解。松林の端の門から出発し、水辺のそばで終わるのは Route 12 だけである。'] },
+        e: '話し手は "this morning we\'ll be setting off from where the pine woods begin" と述べており、これは表の Forest gate から出発する2ルート（Route 26・Route 12）のどちらかを指す。さらに "the walk finishes right down by the water" とも述べており、これは表の Lake shore で終わる2ルート（Route 23・Route 12）のどちらかを指す。両方を満たすのは Route 12（Forest gate → Lake shore）だけである。',
+        w: ['出発地が Quarry car park のルートであり、話し手が述べた「松林の始まるところ」から出発するという説明と合わない。', '出発地は合うが、到着地が Village square であり、話し手が述べた「水辺のすぐそば」で終わるという説明と合わない。', '出発地・到着地のどちらも話し手の説明と合わない。', '正解。松林の始まるところから出発し、水辺のそばで終わるのは Route 12 だけである。'] },
       { tag: '詳細', t: ['p4type'], qid: 'v4q90p', s: 'Where can the group stop for lunch?',
-        c: ['Inside a mountain hut', 'Beside a waterfall', 'At a farm cafe', 'On a grassy hilltop'],
+        c: ['Inside a mountain hut', 'Beside a waterfall', 'At a farm café', 'On a grassy hilltop'],
         a: 2,
         e: '"We\'ll stop for lunch partway round at a working farm that\'s opened its little cafe to walkers" と述べている。',
         w: ['山小屋についての言及はない。', '滝についての言及はない。', '正解。営業中の農場のカフェで昼食を取れると述べている。', '草地の丘の上についての言及はない。'] },
@@ -324,12 +324,12 @@ export const L3 = [
     n: [95, 96, 97], lv: 4, k: 'broadcast',
     s: [
       { role: 'W-Au', text: 'Now to local news: work begins next week on replanting street trees along Hambrook Road, here in Loveridge.' },
-      { role: 'W-Au', text: 'Sixty-five semi-mature trees will go in along the length of the road, which has looked bare and exposed ever since a string of severe storms battered the area two winters ago.' },
-      { role: 'W-Au', text: "The council is asking residents living nearby to keep an eye on the new trees over the coming months, and to report any that look damaged or unwell directly to the council's parks team, rather than try pruning them themselves." },
+      { role: 'W-Au', text: 'Sixty-five semi-mature trees will go in along the length of the road, which has looked bare and exposed ever since a severe storm battered the area two winters ago.' },
+      { role: 'W-Au', text: "The council is asking residents living nearby to keep an eye on the new trees over the coming months, and to let the council's parks team know straight away about any that look broken or unwell, rather than try pruning them themselves." },
       { role: 'W-Au', text: 'A council spokesperson said the new avenue should reach a decent height within about ten years, restoring some of the shade the road has been missing.' },
       { role: 'W-Au', text: "That's all for local news — sport is next." },
     ],
-    ja: '地域ラジオのローカルニュースコーナー。来週から、ラヴリッジのハムブルック・ロード沿いで街路樹の植樹作業が始まると伝える。65本の若木がこの道路沿いに植えられる予定で、この道路は2年前に激しい嵐が立て続けに地域を襲って以来、木がなく寂しい様子が続いていたと述べる。地域住民に対しては、今後数か月新しい木の様子に気を配り、傷んでいたり元気がないように見える木を見つけたら自分で剪定などをせず、直接自治体の公園管理チームに報告するよう呼びかける。自治体の広報担当者は、新しい並木がおよそ10年ほどで見栄えのする高さに育ち、この道路に足りなかった木陰を取り戻せるだろうと述べたという。',
+    ja: '地域ラジオのローカルニュースコーナー。来週から、ラヴリッジのハムブルック・ロード沿いで街路樹の植樹作業が始まると伝える。65本の成木手前の木がこの道路沿いに植えられる予定で、この道路は2年前の冬に激しい嵐が地域を襲って以来、木がなく寂しい様子が続いていたと述べる。地域住民に対しては、今後数か月新しい木の様子に気を配り、折れていたり元気がないように見える木を見つけたら自分で剪定などをせず、すぐに自治体の公園管理チームに知らせるよう呼びかける。自治体の広報担当者は、新しい並木がおよそ10年ほどで見栄えのする高さに育ち、この道路に足りなかった木陰を取り戻せるだろうと述べたという。',
     v: [['semi-mature', '若木より育った、成木手前の'], ['battered', '打撃を受けた、痛めつけられた'], ['parks team', '公園管理チーム']],
     q: [
       { tag: '詳細', qid: 'v4q95p', s: 'How many trees will be planted on Hambrook Road?',
@@ -340,13 +340,13 @@ export const L3 = [
       { tag: '詳細', qid: 'v4q96p', s: 'What does the speaker say residents can do to help?',
         c: ['Volunteer to help with planting', 'Water young trees during dry spells', 'Report damaged trees to the council', 'Sponsor a tree for a fee'],
         a: 2,
-        e: '"report any that look damaged or unwell directly to the council\'s parks team" と述べている。',
-        w: ['植樹のボランティアについての言及はない。', '水やりについての言及はない。', '正解。傷んだ木を自治体の公園管理チームに報告するよう述べている。', '寄付についての言及はない。'] },
+        e: '"to let the council\'s parks team know straight away about any that look broken or unwell" と述べており、傷んだ木を見つけたらすぐ自治体の公園管理チームに知らせるよう住民に求めている。',
+        w: ['植樹のボランティアについての言及はない。', '水やりについての言及はない。', '正解。傷んだ木を自治体の公園管理チームに知らせるよう述べている。', '寄付についての言及はない。'] },
       { tag: '推測', qid: 'v4q97p', s: 'What is suggested about Hambrook Road?',
         c: ['It lost its old trees in a storm', 'It is due for resurfacing soon', 'It runs past a row of shops', 'It gained a new bus lane recently'],
         a: 0,
-        e: '"which has looked bare and exposed ever since a string of severe storms battered the area two winters ago" と述べており、この描写から、同じ道路がかつて並木を持っていて、それを嵐で失ったことがうかがえる。',
-        w: ['正解。2年前の嵐以来ずっと木がなく寂しい様子だったという描写から、嵐で並木を失ったことがうかがえる。', '舗装工事の予定についての言及はない。', '沿道の商店についての言及はない。', '新しいバス専用レーンについての言及はない。'] },
+        e: '"which has looked bare and exposed ever since a severe storm battered the area two winters ago" と述べており、この描写から、同じ道路がかつて並木を持っていて、それを嵐で失ったことがうかがえる。',
+        w: ['正解。2年前の冬の嵐以来ずっと木がなく寂しい様子だったという描写から、嵐で並木を失ったことがうかがえる。', '舗装工事の予定についての言及はない。', '沿道の商店についての言及はない。', '新しいバス専用レーンについての言及はない。'] },
     ],
   }),
 
@@ -375,13 +375,13 @@ export const L3 = [
       ],
     },
     s: [
-      { role: 'W-Br', text: "Hi, this is Levi from Hartsdale Beds, returning your call about trying out that memory-foam mattress before you buy." },
+      { role: 'W-Br', text: "Hi, this is Lydia from Hartsdale Beds, returning your call about trying out that memory-foam mattress before you buy." },
       { role: 'W-Br', text: "That particular model is only out on the shop floor in one of our showrooms — it's the one out where the big warehouse-style shops are, just off the ring road, so it's an easy stop if you're driving out that way." },
-      { role: 'W-Br', text: "It's the showroom right beside the place everyone goes to catch the latest film, so you can't miss it — there's plenty of parking right outside, too." },
+      { role: 'W-Br', text: "It's the showroom right beside the place everyone goes to catch the latest film, so you can't miss it." },
       { role: 'W-Br', text: 'The mattress itself is five hundred and seventy-five pounds, and that includes free delivery within thirty miles.' },
       { role: 'W-Br', text: "Since you mentioned your old one's got a dip in the middle that's been keeping you up at night, I really think this model would suit you — give us a call back if you'd like to book a time to come in." },
     ],
-    ja: '寝具店ハーツデール・ベッズの店員レヴィから、問い合わせのあったメモリーフォーム・マットレスの試し寝について、客の留守番電話への折り返しメッセージ。そのモデルは自社の1店舗のみ店頭に展示しており、その店は郊外の大型店が立ち並ぶ一角、環状道路のすぐそばにあるため車で来るなら寄りやすいと案内する。さらに、その店はみんなが最新作の映画を観に行く建物のすぐ隣にあり見つけやすく、外に十分な駐車スペースもあると伝える。マットレスの価格は575ポンドで、30マイル以内は送料無料だと案内する。客が以前、今使っているマットレスは真ん中がへこんでいて夜よく眠れないと話していたことに触れ、このモデルが向いていると思うので、来店の予約をしたければ折り返してほしいと締めくくる。',
+    ja: '寝具店ハーツデール・ベッズの店員リディアから、問い合わせのあったメモリーフォーム・マットレスの試し寝について、客の留守番電話への折り返しメッセージ。そのモデルは自社の1店舗のみ店頭に展示しており、その店は郊外の大型店が立ち並ぶ一角、環状道路のすぐそばにあるため車で来るなら寄りやすいと案内する。さらに、その店はみんなが最新作の映画を観に行く建物のすぐ隣にあり、見つけやすいと伝える。マットレスの価格は575ポンドで、30マイル以内は送料無料だと案内する。客が以前、今使っているマットレスは真ん中がへこんでいて夜よく眠れないと話していたことに触れ、このモデルが向いていると思うので、来店の予約をしたければ折り返してほしいと締めくくる。',
     v: [['ring road', '環状道路'], ['showroom', 'ショールーム、展示場'], ['dip', 'へこみ、くぼみ']],
     q: [
       { tag: '図表', qid: 'v4q98p', s: 'Look at the graphic. Where can the listener try out the mattress?',

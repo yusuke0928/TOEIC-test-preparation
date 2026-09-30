@@ -24,7 +24,7 @@ export const R3 = [
      固有名は追加していない（頭文字 T の割り当ては使用せず）。設問 id は全問新規採番
      （v4q165p〜v4q168p）。
      申し送り対応：映画祭はすでに終わっている前提で統一した。Q166 の引用の直前は「相手（Ella）
-     がこれから事務所へ物を取りに行く」という発言だけにし、備品の無事・伝聞・配達の話は本文の
+     がこれから事務所へ行って作業する」という発言だけにし、備品の無事・伝聞・配達の話は本文の
      どこにも置いていない。Wesley が何かを頼まれる形も作っていない。Q167 は Dominic が語る
      会場の忘れ物を first-aid kit の1つだけにし、他の3択（programmes・charger・jacket）には
      一切触れていない。Q168 は Ella だけが Tuesday を提案し、他の曜日は本文のどこにも出さない。 */
@@ -33,15 +33,15 @@ export const R3 = [
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
-        { who: 'Dominic', time: '09:02', text: "Morning both. I've made a start on the messages ticket holders have sent in since the festival closed — there's a good stack of them in the shared inbox." },
+        { who: 'Dominic', time: '09:02', text: "Morning both. I've made a start on the e-mails festivalgoers have sent in since closing night — there's a good stack of them in the shared inbox." },
         { who: 'Ella', time: '09:04', text: "I'll pick up a batch once I'm logged on. Anything I should look at first?" },
-        { who: 'Dominic', time: '09:06', text: "One woman says she left a first-aid kit under her seat in Screen Two on the closing night and wants to know if it's turned up." },
+        { who: 'Dominic', time: '09:06', text: "One woman says she left a small first-aid kit she carries for her children under her seat in Screen Two on the closing night and wants to know if it's turned up." },
         { who: 'Ella', time: '09:07', text: "I'll ask at the venue when I'm there on Tuesday and let her know either way." },
-        { who: 'Ella', time: '09:08', text: "I'm heading over to the office in a few minutes anyway to grab the guest list off my desk, so I'll answer her from there once I've got it." },
+        { who: 'Ella', time: '09:08', text: "I'm heading over to the office in a few minutes anyway, so I'll work through my batch from there — it's quieter." },
         { who: 'Wesley', time: '09:09', text: "The office is locked. Caretaker's away for a few days and nobody else has a spare key." },
-        { who: 'Ella', time: '09:10', text: "Ah — good thing you said. I'll just answer her from my phone instead." },
+        { who: 'Ella', time: '09:10', text: "Ah — good thing you said. I'll stay put and do mine from home, then." },
         { who: 'Dominic', time: '09:15', text: "Once today's batch of e-mails is done, shall we get together and go through whatever's left over?" },
-        { who: 'Ella', time: '09:16', text: "How about Tuesday? I'm at the venue in the morning anyway, so I can come by afterwards and we'll finish it off then." },
+        { who: 'Ella', time: '09:16', text: "How about Tuesday? I'm at the venue in the morning anyway, so I can join you both on a call afterwards and we'll finish it off then." },
         { who: 'Wesley', time: '09:17', text: "Tuesday's fine for me too." },
       ] }],
     }],
@@ -50,7 +50,7 @@ export const R3 = [
         c: ['Returning equipment hired for the festival.', 'Counting the votes for an audience prize.',
             "Writing a report for the festival's funders.", 'Replying to messages from ticket holders.'],
         a: 3,
-        e: '冒頭でドミニクが「映画祭が終わってから来た、チケット購入者からのメッセージに手をつけ始めた」と伝え、以降のやり取りは会場への忘れ物の問い合わせへの返信や、残りのメッセージをいつ片付けるかという話題で一貫している。',
+        e: '冒頭でドミニクが「閉幕の夜以降に来場者から届いたメールに手をつけ始めた」と伝え、以降のやり取りは会場への忘れ物の問い合わせへの返信や、残りのメッセージをいつ片付けるかという話題で一貫している。',
         w: ['借りた機材の返却についての言及はチャットのどこにも無い（言及なし）。',
             '観客賞の投票集計についての言及はチャットのどこにも無い（言及なし）。',
             '出資者向けの報告書についての言及はチャットのどこにも無い（言及なし）。',
@@ -60,7 +60,7 @@ export const R3 = [
         c: ['He is reassuring a colleague about some equipment.', 'He is warning a colleague against a wasted trip.',
             'He is contradicting something a colleague was told.', 'He is predicting a problem with a delivery.'],
         a: 1,
-        e: '直前でエラが「事務所に寄ってデスクの来場者リストを取ってから返信する」と、自分がこれから事務所へ行くつもりだと述べている。ウェズリーの「事務所は施錠されている」は、その訪問が無駄足になることを知らせる警告である。',
+        e: '直前でエラが「これから事務所へ行って、そこで自分の分の処理を進める」と、自分がこれから事務所へ行くつもりだと述べている。ウェズリーの「事務所は施錠されている」は、その訪問が無駄足になることを知らせる警告である。',
         w: ['備品が無事かどうかを気づかう発言はこの前後のどこにも無く、機材についての話題自体が存在しない。',
             '正解。',
             'エラは「事務所が開いている」と誰かから聞いたとは一言も述べておらず、自分がこれから行くという予定を述べただけなので、ウェズリーの発言が否定する伝聞情報が存在しない。',
@@ -76,7 +76,7 @@ export const R3 = [
       { tag: '詳細', qid: 'v4q168p', s: 'On what day does Ella say the team will next meet?',
         c: ['On Monday.', 'On Tuesday.', 'On Wednesday.', 'On Thursday.'],
         a: 1,
-        e: 'エラが「火曜日はどう？　午前中はどのみち会場にいるから、そのあとに寄って一緒に片付けよう」と火曜日を提案し、ウェズリーも同意している。',
+        e: 'エラが「火曜日はどう？　午前中はどのみち会場にいるから、そのあと通話で合流して一緒に片付けよう」と火曜日を提案し、ウェズリーも同意している。',
         w: ['月曜日についての言及はチャットのどこにも無い（言及なし）。',
             '正解。',
             '水曜日についての言及はチャットのどこにも無い（言及なし）。',
@@ -102,10 +102,10 @@ export const R3 = [
       body: [
         'Alumni Relations Office\nNansfield University',
         'Dear Alumni Relations Office,',
-        "I'm writing about a small error in the 'Fifty Years of the Union' piece in the Spring issue of the alumni magazine. It says the ground-floor café in the Union building opened in 1999, but the leaflet the Union still keeps by the till gives the date as 1997 — the writer may have mixed it up with a later refit. A friend of mine from my Nansfield days, who still lives nearby and drops into the Union from time to time, is the one who noticed it and mentioned it to me.",
+        "I'm writing about a date that seems to have been given wrongly in the 'Fifty Years of the Union' feature in the Spring issue of the alumni magazine. It says the ground-floor café in the Union building opened in 1999, but the leaflet the Union still keeps by the till gives the date as 1997 — the writer may have mixed it up with a later refit. A friend of mine from my Nansfield days, who still lives near the campus and drops into the Union from time to time, is the one who noticed it and mentioned it to me.",
         "I graduated from Nansfield in 2007, and I still read every issue of the magazine from cover to cover, even from all the way over here in Canada. It seems a shame to leave a small detail like that uncorrected, so I wondered whether you could pass this on to whoever edits the magazine, in case a short correction can run in the next issue.",
         'Thank you for your time.',
-        'Yours sincerely,',
+        'Yours faithfully,',
       ],
       sig: 'Joanna Toomey',
     }],
@@ -114,7 +114,7 @@ export const R3 = [
         c: ['To offer some photographs for an exhibition.', 'To propose a reunion for her year group.',
             'To ask for a replacement degree certificate.', 'To point out an error in a magazine article.'],
         a: 3,
-        e: '冒頭で「同窓会誌の春号に載った『組合50年』という記事の小さな誤りについて書いている」と述べ、その誤りを編集者に伝えて訂正してほしいと依頼している。',
+        e: '冒頭で「同窓会誌の春号に載った特集『学生会（Union）の50年』の中の、誤って書かれたらしい日付について書いている」と述べ、その誤りを編集者に伝えて訂正してほしいと依頼している。',
         w: ['展示会への写真提供についての言及は手紙のどこにも無い（言及なし）。',
             '学年での同窓会の提案についての言及は手紙のどこにも無い（言及なし）。',
             '卒業証明書の再発行についての言及は手紙のどこにも無い（言及なし）。',
@@ -152,7 +152,8 @@ export const R3 = [
        "the group" と "In exchange" の先行詞が無い。
      ②後方（逆向きの初出違反）：[1] の直後（固定文）に "That commitment" として、翌年から3年分
        の予約という、挿入文で初めて出る約束を既出として受ける文を置いた。挿入文を他の位置に
-       動かすと、この固定文の "That commitment" が何も指さないまま残る。
+       動かすと、この固定文の "That commitment" は直前の割引の合意を受けることになり、割引の
+       合意からは今後数年の予約の見通しは得られないので、意味が合わなくなる。
      Q172 は初めて利用した団体を語学学校1種類だけにし、他の3択（スポーツキャンプ・医療系の会議・
      チェス大会）にはどれも触れていない。Q173 は夏に開いていた食堂の数を3館の1値だけにし、時期に
      よって変わる書き方はしていない。Q175 は「本館以外に図書館内のカフェも運営している」という
@@ -163,10 +164,10 @@ export const R3 = [
       label: 'Report',
       head: 'Campus Dining Services\nSummer 2026 Review — extract for staff',
       body: [
-        "Over the ten weeks with no students on campus, Campus Dining Services kept three of our four halls open — the North, South and East dining halls — to serve staff, contractors and the handful of outside groups who book the campus for residential courses each summer. The West Hall stayed closed throughout for its five-yearly rewiring, which is why the other three carried a busier summer than usual.",
+        "Over the ten weeks with no students on campus, we kept three of our four halls open — the North, South and East dining halls — to serve staff, contractors and the handful of outside groups who book the campus for residential courses each summer. The West Hall stayed closed throughout for its five-yearly rewiring.",
         "The largest of this year's bookings was a fortnight-long course run by an overseas language school, the first time a group of that kind has used our halls. Because the course fell in our quietest fortnight, we agreed to give the school a reduced day rate for the whole stay. [[1]] That commitment already gives us a clearer picture of bookings for the next few summers than we normally have at this stage of the year.",
-        "Elsewhere, the quiet summer gave the maintenance team a rare chance to get ahead of routine repairs across the halls that stayed open. The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail. [[2]] Two further jobs on this year's list — resurfacing the delivery yard and replacing the roof lights above the South Hall's servery — have been put back to next spring, since neither could be finished without closing a hall that was still in use.",
-        "Catering income held up well despite the quiet campus. The small café we run in the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break. [[3]] Overall takings across the whole operation were only a little below what we would expect during term time.",
+        "Elsewhere, the quiet summer gave the maintenance team a rare chance to get ahead of routine repairs across the halls that stayed open. The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail. [[2]]",
+        "Catering income held up well despite the quiet campus. The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break. [[3]] Overall takings across the whole operation were only a little below what we would expect during term time.",
         "Looking ahead, we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time. [[4]] Anyone with questions about this summer's figures should contact the dining services office in Room 14 of the Refectory building.",
       ],
     }],
@@ -192,16 +193,16 @@ export const R3 = [
         s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"In exchange, the group has agreed to return in each of the next three summers."',
         c: ['[1]', '[2]', '[3]', '[4]'],
         a: 0,
-        e: '挿入文の "the group" と "In exchange" は、直前の "we agreed to give the school a reduced day rate for the whole stay" という、特定の1団体（the school）への譲歩を受けて初めて先行詞が定まる。この文は [1] の直前にしか無い。挿入文の直後には "That commitment already gives us a clearer picture of bookings for the next few summers…" が続き、挿入文で初めて導入された「3年分の予約という約束」を、既出のものとして "That commitment" で受けている。[2][3][4] の直前にはいずれも特定の1団体への譲歩を述べた文が無く、"the group" の先行詞が定まらないうえ、この "That commitment" の一文は [1] の直後に固定されたまま動かないので、挿入文を他の位置に動かすと "That commitment" が何も指さずに残る。',
+        e: '挿入文の "the group" と "In exchange" は、直前の "we agreed to give the school a reduced day rate for the whole stay" という、特定の1団体（the school）への譲歩を受けて初めて先行詞が定まる。この文は [1] の直前にしか無い。挿入文の直後には "That commitment already gives us a clearer picture of bookings for the next few summers…" が続き、挿入文で初めて導入された「3年分の予約という約束」を、既出のものとして "That commitment" で受けている。[2][3][4] の直前にはいずれも特定の1団体への譲歩を述べた文が無く、"the group" の先行詞が定まらないうえ、また、挿入文を [1] 以外に置くと、[1] の直後の "That commitment" は直前の割引の合意を受けることになるが、割引の合意からは「今後数年の夏の予約の見通し」は得られないので、文がつながらない。',
         w: ['正解。',
-            '[2] の直前は "The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail." という設備の補修の話で、特定の1団体への譲歩は述べられていない。"the group" の先行詞が無いうえ、[1] の直後に固定された "That commitment" の一文がここでは何も指さずに残る。',
-            '[3] の直前は "The small café we run in the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break." というカフェの売上の話で、特定の1団体への譲歩は述べられていない。理由は [2] と同じで、"the group" の先行詞が無く、"That commitment" も宙に浮く。',
-            '[4] の直前は "we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time." という来年への見通しの話で、特定の1団体への譲歩は述べられていない。理由は [2][3] と同じで、"the group" の先行詞が無く、"That commitment" も宙に浮く。'] },
+            '[2] の直前は "The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail." という設備の補修の話で、特定の1団体への譲歩は述べられていない。"the group" の先行詞が無いうえ、挿入文を [1] に置かないと [1] の直後の "That commitment" は直前の割引の合意を受けることになり、割引の合意からは今後数年の夏の予約の見通しは得られないので、文がつながらない。',
+            '[3] の直前は "The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break." というカフェの売上の話で、特定の1団体への譲歩は述べられていない。理由は [2] と同じで、"the group" の先行詞が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。',
+            '[4] の直前は "we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time." という来年への見通しの話で、特定の1団体への譲歩は述べられていない。理由は [2][3] と同じで、"the group" の先行詞が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。'] },
       { tag: '推測', t: ['p7inf'], qid: 'v4q175p', s: 'What is suggested about Campus Dining Services?',
         c: ['It holds a top hygiene rating from the council.', 'It operates the café in the main library.',
             'It employs current students during term time.', 'It buys its meat from farms in the county.'],
         a: 1,
-        e: '「図書館内で私たちが運営している小さなカフェも、夏の間安定した売上だった」という一文から、Campus Dining Services が本館の食堂だけでなく図書館内のカフェも運営していることが分かる。',
+        e: '「図書館の1階で私たちのチームが運営しているコーヒーバーも、夏の間安定した売上だった」という一文から、Campus Dining Services が学内の食堂だけでなく図書館内のカフェ（コーヒーバー）も運営していることが分かる。',
         w: ['衛生評価についての言及は報告書のどこにも無い（言及なし）。',
             '正解。',
             '在学中の学生を雇用しているという言及は報告書のどこにも無い（言及なし）。',

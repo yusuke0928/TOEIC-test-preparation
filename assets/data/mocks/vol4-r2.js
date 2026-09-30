@@ -26,9 +26,9 @@ export const R2 = [
       title: 'Bicycle Rack Notice',
       head: 'Napley Station',
       body: [
-        'The cycle racks outside the main entrance are provided for customers who travel by train, and space is limited during peak commuting hours. Station staff check the racks every Monday, and any bicycle that has stood in the same spot for fourteen days will have a bright tag fastened to its frame, asking the owner to move it.',
+        'The cycle racks outside the main entrance are provided for customers who travel by train, and space is limited during peak commuting hours. Station staff check the racks every day, and any bicycle that has stood in the same spot for fourteen days will have a bright tag fastened to its frame, asking the owner to move it.',
         'A tagged bicycle that is still there after a further ten days will be taken into store by station staff. From that point it can no longer be collected from the racks; instead, it is kept at the station ticket office, where staff will match the tag number to the bicycle before releasing it to its owner.',
-        'The scheme exists only to keep the racks free for people cycling to catch a train that day or that week; it has nothing to do with any building work at the station, and none of the racks are being closed. Anyone planning to leave a bicycle for longer than two weeks, for example while away on holiday, should ask a member of staff to note this in advance so that the bicycle is not tagged by mistake.',
+        'The scheme exists only to keep the racks free for people cycling to catch a train. Anyone planning to leave a bicycle for longer than two weeks, for example while away on holiday, should ask a member of staff to note this in advance so that the bicycle is not tagged by mistake.',
         'Any questions about this notice can be raised with a member of station staff on the platform.',
       ],
     }],
@@ -37,7 +37,7 @@ export const R2 = [
         s: 'According to the notice, how long can a bicycle stay in the racks before it is labelled for removal?',
         c: ['Three days.', 'Seven days.', 'Fourteen days.', 'Twenty-eight days.'],
         a: 2,
-        e: '第1段落に、駅員が毎週月曜日にラックを確認し、同じ場所に十四日間置かれた自転車にタグを付ける、と明記されている。',
+        e: '第1段落に、駅員が毎日ラックを確認し、同じ場所に十四日間置かれた自転車にタグを付けて持ち主に移動を求める、と明記されている。',
         w: ['掲示が示すタグ付けまでの猶予は十四日であり、三日ではない。',
             '掲示が示すタグ付けまでの猶予は十四日であり、七日ではない（タグ付け後にさらに与えられる猶予は十日で、これも七日とは異なる）。',
             '正解。第1段落に、同じ場所に十四日間置かれた自転車にタグが付けられるとある。',
@@ -59,9 +59,9 @@ export const R2 = [
     n: [149, 150], lv: 3,
     docs: [{
       label: 'Memo',
-      head: 'TO: Parks Department Field Staff\nFROM: Grounds Operations\nDATE: 12 May\nSUBJECT: New apprentices starting next month',
+      head: 'TO: Parks Department Field Staff\nFROM: Grounds Operations Manager\nDATE: 12 May\nSUBJECT: New apprentices starting next month',
       body: [
-        "Tuckwell City Council will take on four new apprentices next month, the first intake since the scheme was paused a few years ago. All four will be based at the arboretum for the length of their training, working alongside the tree and shrub team rather than being split across the department's sites.",
+        "Tuckwell City Council will take on four new apprentices next month, the first intake since the scheme was paused a few years ago. All four will be based at the council's collection of labelled specimen trees for the length of their training, working alongside the tree and shrub team rather than being split across the department's sites.",
         'The apprenticeship itself runs for eighteen months and leads to a recognised horticultural qualification on completion. Each apprentice will be paired with an experienced member of staff who agrees to act as their mentor for the full period, and mentors will receive a small allowance on top of their usual pay.',
         'Please make sure tools and protective equipment are ready before the apprentices arrive, and that someone is free to walk them through basic safety procedures on their first morning. Uniforms have already been ordered and should arrive by the end of the month.',
         "Any questions about the scheme should go to me directly rather than to the council's general recruitment line.",
@@ -72,10 +72,10 @@ export const R2 = [
         s: 'According to the memo, where will the apprentices be based?',
         c: ['At the plant nursery.', 'At the cemetery grounds.', 'At the arboretum.', 'At the sports fields.'],
         a: 2,
-        e: '第1段落に、4人の見習いは全員、樹木の手入れを行う班とともに樹木園（arboretum）を拠点に研修を受ける、とある。',
+        e: '第1段落に、4人の見習いは全員、樹木の手入れを行う班とともに、市が所有する見本樹木のコレクション（つまり樹木園）を拠点に研修を受ける、とある。',
         w: ['苗圃については本文のどこにも触れていない。',
             '墓地の敷地については本文のどこにも触れていない。',
-            '正解。第1段落に、見習いは全員、樹木園を拠点にすると明記されている。',
+            '正解。第1段落に、見習いは全員、市の見本樹木のコレクション（樹木園）を拠点にすると書かれている。',
             '運動場については本文のどこにも触れていない。'] },
       { tag: '詳細', qid: 'v4q150p',
         s: 'How long will the apprenticeship programme last?',
@@ -97,7 +97,7 @@ export const R2 = [
       title: 'Tidmarsh Indoor Golf',
       head: 'Play a Different Course Every Visit',
       body: [
-        'Tidmarsh Indoor Golf offers six full-swing simulator bays, each loaded with a different course, so regulars can play somewhere new every visit without leaving town. Bays are climate-controlled and open every day from nine in the morning until eleven at night.',
+        'Tidmarsh Indoor Golf offers six full-swing simulator bays, each loaded with more than forty courses, so regulars can play somewhere new every visit without leaving town. Bays are climate-controlled and open every day from nine in the morning until eleven at night.',
         'A bay can be booked by telephone on 01632 960774, through the Tidmarsh Golf app, or in person at the front desk when you arrive. Walk-ins are welcome whenever a bay is free, though booking ahead is the surest way to get the time you want.',
         'Tuesday evenings are our busiest slot of the week: the same eight or so regulars come in together, and for the past few seasons they have kept a running tally of scores on the noticeboard by the front desk that resets each spring. If you would rather play somewhere quieter, mornings and early afternoons are usually wide open.',
         'A loyalty card is available at no charge: buy nine sessions and the tenth one is free, whichever bay or course you choose.',
@@ -170,9 +170,9 @@ export const R2 = [
       head: 'To: Tapscott Water Services — Customer Care <care@tapscottwater.co.uk>\nFrom: Yvette Nuttall <y.nuttall@nashgrove-consulting.co.uk>\nDate: 14 May\nSubject: Our water cooler rental',
       body: [
         'Hello,',
-        "We've rented water coolers from Tapscott for about four years now and have always been happy with the service. At the moment we have eight coolers spread across our two floors, all on the standard bottled system, and I wanted to ask whether it would be possible to switch some or all of them to plumbed-in units instead. The empty bottles pile up faster than our storeroom can hold them, and I gather the plumbed-in machines do away with that altogether.",
+        "We've rented water coolers from Tapscott for about four years now and have always been happy with the service. At the moment we have eight coolers spread across our two floors, all on the standard bottled system, and I wanted to ask whether some or all of them could be swapped for coolers that connect straight to the mains water supply. The empty bottles pile up faster than our storeroom can hold them, and I gather mains-fed machines do away with that altogether.",
         "One more thing, out of curiosity rather than anything urgent — I noticed one of your vans dropping off what looked like a coffee machine for the accountants on the floor below us last month. If that's something you also supply, it might be worth knowing about for later, even if it's not what I'm asking about today.",
-        "Could you let me know what's involved in moving to plumbed-in units, including any cost difference and how much notice you'd need? Happy to arrange a visit if that's easier than doing this by e-mail.",
+        "Could you let me know what's involved in making that change, including any cost difference and how much notice you'd need? Happy to arrange a visit if that's easier than doing this by e-mail.",
         'Best wishes,\nYvette Nuttall',
       ],
     }],
@@ -181,16 +181,16 @@ export const R2 = [
         s: 'What is the purpose of the e-mail?',
         c: ['To report a fault with one of the coolers.', 'To question a charge on the latest invoice.', 'To change the day of the regular delivery.', 'To ask about switching to plumbed-in units.'],
         a: 3,
-        e: '第2段落に、現在借りているボトル式の給水機の一部または全部を配管接続式（plumbed-in）のものに切り替えられるか尋ねたい、と用件が明記されている。',
+        e: '第2段落に、現在借りているボトル式の給水機の一部または全部を、水道の配管に直接つなぐ型（plumbed-in units）に交換できるか尋ねたい、と用件が書かれている。',
         w: ['故障の報告には触れていない。',
             '請求内容への疑問には触れていない。',
             '配達日の変更には触れていない。',
-            '正解。ボトル式から配管接続式への切り替えについて尋ねたいと述べている。'] },
+            '正解。ボトル式の給水機を、水道に直接つなぐ型に交換できるかを尋ねたいと述べている。'] },
       { tag: '推測', t: ['p7inf'], qid: 'v4q156p',
         s: 'What is suggested about Tapscott Water Services?',
         c: ['It also rents out coffee machines.', 'It came recommended by another business.', 'It changed its name last year.', 'It has a new customer service manager.'],
         a: 0,
-        e: '第3段落に、先月、Tapscott のバンが同じ建物の下の階の会計事務所にコーヒーマシンらしきものを届けているのを見かけた、とある。届け先が同じ建物の別の会社で、Tapscott のバンが直接届けていることから、コーヒーマシンも Tapscott が扱っていると分かる。',
+        e: '第3段落に、先月、Tapscott のバンが同じ建物の下の階の会計事務所にコーヒーマシンらしきものを届けているのを見かけた、とある。Tapscott は給水機を貸し出してバンで届ける会社であり、そのバンが同じ建物の別の会社にコーヒーマシンらしきものを届けていたことから、コーヒーマシンも扱っていることがうかがえる。',
         w: ['正解。Tapscott のバンが下の階の会社にコーヒーマシンらしきものを届けているのを見かけたと述べており、コーヒーマシンも扱っていることがうかがえる。',
             '他社からの紹介については触れていない。',
             '社名の変更については触れていない。',
@@ -215,7 +215,7 @@ export const R2 = [
       title: 'The Workshop Behind the Counter',
       head: 'Local Business',
       body: [
-        "When the local council asked around for someone to mark the town's hundred and fiftieth anniversary with something more lasting than a badge or a mug, they settled on Tansy Nevin, who has run Nevin Candle Company from a converted stable behind the market square for the past nine years. The result, a squat candle scented with the beeswax and heather that once filled the surrounding hills, has been selling out of the town's gift shop every week since it launched in the spring.",
+        "When the local council asked around for someone to mark the town's hundred and fiftieth anniversary with something more lasting than a badge or a mug, they settled on Tansy Nevin, who has run Nevin Candle Company from a converted stable behind the market square for the past nine years. The result, a squat candle scented with the heather and honey that the surrounding hills are known for, has been one of the town gift shop's best sellers since it launched in the spring.",
         "Ms. Nevin says the hardest part was not the scent but the wax itself: the council wanted something that would burn evenly for a full ten hours, long enough to see a whole evening's celebrations through without a second candle. Getting the blend right took four attempts and most of a winter.",
         "The workshop itself employs twelve people, most of them local, and each one has a hand in at least part of the anniversary candle, from pouring the wax to hand-stamping the tin with the town's crest.",
         'Ms. Nevin rarely leaves the building before dark. Asked about this, she laughed and said it has less to do with dedication than with the stairs at the back of the workshop, which lead straight up to where she lives; there is, she says, no commute to complain about.',
@@ -258,15 +258,15 @@ export const R2 = [
     n: [161, 162, 163, 164], lv: 5, t: ['p7ins'],
     docs: [{
       label: 'Article',
-      title: 'The Sweet That Came Back',
+      title: 'A Sweet Makes Its Return',
       head: 'Local Business',
       body: [
         "Tibbetts Confectionery, a boiled-sweet maker with close to eighty years in business, is best known locally for a striped mint twist sold in little paper bags stamped with the company's name. — [[1]] — Production of the twist stopped abruptly four years ago, and the shelves at the factory shop have stayed bare of it ever since.",
         "The trouble traced back to a single machine: an ageing steel mould that pressed and cut the twist to its familiar shape. — [[2]] — When the mould finally cracked clean through one winter morning, the part turned out to have been out of production for over a decade, with no other manufacturer making anything compatible. Management shelved the line for good rather than commission a costly replica on a guess.",
         'That might have been the end of it, had the story not travelled. A trade magazine ran a short piece on the closure last year, and interest in the old sweet spread well beyond the town. — [[3]] — None of it changed anything at the time, since the firm still had no way of reproducing the shape without the mould.',
         "This spring, a fresh idea took hold: rather than replace the mould, why not ask whoever still remembered exactly how the paste had been mixed and shaped by hand, before the machine ever existed? The firm placed a short notice in the local paper asking for help, and about a dozen people replied within a fortnight, mostly retired staff and long-standing customers who had kept the sweet's wrapper as a keepsake. — [[4]] — That copy, spotted with age but still legible, matched the firm's own surviving notes on the mixture almost word for word, and gave the team enough confidence to start testing batches by hand.",
-        "With hand-shaping too slow for anything beyond small runs, engineers have since built a modern press that copies the old mould's shape without depending on any part from the original design; final adjustments are being made now. Tibbetts expects the twist to return to shop shelves in November, in time for the run-up to the festive season that has always been its busiest stretch of the year.",
-        'The relaunch will barely register beyond the town itself: most of what Tibbetts makes each week is loaded onto containers bound for wholesalers overseas, and only a small share is ever sold from the factory shop or nearby stockists. Locals, all the same, are already asking the shop to save them a bag.',
+        "With hand-shaping too slow for anything beyond small runs, engineers have since built a modern press that needs no part from the original design; final adjustments are being made now. Tibbetts expects the twist to return to shop shelves in November.",
+        'Most of what Tibbetts makes each week is loaded onto containers bound for wholesalers overseas, and only a small share is ever sold from the factory shop or nearby stockists. Locals, all the same, are already asking the shop to save them a bag.',
       ],
     }],
     q: [
@@ -288,11 +288,14 @@ export const R2 = [
             '6月という記述はない。',
             '9月という記述はない。',
             '正解。第5段落に、11月に店頭復帰を見込んでいると明記されている。'] },
-      // 取っ手①(前方・初出違反): 挿入文の "them" は人を指す複数名詞を要求する。
+      // 取っ手①(前方・照応): 挿入文の "them" は人を指す複数名詞を要求する。
       // 第4段落の直前文（about a dozen people replied ... mostly retired staff and
       // long-standing customers）だけが該当し、[1]〜[3]の直前文にはそれが無い。
-      // 取っ手②(後方・照応): 挿入文が "a former employee" と "a handwritten copy of
-      // the recipe" を初めて導入し、直後の "That copy" がそれを既出として受ける。
+      // 取っ手②(後方・逆向きの初出違反): 挿入文が "a handwritten copy of the recipe" を
+      // 初めて導入し、直後の "That copy" がそれを既出として受ける。挿入文が無ければ
+      // "That copy" の先行詞が本文に無くなる。
+      // 注意: [3] は後方では落ちない位置で、閉じているのは "them" だけ。[3] の直前の文
+      // （A trade magazine ran ... spread well beyond the town.）に人を指す複数名詞を足さないこと。
       { tag: '位置選択', t: ['p7ins'], insertAt: 4, qid: 'v4q163p',
         sentence: 'Among them was a former employee who had kept a handwritten copy of the recipe.',
         s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "Among them was a former employee who had kept a handwritten copy of the recipe."',
