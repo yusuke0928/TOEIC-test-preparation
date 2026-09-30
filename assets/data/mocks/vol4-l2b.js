@@ -165,7 +165,7 @@ export const L2B = [
         c: ['Loading the machine onto a trailer', 'Finding the keys for the machine', 'Cleaning mud off the wheels', 'Arranging a convenient pickup time'],
         a: 0,
         e: '女性が "Could you give me a hand getting it up onto the trailer once it\'s ready?" と、機材を荷台へ載せるのを手伝うよう頼んでいる。',
-        w: ['正解。', '鍵を探すことについての記述は会話のどこにも出てこない。', '車輪の泥を落とすことについての記述は会話のどこにも出てこない。', '引き取り時間の調整についての記述は会話のどこにも出てこない。'] },
+        w: ['正解。', '鍵を探すことについての記述は会話のどこにも出てこない。', '車輪の泥を落とすことについての記述は会話のどこにも出てこない。', '引き取りは冒頭の "before they collect it this afternoon" で今日の午後と決まっており、女性が手伝いを頼んでいるのは荷台に載せることだけである。引き取り時間を調整する話は出てこない。'] },
     ],
   }),
 
@@ -173,8 +173,8 @@ export const L2B = [
   /* 正解はくじ（62=D, 63=B, 64=A）。Q62 の所見は「排水口の格子ぶたが枠から外れてきていた」の
      1点のみ。Q63 の引用「There's a bus route over it」の直前は「上の道路を
      数時間閉鎖してはどうか」という提案だけを置き、(A)(C)(D) に当たる話題
-     （現場の騒音・役所からの電話・夜間工事の依頼）はどこにも出さない。もう
-     1人の男性（M-Cn）には Q63 の他の3本に当たる話をさせない。Q64 は3人
+     （現場の騒音・役所からの電話・夜間工事の依頼）を引用より前には出さない。夜間の作業は
+     引用のあとに女性が次の案として言うだけ。提案者（M-Br）には Q63 の他の3本に当たる話をさせない。Q64 は3人
      そろっての直後の行動（今朝の写真の見直し）1つだけにする。 */
   set({
     n: [62, 63, 64], lv: 5, t: ['p3int'], k: 'conversation with three speakers',
@@ -200,7 +200,7 @@ export const L2B = [
         c: ['He is explaining why the site was so noisy.', 'He is objecting to a proposed road closure.', 'He is accounting for a call from the council.', 'He is agreeing to a request for night work.'],
         a: 1,
         e: '直前で男性が「明日、数時間だけ上の道路を閉鎖して昼間に作業してはどうか（What if we closed the road above for a few hours tomorrow）」と提案しており、もう一人の男性は「その上にはバス路線が通っている」と応じて、道路閉鎖の案に異を唱えている。',
-        w: ['現場が騒がしかった理由についての記述は会話のどこにも出てこない。', '正解。', '役所からの電話についての記述は会話のどこにも出てこない。', '夜間工事の依頼についての記述は会話のどこにも出てこない。'] },
+        w: ['現場が騒がしかった理由についての記述は会話のどこにも出てこない。', '正解。', '役所からの電話についての記述は会話のどこにも出てこない。', '夜間の作業は、引用のあとで女性が "So we\'d need to do it at night instead" と、道路を閉められないことから次の案として出すだけで、それより前に夜間工事の依頼は出ていない。引用は依頼に同意する発言ではなく、昼間に上の道路を閉める案への指摘である。'] },
       { tag: '次の行動', qid: 'v4q64p', t: ['p3detail'], s: 'What will the speakers most likely do next?',
         c: ['Look through the site photographs', 'Phone the client\'s project manager', 'Book a follow-up inspection', 'Draw up a cost estimate'],
         a: 0,

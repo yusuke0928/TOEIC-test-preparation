@@ -97,12 +97,11 @@ export const L2A = [
 
   /* ── 38–40（図表）───────────────────────────────── */
   /* 申し送り：表のセルの語（narrow・wide・ribbon・feather）と列名（brim・trim）、
-     Stand の番号は本文で使っていない（語幹も避け、"narrows" ではなく
-     "leaves just one" と書いた）。つばの広さと飾りは別々の発話で言い換えて伝え、
+     Stand の番号は本文で使っていない（語幹も避けた）。つばの広さと飾りは別々の発話で言い換えて伝え、
      どちらも肯定形の言い換え（a small, neat edge／a silk band around the crown）だけで
      伝え、否定で行を消さない。指定はスタイリストのものとし、用途からスタイルを
      推理できないようにした。Q40 は女性の「このあと上の事務所へ戻る」という1つの手がかりだけで
-     ふだんの持ち場を示し、他の3択（他店舗・市場の屋台）には触れていない。 */
+     ふだんの持ち場を示し、他の3択（作業場・他店舗・市場の屋台）には触れていない。 */
   set({
     n: [38, 39, 40], lv: 4, t: ['graphic'],
     graphic: {
@@ -124,14 +123,14 @@ export const L2A = [
       { role: 'W-Au', text: 'Right, I know the one. I\'ll bring it out — I\'m heading back up to the office afterwards anyway, so I\'ll drop it at the till on my way.' },
       { role: 'M-Au', text: 'Thanks, I\'ll finish tidying down here.' },
     ],
-    ja: '帽子店の2人の従業員が、午後に来店する客のために、奥の部屋から帽子を出す準備をしている。スタイリストからの連絡によると、客は今週末に雑誌の特集で撮影される予定で、縁が小さく整っていて頭に沿う帽子を希望している。飾りは、山の部分にシルクの帯が巻かれたものだという。女性は該当する帽子を持っていくことにし、そのあとは上の事務所へ戻るので、ついでにレジへ寄ると述べる。',
+    ja: '帽子店の2人の従業員が、午後に来店する客のために、奥の部屋から帽子を出す準備をしている。男性によると、客は今週末に雑誌の特集で撮影される予定で、スタイリストは縁が小さく整っていて頭に沿う帽子を指定している。飾りも、山の部分にシルクの帯が巻かれたものをスタイリストが指定したという。女性は該当する帽子を持っていくことにし、そのあとは上の事務所へ戻るので、ついでにレジへ寄ると述べる。',
     v: [['stylist', 'スタイリスト'], ['feature', '(雑誌の)特集記事'], ['crown', '(帽子の)山の部分'], ['till', 'レジ']],
     q: [
       { tag: '図表', qid: 'v4q38p', s: 'Look at the graphic. Which stand will the woman bring out?',
         c: ['Stand 21', 'Stand 29', 'Stand 16', 'Stand 25'],
         a: 0,
-        e: '男性は "the stylist wants the one with just a small, neat edge around it, so it sits close to the head" とつばが狭いスタイルを、続けて "A silk band around the crown." とシルクの帯(リボン)の飾りを指定している。表でつばが狭くリボン飾りなのは Stand 21 だけである。',
-        w: ['正解。', 'Stand 29 はつばが広いスタイルで、男性が指定した「縁が小さく整っていて頭に沿うもの」という条件に合わない。', 'Stand 16 はつばは狭いが飾りが羽根で、男性が指定した「山の部分にシルクの帯」という条件に合わない。', 'Stand 25 はつばが広く飾りも羽根で、どちらの条件にも合わない。'] },
+        e: '男性は、スタイリストの指定として "the stylist wants the one with just a small, neat edge around it, so it sits close to the head" とつばが狭いスタイルを、続けて "A silk band around the crown." とシルクの帯(リボン)の飾りを伝えている。表でつばが狭くリボン飾りなのは Stand 21 だけである。',
+        w: ['正解。', 'Stand 29 はつばが広いスタイルで、男性が伝えたスタイリストの指定「縁が小さく整っていて頭に沿うもの」という条件に合わない。', 'Stand 16 はつばは狭いが飾りが羽根で、男性が伝えたスタイリストの指定「山の部分にシルクの帯」という条件に合わない。', 'Stand 25 はつばが広く飾りも羽根で、どちらの条件にも合わない。'] },
       { tag: '詳細', qid: 'v4q39p', t: ['p3detail'], s: 'What does the man say the customer needs the hat for?',
         c: ['A day at the horse races', 'A wedding held outdoors', 'A themed costume party', 'A magazine photo shoot'],
         a: 3,
@@ -158,7 +157,7 @@ export const L2A = [
       { role: 'W-Am', text: 'Before we shortlist this one, there\'s a gap in the file. Everything else looks really strong, but I can\'t find a current English proficiency result anywhere.' },
       { role: 'W-Au', text: 'That\'s odd — the document checks should have picked that up before it reached us. Your check results normally land in our inbox first thing Monday, but nothing\'s come through yet.' },
       { role: 'M-Br', text: 'Nobody could log in on Sunday.' },
-      { role: 'W-Am', text: 'Ah, of course — the maintenance weekend.' },
+      { role: 'W-Am', text: 'Ah, of course — that was the maintenance weekend, wasn\'t it?' },
       { role: 'M-Br', text: 'Anyway, I\'ll take this file and pass it straight along to International Admissions myself — they handle the language test verification, so it\'ll move faster coming from me than through the usual routing.' },
       { role: 'W-Au', text: 'Thanks, that\'ll save us a step.' },
     ],

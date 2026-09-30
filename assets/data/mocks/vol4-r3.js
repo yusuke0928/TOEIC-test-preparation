@@ -61,7 +61,7 @@ export const R3 = [
             'He is contradicting something a colleague was told.', 'He is predicting a problem with a delivery.'],
         a: 1,
         e: '直前でエラが「これから事務所へ行って、そこで自分の分の処理を進める」と、自分がこれから事務所へ行くつもりだと述べている。ウェズリーの「事務所は施錠されている」は、その訪問が無駄足になることを知らせる警告である。',
-        w: ['備品が無事かどうかを気づかう発言はこの前後のどこにも無く、機材についての話題自体が存在しない。',
+        w: ['チャットに出てくる物は、観客が会場（Screen Two）に置き忘れた救急箱だけで、事務所とは結び付いていない。直前の発言はエラがこれから事務所へ行くという予定で、備品が無事かを気にする発言はどこにも無い。',
             '正解。',
             'エラは「事務所が開いている」と誰かから聞いたとは一言も述べておらず、自分がこれから行くという予定を述べただけなので、ウェズリーの発言が否定する伝聞情報が存在しない。',
             '配達の手配についての言及はチャットのどこにも無く、この発言のあとも配達の話には一切つながらない。'] },
@@ -149,7 +149,7 @@ export const R3 = [
      取っ手は2つ。
      ①前方（初出違反）：[1] の直前だけに「特定の1団体（the school）に割引という譲歩を与えた」
        という文を置いた。他の3か所の直前にはそうした譲歩の文を置いていないので、挿入すると
-       "the group" と "In exchange" の先行詞が無い。
+       "In exchange" が受ける譲歩が無い。
      ②後方（逆向きの初出違反）：[1] の直後（固定文）に "That commitment" として、翌年から3年分
        の予約という、挿入文で初めて出る約束を既出として受ける文を置いた。挿入文を他の位置に
        動かすと、この固定文の "That commitment" は直前の割引の合意を受けることになり、割引の
@@ -193,11 +193,11 @@ export const R3 = [
         s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"In exchange, the group has agreed to return in each of the next three summers."',
         c: ['[1]', '[2]', '[3]', '[4]'],
         a: 0,
-        e: '挿入文の "the group" と "In exchange" は、直前の "we agreed to give the school a reduced day rate for the whole stay" という、特定の1団体（the school）への譲歩を受けて初めて先行詞が定まる。この文は [1] の直前にしか無い。挿入文の直後には "That commitment already gives us a clearer picture of bookings for the next few summers…" が続き、挿入文で初めて導入された「3年分の予約という約束」を、既出のものとして "That commitment" で受けている。[2][3][4] の直前にはいずれも特定の1団体への譲歩を述べた文が無く、"the group" の先行詞が定まらないうえ、また、挿入文を [1] 以外に置くと、[1] の直後の "That commitment" は直前の割引の合意を受けることになるが、割引の合意からは「今後数年の夏の予約の見通し」は得られないので、文がつながらない。',
+        e: '挿入文の "In exchange"（その見返りに）は、直前の "we agreed to give the school a reduced day rate for the whole stay" という、特定の1団体（the school）に与えた譲歩を受けて初めて意味が定まり、"the group" もその団体を指す。この文は [1] の直前にしか無い。挿入文の直後には "That commitment already gives us a clearer picture of bookings for the next few summers…" が続き、挿入文で初めて導入された「3年分の予約という約束」を、既出のものとして "That commitment" で受けている。[2][3][4] の直前にはいずれも特定の1団体に何かを譲った文が無く、"In exchange" が受けるものが無い。また、挿入文を [1] 以外に置くと、[1] の直後の "That commitment" は直前の割引の合意を受けることになるが、割引の合意からは「今後数年の夏の予約の見通し」は得られないので、文がつながらない。',
         w: ['正解。',
-            '[2] の直前は "The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail." という設備の補修の話で、特定の1団体への譲歩は述べられていない。"the group" の先行詞が無いうえ、挿入文を [1] に置かないと [1] の直後の "That commitment" は直前の割引の合意を受けることになり、割引の合意からは今後数年の夏の予約の見通しは得られないので、文がつながらない。',
-            '[3] の直前は "The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break." というカフェの売上の話で、特定の1団体への譲歩は述べられていない。理由は [2] と同じで、"the group" の先行詞が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。',
-            '[4] の直前は "we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time." という来年への見通しの話で、特定の1団体への譲歩は述べられていない。理由は [2][3] と同じで、"the group" の先行詞が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。'] },
+            '[2] の直前は "The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail." という設備の補修の話で、特定の1団体への譲歩は述べられていない。"In exchange" が受ける譲歩が無いうえ、挿入文を [1] に置かないと [1] の直後の "That commitment" は直前の割引の合意を受けることになり、割引の合意からは今後数年の夏の予約の見通しは得られないので、文がつながらない。',
+            '[3] の直前は "The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break." というカフェの売上の話で、特定の1団体への譲歩は述べられていない。理由は [2] と同じで、"In exchange" が受ける譲歩が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。',
+            '[4] の直前は "we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time." という来年への見通しの話で、特定の1団体への譲歩は述べられていない。理由は [2][3] と同じで、"In exchange" が受ける譲歩が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。'] },
       { tag: '推測', t: ['p7inf'], qid: 'v4q175p', s: 'What is suggested about Campus Dining Services?',
         c: ['It holds a top hygiene rating from the council.', 'It operates the café in the main library.',
             'It employs current students during term time.', 'It buys its meat from farms in the county.'],

@@ -34,7 +34,7 @@ export const L3 = [
       { role: 'W-Br', text: "In the meantime, could I ask you to go onto our website and answer a few quick questions under the 'Careers' tab? They just ask for your available start date and a contact number where we can reach you." },
       { role: 'W-Br', text: "Thanks again for your patience, and I'll be in touch as soon as a decision's been made." },
     ],
-    ja: '窓の取付け業者の担当ヘディから、応募した取付け作業員の職への留守番電話。当初の予定より返事が遅れていることを詫び、今週面接を担当するはずだった2名が、自治体から高齢者向け住宅3棟の窓の入れ替え工事を新たに任され、現場に回されたためだと説明する。今月末近くになるまで最終的な採用可否は決められないため、音沙汰なしにせず連絡したと述べる。差し当たり、ウェブサイトの「Careers」タブで簡単な質問に答え、希望開始日と連絡先電話番号を伝えてほしいと依頼する。最後に、待たせていることを重ねて詫び、決定次第連絡すると伝える。',
+    ja: '窓の取付け業者の担当ヘディから、応募した取付け作業員の職への留守番電話。当初の予定より返事が遅れていることを詫び、今週面接を担当するはずだった2名が、自治体から高齢者向け住宅3棟の窓の入れ替え工事を新たに任され、現場に回されたためだと説明する。今月末近くになるまで最終的な採用可否は決められないため、音沙汰なしにせず連絡したと述べる。差し当たり、ウェブサイトの「Careers」タブで簡単な質問に答え、希望開始日と連絡先電話番号を伝えてほしいと依頼する。最後に、待ってくれていることに改めて礼を述べ、決定次第連絡すると伝える。',
     v: [['sheltered housing', '高齢者向け住宅'], ['tied up', '手が離せない、かかりきりの'], ['contact number', '連絡先電話番号']],
     q: [
       { tag: '概要', qid: 'v4q71p', s: 'What is the purpose of the message?',
@@ -66,10 +66,10 @@ export const L3 = [
       { role: 'M-Au', text: "We'd like to remind everyone that a large open-air rock concert is being held in the town this Saturday evening, and thousands of fans are expected to pass through this station throughout the day." },
       { role: 'M-Au', text: "Because of the extra security checks at the gates, we'd ask anyone heading to the show to travel light and leave big bags and backpacks at home, as this will help keep the queues moving." },
       { role: 'M-Au', text: 'The concert is expected to finish shortly before eleven, and the platforms will be at their busiest in the hour after that.' },
-      { role: 'M-Au', text: "To help everyone get away afterwards, we'll be running extra trains on the main line every fifteen minutes from nine o'clock until midnight." },
+      { role: 'M-Au', text: "To cope with the crowds, we'll be running extra trains on the main line every fifteen minutes from nine o'clock until midnight." },
       { role: 'M-Au', text: 'Thank you for your patience, and we hope you enjoy the show.' },
     ],
-    ja: '駅の構内放送。今週土曜の夜に町で大規模な野外ロックコンサートが開催され、多くのファンが終日この駅を利用する見込みだと案内する。ゲートでの追加の保安検査があるため、会場へ向かう人は身軽な服装で、大きな鞄やリュックは家に置いてくるよう求める（その方が列の進みが早くなるため）。コンサートは11時少し前に終わる見込みで、その後の1時間はホームがいちばん混雑すると伝える。帰りの混雑を和らげるため、9時から深夜まで本線で15分おきに増発すると案内し、利用への感謝を述べて締めくくる。',
+    ja: '駅の構内放送。今週土曜の夜に町で大規模な野外ロックコンサートが開催され、多くのファンが終日この駅を利用する見込みだと案内する。ゲートでの追加の保安検査があるため、会場へ向かう人は荷物を少なくし、大きな鞄やリュックは家に置いてくるよう求める（その方が列の進みが早くなるため）。コンサートは11時少し前に終わる見込みで、その後の1時間はホームがいちばん混雑すると伝える。混雑に対応するため、9時から深夜まで本線で15分おきに増発すると案内し、利用への感謝を述べて締めくくる。',
     v: [['travel light', '荷物を少なくして移動する'], ['queue', '行列、列'], ['extra trains', '増発列車']],
     q: [
       { tag: '詳細', qid: 'v4q74p', s: 'According to the announcement, what will take place in the town on Saturday?',
@@ -99,12 +99,12 @@ export const L3 = [
     n: [77, 78, 79], lv: 4, k: 'meeting excerpt',
     s: [
       { role: 'M-Am', text: "Morning, team. I want to spend most of today's meeting on the new three-year sponsorship deal we've just signed with a local rowing club." },
-      { role: 'M-Am', text: "Our logo will go on the boats and the team's uniforms, and in exchange our gear gets a spot beside the course at every regatta they enter this season, which should put it in front of exactly the customers we're trying to reach." },
+      { role: 'M-Am', text: "Our logo will go on the boats and the team's uniforms, and our gear gets a spot beside the course at every regatta they enter this season, which should put it in front of exactly the customers we're trying to reach." },
       { role: 'M-Am', text: "One more thing before we move on. Finance would like next quarter's factory order for the new trail jacket kept at exactly the size of the launch order, and I think that's a mistake. The first batch sold out in two days." },
       { role: 'M-Am', text: "And a quick heads-up for next week: we've taken on two more people for the design side of the product team, and they start on Monday, so please make some room for them in the studio." },
       { role: 'M-Am', text: "Okay, let's get into the sponsorship details." },
     ],
-    ja: '会議の抜粋。部門責任者が、地元のボート部との新しい3年間のスポンサー契約に今日の会議の大半を割くと切り出す。自社のロゴをボートとチームのユニフォームに掲出する代わりに、今シーズンそのチームが出場する全レガッタで、コースのそばに自社の用品を置く場所がもらえ、狙っている客層に直接訴求できると説明する。話題を移す前にもう一点として、経理部門は来四半期の新しいトレイルジャケットの工場発注数を初回の発注と同じ規模に据え置きたいとしているが、それは誤りだと思うと述べ、初回出荷分がわずか2日で完売したと伝える。さらに来週の連絡事項として、製品チームのデザイン担当として2名を新たに採用し、月曜日に出社するのでスタジオに場所を空けておくよう伝え、最後にスポンサー契約の詳細説明に移る。',
+    ja: '会議の抜粋。部門責任者が、地元のボート部との新しい3年間のスポンサー契約に今日の会議の大半を割くと切り出す。自社のロゴがボートとチームのユニフォームに入り、さらに今シーズンそのチームが出場する全レガッタで、コースのそばに自社の用品を置く場所がもらえ、狙っている客層に直接訴求できると説明する。話題を移す前にもう一点として、経理部門は来四半期の新しいトレイルジャケットの工場発注数を初回の発注と同じ規模に据え置きたいとしているが、それは誤りだと思うと述べ、初回出荷分がわずか2日で完売したと伝える。さらに来週の連絡事項として、製品チームのデザイン担当として2名を新たに採用し、月曜日に出社するのでスタジオに場所を空けておくよう伝え、最後にスポンサー契約の詳細説明に移る。',
     v: [['regatta', 'レガッタ、ボートレース大会'], ['sponsorship deal', 'スポンサー契約'], ['factory order', '工場への発注'], ['launch order', '発売時の発注']],
     q: [
       { tag: '概要', qid: 'v4q77p', s: 'What is the speaker mainly discussing?',
@@ -253,7 +253,7 @@ export const L3 = [
       ],
     },
     s: [
-      { role: 'M-Cn', text: "Morning, everyone — great turnout today. Let me run through the plan for this morning's walk." },
+      { role: 'M-Cn', text: "Morning, everyone — great turnout today. Let me run through the plan for today's walk." },
       { role: 'M-Cn', text: "Because of all the rain we had yesterday, I want to keep today's group on drier ground, so this morning we'll be setting off from where the pine woods begin." },
       { role: 'M-Cn', text: "It's an easy grade the whole way, and the walk finishes right down by the water, where the minibus will already be waiting to take you back." },
       { role: 'M-Cn', text: "We'll stop for lunch partway round at a working farm that's opened its little cafe to walkers — they do a very good soup, so bring some cash if you'd like to try it." },
@@ -282,7 +282,7 @@ export const L3 = [
 
   /* ── 92–94 サービスエリアの構内放送（Lockyer Services） ─────────────
      対象はキャラバン利用者の1つだけ（トラック・バス・バイクの運転手には触れない）。
-     提示するのは運転免許証の1つだけ（燃料の領収書・会員カード・駐車券には触れない）。
+     提示するのは運転免許証の1つだけ（燃料の領収書・会員カードには触れない。駐車許可証は発行の文脈で出る）。
      無料駐車時間は8時間の1つの数値だけを述べる。 */
   talk({
     n: [92, 93, 94], lv: 3, k: 'announcement',
@@ -306,7 +306,7 @@ export const L3 = [
         c: ['Their fuel receipt', 'Their driving licence', 'Their loyalty card', 'Their parking ticket'],
         a: 1,
         e: '"please come to the shop counter first and show your driving licence" と述べている。',
-        w: ['燃料の領収書についての言及はない。', '正解。運転免許証を提示するよう述べている。', '会員カードについての言及はない。', '駐車券についての言及はない。'] },
+        w: ['燃料の領収書についての言及はない。', '正解。運転免許証を提示するよう述べている。', '会員カードについての言及はない。', '店で発行されるのは駐車許可証（"issue you a parking permit"）で、カウンターで見せる物ではない。カウンターで見せるよう求められているのは運転免許証である。'] },
       { tag: '詳細', qid: 'v4q94p', s: 'How long can the listeners park free of charge?',
         c: ['For one hour', 'For two hours', 'For four hours', 'For eight hours'],
         a: 3,
