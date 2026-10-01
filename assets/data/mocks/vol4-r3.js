@@ -1,6 +1,5 @@
 /* =============================================================
    予想模試 Vol.4 — Part 7 単一文書 後半（No.165–175）
-   語彙難化回。
    ============================================================= */
 
 const sp = (o) => ({
@@ -18,149 +17,196 @@ const sp = (o) => ({
 
 export const R3 = [
 
-  /* ── 165–168 オンラインチャット（4名）─────────────── */
+  /* ── 165–168 オンラインチャット（3名）─────────────── */
+  /* 設問案（v15/plans/vol4-final-P7s.txt の v4-p7-165）を凍結、くじ（v15/dice/vol4-r3.txt）で
+     Q165=D・Q166=B・Q167=D・Q168=B に確定。本文はくじ確定後に新規に書き下ろした。
+     固有名は設問案の Dominic・Ella・Wesley・Torrington Film Festival のみを使用し、新規の
+     固有名は追加していない（頭文字 T の割り当ては使用せず）。設問 id は全問新規採番
+     （v4q165p〜v4q168p）。
+     申し送り対応：映画祭はすでに終わっている前提で統一した。Q166 の引用の直前は「相手（Ella）
+     がこれから事務所へ行って作業する」という発言だけにし、備品の無事・伝聞・配達の話は本文の
+     どこにも置いていない。Wesley が何かを頼まれる形も作っていない。Q167 は Dominic が語る
+     会場の忘れ物を first-aid kit の1つだけにし、他の3択（programmes・charger・jacket）には
+     一切触れていない。Q168 は Ella だけが Tuesday を提案し、他の曜日は本文のどこにも出さない。 */
   sp({
-    n: [165, 166, 167, 168], lv: 5, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 3, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
-        { who: 'Naledi Khumalo', time: '09:15', text: "The trade-show brochures just arrived and the client's phone number on the back cover is missing a digit." },
-        { who: 'Owen Bellweather', time: '09:16', text: 'How many copies?' },
-        { who: 'Naledi Khumalo', time: '09:17', text: 'All 2,000. The proof had the right number — this must have happened at the print stage.' },
-        { who: 'Marcus Feng', time: '09:19', text: 'Do we have time to reprint before Thursday?' },
-        { who: 'Priya Desai', time: '09:20', text: 'The vendor says a rush reprint of the back cover only, as a sticker insert, could be ready by Wednesday morning.' },
-        { who: 'Owen Bellweather', time: '09:21', text: 'A sticker looks unprofessional for this client. What about a full reprint?' },
-        { who: 'Priya Desai', time: '09:22', text: 'Full reprint is Friday at the earliest — after the show.' },
-        { who: 'Marcus Feng', time: '09:24', text: "Then it's the sticker or nothing. Owen, can you soften the client on the sticker idea, or should we just eat the cost of covering their card table with a printed number instead?" },
-        { who: 'Owen Bellweather', time: '09:26', text: 'Actually, a small printed card on the table might look more deliberate than a sticker on every single brochure.' },
-        { who: 'Naledi Khumalo', time: '09:27', text: 'I like that. Cheaper too — one card, not two thousand stickers.' },
-        { who: 'Marcus Feng', time: '09:28', text: 'Agreed. Priya, cancel the sticker order.' },
+        { who: 'Dominic', time: '09:02', text: "Morning both. I've made a start on the e-mails festivalgoers have sent in since closing night — there's a good stack of them in the shared inbox." },
+        { who: 'Ella', time: '09:04', text: "I'll pick up a batch once I'm logged on. Anything I should look at first?" },
+        { who: 'Dominic', time: '09:06', text: "One woman says she left a small first-aid kit she carries for her children under her seat in Screen Two on the closing night and wants to know if it's turned up." },
+        { who: 'Ella', time: '09:07', text: "I'll ask at the venue when I'm there on Tuesday and let her know either way." },
+        { who: 'Ella', time: '09:08', text: "I'm heading over to the office in a few minutes anyway, so I'll work through my batch from there — it's quieter." },
+        { who: 'Wesley', time: '09:09', text: "The office is locked. Caretaker's away for a few days and nobody else has a spare key." },
+        { who: 'Ella', time: '09:10', text: "Ah — good thing you said. I'll stay put and do mine from home, then." },
+        { who: 'Dominic', time: '09:15', text: "Once today's batch of e-mails is done, shall we get together and go through whatever's left over?" },
+        { who: 'Ella', time: '09:16', text: "How about Tuesday? I'm at the venue in the morning anyway, so I can join you both on a call afterwards and we'll finish it off then." },
+        { who: 'Wesley', time: '09:17', text: "Tuesday's fine for me too." },
       ] }],
     }],
     q: [
-      { tag: '概要', s: 'What problem are the writers discussing?',
-        c: ['A delay in confirming the trade-show venue booking', 'A printing error on brochures for a trade show',
-            'A client\'s decision to cancel a large brochure order', 'A shortage of printing paper at the vendor'],
+      { tag: '概要', qid: 'v4q165p', s: 'What are the writers mainly discussing?',
+        c: ['Returning equipment hired for the festival.', 'Counting the votes for an audience prize.',
+            "Writing a report for the festival's funders.", 'Replying to messages from ticket holders.'],
+        a: 3,
+        e: '冒頭でドミニクが「閉幕の夜以降に来場者から届いたメールに手をつけ始めた」と伝え、以降のやり取りは会場への忘れ物の問い合わせへの返信や、残りのメッセージをいつ片付けるかという話題で一貫している。',
+        w: ['借りた機材の返却についての言及はチャットのどこにも無い（言及なし）。',
+            '観客賞の投票集計についての言及はチャットのどこにも無い（言及なし）。',
+            '出資者向けの報告書についての言及はチャットのどこにも無い（言及なし）。',
+            '正解。'] },
+      { tag: '意図', t: ['p7intent'], qid: 'v4q166p',
+        s: 'What does Wesley most likely mean when he writes, "The office is locked"?',
+        c: ['He is reassuring a colleague about some equipment.', 'He is warning a colleague against a wasted trip.',
+            'He is contradicting something a colleague was told.', 'He is predicting a problem with a delivery.'],
         a: 1,
-        e: '2,000部のパンフレット全てで、裏表紙の電話番号が1桁欠けているという印刷ミスについて話し合っている。',
-        w: ['会場予約の遅延ではない。', '正解。', '取り消されたのは終盤に出てくるシールの注文で、パンフレットの注文ではない。決めたのも顧客ではなく制作側。話し合われているのは、納品済み 2,000 部の裏表紙で電話番号が 1 桁欠けていること。', '用紙不足には触れていない。'] },
-      { tag: '意図', t: ['p7intent'],
-        s: 'At 09:26, what does Mr. Bellweather most likely mean when he writes, "a small printed card on the table might look more deliberate than a sticker on every single brochure"?',
-        c: ['He thinks they should double the sticker order.', 'He wants to delay the decision until after the show.',
-            'He believes the client will not notice the error either way.', 'He is proposing an alternative that would look more intentional.'],
+        e: '直前でエラが「これから事務所へ行って、そこで自分の分の処理を進める」と、自分がこれから事務所へ行くつもりだと述べている。ウェズリーの「事務所は施錠されている」は、その訪問が無駄足になることを知らせる警告である。',
+        w: ['チャットに出てくる物は、観客が会場（Screen Two）に置き忘れた救急箱だけで、事務所とは結び付いていない。直前の発言はエラがこれから事務所へ行くという予定で、備品が無事かを気にする発言はどこにも無い。',
+            '正解。',
+            'エラは「事務所が開いている」と誰かから聞いたとは一言も述べておらず、自分がこれから行くという予定を述べただけなので、ウェズリーの発言が否定する伝聞情報が存在しない。',
+            '配達の手配についての言及はチャットのどこにも無く、この発言のあとも配達の話には一切つながらない。'] },
+      { tag: '詳細', qid: 'v4q167p', s: 'According to Dominic, what was left behind at the venue?',
+        c: ['A box of programmes.', 'A laptop charger.', "A volunteer's jacket.", 'A first-aid kit.'],
         a: 3,
-        e: '直前でマーカスが「シールか、テーブルに番号を印刷したカードを置くか」の二択を提示したことへの応答。カードの方が意図的な演出に見えると提案している。',
-        w: ['注文倍増の提案ではない。', '決定の先延ばしではない。', '気づかれないとは述べていない。', '正解。'] },
-      { tag: '詳細', s: "Why can't the brochures be fully reprinted before the show?",
-        c: ['The vendor has no printing capacity until next month.', 'The vendor claims it has lost the original design files.',
-            'The client has not yet approved a full reprint order.', 'A full reprint would not be ready until after the show ends.'],
-        a: 3,
-        e: '「全面再印刷は早くても金曜、つまりショー終了後」と説明されている。',
-        w: ['「全面再印刷は早くても金曜」と述べられており、来月まで手が空かないという話ではない。', 'ファイル紛失の話はない。校正刷りでは番号が正しく、誤りは印刷段階で生じたと述べられている。', '承認の話は出ていない。', '正解。'] },
-      { tag: '詳細', s: 'What will Ms. Desai do?',
-        c: ['Cancel the sticker order', 'Order a full reprint for Friday',
-            'Contact the client directly', 'Design a new printed card'],
-        a: 0,
-        e: '「シールの注文を取り消して」と依頼されている。',
-        w: ['正解。', '金曜の全面再印刷は選ばれていない。', '顧客への連絡は述べていない。', 'カードのデザインは指示されていない。'] },
+        e: 'ドミニクの発言「ある女性が、閉幕の夜にスクリーン2の自分の席の下に救急箱を忘れたと言っている」が根拠。',
+        w: ['プログラムの束についての言及はチャットのどこにも無い（言及なし）。',
+            '充電器についての言及はチャットのどこにも無い（言及なし）。',
+            'ボランティアの上着についての言及はチャットのどこにも無い（言及なし）。',
+            '正解。'] },
+      { tag: '詳細', qid: 'v4q168p', s: 'On what day does Ella say the team will next meet?',
+        c: ['On Monday.', 'On Tuesday.', 'On Wednesday.', 'On Thursday.'],
+        a: 1,
+        e: 'エラが「火曜日はどう？　午前中はどのみち会場にいるから、そのあと通話で合流して一緒に片付けよう」と火曜日を提案し、ウェズリーも同意している。',
+        w: ['月曜日についての言及はチャットのどこにも無い（言及なし）。',
+            '正解。',
+            '水曜日についての言及はチャットのどこにも無い（言及なし）。',
+            '木曜日についての言及はチャットのどこにも無い（言及なし）。'] },
     ],
   }),
 
   /* ── 169–171 手紙 ─────────────────────────────────── */
+  /* 設問案（v4-p7-169）を凍結、くじで Q169=D・Q170=C・Q171=A に確定。本文はくじ確定後に
+     新規に書き下ろした。固有名は設問案の Joanna Toomey・Nansfield University のみを使用し、
+     新規の固有名は追加していない（雑誌名・旧友の名は本文中で名付けず一般名詞で済ませた）。
+     設問 id は全問新規採番（v4q169p〜v4q171p）。
+     申し送り対応：用件は雑誌記事の誤りの指摘1つだけにし、写真の提供・同窓会の提案・証明書の
+     再発行のいずれにも触れていない。卒業年は本文に "I graduated from Nansfield in 2007" の
+     一度だけ書き、記事の誤りが指す年（1999／1997）とは別の数値にして混同を避けた。Q171 は
+     差出人住所を "Vancouver, BC, Canada" にし、本文でも "even from all the way over here in
+     Canada" と重ねて示した。専攻・卒業後の勤め先・自営については本文のどこにも触れていない。 */
   sp({
-    n: [169, 170, 171], lv: 5,
+    n: [169, 170, 171], lv: 3, t: ['p7inf'],
     docs: [{
       label: 'Letter',
-      head: 'Amble & Vance Structural Consultants\nUnit 7, Foundry Court, Leeds\n\n5 September',
+      head: 'Joanna Toomey\n14 Birch Lane, Vancouver, BC, Canada\n\n3 May',
       body: [
-        'Ms. Elspeth Carrow\nCarrow Barn Conversions Ltd',
-        'Dear Ms. Carrow,',
-        'Further to your enquiry of 20 August, I have completed my structural assessment of the main truss in the barn at Higham Grange.',
-        'The condition is better than the initial photographs suggested. The principal oak posts show no significant decay, and the joints at the wall plate are sound throughout — unusual for a structure of this age, and it considerably simplifies the scope of work. What has failed is a single tie beam on the eastern bay, where an old repair using mild steel brackets has caused corrosion staining and some localised splitting in the surrounding timber.',
-        'I would not recommend replacing the full truss at this stage. What the structure needs is a sistered timber alongside the affected tie beam and removal of the corroding brackets, replaced with stainless fixings. That is roughly three days of carpentry work rather than the three weeks a full truss replacement would require.',
-        'I must, however, raise the condition of the roof covering above this bay. Water is tracking along the underside of the existing slates and reaching the tie beam directly, and whatever timber work we carry out will be compromised again within a decade unless the roof in this section is re-felted and the slates relaid. I can provide a written specification for a roofer if that would help you plan the wider project.',
-        'My estimate for the timber and fixings work is £2,940. I have not included the roof specification, which I would provide at no charge.',
-        'Yours sincerely,\nDominic Amble CEng',
+        'Alumni Relations Office\nNansfield University',
+        'Dear Alumni Relations Office,',
+        "I'm writing about a date that seems to have been given wrongly in the 'Fifty Years of the Union' feature in the Spring issue of the alumni magazine. It says the ground-floor café in the Union building opened in 1999, but the leaflet the Union still keeps by the till gives the date as 1997 — the writer may have mixed it up with a later refit. A friend of mine from my Nansfield days, who still lives near the campus and drops into the Union from time to time, is the one who noticed it and mentioned it to me.",
+        "I graduated from Nansfield in 2007, and I still read every issue of the magazine from cover to cover, even from all the way over here in Canada. It seems a shame to leave a small detail like that uncorrected, so I wondered whether you could pass this on to whoever edits the magazine, in case a short correction can run in the next issue.",
+        'Thank you for your time.',
+        'Yours faithfully,',
       ],
+      sig: 'Joanna Toomey',
     }],
     q: [
-      { tag: '概要', s: 'Why is Mr. Amble writing?',
-        c: ['To decline a commission to assess the barn\'s main truss', 'To report on an assessment and recommend limited repair work',
-            'To request additional photographs of the barn site before assessment', 'To invoice for completed carpentry work at the barn'],
-        a: 1,
-        e: '調査結果を報告し、全面的なトラス交換ではなく限定的な補修を勧めている。',
-        w: ['依頼は引き受けており、「主トラスの構造評価を完了した」と冒頭で報告している。', '正解。', '写真の追加要請はない。初期の写真を踏まえたうえで現地評価を終えている。', '未実施の作業の見積もりであり請求書ではない。'] },
-      { tag: '詳細', s: 'What does the letter indicate about the wall-plate joints?',
-        c: ['They are sound throughout.', 'They have been replaced since the barn was built.',
-            'They were removed for inspection.', 'They no longer match the original design.'],
+      { tag: '概要', qid: 'v4q169p', s: 'Why did Ms. Toomey write the letter?',
+        c: ['To offer some photographs for an exhibition.', 'To propose a reunion for her year group.',
+            'To ask for a replacement degree certificate.', 'To point out an error in a magazine article.'],
+        a: 3,
+        e: '冒頭で「同窓会誌の春号に載った特集『学生会（Union）の50年』の中の、誤って書かれたらしい日付について書いている」と述べ、その誤りを編集者に伝えて訂正してほしいと依頼している。',
+        w: ['展示会への写真提供についての言及は手紙のどこにも無い（言及なし）。',
+            '学年での同窓会の提案についての言及は手紙のどこにも無い（言及なし）。',
+            '卒業証明書の再発行についての言及は手紙のどこにも無い（言及なし）。',
+            '正解。'] },
+      { tag: '詳細', qid: 'v4q170p', s: 'According to the letter, in what year did Ms. Toomey graduate?',
+        c: ['In 1996.', 'In 2001.', 'In 2007.', 'In 2012.'],
+        a: 2,
+        e: '"I graduated from Nansfield in 2007" と本文に明記されている。',
+        w: ['本文にこの年は無い（言及なし）。',
+            '本文にこの年は無い（言及なし）。',
+            '正解。',
+            '本文にこの年は無い（言及なし）。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v4q171p', s: 'What is suggested about Ms. Toomey?',
+        c: ['She now lives in another country.', 'She took a degree in history.',
+            'She worked at the university after graduating.', 'She runs a small business of her own.'],
         a: 0,
-        e: '「壁桁の接合部は全体にわたって健全」と述べられている。',
-        w: ['正解。', '交換の話はない。', '検査のための取り外しには触れていない。', '設計との不一致は述べていない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'Why does the writer mention the condition of the roof covering?',
-        c: ['To warn that the timber repair will not last without further work', 'To explain a delay in completing the structural assessment',
-            'To justify a significantly higher estimate for the carpentry work', 'To suggest relocating the affected bay to another section'],
-        a: 0,
-        e: '「この区画の屋根を修理しない限り、木部の修理は 10 年で再び損なわれる」と警告している。',
-        w: ['正解。', '遅延の説明ではない。', '屋根の仕様書は「無償で提供する」と明記され、£2,940 の見積もりは木部と金物のみ。増額の根拠としては出していない。', '区画の移設は提案していない。'] },
+        e: '差出人の住所が "14 Birch Lane, Vancouver, BC, Canada" となっており、本文でも "even from all the way over here in Canada" と重ねて述べている。',
+        w: ['正解。',
+            '専攻についての言及は手紙のどこにも無い（言及なし）。',
+            '卒業後に大学に勤めたという言及は手紙のどこにも無い（言及なし）。',
+            '自営業についての言及は手紙のどこにも無い（言及なし）。'] },
     ],
   }),
 
-  /* ── 172–175 報告（文挿入あり）───────────────────── */
+  /* ── 172–175 報告書 ───────────────────────────────── */
+  /* 設問案（v4-p7-172）を凍結、くじで Q172=B・Q173=C・Q174=[1]・Q175=B に確定。本文はくじ
+     確定後に新規に書き下ろした。固有名は設問案の Nimbury University・Campus Dining Services
+     のみを使用し、新規の固有名は追加していない（食堂は North/South/East/West の方角名にとどめ、
+     語学学校にも固有名を与えていない）。設問 id は全問新規採番（v4q172p〜v4q175p）。英式の綴り
+     で統一した。
+     挿入文 "In exchange, the group has agreed to return in each of the next three summers." の
+     取っ手は2つ。
+     ①前方（初出違反）：[1] の直前だけに「特定の1団体（the school）に割引という譲歩を与えた」
+       という文を置いた。他の3か所の直前にはそうした譲歩の文を置いていないので、挿入すると
+       "In exchange" が受ける譲歩が無い。
+     ②後方（逆向きの初出違反）：[1] の直後（固定文）に "That commitment" として、翌年から3年分
+       の予約という、挿入文で初めて出る約束を既出として受ける文を置いた。挿入文を他の位置に
+       動かすと、この固定文の "That commitment" は直前の割引の合意を受けることになり、割引の
+       合意からは今後数年の予約の見通しは得られないので、意味が合わなくなる。
+     Q172 は初めて利用した団体を語学学校1種類だけにし、他の3択（スポーツキャンプ・医療系の会議・
+     チェス大会）にはどれも触れていない。Q173 は夏に開いていた食堂の数を3館の1値だけにし、時期に
+     よって変わる書き方はしていない。Q175 は「本館以外に図書館内のカフェも運営している」という
+     1本の根拠だけを置き、衛生評価・在学中の学生雇用・県内農家からの仕入れにはどれも触れていない。 */
   sp({
-    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Report',
-      title: 'Cross Fell Handloom Workshop — Warp Thread Review',
-      head: 'Internal Operations Note — Production Office',
+      head: 'Campus Dining Services\nSummer 2026 Review — extract for staff',
       body: [
-        'Cross Fell Handloom Workshop began tracking an unusual rise in warp thread breakages early last year, worst on its four heaviest looms during long runs of double-width wool cloth. — [[1]] — At first, staff suspected a bad batch of yarn from a new supplier, since the breakages had started soon after the workshop changed yarn sources.',
-        'Over the following months, the workshop tried three fixes: a slower shuttle speed, a different sizing agent on the warp threads, and a higher tension setting on the existing beam. — [[2]] — None cut the breakage rate by more than a few percent, and the slower shuttle speed reduced output too sharply to be practical.',
-        'Engineers then wove identical lengths of cloth from both the old and new yarn suppliers under matched tension. The breakage rate came out the same for both, clearing the new supplier of blame. — [[3]] — What stood out instead was the width of the warp beam itself, unchanged since the workshop moved to wider cloth three years earlier. Only in the past year and a half, however, had heavy, double-width runs become the workshop\'s default job, roughly when the breakage rate began climbing.',
-        'In March, the workshop fitted a wider beam, sized for the full width of the cloth, to its worst-performing loom. Breakages on that loom fell by ninety percent within six weeks, while the other three looms, still running the narrow beam, showed no improvement. — [[4]] —',
-        'The remaining three looms are scheduled for the same upgrade before the autumn run, and the workshop no longer treats a change of yarn supplier as an automatic explanation when breakage rates shift.',
+        "Over the ten weeks with no students on campus, we kept three of our four halls open — the North, South and East dining halls — to serve staff, contractors and the handful of outside groups who book the campus for residential courses each summer. The West Hall stayed closed throughout for its five-yearly rewiring.",
+        "The largest of this year's bookings was a fortnight-long course run by an overseas language school, the first time a group of that kind has used our halls. Because the course fell in our quietest fortnight, we agreed to give the school a reduced day rate for the whole stay. [[1]] That commitment already gives us a clearer picture of bookings for the next few summers than we normally have at this stage of the year.",
+        "Elsewhere, the quiet summer gave the maintenance team a rare chance to get ahead of routine repairs across the halls that stayed open. The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail. [[2]]",
+        "Catering income held up well despite the quiet campus. The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break. [[3]] Overall takings across the whole operation were only a little below what we would expect during term time.",
+        "Looking ahead, we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time. [[4]] Anyone with questions about this summer's figures should contact the dining services office in Room 14 of the Refectory building.",
       ],
     }],
     q: [
-      { tag: '詳細', qid: 'v4q172r',
-        s: 'What did Cross Fell Handloom Workshop initially suspect was responsible for the thread breakages?',
-        c: ['A tension setting unsuited to yarn from the new supplier', "A sudden change in the shuttle's operating speed",
-            'A bad batch of yarn from a new supplier', "A mismatch between the two suppliers' yarn weights"],
+      { tag: '詳細', qid: 'v4q172p', s: 'According to the report, what kind of group used the dining halls for the first time this summer?',
+        c: ['A youth sports camp.', 'A language school.', 'A medical conference.', 'A chess tournament.'],
+        a: 1,
+        e: '「今年最大の予約は、海外の語学学校による2週間のコースで、この種の団体が食堂を使うのは初めてだった」と本文にある。',
+        w: ['青少年スポーツキャンプについての言及は報告書のどこにも無い（言及なし）。',
+            '正解。',
+            '医療系の会議についての言及は報告書のどこにも無い（言及なし）。',
+            'チェス大会についての言及は報告書のどこにも無い（言及なし）。'] },
+      { tag: '詳細', qid: 'v4q173p', s: 'How many dining halls stayed open over the summer?',
+        c: ['One hall.', 'Two halls.', 'Three halls.', 'Four halls.'],
         a: 2,
-        e: '新しい糸供給元への切り替えと時期が重なったため、当初は新しい糸の不良ロットが疑われたと述べられている。',
-        w: ['当初の疑いではない。第1段落は、まず疑われたのが新しい供給元の糸の不良ロットだと一つに特定して述べている。張力設定は第2段落で、その後の数か月に試した3つの対処（シャトル減速・サイジング剤の変更・張力を上げること）のひとつとして挙がっており、疑いの対象ではなく対処の側にある。',
-            '当初の疑いではない。シャトル速度も後で試した対処のひとつであり、疑われた原因ではない。',
-            '正解。新しい糸供給元への切り替えと時期が重なったため、新しい糸の不良ロットが疑われたと述べられている。',
-            '第1段落は当初の疑いを新しい供給元の糸の不良ロットだと特定しており、二つの供給元の糸の規格差を疑ったとは述べていない。第3段落では新旧両方の供給元の糸を同じ張力で同じ長さだけ織り比べ、破断率は両者で同じだったと述べられており、供給元による糸の差は破断の原因から外れている。'] },
-      { tag: '詳細', qid: 'v4q173r',
-        s: 'What was the outcome of the three fixes the workshop tried first?',
-        c: ['They eliminated the breakages within a single week.', "They were rejected by the loom manufacturer's engineers.",
-            'They reduced breakage by only a few percent.', 'They were later applied successfully to all four looms.'],
-        a: 2,
-        e: '3つの対処（シャトル減速・サイジング剤・張力設定変更）はいずれも破断率を数パーセント程度しか改善せず、シャトル減速はさらに出力低下が大きすぎて実用的でなかったと述べられている。',
-        w: ['本文には3つの対処のいずれも破断率を数パーセント以上は下げなかったと明記されており、1週間で解消したのではなく、解消とは正反対の結果だったと分かる。',
-            '3つの対処は却下されたのではなく実際に導入されて試されている。第2段落の冒頭が the workshop tried three fixes と述べており、技術者に却下されたという記述とは食い違う。',
-            '正解。3つの対処のいずれも、破断率を数パーセント以上は改善しなかったと述べられている。',
-            '4台全てへの適用や成功の記述はない。むしろ効果は薄く、シャトル減速はさらに出力低下が大きすぎて実用的でなかったと述べられている。'] },
-      { tag: '位置選択', qid: 'v4q174r3', t: ['p7ins'], insertAt: 4,
-        sentence: 'Retying time on that loom fell from around forty minutes a shift to under five.',
-        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"Retying time on that loom fell from around forty minutes a shift to under five."',
+        e: '「4館のうち3館（North・South・East）を開けたままにし、West Hall だけを5年に1度の配線工事のために閉めた」と本文に明記されている。',
+        w: ['本文は3館が開いていたと明記しており、1館ではない。',
+            '本文は3館が開いていたと明記しており、2館ではない。',
+            '正解。',
+            '本文は4館のうち1館（West Hall）を閉めていたと明記しており、4館ではない。'] },
+      { tag: '位置選択', qid: 'v4q174p', t: ['p7ins'], insertAt: 1,
+        sentence: 'In exchange, the group has agreed to return in each of the next three summers.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"In exchange, the group has agreed to return in each of the next three summers."',
         c: ['[1]', '[2]', '[3]', '[4]'],
-        a: 3,
-        e: '挿入文の that loom は、同じ段落の直前2文が「性能が最も悪い1台（its worst-performing loom）」に幅広の柄を取り付けたと述べ、続けてその1台を Breakages on that loom と呼び直したあとで初めて指す先を持つ。[1]〜[3] までの本文では対処法や比較試験の話はあっても特定の1台を指し示す表現がまだ登場しておらず、that loom が何を指すか定まらない。',
-        w: ['[1] までに本文が述べているのは、重い4台の織機で去年から破断が増えたという追跡開始の1文だけで、特定の1台を「その織機」と呼べる状況にはまだなっていない。that loom が指す先がない。',
-            '[2] までに本文が述べているのは、追跡開始と当初の見立てに加え、シャトル速度・サイジング剤・張力設定という3つの対処を試したことだけで、それぞれの結果や特定の1台への言及はまだ無い。that loom が指す先がない。',
-            '[3] までに本文が述べているのは、3つの対処の結果が薄かったこと、そして新旧の糸を並行比較して糸に責任がないと分かったことまでで、柄の幅への言及や特定の1台への言及はまだ無い。that loom が指す先がない。',
-            '正解。同じ段落の直前2文が、「性能が最も悪い1台」に幅広の柄を3月に取り付けたこと、そしてその1台で破断が6週間のうちに9割減ったことを述べており、挿入文の that loom はここで初めて指す先を持つ。'] },
-      { tag: '推測', qid: 'v4q175r3', t: ['p7inf'],
-        s: 'What is suggested about how Cross Fell Handloom Workshop will respond to future breakage problems?',
-        c: ['It will weave matched test lengths before settling on an explanation.', 'It will replace its current yarn supplier before the autumn run begins.',
-            'It will require an outside engineer to inspect every loom each quarter.', "It will fit wider beams once the supplier's yarn improves."],
         a: 0,
-        e: '結びは、破断率が動いたときにある要因を自動的な説明として扱うのはもうやめる、と述べている。第3段落では新旧の糸から同じ長さの布を同じ張力で織り比べ、破断率が両者で同じだと確かめた実績があり、今後も原因を決める前に同条件の試し織りで確かめる方向だと読み取れる。',
-        w: ['正解。第3段落の Engineers then wove identical lengths of cloth from both the old and new yarn suppliers under matched tension が、原因を一つに決める前に同条件で織り比べて確かめるという手順を示している。結びの「破断率が動いても、ある要因を自動的な説明とはもうしない」という方針と合わせると、今後も同じ手順を踏むと分かる。',
-            '第5段落は、秋の稼働前に予定されているのが残り3台への幅広の柄の取り付けだと明記しており、供給元の交換ではない。第3段落は新旧両方の供給元の糸を同じ張力で織り比べて破断率が同じだったことから新しい供給元の嫌疑は晴れたと述べており、現在の供給元を替えるという筋道は本文の結論と食い違う。',
-            '外部技術者による定期点検の話は本文に出てこない。',
-            '第5段落は、残り3台の織機が秋の稼働前に同じ幅広の柄へ交換される予定だと明記しており、供給元の糸が良くなるのを待つという条件は付いていない。第3段落では新旧両方の供給元の糸を同じ張力で織り比べて破断率が同じだったと述べられており、供給元の糸の品質は破断率を左右する変数から外れている。'] },
+        e: '挿入文の "In exchange"（その見返りに）は、直前の "we agreed to give the school a reduced day rate for the whole stay" という、特定の1団体（the school）に与えた譲歩を受けて初めて意味が定まり、"the group" もその団体を指す。この文は [1] の直前にしか無い。挿入文の直後には "That commitment already gives us a clearer picture of bookings for the next few summers…" が続き、挿入文で初めて導入された「3年分の予約という約束」を、既出のものとして "That commitment" で受けている。[2][3][4] の直前にはいずれも特定の1団体に何かを譲った文が無く、"In exchange" が受けるものが無い。また、挿入文を [1] 以外に置くと、[1] の直後の "That commitment" は直前の割引の合意を受けることになるが、割引の合意からは「今後数年の夏の予約の見通し」は得られないので、文がつながらない。',
+        w: ['正解。',
+            '[2] の直前は "The serving counter in the East Hall was re-tiled, and the walk-in chiller in the North Hall had its compressor replaced a full season before it was due to fail." という設備の補修の話で、特定の1団体への譲歩は述べられていない。"In exchange" が受ける譲歩が無いうえ、挿入文を [1] に置かないと [1] の直後の "That commitment" は直前の割引の合意を受けることになり、割引の合意からは今後数年の夏の予約の見通しは得られないので、文がつながらない。',
+            '[3] の直前は "The coffee bar our team runs on the ground floor of the Main Library also had a steady summer, helped by the extra researchers and visiting academics working through the break." というカフェの売上の話で、特定の1団体への譲歩は述べられていない。理由は [2] と同じで、"In exchange" が受ける譲歩が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。',
+            '[4] の直前は "we expect a similarly mixed calendar of outside bookings next summer, and exact hall opening dates will be circulated nearer the time." という来年への見通しの話で、特定の1団体への譲歩は述べられていない。理由は [2][3] と同じで、"In exchange" が受ける譲歩が無く、[1] の直後の "That commitment" も割引の合意を受けたままで文がつながらない。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v4q175p', s: 'What is suggested about Campus Dining Services?',
+        c: ['It holds a top hygiene rating from the council.', 'It operates the café in the main library.',
+            'It employs current students during term time.', 'It buys its meat from farms in the county.'],
+        a: 1,
+        e: '「図書館の1階で私たちのチームが運営しているコーヒーバーも、夏の間安定した売上だった」という一文から、Campus Dining Services が学内の食堂だけでなく図書館内のカフェ（コーヒーバー）も運営していることが分かる。',
+        w: ['衛生評価についての言及は報告書のどこにも無い（言及なし）。',
+            '正解。',
+            '在学中の学生を雇用しているという言及は報告書のどこにも無い（言及なし）。',
+            '県内の農場からの仕入れについての言及は報告書のどこにも無い（言及なし）。'] },
     ],
   }),
 ];

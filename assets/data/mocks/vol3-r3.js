@@ -18,146 +18,258 @@ const sp = (o) => ({
 
 export const R3 = [
 
-  /* ── 165–168 オンラインチャット（4名）─────────────── */
+  /* ── 165–168 オンラインチャット ──────────────────── */
+  /* 「設問を先に作り、正解はくじで決める」方式でユニット全体を書き下ろした。
+     stem・4択はメインが凍結し（plans/vol3-final-P7s.txt の v3-p7-165）、
+     正解はメインがくじで決定（Q165=A、Q166=B、Q167=D、Q168=B。dice/vol3-r3.txt）。
+     旧版の題材・人物名・言い回しは一切流用せず、本文を新規に書き下ろした。
+     設問 id は全問新規採番（v3q165p〜v3q168p）。
+     申し送り対応：チャットの曜日は「It's Thursday already.」で本文中に固定した。Q166 の引用の
+     直前（10:07 のエズミの発言）は「その日のうちにデザイナーに差し替えを頼めるか」という1つの
+     依頼だけに絞り、ファイルの送付や打ち合わせの話題はこの発言には含めていない。Q167 の依頼
+     （フリーランス連絡先の更新）は Q166 とは別の話題として10:15 に切り出し、Corentin から Esme
+     への依頼（Q166(D)の型）とは方向を取り違えないようにした。Q168 は10:05 のコレンタンの発言
+     だけが根拠になるようにし、刊行間隔・移転・記念号には一切触れていない。
+     2026-09-29 監査反映（reviews/vol3-r3-r1.txt）：(1) Q166 の10:11「I keep forgetting it's
+     only Thursday.」は「まだ木曜（週末は先）」の意味で、正解の「出勤日を過ぎている」と逆向き
+     だったため、「I'd lost track of the days. It's Thursday already.」に直した（曜日が
+     すでに過ぎている向きに統一）。あわせて exp の引用を差し替え、why[0]（(A)）の「まだ着手
+     されていない作業についての言及は無く」という記述が10:07の差し替え依頼と矛盾していたため、
+     「レイアウトは仕上がっていて、差し替えはその場で新たに頼まれたもの」という趣旨に書き直し、
+     why[3]（(D)）も「出勤日を伝えているだけ」という、正解の「断っている」と食い違って読める
+     書き方から「言及なし」に直した。(2) Q168 の根拠だった10:17「since almost all of our
+     copies go straight to subscribers rather than newsstands」は、正解を立てるためだけの文
+     であるうえ、10:05の「newsstand thumbnail」（店頭での見え方を表紙選びの理由にする発言）と
+     逆向きにぶつかっていたため、10:17の当該文を削除し、10:05を「Nearly every copy goes out
+     by post to readers who've paid for the year in advance, so the cover can afford a
+     quieter image like that one.」に差し替えて、表紙選びの理由として定期購読中心であることを
+     示す形にした（本文なし・見出しだけ・他設問込み・常識だけ・矛盾箇所の引用の5通りで試行し、
+     新しい第二の正解・抜け道が生じないことを確認済み）。exp も新しい引用に合わせた。
+     (3) Q167 の why[0]・why[1] は「言及なし」で閉じていたが、印刷会社の確認・カメラマンへの
+     連絡はいずれも本文に登場していたため、それぞれ「コレンタンが自分から確認すると言っている
+     だけ」「昨日すでに試みたことで、頼んでいるのは電話番号の修正」と、本文の記述を名指しする
+     形に書き直した。
+     2026-09-29 第2巡監査反映（reviews/vol3-r23-r2.txt）：Q168 exp の「雑誌のほとんどの号が」
+     は誤訳（copy は部数・冊で、号は issue）だったため、「発行部数のほぼすべてが」に直した。 */
   sp({
-    n: [165, 166, 167, 168], lv: 5, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 4, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
-        { who: 'Elena Castillo', time: '09:02', text: 'Test lab confirmed it — the magnet in the RiverPlay building blocks can come loose if a child bites down hard enough. We need to pull batch 4471 from shelves.' },
-        { who: 'Dov Kaplan', time: '09:04', text: 'How many units shipped in that batch?' },
-        { who: 'Elena Castillo', time: '09:05', text: '6,200. About 3,900 are still with retailers; the rest have likely sold through.' },
-        { who: 'Marcus Ueda', time: '09:07', text: 'Do we know if any injuries have been reported?' },
-        { who: 'Elena Castillo', time: '09:08', text: 'None so far. This came from our own pre-release stress testing on a later batch, not from a complaint.' },
-        { who: 'Priya Anand', time: '09:10', text: 'Then we get ahead of it. I would rather announce a voluntary recall than have a regulator announce it for us.' },
-        { who: 'Dov Kaplan', time: '09:12', text: 'Agreed. Retailers can pull the 3,900 today if we send the notice by noon.' },
-        { who: 'Marcus Ueda', time: '09:14', text: 'I want one more thing checked before noon — whether batch 4470, the one just before it, used the same magnet supplier.' },
-        { who: 'Elena Castillo', time: '09:16', text: 'I\'ll have that answer within the hour.' },
-        { who: 'Priya Anand', time: '09:18', text: 'Marcus, is there a reason you\'re asking about 4470 specifically rather than just 4471?' },
-        { who: 'Marcus Ueda', time: '09:19', text: 'If it\'s the same supplier, we\'re better off recalling both at once than doing this twice.' },
-        { who: 'Dov Kaplan', time: '09:21', text: 'Makes sense. I\'ll hold the notice until Elena confirms either way.' },
+        { who: 'Esme Rudling', time: '10:02', text: 'Corentin, I\'ve just seen the layout with the harbour shot on the cover, and I still think the café terrace photo works better for the next issue of Skelmoor Traveller.' },
+        { who: 'Corentin Rilston', time: '10:05', text: 'I actually prefer the harbour shot myself. Nearly every copy goes out by post to readers who\'ve paid for the year in advance, so the cover can afford a quieter image like that one.' },
+        { who: 'Esme Rudling', time: '10:07', text: 'Could you get the designer to swap in the café terrace shot today, just so I can compare the two side by side before the proof goes to the printer tomorrow morning?' },
+        { who: 'Corentin Rilston', time: '10:09', text: 'The designer works Mondays and Tuesdays.' },
+        { who: 'Esme Rudling', time: '10:11', text: 'Of course — I\'d lost track of the days. It\'s Thursday already. Let\'s leave the harbour shot as it is, then. There\'s no time to try another version before the deadline.' },
+        { who: 'Corentin Rilston', time: '10:13', text: 'Agreed. I\'ll confirm with the printer that the harbour shot is final.' },
+        { who: 'Esme Rudling', time: '10:15', text: 'Thanks. Also, could you go through our freelance photographers\' details and fix the two phone numbers that changed? Nobody could reach one of them yesterday about the walking-trails piece.' },
+        { who: 'Corentin Rilston', time: '10:17', text: 'Sure, I\'ll sort out the numbers this afternoon.' },
       ] }],
     }],
     q: [
-      { tag: '概要', s: 'What are the writers discussing?',
-        c: ['Whether to switch to a different magnet supplier for future batches', 'Whether to postpone a product launch until batch 4470 clears testing',
-            'How to price a replacement product for major retailers', 'How to respond to a safety issue found during testing'],
-        a: 3,
-        e: '社内試験で見つかった安全上の問題（磁石が外れる恐れ）にどう対応するかを話し合っている。',
-        w: ['供給元は、直前のバッチ 4470 が同じ供給元かを確かめる文脈で出てくるだけで、供給元を切り替えるかどうかは議論されていない。', '発売延期の話ではなく、バッチ 4470 の供給元確認は同時回収の是非を判断する材料にすぎない。', '価格設定や交換品の話は本文のどこにも出ておらず、話し合われているのは磁石の安全性と回収の進め方だけである。', '正解。'] },
-      { tag: '意図', t: ['p7intent'],
-        s: 'At 09:10, what does Ms. Anand most likely mean when she writes, "I would rather announce a voluntary recall than have a regulator announce it for us"?',
-        c: ['She believes a regulator will not act on this issue.', 'She wants formal legal approval and a written sign-off before any announcement is made.',
-            'She thinks the recall should be delayed until testing is complete.', 'She wants the company to control the timing and framing of the announcement.'],
-        a: 3,
-        e: '規制当局に先んじて自主的に発表したいという発言で、対応を自社主導で進め、発表の形と時期を管理したいという意図。',
-        w: ['規制当局が動かないとは述べていない。', '法務承認や書面でのサインオフへの言及はない。', '延期の提案ではない。', '正解。'] },
-      { tag: '詳細', s: 'How many units of batch 4471 are still with retailers?',
-        c: ['2,300', '4,471', '6,200', '3,900'],
-        a: 3,
-        e: '出荷 6,200 個のうち、まだ小売店にあるのは約 3,900 個と述べられている。',
-        w: ['本文に記載なし。', 'バッチ番号であり数量ではない。', '出荷総数。', '正解。'] },
-      { tag: '推測', t: ['p7inf'], s: 'Why does Mr. Ueda want to know about batch 4470?',
-        c: ['To check whether it reached a different overseas market', 'To determine whether a single combined recall would be more efficient',
-            'To calculate a refund amount', 'To find out who approved the original design'],
+      { tag: '概要', qid: 'v3q165p', s: 'What is the online chat discussion mainly about?',
+        c: ['Choosing an image for the next cover', 'Shortening an article to fit its space',
+            'Checking facts in a restaurant guide', 'Preparing a list of reader prize winners'],
+        a: 0,
+        e: '冒頭でエズミが "I still think the café terrace photo works better for the next issue of Skelmoor Traveller." と述べ、以降のやり取りも同じ表紙用の写真をめぐる話し合いとして進み、最終的にハーバーの写真を採用することで一致している。したがって、このチャットの主題は次号の表紙に使う画像を選ぶことである。',
+        w: ['正解。',
+            '記事を短縮するという話題はチャットのどこにも無い（言及なし）。',
+            'レストランガイドの事実確認についての言及はチャットのどこにも無い（言及なし）。',
+            '読者向け賞品の当選者リストについての言及はチャットのどこにも無い（言及なし）。'] },
+      { tag: '意図', t: ['p7intent'], qid: 'v3q166p',
+        s: 'What does Corentin most likely mean when he writes, "The designer works Mondays and Tuesdays"?',
+        c: ['He is explaining why some work is unfinished', 'He is turning down a request for changes',
+            'He is agreeing to move a meeting to tomorrow', 'He is asking Esme to send some files sooner'],
         a: 1,
-        e: '「同じ供給元なら、2 回に分けるより一度に回収する方がよい」と述べている。',
-        w: ['販売市場の話はない。', '正解。', '返金額の話は出ていない。', '承認者には触れていない。'] },
+        e: '直前でエズミが "Could you get the designer to swap in the café terrace shot today, just so I can compare the two side by side before the proof goes to the printer tomorrow morning?" と、今日中にデザイナーに差し替えを頼めないか尋ねている。それに対しコレンタンが "The designer works Mondays and Tuesdays." と答えており、デザイナーの出勤日が月曜と火曜に限られることを理由に、その依頼を断る趣旨である。続けてエズミも "It\'s Thursday already." と応じ、ハーバーの写真のままにすると決めており、依頼が通らなかったことを裏付ける。',
+        w: ['頼んであった作業の遅れを説明するという読みは、その作業がまだ終わっていないことが前提になる。レイアウトは "I\'ve just seen the layout with the harbour shot on the cover" のとおり仕上がっていて、差し替えは10:07にその場で新たに頼まれたもの。終わっていない作業の理由を説明する場面は無い。',
+            '正解。',
+            '打ち合わせについての言及はチャットのどこにも無い（言及なし）。',
+            'ファイルの送付はチャットのどこにも出てこない（言及なし）。'] },
+      { tag: '詳細', qid: 'v3q167p', s: 'According to the chat, what does Esme ask Corentin to do?',
+        c: ['Forward an e-mail from the printer', 'Ring a photographer about an invoice',
+            'Collect some samples from reception', 'Update a list of freelance contacts'],
+        a: 3,
+        e: 'エズミが "could you go through our freelance photographers\' details and fix the two phone numbers that changed?" と、フリーランスの連絡先情報を修正するよう頼んでいる。',
+        w: ['印刷会社は10:13にコレンタンが自分から確認すると言っているだけで、メールの転送は頼まれていない。',
+            'カメラマンへの連絡は10:15の "Nobody could reach one of them yesterday about the walking-trails piece." に出るが、昨日すでに試みたことで、エズミが頼んでいるのは電話番号の修正。請求書には触れていない。',
+            '受付でのサンプル受け取りについての言及はチャットのどこにも無い（言及なし）。',
+            '正解。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v3q168p', s: 'What is suggested about Skelmoor Traveller?',
+        c: ['It comes out every two months', 'It is sold mainly by subscription',
+            'It recently moved to new premises', 'It is planning a special anniversary issue'],
+        a: 1,
+        e: 'コレンタンが10:05で "Nearly every copy goes out by post to readers who\'ve paid for the year in advance, so the cover can afford a quieter image like that one." と述べており、発行部数のほぼすべてが、1年分を前払いした読者に郵送されている、つまり雑誌の大半が定期購読で売られていることが読み取れる。',
+        w: ['刊行の間隔についての言及はチャットのどこにも無い（言及なし）。',
+            '正解。',
+            '移転についての言及はチャットのどこにも無い（言及なし）。',
+            '記念号についての言及はチャットのどこにも無い（言及なし）。'] },
     ],
   }),
 
   /* ── 169–171 手紙 ─────────────────────────────────── */
+  /* 「設問を先に作り、正解はくじで決める」方式でユニット全体を書き下ろした。
+     stem・4択はメインが凍結し（plans/vol3-final-P7s.txt の v3-p7-169）、
+     正解はメインがくじで決定（Q169=B、Q170=B、Q171=A。dice/vol3-r3.txt）。
+     旧版の題材・人物名・言い回しは一切流用せず、本文を新規に書き下ろした。
+     設問 id は全問新規採番（v3q169p〜v3q171p）。
+     申し送り対応：手紙の用件は古い写真の提供を尋ねる1点のみとした。写真を求める文脈は
+     「創立60周年の記念展示」であり、協会自身の出版物のためとは書いていない
+     （Q171(B) の「書籍を出版している」が推せないようにするため）。定例会の曜日は
+     「第2水曜日」の1か所だけとし、特定の会合日は書いていない。宛先の住所は本文に書かず、
+     近隣の村を示唆する記述も置いていない（Q171(C) 対策）。会場は Stavenhall Community Centre
+     とし、図書館という語は使っていない（Q171(D) 対策）。
+     2026-09-29 監査反映（reviews/vol3-r3-r1.txt）：(1) exp・why の段落番号が、宛名
+     "Dear Mr. Stobart," を第1段落に数えて1つずれていたため、宛名を数えない数え方
+     （第2→第1、第3→第2、第4→第3）に直した。(2) 第1段落の "This year marks sixty years
+     since a small group of local residents founded the society in 1964" は、"1964" と
+     "sixty years" の両方を書いたことで手紙の年が2024年に固定され、かつ founded がほぼ逐語で
+     Q171(A) が推測にならず lv3 に寄っていたため、"The society turns sixty this spring" に
+     直した（60周年という事実は変えず、年の固定と逐語性だけを外した）。Q169・Q171 の exp の
+     引用をこれに合わせて差し替えた。 */
   sp({
-    n: [169, 170, 171], lv: 5,
+    n: [169, 170, 171], lv: 3,
     docs: [{
       label: 'Letter',
-      head: 'Fenwick & Voss Organ Conservation\nUnit 3, The Old Malthouse, Norwich\n\n22 October',
+      head: 'Stavenhall Local History Society\n14 March',
       body: [
-        'The Reverend Alys Trentham\nChurchwardens\' Committee\nSt. Bartholomew\'s, Marsh Compton',
-        'Dear Reverend Trentham,',
-        'Further to your enquiry of 30 September, I have now completed my examination of the organ in the north transept.',
-        'The condition is better than the surveyor\'s report from 2019 suggested. The leather in the bellows is worn but intact in most places, and the pipework itself — some three hundred and forty pipes across four ranks — is largely undamaged. What has failed is the wind trunk connecting the bellows to the main chest, where the wood has split along an old repair joint.',
-        'I would not recommend a full restoration at this stage. What the organ needs is a replacement wind trunk and releathering of the bellows at the two points where air is visibly escaping. That is roughly sixty hours of workshop time rather than the four hundred hours a full restoration would require.',
-        'I must, however, raise the condition of the case. The organ stands against an external wall that shows signs of rising damp, and whatever we repair inside the instrument will be undermined within five years unless the wall is treated and a ventilation gap is created behind the case. I can provide a written specification for a builder if that would help you raise the matter with the diocese.',
-        'My estimate for the wind trunk and releathering is £4,850. I have not included the specification for the wall works, which I would provide at no charge.',
-        'Yours sincerely,\nGriffin Okafor ACR',
+        'Dear Mr. Stobart,',
+        'The society turns sixty this spring, and we are putting together a short display of old photographs in the town hall foyer to mark the occasion.',
+        'While going through the archive, we found several later views of the market square but nothing from before the war, and I recall that your grandfather ran a photography studio on the high street in those years. Do you happen to have kept any of his prints of the square, or of the old corn exchange before it was pulled down? Even a single print, loaned just long enough for us to make a copy, would fill a real gap in the display.',
+        'If it helps, you are welcome to bring anything you find along to one of our meetings — we gather on the second Wednesday of the month at the Stavenhall Community Centre — or I would be glad to call at your house myself, whichever suits you better.',
+        'The display goes up in early May, so it would help greatly if you could let me know either way by the middle of April.',
+        'Yours sincerely,\nOttoline Ramscar\nHonorary Secretary, Stavenhall Local History Society',
       ],
     }],
     q: [
-      { tag: '概要', s: 'Why is Mr. Okafor writing?',
-        c: ['To decline a restoration commission because the damage is more extensive than expected', 'To report on an examination and recommend limited repair work',
-            'To request additional historical photographs before finalising the estimate already given', 'To invoice for completed restoration work and request immediate final payment'],
+      { tag: '概要', qid: 'v3q169p', s: 'What is the purpose of the letter?',
+        c: ['To confirm Mr. Stobart\'s place on a coach trip', 'To ask Mr. Stobart about an old photograph',
+            'To tell Mr. Stobart the outcome of a vote', 'To apologize to Mr. Stobart for a billing error'],
         a: 1,
-        e: '調査結果を報告し、全面修復ではなく限定的な修理を勧めている。',
-        w: ['依頼は引き受けており、状態は 2019 年の調査報告よりも良好だったと述べている。損傷が想定より大きいという記述とは正反対。', '正解。', '調査はすでに完了し £4,850 という見積もりも確定しており、追加の写真提供を求める記述はない。', '完了した修復工事の請求ではない。今回の書面は見積もりであり、全面修復ではなく限定的な補修を提案している。'] },
-      { tag: '詳細', s: 'What does the letter indicate about the pipework?',
-        c: ['It is largely undamaged.', 'It has been replaced since 2019.',
-            'It was removed for cleaning.', 'It no longer matches the original design.'],
+        e: '第1段落で "we are putting together a short display of old photographs in the town hall foyer to mark the occasion" とあり、続く第2段落で "Do you happen to have kept any of his prints of the square, or of the old corn exchange before it was pulled down?" と、差出人がストーバート氏の祖父が撮った古い写真を持っていないか尋ねている。手紙全体はこの依頼のために書かれている。',
+        w: ['バスツアーの座席についての言及は手紙のどこにも無い（言及なし）。',
+            '正解。',
+            '投票結果についての言及は手紙のどこにも無い（言及なし）。',
+            '請求の誤りについての言及は手紙のどこにも無い（言及なし）。'] },
+      { tag: '詳細', qid: 'v3q170p', s: 'According to the letter, when does the society usually meet?',
+        c: ['On the first Tuesday of each month', 'On the second Wednesday of each month',
+            'On the third Thursday of each month', 'On the last Friday of each month'],
+        a: 1,
+        e: '第3段落に "we gather on the second Wednesday of the month at the Stavenhall Community Centre" とあり、協会は毎月第2水曜日に集まるとしている。',
+        w: ['第1火曜という記述は手紙のどこにも無い（言及なし）。',
+            '正解。',
+            '第3木曜という記述は手紙のどこにも無い（言及なし）。',
+            '最終金曜という記述は手紙のどこにも無い（言及なし）。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v3q171p', s: 'What is suggested about the Stavenhall Local History Society?',
+        c: ['It was founded more than fifty years ago', 'It publishes books about the town\'s history',
+            'It has members from several nearby villages', 'It holds its meetings at the town library'],
         a: 0,
-        e: '「パイプ自体はおおむね無傷」と述べられている。',
-        w: ['正解。', '交換の話はない。', '清掃のための取り外しには触れていない。', '設計との不一致は述べていない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'Why does the writer mention the condition of the external wall?',
-        c: ['To warn that the repair will not last without further work', 'To explain a delay in the examination',
-            'To justify a higher estimate for the wind trunk', 'To suggest moving the organ to another building'],
-        a: 0,
-        e: '「壁を処置し、ケース裏に通気の隙間を作らない限り、内部の修理は 5 年で損なわれる」と警告している。',
-        w: ['正解。', '遅延の説明ではない。', '見積もりには壁の工事は含まれていない。', '移設は提案していない。'] },
+        e: '第1段落に "The society turns sixty this spring" とあり、協会が今年で60歳になるとしている。60年は50年を超えているので、この選択肢が読み取れる。',
+        w: ['正解。',
+            '協会が書籍を出版しているという記述は手紙のどこにも無い（言及なし）。第1段落が触れているのは写真の展示であり、出版物ではない。',
+            '近隣の村の会員についての言及は手紙のどこにも無い（言及なし）。',
+            '会合の会場は第3段落で "the Stavenhall Community Centre" と明記されており、図書館という記述はどこにも無い。'] },
     ],
   }),
 
-  /* ── 172–175 掲示（文挿入あり）─── 書き下ろし：採石場の切断方式変更（直前文の照応と第4段落の also で閉じる型） ── */
+  /* ── 172–175 掲示（文挿入あり）──────────────────── */
+  /* 「設問を先に作り、正解はくじで決める」方式でユニット全体を書き下ろした。
+     stem・4択・挿入文はメインが凍結し（plans/vol3-final-P7s.txt の v3-p7-172）、
+     正解はメインがくじで決定（Q172=D、Q173=B、Q174=位置[2]、Q175=C。dice/vol3-r3.txt）。
+     旧版の題材・数値・言い換えは一切流用せず、本文を新規に書き下ろした。
+     設問 id は全問新規採番（v3q172p〜v3q175p）。
+     Q174 は取っ手を2つ用意して位置[2]に閉じた。
+     ①前方：第4段落冒頭の "Several residents on the two upper floors asked the committee
+     whether quiet hours could be introduced during the exam period, when noise from the next
+     room was making it hard to study in the evenings." を、挿入文の "That request" が受ける
+     唯一の先行文とし、これより前（[1]）には要望についての記述を一切置いていない。
+     ②後方：挿入文が 'Quiet Corridor' という名称を引用符付きで初めて導入するので、[2] の直後の
+     一文（第4段落末尾の "Quiet Corridor will run from nine in the evening until eight the next
+     morning, …"）だけがこの名称を引用符なしの既出として使い、[3][4] はこの既出扱いの一文より
+     後ろに位置するため、そこに挿入すると名称を二度初めて導入する形になり成り立たない。
+     要望の文と[2]のあいだ、[2]と既出扱いの一文のあいだには他のマーカーを置いていない。
+     来客の変更理由（避難経路の混雑）と台所の変更（オンライン予約）はそれぞれ1点のみとし、
+     request/requested/asked for は第4段落の要望文以外では使っていない。Q175 の寮長交代は
+     くじの (C) に合わせ、新入生比率・値上げには一切触れていない。
+     2026-09-29 監査反映（reviews/vol3-r3-r1.txt）：(1) Q172 の第2段落1文目にあった
+     "the side door next to the bicycle sheds" の "next to the bicycle sheds" が、Q175(B)
+     「駐輪スペースの増設」に触れる語になっていた（本コメントの旧版が「駐輪場には一切触れて
+     いない」と書いていたのは事実と違った）ため、"the door at the rear of the building" に
+     差し替えて駐輪場への言及を無くした。あわせて同段落末尾の "A member of staff will be at
+     the side door each evening to let guests in." は、混雑の時間帯（朝、講義に出る時間）と
+     職員がいる時間帯（夕方）が噛み合わず、(A)「受付での登録」の話題にも寄っていたため削除した。
+     why[2]（(C)）の「同居人」は誤訳（host は来客を招いた居住者）だったため「来客が招いた
+     居住者（ホスト）」に直した。(2) Q173 の why[3]（(D)）が「第1段落・第3段落とも引き続き
+     1階にある」という、移転を否定する根拠にならない書き方だったため「台所についての変更は
+     第3段落の予約制だけで、移転の記述は無い（言及なし）」に直した。(3) Q175 の根拠だった
+     第5段落1文目 "I took up the post of hall warden at the start of this term, after my
+     predecessor moved to a post at another hall" は、正解 (C) の "is undergoing a change"
+     （進行中）に対し交代がすでに済んだ相で書かれていたため、"I am taking over as hall warden
+     this term from my predecessor, who has moved to a post at another hall" に直し、
+     交代が進行中の相に揃えた（Q174 why[2] の引用も合わせて差し替えた）。(4) 上記(1)(3)の
+     修正後も、Q174 の4か所の判定は変わらない：[1] は要望の先行文が無く不成立のまま、[2] は
+     要望文の直後で指示対象が定まり、[3][4] は 'Quiet Corridor' がすでに引用符なしで既出の
+     あとに位置するため、いずれも不成立のまま。(1)の修正で本文は約297語になった。
+     2026-09-29 第2巡監査反映（reviews/vol3-r23-r2.txt）：全巻の曜日つき日付を2026年想定で
+     機械照合した結果、"from Monday, 10 February" が2026年では火曜（2026年2月10日は火曜、
+     9日が月曜）で不一致だったため、"from Monday, 9 February" に直した。Q174 why[0] が同じ
+     文を引用していたため、そちらも合わせて差し替えた。掲示の日付 "3 February"（2026年で火曜）
+     は変更前の日付であり不一致は無いためそのままとした。選択肢に曜日・日付は無く、
+     Q174 の4か所の判定にも影響しない（[1] の直前に要望が無いことは変わらない）。 */
   sp({
-    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Notice',
-      title: 'Arrangements for the Northern Face',
-      head: 'Marlstone Quarry — Notice to Neighbouring Residents, 4 March',
+      title: 'Hall Updates for This Term',
+      head: 'Rendwick Hall — Notice from the Warden, 3 February',
       body: [
-        "Marlstone Quarry has produced dressed granite blockwork for regional builders since 1962, cutting stone from the rock face using controlled blasting along its natural fracture lines. — [[1]] — Blasting has always had to be scheduled around wind direction, since dust from a shot can drift for up to a kilometre in the wrong conditions.",
-        "Neighbouring landowners have raised sixteen formal complaints about blasting vibration in the past three years, most concerning hairline cracks in outbuildings within four hundred metres of the quarry boundary. — [[2]] — The quarry's insurer has so far settled eleven of those claims without contesting liability.",
-        "After reviewing the complaints, quarry management has decided to replace blasting with diamond-wire cutting for all future extraction on the northern face. — [[3]] — The new equipment arrives in November, and the changeover will be complete before blasting would otherwise resume in the new year.",
-        "Diamond-wire cutting also produces larger, more uniform blocks, with less waste sent to the crusher for aggregate. Wire-cut block currently commands a nine percent premium over blasted block from other regional quarries, reflecting fewer hairline flaws. — [[4]] — Marlstone expects to bring wire cutting to its southern face over the following two years, once the northern face conversion has been reviewed.",
-        "The change adds an estimated four percent to extraction costs on the northern face, a cost the company says is outweighed by fewer legal claims and steadier relations with neighbouring landowners.",
+        'Rendwick Hall will introduce a number of changes from Monday, 9 February, following the review the committee carries out at the start of each term. — [[1]] — The points below cover guests, the ground-floor kitchen, and the two upper floors.',
+        'From that date, all guests must come in through the door at the rear of the building rather than through the main lobby. The change follows a fire-exit review, which found the lobby stairwell became crowded whenever a guest arrived just as residents were leaving for lectures.',
+        'The kitchen will change too: residents will reserve a cooking slot in advance through the hall\'s online portal, rather than simply turning up whenever they like.',
+        'Several residents on the two upper floors asked the committee whether quiet hours could be introduced during the exam period, when noise from the next room was making it hard to study in the evenings. — [[2]] — Quiet Corridor will run from nine in the evening until eight the next morning, and residents on those floors should keep music and conversation in the corridors to a minimum during those hours.',
+        'I am taking over as hall warden this term from my predecessor, who has moved to a post at another hall, and I am happy to answer any questions about these changes at the hall office. — [[3]] — I will also hold a drop-in session in the common room next month for anyone who would rather talk in person.',
+        'Printed copies of this notice are on the board on each floor, and a copy has also been sent to every resident\'s university e-mail address. — [[4]] — Please check the board for updates.',
+        'Greta Sayward\nHall Warden, Rendwick Hall',
       ],
     }],
     q: [
-      { qid: 'v3q172r3', tag: '詳細',
-        s: 'What is indicated about the sixteen formal complaints?',
-        c: ['They were prompted mostly by cracks in outbuildings around the quarry.', 'They were filed largely by regional builders buying quarry blockwork.',
-            'They were triggered mainly by dust drifting over nearby fields.', 'They were settled by the insurer in all sixteen cases so far.'],
-        a: 0,
-        e: '第2段落が苦情16件について most concerning hairline cracks in outbuildings within four hundred metres of the quarry boundary と述べており、その大半は採石場の周囲にある付属屋の細かなひび割れに関するものである。',
-        w: ['正解。',
-            '苦情を出したのは第2段落が主語に立てている Neighbouring landowners（近隣の地権者）である。regional builders は第1段落で採石場が1962年以来その相手に御影石の加工材を納めてきたと書かれている石材の買い手であり、苦情の出し手として本文に登場しない。',
-            '第2段落は苦情の中身を about blasting vibration と名指ししており、16件はいずれも発破の振動を対象としている。粉じんは第1段落が「発破の日程を風向きに合わせて組んできた」理由として挙げているだけで、粉じんを理由とする苦情は本文に1件も数えられていない。',
-            '第2段落は苦情が16件、そのうち保険会社が責任を争わずに示談で解決したのは eleven of those claims だと述べている。11件は16件の一部として数えられており、全16件が解決済みという内容はこの数と合わない。'] },
-      { qid: 'v3q173r', tag: '詳細',
-        s: 'What is stated about wire-cut block?',
-        c: ['It costs the same as blasted block elsewhere.', 'It remains in short supply across the region.',
-            'It comes only in smaller block sizes so far.', 'It sells at a premium over blasted block.'],
+      { tag: '詳細', qid: 'v3q172p', s: 'According to the notice, what change is being made to the guest policy?',
+        c: ['Guests will need to register at the front desk', 'Guests will need to leave the building by midnight',
+            'Guests will need to stay with their host', 'Guests will need to use a separate entrance'],
         a: 3,
-        e: 'ワイヤー切断材は、ひび割れが少ないことを反映して、他の採石場の発破材より9パーセント高い価格で取引されていると述べられている。',
-        w: ['他の採石場の発破材より9パーセント高いと明記されており、同じ価格ではない。', '供給不足については本文に記載がない。', 'ワイヤー切断はむしろより大きく均一なブロックを生むと述べられており、小型化の記載と矛盾する。', '正解。'] },
-      { qid: 'v3q174r3', tag: '位置選択', t: ['p7ins'], insertAt: 3,
-        sentence: 'That alone is expected to cut vibration complaints from the northern face to near zero.',
-        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That alone is expected to cut vibration complaints from the northern face to near zero."',
-        c: ['[1]', '[2]', '[3]', '[4]'],
-        a: 2,
-        e: '裸の代名詞 That は直前の文が述べた事柄を受けるのが既定で、離れた先行詞を受けさせるには、その内容を記述で同定し直す定名詞句が要る。[3] の直前は「北側採石面の今後の採取をすべて発破からダイヤモンドワイヤー切断に替える」という措置そのもので、That alone がこれを指す。決め手はもう一つある。第4段落の冒頭が Diamond-wire cutting also produces larger, more uniform blocks … と also で始まっており、この also は「ワイヤー切断の利点がすでに一つ述べられている」ことを前提にする。その利点を述べている文はこの挿入文しかないので、挿入文が [3] にあるときだけ also が受ける先が生じる。',
-        w: ['[1] の直前は採石場の沿革と、発破が風向きに合わせて日程を組まれてきたという説明で、苦情を減らす措置がまだ一つも述べられていない。That alone が指せる対象が本文に存在しない。',
-            '[2] の直前は苦情16件と離れ屋のひび割れそのものについての記述で、That alone が受けるべき措置がまだ登場していない（保険会社が11件を示談で解決したという記述は [2] の直後にある）。',
-            '正解。直前の一文が「北側採石面の今後の採取をすべて発破からワイヤー切断に替える」という措置を述べており、That alone がそれを指す。第4段落冒頭の also も、この位置に挿入文があって初めて「すでに述べられた利点」を受けられる。',
-            '[4] の直前はワイヤー切断材が9パーセント高く取引されているという価格の記述で、That alone が指せる措置ではない。さらに、その第4段落の冒頭文が Diamond-wire cutting also produces … と also で始まっており、挿入文を [4] に置くと also が受ける先が本文中に無くなって宙に浮く。'] },
-      { qid: 'v3q175r2', tag: '推測', t: ['p7inf'],
-        s: 'What does the notice suggest about the higher extraction cost?',
-        c: ['It will likely be passed on to regional builders in full.', 'It will decrease once the southern face is converted.',
-            'It results from a shortage of specialised cutting equipment.', 'It is considered acceptable in view of the reduced legal risk.'],
-        a: 3,
-        e: '最終段落が、北側採石面の採取コストが約4パーセント増える分について、訴訟の減少と近隣地権者との関係の安定によって割に合う、という会社の見解を示している。',
-        w: ['本文が価格について述べているのは、他の採石場の発破材に対してワイヤー切断材が9パーセント高い相場で取引されているという市場の価格であって、Marlstone が自社の販売価格を引き上げるとは書かれていない。4パーセントの増加分については「訴訟の減少と関係の安定によって相殺される」という会社の見解が最終段落に明示されている。',
-            '南側採石面については、北側の切り替えを検証したうえで今後2年かけてワイヤー切断に移す計画だと第4段落が述べている。切り替えによって採取コストは4パーセント増えると最終段落が明記しており、南側に広げてコストが下がるという向きの記述とは逆である。',
-            '最終段落が4パーセントの増加分の原因として挙げているのは切断方式そのものであり、設備については「新しい設備が11月に到着する」と第3段落が述べるだけで、不足しているという記述はない。',
+        e: '第2段落に "all guests must come in through the door at the rear of the building rather than through the main lobby" とあり、来客は正面ロビーではなく別の出入り口を使うことになるとしている。',
+        w: ['受付での登録についての言及は掲示のどこにも無い（言及なし）。',
+            '門限についての言及は掲示のどこにも無い（言及なし）。',
+            '来客が招いた居住者（ホスト）と一緒にいなければならない、という記述は無い（言及なし）。',
             '正解。'] },
+      { tag: '詳細', qid: 'v3q173p', s: 'What does the notice say about the kitchen on the ground floor?',
+        c: ['It will close for cleaning on Sunday mornings', 'It will move to a larger room nearby',
+            'It will get two additional cookers', 'It will use a new booking system'],
+        a: 3,
+        e: '第3段落に "residents will reserve a cooking slot in advance through the hall\'s online portal, rather than simply turning up whenever they like" とあり、台所の利用が事前予約の方式に変わるとしている。',
+        w: ['日曜午前の清掃についての言及は掲示のどこにも無い（言及なし）。',
+            '台所についての変更は第3段落の予約制だけで、移転の記述は無い（言及なし）。',
+            'コンロの増設についての言及は掲示のどこにも無い（言及なし）。',
+            '正解。'] },
+      { tag: '位置選択', qid: 'v3q174p', t: ['p7ins'], insertAt: 2,
+        sentence: 'That request led the hall committee to trial a new scheme, called \'Quiet Corridor,\' on the two upper floors.',
+        s: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?　"That request led the hall committee to trial a new scheme, called \'Quiet Corridor,\' on the two upper floors."',
+        c: ['[1]', '[2]', '[3]', '[4]'],
+        a: 1,
+        e: '挿入文の "That request" は、直前で述べられた居住者からの要望 — "Several residents on the two upper floors asked the committee whether quiet hours could be introduced during the exam period, when noise from the next room was making it hard to study in the evenings." — を受ける。この文は [2] の直前にのみ置かれているので、[2] に挿入すると指示対象が定まる。挿入文の直後には "Quiet Corridor will run from nine in the evening until eight the next morning, and residents on those floors should keep music and conversation in the corridors to a minimum during those hours." が続き、挿入文で初めて引用符付きで導入された \'Quiet Corridor\' という名称を、既出のものとして引用符なしで受けている。[1] の直前には居住者からの要望についての記述が無く、"That request" の指示対象が無い。[3][4] は、この既出の名称を含む一文がすでに[2]の直後に置かれているため、そこに挿入すると \'Quiet Corridor\' という名称を、一度既知のものとして使ったあとでもう一度初めて導入する形になり、成り立たない。',
+        w: ['[1] の直前は "Rendwick Hall will introduce a number of changes from Monday, 9 February, following the review the committee carries out at the start of each term." という掲示全体の導入であり、居住者からの要望についての記述が無い。"That request" が指す先行詞が無いため、ここには置けない。',
+            '正解。',
+            '[3] の直前は "I am taking over as hall warden this term from my predecessor, who has moved to a post at another hall, and I am happy to answer any questions about these changes at the hall office." という寮長自身の紹介であり、居住者からの要望についての記述ではない。加えて、[2] の直後にはすでに \'Quiet Corridor\' という名称が引用符なしで登場しており、ここに挿入すると、既知のものとして使ったあとの位置でもう一度その名称を初めて導入する形になり成り立たない。',
+            '[4] の直前は "Printed copies of this notice are on the board on each floor, and a copy has also been sent to every resident\'s university e-mail address." という掲示の掲出方法についての記述であり、居住者からの要望についての記述ではない。[3] と同様、この位置もすでに \'Quiet Corridor\' という名称が引用符なしで使われたあとに来るため、もう一度初めて導入する形になり成り立たない。'] },
+      { tag: '推測', t: ['p7inf'], qid: 'v3q175p', s: 'What can be inferred about Rendwick Hall?',
+        c: ['It houses mainly students in their first year', 'It has recently added extra bicycle storage',
+            'It is undergoing a change in on-site management', 'It plans to raise its fees next year'],
+        a: 2,
+        e: '第5段落に "I am taking over as hall warden this term from my predecessor, who has moved to a post at another hall" とあり、寮長が今学期、交代の最中であることが読み取れる。',
+        w: ['新入生が中心という記述は掲示のどこにも無い（言及なし）。',
+            '駐輪スペースの増設についての言及は掲示のどこにも無い（言及なし）。',
+            '正解。',
+            '来年度の値上げについての言及は掲示のどこにも無い（言及なし）。'] },
     ],
   }),
 ];

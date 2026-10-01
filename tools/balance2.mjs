@@ -65,6 +65,19 @@
    帰無分布（標準正規）から決定的に引いた目標 z（driftTarget）を用意し、
    達成可能な値の中でその目標に最も近いものを選ぶ方式に変更した。詳細は
    driftTarget / fixDriftPart 直上のコメントを参照。
+   【2026-10-01 追記】--by part の候補選びにも、--by drift と同じ検査A〜Eの事前試算
+   （simulateABCDE）のガードを入れた。それまでの --by part は件数をそろえることしか
+   見ておらず、同じ日に模試 vol1〜5 の Part 3・4・7 へ掛けたところ、件数はそろったが
+   (1) vol3 の Part 7 で「no.149 から D が6問連続」（検査B）が新たに発火、
+   (2) vol5 の Part 4 で「1セット3問が A〜D を使い分ける」が10セット中7件（検査E）に
+   達して新たに発火した。そこで候補を1つ採るたびにそのパートの全設問（no昇順・除外設問も
+   含む）で検査A〜Eを試算し、入れ替える前の状態で発火していなかった検査を新たに発火させる
+   候補は採らない。ガードは「採らない」だけで、閾値の近くを狙う最適化はしない（上の
+   「閾値の直下に並ぶ」失敗の繰り返しを避ける）。候補の選び方（stableHash の降順）は
+   変えず、先頭の候補が弾かれたら次のハッシュ順へ進むだけ。採れる候補が尽きたら件数が
+   そろわないまま止め、パートごとに見送った候補の数と最終の件数を出力する。
+   no を持たない設問が混じるパート（ドリル等）は順序が定まらないのでガードを掛けない。
+   --by topic・--by drift の挙動は変えていない。
    除外規則（classifyEntry — p7ins・graphic・数値/日付等の順序付き選択肢・
    why や exp が記号(A)〜(D)を参照している設問 等）は他モードと共通で、緩めない。
    ============================================================= */
@@ -369,11 +382,15 @@ function countDist(entries, k, useNew) {
   return counts;
 }
 
-function balancePart(entries, k) {
+function balancePart(entries, k, part, stats) {
   if (!k) return [];
   const counts = new Array(k).fill(0);
   for (const e of entries) counts[e.answerIdx]++;
   const moves = [];
+  // 検査A〜Eの試算用（2026-10-01）。全設問が整数の no を持つときだけ掛ける。
+  const guardOn = entries.length >= 2 && entries.every(e => Number.isInteger(e.no));
+  const sortedAll = guardOn ? [...entries].sort((a, b) => a.no - b.no) : null;
+  if (stats) { stats.guard = guardOn; stats.skipped = 0; stats.stuck = false; }
   let guard = entries.length * 4 + 8;
   while (guard-- > 0) {
     let maxPos = 0, minPos = 0;
@@ -386,8 +403,25 @@ function balancePart(entries, k) {
     // 「ファイル内で最初に見つかった設問」を選んでおり、これが前半・後半の
     // 系統的な偏りの原因だった。
     const candidates = entries.filter(e => !e.excluded && e.newPos == null && e.answerIdx === maxPos);
-    const cand = pickCandidate(candidates);
-    if (!cand) break; // 動かせる設問がもう残っていない（残差は「是正不可」として報告）
+    // pickCandidate と同じ順（ハッシュ降順）で並べ、先頭から試す。
+    const ordered = candidates
+      .map(e => ({ e, h: stableHash(candidateKey(e)) }))
+      .sort((a, b) => b.h - a.h)
+      .map(x => x.e);
+    let cand = null;
+    if (!guardOn) cand = ordered[0] || null;
+    else {
+      const before = simulateABCDE(sortedAll, part, k);
+      for (const c of ordered) {
+        c.newPos = minPos;
+        const after = simulateABCDE(sortedAll, part, k);
+        const fresh = Object.keys(after).some(f => after[f] && !before[f]);
+        if (!fresh) { cand = c; break; }
+        c.newPos = null;                 // 戻して次のハッシュ順へ
+        if (stats) stats.skipped++;
+      }
+    }
+    if (!cand) { if (stats && ordered.length) stats.stuck = true; break; } // 動かせる設問が無い／全候補がガードに弾かれた
     cand.newPos = minPos;
     counts[maxPos]--; counts[minPos]++;
     moves.push(cand);
@@ -887,6 +921,12 @@ function printReport(group, groupReports, results, opts = {}) {
     console.log(`\n[${labelOf(pr)}] 対象 ${total} 問（除外 ${excluded} 問 / 入れ替え候補 ${pr.moves.length} 件 / 選択肢数=${pr.k ?? '不明'}）`);
     console.log(`  変更前: ${letterDist(pr.before)}`);
     console.log(`  変更後: ${letterDist(pr.after)}${pr.moves.length === 0 ? '（変更なし）' : ''}`);
+    if (pr.gstats) {
+      const g = pr.gstats;
+      console.log(g.guard
+        ? `  検査A〜Eガード: 見送った候補 延べ ${g.skipped} 件${g.stuck ? '（採れる候補が尽きて、件数がそろわないまま停止）' : ''}`
+        : '  検査A〜Eガード: 掛けていない（no を持たない設問がある）');
+    }
   }
 
   // 論点モードでは 1 設問が複数論点の moves リストに重複して現れうるので、
@@ -1125,9 +1165,10 @@ async function main() {
     for (const [part, entries] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
       const k = kOfPart.get(part);
       const before = countDist(entries, k, false);
-      const moves = balancePart(entries, k);
+      const gstats = {};
+      const moves = balancePart(entries, k, part, gstats);
       const after = countDist(entries, k, true);
-      groupReports.push({ key: part, k, entries, before, after, moves });
+      groupReports.push({ key: part, k, entries, before, after, moves, gstats });
     }
   }
 

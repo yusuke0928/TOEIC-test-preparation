@@ -1,6 +1,12 @@
 /* =============================================================
    予想模試 Vol.1 — Part 4（No.71–100）
    終盤 2 セットは図表問題。
+
+   2026-09-29 全面書き下ろし（先読み対策・設問先行／正解はくじ方式、工程4）。
+   stem・選択肢・図表（Q95, Q98）は `v15/plans/vol1-final-P4.txt` で凍結済み、
+   正解は `v15/dice/vol1-l3.txt`（メインが crypto.randomInt で決定）のとおり。
+   本文・解説を新規に書き下ろし、設問 id を v1q71p〜v1q100p に採番し直した
+   （`qid` を追加し、ヘルパーは `x.qid` を優先するよう変更）。
    ============================================================= */
 
 const talk = (o) => ({
@@ -8,379 +14,596 @@ const talk = (o) => ({
   topics: o.t || ['p4type'], level: o.lv ?? 4,
   script: o.s, graphic: o.graphic, ja: o.ja, vocab: o.v,
   questions: o.q.map((x, i) => ({
-    id: `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    // id は新規採番（v1q71p〜v1q100p）。x.qid を優先し、無ければ旧来の連番にフォールバック。
+    id: x.qid || `v1q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || o.t || ['p4type'], tag: x.tag,
   })),
 });
 
 export const L3 = [
 
-  /* ── 71–73 留守番電話 ─────────────────────────────── */
+  /* ── 71–73 留守番電話（ピアノ調律） ──────────────────────
+     場面・くじは vol1-final-P4.txt / dice/vol1-l3.txt の No.71–73（71=C, 72=A, 73=A）。
+     用件（料金値上げ）を冒頭近くで明言し、技術者の交代は明示的に否定して閉じた
+     （「同じ技術者」）。訪問内容はペダル点検のみ、依頼はピアノ周りを空けることのみに絞った。
+     新規固有名 Meredith Dunbar（Darnell Piano Service の担当者。来訪する技術者ではない）・
+     Mr. Delling（客）は D/M 頭字、v15/names-used.txt・assets/data 全体と grep 照合済み（未使用）。
+     2026-09-29 監査反映：S1 の "returning your call" を削除（(A) 確認の電話に寄る読みを消す）。
+     S2 の "have gotten" → "have become"（W-Au に米式は不自然）、"than last year" → "than last time"
+     （"last spring" と時期がずれるため）。S3・S4 を1文に統合し「同じ技術者」の1本だけで閉じる。
+     S5 は "clear the area … without moving furniture" のちぐはぐな言い方をやめ、
+     "move any chairs, boxes, or plants away from the piano" に言い換えて申し送りの依頼を1つに保つ。
+     S6 の「電話して」（折り返し依頼）を削除（申し送り「依頼は1つだけ」違反だったため）。
+     2026-09-29 監査第2巡反映：S2 の値上げ理由「調律ピンが値上がりした」は、標準調律ではピンを
+     交換しない（ピアノに詳しい読み手には不自然）ため、"our travel costs have risen quite a bit"
+     （出張費の上昇）に差し替えた。why[0]（Q72）の引用の大文字を本文（"and while she's there"）に
+     合わせて小文字に修正。ja の技術者の記述と値上げ理由の訳も合わせて直した。 */
   talk({
-    n: [71, 72, 73], lv: 4, k: 'telephone message',
+    n: [71, 72, 73], lv: 3, k: 'telephone message',
     s: [
-      { role: 'W-Br', text: 'Hello, Mr. Okafor, this is Helen Trask from Brightwater Interiors returning your call about the reception desk.' },
-      { role: 'W-Br', text: 'I\'ve had a look at the dimensions you sent. The good news is that the unit will fit the alcove with about four centimetres to spare on each side.' },
-      { role: 'W-Br', text: 'The difficulty is the cable route. Your drawing shows a floor box, but the desk we quoted has a solid back panel, so the cables would have to run across the floor to reach it.' },
-      { role: 'W-Br', text: 'We can order the same model with a cut-out for cabling, but that\'s made to order and adds eleven days.' },
-      { role: 'W-Br', text: 'Before I place anything, could you confirm whether the floor box can be moved? If it can, we keep the standard model and the original delivery date.' },
-      { role: 'W-Br', text: 'You can reach me until five today, or any time tomorrow after nine.' },
+      { role: 'W-Au', text: `Hello, Mr. Delling, this is Meredith Dunbar from Darnell Piano Service, calling about the tuning we have booked for next Tuesday afternoon.` },
+      { role: 'W-Au', text: `The main reason I'm calling is to let you know that our fee for a standard tuning has gone up since your piano was last serviced — our travel costs have risen quite a bit, so the visit will now cost twelve dollars more than last time.` },
+      { role: 'W-Au', text: `It'll be the same technician who worked on your piano last spring, and while she's there, she'll also take a look at the pedals, since it's been a while since anyone checked the mechanism underneath the keyboard.` },
+      { role: 'W-Au', text: `One small request before she arrives — could you move any chairs, boxes, or plants away from the piano, so there's enough room to work from both sides?` },
+      { role: 'W-Au', text: `We'll see you on Tuesday.` },
     ],
-    ja: 'ブライトウォーター・インテリアズのヘレン・トラスクからオカフォー氏への折り返しの留守電。受付カウンターの寸法は、くぼみに左右 4 センチずつ余裕を持って収まる。問題は配線経路で、図面には床の配線ボックスがあるが、見積もった机は背面が塞がっているため、ケーブルが床を横切ることになる。配線用の切り欠き付きの同型も注文できるが受注生産で 11 日追加。発注前に、床の配線ボックスを移動できるか確認してほしいと依頼。移動できれば標準品のまま当初の納期を守れる。本日 17 時まで、または翌日 9 時以降に連絡可能。',
-    v: [['alcove', 'くぼみ、壁の窪み'], ['floor box', '床埋込配線ボックス'], ['cut-out', '切り欠き'], ['made to order', '受注生産の']],
+    ja: `ダーネル・ピアノ・サービスのメレディス・ダンバーが、来週火曜午後に調律予約が入っている客デリング氏の留守電に残したメッセージ。主な用件は、出張にかかる費用が上がったため標準調律の料金が前回より12ドル上がったことを伝えること。担当技術者は、前回の春に調律したのと同じ人で、訪問時にはペダルも点検する予定。訪問前に、両側から作業できるよう椅子や箱、鉢植えなどをピアノの周りから移動しておいてほしいと依頼する。火曜に会うと伝えて締めくくる。`,
+    v: [['tuning', '調律'], ['pedal', 'ペダル'], ['mechanism', '機構'], ['keyboard', '鍵盤']],
     q: [
-      { tag: '概要', s: 'What is the purpose of the message?',
-        c: ['To confirm that an order has shipped', 'To offer a discount on a display model', 'To apologise for a damaged delivery', 'To raise an issue before placing an order'],
-        a: 3,
-        e: '「発注前に確認してほしい」と述べており、注文前の問題提起。',
-        w: ['出荷済みではなく未発注。', '値引きの提案はない。', '破損の謝罪ではない。', '正解。'] },
-      { tag: '詳細', s: 'What problem does the speaker describe?',
-        c: ['The desk is too wide for the space.', 'Supply costs for reception desks rose again this quarter.', 'The requested walnut finish is unavailable this quarter.', 'Cables cannot reach the desk as designed.'],
-        a: 3,
-        e: '背面が塞がった机では、床の配線ボックスから床を横切ることになる、という配線経路の問題。',
-        w: ['寸法は左右 4 センチずつ余裕がある。', '本文で述べているのは配線用モデルの納期が 11 日延びることであり、価格の上昇には触れていない。', '仕上げ（色や材質）の話は一切出ていない。', '正解。'] },
-      { tag: '依頼', s: 'What does the speaker ask the listener to confirm?',
-        c: ['Whether a floor fitting can be relocated', 'Whether a longer lead time is acceptable', 'Whether the alcove can be widened', 'Whether payment terms have changed'],
+      { tag: '概要', qid: 'v1q71p', s: 'What is the purpose of the call?',
+        c: ['To confirm the start time of the visit', 'To explain a change of technician', 'To report an increase in the service fee', 'To describe a new cancellation policy'],
+        a: 2,
+        e: `電話の主目的は、標準調律の料金が上がったことを伝えることである。"The main reason I'm calling is to let you know that our fee for a standard tuning has gone up since your piano was last serviced" と明言されている。`,
+        w: [
+          `開始時刻の確認ではない。本文は料金値上げの報告を電話の主旨としており、訪問の開始時刻には触れていない。`,
+          `技術者の交代ではない。"It'll be the same technician who worked on your piano last spring" と、前回と同じ技術者が来ると述べている。`,
+          `正解。"The main reason I'm calling is to let you know that our fee for a standard tuning has gone up since your piano was last serviced" と、料金値上げの報告が電話の主目的だと明言している。`,
+          `キャンセル規定の説明ではない。本文にキャンセルに関する言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q72p', s: 'What is mentioned about the visit?',
+        c: ["It will include a check of the pedals", "It will last for two hours", "It will involve an electronic tuner", "It will be the first of two visits"],
         a: 0,
-        e: '「床の配線ボックスを移動できるか確認してほしい」が明確な依頼。',
-        w: ['正解。', '11 日追加は代替案であり、確認事項ではない。', 'くぼみの拡張は述べていない。', '支払条件の話はない。'] },
+        e: `訪問中の作業としてペダルの点検が挙げられている。"she'll also take a look at the pedals" とある。`,
+        w: [
+          `正解。"while she's there, she'll also take a look at the pedals" と、ペダルの点検を行うと述べている。`,
+          `所要時間についての言及はない。`,
+          `電子式チューナーについての言及はない。`,
+          `2回のうちの1回目という言及はない。本文は通常の調律訪問として述べており、続く2回目の訪問には触れていない。`,
+        ] },
+      { tag: '依頼', qid: 'v1q73p', s: 'What does the caller ask the listener to do?',
+        c: ['Clear the area around the piano', "Send a photo of the piano's serial number", 'Keep the room at a steady temperature', 'Make a note of keys that stick'],
+        a: 0,
+        e: `訪問前の依頼として、ピアノ周りから物を移動しておくよう頼んでいる。"could you move any chairs, boxes, or plants away from the piano" とある。`,
+        w: [
+          `正解。"could you move any chairs, boxes, or plants away from the piano, so there's enough room to work from both sides" と依頼している。`,
+          `シリアル番号の写真の送付についての依頼はない。`,
+          `室温を一定に保つことについての依頼はない。`,
+          `鍵盤の引っかかりを記録することについての依頼はない。`,
+        ] },
     ],
   }),
 
-  /* ── 74–76 店内放送 ───────────────────────────────── */
+  /* ── 74–76 店内放送（園芸用品店） ──────────────────────
+     くじは No.74=C, 75=D, 76=B。配布物（肥料）は入口付近には置かず、入口付近の物はクッション
+     の陳列のみにして重複を避けた。温室ツアーは1回のみ、時刻も1つだけ提示。新規固有名なし。 */
   talk({
     n: [74, 75, 76], lv: 3, k: 'announcement',
     s: [
-      { role: 'M-Am', text: 'Attention, Fairbank Market shoppers. Thank you for shopping with us this afternoon.' },
-      { role: 'M-Am', text: 'A reminder that our fresh bakery counter closes at six today rather than seven, as our bakers are preparing for tomorrow\'s festival orders.' },
-      { role: 'M-Am', text: 'Anything remaining on the counter after half past five is reduced by half, so it\'s worth a look on your way round.' },
-      { role: 'M-Am', text: 'Also, the self-checkout lanes at the front of the store are out of service while we install new card readers. Please use the staffed tills at the far end near the pharmacy.' },
-      { role: 'M-Am', text: 'We expect the self-checkouts to be back tomorrow morning. Thank you for your patience.' },
+      { role: 'M-Br', text: `Attention, shoppers: welcome to Dewhurst Garden Centre, and thanks for coming in on such a lovely morning.` },
+      { role: 'M-Br', text: `Today only, everyone who spends over twenty pounds at the till will be handed a small bag of fertiliser for their vegetable beds, so make sure you mention it at checkout.` },
+      { role: 'M-Br', text: `You may have noticed the rack of cushions for outdoor furniture just past the main doors as you came in — worth a look if your patio chairs could use a refresh before summer.` },
+      { role: 'M-Br', text: `For those of you here for our monthly greenhouse tour, please gather by the ticket desk at half past ten; the tour leaves promptly and runs about forty minutes.` },
+      { role: 'M-Br', text: `Enjoy your visit, and feel free to ask any of our staff in green aprons if you need a hand finding something.` },
     ],
-    ja: 'フェアバンク・マーケットの店内放送。ベーカリーカウンターは翌日の祭事向け注文の準備のため、通常の 19 時ではなく 18 時に閉まる。17 時半以降にカウンターに残った商品は半額になる。また、店舗前方のセルフレジはカードリーダー交換のため使用不可で、薬局近くの奥にある有人レジの利用を案内。セルフレジは翌朝に復旧見込み。',
-    v: [['reduced by half', '半額になる'], ['self-checkout', 'セルフレジ'], ['staffed till', '有人レジ']],
+    ja: `デューハースト・ガーデンセンターの店内放送。本日は20ポンド以上購入した客に野菜用の肥料の小袋を配布すると案内する。入口を入ってすぐのところには屋外用クッションの陳列があると伝える。月例の温室ツアーは10時半にチケットデスク集合で、所要約40分。最後に、緑のエプロンを着けたスタッフに気軽に声をかけるよう呼びかける。`,
+    v: [['till', 'レジ'], ['fertiliser', '肥料'], ['patio', 'テラス、パティオ'], ['apron', 'エプロン']],
     q: [
-      { tag: '詳細', s: 'Why will the bakery counter close early?',
-        c: ['Staff are preparing for a large order.', 'A delivery was delayed.', 'The ovens require servicing.', 'The store is closing for a holiday.'],
-        a: 0,
-        e: '「翌日の祭事向け注文の準備のため」と述べられている。',
-        w: ['正解。', '配送遅延の話はない。', '設備整備には触れていない。', '休業の案内ではない。'] },
-      { tag: '詳細', s: 'What is said about items left after 5:30?',
-        c: ['They will be sold at half price.', 'They will be restocked tomorrow.', 'They will be moved to another counter.', 'They will be donated.'],
-        a: 0,
-        e: '「17 時半以降に残った商品は半額」と明言されている。',
-        w: ['正解。', '翌日の補充には触れていない。', '移動の話はない。', '寄付の話はない。'] },
-      { tag: '詳細', s: 'Where are shoppers directed to pay?',
-        c: ['Near the front self-checkout lanes, which have reopened', 'Near the bakery counter', 'At the far end near the pharmacy', 'Near a temporary outdoor till beside the loading bay'],
+      { tag: '詳細', qid: 'v1q74p', s: 'According to the announcement, what will be given away today?',
+        c: ['A pair of cotton garden gloves', 'A reusable canvas tote bag', 'A small bag of plant fertilizer', 'A voucher for a future purchase'],
         a: 2,
-        e: '「薬局近くの奥にある有人レジを使ってください」が根拠。',
-        w: ['前方はセルフレジで使用不可。', 'ベーカリー付近ではない。', '正解。', '屋外レジの話はない。'] },
-    ],
-  }),
-
-  /* ── 77–79 ラジオ広告 ─────────────────────────────── */
-  talk({
-    n: [77, 78, 79], lv: 4, k: 'advertisement',
-    s: [
-      { role: 'W-Au', text: 'Still driving across town to have your suit pressed? Meridian Garment Care has just opened on Cotter Street, two doors from the tram stop.' },
-      { role: 'W-Au', text: 'We\'re not the cheapest, and we\'ll tell you that up front. What we do is finish every garment by hand, and inspect it twice before it goes on the rail.' },
-      { role: 'W-Au', text: 'Drop off before ten in the morning and your order is ready by six the same day, at no extra charge. Most places charge a premium for that.' },
-      { role: 'W-Au', text: 'For the whole of March, bring in this radio offer and your third item is free. Just say Meridian March at the counter — there\'s nothing to print.' },
-      { role: 'W-Au', text: 'Meridian Garment Care, Cotter Street. Open seven days.' },
-    ],
-    ja: 'メリディアン・ガーメント・ケアの開店広告。コッター通り、路面電車停留所の 2 軒隣。「最安ではない」と正直に述べたうえで、全ての衣類を手仕上げし、ラックに掛ける前に二度検品する点を訴求。午前 10 時までに預ければ同日 18 時に仕上がり、追加料金なし（他店は割増を取ることが多い）。3 月中はカウンターで「メリディアン・マーチ」と言えば 3 点目が無料。印刷物は不要。年中無休。',
-    v: [['press', 'アイロンをかける'], ['up front', '率直に、前もって'], ['rail', '（衣類を掛ける）ラック'], ['premium', '割増料金']],
-    q: [
-      { tag: '概要', s: 'What type of business is being advertised?',
-        c: ['A tailoring school', 'A fabric wholesaler', 'A clothing retailer', 'A garment cleaning service'],
+        e: `本日配布されるのは肥料の小袋である。"will be handed a small bag of fertiliser for their vegetable beds" とある。`,
+        w: [
+          `綿製のガーデニング用手袋についての言及はない。`,
+          `再利用可能なキャンバス地のトートバッグについての言及はない。`,
+          `正解。"everyone who spends over twenty pounds at the till will be handed a small bag of fertiliser for their vegetable beds" と述べている。`,
+          `次回使えるクーポン券についての言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q75p', s: 'What does the announcement say is located near the entrance?',
+        c: ['A display of discounted potted plants', 'A table of new garden tools', 'A stand with bird feeders', 'A rack of outdoor cushions'],
         a: 3,
-        e: 'スーツのアイロン、手仕上げ、同日仕上げという内容からクリーニング店。',
-        w: ['学校ではない。', '生地卸ではない。', '販売店ではない。', '正解。'] },
-      { tag: '詳細', s: 'What does the speaker acknowledge about the business?',
-        c: ['It is not the lowest-priced option.', 'It is difficult to reach by public transport.', 'It closes on public holidays and Sundays.', 'It cannot handle delicate items such as silk suits or formal wear.'],
-        a: 0,
-        e: '「最安ではない、それは率直に言う」と認めている。',
-        w: ['正解。', '停留所の 2 軒隣で交通の便はよい。', '「年中無休」と明言されており、日曜・祝日の休業とは矛盾する。', '冒頭でスーツのアイロン仕上げを扱うと述べており、繊細な衣類を扱えないという主張と矛盾する。'] },
-      { tag: '詳細', s: 'How can listeners obtain the special offer?',
-        c: ['By printing a voucher', 'By ordering online', 'By mentioning a phrase in the shop', 'By joining a membership scheme'],
-        a: 2,
-        e: '「カウンターで『メリディアン・マーチ』と言うだけ。印刷物は不要」が根拠。',
-        w: ['印刷は不要と明言。', 'オンライン注文の話はない。', '正解。', '会員制度には触れていない。'] },
-    ],
-  }),
-
-  /* ── 80–82 会議の抜粋 ─────────────────────────────── */
-  talk({
-    n: [80, 81, 82], lv: 5, k: 'excerpt from a meeting',
-    s: [
-      { role: 'M-Br', text: 'Right, the last item is the intern programme, and I want to be blunt about where we are.' },
-      { role: 'M-Br', text: 'We took eight interns last summer. Two are now full-time employees, which is a good outcome. But four told us in their exit interviews that they went whole weeks without a defined task.' },
-      { role: 'M-Br', text: 'That is not a programme. That is eight people sitting near us for three months.' },
-      { role: 'M-Br', text: 'So this year we\'re changing one thing only. Each intern will be attached to a single named supervisor who owns a real deliverable with a date on it.' },
-      { role: 'M-Br', text: 'I need six supervisors by the end of the month. If you\'re willing, e-mail Nadia — do not put your name on the shared sheet, because we\'re matching people to projects rather than first come, first served.' },
-    ],
-    ja: '会議の最終議題としてインターン制度について率直に報告。昨夏 8 名を受け入れ、2 名が正社員になったのは成果だが、4 名が退所面談で「明確な業務がないまま何週間も過ごした」と述べた。これは制度とは言えないと厳しく指摘し、今年は 1 点だけ変更する。各インターンを、期日のある実際の成果物を担当する特定の指導役 1 名に紐づける。月末までに 6 名の指導役が必要で、希望者はナディアにメールすること。共有シートへの記名は不可（先着順ではなく、人とプロジェクトを組み合わせるため）。',
-    v: [['blunt', '率直な'], ['exit interview', '退職・退所面談'], ['deliverable', '成果物'], ['first come, first served', '先着順']],
-    q: [
-      { tag: '意図', s: 'What does the speaker mean when he says, "That is eight people sitting near us for three months"?',
-        t: ['p3int'],
-        c: ['The programme lacked meaningful work.', 'The office was too crowded.', 'The internship was too short.', 'The company recruited too many interns.'],
-        a: 0,
-        e: '直前に「明確な業務がないまま何週間も過ごした」とあり、直後に改善策（成果物を持つ指導役に紐づける）が続く。中身のなさへの批判。',
-        w: ['正解。', '座席の混雑の話ではない。', '期間の短さは論点ではない。', '人数の多さではなく内容が問題。'] },
-      { tag: '詳細', s: 'What change will be made this year?',
-        c: ['Interns will rotate between departments.', 'Interns will be paid a higher stipend.', 'The programme will be shortened.', 'Each intern will have one assigned supervisor.'],
-        a: 3,
-        e: '「各インターンを特定の指導役 1 名に紐づける」が唯一の変更点。',
-        w: ['部署ローテーションの話はない。', '報酬の話はない。', '期間短縮には触れていない。', '正解。'] },
-      { tag: '依頼', s: 'What are the listeners asked to do?',
-        c: ['Add their names to a shared document', 'Attend a follow-up briefing next Monday morning', 'Contact a colleague by e-mail', 'Submit project proposals to the department head by Friday'],
-        a: 2,
-        e: '「ナディアにメールすること。共有シートへの記名は不可」と明確に指示されている。',
-        w: ['記名は明確に禁じられている。', 'そのような追加説明会は本文で述べられていない。', '正解。', '部署長への企画提出は求められていない。'] },
-    ],
-  }),
-
-  /* ── 83–85 施設案内 ───────────────────────────────── */
-  talk({
-    n: [83, 84, 85], lv: 4, k: 'talk',
-    s: [
-      { role: 'W-Am', text: 'Good morning, and welcome to the Kelburn Water Treatment Works. I\'m Ana, and I\'ll take you through the site over the next hour.' },
-      { role: 'W-Am', text: 'Before we go out, three points. Hard hats and high-visibility vests are compulsory beyond this room — you\'ll find both in the racks by the door.' },
-      { role: 'W-Am', text: 'Second, please stay on the marked walkways. The tanks are open at the top and the surface can look deceptively solid when the light is low.' },
-      { role: 'W-Am', text: 'Third, mobile phones are fine, but photography isn\'t permitted in the control room. Everywhere else, take as many pictures as you like.' },
-      { role: 'W-Am', text: 'We\'ll finish in the education suite, where there\'s tea, and where I can answer anything I haven\'t covered.' },
-    ],
-    ja: 'ケルバーン浄水場の見学ツアーの導入。所要 1 時間。3 つの注意点：①この部屋から先はヘルメットと高視認性ベストが必須（ドア脇のラックにある）、②表示された通路から出ないこと（水槽は上部が開いており、暗いと水面が固い床のように見える）、③携帯電話は可だが制御室での撮影は禁止で、それ以外はいくらでも撮影可。最後は教育室で終わり、お茶が用意され、質疑に応じる。',
-    v: [['water treatment works', '浄水場'], ['compulsory', '必須の'], ['high-visibility vest', '高視認性ベスト'], ['deceptively', '見た目に反して']],
-    q: [
-      { tag: '概要', s: 'Where is the talk taking place?',
-        c: ['At a bottling plant', 'At a research laboratory', 'At a construction site', 'At a water treatment facility'],
-        a: 3,
-        e: '冒頭で「ケルバーン浄水場へようこそ」と述べている。',
-        w: ['瓶詰め工場ではない。', '研究所ではない。', '建設現場ではない。', '正解。'] },
-      { tag: '詳細', s: 'Why does the speaker warn about the walkways?',
-        c: ['They may become slippery after early morning cleaning.', 'Resurfacing work began there earlier this month.', 'Open tanks can be hard to distinguish in low light.', 'They are shared with delivery vehicles during early morning shift changes.'],
-        a: 2,
-        e: '「水槽は上部が開いており、暗いと水面が固い床のように見える」が理由。',
-        w: ['早朝の清掃で滑りやすくなるとは述べていない。危険なのは水槽が開いていることと照度不足。', '補修工事の話はない。', '正解。', '車両との共用ではない。'] },
-      { tag: '詳細', s: 'What restriction applies to the control room?',
-        c: ['No photography is allowed.', 'Mobile phones must be switched off.', 'Only staff are allowed inside.', 'Hard hats must be removed.'],
-        a: 0,
-        e: '「制御室での撮影は禁止。それ以外は自由」と述べている。',
-        w: ['正解。', '携帯電話自体は可。', '立ち入り禁止とは言っていない。', 'ヘルメットを外す指示はない。'] },
-    ],
-  }),
-
-  /* ── 86–88 電話の自動応答 ─────────────────────────── */
-  talk({
-    n: [86, 87, 88], lv: 4, k: 'recorded message',
-    s: [
-      { role: 'M-Cn', text: 'Thank you for calling the Ferndale Registry Office. Our lines are open Monday to Thursday, nine to four, and Friday, nine to one.' },
-      { role: 'M-Cn', text: 'Please listen carefully, as our options have changed.' },
-      { role: 'M-Cn', text: 'For appointments to register a birth, press one. For copies of existing certificates, press two — please note that copies ordered by phone take ten working days, while those ordered through our website take four.' },
-      { role: 'M-Cn', text: 'For ceremony bookings, press three. Please have the date, the venue and both parties\' full names ready before you\'re connected.' },
-      { role: 'M-Cn', text: 'To speak to a member of staff about anything else, stay on the line. Waiting times on Monday mornings are typically the longest of the week.' },
-    ],
-    ja: 'ファーンデール登記所の自動音声。営業は月〜木 9〜16 時、金 9〜13 時。選択肢が変更されたので注意して聞くよう案内。出生届の予約は 1、既存証明書の写しは 2（電話注文は 10 営業日、ウェブ注文は 4 営業日）、式典の予約は 3（日付・会場・両当事者の氏名を用意）。その他は担当者につながるまで待機。月曜午前は週で最も待ち時間が長い。',
-    v: [['registry office', '登記所'], ['certificate', '証明書'], ['ceremony', '式典'], ['stay on the line', '電話を切らずに待つ']],
-    q: [
-      { tag: '詳細', s: 'What is indicated about ordering certificate copies?',
-        c: ['They are free of charge.', 'Certificates cannot be ordered on Fridays.', 'They require an appointment.', 'Online orders are processed faster.'],
-        a: 3,
-        e: '「電話注文は 10 営業日、ウェブ注文は 4 営業日」と明示されている。',
-        w: ['料金には触れていない。', '音声は "Our lines are open Monday to Thursday, nine to four, and Friday, nine to one." と述べており、金曜も午前中は電話が通じる。金曜には注文できないとするこの記述は本文と正面から矛盾する。', '予約は出生届の話。', '正解。'] },
-      { tag: '詳細', s: 'What should callers prepare before selecting option three?',
-        c: ['A payment card and photo ID', 'A reference number and PIN', 'Names, a date and a location', 'Proof of address and two photo IDs'],
-        a: 2,
-        e: '「日付・会場・両当事者の氏名を用意して」と指示されている。',
-        w: ['カードや身分証の提示は求められていない。', '照会番号や暗証番号には触れていない。', '正解。', '住所証明や身分証明の提示には触れていない。'] },
-      { tag: '詳細', s: 'What does the message say about Monday mornings?',
-        c: ['The lines do not open until ten.', 'The phone lines are closed.', 'Only urgent calls are taken.', 'Waiting times are longest then.'],
-        a: 3,
-        e: '「月曜午前は週で最も待ち時間が長い」と述べている。',
-        w: ['音声は "Our lines are open Monday to Thursday, nine to four" と述べており、月曜を含め電話回線は 9 時に開く。回線が 10 時まで開かないとするこの記述は本文と正面から矛盾するので偽。', '閉鎖ではない。', '緊急のみとは言っていない。', '正解。'] },
-    ],
-  }),
-
-  /* ── 89–91 ニュース ───────────────────────────────── */
-  talk({
-    n: [89, 90, 91], lv: 5, k: 'broadcast',
-    s: [
-      { role: 'W-Br', text: 'And now to business news. Ridgeway Foods has confirmed it will move its main distribution hub from Coleford to a new site outside Ashbury by the end of next year.' },
-      { role: 'W-Br', text: 'The company says the Coleford depot, which opened in 1986, can no longer accommodate the vehicle sizes it now uses, and that expanding on the existing land was ruled out by the shape of the plot rather than by cost.' },
-      { role: 'W-Br', text: 'Around three hundred staff are employed at Coleford. Ridgeway has said all of them will be offered a role at Ashbury, twenty-two kilometres away, along with a transport allowance for the first two years.' },
-      { role: 'W-Br', text: 'The local chamber of commerce has welcomed the investment but questioned whether the allowance is long enough, noting that there is currently no direct bus route between the two towns.' },
-      { role: 'W-Br', text: 'Ridgeway will hold information sessions for staff next month.' },
-    ],
-    ja: 'ビジネスニュース。リッジウェイ・フーズが主要物流拠点をコールフォードからアシュベリー郊外の新用地へ来年末までに移転すると発表。1986 年開設のコールフォード拠点は現在使用する車両の大きさに対応できず、既存地での拡張は費用ではなく敷地の形状が理由で見送られた。同拠点の従業員約 300 名には全員に 22 キロ離れたアシュベリーでの職が提示され、当初 2 年間は交通手当が支給される。地元商工会議所は投資を歓迎しつつ、2 町間に直通バス路線がない点を挙げ、手当の期間が十分か疑問を呈した。来月、従業員向け説明会が開かれる。',
-    v: [['distribution hub', '物流拠点'], ['depot', '車庫、集配所'], ['rule out', '除外する'], ['plot', '区画'], ['allowance', '手当']],
-    q: [
-      { tag: '詳細', s: 'Why is the company relocating?',
-        c: ['The current lease is expiring.', 'The existing site cannot handle its vehicles.', 'Local taxes have increased.', 'A competitor purchased the land.'],
+        e: `入口付近にあるのは屋外用クッションの陳列である。"the rack of cushions for outdoor furniture just past the main doors" とある。`,
+        w: [
+          `値引きされた鉢植えの陳列についての言及はない。`,
+          `新しい園芸道具のテーブルについての言及はない。`,
+          `餌台の陳列についての言及はない。`,
+          `正解。"the rack of cushions for outdoor furniture just past the main doors" と、入口を入ってすぐのところにクッションの陳列があると述べている。`,
+        ] },
+      { tag: '詳細', qid: 'v1q76p', s: 'When will the greenhouse tour begin?',
+        c: ['At 10:00 A.M.', 'At 10:30 A.M.', 'At 11:00 A.M.', 'At 11:30 A.M.'],
         a: 1,
-        e: '「現在使用する車両の大きさに対応できない」が移転理由。',
-        w: ['賃貸契約の話はない。', '正解。', '税の話は出ていない。', '競合の買収には触れていない。'] },
-      { tag: '詳細', s: 'What is stated about the Coleford employees?',
-        c: ['They will all be offered positions at the new site.', 'About half will be made redundant within the year.', 'They will not attend information sessions next month.', 'They will receive a one-off payment rather than a monthly allowance.'],
-        a: 0,
-        e: '「全員にアシュベリーでの職が提示される」と明言。',
-        w: ['正解。', '全員に職が提示されており、削減の対象ではない。', '音声は "Ridgeway will hold information sessions for staff next month." と述べており、説明会は来月開催される。従業員が出席しないという記述はどこにもない。', '一時金ではなく、最初の 2 年間は交通手当が支給される。'] },
-      { tag: '詳細', s: 'What concern does the chamber of commerce raise?',
-        c: ['The new site is too small for expansion.', 'The transport support may not last long enough.', 'The announcement came without warning to residents.', 'Local suppliers will lose their signed contracts.'],
-        a: 1,
-        e: '「直通バス路線がないことを挙げ、手当の期間が十分か疑問視した」が根拠。',
-        w: ['新用地の広さは問題にしていない。', '正解。', '突然の発表という指摘はない。', '取引先の話は出ていない。'] },
+        e: `温室ツアーは10時半に始まる。"please gather by the ticket desk at half past ten" とある。`,
+        w: [
+          `集合時刻として述べているのは"half past ten"だけで、10時という時刻は述べていない。`,
+          `正解。"gather by the ticket desk at half past ten" と、10時半集合だと述べている。`,
+          `集合時刻として述べているのは"half past ten"だけで、11時という時刻は述べていない。`,
+          `集合時刻として述べているのは"half past ten"だけで、11時半という時刻は述べていない。`,
+        ] },
     ],
   }),
 
-  /* ── 92–94 研修の導入 ─────────────────────────────── */
+  /* ── 77–79 ラジオ広告（自動車教習所） ──────────────────────
+     くじは No.77=C, 78=D, 79=B。対象は「仕事で運転する従業員」のみに絞り、他の3対象
+     （未経験者・海外からの転入者・長期ブランク明け）には触れない。料金に含まれるものは
+     シミュレーター利用のみ、講師の特長は経験年数のみに絞った。新規固有名なし。
+     2026-09-29 監査反映：S4「Sessions run evenings and weekends」が「平日夜間＋週末＝週7日」と
+     読めて (C) が第二の正解になっていたため削除し、コース回数・団体受講の案内に差し替えた。
+     S5 の「get back on the road」が長期ブランク明けの運転者（(D)）を連想させていたため、
+     「毎日の運転をより安全に」という言い方に差し替えた。level は制作時 4 → 監査反映で 3
+     （3問とも該当箇所の逐語照合で解ける水準のため）。 */
   talk({
-    n: [92, 93, 94], lv: 5, k: 'talk',
+    n: [77, 78, 79], lv: 3, k: 'advertisement',
     s: [
-      { role: 'M-Am', text: 'Good afternoon. This session is about writing incident reports, and I want to set expectations at the start.' },
-      { role: 'M-Am', text: 'I\'m not going to teach you the form. The form takes four minutes to learn and it\'s on the intranet.' },
-      { role: 'M-Am', text: 'What takes practice is separating what you observed from what you concluded. Almost every report I return for revision fails on that one point.' },
-      { role: 'M-Am', text: 'So we\'ll spend most of the two hours on examples. I\'ll hand out six real reports with the names removed, and you\'ll mark up which sentences are observation and which are inference.' },
-      { role: 'M-Am', text: 'One request. If you wrote any of these six, please do not identify yourself. I chose them because they are typical, not because they are poor.' },
+      { role: 'W-Am', text: `Does your job have you behind the wheel more than you'd like? Mulvaney Driving School now offers a course built for employees who drive company vehicles as part of their work — deliveries, site visits, client calls, all of it.` },
+      { role: 'W-Am', text: `The course price already includes time on our driving simulator, so you can practice handling tight loading docks and busy intersections without putting an actual vehicle at risk.` },
+      { role: 'W-Am', text: `Every instructor on our team has been teaching for more than ten years, so whatever your employer needs documented for insurance purposes, we've seen it before.` },
+      { role: 'W-Am', text: `The full course is four sessions long, and we can also run it for a group of drivers from the same company.` },
+      { role: 'W-Am', text: `Call Mulvaney Driving School today, and make every working day on the road a safer one.` },
     ],
-    ja: 'インシデント報告書の書き方に関する研修の冒頭。書式の説明はしない（4 分で覚えられ、社内ネットワークにある）。練習が要るのは「観察したこと」と「結論づけたこと」を分けることで、差し戻す報告書のほぼすべてがこの一点で不備がある。2 時間の大半は実例演習に充て、氏名を伏せた実際の報告書 6 通を配り、各文が観察か推論かを印を付けて分類する。なお、その 6 通の書き手は名乗り出ないでほしい。質が低いからではなく典型的だから選んだ、と断っている。',
-    v: [['incident report', 'インシデント報告書'], ['set expectations', '前提をそろえる'], ['inference', '推論'], ['mark up', '印を付ける']],
+    ja: `マルヴェイニー・ドライビング・スクールのラジオ広告。業務で社用車を運転する従業員向けの講習コースを宣伝している。料金にはシミュレーターの利用時間が含まれ、狭い荷降ろし場や交通量の多い交差点での運転を、実車を使わずに練習できる。講師陣は全員10年以上の指導歴があり、保険関連の書類が必要な場合にも対応できるとする。コースは全4回で、同じ会社の複数の受講者向けにまとめて実施することもできる。毎日の運転をより安全なものにしようと呼びかけて締めくくる。`,
+    v: [['loading dock', '荷降ろし場'], ['simulator', 'シミュレーター'], ['intersection', '交差点']],
     q: [
-      { tag: '概要', s: 'What is the main focus of the session?',
-        c: ['Completing an online form correctly', 'Distinguishing observation from conclusion', 'Reducing the number of incidents', 'Learning new safety regulations'],
-        a: 1,
-        e: '「練習が要るのは観察と結論を分けること」と明示している。',
-        w: ['書式は教えないと明言。', '正解。', '件数削減の話はない。', '規則の学習ではない。'] },
-      { tag: '詳細', s: 'What will participants do during most of the session?',
-        c: ['Write a report from scratch', 'Analyse anonymised examples', 'Watch a recorded demonstration', 'Take a written assessment'],
-        a: 1,
-        e: '「氏名を伏せた実際の報告書 6 通を配り、印を付けて分類する」が主な活動。',
-        w: ['ゼロから書く作業ではない。', '正解。', '録画視聴の話はない。', '筆記試験ではない。'] },
-      { tag: '意図', s: 'Why does the speaker say, "I chose them because they are typical, not because they are poor"?',
-        t: ['p3int'],
-        c: ['To criticise the standard used by senior staff', 'To explain why six reports were chosen for review', 'To reassure the authors of the sample reports', 'To encourage more volunteers to share their own work'],
+      { tag: '概要', qid: 'v1q77p', s: 'What is being advertised?',
+        c: ['Lessons for complete beginners behind the wheel', 'Lessons for motorists who recently moved from abroad', 'Lessons for employees who drive for work', 'Lessons for drivers returning after a long break'],
         a: 2,
-        e: '直前の「書き手は名乗り出ないでほしい」を受けた発言。書き手が責められていると感じないよう配慮している。',
-        w: ['批判ではなく擁護。特定の職層への言及もない。', '選定理由の説明にとどまらず、名乗り出ないでほしいという発言を受けた著者への配慮が主眼。', '正解。', '名乗り出ないよう求めているので逆。'] },
+        e: `広告されているのは、仕事で運転する従業員向けのレッスンである。"a course built for employees who drive company vehicles as part of their work" とある。`,
+        w: [
+          `運転未経験者向けではない。対象は"employees who drive company vehicles as part of their work"であり、すでに業務で運転している人たち向けである。`,
+          `海外から移ってきた運転者向けという言及はない。`,
+          `正解。"a course built for employees who drive company vehicles as part of their work" と、業務で運転する従業員向けのコースだと述べている。`,
+          `長期のブランクがある運転者向けという言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q78p', s: 'According to the advertisement, what is included in the price of the lessons?',
+        c: ["Pickup from the student's home", 'A printed guide to current road rules', 'Access to an online video library', 'Time on a driving simulator'],
+        a: 3,
+        e: `料金にはシミュレーターの利用時間が含まれる。"The course price already includes time on our driving simulator" とある。`,
+        w: [
+          `自宅への送迎についての言及はない。`,
+          `道路規則の冊子についての言及はない。`,
+          `オンライン動画ライブラリについての言及はない。`,
+          `正解。"The course price already includes time on our driving simulator" と述べている。`,
+        ] },
+      { tag: '詳細', qid: 'v1q79p', s: 'What does the advertisement say about the instructors?',
+        c: ['They teach each student from start to finish', 'They have more than ten years of experience', 'They offer lessons seven days a week', 'They provide feedback after each lesson'],
+        a: 1,
+        e: `講師は全員10年以上の指導経験を持つとしている。"Every instructor on our team has been teaching for more than ten years" とある。`,
+        w: [
+          `1人の生徒を最初から最後まで担当するという言及はない。`,
+          `正解。"Every instructor on our team has been teaching for more than ten years" と述べている。`,
+          `週7日レッスンを行うという言及はない。`,
+          `毎回のレッスン後にフィードバックを行うという言及はない。`,
+        ] },
     ],
   }),
 
-  /* ── 95–97（図表）─────────────────────────────────── */
-  /* 本番の TOEIC は "Look at the graphic." の設問を1セットに1問しか置かない。この模試は
-     長らく1セット2問（95・96）を置いており、2問目「Where will that class now be held?」は
-     "that class" で前問（No.95）の正解を先行詞として受ける鎖になっていた。
-     2026-08-24 の是正で、No.96 を「図表を見なくても音声だけで解ける通常設問」に差し替え、
-     本番仕様（1セット1問）に揃えた。新しい No.96（id v1q96r）は変更の原因（設備の不具合）を
-     問う設問で、スタジオ名・クラス名（Ceramics）にも、移設先（Studio C）にも触れないため、
-     No.95 の正解にも No.97 の正解（受付での確認）にも重ならない。
-     talk() は id を no から自動生成し、この設問だけ id を新規採番する手段がないため、
-     このユニットだけヘルパーを使わず直接記述する。No.97 の id（v1q97）と内容は変更していない。
-     2026-08-25 の是正：No.95 自体に「一般常識だけで図表なしに解ける」欠陥が残っていた。
-     旧音声は "The kiln in Studio B failed its inspection" と述べており、"kiln"（窯）＝
-     陶芸（Ceramics）という一般常識だけで表を見ずに正解（Ceramics）へ到達できた。さらに
-     "hand-building only — no wheel work today" も「ろくろ」＝陶芸を独立に示唆しており、
-     二重に一般常識で解けてしまっていた。窯・ろくろ・手びねりに触れる語をすべて "a piece of
-     equipment" 等の中立語に置き換え、Studio 列（Studio B）と Time 列（正午）を突き合わせて
-     初めて Class 列（Ceramics）が分かる形にした。会話の長さは同巻の他の Part 4（約110語）と
-     揃えている。No.96 の正解（機材の不具合）・No.97 の正解（受付での確認）はどちらも変更後の
-     音声でも同じ根拠のまま成立する。設問 id は音声の実質変更に伴い v1q95 → v1q95r に
-     新規採番した。
+  /* ── 80–82 会議の抜粋（観光案内所） ──────────────────────
+     くじは No.80=D, 81=C, 82=D。引用直前は「予約システム業者からの研修担当者派遣の申し出を
+     断る」文脈にし、他の3通りの読み（切り替えの順調さ・配置転換の質問・「誰も使ったことがない」
+     という声）は入れていない。切り替えの話自体を出していないので、Q81「先週の出来事」＝地図の
+     誤りと衝突しない。Lucia は凍結済みの固有名で新規ではない。他に新規固有名なし。
+     2026-09-29 監査反映：S3 は断りの言葉 "I told them we won't need that" を引用の直前から外し、
+     「前回と同じ答えを返した」という間接的な言い方にした（引用自体が断りの理由として機能する）。
+     あわせて "so she can walk everyone else through it whenever it comes up" を削除
+     （Lucia への役割の割り振りが (C) 人員配置の決定に寄っていたため）。S4 は地図の差し替えを
+     話し手が自分で済ませた、という言い方にして「聞き手への依頼」から外した（(A) が部分的に真に
+     なっていた申し送り違反の是正）。S5 は「施錠後に鍵を事務所の中に戻す」という理屈の合わない
+     言い方をやめ、"key safe by the staff entrance" に差し替えた（(D) の範囲内）。
+     ja の館名「モーウィック」は本文中に無いため一般名に戻した。 */
+  talk({
+    n: [80, 81, 82], lv: 4, k: 'excerpt from a meeting',
+    s: [
+      { role: 'M-Cn', text: `Right, a few things before you head out to the desk this morning.` },
+      { role: 'M-Cn', text: `First, the software company that runs our tour and accommodation booking system called again yesterday, offering to send one of their trainers down for a half-day session next week.` },
+      { role: 'M-Cn', text: `I'll give them the same answer I gave last time: Lucia used that booking system at her last job.` },
+      { role: 'M-Cn', text: `Second, the printer finally sent back the corrected town maps, and I've already put them out in place of the old ones. If you remember, the batch that came in last week had the wrong street numbers printed along the harbour front.` },
+      { role: 'M-Cn', text: `Last thing — from now on, whoever locks up in the evening needs to drop the office keys in the key safe by the staff entrance rather than taking them home, since we've had two different people show up unable to get in the next morning.` },
+      { role: 'M-Cn', text: `That's everything. Have a good one.` },
+    ],
+    ja: `観光案内所の職員ミーティングの抜粋。案内所の予約システムを提供する会社が研修担当者の派遣を再度申し出てきたが、責任者は前回と同じ答え、すなわち Lucia が前職で同じ予約システムを使っていたという理由で断るつもりだと述べる。次に、印刷会社から町の地図の訂正版がようやく届き、古い地図はもう新しいものに差し替え済みだと伝える。先週届いた地図には街路の番地に誤りがあったのだと説明する。最後に、夜間に施錠した職員は鍵を自宅に持ち帰らず、職員通用口のキーセーフに入れるよう、翌朝入れずに困った職員が2人いたことを理由に依頼する。`,
+    v: [['booking system', '予約システム'], ['half-day session', '半日の研修'], ['harbour front', '港沿いの地区'], ['lock up', '施錠する']],
+    q: [
+      { tag: '意図', t: ['p3int'], qid: 'v1q80p', s: 'Why does the speaker say, "Lucia used that booking system at her last job"?',
+        c: ['To account for a smooth changeover', 'To correct a mistaken belief about staff', 'To explain a recent staffing decision', 'To turn down an offer of outside help'],
+        a: 3,
+        e: `直前で"I'll give them the same answer I gave last time"と述べ、続けて引用（Lucia が前職で同じ予約システムを使っていたこと）を、外部の研修担当者派遣の申し出を断る理由として挙げている。よって外部からの支援の申し出を断る意図である。`,
+        w: [
+          `スムーズな引き継ぎを説明しているのではない。本文にシステムの切り替え自体の話は出てこない。`,
+          `スタッフについての誤解を正しているのではない。訂正するような誤った思い込みへの言及はない。`,
+          `最近の人員配置の決定を説明しているのではない。Lucia の配置転換についての話は出てこない。`,
+          `正解。直前で"I'll give them the same answer I gave last time"と述べ、続けて"Lucia used that booking system at her last job"と、外部の研修担当者派遣の申し出を断る理由を挙げている。`,
+        ] },
+      { tag: '詳細', qid: 'v1q81p', s: 'According to the speaker, what happened last week?',
+        c: ['A bus tour company ended its contract', 'A cruise ship made an unplanned stop', 'A new town map came back with errors', 'A travel blogger praised the local walking trails'],
+        a: 2,
+        e: `先週の出来事は、新しく届いた町の地図に誤りがあったことである。"the batch that came in last week had the wrong street numbers printed along the harbour front" とある。`,
+        w: [
+          `バスツアー会社との契約終了についての言及はない。`,
+          `クルーズ船の予定外の寄港についての言及はない。`,
+          `正解。"the batch that came in last week had the wrong street numbers printed along the harbour front" と、先週届いた地図に誤りがあったと述べている。`,
+          `旅行ブロガーが遊歩道を称賛したという言及はない。`,
+        ] },
+      { tag: '依頼', qid: 'v1q82p', s: 'What does the speaker ask the listeners to do?',
+        c: ['Restock the brochure racks each morning', 'Sign up for shifts on the holiday weekend', 'Count the stock in the gift shop', 'Return keys to the office each evening'],
+        a: 3,
+        e: `職員に対し、夜間に施錠した際は鍵を自宅に持ち帰らず職員通用口のキーセーフに入れるよう依頼している。"whoever locks up in the evening needs to drop the office keys in the key safe by the staff entrance rather than taking them home" とある。`,
+        w: [
+          `毎朝パンフレット棚を補充するようにとの依頼はない。地図の差し替えは話し手が自分で済ませており、聞き手への依頼ではない。`,
+          `祝日の週末のシフト登録についての依頼はない。`,
+          `土産物店の在庫確認についての依頼はない。`,
+          `正解。"whoever locks up in the evening needs to drop the office keys in the key safe by the staff entrance rather than taking them home" と依頼している。`,
+        ] },
+    ],
+  }),
 
-     2026-08-25 の追加是正（レビュー役の監査差し戻し）：No.96 自体に、正解の英文が音声と
-     一致しないという欠陥が残っていた。音声は "A piece of equipment in Studio B failed an
-     inspection"（点検に不合格）と述べているが、旧正解 (C) は "A piece of machinery broke
-     down unexpectedly."（機材が故障した）だった。点検に不合格になることと故障することは
-     別事象で（カバー欠落・証明書切れ・配線の摩耗などは、稼働したまま点検には落ちる）、
-     exp 自身も「点検で不合格になったことが理由」と書いており、正解の英文と解説が食い違って
-     いた。加えて "machinery" は陶芸・木工など特定の工芸を連想させ、No.95 で "kiln" 等を
-     除去した効果を弱めていた（設問は先読みされるため）。(C) を "Some equipment did not
-     pass an inspection."（音声の "failed an inspection" の忠実な言い換え。特定の工芸を
-     示唆しない中立語）に差し替え、exp・why を新しい文言に合わせて書き直した。正解位置
-     （index 2）・(A)(B)(D) の英文は変更していない。選択肢の語数は 6/6/7/7 語で、正解が
-     単独最長にはならない。設問 id は選択肢の実質変更に伴い v1q96r → v1q96s に新規採番した。 */
-  {
-    id: 'v1-p4-95', part: 4, kind: 'set', kindLabel: 'announcement',
-    topics: ['graphic', 'p4type'], level: 5,
+  /* ── 83–85 講話（公立図書館） ──────────────────────
+     くじは No.83=B, 84=B, 85=A。中心となる活動は宅配サービスのみに絞り、他の3活動
+     （児童向け読書・成人向けPC講座・寄贈図書の即売会）には触れない。持ち物・報告先も
+     それぞれ1つのみ述べる。報告先は前置きで「受付デスクではない」と対比して閉じた。
+     新規固有名なし。
+     2026-09-29 監査反映：S2 が「事務所で写真を撮ってもらう」だったため、正解(B)「写真を持参する」
+     と向きが逆だった（致命的）。「最近撮った証明写真サイズの写真を持参する」に書き換え、受付が
+     バッジ用に確認する、という流れに直した。S3 の冗長な "ready and waiting for you" を整理。
+     ja の館名「モスウッド」は本文中に無いため一般名に戻した。 */
+  talk({
+    n: [83, 84, 85], lv: 3, k: 'talk',
+    s: [
+      { role: 'W-Br', text: `Thanks for coming in today — you're all here because you signed up to help with our home delivery service, bringing library books out to residents who aren't able to get to the branch themselves.` },
+      { role: 'W-Br', text: `On your first shift, please bring along a passport-sized picture of yourself taken in the last few months, so the front office can make up your volunteer badge — that's what the front desk checks before handing you the delivery bags each time.` },
+      { role: 'W-Br', text: `Deliveries go out twice a week, usually to five or six addresses, driven out from the branch in one of our vans, and everything you need — the books, the route sheet, a bag with the library's name on it — will be ready when you arrive.` },
+      { role: 'W-Br', text: `During your shift, you'll report to me directly, as the volunteer program coordinator, rather than whoever happens to be on the front desk, so if a resident asks to change their book list or a delivery falls through, come find me first.` },
+      { role: 'W-Br', text: `Any questions before we go through the route sheets together?` },
+    ],
+    ja: `公立図書館のボランティア担当職員が、新しく登録したボランティア向けに話している。中心となる活動は、自力で図書館に来られない住民宅へ本を届ける宅配サービス。初回のシフトには、最近撮った証明写真サイズの写真を持参し、事務所でボランティア用バッジを作ってもらう必要があり、それが配達用のバッグを受け取る際に受付で確認される。配達は週2回、館の車で5〜6軒を回り、本やルート表、館名入りのバッグは用意されている。シフト中は受付デスクの職員ではなく、話している本人（ボランティア・プログラムの担当責任者）に直接報告するよう伝える。最後にルート表を一緒に確認する前に質問がないか尋ねる。`,
+    v: [['front office', '事務局、事務所'], ['route sheet', '配達ルート表'], ['coordinator', '担当責任者'], ['branch', '（図書館の）分館']],
+    q: [
+      { tag: '概要', qid: 'v1q83p', s: 'What is the talk mainly about?',
+        c: ['A reading program for young children', 'A book delivery service for residents', 'A computer skills class for adults', 'A sale of donated books'],
+        a: 1,
+        e: `話の中心は住民向けの図書配達サービスである。"you signed up to help with our home delivery service, bringing library books out to residents" とある。`,
+        w: [
+          `児童向け読書プログラムについての言及はない。`,
+          `正解。"you signed up to help with our home delivery service, bringing library books out to residents who aren't able to get to the branch themselves" と述べている。`,
+          `成人向けパソコン講座についての言及はない。`,
+          `寄贈図書の即売会についての言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q84p', s: 'What does the speaker say volunteers should bring on their first day?',
+        c: ['A signed copy of the volunteer agreement', 'A recent photo for an ID badge', 'A pair of comfortable shoes', 'A list of their available hours'],
+        a: 1,
+        e: `初日の持ち物として、最近撮った証明写真サイズの写真を持参するよう求めている。"please bring along a passport-sized picture of yourself taken in the last few months" とある。`,
+        w: [
+          `署名済みのボランティア同意書についての言及はない。`,
+          `正解。"please bring along a passport-sized picture of yourself taken in the last few months, so the front office can make up your volunteer badge" と述べている。`,
+          `歩きやすい靴についての言及はない。`,
+          `対応可能な時間帯のリストについての言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q85p', s: 'According to the speaker, who will volunteers report to during their shifts?',
+        c: ['The coordinator of the volunteer program', 'The head of the library', 'The staff at the front desk', 'The leader of their volunteer team'],
+        a: 0,
+        e: `シフト中の報告先は、話している本人であるボランティア・プログラムの担当責任者である。"you'll report to me directly, as the volunteer program coordinator" とある。`,
+        w: [
+          `正解。"you'll report to me directly, as the volunteer program coordinator" と述べている。`,
+          `図書館長についての言及はない。`,
+          `受付デスクの職員ではない。"rather than whoever happens to be on the front desk" と、受付デスクの職員ではないと述べている。`,
+          `ボランティアチームの班長についての言及はない。`,
+        ] },
+    ],
+  }),
+
+  /* ── 86–88 自動音声案内（貸倉庫施設） ──────────────────────
+     くじは No.86=A, 87=B, 88=A。平日の閉館時刻は1つのみ提示（土曜は別の値で区別）。
+     閉館後アクセスの条件は「1階のみ」の1点に絞った。新規客特典も割引1点のみ。
+     新規固有名なし。
+     2026-09-29 監査反映：S2 の "gate access is available around the clock" を削除
+     （申し送り「閉館後の条件は1つだけ」違反。1階限定の条件だけに絞った）。ロールを
+     M-Am → M-Au に変更（英式の "ground floor" 等と揃える。M-Au は 92–94 と2回目）。
+     2026-09-29 監査第2巡反映：ロールを M-Au に替えた際に "Monday through Friday"（北米語法）が
+     残っていたため "Monday to Friday" に直した（exp・why[0] の引用も同様）。 */
+  talk({
+    n: [86, 87, 88], lv: 3, k: 'recorded message',
+    s: [
+      { role: 'M-Au', text: `Thank you for calling Denholm Storage Centre. Our current office hours are Monday to Friday, eight in the morning until five in the evening; on Saturdays we open at nine and close at one.` },
+      { role: 'M-Au', text: `If you're an existing customer and need to reach your unit outside office hours, please note that after-hours entry is limited to units on the ground floor — the doors to the upper level are locked once staff have left for the day.` },
+      { role: 'M-Au', text: `This month, anyone who signs a new rental agreement receives twenty percent off their first month's rent, no matter which unit size you choose.` },
+      { role: 'M-Au', text: `For rates and available units, press one. To speak with a member of staff during office hours, press two. To hear this message again, press three.` },
+    ],
+    ja: `デンホルム貸倉庫センターの自動音声案内。事務所の営業時間は平日午前8時から午後5時まで、土曜は午前9時から午後1時までと案内する。既存客が営業時間外に自分のユニットに入る場合、入場できるのは1階のユニットのみで、上階への扉はスタッフの退勤後は施錠されると説明する。今月は新規契約者に初月家賃の20%引きを提供する。料金案内は1、スタッフとの通話は2、この案内の再生は3を押すよう案内する。`,
+    v: [['office hours', '営業時間'], ['ground floor', '1階'], ['rental agreement', '賃貸契約']],
+    q: [
+      { tag: '詳細', qid: 'v1q86p', s: 'According to the recording, what time does the office close on weekdays?',
+        c: ['At 5:00 P.M.', 'At 5:30 P.M.', 'At 6:00 P.M.', 'At 6:30 P.M.'],
+        a: 0,
+        e: `平日の事務所の閉館時刻は午後5時である。"Monday to Friday, eight in the morning until five in the evening" とある。`,
+        w: [
+          `正解。"Monday to Friday, eight in the morning until five in the evening" と述べている。`,
+          `平日の閉館時刻として述べているのは"until five in the evening"だけで、5時半という時刻は述べていない。`,
+          `平日の閉館時刻として述べているのは"until five in the evening"だけで、6時という時刻は述べていない。`,
+          `平日の閉館時刻として述べているのは"until five in the evening"だけで、6時半という時刻は述べていない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q87p', s: 'What does the recording say about access to units after the office closes?',
+        c: ['It costs extra each month', 'It covers units on the ground floor', 'It needs a booking the day before', 'It ends at midnight each night'],
+        a: 1,
+        e: `閉館後の入場は1階のユニットに限られる。"after-hours entry is limited to units on the ground floor" とある。`,
+        w: [
+          `追加料金がかかるという言及はない。`,
+          `正解。"after-hours entry is limited to units on the ground floor" と述べている。`,
+          `前日予約が必要という言及はない。`,
+          `終了時刻についての言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q88p', s: 'What is being offered to new customers this month?',
+        c: ["A discount on the first month's rent", 'A free lock included with a new rental', 'A waiver of the administrative fee', 'A larger unit for the same price'],
+        a: 0,
+        e: `今月の新規客特典は初月家賃の割引である。"anyone who signs a new rental agreement receives twenty percent off their first month's rent" とある。`,
+        w: [
+          `正解。"anyone who signs a new rental agreement receives twenty percent off their first month's rent" と述べている。`,
+          `無料の鍵についての言及はない。`,
+          `事務手数料の免除についての言及はない。`,
+          `同料金で大きいユニットを提供するという言及はない。`,
+        ] },
+    ],
+  }),
+
+  /* ── 89–91 ラジオニュース（交通局の路線変更） ──────────────────────
+     くじは No.89=C, 90=A, 91=A。増便される路線は「川沿い」のみで、他の3路線は
+     まとめて「現行維持」と述べて閉じた。増便理由・呼びかけもそれぞれ1点のみ。
+     stem の選択肢語 "riverside neighborhoods" は本文で逐語にせず「waterfront communities」
+     と言い換えた。新規固有名なし。
+     2026-09-29 監査反映：S4「Routes serving downtown, the university, the industrial park,
+     and the regional airport will keep their current schedules for now.」が1文で誤答3本を
+     明示的に列挙して閉じており、「明示の否定・訂正は1問1本まで」を超え、聞き取りの近道
+     （現状維持で名前が挙がらない1本を選ぶ）にもなっていたため削除。代わりに増便の利用者数の
+     見込みを述べる文に差し替えた（Q90 の理由・Q91 の呼びかけのどちらにも触れない）。
+     あわせて S2 の言い換えを "waterfront communities"（水辺全般を含み得る語）から
+     "communities along the riverbank"（より川に近い言い換え）に変更。 */
+  talk({
+    n: [89, 90, 91], lv: 3, k: 'broadcast',
+    s: [
+      { role: 'W-Cn', text: `In local news, Dovedale Transit Authority has announced changes to bus service starting next month.` },
+      { role: 'W-Cn', text: `The bus line serving the communities along the riverbank will get extra buses during peak hours, cutting the wait between buses on that route nearly in half.` },
+      { role: 'W-Cn', text: `According to the authority, the change comes after several hundred new homes opened in that part of town over the past year, and the current schedule hasn't kept pace with the number of residents now commuting from there.` },
+      { role: 'W-Cn', text: `The authority expects the extra trips to carry around fifteen hundred more passengers each weekday.` },
+      { role: 'W-Cn', text: `Riders are encouraged to look up the new timetable on the authority's website before the changes take effect, since stop times on the affected route will shift by a few minutes in both directions.` },
+    ],
+    ja: `地域ニュースの放送。ドーヴデイル交通局が来月からのバス路線の変更を発表。川岸沿いの地域を走る路線でピーク時の増便が行われ、その路線の待ち時間はほぼ半分に短縮される。増便の理由は、その地域でこの1年に数百戸の新しい住宅が完成し、現行のダイヤが通勤者の増加に追いついていないため。当局は、この増便により平日一日あたり約1500人多い利用があると見込んでいる。利用客には、変更前に交通局のウェブサイトで新しい時刻表を確認するよう呼びかけている。対象路線では停留所の通過時刻が数分前後にずれるためである。`,
+    v: [['peak hours', 'ピーク時、混雑時間帯'], ['commuting', '通勤'], ['timetable', '時刻表'], ['authority', '当局、機関']],
+    q: [
+      { tag: '詳細', qid: 'v1q89p', s: 'According to the broadcast, which bus route will see increased service?',
+        c: ['The route connecting downtown and the university', 'The route serving the industrial park', 'The route along the riverside neighborhoods', 'The route to the regional airport'],
+        a: 2,
+        e: `増便されるのは川沿いの地域を走る路線である。"The bus line serving the communities along the riverbank will get extra buses during peak hours" とある。`,
+        w: [
+          `都心と大学を結ぶ路線について、増便されるという言及はない。`,
+          `工業団地を通る路線について、増便されるという言及はない。`,
+          `正解。"The bus line serving the communities along the riverbank will get extra buses during peak hours" と述べている。`,
+          `空港行きの路線について、増便されるという言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q90p', s: 'What does the broadcast say is the reason for the added service?',
+        c: ['A new housing development has opened', 'A major employer has moved to the area', 'A nearby rail line has closed for repairs', 'A petition has called for more buses'],
+        a: 0,
+        e: `増便の理由は新しい住宅地の開発である。"the change comes after several hundred new homes opened in that part of town over the past year" とある。`,
+        w: [
+          `正解。"the change comes after several hundred new homes opened in that part of town over the past year" と述べている。`,
+          `大手企業の移転についての言及はない。`,
+          `近隣の鉄道路線の運休についての言及はない。`,
+          `増便を求める署名活動についての言及はない。`,
+        ] },
+      { tag: '詳細', qid: 'v1q91p', s: 'What are riders encouraged to do before the changes take effect?',
+        c: ['Fill out a short rider survey', 'Attend a public meeting about the plan', 'Register for text message updates', 'Look up the new timetable online'],
+        a: 3,
+        e: `利用客への呼びかけは、新しい時刻表をウェブサイトで確認することである。"Riders are encouraged to look up the new timetable on the authority's website before the changes take effect" とある。`,
+        w: [
+          `利用者アンケートについての言及はない。`,
+          `説明会への参加についての言及はない。`,
+          `テキスト通知への登録についての言及はない。`,
+          `正解。"Riders are encouraged to look up the new timetable on the authority's website before the changes take effect" と述べている。`,
+        ] },
+    ],
+  }),
+
+  /* ── 92–94 調理実演（料理教室） ──────────────────────
+     くじは No.92=D, 93=A, 94=C。実演技法は「肉を焼き付ける」1つのみ。道具の話題も
+     「地元業者からの贈り物」1点のみ。Q94 の引用直前は「なぜ6週間もあるのか」という
+     過去の質問を置き、コースの長さを正当化する読みに固定した。新規固有名なし
+     （地元の仕入れ業者は名前を出さず言及のみ）。
+     2026-09-29 監査反映：S4 の "instead of two or three" を削除（「2〜3週で足りるのでは」という
+     受講者の意見を含意し、(D)「受講者の発言に反論する」の足場になっていたため）。
+     "the timing only comes to your hand through repetition" は不自然な言い回しだったため
+     "you only get the timing through repetition" に直した。level は制作時 4 → 監査反映で 3
+     （意図問題も直前の質問が答えの向きを直接示す水準のため）。ja の教室名「メリトン」は
+     本文中に無いため一般名に戻し、鍋の由来の記述順序も直した。 */
+  talk({
+    n: [92, 93, 94], lv: 3, k: 'talk',
+    s: [
+      { role: 'M-Au', text: `All right, let's move on to today's main technique: getting a proper sear on a piece of meat before it finishes cooking.` },
+      { role: 'M-Au', text: `This pan I'm using tonight actually came from outside our regular equipment order — one of our regular suppliers here in town dropped it off as a gift a few months back, after we mentioned ours were getting worn out.` },
+      { role: 'M-Au', text: `Now, watch how I hold the meat down flat for the first thirty seconds; if you lift it too soon to check underneath, you'll tear the crust that's forming and lose that colour.` },
+      { role: 'M-Au', text: `Someone in an earlier group asked why this course runs a full six weeks. This part takes some practice — you only get the timing through repetition, not from watching me do it once.` },
+      { role: 'M-Au', text: `Once you've got a feel for it, we'll move on to letting it rest before you plate it up.` },
+    ],
+    ja: `料理教室での実演トーク。講師が本日の主な技法として、肉に焼き色を付ける工程を実演すると述べる。教室の鍋が傷んできたと話したところ、地元の仕入れ業者が数か月前に贈ってくれたのが、今使っている鍋だと説明する。肉を最初の30秒は動かさず押さえておくこと、早く裏を確認すると焼き色の膜が破れて色が落ちることを説明する。以前の回の受講者から、なぜこのコースが6週間もあるのかと聞かれたことに触れ、この工程には繰り返しの練習が必要で、一度見ただけでは身につかないからだと理由を述べる。感覚がつかめたら、次は休ませてから盛り付ける工程に進むと締めくくる。`,
+    v: [['sear', '焼き色を付ける、焼き固める'], ['crust', '（焼き目の）膜、皮'], ['plate up', '盛り付ける']],
+    q: [
+      { tag: '概要', qid: 'v1q92p', s: 'What is the speaker mainly demonstrating?',
+        c: ['A technique for filleting a fish', 'A method for kneading dough', 'A way to plate a dessert', 'A process for searing meat'],
+        a: 3,
+        e: `実演しているのは肉を焼き付ける工程である。"today's main technique: getting a proper sear on a piece of meat before it finishes cooking" とある。`,
+        w: [
+          `魚をおろす技法についての言及はない。`,
+          `生地をこねる方法についての言及はない。`,
+          `デザートの盛り付けについての言及はない。"plate it up" は焼いた肉を仕上げに盛る意味で使われている。`,
+          `正解。"today's main technique: getting a proper sear on a piece of meat before it finishes cooking" と述べている。`,
+        ] },
+      { tag: '詳細', qid: 'v1q93p', s: 'What does the speaker say about the equipment being used?',
+        c: ["It is available in the studio's shop", 'It needs careful cleaning after each use', 'It was a gift from a local supplier', "It belonged to the speaker's first employer"],
+        a: 2,
+        e: `使用している鍋は地元の業者からの贈り物である。"one of our regular suppliers here in town dropped it off as a gift a few months back" とある。`,
+        w: [
+          `スタジオの売店で購入できるという言及はない。`,
+          `念入りな手入れが必要という言及はない。`,
+          `正解。"one of our regular suppliers here in town dropped it off as a gift a few months back" と述べている。`,
+          `話し手の最初の勤務先の所有物だったという言及はない。`,
+        ] },
+      { tag: '意図', t: ['p3int'], qid: 'v1q94p', s: 'Why does the speaker say, "This part takes some practice"?',
+        c: ['To encourage students who are struggling', 'To explain why a step is shown slowly', 'To justify the length of the course', "To disagree with a student's comment"],
+        a: 2,
+        e: `直前で「以前の回の受講者から、なぜこのコースが6週間もあるのかと聞かれた」ことに触れており、その答えとして「この部分には練習が要る」と続けている。よってコースの長さを正当化する意図である。`,
+        w: [
+          `苦戦している受講者を励ましているのではない。直前に受講者が苦戦しているという記述はない。`,
+          `ゆっくり実演している理由の説明ではない。直前の話題はコースの週数についての質問である。`,
+          `正解。直前で"Someone in an earlier group asked why this course runs a full six weeks"と述べており、その答えとして練習の必要性を挙げ、コースの長さを正当化している。`,
+          `受講者の発言に異議を唱えているのではない。直前は週数についての質問であり、発言への反論ではない。`,
+        ] },
+    ],
+  }),
+
+  /* ── 95–97 場内放送（サッカー場、図表あり） ──────────────────────
+     くじは No.95=B（Gate 3）, 96=D, 97=A。表の語（Home/Visiting/River side/Railway side/
+     ゲート番号）は音声に出さず、区分は「地元チームのファン」対「相手チームを応援しに
+     来たファン（away side）」、位置は「水に近い側」対「線路側（本文では触れない）」に
+     言い換えた。閉鎖ゲートの2属性（away side・水に近い側）を別々の文で伝え、表と
+     組み合わせて初めて Gate 3 に一意に絞られる（音声だけ・表だけではいずれも1/4のまま）。
+     チーム名は出していない。新規固有名なし。
+     2026-09-29 監査反映：S3 の "down by the river" が表のセル語 "River side" の river を
+     そのまま使っていたため "down by the water" に差し替えた（論理は変わらず1/4のまま）。
+     S2 も「アウェイ用の入口は1つ」という前提のずれを避けるため "one of the two entrances" とした。 */
+  talk({
+    n: [95, 96, 97], lv: 4, k: 'announcement', t: ['graphic', 'p4type'],
     graphic: {
-      t: 'table', title: 'Northgate Arts Centre — Studio Timetable (Wednesday)',
-      head: ['Time', 'Studio', 'Class'],
+      t: 'table', title: 'Entry Gates',
+      head: ['Gate', 'Supporters', 'Location'],
       rows: [
-        ['10:00', 'Studio A', 'Life Drawing'],
-        ['12:00', 'Studio B', 'Ceramics'],
-        ['14:00', 'Studio A', 'Printmaking'],
-        ['16:00', 'Studio C', 'Watercolour'],
+        ['Gate 16', 'Home', 'River side'],
+        ['Gate 3', 'Visiting', 'River side'],
+        ['Gate 22', 'Home', 'Railway side'],
+        ['Gate 7', 'Visiting', 'Railway side'],
       ],
     },
-    script: [
-      { role: 'W-Au', text: 'Good morning, everyone. A short notice about today\'s programme here at Northgate.' },
-      { role: 'W-Au', text: 'A piece of equipment in Studio B failed an inspection this morning, so the class scheduled there at midday cannot go ahead as planned.' },
-      { role: 'W-Au', text: 'Rather than cancel, we have moved it to Studio C, which is free until four. The session will run at its normal time, but without some of the usual equipment.' },
-      { role: 'W-Au', text: 'Everyone booked on that class has been sent a message. If you didn\'t receive one, please check with the desk, because it means we don\'t have a current number for you.' },
-      { role: 'W-Au', text: 'All other classes today are unaffected and will run in their listed studios.' },
+    s: [
+      { role: 'M-Br', text: `Good evening, everyone, and welcome to Dalby Stadium.` },
+      { role: 'M-Br', text: `Before kickoff, a note on tonight's gates: one of the two entrances normally used by supporters of the away side will be closed for the whole match.` },
+      { role: 'M-Br', text: `It's the one down by the water, so if that's your usual way in, please use one of the other gates instead — stewards are on hand to point you the right way.` },
+      { role: 'M-Br', text: `That gate is closed because the organisers are using the space just inside it to set up a fan zone for tonight's fixture, with food stalls and activities before kickoff.` },
+      { role: 'M-Br', text: `At halftime, we're pleased to have a local choir performing on the pitch, so please stay in your seats and give them a warm welcome.` },
+      { role: 'M-Br', text: `Enjoy the match, and thanks for your support tonight.` },
     ],
-    ja: 'ノースゲート・アーツセンターの当日案内。スタジオ B の設備が朝の点検に不合格となり、正午からそこで予定されていたクラスは実施できない。中止せず、16 時まで空いているスタジオ C に移して通常時刻に実施するが、本日はいつもの設備なしで行う。当該クラスの予約者には連絡済みで、届いていない場合は連絡先が未更新の可能性があるため受付で確認するよう案内。他のクラスは影響なく、表示どおりのスタジオで実施。',
-    vocab: [['notice', '案内、告知'], ['inspection', '点検'], ['unaffected', '影響を受けない'], ['go ahead', '実施される']],
-    questions: [
-      { id: 'v1q95r', no: 95, tag: '図表', stem: 'Look at the graphic. Which class has been affected?',
-        choices: ['Life Drawing', 'Watercolour', 'Printmaking', 'Ceramics'],
-        answer: 3,
-        exp: '「スタジオ B で正午に予定されていたクラス」＝ Ceramics。',
-        why: ['10 時・スタジオ A。', '16 時・スタジオ C で影響なし。', '14 時・スタジオ A。', '正解。'],
-        topics: ['graphic', 'p4type'] },
-      { id: 'v1q96s', no: 96, tag: '詳細', stem: 'Why has today\'s schedule been changed?',
-        choices: ['A visiting instructor did not arrive.', 'The building\'s alarm system was tested.', 'Some equipment did not pass an inspection.', 'Heavy rain caused a brief power cut.'],
-        answer: 2,
-        exp: '「スタジオ B の設備が本日の点検に不合格になった」ことが変更の理由として述べられている（"failed an inspection" の言い換え）。',
-        why: ['講師の欠席には触れていない。', '警報装置の点検の話はない。', '正解。「設備が点検に不合格になった」という発言と一致する。', '悪天候や停電には触れていない。'],
-        topics: ['p4type'] },
-      { id: 'v1q97', no: 97, tag: '詳細', stem: 'What should listeners do if they did not receive a message?',
-        choices: ['Wait for a second announcement', 'Speak to staff at the desk', 'Re-book the class online', 'Collect a refund voucher'],
-        answer: 1,
-        exp: '「届いていない場合は受付で確認を。連絡先が未更新の可能性がある」と案内している。',
-        why: ['再放送を待つよう案内していない。', '正解。', '再予約の指示はない。', '返金の話はない。'],
-        topics: ['graphic', 'p4type'] },
+    ja: `ダルビー・スタジアムでの試合前の場内放送。キックオフ前の案内として、相手チームを応援しに来たファンが普段使う2つの入口のうち一方を、今夜は試合中ずっと閉鎖すると伝える。その入口は水に近い側にあるとし、普段そこを使う客には他の入口を使うよう案内する。閉鎖の理由は、その入口内側のスペースを今夜のためのファンゾーン（飲食の屋台や催し）として使うためと説明する。ハーフタイムには地元の合唱団がピッチ上で演奏する予定だと案内し、観客に温かい拍手を送るよう呼びかける。最後に観戦を楽しむよう伝えて締めくくる。`,
+    v: [['kickoff', 'キックオフ'], ['steward', '警備員、誘導員'], ['fixture', '試合、対戦カード'], ['halftime', 'ハーフタイム']],
+    q: [
+      { tag: '図表', qid: 'v1q95p', s: 'Look at the graphic. Which gate will be closed tonight?',
+        c: ['Gate 16', 'Gate 3', 'Gate 22', 'Gate 7'],
+        a: 1,
+        e: `話し手は閉鎖する入口について「相手チームを応援しに来たファンが使う2つの入口のうちの一方」（"one of the two entrances normally used by supporters of the away side will be closed for the whole match"）、かつ「水に近い側」（"It's the one down by the water"）と、2つの手がかりを別々の文で述べている。表で Visiting（相手チームのファン）かつ River side（川側）に該当するのは Gate 3 だけである。`,
+        w: [
+          `Gate 16 は表で Home（地元チームのファン）かつ River side（川側）であり、川側という点は一致するが、地元チームのファン用の入口であり、話し手が挙げた「相手チームのファン用」という条件に合わない。`,
+          `正解。表で Visiting（相手チームのファン）かつ River side（川側）に該当するのは Gate 3 のみで、話し手が挙げた2つの条件（相手チームのファン用・川に面した側）の両方に一致する。`,
+          `Gate 22 は表で Home（地元チームのファン）かつ Railway side（線路側）であり、いずれの条件にも合わない。`,
+          `Gate 7 は表で Visiting（相手チームのファン）だが Railway side（線路側）であり、川に面した側という条件に合わない。`,
+        ] },
+      { tag: '詳細', t: ['p4type'], qid: 'v1q96p', s: 'What is the reason for the closure?',
+        c: ['Workers are repairing the pavement there', 'Engineers are fixing its ticket scanners', 'A television crew is using the space', 'Organizers are setting up a fan zone there'],
+        a: 3,
+        e: `閉鎖の理由は、その入口内側の空間でファンゾーンを設営するためである。"the organisers are using the space just inside it to set up a fan zone for tonight's fixture" とある。`,
+        w: [
+          `舗装工事についての言及はない。`,
+          `改札機の修理についての言及はない。`,
+          `テレビ撮影隊の使用についての言及はない。`,
+          `正解。"the organisers are using the space just inside it to set up a fan zone for tonight's fixture" と述べている。`,
+        ] },
+      { tag: '詳細', t: ['p4type'], qid: 'v1q97p', s: 'According to the speaker, what will happen at halftime?',
+        c: ['Sponsors will announce a prize winner', 'A local choir will perform', 'Former players will greet the crowd', 'Youth teams will play a short game'],
+        a: 1,
+        e: `ハーフタイムには地元の合唱団が演奏する。"we're pleased to have a local choir performing on the pitch" とある。`,
+        w: [
+          `スポンサーによる抽選発表についての言及はない。`,
+          `正解。"At halftime, we're pleased to have a local choir performing on the pitch" と述べている。`,
+          `元選手によるあいさつについての言及はない。`,
+          `ユースチームの試合についての言及はない。`,
+        ] },
     ],
-  },
+  }),
 
-  /* ── 98–100（図表）───────────────────────────────── */
+  /* ── 98–100 留守番電話（看板・印刷会社、図表あり） ──────────────────────
+     くじは No.98=A（Order 44）, 99=B, 100=A。表の語（Acrylic panel/Aluminum panel/
+     Matte/Gloss/注文番号）は音声に出さず、素材は「軽く透明な素材」対「金属製」、
+     仕上げは「つや消し」対「光沢仕上げ（shinier）」に言い換えた。2属性（透明な素材・
+     つや消し）を別々の文で伝え、表と組み合わせて Order 44 に一意に絞られる。行の並び
+     （44, 12, 37, 8）はそのまま使用。請求書は4件分を1通にまとめ、Q99 の対象を1つに
+     絞った。新規固有名 Maxine Milward（担当者）・Ms. Mabon（客）は D/M 頭字、
+     v15/names-used.txt・assets/data 全体と grep 照合済み（未使用）。
+     2026-09-29 監査反映：名を Dana → Maxine に変更（Dana は同じ vol1 の Part3・Part7 に既出のため）。
+     2026-09-29 監査第2巡反映：S5「third order with us this year」が、表の4行がそれぞれ別の
+     Order 番号を持つ（＝進行中の注文が4件ある）ことと食い違っていたため、"Since you've come to
+     us for signs before,"（以前からの利用客）に差し替えた。ja も合わせて修正。S6 の "fitted"
+     （英式）を W-Am のロールに合わせ "installed" に変更。
+     S2「the first one's ready. It's the lightweight, see-through panel.」が、属性を聞かずに
+     表の1行目（序数）で Order 44 に着く近道だったため、複数形「one of the lightweight,
+     see-through panels」に直して序数を消した。S4 は「3件とも彫刻班にある」と言いながら
+     1件は仕上げブースにあるという食い違いを解消し、"the third"（序数）も削除。
+     S5 は「請求書に請求を添付する」という不自然な言い方をやめ、S7 の「電話して」という
+     2つ目の依頼（(B) と部分的に重なる）を削除した。 */
   talk({
-    n: [98, 99, 100], lv: 5, k: 'telephone message', t: ['graphic', 'p4type'],
+    n: [98, 99, 100], lv: 4, k: 'telephone message', t: ['graphic', 'p4type'],
     graphic: {
-      t: 'table', title: 'Hollis & Partners — Consultation Fees',
-      head: ['Service', 'Duration', 'Fee'],
+      t: 'table', title: 'Current Sign Orders',
+      head: ['Order', 'Material', 'Finish'],
       rows: [
-        ['Initial review', '30 min', '€60'],
-        ['Standard consultation', '60 min', '€110'],
-        ['Extended consultation', '90 min', '€150'],
-        ['Document drafting', 'per hour', '€130'],
+        ['Order 44', 'Acrylic panel', 'Matte'],
+        ['Order 12', 'Aluminum panel', 'Matte'],
+        ['Order 37', 'Acrylic panel', 'Gloss'],
+        ['Order 8', 'Aluminum panel', 'Gloss'],
       ],
     },
     s: [
-      { role: 'M-Br', text: 'Ms. Farrell, this is Owen Hollis returning your enquiry about the lease dispute.' },
-      { role: 'M-Br', text: 'From what you described in your e-mail, I don\'t think a half-hour slot will be enough. There are two separate issues — the service charge and the break clause — and each of those takes some working through.' },
-      { role: 'M-Br', text: 'On the other hand, I do not want to book you the longest option and have us finish early. Ninety minutes would be more than we need.' },
-      { role: 'M-Br', text: 'So I\'d suggest the middle option. If we do run over, I will not charge you for the extra time on a first meeting.' },
-      { role: 'M-Br', text: 'One thing to bring: the original lease, not the scanned copy. There\'s an annexe that is often missing from scans, and it may well be the annexe that decides this.' },
+      { role: 'W-Am', text: `Hi, Ms. Mabon, this is Maxine Milward calling from Medford Sign & Print about the set of four signs you ordered for the new office.` },
+      { role: 'W-Am', text: `Good news — one of them is finished. It's one of the lightweight, see-through panels.` },
+      { role: 'W-Am', text: `It's also the one we finished with the flat, non-reflective coating, rather than the shinier option we also offer.` },
+      { role: 'W-Am', text: `The other three are still in progress: the two metal ones are still being engraved, and the remaining see-through one needs another day in the finishing booth.` },
+      { role: 'W-Am', text: `I've put the charges for all four signs on a single invoice. Since you've come to us for signs before, the total already includes the loyalty discount we apply to repeat customers.` },
+      { role: 'W-Am', text: `When you come to collect the finished one, could you take a moment to check it over in the shop before you head out? It's much easier to sort out any issue with the panel while you're still here than after it's been installed.` },
+      { role: 'W-Am', text: `Thanks, and see you soon.` },
     ],
-    ja: 'ホリス法律事務所のオーウェン・ホリスから、賃貸借契約の紛争について問い合わせたファレル氏への折り返し。メールの内容から 30 分枠では足りないと判断。サービス料と中途解約条項という 2 つの論点があり、それぞれ検討を要する。一方、最長の 90 分は必要以上なので、中間の選択肢を提案。初回に限り時間超過分は請求しないと伝える。持参物は、スキャンではなく賃貸借契約の原本。スキャンには附属書が欠けていることが多く、その附属書が決め手になる可能性が高い。',
-    v: [['lease', '賃貸借契約'], ['break clause', '中途解約条項'], ['run over', '（時間を）超過する'], ['annexe', '附属書']],
+    ja: `メドフォード・サイン・アンド・プリントの担当者マキシン・ミルワードが、看板を4点注文している客メイボン氏の留守電に残したメッセージ。4点のうち1点が仕上がったと伝え、その1点は軽く透明な素材で、つや消し仕上げにしたものだと説明する（光沢仕上げより光を反射しにくい）。残る3点のうち金属製の2点はまだ彫刻中で、透明素材の残る1点はあと1日仕上げに時間がかかると述べる。4点分の請求は1通の請求書にまとめており、以前にも利用している客なので常連客向けの割引が反映済みだと伝える。受け取りの際は、店を出る前にその場で確認してほしいと依頼する。最後にあいさつをして締めくくる。`,
+    v: [['see-through', '透明な'], ['non-reflective', '光を反射しない、つや消しの'], ['finishing booth', '仕上げ用のブース'], ['loyalty discount', '常連客向けの割引']],
     q: [
-      { tag: '図表', s: 'Look at the graphic. How much will Ms. Farrell most likely be charged?',
-        c: ['€60', '€110', '€130', '€150'],
-        a: 1,
-        e: '30 分では不足、90 分は過剰として「中間の選択肢」を勧めている。60 分の Standard consultation ＝ €110。',
-        w: ['30 分枠は不足と述べている。', '正解。', '書類作成の時間単価であり相談料ではない。', '90 分は必要以上と述べている。'] },
-      { tag: '詳細', s: 'Why does the speaker consider the shortest option unsuitable?',
-        c: ['Two distinct issues must be covered.', 'The office is closing early that day.', 'The client requested a longer meeting.', 'A colleague must also attend.'],
+      { tag: '図表', qid: 'v1q98p', s: 'Look at the graphic. Which order is ready for pickup today?',
+        c: ['Order 44', 'Order 12', 'Order 37', 'Order 8'],
         a: 0,
-        e: '「サービス料と中途解約条項という 2 つの論点があり、それぞれ検討を要する」が理由。',
-        w: ['正解。', '閉所時間の話はない。', '客側の要望ではなく弁護士の判断。', '同席者の話はない。'] },
-      { tag: '依頼', s: 'What is the listener asked to bring?',
-        c: ['A scanned copy of the lease', 'The original lease document', 'Correspondence with the landlord', 'A list of questions'],
+        e: `話し手は本日受け取れる看板について「軽く透明な素材」（"It's one of the lightweight, see-through panels"）、かつ「つや消し仕上げ」（"It's also the one we finished with the flat, non-reflective coating"）と、2つの手がかりを別々の文で述べている。表で Acrylic panel（透明な素材）かつ Matte（つや消し）に該当するのは Order 44 だけである。`,
+        w: [
+          `正解。表で Acrylic panel（透明な素材）かつ Matte（つや消し）に該当するのは Order 44 のみで、話し手が挙げた2つの条件（軽く透明な素材・つや消し仕上げ）の両方に一致する。`,
+          `Order 12 は Aluminum panel（金属製）かつ Matte（つや消し）であり、仕上げの条件は一致するが、素材が金属製で「軽く透明な素材」に合わない。`,
+          `Order 37 は Acrylic panel（透明な素材）だが Gloss（光沢仕上げ）であり、話し手の言う「つや消し仕上げ」に合わない。さらに本文でも"the remaining see-through one needs another day in the finishing booth"と、透明素材のもう1件はまだ仕上げ中だと述べている。`,
+          `Order 8 は Aluminum panel（金属製）かつ Gloss（光沢仕上げ）であり、いずれの条件にも合わない。`,
+        ] },
+      { tag: '詳細', t: ['p4type'], qid: 'v1q99p', s: 'What is mentioned about the bill?',
+        c: ['The final cost is higher than the quote', 'The total reflects a repeat-customer discount', 'The invoice lists an old e-mail address', 'The balance is due before pickup'],
         a: 1,
-        e: '「スキャンではなく原本を」と明確に依頼している。附属書がスキャンに欠けていることが多いため。',
-        w: ['スキャンは避けるよう言われている。', '正解。', '往復書簡には触れていない。', '質問リストの依頼はない。'] },
+        e: `請求について、常連客向けの割引が反映されていると述べている。"the total already includes the loyalty discount we apply to repeat customers" とある。`,
+        w: [
+          `見積もりより最終費用が高いという言及はない。`,
+          `正解。"the total already includes the loyalty discount we apply to repeat customers" と述べている。`,
+          `古いメールアドレスが記載されているという言及はない。`,
+          `受け取り前の支払いについての言及はない。`,
+        ] },
+      { tag: '依頼', t: ['p4type'], qid: 'v1q100p', s: 'What does the caller ask the listener to do?',
+        c: ['Check the sign before leaving the shop', 'Call the shop before coming in', 'Collect the sign within three days', 'Arrange for help carrying a large item'],
+        a: 0,
+        e: `受け取りの際、店を出る前に看板を確認してほしいと依頼している。"could you take a moment to check it over in the shop before you head out" とある。`,
+        w: [
+          `正解。"could you take a moment to check it over in the shop before you head out" と依頼している。`,
+          `来店前の電話連絡についての依頼はない。`,
+          `3日以内の受け取りについての言及はない。`,
+          `大きな品物を運ぶ手伝いの手配についての依頼はない。`,
+        ] },
     ],
   }),
+
 ];

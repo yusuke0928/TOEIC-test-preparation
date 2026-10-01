@@ -5,380 +5,536 @@
 const mp = (o) => ({
   id: `v2-p7-${o.n[0]}`, part: 7, kind: 'doc', topics: o.t || ['p7cross'],
   level: o.lv ?? 5, docCount: o.docs.length, docs: o.docs,
-  /* 設問 id は通し番号 no から自動生成するが、中身を差し替えた設問だけは
-     x.id で新規採番を明示できるようにしてある（id を使い回すと SRS の履歴が
-     別問題に引き継がれるため。vol1-r1.js の p6() ヘルパーと同じ仕組み）。 */
+  /* 設問 id は通し番号 no から自動生成するが、本ファイルは No.176–200 を全問
+     新規採番したため x.qid で明示している（id を使い回すと SRS の履歴が
+     別問題に引き継がれるため）。 */
   questions: o.q.map((x, i) => ({
-    id: x.id ?? `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.qid || `v2q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || ['p7cross'], tag: x.tag,
   })),
 });
 
 export const R4 = [
 
-  /* ══ 176–180 ダブルパッセージ ══════════════════════ */
+  /* ══ 176–180 ダブルパッセージ ══════════════════════
+     先読み対策（2026-09-29）：stem と選択肢は監査役の設問案で凍結し、正解は
+     くじで決めたあと本文を新規に書き下ろした。大学の夏期講座ウェブページ＋
+     受講希望者の問い合わせメール。Q176・Q177・Q179・Q180 の4問がクロス。
+     文書を1つずつ隠すと：
+       - ウェブページだけでは、Farthing さんがどの講師の下で学びたいか・どの
+         身分の区分に当たるか・曜日と時間帯の希望・オリエンテーションの希望が
+         分からず、どのクロス設問も決まらない。
+       - メールだけでは、4講座と担当講師の対応・4区分の金額・4セクションの
+         曜日と時間帯・4回のオリエンテーションの形式と内容が分からず、
+         同様に決まらない。
+       - Q178 はウェブページのみで決まる単一文書の詳細設問。
+     Q176: 講師 Lacey（メール）＝Principles of Data Visualization（ウェブページ）。
+     Q177: Lowther Group 勤務（メール）＝$180 の区分（ウェブページ）。
+     Q179: 火木・夕方（メール2文）＝Farrant Hall（ウェブページ）。
+     Q180: キャンパス開催・コンピュータ口座設定希望（メール2文）＝6月26日
+     （ウェブページ）。 */
   mp({
     n: [176, 177, 178, 179, 180],
+    lv: 3,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
-        title: 'Larkfield Community Farm — Volunteer Sessions',
+        title: 'Ledgerton University — Summer Programs',
         body: [
-          { t: 'table',
-            head: ['Session', 'Day', 'Time', 'Minimum age', 'Notes'],
+          'This summer, the Summer Programs Office is offering four non-credit courses, open to the public as well as current students.',
+          { t: 'list', items: [
+            'Foundations of Marine Biology, taught by Dr. Laurence Fitton',
+            'Introduction to Urban Planning, taught by Dr. Leonie Landry',
+            'Principles of Data Visualization, taught by Dr. Felicity Lacey',
+            'Fundamentals of Museum Studies, taught by Dr. Lachlan Forsythe',
+          ] },
+          'Each course is offered in all four sections below, so choose whichever meeting time suits your schedule:',
+          { t: 'table', head: ['Section', 'Meets', 'Time'],
             rows: [
-              ['Propagation', 'Tuesday', '10:00–13:00', '16', 'Indoor; seated work available'],
-              ['Field work', 'Wednesday', '09:00–15:00', '18', 'Outdoor; sturdy boots essential'],
-              ['Orchard', 'Thursday', '10:00–14:00', '16', 'Outdoor; ladders used'],
-              ['Packing', 'Friday', '13:00–16:00', '14', 'Indoor; standing'],
+              ['Lorrimer Hall', 'Monday and Wednesday', 'Evening'],
+              ['Lydgate Hall', 'Tuesday and Thursday', 'Morning'],
+              ['Fairlie Hall', 'Monday and Wednesday', 'Morning'],
+              ['Farrant Hall', 'Tuesday and Thursday', 'Evening'],
             ] },
-          'Volunteers are asked to attend at least once a fortnight. Those who cannot commit to that are welcome at our monthly open days instead.',
-          'A free lunch is provided on sessions lasting five hours or more. Tea and cake are available at all sessions.',
-          'We can reimburse local bus fares on production of a ticket. We cannot reimburse fuel or parking.',
+          'Course fees depend on your status, as follows:',
+          { t: 'table', head: ['Category', 'Fee'],
+            rows: [
+              ['Ledgerton University alumni', '$260'],
+              ['Lingwood College faculty and staff', '$220'],
+              ['Ledgerton Public Library cardholders', '$300'],
+              ['Lowther Group employees', '$180'],
+              ['All other applicants', '$340'],
+            ] },
+          'A brief orientation is offered four times before classes begin; each covers one topic, in one of two formats:',
+          { t: 'table', head: ['Date', 'Format', 'Focus'],
+            rows: [
+              ['June 5', 'Online', 'Library orientation'],
+              ['June 12', 'On campus', 'Library orientation'],
+              ['June 19', 'Online', 'Computer account setup'],
+              ['June 26', 'On campus', 'Computer account setup'],
+            ] },
+          'To register for a course, please come in person to the Summer Programs Office, Room 118, on any weekday between 9 a.m. and 7 p.m.; a staff member will help you complete the paperwork there.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: volunteers@larkfieldfarm.org\nFrom: p.szczepanski@gmail.com\nDate: 4 March\nSubject: Volunteering with my daughter',
+        head: 'To: summerprograms@ledgerton.edu\nFrom: imogen.farthing@fastmail.com\nDate: May 20\nSubject: Summer course registration',
         body: [
-          'Hello,',
-          'I would like to volunteer with my daughter, who is fifteen. I work Monday to Wednesday, so we would only be free later in the week.',
-          'Neither of us is comfortable on ladders, and my daughter has a knee problem that makes standing for long periods difficult, though she is fine walking or sitting.',
-          'We could come every week if that is useful. We would travel by bus from Ardwell — about forty minutes each way.',
-          'Is there a session that would suit us both? If not, I am happy to come alone and bring her to an open day.',
-          'Best wishes,\nPiotr Szczepański',
+          'Dear Summer Programs Office,',
+          'I once attended a public lecture given by Dr. Felicity Lacey and would very much like the chance to study under her this summer.',
+          'I have been on the staff of the Lowther Group for the past two years.',
+          'This summer, my schedule only leaves Tuesdays and Thursdays free for a class.',
+          "I work until five on weekdays, so I'd need a class that meets once the working day is over.",
+          "For the orientation, I'd prefer to come to the university in person rather than join remotely.",
+          "The main thing I'm hoping to take care of at orientation is getting my login for the university's computers set up.",
+          'Could you let me know what I should do next?',
+          'Best wishes,\nImogen Farthing',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: 'Which session would suit both Mr. Szczepański and his daughter?',
-        c: ['Propagation', 'Field work', 'Orchard', 'None of the regular sessions'],
-        a: 3,
-        e: '条件は ①週の後半のみ ②娘は 15 歳 ③はしご不可 ④長時間の立ち仕事が困難。木曜の Orchard ははしごを使い、金曜の Packing は立ち仕事。火曜・水曜は勤務中。よって定例セッションで両方に合うものはない。',
-        w: ['火曜は勤務日。', '水曜も勤務日で、かつ 18 歳以上。', 'はしごを使うため不可。', '正解。'] },
-      { tag: 'クロス', s: 'Why is the Packing session unsuitable?',
-        c: ['It has an age limit that excludes his daughter.', 'It requires specialist footwear.',
-            'It takes place on a working day for him.', 'It involves prolonged standing.'],
-        a: 3,
-        e: 'Packing は Indoor; standing。娘は長時間の立位が難しい。年齢制限 14 歳は満たしている。',
-        w: ['14 歳以上なので 15 歳は該当する。', '靴の指定は Field work。', '金曜は勤務日ではない。', '正解。'] },
-      { tag: '詳細', s: 'What does Mr. Szczepański offer as an alternative?',
-        c: ['To volunteer only during school holidays', 'To attend alone and bring his daughter to an open day',
-            'To help with the group\'s administrative work from home and by phone', 'To make a donation instead'],
+      { tag: 'クロス', qid: 'v2q176p', s: 'Which summer course will Ms. Farthing most likely register for?',
+        c: ['Principles of Data Visualization', 'Introduction to Urban Planning', 'Foundations of Marine Biology', 'Fundamentals of Museum Studies'],
+        a: 0,
+        e: 'ウェブページは Principles of Data Visualization を Dr. Felicity Lacey が担当すると案内している。メールは、Dr. Felicity Lacey の公開講演に以前出席し、彼女のもとで学びたいと書いている。この2つを合わせると、Farthing さんが登録するのは Principles of Data Visualization だとわかる。',
+        w: ['正解。',
+            'Introduction to Urban Planning の担当は Dr. Leonie Landry で、メールが触れている講師とは一致しない。',
+            'Foundations of Marine Biology の担当は Dr. Laurence Fitton で、メールが触れている講師とは一致しない。',
+            'Fundamentals of Museum Studies の担当は Dr. Lachlan Forsythe で、メールが触れている講師とは一致しない。'] },
+      { tag: 'クロス', qid: 'v2q177p', s: 'How much will Ms. Farthing most likely pay in course fees?',
+        c: ['$180', '$220', '$260', '$300'],
+        a: 0,
+        e: 'ウェブページの料金表では、Lowther Group の社員は $180。メールで Farthing さんは「この2年間 Lowther Group に勤めている」と書いており、この区分に当たる。',
+        w: ['正解。',
+            '$220 は Lingwood College の教職員向けの料金で、メールは同校との関係を述べていない。',
+            '$260 は Ledgerton University 卒業生向けの料金で、メールは卒業生であるとは述べていない。',
+            '$300 は Ledgerton Public Library の利用カード保有者向けの料金で、メールは図書館カードに触れていない。'] },
+      { tag: '詳細', qid: 'v2q178p', s: 'What does the website say about registering for a course?',
+        c: ['Registration takes place through an online form.', 'Registration involves a visit to the campus office.', 'Registration happens through a telephone call.', 'Registration requires mailing a signed paper form.'],
         a: 1,
-        e: '「合うものがなければ自分だけ参加し、娘は開放日に連れて行く」と述べている。',
-        w: ['長期休暇の話はない。', '正解。', '在宅の事務作業や電話対応は本文で述べられていない。', '寄付の話も出ていない。'] },
-      { tag: 'クロス', s: 'Which session includes a free lunch?',
-        c: ['Propagation', 'Packing', 'Orchard', 'Field work'],
+        e: 'ウェブページは「登録するには、平日9時から19時の間に Summer Programs Office, Room 118 へ直接来てほしい。職員がその場で手続きを手伝う」と案内している。',
+        w: ['オンラインの様式には触れていない。', '正解。', '電話での対応には触れていない。', '署名済みの用紙の郵送には触れていない。'] },
+      { tag: 'クロス', qid: 'v2q179p', s: 'Which section will Ms. Farthing most likely join?',
+        c: ['The Farrant Hall section', 'The Lydgate Hall section', 'The Lorrimer Hall section', 'The Fairlie Hall section'],
+        a: 0,
+        e: 'ウェブページの表では、Farrant Hall は火曜と木曜、夕方に開講。メールは「火曜と木曜しか空いていない」（曜日）と「平日は5時まで仕事があるので、勤務が終わってから始まる授業が必要」（時間帯）の2文を書いており、この両方を満たすのは Farrant Hall だけ。',
+        w: ['正解。',
+            'Lydgate Hall は火・木の午前で、曜日の条件には合うが夕方という時間帯の条件に合わない。',
+            'Lorrimer Hall は月・水の夕方で、時間帯の条件には合うが火・木という曜日の条件に合わない。',
+            'Fairlie Hall は月・水の午前で、曜日・時間帯のどちらの条件にも合わない。'] },
+      { tag: 'クロス', qid: 'v2q180p', s: 'On what date will Ms. Farthing most likely attend an orientation session?',
+        c: ['June 5', 'June 12', 'June 19', 'June 26'],
         a: 3,
-        e: '「5 時間以上のセッションで昼食を提供」。Field work は 09:00–15:00 の 6 時間で該当。Orchard は 4 時間、Propagation は 3 時間、Packing は 3 時間。',
-        w: ['3 時間。', '3 時間。', '4 時間。', '正解。'] },
-      { tag: 'クロス', s: 'What travel costs could Mr. Szczepański claim?',
-        c: ['Parking at the farm', 'Fuel for the journey', 'His bus fares', 'None of his travel costs'],
-        a: 2,
-        e: '「地元のバス運賃は切符の提示で払い戻せる。燃料と駐車は不可」。彼はバス利用と述べている。',
-        w: ['駐車は対象外。', '燃料も対象外。', '正解。', 'バス運賃は対象。'] },
+        e: 'ウェブページの表では、6月26日はキャンパス開催・コンピュータ口座設定が内容。メールは「オンラインではなく大学に直接出向きたい」（形式）と「大学のコンピュータのログインを設定しておきたい」（内容）の2文を書いており、この両方を満たすのは6月26日だけ。',
+        w: ['6月5日はオンライン・図書館案内で、形式・内容のどちらの希望にも合わない。',
+            '6月12日はキャンパス開催・図書館案内で、形式の希望には合うがコンピュータ口座設定という内容の希望に合わない。',
+            '6月19日はオンライン・コンピュータ口座設定で、内容の希望には合うがキャンパス開催という形式の希望に合わない。',
+            '正解。'] },
     ],
   }),
 
-  /* ══ 181–185 ダブルパッセージ ══════════════════════ */
+  /* ══ 181–185 ダブルパッセージ ══════════════════════
+     公園改修を報じる地元紙の記事＋住民からの投書。Q183・Q184 の2問がクロス。
+     文書を1つずつ隠すと：
+       - 記事だけでは、投書者がいつ自分の催しを開くか・いつなら意見を出せるかが
+         分からず、どちらのクロス設問も決まらない。
+       - 投書だけでは、4つの工程がいつ実施されるか・4つの意見提出方法がいつまで
+         受け付けられるかが分からず、同様に決まらない。
+       - Q181・Q182 は単一文書の詳細設問。Q185 は投書のみの推測設問。
+     Q183: 投書「8月に催しを開きたい」＝記事「8月は菜園の移設」。
+     Q184: 投書「6月最後の2週間まで考えがまとまらない」＝記事「公園課の意見箱は
+     6月16〜30日のみ受付（他の3方法はすでに締め切っている）」。 */
   mp({
     n: [181, 182, 183, 184, 185],
+    lv: 3,
     docs: [
       {
         label: 'Article', meta: 'Document 1',
-        title: 'Two Bakeries, One Street, Very Different Answers',
-        head: 'The Provincial — Food, 8 February',
+        title: 'Renovation Plans Approved for Lindley Green',
         body: [
-          'When rents on Gainsborough Row rose by eighteen percent last autumn, the street\'s two bakeries responded in opposite ways.',
-          'Hearth & Grain cut its range from forty-two lines to nine. "We were making thirty things badly," says owner Ama Boateng. "Now we make nine things properly and we sell out by two." Waste has fallen from about eleven percent of production to under two.',
-          'Fifty metres away, Pellinore\'s went the other way, adding a small café area and extending opening hours into the evening. Owner Ruaridh Sinclair says the bread was never the problem. "People were buying a loaf and leaving. Now they sit down, and the average spend has gone from four pounds to eleven."',
-          'Both report that trading is better than a year ago. Neither will say by how much.',
-          'The one thing they agree on is what they would not do: neither would reduce ingredient quality. "That is a decision you can only make once," Ms. Boateng says.',
+          "The Falstone Gazette — Town officials have approved a long-discussed renovation of Lindley Green, the town's largest park. Plans moved forward after nearly four hundred residents signed a petition asking the town council to have the park brought up to date, and the council voted last month to fund the work in full.",
+          'Work will proceed in four phases, each addressing a different part of the park:',
+          { t: 'table', head: ['Phase', 'Scheduled month'],
+            rows: [
+              ['Playground reconstruction', 'June'],
+              ['Pathway resurfacing', 'July'],
+              ['Garden relocation', 'August'],
+              ['Parking area expansion', 'September'],
+            ] },
+          'Residents wishing to comment on the plans may do so in several ways:',
+          { t: 'table', head: ['Method', 'Open period'],
+            rows: [
+              ['Online feedback form', 'April 1–30'],
+              ['Public forum at the library', 'May 15 (one evening only)'],
+              ['Mailed comment card', 'June 1–15'],
+              ['Comment box at the parks office', 'June 16–30'],
+            ] },
+          'The parks department says it will review every comment it receives.',
         ],
       },
       {
-        label: 'Letter to the editor', meta: 'Document 2',
-        head: 'Published 15 February',
+        label: 'Letter', meta: 'Document 2',
+        title: 'Letters to the Editor',
         body: [
-          'Sir,',
-          'Your piece on the Gainsborough Row bakeries was interesting but left out the obvious question: what happened to the customers who wanted the thirty-three lines that disappeared?',
-          'I am one of them. I bought the seeded rye from Hearth & Grain every week for six years. It is not in the nine, and I now buy it from a supermarket, which suits nobody.',
-          'I do not say the decision was wrong. A business that is making a loss on thirty lines cannot keep making them because I am fond of one. But an article about two strategies might have asked what each one costs, and who pays it.',
-          'The café at Pellinore\'s has the same issue in reverse. The queue is now often ten minutes long, which is fine if you are staying and impossible if you are on your way to work.',
-          'Yours,\nD. Achterberg, Gainsborough Row',
+          'I read with interest your report on the plans for Lindley Green.',
+          "These days, I like to meet a couple of old friends at the picnic tables most Saturday mornings, and it's good to hear the park will be brought up to date.",
+          "I'm hoping to organize a small outdoor poetry reading in the park sometime in August, and I wonder whether construction will still be going on at that point.",
+          "Between work and family commitments, I doubt I'll manage to put my thoughts on the plans in order before the final two weeks of June, so I may be later than most in having my say.",
+          'Last spring my family traded our old apartment for a house two streets from the park, and the green space was one of the main reasons we chose the neighborhood.',
         ],
+        sig: 'Dorian Featherstone',
       },
     ],
     q: [
-      { tag: '詳細', s: 'How did Hearth & Grain respond to the rent increase?',
-        c: ['By opening a second branch', 'By narrowing its product range',
-            'By raising prices across the board', 'By extending its opening hours'],
+      { tag: '詳細', qid: 'v2q181p', s: 'According to the article, why did the town decide to renovate Lindley Green?',
+        c: ['The town won a grant for improving public spaces.', 'Residents handed a petition to the town council.', 'An elementary school opened on the street beside the park.', 'County officials set new standards for public parks.'],
         a: 1,
-        e: '「42 種類から 9 種類に絞った」と述べられている。',
-        w: ['2 店舗目の話はない。', '正解。', '値上げには触れていない。', '営業時間の延長は Pellinore\'s の対応。'] },
-      { tag: '詳細', s: 'What does Mr. Sinclair say changed at Pellinore\'s?',
-        c: ['Bread production doubled.', 'Average customer spending increased.',
-            'Staff numbers were reduced.', 'The shop moved to a larger unit.'],
-        a: 1,
-        e: '「平均客単価が 4 ポンドから 11 ポンドになった」と述べている。',
-        w: ['生産量の話はない。', '正解。', '人員削減には触れていない。', '移転の話も出ていない。'] },
-      { tag: 'クロス', s: 'What criticism does the letter make of the article?',
-        c: ['It relied on sales figures the two owners would not publicly confirm.', 'It failed to mention the eighteen percent rent increase on Gainsborough Row.',
-            'It gave more space to one bakery than the other in every issue.', 'It did not consider the cost of each strategy to customers.'],
+        e: '記事は「約400人の住民が、公園を改修するよう求める請願書に署名したことを受けて計画が進んだ」と述べている。',
+        w: ['補助金の獲得には触れていない。', '正解。', '小学校の開校には触れていない。', '郡の基準には触れていない。'] },
+      { tag: '詳細', qid: 'v2q182p', s: 'What does Mr. Featherstone say he currently does at Lindley Green?',
+        c: ['He grows vegetables in one of the community garden plots.', 'He walks his dog along the perimeter path each morning.', 'He coaches a youth sports team on the open field.', 'He meets friends at the picnic tables on weekends.'],
         a: 3,
-        e: '「2 つの戦略を扱う記事なら、それぞれの代償と、それを誰が負担するのかを問うべきだった」が批判の核。',
-        w: ['両者とも数値の公表を拒んでおり、記事もそう明記している。「2人の経営者」という指定はない。', '賃料上昇（18パーセント）は記事の冒頭で明記されている。', '分量の偏りは指摘しておらず、複数号にわたる話でもない。', '正解。'] },
-      { tag: 'クロス', s: 'What does the letter writer say about the seeded rye?',
-        c: ['It was among the nine remaining lines.', 'It is no longer available at Hearth & Grain.',
-            "Pellinore's now sells it instead.", 'Its price has risen sharply.'],
+        e: '投書は「最近は土曜の朝、昔からの友人と何人かでピクニックテーブルによく集まっている」と書いている。',
+        w: ['菜園の区画で野菜を育てているとは書いていない。', '犬の散歩には触れていない。', '少年スポーツチームの指導には触れていない。', '正解。'] },
+      { tag: 'クロス', qid: 'v2q183p', s: 'Which phase of the renovation will most likely be underway when Mr. Featherstone plans to hold his event at Lindley Green?',
+        c: ['The playground reconstruction', 'The pathway resurfacing', 'The garden relocation', 'The parking area expansion'],
+        a: 2,
+        e: '投書は「8月中に屋外の朗読会を開きたい」と書いている。記事の表では、8月に予定されているのは菜園の移設。',
+        w: ['遊具の再建は6月に予定されており、8月ではない。', '小道の舗装し直しは7月に予定されており、8月ではない。', '正解。', '駐車場の拡張は9月に予定されており、8月ではない。'] },
+      { tag: 'クロス', qid: 'v2q184p', s: 'How will Mr. Featherstone most likely submit his comments on the renovation plan?',
+        c: ['By leaving a note at the parks office', 'By mailing a written comment card', 'By speaking at the public forum', 'By completing the online feedback form'],
+        a: 0,
+        e: '投書は「6月最後の2週間になるまで考えを整理できそうにない」と書いている。記事の表では、その時期（6月16〜30日）に開いているのは公園課の意見箱だけで、オンラインの様式（4月）・公開フォーラム（5月15日のみ）・郵送のコメントカード（6月1〜15日）はすでに締め切っている。',
+        w: ['正解。', '郵送のコメントカードは6月1〜15日のみの受付で、6月最後の2週間には間に合わない。', '公開フォーラムは5月15日の一晩限りで、6月下旬にはすでに終わっている。', 'オンラインの様式は4月1〜30日のみの受付で、6月下旬にはすでに締め切っている。'] },
+      { tag: '推測', qid: 'v2q185p', t: ['p7inf'], s: 'What can be inferred about Mr. Featherstone?',
+        c: ['He has lived near Lindley Green for many years.', 'He recently moved to a house near the park.', 'He runs a business that faces the park.', 'He sent the newspaper a letter last year.'],
         a: 1,
-        e: '「残った 9 種類に入っておらず、今はスーパーで買っている」とある。',
-        w: ['入っていないと明記。', '正解。', '別店舗が扱っているとは述べていない。', '価格には触れていない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What does the letter writer imply about the café queue?',
-        c: ['It shows the café is more successful than expected.', "It stems from the loss of the other bakery's range.",
-            'It will shorten once staff finish training.', 'It disadvantages a group of former customers.'],
-        a: 3,
-        e: '「座っていく人には問題ないが、通勤途中の人には不可能」＝従来の買って帰る客が締め出されている。',
-        w: ['成功の指標としては述べていない。', '他店の品目減とは結び付けていない。', '研修の話はない。', '正解。'] },
+        e: '投書は「去年の春、古いアパートから公園から2本先の通りの家に移った。この緑地があることが引っ越し先を選んだ大きな理由の一つだった」と書いている。',
+        w: ['「去年の春に越した」という記述と矛盾する。', '正解。', '公園に面した店を営んでいるとは書いていない。', '過去に投書したことには触れていない。'] },
     ],
   }),
 
-  /* ══ 186–190 トリプルパッセージ ════════════════════ */
+  /* ══ 186–190 トリプルパッセージ ══════════════════════
+     陶芸教室のウェブページ＋受講希望者のメール＋教室からの返信。
+     Q186・Q187・Q188 の3問がクロス。文書を1つずつ隠すと：
+       - ウェブページだけでは、Lonscombe さんがどの曜日・どの講師を希望するか、
+         何回コースを希望するか、住んでいる町・作品の大きさ・受け取りに来られる
+         時期が分からず、どのクロス設問も決まらない。
+       - メールだけでは、4講座と曜日・講師の対応、回数ごとの総額、受け取り4方法
+         それぞれの条件（期間・町・サイズ上限・配達先の町）が分からず、同様に
+         決まらない。
+       - Q189 はウェブページのみで決まる単一文書の詳細設問。Q190 は返信のみの
+         推測設問。
+     Q186: 月曜・Fleetwood 先生希望（メール2文）＝Wheel Throwing（ウェブページ）。
+     Q187: 「14週間分の授業」（メール）＝14回コースの総額 $350（ウェブページ）。
+     Q188: Foxwold 在住・作品はすべて30cm近く・7月4日〜8月2日は留守（メール3文）
+     ＝配達便（ウェブページ。受付は7月13〜24日限定で留守期間に完全に含まれる、
+     郵送上限25cmを全作品が超過、市場は Lynthorpe 在住者限定で該当せず、
+     残るは Foxwold・Fallowmere への配達便のみ。2026-09-29 の監査で、相対期間
+     〈完成から30日／1か月〉では毎週の通学と両立して閉じないことが判明し、
+     暦日の期間・日付での不在・市場の居住条件に差し替えた）。 */
   mp({
     n: [186, 187, 188, 189, 190],
+    lv: 4,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
-        title: 'Tolbury Hall — Room Hire for Filming',
+        title: 'Firthwell Pottery Studio — Class Series',
         body: [
-          { t: 'table',
-            head: ['Space', 'Half-day', 'Full day', 'Notes'],
+          'Firthwell Pottery Studio offers four class series this term, which runs from mid-March to mid-June, and every one of them welcomes complete beginners as well as returning students.',
+          { t: 'table', head: ['Class series', 'Meets', 'Instructor'],
             rows: [
-              ['Long Gallery', '£620', '£980', 'Natural light only; no rigging'],
-              ['Library', '£480', '£760', 'Rigging permitted from ceiling track'],
-              ['Servants\' Hall', '£290', '£450', 'Power limited to 16 A'],
-              ['Walled Garden', '£340', '£520', 'Weather-dependent; no alternative offered'],
+              ['Wheel Throwing', 'Monday evenings', 'Ms. Fleetwood'],
+              ['Hand Building', 'Thursday evenings', 'Ms. Fleetwood'],
+              ['Surface Decoration', 'Monday evenings', 'Mr. Furnival'],
+              ['Sculptural Forms', 'Thursday evenings', 'Mr. Furnival'],
             ] },
-          'All hire includes a house steward for the duration. Additional stewards, required for crews over twelve, are £180 per day each.',
-          'A refundable bond of £1,000 is held against damage. Filming that involves flame, liquids or livestock requires written approval at least fourteen days in advance.',
-          'Cancellation: 50 percent refund up to twenty-one days before; no refund thereafter.',
+          'Fees depend on how many sessions you sign up for, and cover materials and firing; there is no separate charge for clay or kiln use.',
+          { t: 'table', head: ['Sessions', 'Total fee'],
+            rows: [
+              ['2', '$140'],
+              ['7', '$210'],
+              ['10', '$280'],
+              ['14', '$350'],
+            ] },
+          'Finished pieces can be collected in one of the following ways:',
+          { t: 'list', items: [
+            'Front desk: pieces from every class series can be collected from July 13 to July 24.',
+            'Market stall: students who live in Lynthorpe can collect their pieces from our stall at the Saturday market there.',
+            'Mail: pieces up to twenty-five centimeters in any dimension can be sent to a home address.',
+            'Delivery route: a van makes a monthly round to Foxwold and Fallowmere, dropping off finished pieces for students who live in those towns.',
+          ] },
+          'The studio itself is upstairs; visitors reach it through the same street-level entrance used by the café on the ground floor.',
+          'To enroll, e-mail us with your preferred class series and schedule.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: hire@tolburyhall.org.uk\nFrom: production@fennelmoorfilms.com\nDate: 6 June\nSubject: Enquiry — two days in September',
+        head: 'To: enroll@firthwellpottery.com\nFrom: m.lonscombe@fastmail.com\nDate: March 3\nSubject: Enrollment inquiry',
         body: [
-          'Hello,',
-          'We are shooting a period drama and would like two full days at Tolbury, 17 and 18 September.',
-          'Day one is an interior dialogue scene for which we need to hang two lights from above. Day two is a garden scene, but we cannot risk losing a day to weather, so we would want an indoor space held as a fallback — the cheapest one that our crew of nine can work in.',
-          'There is a scene on day one involving a lit candle on a table.',
-          'Could you confirm availability and the total?',
-          'Regards,\nMorag Tennant',
+          'Dear Firthwell Pottery Studio,',
+          "I'd like to enroll in one of your class series for the coming term.",
+          'The only evening I can commit to each week is Monday.',
+          "I'd like to be placed with Ms. Fleetwood, if a spot in her section is available.",
+          "I'm hoping to sign up for fourteen weeks of classes.",
+          "I live in Foxwold, about half an hour's drive from the studio.",
+          "I'm planning to spend the term on a few large serving platters, and I'd guess each will end up close to thirty centimeters across.",
+          "Just so you know, once the term has ended I'll be away visiting family from July 4 to August 2.",
+          'Could you tell me what I need to do to complete my enrollment?',
+          'Best wishes,\nMarguerite Lonscombe',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: production@fennelmoorfilms.com\nFrom: hire@tolburyhall.org.uk\nDate: 7 June\nSubject: RE: Enquiry — two days in September',
+        head: 'To: m.lonscombe@fastmail.com\nFrom: a.fairclough@firthwellpottery.com\nDate: March 4\nSubject: Re: Enrollment inquiry',
         body: [
-          'Dear Ms. Tennant,',
-          'Both dates are free and I have provisionally held the spaces you describe.',
-          'For day one, only one of our interior spaces allows anything to be hung from above, so that is the one I have reserved. For day two I have held the garden plus the fallback space you asked for; if the weather holds you will not be charged for the fallback, provided you release it by 08:00 on the day.',
-          'Your crew size does not require an additional steward.',
-          'The candle does need written approval. I have attached the form — please return it by 3 September at the latest.',
-          'One caution about your fallback choice: the power supply there is limited, and two film lights will be close to the ceiling of what it can take. If your rig draws more than that, tell me now and I will suggest an alternative.',
-          'Kind regards,\nHeulwen Pritchard',
+          'Dear Ms. Lonscombe,',
+          "Thank you for your message, and it's good to have you back with us — I believe you took one of our courses a while back.",
+          "We can certainly try to accommodate your scheduling preferences, and I've made a note of the details you've given us.",
+          "For the pickup arrangements, our office will confirm the best option once your enrollment is finalized, but rest assured we'll find one that works for you.",
+          'If you have any other questions before then, just let me know.',
+          'Best regards,\nAmbrose Fairclough\nFirthwell Pottery Studio',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: 'Which space will be used on day one?',
-        c: ['Long Gallery', 'Library', 'Servants\' Hall', 'Walled Garden'],
-        a: 1,
-        e: '上から照明を吊る必要があり、rigging が許可されているのは Library のみ。Long Gallery は no rigging と明記。',
-        w: ['吊り込み不可。', '正解。', '吊り込みの記載がなく、電源も限定的。', '屋外。'] },
-      { tag: 'クロス', s: 'Which space has been held as the fallback?',
-        c: ['Long Gallery', 'Library', 'Servants\' Hall', 'Walled Garden'],
-        a: 2,
-        e: '「9 名の撮影隊が作業できる最も安い屋内空間」＝ Servants\' Hall（半日 £290／全日 £450）。返信の「電源が限られている」という注意もこの部屋の Notes と一致する。',
-        w: ['最も高い。', '1 日目に使用。', '正解。', '屋外で fallback にならない。'] },
-      { tag: 'クロス', s: 'What is the charge for day one?',
-        c: ['£450', '£520', '£760', '£980'],
-        a: 2,
-        e: '1 日目は Library の全日 £760。撮影隊は 9 名なので追加スチュワードは不要。',
-        w: ['Servants\' Hall の全日。', 'Walled Garden の全日。', '正解。', 'Long Gallery の全日。'] },
-      { tag: '詳細', s: 'What must the production company do by 3 September?',
-        c: ['Pay the refundable bond of £1,000 before filming begins.', 'Release the fallback space immediately after signing the contract.',
-            'Confirm the final crew size in writing', 'Return a completed approval form'],
-        a: 3,
-        e: '「ろうそくには書面承認が必要。用紙を 9 月 3 日までに返送を」と指示されている。',
-        w: ['保証金の支払期限は示されていない。', 'fallback の解放は撮影当日の 8 時までと明記されており、契約直後という記述とは異なる。', '人数はすでに伝わっており、書面での再確認も求められていない。', '正解。'] },
-      { tag: '推測', t: ['p7inf'], s: 'Why does Ms. Pritchard raise a concern about the fallback space?',
-        c: ['Its electrical capacity may be insufficient.', 'It may not be large enough for the crew.',
-            'The space already has a booking on 18 September.', 'It has no natural light.'],
+      { tag: 'クロス', qid: 'v2q186p', s: 'Which class series will Ms. Lonscombe most likely enroll in?',
+        c: ['Wheel Throwing', 'Hand Building', 'Surface Decoration', 'Sculptural Forms'],
         a: 0,
-        e: '「電源が限られており、照明 2 灯で上限に近い」と警告している。文書 1 の「16 A まで」と一致する。',
-        w: ['正解。', '広さの懸念は述べていない。', '両日とも空いていると回答している。', '採光の話は Long Gallery のもの。'] },
+        e: 'ウェブページの表では、Wheel Throwing は Monday evenings に Ms. Fleetwood が担当。メールは「毎週コミットできるのは月曜の夜だけ」と「Fleetwood 先生のクラスに入りたい」の2文を書いており、この両方を満たすのは Wheel Throwing だけ。',
+        w: ['正解。',
+            'Hand Building は Ms. Fleetwood の担当だが木曜の夜で、月曜という希望に合わない。',
+            'Surface Decoration は月曜の夜だが担当は Mr. Furnival で、Fleetwood 先生という希望に合わない。',
+            'Sculptural Forms は Mr. Furnival の担当で木曜の夜であり、どちらの希望にも合わない。'] },
+      { tag: 'クロス', qid: 'v2q187p', s: 'How much will Ms. Lonscombe most likely pay in total for the course?',
+        c: ['$140', '$210', '$280', '$350'],
+        a: 3,
+        e: 'ウェブページの表では、14回コースの総額は $350。メールは「14週間分の授業に申し込みたい」と書いており、週1回のクラスなので14回に当たる。',
+        w: ['$140 は2回コースの総額で、14週間という希望に合わない。', '$210 は7回コースの総額で、14週間という希望に合わない。', '$280 は10回コースの総額で、14週間という希望に合わない。', '正解。'] },
+      { tag: 'クロス', qid: 'v2q188p', s: 'How will Ms. Lonscombe most likely receive her finished pieces?',
+        c: ["She will collect them from the studio's front desk.", 'She will pick them up at the market stall.', 'She will have them mailed to her home address.', "She will get them on the studio's delivery route."],
+        a: 3,
+        e: 'ウェブページは、配達便が Foxwold と Fallowmere に月1回回ると案内している。メールで Lonscombe さんは Foxwold 在住だと書いており、この町の一つに当たる。他の3方法は、それぞれ独立の条件でメールの内容と両立しない。',
+        w: ['ウェブページの受付での受け取りは7月13日から24日に限られるが、メールは「学期が終わったら7月4日から8月2日まで家族を訪ねて留守にする」と書いており、この期間が受付期間をすべて含むため受け取りに来られない。',
+            '市場での受け取りは Lynthorpe 在住者に限られるが、メールは Foxwold 在住だと書いており、その町ではない。',
+            '郵送は25センチまでの作品に限られるが、メールは「今学期は数点の大きめの大皿に取り組む予定で、どれも30センチ近くになりそうだ」と書いており、作品はすべて上限を超える。',
+            '正解。'] },
+      { tag: '詳細', qid: 'v2q189p', s: "What does the studio's website say about its building?",
+        c: ['It once housed a bakery.', 'It shares an entrance with a café.', 'It has parking spaces behind it.', 'It sits above a hardware store.'],
+        a: 1,
+        e: 'ウェブページは「教室は2階にあり、1階の同じ入口をカフェと共有している」と述べている。',
+        w: ['かつてパン屋だったとは述べていない。', '正解。', '裏手の駐車スペースには触れていない。', '金物店の上にあるとは述べていない。'] },
+      { tag: '推測', qid: 'v2q190p', t: ['p7inf'], s: 'What can be inferred about Ms. Lonscombe?',
+        c: ['She has taken pottery classes at Firthwell before.', 'She plans to give her pieces as gifts.', 'She learned about the studio from a colleague.', 'She owns a pottery wheel at home.'],
+        a: 0,
+        e: '返信は「またお越しいただけて嬉しいです。以前も当教室のコースを受けていただいたかと思います」と書いている。',
+        w: ['正解。', '作品を贈り物にする予定には触れていない。', '同僚からの紹介には触れていない。', '自宅にろくろを持っているとは述べていない。'] },
     ],
   }),
 
-  /* ══ 191–195 トリプルパッセージ ════════════════════ */
+  /* ══ 191–195 トリプルパッセージ ══════════════════════
+     スポーツクラブの年次更新案内＋会員のメール＋クラブ担当者からの返信。
+     Q191・Q192・Q193 の3問がクロス。文書を1つずつ隠すと：
+       - 案内だけでは、Ferriby さんがどの施設をよく使うか・更新に加える家族の
+         人数と年齢・ゲストがどんな種類の来館をするのかが分からず、どのクロス
+         設問も決まらない。
+       - メールだけでは、4種別と施設の対応、家族追加の基本額・例外条件、
+         ゲストの来館の種類ごとの承認者が分からず、同様に決まらない。
+       - Q194 は案内のみで決まる単一文書の詳細設問。Q195 は返信のみの推測設問。
+     Q191: 「川沿いの屋内施設をよく使う」（メール）＝Finch 会員（案内）。
+     Q192: 妻＋子供2人（9歳・13歳。メール）＝基本額 $180 ＋ $50×2（9歳は12歳
+     未満無料の例外に当たるため、有償の加算は2人分）＝$280（案内）。
+     Q193: 「来月のクラブハウスの夜の集いにゲストで来る」（メール）＝
+     クラブハウスの催しの承認者 Ms. Lisle（案内）。 */
   mp({
     n: [191, 192, 193, 194, 195],
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
-        title: 'Institute of Applied Acoustics — Membership Grades',
+        title: 'Annual Membership Renewal',
         body: [
-          { t: 'table',
-            head: ['Grade', 'Requirement', 'Annual fee'],
+          "It's time to renew your membership with Lethbridge Community Sports Club for the coming year. Please review the categories below and let us know your choice.",
+          { t: 'table', head: ['Membership', 'Facilities', 'Setting'],
             rows: [
-              ['Student', 'Enrolled on an accredited course', '£28'],
-              ['Associate', 'Two years of relevant practice', '£96'],
-              ['Member', 'Four years of practice and two referees', '£164'],
-              ['Fellow', 'Ten years and a substantial published contribution', '£210'],
+              ['Finch', 'Riverside', 'Indoor'],
+              ['Linnet', 'Town', 'Outdoor'],
+              ['Lapwing', 'Riverside', 'Outdoor'],
+              ['Fulmar', 'Town', 'Indoor'],
             ] },
-          'Applications are considered by the admissions panel, which meets in March, July and November. Applications must be complete twenty-eight days before a meeting.',
-          'Members and Fellows may use post-nominal letters and may sign off acoustic reports for building-control purposes. Associates may not.',
-          'Anyone upgrading within three years of joining pays only the difference between the two fees, not a new full fee.',
+          'The base fee is $180 a year for all four membership types. Each additional family member sharing the membership is charged $50 a year, except that children under the age of twelve are added at no extra charge.',
+          'Guests are welcome at the club, subject to approval from the relevant staff member beforehand:',
+          { t: 'list', items: [
+            'To play a match with a member: contact Ms. Fordyce.',
+            'To join a supervised class: contact Ms. Lanyon.',
+            'To attend a clubhouse event: contact Ms. Lisle.',
+            'To look around while considering membership: contact Ms. Faulds.',
+          ] },
+          "Renewal fees can be paid securely through the club's mobile app.",
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: admissions@appliedacoustics.org\nFrom: k.oyelaran@baffleworks.co.uk\nDate: 12 May\nSubject: Upgrade query',
+        head: 'To: renewals@lethbridgesports.org\nFrom: grant.ferriby@gmail.com\nDate: February 6\nSubject: Membership renewal',
         body: [
-          'Hello,',
-          'I joined as an Associate in September three years ago, having completed two years of practice at that point.',
-          'My employer now wants me to sign off building-control reports, which I understand I cannot currently do.',
-          'I have two colleagues willing to act as referees. I have not published anything.',
-          'What grade should I apply for, when is the earliest panel I could be considered by, and what would I pay?',
-          'Thanks,\nKemi Oyelaran',
+          'Dear Lethbridge Community Sports Club,',
+          "I'd like to renew my membership for the coming year.",
+          'The facilities I use most often are the indoor ones by the river.',
+          "I'll be adding my wife and our two children, aged nine and thirteen, to the renewal.",
+          "My brother-in-law will be joining me as a guest for the club's evening social next month, and I understand he'll need approval beforehand.",
+          'Could you let me know the total amount due and how to proceed?',
+          'Best regards,\nGrant Ferriby',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: k.oyelaran@baffleworks.co.uk\nFrom: admissions@appliedacoustics.org\nDate: 13 May\nSubject: RE: Upgrade query',
+        head: 'To: grant.ferriby@gmail.com\nFrom: h.lathbury@lethbridgesports.org\nDate: February 7\nSubject: Re: Membership renewal',
         body: [
-          'Dear Ms. Oyelaran,',
-          'Thank you for setting it out so clearly — it makes this straightforward.',
-          'On the grade: signing off reports requires the grade above yours, and you now meet its practice requirement, having had two years at the point of joining and more than two further years since. Your two referees satisfy the remaining condition.',
-          'On timing: the next panel after your application could reasonably be completed is the one in July. The application must be with us twenty-eight days beforehand, so please treat 3 June as your working deadline.',
-          'On fee: you are within three years of joining, so the reduced arrangement applies.',
-          'One point to note. Post-nominal letters may not be used until the panel has confirmed the grade, not from the date you apply.',
-          'Kind regards,\nRhodri Emlyn-Jones',
+          'Dear Mr. Ferriby,',
+          "Thank you for letting us know you'll be renewing.",
+          "We've noted the details you've provided, including the family members joining you and your guest's visit next month; the right approval will be arranged on our end.",
+          "It's a pleasure to have you with us for another year — I remember you telling us, when you first joined, that you'd come over from the Lambourne Athletic Club just down the road.",
+          "We'll be in touch shortly to confirm everything.",
+          'Best wishes,\nHester Lathbury\nMembership Team, Lethbridge Community Sports Club',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: 'Which grade should Ms. Oyelaran apply for?',
-        c: ['Student', 'Associate', 'Member', 'Fellow'],
-        a: 2,
-        e: '建築確認向けの報告書に署名できるのは Member 以上。実務年数は入会時点で 2 年、入会（3 年前の 9 月）から 2 年半以上が経過して計 4 年を超え、Member の要件を満たす。Fellow は 10 年の実務と出版実績が必要だが、彼女は出版なし。',
-        w: ['学生ではない。', '現在の等級で、署名権がない。', '正解。', '出版実績がないため要件を満たさない。'] },
-      { tag: 'クロス', s: 'How much will she pay?',
-        c: ['£68', '£96', '£164', '£260'],
+      { tag: 'クロス', qid: 'v2q191p', s: 'Which membership will Mr. Ferriby most likely choose for the coming year?',
+        c: ['The Finch membership', 'The Linnet membership', 'The Lapwing membership', 'The Fulmar membership'],
         a: 0,
-        e: '「入会から 3 年以内の昇格は差額のみ」。Member £164 − Associate £96 ＝ £68。3 文書の照合が必要。',
-        w: ['正解。', '現在の年会費。', '差額ではなく全額。', '該当する計算がない。'] },
-      { tag: 'クロス', s: 'By what date must her application be complete?',
-        c: ['13 May', '3 June', '1 July', '28 July'],
-        a: 1,
-        e: '7 月の審査会に間に合わせるには 28 日前までに完了が必要で、返信は「6 月 3 日を実務上の期限と考えてください」と明示している。',
-        w: ['返信の日付。', '正解。', '審査会の月であって期限ではない。', '期限を過ぎている。'] },
-      { tag: '詳細', s: 'What is Ms. Oyelaran unable to do at present?',
-        c: ['Sign off certain reports', 'Attend the admissions panel in person',
-            'Nominate referees', 'Renew her membership'],
-        a: 0,
-        e: '「建築確認向けの報告書に署名できない」と本人が述べ、規定でも Associate は不可とされている。',
-        w: ['正解。', '審査会への出席は求められておらず、対面出席という規定もない。', '推薦者は 2 名確保している。', '更新の話は出ていない。'] },
-      { tag: '推測', t: ['p7inf'], s: 'What does Mr. Emlyn-Jones caution her about?',
-        c: ['The fee may increase before the panel meets.', 'Her referees must hold the same grade.',
-            'She cannot use the letters until the grade is confirmed.', 'The July panel may be postponed.'],
+        e: '案内の表では、Finch は川沿い・屋内の施設。メールは「よく使う施設は川沿いの屋内のもの」と書いている。',
+        w: ['正解。', 'Linnet は町中・屋外の施設で、どちらの条件にも合わない。', 'Lapwing は川沿い・屋外の施設で、川沿いには合うが屋内という条件に合わない。', 'Fulmar は町中・屋内の施設で、屋内には合うが川沿いという条件に合わない。'] },
+      { tag: 'クロス', qid: 'v2q192p', s: 'How much will Mr. Ferriby most likely pay for his membership renewal?',
+        c: ['$180', '$230', '$280', '$330'],
         a: 2,
-        e: '「肩書き記号は申請日からではなく、審査会が等級を承認してからでないと使えない」と注意している。',
-        w: ['値上げの話はない。', '推薦者の等級には触れていない。', '正解。', '延期の可能性は述べていない。'] },
+        e: '案内は「基本額は年 $180、同居家族の追加は1人 $50、ただし12歳未満の子供は無料」としている。メールは妻と9歳・13歳の子供2人を加えると書いており、9歳は12歳未満の例外に当たるため無料、有償の追加は妻と13歳の子供の2人分。$180+$50×2=$280。',
+        w: ['基本額のみで、家族の追加を一切していない場合の金額。', '13歳の子にも12歳未満の例外を誤って当てはめ、妻の分だけを有償の追加として数えた場合の金額（$180+$50）。', '正解。', '9歳の子供にも12歳未満の例外を適用せず、3人全員を有償の追加として数えた場合の金額（$180+$50×3）。'] },
+      { tag: 'クロス', qid: 'v2q193p', s: "Who will most likely approve Mr. Ferriby's guest request?",
+        c: ['Ms. Fordyce', 'Ms. Lanyon', 'Ms. Lisle', 'Ms. Faulds'],
+        a: 2,
+        e: '案内は「クラブハウスの催しに来るゲストは Ms. Lisle に連絡」としている。メールは、義理の兄弟が来月のクラブの夜の集い（クラブハウスの催し）にゲストとして来ると書いている。',
+        w: ['Ms. Fordyce が担当するのは会員との試合をするゲストで、クラブハウスの催しではない。', 'Ms. Lanyon が担当するのは指導つきの教室に加わるゲストで、クラブハウスの催しではない。', '正解。', 'Ms. Faulds が担当するのは入会を考えて見学に来るゲストで、クラブハウスの催しではない。'] },
+      { tag: '詳細', qid: 'v2q194p', s: 'What does the notice say about paying the renewal fee?',
+        c: ['Payment can be made at the front desk.', 'Payment can be made by bank transfer.', "Payment can be made through the club's app.", 'Payment can be made with a mailed check.'],
+        a: 2,
+        e: '案内は「更新料はクラブの携帯アプリから安全に支払える」と述べている。',
+        w: ['受付での支払いには触れていない。', '銀行振込には触れていない。', '正解。', '小切手の郵送には触れていない。'] },
+      { tag: '推測', qid: 'v2q195p', t: ['p7inf'], s: 'What can be inferred about Mr. Ferriby?',
+        c: ["He sits on one of the club's committees.", 'He was away when the notice went out.', 'He previously belonged to a different sports club nearby.', 'He works for a company near the club.'],
+        a: 2,
+        e: '返信は「入会されたとき、近くの Lambourne Athletic Club から移ってきたとおっしゃっていたのを覚えています」と書いている。',
+        w: ['委員会に所属しているとは述べていない。', '案内が出たときに不在だったとは述べていない。', '正解。', 'クラブの近くの会社に勤めているとは述べていない。'] },
     ],
   }),
 
-  /* ══ 196–200 トリプルパッセージ ════════════════════ */
+  /* ══ 196–200 トリプルパッセージ ══════════════════════
+     観光バスツアー会社の広告＋予約希望者のメール＋同行者の追加のメール。
+     Q196・Q197・Q198 の3問がクロス。文書を1つずつ隠すと：
+       - 広告だけでは、Lumsden さんの一行がどの曜日・時間帯を望むか、メールの
+         日付、一行がどう現地に到着するかが分からず、どのクロス設問も決まらない。
+       - Lumsden さんのメールだけでは、4ツアーの曜日・時刻の対応、デポジットの
+         期限の起点からの日数、乗車地と最寄り施設の対応が分からず、同様に
+         決まらない。
+       - Q199 は広告のみで決まる単一文書の詳細設問。Q200 は Larchmont さんの
+         メールのみの推測設問。
+     Q196: 「日曜しか空いていない」＋「午前に出たい」（メール2文）＝
+     Mountain Vista（広告）。
+     Q197: メール日付8月4日＋広告「予約から1週間以内にデポジット」＝8月11日。
+     誤答は A=起点の8月4日そのもの／C=取消の2週間を使った8月18日（Larchmont
+     さんのメールの日付8月18日とも一致）／D=起点を Larchmont さんのメールの
+     日付〈8月18日〉と取り違えてそこから1週間後とした8月25日（2026-09-29の
+     監査で、文書3の日付が旧稿では正解と同じ8月11日になっており「文書3の日付
+     をそのまま答える」素朴な誤りが正解に着いていたため、8月18日に変更した）。
+     Q198: 「一行全員が早い船で渡ってくる」（Larchmont さんのメール）＝船が
+     着く場所＝フェリー乗り場に近い Fenby Avenue（広告）。 */
   mp({
     n: [196, 197, 198, 199, 200],
+    lv: 3,
     docs: [
       {
         label: 'Advertisement', meta: 'Document 1',
-        title: 'Corrib Coach Hire — Group Transport',
+        title: 'Fetterlane Coach Tours',
         body: [
-          { t: 'table',
-            head: ['Vehicle', 'Seats', 'Luggage', 'Rate per day'],
+          'Fetterlane Coach Tours runs four different day trips each weekend throughout the season:',
+          { t: 'table', head: ['Tour', 'Departs', 'Time'],
             rows: [
-              ['Minibus', '16', 'Cabin only', '€240'],
-              ['Midi coach', '33', 'Small hold', '€395'],
-              ['Standard coach', '49', 'Full hold', '€520'],
-              ['Executive coach', '49', 'Full hold + tables', '€680'],
+              ['Garden Estates', 'Saturday', 'Afternoon'],
+              ['Mountain Vista', 'Sunday', 'Morning'],
+              ['Heritage Trail', 'Saturday', 'Morning'],
+              ['Coastal Discovery', 'Sunday', 'Afternoon'],
             ] },
-          'Rates cover up to 300 km and eleven hours of driver duty. Beyond either limit, €1.10 per additional kilometre and €38 per additional hour apply.',
-          'A second driver is required by law where duty exceeds ten hours, at €190 per day.',
-          'Bookings made more than sixty days in advance receive a 7 percent reduction, which cannot be combined with the returning-customer rate.',
+          "On every tour, two guides travel with the group and hand each passenger a printed booklet on the day's stops to keep.",
+          'A deposit of 20 percent of the tour price is due within one week of booking. Bookings may be canceled free of charge within two weeks of booking; after that point, the deposit is non-refundable.',
+          'Coaches depart from four points around town:',
+          { t: 'table', head: ['Pickup point', 'Nearby'],
+            rows: [
+              ['Linacre Square', 'the train station'],
+              ['Larkhill Road', 'the airport bus stop'],
+              ['Lomax Street', 'the hotel district'],
+              ['Fenby Avenue', 'the ferry terminal'],
+            ] },
+          'Full fares are the same for all four tours and all four pickup points.',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 2',
-        head: 'To: bookings@corribcoach.ie\nFrom: trips@ardnamona-college.ie\nDate: 2 March\nSubject: Field trip, 19 May',
+        head: 'To: bookings@fetterlanecoachtours.com\nFrom: b.lumsden@gmail.com\nDate: August 4\nSubject: Group booking inquiry',
         body: [
-          'Hello,',
-          'We need transport for a geology field trip on 19 May: 41 students and 4 staff.',
-          'Each student brings a rucksack and there is a shared equipment crate, so we need proper luggage space rather than overhead racks.',
-          'The route is Ardnamona to the Burren and back, which our mapping software puts at 268 km. We would leave at 07:30 and expect to be back by 18:00.',
-          'We do not need tables. Could you confirm the vehicle and the total?',
-          'Many thanks,\nDeclan Ó Ruairc',
+          'Dear Fetterlane Coach Tours,',
+          "I'd like to arrange one of your day tours for a group of eight of us later this month.",
+          'Sunday is the only day everyone in our group is free this month.',
+          "We'd rather set off in the morning, since a couple of us have evening commitments that day.",
+          "We're all looking forward to getting away for the day.",
+          'Could you let me know how to confirm the booking and what happens next? Please let us know if you need any other information from us.',
+          'Best regards,\nBarnaby Lumsden',
         ],
       },
       {
         label: 'E-mail', meta: 'Document 3',
-        head: 'To: trips@ardnamona-college.ie\nFrom: bookings@corribcoach.ie\nDate: 3 March\nSubject: RE: Field trip, 19 May',
+        head: 'To: bookings@fetterlanecoachtours.com\nFrom: p.larchmont@fastmail.com\nDate: August 18\nSubject: Group booking — additional details',
         body: [
-          'Dear Mr. Ó Ruairc,',
-          'Your party of 45 with hold luggage points to one vehicle in our fleet, and since you do not need tables it is the standard specification rather than the executive.',
-          'On duty time: 07:30 to 18:00 is ten and a half hours. That crosses the legal threshold, so a second driver is required. I know that is unwelcome, but it is not something we can waive.',
-          'Your distance is inside the included allowance, and ten and a half hours is inside our eleven-hour duty allowance, so there is neither a per-kilometre nor a per-hour charge.',
-          'On price: your booking is more than sixty days ahead, so the advance reduction applies to the vehicle rate. It does not apply to the second-driver charge.',
-          'I have held the date. Please confirm within seven days.',
-          'Kind regards,\nAoife Ní Chatháin',
+          'Dear Fetterlane Coach Tours,',
+          "I'm part of the group Barnaby Lumsden contacted you about booking for later this month.",
+          "We'll all be coming over on the early boat that morning, so it would make sense for us to meet the coach somewhere near where it docks.",
+          "Barnaby has asked me to pass these details along on his behalf, as we've shared an office for more than ten years.",
+          'Please let me know if you need anything further from our side.',
+          'Best wishes,\nPhilippa Larchmont',
         ],
       },
     ],
     q: [
-      { tag: 'クロス', s: 'Which vehicle will be used?',
-        c: ['Minibus', 'Midi coach', 'Standard coach', 'Executive coach'],
+      { tag: 'クロス', qid: 'v2q196p', s: "Which tour package will Mr. Lumsden's group most likely book?",
+        c: ['The Heritage Trail tour', 'The Coastal Discovery tour', 'The Mountain Vista tour', 'The Garden Estates tour'],
         a: 2,
-        e: '45 名で荷室が必要。49 席かつ full hold は Standard と Executive だが、テーブル不要なので Standard。',
-        w: ['16 席では足りない。', '33 席では足りない。', '正解。', 'テーブル付きで、不要と明言されている。'] },
-      { tag: 'クロス', s: 'Why is a second driver required?',
-        c: ['The duty period exceeds ten hours.', 'The distance exceeds 300 km.',
-            'The group includes several school-age minors this time.', 'The route crosses a regional boundary line.'],
-        a: 0,
-        e: '07:30〜18:00 は 10 時間半で、法定の 10 時間を超える。文書 1 の規定と一致する。',
-        w: ['正解。', '268 km で 300 km 以内。', '年齢の規定はなく、生徒の年齢が理由とも述べられていない。', '地域境界の話はなく、路線の区切りについての規定もない。'] },
-      { tag: 'クロス', s: 'What is the total cost?',
-        c: ['€483.60', '€660.30', '€673.60', '€710.00'],
-        a: 2,
-        e: '車両 €520 に 60 日以上前の予約による 7 パーセント引きで €483.60。第 2 運転手 €190 は割引の対象外と明記されているので、合計は €483.60 ＋ €190 ＝ €673.60。3 文書すべての情報が必要。',
-        w: ['車両分のみで、第 2 運転手の料金が抜けている。',
-            '割引を第 2 運転手の料金にも適用した誤り（€710 × 0.93）。',
+        e: '広告の表では、Mountain Vista は日曜の午前発。Lumsden さんのメールは「日曜しか空いていない」（曜日）と「午前に出たい」（時間帯）の2文を書いており、この両方を満たすのは Mountain Vista だけ。',
+        w: ['Heritage Trail は土曜の午前発で、日曜という曜日の条件に合わない。',
+            'Coastal Discovery は日曜の午後発で、曜日には合うが午前という時間帯の条件に合わない。',
             '正解。',
-            '割引を適用していない合計。'] },
-      { tag: '詳細', s: 'What is stated about the distance?',
-        c: ['It falls within the included allowance.', 'It will incur an additional charge.',
-            'It has been recalculated by the coach company.', 'It requires a rest stop by law.'],
+            'Garden Estates は土曜の午後発で、どちらの条件にも合わない。'] },
+      { tag: 'クロス', qid: 'v2q197p', s: "If Fetterlane Coach Tours accepts Mr. Lumsden's booking on the date of his e-mail, by what date must the deposit be paid?",
+        c: ['August 4', 'August 11', 'August 18', 'August 25'],
+        a: 1,
+        e: '広告は「デポジットは予約から1週間以内」としている。Lumsden さんのメールの日付は8月4日なので、その1週間後の8月11日が期限になる。',
+        w: ['予約日である8月4日そのものの日付。',
+            '正解。',
+            '広告が定める「取消は2週間以内」という別の期間を使って8月4日から2週間後とした日付（Larchmont さんのメールの日付8月18日とも一致する）。',
+            '起点を Larchmont さんのメールの日付（8月18日）と取り違え、そこから1週間後とした日付。'] },
+      { tag: 'クロス', qid: 'v2q198p', s: "Where will Mr. Lumsden's group most likely be picked up?",
+        c: ['The Linacre Square stop', 'The Larkhill Road stop', 'The Lomax Street stop', 'The Fenby Avenue stop'],
+        a: 3,
+        e: 'Larchmont さんのメールは「一行全員が当日の朝、早い船で渡ってくる」と書いている。広告の表では、船が着く場所＝フェリー乗り場に近いのは Fenby Avenue。',
+        w: ['Linacre Square の近くは駅で、フェリー乗り場ではない。', 'Larkhill Road の近くは空港バス乗り場で、フェリー乗り場ではない。', 'Lomax Street の近くはホテル街で、フェリー乗り場ではない。', '正解。'] },
+      { tag: '詳細', qid: 'v2q199p', s: 'What does the advertisement mention about the tour guides?',
+        c: ['They hold certificates in local history.', 'They speak more than one language fluently.', 'They have led tours for several years.', 'They provide printed guidebooks to each passenger.'],
+        a: 3,
+        e: '広告は「どのツアーも2人のガイドが同行し、乗客一人ひとりにその日訪れる場所を記した印刷物を渡して持ち帰ってもらう」と述べている。',
+        w: ['地域史の資格には触れていない。', '複数言語を話せるとは述べていない。', '長年ツアーを率いてきたとは述べていない。', '正解。'] },
+      { tag: '推測', qid: 'v2q200p', t: ['p7inf'], s: 'What can be inferred about Ms. Larchmont?',
+        c: ['She has worked alongside Mr. Lumsden for years.', 'She recommended Fetterlane Coach Tours to the group.', 'She lives in a different city from Mr. Lumsden.', 'She is celebrating a birthday on the tour.'],
         a: 0,
-        e: '「距離は含まれる範囲内なのでキロ単価の請求はない」と明記されている。',
-        w: ['正解。', '追加請求はないと明記。', '再計算の話はない。', '休憩の規定には触れていない。'] },
-      { id: 'v2q200r', tag: '推測', t: ['p7inf'], s: 'What does Ms. Ní Chatháin imply about the second-driver requirement?',
-        c: ['It is not within the company\'s discretion.', 'It applies only where duty exceeds eleven hours.',
-            'It applies only to school groups.', 'The company will charge it at a reduced rate.'],
-        a: 0,
-        e: '「歓迎されないのはわかるが、こちらで免除できるものではない」＝法令上の要件で裁量の余地がない。',
-        w: ['正解。', '文書1は「a second driver is required by law where duty exceeds ten hours」と規定しており、11時間は勤務上限（duty allowance）の基準であって第2運転手の要件ではない。文書3の10.5時間はすでに10時間を超えている。', '学校団体限定ではない。', '割引対象外と明記。'] },
+        e: 'Larchmont さんのメールは「Barnaby から頼まれて代わりに連絡している。10年以上同じオフィスで働いている」と書いている。',
+        w: ['正解。', 'この会社を勧めたとは述べていない。', '違う都市に住んでいるとは述べていない。', '誕生日を祝うとは述べていない。'] },
     ],
   }),
 ];

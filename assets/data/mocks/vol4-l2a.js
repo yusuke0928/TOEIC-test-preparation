@@ -2,12 +2,16 @@
    予想模試 Vol.4 — Part 3 前半（No.32–52）
    ============================================================= */
 
+/* 2026-09-29 先読み対策（設問先行・正解はくじ）で全7ユニットを書き直し。
+   `sid` / `qid` は id の明示指定。中身を差し替えたユニット・設問は
+   SRS の履歴を引き継がせないため、通し番号由来の既定 id ではなく
+   新しい id（v4q32p 等）を与える（`no` は 1〜200 の連番なので絶対に変えない）。 */
 const set = (o) => ({
-  id: `v4-p3-${o.n[0]}`, part: 3, kind: 'set', kindLabel: o.k || 'conversation',
+  id: o.sid || `v4-p3-${o.n[0]}`, part: 3, kind: 'set', kindLabel: o.k || 'conversation',
   topics: o.t || ['p3detail'], level: o.lv ?? 4,
   script: o.s, graphic: o.graphic, ja: o.ja, vocab: o.v,
   questions: o.q.map((x, i) => ({
-    id: `v4q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.qid || `v4q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || o.t || ['p3detail'], tag: x.tag,
   })),
 });
@@ -15,380 +19,273 @@ const set = (o) => ({
 export const L2A = [
 
   /* ── 32–34（3名）─────────────────────────────────── */
+  /* 申し送り：Q32 の引用「The fair opens at eleven.」はここで初めて出す（それより前に
+     誰も開場時刻を言わない）。引用は単独の1文で、その直前の M-Cn の発言は
+     「機材班が8時着で、客の前に配線を終えられるか」の心配のみ。引用の直前に答えを置かない。
+     引用者（M-Br）以外の男性（M-Cn）には Q32 の他の3択に当たる話をさせていない。
+     Q33 のスタンド位置・Q34 のバナー発注は、それぞれ1か所・1件だけを述べ、
+     他の選択肢の場所・行動には一切触れていない。 */
   set({
-    n: [32, 33, 34], lv: 5, t: ['p3int'], k: 'conversation with three speakers',
+    n: [32, 33, 34], lv: 4, t: ['p3int'], k: 'conversation with three speakers',
     s: [
-      { role: 'W-Am', text: 'Julian, Wei — quick check before the launch e-mail goes out. Has legal signed off on the discount wording?' },
-      { role: 'M-Br', text: 'Not yet. I sent it Tuesday and haven\'t heard back.' },
-      { role: 'M-Cn', text: 'I saw an e-mail from them this morning about a different campaign, so they\'re clearly working today.' },
-      { role: 'W-Am', text: 'Then maybe ours just got buried. Can one of you call rather than wait for a reply?' },
-      { role: 'M-Br', text: 'I can call, but I don\'t want to seem like I\'m jumping the queue.' },
-      { role: 'M-Cn', text: 'At this point, jumping the queue is the point. We launch tomorrow.' },
-      { role: 'W-Am', text: 'Agreed. Julian, call now. If they can\'t turn it around today, we push the launch to Thursday.' },
-      { role: 'M-Br', text: 'Understood. I\'ll report back within the hour.' },
+      { role: 'W-Am', text: 'Right, let\'s run through Saturday\'s plan for the live broadcast from the fairground.' },
+      { role: 'M-Cn', text: 'Sure — I just want to check the timing. The crew can\'t get there until eight, and I\'d hate to be running cables with crowds pushing past us.' },
+      { role: 'M-Br', text: 'The fair opens at eleven.' },
+      { role: 'M-Cn', text: 'Oh, perfect.' },
+      { role: 'W-Am', text: 'One more thing — the stand\'s moved this year. It\'ll be right alongside the stage where the headline acts play, instead of off in the corner where it usually sits.' },
+      { role: 'M-Br', text: 'That\'s a better spot anyway, more foot traffic.' },
+      { role: 'W-Am', text: 'Actually, looking at our banners now, they\'re pretty faded from last year. I\'ll put an order in for replacements this afternoon before I forget.' },
+      { role: 'M-Cn', text: 'Good idea.' },
     ],
-    ja: '3 名がキャンペーン開始前の最終確認をしている。割引表示の文言について法務の承認がまだ届いていないと判明。今朝、法務が別件のメールを送っていたことから稼働中とわかり、電話で直接確認するよう提案される。男性は順番を飛ばすようで気が引けると述べるが、もう一人の男性が「今はそれが狙いだ、明日発表だから」と後押しし、女性も同意。今日中に対応できなければ発表を木曜に延期することになった。',
-    v: [['sign off on', '承認する'], ['jump the queue', '順番を飛ばす'], ['turn around', '対応する、処理する']],
+    ja: 'ラジオ局の3人が、土曜日に祭りの会場から行う生放送の準備を確認している。カナダ人の男性が、機材班が8時にならないと現地に着けないため、客が押し寄せる前に配線を終えられるか心配を口にすると、イギリス人の男性が祭りは11時に開くと答える。女性は、局のスタンドが今年はいつもの隅ではなく、有名な出演者が登場するステージのすぐ脇に移ったことを伝える。さらに、去年のバナーが色あせていることに気づき、今日の午後、忘れないうちに交換用を注文すると述べる。',
+    v: [['fairground', '祭りの会場、催し物広場'], ['run cables', '配線する'], ['headline act', '目玉の出演者'], ['foot traffic', '人通り'], ['faded', '色あせた']],
     q: [
-      { tag: '意図', t: ['p3int'], s: 'What does the man mean when he says, "At this point, jumping the queue is the point"?',
-        c: ['He believes the situation justifies asking for priority treatment.', 'He is unsure whether legal received the e-mail.',
-            'He wants to cancel the phone call.', 'He thinks Julian should wait for a reply as usual.'],
+      { tag: '意図', qid: 'v4q32p', s: 'What does one of the men mean when he says, "The fair opens at eleven"?',
+        c: ['He is questioning the timing of an interview.', 'He is reassuring a colleague about setup time.', 'He is explaining a change to the broadcast schedule.', 'He is agreeing to cover an early shift.'],
+        a: 1,
+        e: 'カナダ人の男性が "The crew can\'t get there until eight, and I\'d hate to be running cables with crowds pushing past us." と、人混みの前に配線を終えられるかを心配している。これに対しイギリス人の男性が "The fair opens at eleven." と開場時刻を告げ、開場まで人が来ないことを示して、設営に使える時間について安心させている。',
+        w: ['インタビューの時刻についての言及は会話のどこにも出てこない。', '正解。', '放送予定の変更についての言及は会話のどこにも出てこない。', '早番を引き受ける話は会話のどこにも出てこない。'] },
+      { tag: '詳細', qid: 'v4q33p', t: ['p3detail'], s: 'According to the woman, where will the station\'s stand be?',
+        c: ['Next to the main stage', 'Beside the car park entrance', 'Near the children\'s play area', 'Opposite the row of food tents'],
         a: 0,
-        e: '通常の順番を待つのではなく、緊急性を理由に優先対応を求めるべきだという趣旨の発言。',
-        w: ['正解。', '受信の有無への疑問ではない。', '電話を止める提案ではない。', '通常通り待つべきとは逆の主張。'] },
-      { tag: '詳細', s: 'What is Julian concerned about?',
-        c: ['Being seen as impatient with another department', 'Missing the launch deadline entirely',
-            'Having no way to reach legal', 'A technical error in the e-mail'],
-        a: 0,
-        e: '「順番を飛ばすように見えるのは気が引ける」と述べている。',
-        w: ['正解。', '締め切りを完全に逃す心配ではない。', 'ジュリアン自身が "I can call, but I don\'t want to seem like I\'m jumping the queue." と述べており、法務へ連絡する手段はある。連絡する手段がないとするこの記述は本文と正面から矛盾する。', '技術的な誤りには触れていない。'] },
-      { tag: '次の行動', s: 'What will happen if legal cannot respond today?',
-        c: ['The launch will move to Thursday.', 'Wei will contact legal on Julian\'s behalf.',
-            'The discount will be cut by half.', 'The launch will be delayed by two weeks.'],
-        a: 0,
-        e: '「今日対応できなければ木曜に延期する」と女性が明言している。',
-        w: ['正解。', '電話をかけるのはジュリアンだと女性が指示している。ウェイが代わりに連絡するとは述べていない。', '割引を半分にするという話は会話のどこにも出てこない。', '延期先は木曜と明言されており、2週間の延期ではない。'] },
+        e: '女性が "It\'ll be right alongside the stage where the headline acts play, instead of off in the corner where it usually sits." と、今年のスタンドの位置を、有名な出演者が登場するステージ(メインステージ)のすぐ脇だと述べている。',
+        w: ['正解。', '駐車場の入口についての言及は会話のどこにも出てこない。', '子供の遊び場についての言及は会話のどこにも出てこない。', '飲食テントの列についての言及は会話のどこにも出てこない。'] },
+      { tag: '次の行動', qid: 'v4q34p', t: ['p3detail'], s: 'What will the woman most likely do next?',
+        c: ['Phone the fair\'s organizers', 'Update the station\'s website', 'Order some new banners', 'Print a list of equipment'],
+        a: 2,
+        e: '女性は最後に "I\'ll put an order in for replacements this afternoon before I forget." と、色あせた古いバナーの交換用を注文すると述べている。',
+        w: ['主催者へ電話するという話は会話のどこにも出てこない。', 'ウェブサイトの更新については会話のどこにも出てこない。', '正解。', '備品リストの印刷については会話のどこにも出てこない。'] },
     ],
   }),
 
   /* ── 35–37 ─────────────────────────────────────────── */
+  /* 申し送り：Q35 の「まだ買う必要がある品」はキャンバスのロール1つだけ。
+     ほかの品には名指しで触れない（most of it sorted）。
+     Q36 の品切れ品（鉛筆のスタイル）は Q35 の4択のどれとも別の品。
+     Q37 は会話の直後の行動（入荷予定の確認）1つだけにし、他の3択は予告していない。 */
   set({
-    n: [35, 36, 37], lv: 4,
+    n: [35, 36, 37], lv: 3,
     s: [
-      { role: 'W-Br', text: 'The move to the fourth floor is confirmed for the fourteenth. IT wants two days\' notice to disconnect the servers.' },
-      { role: 'M-Am', text: 'Two days — so they need to start on the twelfth?' },
-      { role: 'W-Br', text: 'Yes, and they\'ve asked that nobody use the shared printer after Wednesday morning, since it\'s on the same circuit.' },
-      { role: 'M-Am', text: 'That\'s going to annoy the finance team — they print month-end reports Wednesday afternoon.' },
-      { role: 'W-Br', text: 'I did flag that. IT said Thursday morning is fine for them if finance can hold off.' },
-      { role: 'M-Am', text: 'I\'ll let finance know today so they can plan around it.' },
-      { role: 'W-Br', text: 'Thanks. Also, can you confirm which boxes are fragile before the movers arrive Friday?' },
-      { role: 'M-Am', text: 'I\'ll walk the floor this afternoon and label anything breakable.' },
+      { role: 'W-Br', text: 'Hi — I\'m putting together supplies for the six-week painting course I run on Tuesdays. I\'ve got most of it sorted, but I still need a roll of canvas so I can stretch it over the frames myself.' },
+      { role: 'M-Am', text: 'Sure, we keep a few widths of that in the back. What size are your frames, roughly?' },
+      { role: 'W-Br', text: 'Mostly forty by fifty centimetres. Oh, and one of my students asked about a particular set of drawing pencils — the woodless kind that come in a little tin.' },
+      { role: 'M-Am', text: 'Those are actually out of stock right now. We sold the last tin over the weekend, and the new order hasn\'t come in yet.' },
+      { role: 'W-Br', text: 'That\'s a shame. Any idea when they\'ll be back in?' },
+      { role: 'M-Am', text: 'Let me pull up what\'s due in from the supplier — I think there\'s a shipment sometime this week, but I don\'t want to promise a date until I\'ve confirmed it.' },
+      { role: 'W-Br', text: 'No worries, take your time.' },
     ],
-    ja: '4 階への移転が 14 日に確定し、IT はサーバー停止のため 2 日前の告知を求めている。共有プリンターは水曜午前以降、同じ回路にあるため使用できなくなると伝えられ、経理部の月末印刷と重なると男性が懸念。女性はすでに IT に伝えており、経理が待てれば木曜午前でよいとの回答を得ている。男性は今日中に経理へ知らせると約束し、さらに金曜の引っ越し業者到着前に壊れやすい箱を確認して印をつけることも引き受けた。',
-    v: [['disconnect', '切断する'], ['circuit', '回路'], ['fragile', '壊れやすい']],
+    ja: '画材店で、絵画講座の準備をしている女性客が男性の店員に相談している。ほとんどの材料は揃ったが、フレームに自分で張るためのキャンバスのロールがまだ必要だという。また、受講者から頼まれた特定の木軸のない鉛筆のセットについて尋ねると、そのセットは週末に売り切れ、次の入荷もまだだと言われる。女性ががっかりすると、男性は日付を約束する前に、仕入先から何が入荷予定か調べると答える。',
+    v: [['canvas', 'キャンバス(画布)'], ['stretch (over a frame)', '(フレームに)張る'], ['woodless', '木軸のない(芯だけの)'], ['due in', '入荷予定の']],
     q: [
-      { tag: '詳細', s: 'When does IT need to begin disconnecting the servers?',
-        c: ['The fifteenth', 'The twelfth', 'The fourteenth', 'The thirteenth'],
-        a: 1,
-        e: '「2 日前の告知」＝14 日の 2 日前である 12 日から作業が必要だと述べている。',
-        w: ['記載なし。', '正解。', '移転当日。', '本文に記載なし。'] },
-      { tag: '詳細', s: 'What problem does the man raise?',
-        c: ['A conflict with the finance team\'s printing schedule', 'A shortage of moving boxes',
-            'A delay in the elevator booking', 'A missing floor plan'],
+      { tag: '詳細', qid: 'v4q35p', s: 'What does the woman say she still needs to buy?',
+        c: ['A set of watercolor brushes', 'A pad of heavy paper', 'A box of pastel sticks', 'A roll of canvas fabric'],
+        a: 3,
+        e: '女性は "I still need a roll of canvas so I can stretch it over the frames myself." と述べ、自分でフレームに張るためのキャンバスのロールがまだ必要だと言っている。ほかの材料については "I\'ve got most of it sorted" と、ほぼ揃っているとしか述べていない。',
+        w: ['筆についての言及は会話のどこにも出てこない。', '画用紙のパッドについての言及は会話のどこにも出てこない。', 'パステルの棒についての言及は会話のどこにも出てこない。', '正解。'] },
+      { tag: '詳細', qid: 'v4q36p', s: 'What does the man say is currently out of stock?',
+        c: ['A certain shade of blue paint', 'A particular size of easel', 'A specific brand of palette knife', 'A certain style of drawing pencil'],
+        a: 3,
+        e: '店員の男性は "Those are actually out of stock right now." と、woodless の鉛筆のセット(the woodless kind that come in a little tin)が現在品切れだと述べている。',
+        w: ['青い絵の具の色番については会話のどこにも出てこない。', 'イーゼルのサイズについての言及は会話のどこにも出てこない。', 'パレットナイフについての言及は会話のどこにも出てこない。', '正解。'] },
+      { tag: '次の行動', qid: 'v4q37p', s: 'What will the man most likely do next?',
+        c: ['Check a delivery schedule', 'Unlock a glass display case', 'Register her for a discount card', 'Carry her items to the counter'],
         a: 0,
-        e: '共有プリンターの停止時期が経理部の月末印刷と重なることを指摘している。',
-        w: ['正解。', '箱の不足には触れていない。', 'エレベーターの話はない。', 'フロア図の話もない。'] },
-      { tag: '次の行動', s: 'What will the man do this afternoon?',
-        c: ['Contact the IT department', 'Print the month-end reports',
-            'Label fragile boxes', 'Reserve the elevator for the movers\' arrival'],
-        a: 2,
-        e: '「今日の午後、フロアを回って壊れやすい物に印をつける」と述べている。',
-        w: ['IT への連絡は女性がすでに済ませている。', '印刷は経理部の作業。', '正解。', 'エレベーターの予約について会話のどこにも触れられていない。搬送業者の到着に備えて男性が行うのは壊れやすい箱の確認と印付けである。'] },
+        e: '男性は最後に "Let me pull up what\'s due in from the supplier" と述べ、鉛筆の入荷時期を確認するために、仕入先からの入荷予定(配送予定)を調べると言っている。',
+        w: ['正解。', 'ガラスケースの鍵を開ける話は会話のどこにも出てこない。', '割引カードの登録については会話のどこにも出てこない。', '品物をカウンターへ運ぶ話は会話のどこにも出てこない。'] },
     ],
   }),
 
   /* ── 38–40（図表）───────────────────────────────── */
-  /* 本番は図表セットでも Look at the graphic. の設問は 1 セットに 1 問のみ。
-     2 問目（No.39）を「音声だけで解ける通常設問」に差し替えたため、set() ヘルパー
-     （id を no から自動生成する）を使わず直接オブジェクトを記述する。中身を丸ごと
-     差し替えたので id は使い回さず v4q39r として新規採番する（no は模試の通し番号
-     として 39 を維持）。No.40 は内容・id とも変更していない。
-     2026-08-25 追記: No.38 自体に別の欠陥があった。選択肢 ['£8.90','£15.00',
-     '£11.50','£12.40'] のうち正解 £15.00（Zone C の翌日便）が選択肢中の最大値で、
-     「速達は一番高いはず」という発想だけで、音声も表も見ずに当たった。表の
-     Zone D（remote）の Standard 料金を £12.40 → £16.80 に組み替え、選択肢の
-     同じ枠（Zone D の Standard）も £16.80 に合わせて、正解 £15.00 が選択肢中の
-     最大でも最小でもない値（£8.90 < £11.50 < £15.00 < £16.80）になるように
-     した。Zone D の Next-day が「Not available」であること（No.40 の根拠）は
-     変えていない。遠い区分ほど高いという料金体系（Standard: A<B<C<D）も維持。
-     表・選択肢を実質変更したため id を v4q38 → v4q38b に新規採番。No.40
-     の内容・id は変更していない。
-     2026-08-25 追記2: No.39（v4q39r、「Aldergate はどのゾーンか」）がオブザーバーの
-     実プレイで発覚——No.38 の解答過程（Aldergate → Zone C の特定）とまったく同じ
-     事実を問うており、Zone C を聞き逃すと No.38・No.39 の両方を落とす「鎖」に
-     なっていた。No.39 を、No.38 の解答過程（ゾーン名・金額・署名要件）にも
-     No.40 の根拠（Zone D に翌日便が無いこと）にも触れない独立した事実——本文
-     後半の高地行き荷物についての「通常便の所要日数（already two days）」——を
-     問う設問に差し替え、id を v4q39r → v4q39c に新規採番した。
-     2026-08-25 追記3: レビュー役の監査で残存2件が判明。(1) No.39 の stem
-     `How long does standard delivery to the highlands normally take?` の
-     `standard` が、表の Zone D（remote）の Standard 料金 £16.80 と結び付き、
-     「£16.80 は高地向け通常便の料金＝Aldergate の答えではない」という消去材料を
-     No.38 に与えていた（25%→33% への劣化）。`standard` を削り
-     `How long does delivery to the highlands normally take?` とした。
-     (2) No.39 の誤答 `One week` が宅配便として非現実的で常識だけで消え、かつ
-     No.40 の誤答 `To prevent them from expecting next-day delivery` の
-     `next-day delivery` が No.39 の `One day` を先読みだけで消す消去材料に
-     なっており、あわせて実質2択（50%）になっていた。`One week` を
-     `Four days` に差し替えて非現実的な選択肢を無くし（One day/Two days/
-     Three days/Four days の昇順4択。いずれも音声の "that's already two
-     days" とだけ矛盾する現実的な値）、No.40 は正解・誤答とも `next-day` や
-     `delivery` という具体的な語を含まない表現に書き換えて先読みでの消去材料を
-     断った（命題「高地行きは翌日便が使えないと伝えるため」は変えていない）。
-     stem・選択肢を実質変更したため No.39 の id を v4q39c → v4q39d、No.40 の
-     id を v4q40 → v4q40b に新規採番した。あわせて No.40 の誤答側の語数を
-     伸ばし、正解が単独最長にならないようにした。 */
-  {
-    id: 'v4-p3-38', part: 3, kind: 'set', kindLabel: 'conversation',
-    topics: ['graphic'], level: 5,
+  /* 申し送り：表のセルの語（narrow・wide・ribbon・feather）と列名（brim・trim）、
+     Stand の番号は本文で使っていない（語幹も避けた）。つばの広さと飾りは別々の発話で言い換えて伝え、
+     どちらも肯定形の言い換え（a small, neat edge／a silk band around the crown）だけで
+     伝え、否定で行を消さない。指定はスタイリストのものとし、用途からスタイルを
+     推理できないようにした。Q40 は女性の「このあと上の事務所へ戻る」という1つの手がかりだけで
+     ふだんの持ち場を示し、他の3択（作業場・他店舗・市場の屋台）には触れていない。 */
+  set({
+    n: [38, 39, 40], lv: 4, t: ['graphic'],
     graphic: {
-      t: 'table', title: 'Bramwell Courier — Regional Rates (per parcel, up to 5 kg)',
-      head: ['Zone', 'Standard', 'Next-day', 'Notes'],
+      t: 'table', title: 'Hat Stands in the Back Room',
+      head: ['Stand', 'Brim', 'Trim'],
       rows: [
-        ['Zone A (local)', '£4.50', '£8.00', 'Includes tracking'],
-        ['Zone B (regional)', '£6.20', '£11.50', 'Includes tracking'],
-        ['Zone C (national)', '£8.90', '£15.00', 'Signature required'],
-        ['Zone D (remote)', '£16.80', 'Not available', 'Signature required'],
+        ['Stand 21', 'Narrow', 'Ribbon'],
+        ['Stand 29', 'Wide', 'Ribbon'],
+        ['Stand 16', 'Narrow', 'Feather'],
+        ['Stand 25', 'Wide', 'Feather'],
       ],
     },
-    script: [
-      { role: 'M-Au', text: 'The Aldergate order needs to arrive by tomorrow morning. Where does that postcode fall?' },
-      { role: 'W-Cn', text: 'Let me check... that\'s Zone C. National, not regional.' },
-      { role: 'M-Au', text: 'And next-day is available for Zone C?' },
-      { role: 'W-Cn', text: 'Yes, but it needs a signature, so someone has to be at the address.' },
-      { role: 'M-Au', text: 'The client works from home, so that\'s fine. What about the parcel after that, the one going up to the highlands?' },
-      { role: 'W-Cn', text: 'That\'s Zone D. No next-day option there at all — standard only, and that\'s already two days.' },
-      { role: 'M-Au', text: 'Then we\'d better tell them today, before they assume next-day like the first one.' },
-    ],
-    ja: '男性がオールダーゲート宛の荷物を翌朝までに届けたいと相談。郵便番号を調べると全国区の Zone C にあたる。翌日配送は可能だが署名が必要で、宛先の顧客は在宅勤務なので問題ないと判断。次に高地宛の荷物については Zone D にあたり、翌日配送の選択肢自体がなく通常便のみで、すでに 2 日かかる。1 件目のように翌日配送を期待されないよう、今日のうちに顧客へ伝えることにした。',
-    vocab: [['postcode', '郵便番号'], ['signature', '署名'], ['highlands', '高地']],
-    questions: [
-      {
-        id: 'v4q38b', no: 38, tag: '図表', topics: ['graphic'],
-        stem: 'Look at the graphic. What will the delivery cost for the Aldergate order?',
-        choices: ['£15.00', '£8.90', '£11.50', '£16.80'],
-        answer: 0,
-        exp: 'Zone C（全国区）の翌日配送は £15.00。翌朝必着という要件から翌日配送を選ぶ。選択肢中の最大値は £16.80（Zone D の通常便）であり、金額の大小では選べない。',
-        why: ['正解。', 'Zone C の通常便であり、翌朝必着という要件には合わない。', 'Zone B の翌日便であり、Aldergate の区分（Zone C）ではない。', 'Zone D の通常便であり、Aldergate とは無関係の区分の金額。'],
-      },
-      {
-        // 音声だけで解ける設問。No.38 の解答過程（Aldergate→Zone C の特定、料金、
-        // 署名要件）にも No.40 の根拠（Zone D に翌日便が無いこと）にも触れない、
-        // 本文後半の高地行き荷物についての独立した事実（通常便の所要日数）を問う。
-        id: 'v4q39d', no: 39, tag: '詳細', topics: ['p3detail'],
-        stem: 'How long does delivery to the highlands normally take?',
-        choices: ['One day', 'Two days', 'Three days', 'Four days'],
-        answer: 1,
-        exp: '女性は高地行きの荷物について「翌日配送の選択肢が全く無く、標準の便のみで、それだけで既に2日かかる」と述べている（"No next-day option there at all — standard only, and that\'s already two days."）。翌日配送そのものが無いと明言されているため1日では届かず、"already two days" と実数が明言されているため3日・4日でもない。',
-        why: [
-          '高地行きの区分には「翌日配送の選択肢が全く無い」と明言されており、1日で届く手段は存在しない。',
-          '正解。"that\'s already two days" と明言されている。',
-          '"that\'s already two days" と実数が明言されており、3日という言及はない。',
-          '"that\'s already two days" と実数が明言されており、4日という言及もない。',
-        ],
-      },
-      {
-        id: 'v4q40b', no: 40, tag: '推測', topics: ['p7inf'],
-        stem: 'Why does the man want the client told today about the highlands parcel?',
-        choices: ['To correct the client\'s assumption about speed', 'To offer them a discount on the order',
-                   'To cancel the order at their request', 'To request a different delivery address'],
-        answer: 0,
-        exp: 'Zone D には翌日配送の選択肢がなく標準の便のみのため、1 件目（Aldergate 向け）のように早く届くと誤解されないよう、その思い込みを正しておくべきだという趣旨。具体的な配送日数には触れず、あくまで速さについての思い込みを正すという目的だけを述べている。',
-        why: ['正解。', '値引きの話はない。', '注文の取り消しではない。', '住所変更の依頼はない。'],
-      },
-    ],
-  },
-
-  /* ── 41–43（3名）─────────────────────────────────── */
-  set({
-    n: [41, 42, 43], lv: 5, t: ['p3int'], k: 'conversation with three speakers',
     s: [
-      { role: 'W-Br', text: 'I still can\'t log into the shared drive. I\'ve reset my password twice this morning.' },
-      { role: 'M-Am', text: 'Let me check the account... it looks like it\'s locked, not just expired. That usually means too many failed attempts.' },
-      { role: 'W-Au', text: 'Priya, did you try logging in from your phone as well as your laptop?' },
-      { role: 'W-Br', text: 'Yes, both, within a few minutes of each other.' },
-      { role: 'M-Am', text: 'That would do it — the system counts attempts across devices, and five failures in ten minutes locks the account for an hour.' },
-      { role: 'W-Au', text: 'So this isn\'t really about the password at all.' },
-      { role: 'M-Am', text: 'No. I can unlock it manually now rather than have her wait the hour.' },
-      { role: 'W-Br', text: 'That would help — I have a call in twenty minutes that needs those files.' },
+      { role: 'M-Au', text: 'Before the client arrives this afternoon, we should get her hat out from the back room so it\'s ready for her to try on.' },
+      { role: 'W-Au', text: 'Sure — did the details come through from the stylist?' },
+      { role: 'M-Au', text: 'Yes, this morning. The client\'s being photographed for a magazine feature this weekend, and the stylist wants the one with just a small, neat edge around it, so it sits close to the head.' },
+      { role: 'W-Au', text: 'And on top?' },
+      { role: 'M-Au', text: 'A silk band around the crown. The stylist was very specific about that.' },
+      { role: 'W-Au', text: 'Right, I know the one. I\'ll bring it out — I\'m heading back up to the office afterwards anyway, so I\'ll drop it at the till on my way.' },
+      { role: 'M-Au', text: 'Thanks, I\'ll finish tidying down here.' },
     ],
-    ja: 'プリヤが共有ドライブにログインできず、今朝すでに 2 回パスワードを再設定したと訴える。技術者が確認すると、単なる期限切れではなくロックされていると判明。別の女性が携帯とノートパソコンの両方で試したか尋ねると、数分の間に両方で試みたと判明し、複数端末での失敗が合算され、10 分以内に 5 回失敗すると 1 時間ロックされる仕組みだと説明される。パスワード自体の問題ではないと確認され、技術者は 1 時間待たせず手動で解除すると申し出た。プリヤは 20 分後の電話にそのファイルが必要だと述べる。',
-    v: [['locked', 'ロックされた', ], ['failed attempt', '失敗した試行'], ['unlock manually', '手動で解除する']],
+    ja: '帽子店の2人の従業員が、午後に来店する客のために、奥の部屋から帽子を出す準備をしている。男性によると、客は今週末に雑誌の特集で撮影される予定で、スタイリストは縁が小さく整っていて頭に沿う帽子を指定している。飾りも、山の部分にシルクの帯が巻かれたものをスタイリストが指定したという。女性は該当する帽子を持っていくことにし、そのあとは上の事務所へ戻るので、ついでにレジへ寄ると述べる。',
+    v: [['stylist', 'スタイリスト'], ['feature', '(雑誌の)特集記事'], ['crown', '(帽子の)山の部分'], ['till', 'レジ']],
     q: [
-      { tag: '詳細', s: 'Why was Priya\'s account locked?',
-        c: ['Her password had expired the previous week.', 'The shared drive was undergoing scheduled maintenance overnight.',
-            'She entered incorrect passwords too many times across devices.', 'Her account had been suspended under IT security policy.'],
+      { tag: '図表', qid: 'v4q38p', s: 'Look at the graphic. Which stand will the woman bring out?',
+        c: ['Stand 21', 'Stand 29', 'Stand 16', 'Stand 25'],
+        a: 0,
+        e: '男性は、スタイリストの指定として "the stylist wants the one with just a small, neat edge around it, so it sits close to the head" とつばが狭いスタイルを、続けて "A silk band around the crown." とシルクの帯(リボン)の飾りを伝えている。表でつばが狭くリボン飾りなのは Stand 21 だけである。',
+        w: ['正解。', 'Stand 29 はつばが広いスタイルで、男性が伝えたスタイリストの指定「縁が小さく整っていて頭に沿うもの」という条件に合わない。', 'Stand 16 はつばは狭いが飾りが羽根で、男性が伝えたスタイリストの指定「山の部分にシルクの帯」という条件に合わない。', 'Stand 25 はつばが広く飾りも羽根で、どちらの条件にも合わない。'] },
+      { tag: '詳細', qid: 'v4q39p', t: ['p3detail'], s: 'What does the man say the customer needs the hat for?',
+        c: ['A day at the horse races', 'A wedding held outdoors', 'A themed costume party', 'A magazine photo shoot'],
+        a: 3,
+        e: '男性は "The client\'s being photographed for a magazine feature this weekend" と、客が今週末、雑誌の特集で撮影されるためだと述べている。',
+        w: ['競馬観戦についての言及は会話のどこにも出てこない。', '屋外の結婚式についての言及は会話のどこにも出てこない。', '仮装パーティーについての言及は会話のどこにも出てこない。', '正解。'] },
+      { tag: '推測', qid: 'v4q40p', t: ['p3detail'], s: 'What is suggested about the woman?',
+        c: ['She normally works in the workroom.', 'She normally works at another branch.', 'She normally works in the office upstairs.', 'She normally works at the shop\'s market stall.'],
         a: 2,
-        e: '複数端末での失敗が合算され、10 分以内に 5 回失敗したためロックされたと説明されている。',
-        w: ['期限切れではなくロックされていると男性が明言している。', '共有ドライブのメンテナンスには触れていない。', '正解。', '方針による停止ではなく、複数端末での失敗回数によるロックだと説明されている。'] },
-      { tag: '意図', t: ['p3int'], s: 'What does the second woman mean when she says, "So this isn\'t really about the password at all"?',
-        c: ['She thinks Priya typed her password incorrectly again.', 'She wants to change the company\'s entire password policy after this incident.',
-            'She realizes the cause is a device-related lockout.', 'She doubts the technician\'s diagnosis of the fault.'],
-        a: 2,
-        e: '直前の説明を受け、根本原因はパスワードそのものではなく、複数端末にまたがるロックの仕組みにあると理解した発言。',
-        w: ['パスワードの入力ミスではなく、複数端末での失敗回数によるロックだと技術者が説明している。', '方針変更の提案については会話のどこにも出てこない。', '正解。', '技術者の診断（複数端末での失敗）を疑う発言ではなく、それを踏まえた理解を示している。'] },
-      { tag: '次の行動', s: 'What will the technician do?',
-        c: ['Wait for the one-hour lockout to expire', 'Reset the shared drive entirely, requiring a new password for everyone',
-            'Unlock the account manually now', 'Escalate the issue to a supervisor'],
-        a: 2,
-        e: '「1 時間待たせず、今すぐ手動で解除する」と述べている。',
-        w: ['待たずに対応すると述べている。', '共有ドライブ全体のリセットではない。ロックされているのはプリヤの端末からの試行に限られており、他の利用者に新しいパスワードを求める話もしていない。', '正解。', '上司への報告には触れていない。'] },
+        e: '女性は最後に "I\'m heading back up to the office afterwards anyway, so I\'ll drop it at the till on my way." と述べており、この作業のあとは上の事務所へ戻ると言っていることから、ふだんは上の事務所で働いていることがうかがえる。',
+        w: ['作業場(workroom)についての言及は会話のどこにも出てこない。女性はこの作業のあと "heading back up to the office" と、上の事務所へ戻ると言っている。', '他の支店についての言及は会話のどこにも出てこない。', '正解。', '市場の屋台についての言及は会話のどこにも出てこない。'] },
     ],
   }),
 
-  /* ── 44–46（図表）───────────────────────────────── */
-  /* 2026-08-25 追記: set() は各設問の topics を x.t || o.t || ['p3detail'] で決めるため、
-     o.t: ['graphic'] のこのユニットでは No.45・46（通常の詳細設問）が明示的な t を
-     持たず、既定で ['graphic'] を継承してしまっていた（図表を見て答える設問ではない
-     のに論点集計上は「図表問題」に計上される不整合）。No.45・46 に t: ['p3detail']
-     を明示し、No.44（唯一の「Look at the graphic」設問）だけが ['graphic'] を
-     継承するようにした。
-     2026-08-25 追記2: オブザーバーの実プレイで、No.44 の音声が "Pod 4, ten to
-     twelve." とポッド番号そのものを明言しており、図表を見る必要が一切ないことが
-     判明。しかも exp が「音声が言わない側（ポッド番号）を表から特定する」と、
-     事実と逆のことを書いていた。加えて、旧・表は「10時・11時の2コマ連続で
-     空いているのは Pod 4 だけ」という唯一値だったため、音声を無視して表だけを
-     見ても解けた（当てずっぽうの列⑤⑦に該当）。
-     vol6-l2b.js No.68（"the dock for that slot is set out on the move-in
-     schedule" と番号を伏せて属性だけを伝える型）を参考に、音声からポッド番号を
-     完全に削除し、表の属性（10時-12時・11時-13時のどちらの2時間枠が空いているか）
-     でのみ特定できる形に組み替えた。あわせて表も、2時間連続で空いている枠が
-     Pod 3（11:00–13:00）と Pod 4（10:00–12:00）の2室になるようにし
-     （旧表は Pod 4 のみだった）、音声の「正午までに終わる枠が必要」という条件と
-     突き合わせて初めて Pod 4 に絞れるようにした（表だけでは2室に絞れるが1室には
-     絞れない。音声だけでは「10時開始の方」としか分からずポッド番号は分からない）。
-     No.45 が根拠とする「9 時開始を希望していた」という発話、No.46 が根拠とする
-     「全ポッドに HDMI・USB-C 内蔵」という発話はどちらも文言を変えていない。
-     stem・選択肢・答えの位置（Pod 4 = index 3）は変えていない。表・音声を実質
-     変更したため id を v4q44 → v4q44b に新規採番。No.45・46 の id は変更していない。
-     2026-08-25 追記3: レビュー役の監査で、女性の応答 `Then the earlier one,
-     please.` が比較級 `earlier` で対象を直接指しており、表の時刻列とそのまま
-     結び付くため「2時間連続で空いている中で早い方」を音声の2語だけで確定でき、
-     出題意図（正午までに終わる枠との照合）を丸ごと迂回できることが判明。
-     `Then I'll take the one that works, please.`（直前の男性の発話が示した
-     「正午までに終わる方」という条件だけを指す、比較級・最上級を含まない表現）に
-     差し替えた。正解・選択肢は変えていないため id は維持（v4q44b のまま）。ja の
-     「早い方（10時開始）を選ぶ」も比較級を含まない表現に直した。
-     あわせて No.46 の誤答の語数を伸ばし、正解 `HDMI and USB-C are already
-     built in.`（7語）が選択肢中で単独最長（他は6語）にならないようにした
-     （選択肢を実質変更したため id を v4q46 → v4q46b に新規採番）。 */
-  {
-    id: 'v4-p3-44', part: 3, kind: 'set', kindLabel: 'conversation',
-    topics: ['graphic'], level: 5,
-    graphic: {
-      t: 'table', title: 'Fernshaw Co-working — Meeting Pod Availability, Friday',
-      head: ['Pod', '10:00', '11:00', '12:00'],
-      rows: [
-        ['Pod 1', 'Booked', 'Free', 'Booked'],
-        ['Pod 2', 'Free', 'Booked', 'Free'],
-        ['Pod 3', 'Booked', 'Free', 'Free'],
-        ['Pod 4', 'Free', 'Free', 'Booked'],
-      ],
-    },
-    script: [
-      { role: 'M-Cn', text: 'Fernshaw Co-working, how can I help?' },
-      { role: 'W-Am', text: 'Hi, I need a pod for Friday, two hours back to back. I was hoping to start right at nine, but if that\'s taken, anything works as long as I\'m out by noon for another commitment.' },
-      { role: 'M-Cn', text: 'Let me see... nothing\'s free before ten, and there are two slots that run two hours straight after that.' },
-      { role: 'W-Am', text: 'Do either of them get me out by noon?' },
-      { role: 'M-Cn', text: 'Only one does. The other one doesn\'t open up until eleven, so it would run past your noon commitment.' },
-      { role: 'W-Am', text: 'Then I\'ll take the one that works, please. Do I need to bring my own screen adapter?' },
-      { role: 'M-Cn', text: 'No, all pods have HDMI and USB-C built in. Just bring your laptop.' },
+  /* ── 41–43（3名）─────────────────────────────────── */
+  /* 申し送り：Q42 の引用「Nobody could log in on Sunday.」はここで初めて出す。
+     直前は女性の「男性の確認結果がまだ届いていない」という指摘のみで、志願者の延長願い・
+     志願者の申し立て・週末の件数といった他の3択の話題は混ぜていない。
+     Q41 の欠落書類と Q42/Q43 の applicant は、会話全体を通して同じ1件の
+     出願書類だけを扱うことで同一人物にしている。Q43 は会話の直後の行動
+     （別部署への転送）1つだけにし、「追いついたら」などの先送りを置かない。 */
+  set({
+    n: [41, 42, 43], lv: 4, t: ['p3int'], k: 'conversation with three speakers',
+    s: [
+      { role: 'W-Am', text: 'Before we shortlist this one, there\'s a gap in the file. Everything else looks really strong, but I can\'t find a current English proficiency result anywhere.' },
+      { role: 'W-Au', text: 'That\'s odd — the document checks should have picked that up before it reached us. Your check results normally land in our inbox first thing Monday, but nothing\'s come through yet.' },
+      { role: 'M-Br', text: 'Nobody could log in on Sunday.' },
+      { role: 'W-Am', text: 'Ah, of course — that was the maintenance weekend, wasn\'t it?' },
+      { role: 'M-Br', text: 'Anyway, I\'ll take this file and pass it straight along to International Admissions myself — they handle the language test verification, so it\'ll move faster coming from me than through the usual routing.' },
+      { role: 'W-Au', text: 'Thanks, that\'ll save us a step.' },
     ],
-    ja: '女性が金曜日にコワーキングスペースのポッドを2時間連続で予約したいと電話をかける。9時開始を希望していたが、埋まっていれば正午までに退室できる枠なら何でもよいと伝える。担当者は、10時より前は空きがなく、10時以降で2時間連続して空いている枠が2つあると案内する。女性が「どちらも正午までに終わるか」と尋ねると、片方は11時開始のため正午を過ぎてしまい、もう一方だけが正午ちょうどに終わると説明される。女性は正午ちょうどに終わる方（10時開始）を選ぶ。画面用アダプターの持参が必要か尋ねると、すべてのポッドにHDMIとUSB-Cが備え付けられているのでノートパソコンだけで良いと案内される。',
-    vocab: [['back to back', '連続して'], ['commitment', '用事、予定'], ['run past', '（時刻を）過ぎる'], ['built in', '内蔵の']],
-    questions: [
-      {
-        id: 'v4q44b', no: 44, tag: '図表', topics: ['graphic'],
-        stem: 'Look at the graphic. Which pod will the woman use?',
-        choices: ['Pod 1', 'Pod 2', 'Pod 3', 'Pod 4'],
-        answer: 3,
-        exp: '女性は2時間連続の枠が必要で、正午までに終わることを条件としている。表で2時間連続して空いているのは Pod 3（11:00–13:00）と Pod 4（10:00–12:00）の2室のみだが、11時開始の Pod 3 は正午を過ぎてしまうため条件に合わない。10時開始で正午ちょうどに終わる Pod 4 が条件に合う。音声はポッド番号を一切明言せず、「10時より前は空きがない」「もう一方は11時開始で正午を過ぎる」という時間の条件だけを伝えるため、表と照合して初めてポッド番号が決まる。',
-        why: [
-          '11時の1コマしか空いておらず（10時・12時は予約済み）、2時間連続にならない。',
-          '10時と12時は空いているが11時が予約済みのため、連続した2時間にならない。',
-          '11:00–13:00 の2時間は連続して空いているが、11時開始のため正午を過ぎてしまい、女性の条件（正午までに終わる）に合わない。',
-          '正解。10:00–12:00 の2時間が連続して空いており、正午ちょうどに終わる。',
-        ],
-      },
-      {
-        id: 'v4q45', no: 45, tag: '詳細', topics: ['p3detail'],
-        stem: 'What had the woman originally wanted?',
-        choices: ['A different day', 'A longer session', 'To start at nine', 'To book two pods'],
-        answer: 2,
-        exp: '「9時ちょうどの開始を希望していたが、埋まっていれば別の時間でもよい」と述べている。',
-        why: ['曜日の変更は述べていない。', '時間の延長は求めていない。', '正解。', '1室のみ希望。'],
-      },
-      {
-        id: 'v4q46b', no: 46, tag: '詳細', topics: ['p3detail'],
-        stem: "What does the man say about the pods' equipment?",
-        choices: ['Equipment must always be booked well in advance.', 'An adapter must be purchased at extra cost and shipped separately.', 'Only some of the pods have screens and Ethernet ports.', 'HDMI and USB-C are already built in.'],
-        answer: 3,
-        exp: '「すべてのポッドにHDMIとUSB-Cが内蔵されている」と案内している。',
-        why: ['事前予約の話はない。', '別途購入は不要と述べており、配送についても本文には出てこない。', 'すべてのポッドが対象であり、イーサネットポートについても本文には出てこない。', '正解。'],
-      },
+    ja: '大学の入試課で、女性職員2人が男性職員と一緒に、ある出願書類を確認している。一人が、ほかは申し分ないのに最近の英語力の試験結果が見当たらないと指摘する。もう一人の女性は、書類確認の段階で気づかれるはずだと言い、男性の確認結果が通常なら月曜の朝一番に届くのにまだ来ていないと述べる。男性は日曜日は誰もログインできなかったと言い、女性はメンテナンスのあった週末のことだと納得する。男性は、この書類を語学試験の確認を扱う国際入試課(International Admissions)へ自分で回すと述べ、通常の回付より早く進むと話す。',
+    v: [['shortlist', '(候補を)選抜する'], ['proficiency', '(語学)能力'], ['land in (an inbox)', '(受信箱に)届く'], ['routing', '(書類などの)回付、処理の経路']],
+    q: [
+      { tag: '詳細', qid: 'v4q41p', t: ['p3detail'], s: 'What does one of the women say is missing from an application?',
+        c: ['A signed reference letter', 'A copy of the transcript', 'A recent English test score', 'A personal statement essay'],
+        a: 2,
+        e: '女性が "there\'s a gap in the file. Everything else looks really strong, but I can\'t find a current English proficiency result anywhere." と、出願書類に最近の英語力の試験結果が見当たらないと述べている。',
+        w: ['推薦状についての言及は会話のどこにも出てこない。', '成績証明書についての言及は会話のどこにも出てこない。', '正解。', '志望理由書についての言及は会話のどこにも出てこない。'] },
+      { tag: '意図', qid: 'v4q42p', s: 'What does the man mean when he says, "Nobody could log in on Sunday"?',
+        c: ['He is backing an applicant\'s request for more time.', 'He is questioning what an applicant has said.', 'He is explaining why his work is behind schedule.', 'He is accounting for a drop in weekend figures.'],
+        a: 2,
+        e: '別の女性が "Your check results normally land in our inbox first thing Monday, but nothing\'s come through yet." と、男性の確認結果がまだ届いていないと指摘したところで、男性が "Nobody could log in on Sunday." と述べている。続く女性の "the maintenance weekend" からも分かるとおり、これは日曜にシステムに入れなかったことを理由に、自分の確認作業が遅れていると説明する発言である。',
+        w: ['志願者からの延長願いについての言及は会話のどこにも出てこない。', '志願者の申し立てを疑う話は会話のどこにも出てこない。', '正解。', '件数についての言及は会話のどこにも出てこない。日曜にログインできなかったという発言は、男性自身の確認結果が届いていない理由として述べられている。'] },
+      { tag: '次の行動', qid: 'v4q43p', t: ['p3detail'], s: 'What will the man most likely do next?',
+        c: ['Forward the file to another office', 'Contact the applicant directly', 'Schedule a meeting with his colleagues', 'Update the department\'s tracking sheet'],
+        a: 0,
+        e: '男性は最後に "I\'ll take this file and pass it straight along to International Admissions myself" と述べ、この書類を別の部署へ回す(転送する)と言っている。',
+        w: ['正解。', '志願者に直接連絡する話は会話のどこにも出てこない。', '同僚との打ち合わせについては会話のどこにも出てこない。', '管理表の更新については会話のどこにも出てこない。'] },
     ],
-  },
+  }),
+
+  /* ── 44–46 ─────────────────────────────────────────── */
+  /* 申し送り：話題にする品は書簡の束1点だけ（他の3択の品には触れていない）。
+     会場は「田舎の邸宅」と1か所だけ述べ、比較の対象は「町の通常のセールルーム」
+     という、他の3択のどれとも異なる場所にした。開始時刻や入札方法などは
+     並べて案内していない。Q46 は会話の直後の行動（状態の報告書を読む）1つだけ。 */
+  set({
+    n: [44, 45, 46], lv: 3,
+    s: [
+      { role: 'W-Br', text: 'Hi, it\'s the museum calling about Lot 42 in next week\'s sale — the bundle of correspondence from the old shipping family. I wanted to check a few things before our acquisitions panel meets.' },
+      { role: 'M-Au', text: 'Of course. What would you like to know?' },
+      { role: 'W-Br', text: 'First, where\'s the sale actually being held this time? I know it sometimes moves around.' },
+      { role: 'M-Au', text: 'It\'s out at a stately home this time, actually — much roomier than our usual saleroom in town, so we can take the bigger pieces too.' },
+      { role: 'W-Br', text: 'Good to know — I\'ll pass that on to the panel. And the correspondence itself — do we know much about its condition? Bundles like this can be quite fragile.' },
+      { role: 'M-Au', text: 'I haven\'t looked closely myself yet. I\'ll read the specialist\'s full write-up on its condition before I call you back, just to be safe.' },
+      { role: 'W-Br', text: 'That would be really helpful, thank you.' },
+    ],
+    ja: '博物館の学芸員の女性が競売会社に電話をかけ、来週の競売のロット42――古い海運業の一族の書簡の束――について男性の担当者に問い合わせている。会場を尋ねると、今回は町の通常の競売場より広い、大きな邸宅で開催されるという。書簡の状態について尋ねると、男性はまだ自分では詳しく見ていないため、折り返す前に専門家の詳しい報告書をきちんと読むと答える。',
+    v: [['correspondence', '書簡、手紙のやり取り'], ['acquisitions panel', '収集(購入)審査委員会'], ['saleroom', '競売場'], ['write-up', '(調査などの)報告書']],
+    q: [
+      { tag: '概要', qid: 'v4q44p', s: 'What are the speakers mainly discussing?',
+        c: ['A set of antique maps', 'A bundle of old letters', 'A pair of silver candlesticks', 'A carved wooden chest'],
+        a: 1,
+        e: '女性は冒頭で "it\'s the museum calling about Lot 42 in next week\'s sale — the bundle of correspondence from the old shipping family" と述べ、来週の競売に出る古い海運業の一族の書簡の束について話している。',
+        w: ['古地図についての言及は会話のどこにも出てこない。', '正解。', '銀の燭台についての言及は会話のどこにも出てこない。', '彫刻入りの木箱についての言及は会話のどこにも出てこない。'] },
+      { tag: '詳細', qid: 'v4q45p', s: 'Where will the sale be held?',
+        c: ['In a city-centre hotel', 'In a country house', 'In a village hall', 'In a racecourse grandstand'],
+        a: 1,
+        e: '男性は "It\'s out at a stately home this time, actually — much roomier than our usual saleroom in town" と、今回の会場が町の外の大きな邸宅(country house)だと述べている。',
+        w: ['街中のホテルについての言及は会話のどこにも出てこない。', '正解。', '村の公民館についての言及は会話のどこにも出てこない。', '競馬場のスタンドについての言及は会話のどこにも出てこない。'] },
+      { tag: '次の行動', qid: 'v4q46p', s: 'What will the man most likely do next?',
+        c: ['Send some close-up photographs', 'Register the woman as a bidder', 'Check the lot\'s condition report', 'Contact the item\'s current owner'],
+        a: 2,
+        e: '男性は最後に "I\'ll read the specialist\'s full write-up on its condition before I call you back, just to be safe." と述べ、品の状態についての専門家の報告書(状態報告書)を読むと言っている。',
+        w: ['接写の写真を送る話は会話のどこにも出てこない。', '入札者としての登録については会話のどこにも出てこない。', '正解。', '現在の所有者への連絡については会話のどこにも出てこない。'] },
+    ],
+  }),
 
   /* ── 47–49 ─────────────────────────────────────────── */
+  /* 申し送り：患者の電話の用件は「夫の検査について尋ねる」1つだけ。空いている枠は火曜午前1つだけ述べ、他の
+     3つの曜日・時間帯は空きとして挙げていない。Q49 は「通院に1時間近くかかる」
+     という1つの手がかりだけで推測させ、職場の騒音・合唱団・退職には触れていない。 */
   set({
-    n: [47, 48, 49], lv: 4,
+    n: [47, 48, 49], lv: 3,
     s: [
-      { role: 'M-Br', text: 'The produce invoice this month is about 15 percent higher than usual.' },
-      { role: 'W-Cn', text: 'I noticed too. I called our supplier — they said it\'s the drought affecting the lettuce and tomato crops specifically.' },
-      { role: 'M-Br', text: 'Just those two, not everything?' },
-      { role: 'W-Cn', text: 'Right. Root vegetables and grains are unaffected, so far.' },
-      { role: 'M-Br', text: 'Could we swap the summer salad for something that leans less on lettuce and tomato?' },
-      { role: 'W-Cn', text: 'I already asked the chef. She\'s testing a cabbage-based version this week.' },
-      { role: 'M-Br', text: 'Good. Let\'s hold off on raising the menu price until we see whether the cabbage version works.' },
+      { role: 'W-Au', text: 'About the woman who rang this morning — she wanted to know whether we could give her husband the same hearing test she had. Apparently he\'s been struggling to follow conversations at family get-togethers.' },
+      { role: 'M-Am', text: 'We can definitely fit him in. Did she say when would work for them?' },
+      { role: 'W-Au', text: 'She asked for a morning slot if we had one — she said the drive here takes her the better part of an hour, so she\'d rather do it before the roads get busy.' },
+      { role: 'M-Am', text: 'Let me check... I\'ve got an opening Tuesday morning. After that, nothing really frees up until much later in the month.' },
+      { role: 'W-Au', text: 'I\'ll call her back and offer her that, then.' },
     ],
-    ja: '今月の青果の請求額が通常より 15 パーセントほど高いと男性が指摘。女性が業者に確認したところ、干ばつがレタスとトマトの作物に限って影響していると判明。根菜類や穀類は今のところ影響を受けていない。男性はレタスとトマトへの依存が少ない献立への切り替えを提案し、女性はすでにシェフに相談済みで、今週キャベツを使った代替版を試作中だと答える。結論として、代替版がうまくいくか見極めるまでメニュー価格の値上げは見送ることになった。',
-    v: [['produce', '青果'], ['drought', '干ばつ'], ['root vegetable', '根菜']],
+    ja: '聴覚クリニックの受付で、女性の受付係が男性の聴覚士に、その朝電話をかけてきた患者について伝えている。患者は、自分が受けたのと同じ聴力検査を夫にも受けさせられるか尋ねていて、夫は家族の集まりで会話についていけずに困っているという。ここまで来るのに1時間近くかかるので、道が混む前に済ませたいと午前の枠を希望していた。男性が確認すると火曜日の午前に空きがあり、それ以外は今月かなり先まで空かないとわかる。女性はその枠を伝えるために患者に折り返すと言う。',
+    v: [['get-together', '(内輪の)集まり'], ['fit (someone) in', '(予定に)組み込む、都合をつける'], ['opening', '(予定の)空き'], ['the better part of ~', '~の大半']],
     q: [
-      { tag: '詳細', s: 'Why has the produce invoice increased?',
-        c: ['A new supplier was hired.', 'Drought has affected certain crops.',
-            'The restaurant increased its order size.', 'Delivery fees rose.'],
+      { tag: '詳細', qid: 'v4q47p', s: 'Why did the patient call the clinic?',
+        c: ['To move her appointment to another day', 'To ask about a test for her husband', 'To report that she lost a hearing aid', 'To request a copy of her test results'],
         a: 1,
-        e: '干ばつがレタスとトマトの作物に影響していると業者から説明を受けている。',
-        w: ['業者変更の話はない。', '正解。', '発注量増加には触れていない。', '配送料の話も出ていない。'] },
-      { tag: '詳細', s: 'What is unaffected by the price increase?',
-        c: ['Lettuce and tomatoes', 'All produce',
-            'Root vegetables and grains', 'Only imported items'],
-        a: 2,
-        e: '「根菜類と穀類は今のところ影響を受けていない」と述べられている。',
-        w: ['影響を受けている側。', 'すべてではなく一部が影響を受けている。', '正解。', '輸入品の話は出ていない。'] },
-      { tag: '推測', s: 'What will the speakers do before changing the menu price?',
-        c: ['Wait to see if a recipe substitution works', 'Switch suppliers today',
-            'Raise prices on the affected menu items immediately', 'Consult a food critic about the new menu'],
+        e: '受付の女性は "she wanted to know whether we could give her husband the same hearing test she had" と述べ、患者が自分の夫にも同じ聴力検査を受けさせられるか尋ねるために電話してきたと説明している。',
+        w: ['予約を別の日に動かす話は会話のどこにも出てこない。', '正解。', '補聴器を紛失したという話は会話のどこにも出てこない。', '自分の検査結果の写しを求める話は会話のどこにも出てこない。夫に同じ検査を受けさせられるか尋ねているだけである。'] },
+      { tag: '詳細', qid: 'v4q48p', s: 'When does the man say he has a free appointment?',
+        c: ['On Tuesday morning', 'On Wednesday afternoon', 'On Thursday morning', 'On Friday afternoon'],
         a: 0,
-        e: 'キャベツを使った代替版がうまくいくか見極めるまで値上げを見送ると結論している。',
-        w: ['正解。', '業者を変更するという話は会話のどこにも出てこない。', '値上げはキャベツ版の結果を見るまで見送ると結論しており、即座には行わない。', '評論家に相談するという話は出ていない。'] },
+        e: '男性は "I\'ve got an opening Tuesday morning." と、火曜日の午前に空きがあると述べている。',
+        w: ['正解。', '水曜日の午後についての言及は会話のどこにも出てこない。', '木曜日の午前についての言及は会話のどこにも出てこない。', '金曜日の午後についての言及は会話のどこにも出てこない。'] },
+      { tag: '推測', qid: 'v4q49p', s: 'What is suggested about the patient?',
+        c: ['She works in a noisy place.', 'She sings in a local choir.', 'She retired from her job recently.', 'She lives far from the clinic.'],
+        a: 3,
+        e: '女性は "the drive here takes her the better part of an hour" と述べており、患者がクリニックまで車で1時間近くかかる場所に住んでいることがうかがえる。',
+        w: ['騒がしい職場についての言及は会話のどこにも出てこない。', '合唱団についての言及は会話のどこにも出てこない。', '最近退職したという話は会話のどこにも出てこない。', '正解。'] },
     ],
   }),
 
   /* ── 50–52 ─────────────────────────────────────────── */
+  /* 申し送り：改装する場所は地下室1つだけ。重視する点は予算1つだけ述べ、
+     防水性・内装の調和・足元の暖かさには触れていない。Q52 は「来月まで
+     海外で戻らない」という1つの手がかりだけで推測させ、常連かどうか・
+     ペット・住居の古さには触れていない。 */
   set({
-    n: [50, 51, 52], lv: 5,
+    n: [50, 51, 52], lv: 3,
     s: [
-      { role: 'W-Au', text: 'Kenji, I\'ve read your reconciliation on the July shipment discrepancy. It\'s thorough, but it stops before the actual cause.' },
-      { role: 'M-Cn', text: 'You mean why the count was off in the first place.' },
-      { role: 'W-Au', text: 'Yes. You\'ve shown that 40 units were missing from the manifest. What you haven\'t shown is where they went.' },
-      { role: 'M-Cn', text: 'The loading bay camera was down that week, so I can\'t confirm visually. My best guess is a mislabelled pallet went to the wrong truck.' },
-      { role: 'W-Au', text: 'Can you check the other truck\'s delivery records?' },
-      { role: 'M-Cn', text: 'I can, but that truck went to three different sites, so it will take some cross-checking.' },
-      { role: 'W-Au', text: 'Do it. If it\'s a mislabelling problem, it could easily happen again on any pallet, not just this one.' },
-      { role: 'M-Cn', text: 'I\'ll have an answer by Thursday.' },
+      { role: 'W-Cn', text: 'Hi, it\'s the shop — I\'ve got a customer turning her cellar into a home theatre, and I need to place an order for flooring and underlay.' },
+      { role: 'M-Au', text: 'No worries, what\'s she after?' },
+      { role: 'W-Cn', text: 'Nothing too fancy — she\'s been really clear that she\'s working to a tight budget, so whatever we quote has to stay within that, even if it means a plainer finish.' },
+      { role: 'M-Au', text: 'Understood, I\'ll put together some options at the lower end, then. When does she need it by?' },
+      { role: 'W-Cn', text: 'There\'s no rush, actually — she\'s working abroad at the moment and won\'t be home until next month, so anytime before then is fine.' },
+      { role: 'M-Au', text: 'Great, that gives us some breathing room.' },
     ],
-    ja: '女性が 7 月の出荷差異についての照合報告書を読み、内容は丁寧だが実際の原因の手前で止まっていると指摘。ケンジは「原因のことですね」と応じ、女性は「マニフェストから 40 個が消えたことは示せているが、どこへ行ったかが示せていない」と続ける。ケンジは積み込み場のカメラがその週故障していたため目視確認できず、パレットの表示ミスで別のトラックに積まれた可能性が高いと推測。女性は別のトラックの配送記録を確認するよう指示し、表示ミスなら他のパレットでも同じことが起こり得ると懸念を示す。ケンジは木曜までに回答すると答えた。',
-    v: [['reconciliation', '照合、突き合わせ'], ['discrepancy', '食い違い'], ['manifest', '積荷目録'], ['mislabelled', '表示を誤った']],
+    ja: '仕入先への電話で、店の女性従業員が男性の担当者に、ある客が地下室をホームシアターに改装するため、床材とその下敷きを発注したいと伝える。客は予算に厳しく、見積もりは仕上げが簡素になってもその範囲に収めてほしいと言っているという。納期については、客は仕事で海外にいて来月まで戻らないため、それまでに届けば急ぎではないと伝える。',
+    v: [['cellar', '地下室'], ['underlay', '(床材の)下敷き'], ['tight budget', '厳しい予算'], ['breathing room', '余裕']],
     q: [
-      { tag: '詳細', s: 'What has Kenji\'s report established?',
-        c: ['The camera system was working correctly that week.', '40 units were missing from the manifest.',
-            'A specific driver was found to be responsible.', 'The mislabelled pallet has now been located.'],
-        a: 1,
-        e: '「マニフェストから 40 個が消えていた」ことは報告書で示せていると述べられている。',
-        w: ['その週はカメラが故障していたと男性が述べており、正しく作動していたわけではない。', '正解。', '特定のドライバーの責任については報告書でまだ示せていないと述べられている。', 'パレットの所在はまだ推測の段階で、特定できたとは述べていない。'] },
-      { tag: '詳細', s: 'Why can\'t Kenji confirm the cause visually?',
-        c: ['The loading bay camera was not working that week.', 'The paperwork was destroyed.',
-            'He was not on shift during that particular week.', 'The truck has already been repainted by the client.'],
-        a: 0,
-        e: '「その週、積み込み場のカメラが故障していた」ため目視で確認できないと述べている。',
-        w: ['正解。', '書類の破棄については会話のどこにも出てこない。', 'ケンジ自身が調査しており、勤務していなかったとは述べていない。', 'トラックの塗装については会話のどこにも出てこない。'] },
-      { tag: '推測', s: 'Why is the woman concerned about other pallets?',
-        c: ['They have already caused a second incident this month.', 'A scheduled audit is due for them next quarter.',
-            'Those belong to a different client\'s warehouse account.', 'A mislabelling problem could recur on any pallet.'],
+      { tag: '詳細', qid: 'v4q50p', s: 'What does the woman say the customer is planning to renovate?',
+        c: ['A home office', 'A kitchen floor', 'A staircase landing', 'A basement room'],
         a: 3,
-        e: '「表示ミスなら、これ 1 件に限らず他のパレットでも容易に起こり得る」と懸念している。',
-        w: ['2 件目の発生はまだ述べられておらず、今後起こり得るという懸念である。', '監査予定については会話のどこにも出てこない。', '顧客の違いについては会話のどこにも出てこない。', '正解。'] },
+        e: '女性は "I\'ve got a customer turning her cellar into a home theatre" と、客が地下室をホームシアターに改装しようとしていると述べている。',
+        w: ['書斎(ホームオフィス)についての言及は会話のどこにも出てこない。', 'キッチンの床についての言及は会話のどこにも出てこない。', '階段の踊り場についての言及は会話のどこにも出てこない。', '正解。'] },
+      { tag: '詳細', qid: 'v4q51p', s: 'What does the woman say is important to the customer?',
+        c: ['A material that resists surface moisture', 'A pattern that matches existing decor', 'A price within a strict budget', 'A surface that stays warm underfoot'],
+        a: 2,
+        e: '女性は "she\'s working to a tight budget, so whatever we quote has to stay within that, even if it means a plainer finish" と述べ、予算内に収まることが客にとって重要だと伝えている。',
+        w: ['表面の防水性についての言及は会話のどこにも出てこない。', '既存の内装との調和についての言及は会話のどこにも出てこない。', '正解。', '足元の暖かさについての言及は会話のどこにも出てこない。'] },
+      { tag: '推測', qid: 'v4q52p', s: 'What is suggested about the customer?',
+        c: ['The customer has bought from the shop before.', 'The customer owns a large dog.', 'The customer lives in an old house.', 'The customer is away until next month.'],
+        a: 3,
+        e: '女性は "she\'s working abroad at the moment and won\'t be home until next month" と述べており、客が今は不在で、来月まで戻らないことがうかがえる。',
+        w: ['以前も店で買ったことがあるという話は会話のどこにも出てこない。', '大型犬を飼っているという話は会話のどこにも出てこない。', '古い家に住んでいるという話は会話のどこにも出てこない。', '正解。'] },
     ],
   }),
 ];

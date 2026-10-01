@@ -1,13 +1,17 @@
 /* =============================================================
-   予想模試 Vol.3 — Part 3 後半（No.53–70）
+   予想模試 Vol.3 — Part 3 後半（No.53–70、6セット）
+   図表付きは 56・62・68 の3セット。
    ============================================================= */
 
+/* `qid` は id の明示指定。設問を先に凍結し正解をくじで決める方式（2026-09-27
+   確立）で本文を書き下ろしたため、通し番号由来の既定 id ではなく
+   新しい id を与える（`no` は 1〜200 の連番なので絶対に変えない）。 */
 const set = (o) => ({
-  id: `v3-p3-${o.n[0]}`, part: 3, kind: 'set', kindLabel: o.k || 'conversation',
+  id: o.sid || `v3-p3-${o.n[0]}`, part: 3, kind: 'set', kindLabel: o.k || 'conversation',
   topics: o.t || ['p3detail'], level: o.lv ?? 4,
   script: o.s, graphic: o.graphic, ja: o.ja, vocab: o.v,
   questions: o.q.map((x, i) => ({
-    id: `v3q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
+    id: x.qid || `v3q${o.n[i]}`, no: o.n[i], stem: x.s, choices: x.c, answer: x.a,
     exp: x.e, why: x.w, topics: x.t || o.t || ['p3detail'], tag: x.tag,
   })),
 });
@@ -15,326 +19,354 @@ const set = (o) => ({
 export const L2B = [
 
   /* ── 53–55 ─────────────────────────────────────────── */
+  /* 設問案凍結・くじの正解（53=B, 54=A, 55=B）は変更していない。
+     Q53 の記事の主題（値上がり）は女性の冒頭発言だけで示し、言い換えて
+     選択肢の語をそのまま使わない。Q54 は「産地から直接仕入れ」の1点のみ
+     を男性に述べさせ、ブレンド・配送日数・通販起源には一切触れない。
+     Q55 の引用直前は「観光客数の落ち込みが売上に影響しているか」という
+     女性の質問1つだけにし、スーパー回避・顧客層の思い込み・梱包サイズの
+     話題は混在させていない。
+     2026-09-29 第1巡監査反映：S4「growers」を「estates」に差し替え、
+     選択肢(A) tea growers との逐語一致を解消（vocab に estate を追加）。
+     Q55 の ja の誤訳（「団体旅行客の来店が途絶えると」）を修正。
+     2026-09-29 第2巡監査反映：ja の「男性創業者」（創業したのは本文では
+     父親であり男性ではない）「食料品専門誌」（本文に無い）「小さな作業場」
+     （small が掛かるのは firm であり unit ではない）を書き直した。 */
   set({
-    n: [53, 54, 55], lv: 5,
+    n: [53, 54, 55], lv: 3,
     s: [
-      { role: 'W-Am', text: 'Rasmus, the client has asked us to remove the survey question about household income.' },
-      { role: 'M-Br', text: 'On what grounds?' },
-      { role: 'W-Am', text: 'They say respondents find it intrusive and it\'ll hurt the completion rate.' },
-      { role: 'M-Br', text: 'The completion rate on the pilot was ninety-one percent, and only four people skipped that question.' },
-      { role: 'W-Am', text: 'I know. But it\'s their study.' },
-      { role: 'M-Br', text: 'It is. My concern is that half the analysis they have asked for can\'t be done without it. We can\'t report by income band if we don\'t collect income.' },
-      { role: 'W-Am', text: 'Then that\'s what we tell them — not "we disagree", but "here is what you lose".' },
-      { role: 'M-Br', text: 'I\'ll list the affected tables. There are six.' },
+      { role: 'W-Am', text: 'Hi, is this an okay time? I\'m writing a piece on why shoppers are paying more at the checkout for their tea, and your name came up.' },
+      { role: 'M-Br', text: 'That\'s fine, go ahead. We\'re a small firm — my father set it up thirty years ago, working out of a unit near the docks.' },
+      { role: 'W-Am', text: 'And you still buy the leaf yourselves?' },
+      { role: 'M-Br', text: 'We do. We deal straight with the estates, with no agents taking a cut along the way.' },
+      { role: 'W-Am', text: 'That\'s useful. Visitor numbers have been down around here this summer — has that touched your side of things at all?' },
+      { role: 'M-Br', text: 'Half our customers are hotels, so yes. When the coach parties stop coming through, our orders drop within days.' },
+      { role: 'W-Am', text: 'I\'ll note that down. Anything else you\'d like readers to hear?' },
+      { role: 'M-Br', text: 'Just that we\'re doing everything we can to hold our prices steady.' },
     ],
-    ja: '顧客から、世帯収入に関する調査項目の削除を求められた。理由は「回答者が立ち入りすぎと感じ、完了率が下がる」。しかし試験調査の完了率は 91 パーセントで、その設問を飛ばしたのは 4 名だけ。顧客の調査である以上従うべきだが、依頼された分析の半分がその項目なしには実施できない（収入帯別の集計ができない）。そこで「反対です」ではなく「削ると何が失われるか」を提示する方針とし、影響を受ける集計表 6 点を列挙することになった。',
-    v: [['intrusive', '立ち入りすぎた'], ['completion rate', '（回答の）完了率'], ['income band', '収入帯']],
+    ja: '紅茶の輸入会社を営む男性に、紅茶の値上がりについて記事を書いている女性記者が電話で取材している。男性は、小さな会社で、父親が30年前に埠頭近くの作業場で始めたと説明し、茶園から仲介業者を挟まず直接買い付けていると述べる。女性が今夏の観光客数の落ち込みが影響しているか尋ねると、男性は顧客の半数がホテルであるため、団体旅行客が来なくなると数日で注文が減ると認める。女性はそれを書き留め、男性は価格を据え置くよう努めている旨を付け加えて締めくくる。',
+    v: [['a unit near the docks', '埠頭近くの作業場'], ['deal straight with', '（仲介を挟まず）直接取引する'], ['estate', '茶園'], ['agents taking a cut', '手数料を取る仲介業者'], ['coach parties', '団体旅行客'], ['hold ... steady', '（価格などを）据え置く']],
     q: [
-      { tag: '詳細', s: 'What does the client want changed?',
-        c: ['The removal of one question', 'The wording of one question',
-            'The method of distribution', 'The size of the sample'],
+      { tag: '詳細', qid: 'v3q53p', s: 'What is the woman\'s article about?',
+        c: ['Small firms that import specialty foods', 'The rising price of tea',
+            'Family-owned companies in the region', 'Changes in how people drink tea'],
+        a: 1,
+        e: '女性は冒頭で「レジで払う紅茶の値段が上がっている理由についての記事を書いている」と述べており、これが記事の主題である。',
+        w: ['男性の会社が小規模である点には触れているが、それは記事の主題として述べられていない。', '正解。', '地域の家族経営企業についての言及はない。', '紅茶の飲み方の変化についての言及はない。'] },
+      { tag: '詳細', qid: 'v3q54p', s: 'What does the man say about his company?',
+        c: ['It buys directly from tea growers.', 'It blends its own teas in-house.',
+            'It delivers orders within two days.', 'It began as a mail-order firm.'],
         a: 0,
-        e: '「世帯収入に関する設問の削除」を求めている。',
-        w: ['正解。', '顧客が求めたのは削除であり、表現の書き換えは求めていない。', '配布方法には触れていない。', '標本数の話も出ていない。'] },
-      { tag: '詳細', s: 'What does the pilot data show?',
-        c: ['The completion rate was low.', 'The question was rarely skipped.',
-            'Most respondents misunderstood the question.', 'Income data was unreliable.'],
-        a: 1,
-        e: '「完了率 91 パーセント、その設問を飛ばしたのは 4 名だけ」が根拠。',
-        w: ['91 パーセントは低くない。', '正解。', '誤解の話はない。', '信頼性には触れていない。'] },
-      { tag: '意図', t: ['p3int'], s: 'What does the woman mean when she says, "not \'we disagree\', but \'here is what you lose\'"?',
-        c: ['They should refuse the request outright.', 'They should present consequences rather than objections.',
-            'They should ask for a higher fee.', 'They should consult a second client.'],
-        a: 1,
-        e: '直前に「依頼された分析の半分ができなくなる」とあり、直後に「影響を受ける集計表を列挙する」と続く。反対意見ではなく帰結を示す方針。',
-        w: ['拒否ではない。', '正解。', '費用の話は出ていない。', '別の顧客の話もない。'] },
+        e: '男性は「茶園と直接取引しており、間に入る仲介業者はいない」と述べている。',
+        w: ['正解。', '自社でブレンドしているという発言はない。', '注文を2日以内に届けるという発言はない。', '通信販売として創業したという発言はない。'] },
+      { tag: '意図', qid: 'v3q55p', t: ['p3int'], s: 'What does the man mean when he says, "Half our customers are hotels"?',
+        c: ['He is explaining why the firm avoids supermarkets.', 'He is correcting her assumption about his clients.',
+            'He is acknowledging that tourism affects his sales.', 'He is explaining why the packs are so large.'],
+        a: 2,
+        e: '直前で女性が「今夏はこのあたりの観光客数が落ち込んでいるが、それが影響しているか」と尋ねたのに対し、男性は「顧客の半数はホテルだ」と答えており、これは観光客数の変動が自社の売上に影響することを認める発言である。',
+        w: ['スーパーへの卸を避ける理由についての話題は会話に出てこない。', '女性は思い込みを述べたのではなく質問をしただけなので、訂正には当たらない。', '正解。', '梱包の大きさについての話題は会話に出てこない。'] },
     ],
   }),
 
-  /* ── 56–58（図表）────────────────────────────────── */
-  /* No.57 は2度目の是正（id を v3q57s に再採番）。1度目の修正（v3q57r）は「ページ数の時点で
-     除外される綴じ方の公表料金」を問う図表設問にしたが、レビューで次が発覚した：
-     stem が定冠詞＋単数（"the binding option that is ruled out"）で「除外されるのはちょうど1つ」
-     と明言しており、表の Max pages 列（48/250/400/600）と組み合わせると、48<P≤250 の場合に
-     除外される行は必ず Saddle stitch に一意確定するため、音声の「190ページ」を聞かなくても
-     設問文と表だけで正解 £1.90 が求まってしまっていた。加えて正解 £1.90 は公表料金の最安値、
-     Max pages 48 は唯一の外れ値（次点の250とは5倍差）で、当てずっぽうの手がかりも二重に立って
-     いた上、"the binding option that is ruled out" が No.56 の選択肢 Saddle stitch を先読みで
-     排除し、No.56 を実質3択にしていた。この会話は図表設問を2問載せられない構造（Perfect bound /
-     Wire-O / Case bound を識別する属性がすべて表の列そのもの）なので、No.57 を図表設問から
-     詳細設問に作り替え、音声終盤の「200部には公表料金にない割引がある」という発言
-     （No.58 の正解＝午後に見積もりを送る、とは別の事実で、いずれの他設問の答えにも触れない）を
-     問う形にした。tag を「図表」→「詳細」、topics を ['graphic'] → ['p3detail']
-     （このセットの他の詳細系設問と同じ論点。他ユニットの set() 既定値に倣った）に変更。
-     set() は id を no から自動生成し、この設問だけ id を変える手段がないため、
-     このユニットだけヘルパーを使わず直接記述する。 */
-  {
-    id: 'v3-p3-56', part: 3, kind: 'set', kindLabel: 'conversation',
-    topics: ['graphic'], level: 5,
-    script: [
-      { role: 'M-Am', text: 'Halvard Print, good afternoon.' },
-      { role: 'W-Au', text: 'Hello. I need two hundred copies of a training manual. It runs to a hundred and ninety pages.' },
-      { role: 'M-Am', text: 'A hundred and ninety. That rules out one of our options straight away.' },
-      { role: 'W-Au', text: 'The important thing is that it stays open on a bench while people follow the steps.' },
-      { role: 'M-Am', text: 'Then that narrows it to one. The cheaper binding at that page count won\'t stay open — it springs shut.' },
-      { role: 'W-Au', text: 'Understood. And the cost?' },
-      { role: 'M-Am', text: 'I\'ll send a written quotation this afternoon. There\'s a discount at two hundred copies that\'s not on the published rate.' },
-    ],
-    graphic: {
-      t: 'table', title: 'Halvard Print — Binding Options',
-      head: ['Binding', 'Max pages', 'Lies flat', 'Cost per copy'],
-      rows: [
-        ['Saddle stitch', '48', 'Yes', '£1.90'],
-        ['Perfect bound', '400', 'No', '£3.40'],
-        ['Wire-O', '250', 'Yes', '£4.20'],
-        ['Case bound', '600', 'No', '£9.80'],
-      ],
-    },
-    ja: '190 ページの研修マニュアルを 200 部という依頼。ページ数で選択肢が 1 つ除外される。作業台の上で開いたままになることが重要と伝えると、条件を満たすのは 1 つに絞られると説明。そのページ数では安い方の綴じ方は開いたままにならず閉じてしまうという。費用は午後に書面で見積もりを送るとし、200 部には公表料金にない割引があると案内された。',
-    vocab: [['lie flat', '（本が）開いたままになる'], ['spring shut', '（反発で）閉じてしまう'], ['quotation', '見積もり']],
-    questions: [
-      { id: 'v3q56', no: 56, tag: '図表', stem: 'Look at the graphic. Which binding will be used?',
-        choices: ['Saddle stitch', 'Wire-O', 'Perfect bound', 'Case bound'],
-        answer: 1,
-        exp: '190 ページなので Saddle stitch（48 ページまで）は不可。開いたままになる必要があるので Lies flat が Yes の Wire-O。Perfect bound と Case bound は No。',
-        why: ['ページ数の上限を超える。', '正解。', '開いたままにならない。', '開いたままにならない。'],
-        topics: ['graphic'] },
-      { id: 'v3q57s', no: 57, tag: '詳細', stem: 'What does the man say about the price for this order?',
-        choices: ['It will be higher than the standard published rate.', 'It will be the same as the published rate.',
-                   'It will be lower than the standard published rate.', 'It includes a surcharge for a short deadline.'],
-        answer: 2,
-        exp: '男性は「200 部には公表料金にない割引がある」と述べている。割引がある以上、実際の価格は公表料金より低くなる。',
-        why: ['割引は価格を下げるものであり、上げるものではない。', '割引は公表料金と異なることを意味するので、同額にはならない。', '正解。', '述べられているのは割引であり、追加の割増ではない。短納期への言及もない。'],
-        topics: ['p3detail'] },
-      { id: 'v3q58', no: 58, tag: '次の行動', stem: 'What will the man do this afternoon?',
-        choices: ['Send a written quotation', 'Deliver a sample copy', 'Apply no discount to the order', 'Visit the customer\'s site'],
-        answer: 0,
-        exp: '「午後に書面で見積もりを送る」と述べている。',
-        why: ['正解。', '見本の話はない。', '本文は "There\'s a discount at two hundred copies that\'s not on the published rate." と述べており、200 部の注文には割引が適用される。割引を適用しないとするこの記述は本文と正面から矛盾する。', '訪問の予定もない。'],
-        topics: ['p3detail'] },
-    ],
-  },
-
-  /* ── 59–61 ─────────────────────────────────────────── */
+  /* ── 56–58（図表）──────────────────────────────────── */
+  /* 表は凍結案どおり（Crate ID / Position / Recipient）。Position・Recipient の
+     セルの語（upright・flat・museum・private・client）は本文で一切使わず、
+     「立てる／寝かせる」「公共の収蔵施設／収集家の自宅」に言い換えて2文に分けて
+     伝えている。Museum 行きの2件（KFL-119・KFL-082）のうち Flat（寝かせる）
+     なのは KFL-082 だけなので表だけでは1/2までしか絞れず、音声の2属性で
+     初めて1件に決まる（音声だけ・表だけのどちらでも1/4のまま）。木箱の向きの
+     話は女性の依頼（Q57）とは無関係の識別用の話題にとどめ、Q57 の実際の
+     用件（納期の再連絡）とは別の話題として提示した。Q58 は男性の次の行動を
+     「輸送業者に電話する」の1つだけに絞っている。
+     2026-09-29 第1巡監査反映：S5・S7・S8 を書き換え、Q57 の逐語
+     （need / date）と Q58 の逐語（courier）を解消した。`courier` の語自体を
+     本文から外し「the transport company」に統一（運搬業者は1社しか
+     登場しないので stem の the courier はこの会社を指す）。
+     2026-09-29 第2巡監査反映：Q57 の exp が根拠の一部（S5）しか引いて
+     おらず、依頼そのものである S7 を引いていなかったので追記。ja にも
+     この依頼の1文を追加。本文（スクリプト）は変更していない。 */
   set({
-    n: [59, 60, 61], lv: 5, k: 'conversation with three speakers',
+    n: [56, 57, 58], lv: 4, t: ['graphic'],
+    graphic: {
+      t: 'table', title: 'Outbound Crates — This Week',
+      head: ['Crate ID', 'Position', 'Recipient'],
+      rows: [
+        ['KFL-119', 'Upright', 'Museum'],
+        ['KFL-337', 'Flat', 'Private client'],
+        ['KFL-204', 'Upright', 'Private client'],
+        ['KFL-082', 'Flat', 'Museum'],
+      ],
+    },
     s: [
-      { role: 'M-Br', text: 'Last thing — the recruitment video. Wren, you looked at the two quotes.' },
-      { role: 'W-Am', text: 'I did. Twelve thousand from Fable, seven from Northlight.' },
-      { role: 'M-Cn', text: 'Same deliverable?' },
-      { role: 'W-Am', text: 'Not quite. Fable includes two days of filming on our sites; Northlight assumes we send them footage.' },
-      { role: 'M-Cn', text: 'We don\'t have footage.' },
-      { role: 'W-Am', text: 'Exactly. So the seven becomes seven plus whatever it costs us to produce two days of usable material, which we have never done.' },
-      { role: 'M-Br', text: 'So it is not really seven against twelve.' },
-      { role: 'W-Am', text: 'No. It is twelve against seven plus an unknown, delivered by people who have never filmed on a working site.' },
-      { role: 'M-Br', text: 'Go with Fable. Wren, ask them to confirm the two filming days in writing before we sign.' },
+      { role: 'W-Cn', text: 'Before we get into the schedule change, I want to check on the crate that\'s going out to the public collection rather than to a collector\'s home.' },
+      { role: 'M-Au', text: 'That narrows it to two of them. Do you mean the one that has to travel lying down, or the one that stands on its end?' },
+      { role: 'W-Cn', text: 'The one that travels lying down.' },
+      { role: 'M-Au', text: 'Got it, I know which one you mean.' },
+      { role: 'W-Cn', text: 'Good. The transport company has moved our pickup back two days, so I have to let the recipient know when it\'ll actually arrive.' },
+      { role: 'M-Au', text: 'Let me look into that today.' },
+      { role: 'W-Cn', text: 'Can you find out what the transport company can actually offer, rather than us guessing?' },
+      { role: 'M-Au', text: 'I\'ll ring them myself now and see what slot they\'ve got instead.' },
     ],
-    ja: '採用動画の 2 社見積もりを検討。フェイブル社が 1 万 2 千、ノースライト社が 7 千。ただし内容が同じではなく、フェイブルは自社拠点での 2 日間の撮影を含むが、ノースライトは映像素材の提供を前提としている。素材は存在せず、経験もないため「7 千＋未知の費用」となる。したがって単純な 7 対 12 の比較ではないと確認され、フェイブルに決定。契約前に撮影 2 日間を書面で確認するよう指示された。',
-    v: [['deliverable', '成果物'], ['footage', '映像素材'], ['usable', '使える']],
+    ja: '木箱の発送を扱う事務所で、女性スタッフが男性の担当者に、今週発送予定の木箱について確認している。女性は、個人の収集家の自宅ではなく公共の収蔵施設に向かい、かつ立てた状態ではなく寝かせた状態で運ぶ必要がある木箱を尋ねている。該当の木箱が分かると、女性は輸送会社が集荷の予定を2日遅らせたため、実際の到着日を先方に知らせなければならないと伝え、推測で済ませずに輸送会社が実際に出せる枠を確かめてほしいと頼む。男性はこれから自分で輸送会社に電話し、代わりにどんな枠が出せるか確認すると答える。',
+    v: [['the public collection', '公共の収蔵施設'], ['a collector\'s home', '個人収集家の自宅'], ['travel lying down', '寝かせた状態で運ばれる'], ['stands on its end', '立てた状態で置かれる'], ['transport company', '運送会社'], ['move ... back', '（予定を）遅らせる']],
     q: [
-      { tag: '詳細', s: 'What is the difference between the two quotes?',
-        c: ['One offers a faster turnaround than the other.', 'One includes filming; the other does not.',
-            'One includes editing only.', 'One requires payment in advance.'],
-        a: 1,
-        e: '「フェイブルは 2 日間の撮影を含み、ノースライトは素材の提供を前提とする」と説明されている。',
-        w: ['納期は一度も比較されていない。2 社の違いは撮影 2 日間が含まれるかどうかである。', '正解。', '編集のみとは述べていない。', '支払条件の話はない。'] },
-      { tag: '意図', t: ['p3int'], s: 'What does the woman mean when she says, "It is twelve against seven plus an unknown"?',
-        c: ['The two quotes should be renegotiated before any final decision.', 'The cheaper quote carries unquantified extra costs.',
-            'The budget has not yet been approved by finance.', 'The higher quote includes charges that were never disclosed.'],
-        a: 1,
-        e: '素材制作の費用が見積もられていないため、7 千では済まないという指摘。',
-        w: ['再交渉の提案ではない。結論はすでにフェイブルへ決定している。', '正解。', '予算承認の話はない。', '未知の費用が生じるのは安い方（ノースライト）であり、高い方（フェイブル）ではない。高い方の内訳（2日間の撮影）はむしろ明確である。'] },
-      { tag: '次の行動', s: 'What is the woman asked to do?',
-        c: ['Negotiate a lower price with Fable before signing', 'Obtain a third quotation from a different production company',
-            'Produce sample footage', 'Get written confirmation of the filming days'],
+      { tag: '図表', qid: 'v3q56p', s: 'Look at the graphic. Which crate is the woman asking about?',
+        c: ['KFL-119', 'KFL-337', 'KFL-204', 'KFL-082'],
         a: 3,
-        e: '「契約前に撮影 2 日間を書面で確認するよう頼め」と指示されている。',
-        w: ['値下げ交渉は述べていない。男性は「フェイブルで進めよう」と結論づけている。', '3 社目の見積もりを取る話はない。', '素材制作は避ける方針。', '正解。'] },
+        e: '女性は、公共の収蔵施設（Museum）行きで、かつ寝かせた状態で運ぶ（Flat）木箱を尋ねている。Museum 行きは KFL-119 と KFL-082 の2件だが、そのうち Flat なのは KFL-082 だけなので、これが該当する。',
+        w: ['KFL-119 は Museum 行きだが Upright（立てて運ぶ）であり、女性が言う寝かせて運ぶ木箱とは異なる。', 'KFL-337 は Private client（個人収集家）行きであり、女性が言う公共の収蔵施設行きとは異なる。', 'KFL-204 も Private client 行きであり、公共の収蔵施設行きではない。', '正解。'] },
+      { tag: '詳細', qid: 'v3q57p', t: ['p3detail'], s: 'What does the woman need from the man?',
+        c: ['She needs a revised delivery date.', 'She wants confirmation of the insurance value.',
+            'She wants photos of the packed crate.', 'She needs updated customs documentation.'],
+        a: 0,
+        e: '女性は「輸送会社が集荷の予定を2日遅らせたので、実際の到着日を先方に知らせなければならない」と述べたうえで、男性に「Can you find out what the transport company can actually offer, rather than us guessing?」と頼んでおり、女性が男性から得たいのは、先方に伝える新しい到着日である。',
+        w: ['正解。', '保険金額の確認についての言及はない。', '梱包後の木箱の写真についての言及はない。', '通関書類の更新についての言及はない。'] },
+      { tag: '次の行動', qid: 'v3q58p', t: ['p3detail'], s: 'What will the man most likely do next?',
+        c: ['He will update the shipment records.', 'He will contact the courier directly.',
+            'He will send a confirmation e-mail.', 'He will check the crate\'s exact weight.'],
+        a: 1,
+        e: '男性は最後に「自分ですぐ輸送会社に電話し、代わりにどんな枠が出せるか確認する」と述べている。輸送を担う会社はこの1社しか登場しないので、これが stem の the courier に当たる。',
+        w: ['出荷記録を更新するという発言はない。', '正解。', '確認のメールを送るという発言はない。（先方に到着日を知らせるのは女性の役割で、男性の次の行動ではない。）', '木箱の正確な重量を確認するという発言はない。'] },
     ],
   }),
 
-  /* ── 62–64（図表 1 問＋通常 2 問）─────────────────── */
-  /* No.63 は本番仕様（1 セット 1 問の図表設問）に揃えるための差し替え。
-     旧 No.63「Look at the graphic. Will lunch be included?」は、No.62 の正解
-     （Woodland trail）が確定して初めて「3 時間＝4 時間未満」から昼食の有無が
-     決まる構造で、図表設問が1セットに2問載る形（本番に存在しない構造）だった。
-     音声終盤の M-Cn の発言 "Then there's one that fits exactly." の意図問題
-     （＝女性が挙げた2条件〈登り300m未満・6kmより長い〉を満たす案が1つに絞られる、
-     という意味）に置き換えた。図表を見なくても音声だけで解け、正解（Woodland trail）
-     の名称・数値には一切触れないので No.62 の答えを先読みで漏らさない。
-     tag を「図表」→「意図」、topics を ['graphic']（o.t 由来）→ ['p3int'] に変更。
-     set() は id を no から自動生成し、この設問だけ id を変える手段がないため、
-     このユニットだけヘルパーを使わず直接記述する（先例: v3-p3-56 の v3q57s）。 */
-  /* 2026-08-25 追記（監査で二度目の差し戻し）: 上の v3q63r 自体が意図問題として
-     成立していなかった。引用 "there's one that fits exactly" に字義を超えた含みが
-     なく（「条件に合う案がちょうど1つ」という文字通りの意味そのもの）、しかも
-     正解 "Only one walk meets both conditions she described." がその逐語訳で、
-     誤答3つ（複数ある／一つも無い／どれでもよい）は引用文中の "one" と "fits" に
-     矛盾するため設問文と選択肢だけで、音声なしに正解できてしまっていた。
-     引用を同じ発話の別の一文 "we have all day" に差し替えた
-     （女性の発言「But six kilometres feels too short — we have all day.」の一部）。
-     この一文は字義（一日使える時間がある）を超えて、直前の「6キロでは短すぎる」という
-     不満の理由付けとして機能しており、含みを読む必要が生じる。
-     誤答は次の根拠でそれぞれ「不可能」に閉じている:
-     ・「その日は後で別の予定がある」＝ "we have all day" の字義（その日は丸ごと空いている）と
-       直接矛盾する。
-     ・「さらに短縮したい」＝ 直前で本人が「6キロでは短すぎる」と述べており、
-       これと正反対になるため成立しない。
-     ・「距離に関わらず昼食を用意してほしい」＝ 後続の発言「4時間以上のコースのみ昼食を
-       含む」と明示的に矛盾する。
-     No.62（Woodland trail・9 km）の答えにも、No.64（中間地点の温かい飲み物）の答えにも
-     一切触れないため、先読みによる漏れは生じない。tag「意図」・topics ['p3int'] は
-     そのまま据え置く（成立している意図問題になったため）。中身を総入れ替えしたので
-     id を v3q63r → v3q63s に新規採番する。 */
-  {
-    id: 'v3-p3-62', part: 3, kind: 'set', kindLabel: 'conversation',
-    topics: ['graphic'], level: 5,
-    script: [
-      { role: 'W-Br', text: 'Good morning. We\'re a group of eight and we\'d like a guided walk on Friday.' },
-      { role: 'M-Cn', text: 'Certainly. How much climbing are you comfortable with?' },
-      { role: 'W-Br', text: 'Two of the group have knee problems, so we\'d want to keep the ascent under three hundred metres. But six kilometres feels too short — we have all day.' },
-      { role: 'M-Cn', text: 'Then there\'s one that fits exactly.' },
-      { role: 'W-Br', text: 'Good. Is lunch included?' },
-      { role: 'M-Cn', text: 'On walks of four hours or more, yes. On shorter ones you bring your own, though we do provide hot drinks at the halfway point on all of them.' },
+  /* ── 59–61（3名の会話）─────────────────────────────── */
+  /* 先に話す男性（M-Am）を配送担当、2人目の男性（M-Au）を売り場担当にした。
+     Q60 の引用直前は「近く予定されている賃金の見直し」という2人目の男性の
+     質問1つだけにし、荷下ろしの人手不足・研修記録・不在の理由は混在させて
+     いない。1人目の男性の発言はQ60 の4択のいずれにも当たらない（供給業者へ
+     の対応の話のみ）。Q59 の問題は電話回線の不通1点のみ、Q61 の女性の
+     次の行動は常連客への電話1点のみに絞っている。
+     2026-09-29 第1巡監査反映：2人目の男性の役を M-Cn → M-Au に変更
+     （端末によっては en-CA の男声が無く M-Am と同じ声になりうるため。
+     引用で発話者は特定できるが、body-rules の例に合わせて安全側に寄せた）。
+     S4「Before you go」→「Before we head out」（女性が go 側ではなく
+     男性2人が出ていく側だと述べているのに合わせた）。S2「mobile」→
+     「cell」（M-Am は米式）。S6 を書き換え、答えが引用の直後に逐語で
+     出ていた「reflected in my pay」を外し、why(B) が「文脈で切る」書き方
+     になっていたのを言及なしの理由に書き直した。 */
+  set({
+    n: [59, 60, 61], lv: 3, k: 'conversation with three speakers',
+    s: [
+      { role: 'W-Br', text: 'Morning, both. Quick thing before you head out — we lost the phones for the best part of an hour first thing, so if a customer tried to ring in, it won\'t have come through.' },
+      { role: 'M-Am', text: 'That explains it. One of my suppliers said he tried my desk line and gave up, so he called my cell instead.' },
+      { role: 'W-Br', text: 'Right, well, keep an ear out today in case others do the same.' },
+      { role: 'M-Au', text: 'Before we head out — can I ask about the pay review that\'s coming up?' },
+      { role: 'W-Br', text: 'Go on.' },
+      { role: 'M-Au', text: 'I\'ve done the forklift course. I\'m hoping that counts for something this time round.' },
+      { role: 'W-Br', text: 'Put that in writing and I\'ll take it to head office with the others.' },
+      { role: 'M-Au', text: 'Will do.' },
+      { role: 'W-Br', text: 'Right, I\'m going to ring one of our long-standing trade customers now, in case they tried to get through earlier and couldn\'t.' },
     ],
+    ja: '開店前の朝の打ち合わせで、女性の支店長が、開店直後の約1時間、電話回線がつながらなかったため、客からの着信が入っていない可能性があると伝える。配送担当の男性は、業者から自分の携帯電話に直接連絡が来たと応じる。売り場担当のもう一人の男性は、近く予定されている賃金の見直しについて尋ね、フォークリフトの講習を修了しており、今回はそれが多少なりとも考慮されるとよいと述べる。支店長は書面で提出すれば本社に話を通すと応じ、最後に、朝の不通でつながらなかったかもしれない長年の取引先の一つに、これから自分で電話をかけると告げる。',
+    v: [['the best part of an hour', 'ほぼ1時間'], ['desk line', '（会社の）固定電話回線'], ['pay review', '賃金の見直し'], ['counts for something', '（何らかの）評価・考慮の対象になる'], ['long-standing trade customer', '長年の取引先の常連客']],
+    q: [
+      { tag: '詳細', qid: 'v3q59p', s: 'What problem does the woman report?',
+        c: ['A customer\'s order went to the wrong site.', 'The phone lines were down for an hour.',
+            'Rain soaked two pallets of cement.', 'Someone left the side gate open overnight.'],
+        a: 1,
+        e: '女性は冒頭で「今朝は開店直後のほぼ1時間、電話がつながらない状態だった」と述べている。',
+        w: ['客の注文が違う現場に届いたという話は出てこない。', '正解。', '雨でセメントのパレットが濡れたという話は出てこない。', '夜間に裏門が開けっ放しだったという話は出てこない。'] },
+      { tag: '意図', qid: 'v3q60p', t: ['p3int'], s: 'What does the second man mean when he says, "I\'ve done the forklift course"?',
+        c: ['He is offering to unload a delivery himself.', 'He is noting that a record is out of date.',
+            'He is explaining why he was away from work.', 'He is making a case for a pay rise.'],
+        a: 3,
+        e: '直前で2人目の男性が「近く予定されている賃金の見直しについて聞いてもよいか」と切り出しており、続けて「フォークリフトの講習を修了した。今回はそれが多少なりとも考慮されるとよいのですが」と述べている。これは新しい資格を根拠に賃金の見直し（昇給）を期待する発言である。',
+        w: ['荷下ろしを自分が引き受けるという申し出は会話に出てこない。', '記録が古くなっているという話は会話に出てこない。', '不在だった理由についての話は会話に出てこない。', '正解。'] },
+      { tag: '次の行動', qid: 'v3q61p', s: 'What will the woman most likely do next?',
+        c: ['She will call a regular customer.', 'She will check the delivery schedule.',
+            'She will put up a notice.', 'She will unlock the front gate.'],
+        a: 0,
+        e: '女性は最後に「これから、今朝の不通でつながらなかったかもしれない長年の取引先の一つに、自分で電話をかける」と述べている。',
+        w: ['正解。', '配送予定を確認するという発言はない。', '貼り紙を出すという発言はない。', '正面の門を開けるという発言はない。'] },
+    ],
+  }),
+
+  /* ── 62–64（図表）──────────────────────────────────── */
+  /* 表は凍結案どおり（Screening Room / Format / Time Slot）。Format・Time Slot の
+     セルの語（subtitled・dubbed・afternoon・evening）は本文で一切使わず、
+     「原語＋字幕／英語吹替」「お茶の時間より前」に言い換えて2文に
+     分けて伝えている。Subtitled の2室（Pipit・Puffin）のうち Afternoon なのは
+     Pipit だけなので、表だけでは1/2までしか絞れず、音声の2属性で初めて
+     1件に決まる。Q63 の引用直前は男性の「当日は2人だけでは対応しきれない
+     かもしれない」という人手についての発言1つだけにし、催しを小さくする案・
+     宣伝不足の心配・予約席の話は混在させていない。Q64 の監督についての話は
+     出身地の1点だけに絞っている。
+     2026-09-29 第1巡監査反映（致命的1件を含む）：
+     ①S3 から「not the one after dinner」を削除。`after dinner` は英国北部
+     方言で昼食後を指しうる読みが割れるうえ、同じ話者（M-Br）の2本目の
+     not でもあった（`before tea` の1文だけで Afternoon の一択は保たれる）。
+     ②S5 を書き換え、致命的：本文「grew up just outside town（町のすぐ外）」
+     が正解 (A) `The director grew up in the town.` と向きが逆だった点を修正
+     （「地元の若者で、ここから数ブロック先で育った」＝町の中、に直した）。
+     ③S8 を書き換え、Q63 の引用の直前「You're right」・直後「we'll need
+     more hands」がどちらも答えそのものだった問題を解消（人手が要るという
+     読みは、直前の男性の発言と「もっと忙しくなる」という応答だけで
+     推論させる）。S9 も引用直後の答えと矛盾しない形に軽微に調整。
+     2026-09-29 第2巡監査反映：ja の「この町の数ブロック先で育った」を
+     「この映画館から通りを数本隔てたところで育った」に修正（「町から
+     数ブロック先＝町の外」とも読め、Q64 の致命的と同じ向きの揺れが
+     訳文に残っていた）。上のコメントから「夕食後」の言い換え記述と
+     誤字「指しうり」も削除・修正（本文はすでに `after dinner` を含まない）。 */
+  set({
+    n: [62, 63, 64], lv: 4, t: ['graphic'],
     graphic: {
-      t: 'table', title: 'Ardvreck Estate — Guided Walks',
-      head: ['Walk', 'Distance', 'Ascent', 'Duration'],
+      t: 'table', title: 'Porthaven Cinema — Saturday Screenings',
+      head: ['Screening Room', 'Format', 'Time Slot'],
       rows: [
-        ['Loch circuit', '6 km', '40 m', '2 hours'],
-        ['Woodland trail', '9 km', '210 m', '3 hours'],
-        ['Ridge path', '11 km', '620 m', '4.5 hours'],
-        ['Summit route', '14 km', '980 m', '6 hours'],
+        ['Pipit', 'Subtitled', 'Afternoon'],
+        ['Periwinkle', 'Dubbed', 'Evening'],
+        ['Puffin', 'Subtitled', 'Evening'],
+        ['Knapweed', 'Dubbed', 'Afternoon'],
       ],
     },
-    ja: '8 名のグループが金曜のガイド付きウォーキングを希望。2 名が膝の不調のため登りは 300 メートル未満に抑えたいが、6 キロでは短すぎる（1 日使える）と伝える。条件にちょうど合うコースが 1 つあると案内される。昼食は 4 時間以上のコースでは含まれ、それより短いものは各自持参だが、すべてのコースで中間地点に温かい飲み物が用意される。',
-    vocab: [['ascent', '登り（の標高差）'], ['halfway point', '中間地点']],
-    questions: [
-      { id: 'v3q62', no: 62, tag: '図表', stem: 'Look at the graphic. Which walk will the group take?',
-        choices: ['Woodland trail', 'Loch circuit', 'Ridge path', 'Summit route'],
-        answer: 0,
-        exp: '登り 300 メートル未満で、6 キロより長いのは Woodland trail（9 km・210 m）のみ。',
-        why: ['正解。', '6 km で短すぎる。', '登り 620 m で条件を超える。', '登り 980 m で条件を超える。'],
-        topics: ['graphic'] },
-      { id: 'v3q63s', no: 63, tag: '意図', stem: 'What does the woman mean when she says, "we have all day"?',
-        choices: ['She has other commitments later that day.', 'She doesn\'t think six kilometres is short.',
-                   'She would prefer a walk that takes longer.', 'She wants lunch provided regardless of how long the walk is.'],
-        answer: 2,
-        exp: '直前に「six kilometres feels too short（6キロでは短すぎる）」とあり、その理由として「we have all day（その日は丸ごと使える）」と続けている。使える時間が十分にあるので、短い案では物足りず、より時間のかかる長い案を望んでいる、という意味。',
-        why: ['「we have all day」はその日が丸ごと空いていることを意味し、後で別の予定があることとは相容れない。', '本文で女性は "six kilometres feels too short" と明言しており、6 キロを短いと思っていないという記述はこれと矛盾する。', '正解。', '昼食が出るかどうかは後続の発言で「4時間以上のコースのみ」と条件付きで示されており、長さに関わらず出るという読みとは矛盾する。'],
-        topics: ['p3int'] },
-      { id: 'v3q64', no: 64, tag: '詳細', stem: 'What is provided on every walk?',
-        choices: ['Hot drinks partway through', 'A packed lunch',
-                   'Walking poles for anyone who needs them', 'A printed map of the estate paths'],
-        answer: 0,
-        exp: '「すべてのコースで中間地点に温かい飲み物を用意する」と述べている。',
-        why: ['正解。', '4 時間以上のコースのみ昼食が含まれ、それより短いコースでは各自持参と明言されている。すべてのコースに含まれるわけではない。', 'ポールの貸し出しには一切触れていない。全コース共通で用意されると述べられているのは中間地点の温かい飲み物だけである。', '地図の配布には触れていない。用意されると述べられているのは温かい飲み物のみである。'],
-        topics: ['p3detail'] },
+    s: [
+      { role: 'M-Br', text: 'For the director\'s talk on Saturday, we need the screening that\'s in the original language with captions — he wants the audience to hear the film as he made it, not with an English voice track over it.' },
+      { role: 'W-Au', text: 'That still leaves two rooms, though.' },
+      { role: 'M-Br', text: 'It also has to be the one before tea.' },
+      { role: 'W-Au', text: 'Got it, I\'ll book him into that one. Anything else I should know about him?' },
+      { role: 'M-Br', text: 'Only that he\'s a local lad — he was brought up a few streets from here, which is why the paper\'s covering it so closely.' },
+      { role: 'W-Au', text: 'That explains the message I got this morning.' },
+      { role: 'M-Br', text: 'Saturday\'s going to be a lot to manage with just the two of us on the door, by the way.' },
+      { role: 'W-Au', text: 'And it\'s about to get busier. The local paper wants to send a photographer.' },
+      { role: 'M-Br', text: 'Then I\'ll ask upstairs if anyone can help out.' },
     ],
-  },
+    ja: 'Porthaven Cinema の事務室で、男性のイベント担当者と女性の支配人が、土曜日に予定している映画監督のトークについて話している。男性は、監督が字幕付きの原語版での上映を望んでいるため吹替版ではない回にする必要があり、さらにお茶の時間より前の回でなければならないと伝える。女性はその回を予約すると答え、監督について尋ねると、男性は監督がこの映画館から通りを数本隔てたところで育った地元の人であることが地元紙の強い関心の理由だと明かす。続けて男性は、当日は2人だけでは対応しきれないかもしれないと切り出し、女性は、もっと忙しくなる、地元紙がカメラマンを送ってくると応じる。男性は上の階に応援を頼めないか聞いてみると答える。',
+    v: [['the original language with captions', '字幕付きの原語版'], ['an English voice track', '英語吹替の音声'], ['before tea', 'お茶の時間より前'], ['local lad', '地元出身の若者'], ['was brought up', '育てられた'], ['on the door', '入り口の対応をする']],
+    q: [
+      { tag: '図表', qid: 'v3q62p', s: 'Look at the graphic. Where will the director\'s talk take place?',
+        c: ['Pipit', 'Periwinkle', 'Puffin', 'Knapweed'],
+        a: 0,
+        e: '男性は、監督が字幕付きの原語版（Subtitled）での上映を望んでいると述べ、さらにお茶の時間より前（Afternoon）の回でなければならないと述べている。Subtitled の2室（Pipit・Puffin）のうち Afternoon なのは Pipit だけなので、これが該当する。',
+        w: ['正解。', 'Periwinkle は Afternoon ではなく Evening の回であり、しかも Dubbed（吹替）でもあるため条件に合わない。', 'Puffin は Subtitled だが Evening の回であり、お茶の時間より前という条件に合わない。', 'Knapweed は Afternoon の回だが Dubbed（吹替）であり、原語版という条件に合わない。'] },
+      { tag: '意図', qid: 'v3q63p', t: ['p3int'], s: 'What does the woman mean when she says, "The local paper wants to send a photographer"?',
+        c: ['She is objecting to keeping the event small.', 'She is agreeing that they need extra staff.',
+            'She is reassuring him about publicity for the event.', 'She is explaining why she has reserved some seats.'],
+        a: 1,
+        e: '直前で男性が「土曜日は2人だけでは対応しきれないかもしれない」と述べたのに対し、女性は「これからもっと忙しくなる。地元紙がカメラマンも送り込む予定だ」と応じており、これは人手が余分に必要だという男性の見方に同意する発言として機能している。',
+        w: ['催しの規模を小さくする提案は会話に出てこない。', '正解。', '宣伝が足りないという心配についての話ではない（男性は「地元紙がこの件をよく取り上げてくれている」と自分で述べている）。', '予約済みの座席についての話は出てこない（`book him into that one` は上映回を押さえる話で、座席ではない）。'] },
+      { tag: '詳細', qid: 'v3q64p', t: ['p3detail'], s: 'What does the man say about the director?',
+        c: ['The director grew up in the town.', 'The director is shooting a film nearby.',
+            'The director wants to sign some books.', 'The director will arrive with a critic.'],
+        a: 0,
+        e: '男性は「監督は地元の人で、ここから数ブロック先で育った。それが地元紙の強い関心の理由だ」と述べている。',
+        w: ['正解。', '「ここから数ブロック先」は近所を指すが、近くで映画を撮影しているという話ではない。', 'サイン会を望んでいるという話は出てこない。', '評論家と一緒に来るという話は出てこない。'] },
+    ],
+  }),
 
   /* ── 65–67 ─────────────────────────────────────────── */
+  /* Q65 の理由は転居の1点のみ（改装とは重ねない）。Q66 の施設の説明は
+     獣医の毎朝の巡回1点のみ。Q67 の男性の次の行動は預かり金の支払い1点
+     のみにし、書類の記入は話題にしていない。
+     2026-09-29 第1巡監査反映（致命的1件を含む）：
+     ①S2「that same week」→「during that time」（直前の Two weeks を受ける
+     先を作った。受ける先が無いという指摘に対応）。
+     ②致命的：S5 の「get him settled into his run」を削除。run（区画）が
+     (A) Each dog has its own outdoor run を部分的に真にしていた。
+     支払い方法の説明（半額前払い・残金は引き取り時）に差し替え、これが
+     Q67 の逐語（pay the deposit）も同時に解消する。
+     2026-09-29 第2巡監査反映：Q67 の why(B) が誤訳だった（`I\'ll take him
+     from you` を「連れて帰る」と書いていたが、女性が男性から犬を受け取って
+     預かる、の意味で向きが逆だった）ので書き直した。本文は変更していない。 */
   set({
-    n: [65, 66, 67], lv: 5,
+    n: [65, 66, 67], lv: 3,
     s: [
-      { role: 'M-Am', text: 'Elin, I have a question about the returns policy on the website. It says thirty days, but the printed insert in the box says fourteen.' },
-      { role: 'W-Br', text: 'The insert\'s out of date. We extended it in March.' },
-      { role: 'M-Am', text: 'How many boxes still have the old insert?' },
-      { role: 'W-Br', text: 'All of them, until we use up the print run. About eleven thousand.' },
-      { role: 'M-Am', text: 'That\'s a year of stock.' },
-      { role: 'W-Br', text: 'It is. Reprinting would cost about nine hundred and we\'d bin eleven thousand perfectly good inserts.' },
-      { role: 'M-Am', text: 'And if a customer relies on the fourteen days and we refuse a return on day twenty?' },
-      { role: 'W-Br', text: 'We wouldn\'t refuse it — the longer period applies. But you\'re right that it looks careless.' },
-      { role: 'M-Am', text: 'Then put a sticker on the outer carton. It\'s not elegant, but it costs almost nothing.' },
+      { role: 'W-Br', text: 'Hello there — checking in for a stay, is it? How long will he be with us?' },
+      { role: 'M-Au', text: 'Two weeks, if you\'ve got room. We\'re moving house across the county during that time, and I didn\'t want him under everyone\'s feet with boxes everywhere.' },
+      { role: 'W-Br', text: 'That\'s fine, we\'ve got space. And don\'t worry about him while he\'s here — one of our vets looks in on every dog each morning, whether or not there\'s anything wrong.' },
+      { role: 'M-Au', text: 'That\'s good to hear, actually. He gets a bit anxious with strangers.' },
+      { role: 'W-Br', text: 'He\'ll settle in, most of them do after the first day. Right, if you can put half down now and the balance when you collect him, I\'ll take him from you and get him some water.' },
+      { role: 'M-Au', text: 'Sure, do you take cards?' },
+      { role: 'W-Br', text: 'We do.' },
     ],
-    ja: 'ウェブサイトの返品規定は 30 日だが、箱に同梱された印刷物は 14 日となっている。3 月に延長したため印刷物が古いままで、在庫を使い切るまで全箱に入る。残り約 1 万 1 千枚＝約 1 年分。刷り直しは約 900 の費用に加え、使える印刷物 1 万 1 千枚を廃棄することになる。14 日を信じた顧客が 20 日目に返品を断られる懸念については、長い方の期間が適用されるので断らないが、ずさんに見えるのは確かと認める。結論として外箱にシールを貼る案が出た。',
-    v: [['insert', '（箱の）同梱印刷物'], ['print run', '（一度の）印刷分'], ['bin', '廃棄する']],
+    ja: '犬を預かる施設の受付で、女性スタッフが、ペットを預けに来た男性客に預かり期間を尋ねる。男性は2週間、その期間中に県内の別の場所へ引っ越す予定で、荷物だらけの中に犬を置いておきたくないためだと説明する。女性は、獣医が毎朝すべての犬の様子を見に来ると伝えて安心させる。男性は犬が人見知りすると付け加える。女性は、多くの犬が最初の1日で慣れると答え、半額を今払い残りを引き取り時に払ってもらえれば、犬を預かって水をやると告げる。男性はカード払いが可能か尋ね、女性は可能だと答える。',
+    v: [['moving house', '引っ越しをする'], ['under everyone\'s feet', '（邪魔になって）足手まといで'], ['looks in on', '様子を見に立ち寄る'], ['settle in', '（新しい環境に）慣れる'], ['put half down', '半額を前払いする'], ['the balance', '残金']],
     q: [
-      { tag: '詳細', s: 'What inconsistency has the man noticed?',
-        c: ['The website lists the wrong price.', 'Two different return periods are stated.',
-            'The packaging shows an old logo.', 'The warranty length has changed.'],
+      { tag: '詳細', qid: 'v3q65p', s: 'Why is the man boarding his pet?',
+        c: ['He is going on a business trip.', 'He is having his house renovated.',
+            'He is moving to a new home.', 'He is attending a family event abroad.'],
+        a: 2,
+        e: '男性は「その期間中に県内の別の場所へ引っ越す予定で、荷物だらけの中に犬を置いておきたくない」と述べている。',
+        w: ['出張についての言及はない。', '自宅の改装についての言及はない。', '正解。', '海外での家族の行事についての言及はない。'] },
+      { tag: '詳細', qid: 'v3q66p', s: 'What does the woman say about the kennels?',
+        c: ['Each dog has its own outdoor run.', 'A vet checks on the dogs daily.',
+            'Owners can watch the dogs online.', 'Staff walk the dogs in the woods.'],
         a: 1,
-        e: 'ウェブは 30 日、同梱印刷物は 14 日という食い違い。',
-        w: ['価格の話はない。', '正解。', 'ロゴには触れていない。', '保証期間ではなく返品期間。'] },
-      { tag: '詳細', s: 'Why has the insert not been reprinted?',
-        c: ['Legal approval from head office is pending.', 'The printer has been fully booked for weeks.',
-            'The policy may change again before the year ends.', 'The existing stock would be wasted.'],
+        e: '女性は「獣医が毎朝すべての犬の様子を見に来る。何も問題がなくても」と述べている。',
+        w: ['それぞれの犬に専用の屋外スペースがあるという話は出てこない。', '正解。', '飼い主がオンラインで犬の様子を見られるという話は出てこない。', 'スタッフが森を散歩させるという話は出てこない。'] },
+      { tag: '次の行動', qid: 'v3q67p', s: 'What will the man most likely do next?',
+        c: ['He will fetch the pet\'s bedding from his car.', 'He will take a tour of the kennels.',
+            'He will fill out a boarding form.', 'He will pay a deposit for the stay.'],
         a: 3,
-        e: '「使える印刷物 1 万 1 千枚を廃棄することになる」が理由。費用 900 も併せて挙げられている。',
-        w: ['法務の承認にも本社の決裁にも触れていない。刷り直さない理由として挙がっているのは在庫の廃棄と費用である。', '印刷業者の稼働状況の話はない。理由として挙げられているのは在庫の廃棄と刷り直し費用である。', '規定が再び変わる予定は述べられていない。3 月に 30 日へ延長したという説明があるだけである。', '正解。'] },
-      { tag: '次の行動', s: 'What solution is proposed?',
-        c: ['Reverting to the terms printed on the insert', 'Reprinting the inserts immediately',
-            'Removing the insert from the boxes', 'Adding a label to the outer packaging'],
-        a: 3,
-        e: '「外箱にシールを貼る。優雅ではないがほぼ費用がかからない」と提案されている。',
-        w: ['同梱印刷物の記載に戻すという案は誰も出していない。女性は長い方（30 日）が適用されると明言している。', '刷り直しは避ける方針。', '抜き取りは述べていない。', '正解。'] },
+        e: '女性は最後に「半額を今払い、残りは引き取り時に」と伝えており、これがこの直後に求められる行動である。',
+        w: ['車から寝具を取ってくるという話は出てこない。', '言及なし。`I\'ll take him from you` は、女性が男性から犬を受け取って預かるという意味で、男性が施設を見学するという話ではない。', '書類の記入についての話は出てこない。', '正解。'] },
     ],
   }),
 
-  /* ── 68–70（図表 1 問＋通常 2 問）─────────────────── */
-  /* No.69 は本番仕様に揃えるための差し替え。旧 No.69「Look at the graphic.
-     What time is it most likely now?」は、No.68 の正解（Counter C）が確定し、
-     かつ表の締切時刻（15:00）を読んでから「20分過ぎている」という音声と
-     足し合わせて初めて解ける2階建ての図表設問で、1セットに図表設問が2問
-     載る形（本番に存在しない構造）だった。音声中の「20分過ぎている」という
-     数値そのものを問う詳細設問に置き換えた——カウンターの識別や表の時刻は
-     一切問わないので、No.68 の答え（Counter C）を先読みで漏らさない。
-     tag は「図表」のまま変えず、topics のみ ['graphic']（o.t 由来）→
-     ['p3detail'] に変更。set() は id を no から自動生成し、この設問だけ
-     id を変える手段がないため、このユニットだけヘルパーを使わず直接記述する
-     （先例: v3-p3-56 の v3q57s）。 */
-  /* 2026-08-25 追記: No.68 自体に別の欠陥があった。音声の
-     "shuts earliest of all of them" が表の until 列の唯一の最小値
-     （15:00＝Counter C）と直接対応しており、「関税＝customs カウンター」
-     という語彙推論を飛ばして最上級の一語だけで表の極端値を拾えば解けた。
-     音声から最上級表現を除去し、あわせて表の時刻も Counter B と C で
-     入れ替えて、正解行（Counter C）が until 列の最大でも最小でもない
-     中間値（16:00）になるようにした。No.69 が依拠する「20分過ぎている」
-     という数値は変えていない。表・音声を実質変更したため id を
-     v3q68 → v3q68b に新規採番。 */
-  {
-    id: 'v3-p3-68', part: 3, kind: 'set', kindLabel: 'conversation',
-    topics: ['graphic'], level: 5,
-    script: [
-      { role: 'W-Au', text: 'Excuse me, I have a card for an item that couldn\'t be delivered.' },
-      { role: 'M-Br', text: 'May I see it? Ah — this one came from abroad and there\'s duty to pay, so it\'s not the ordinary parcel counter.' },
-      { role: 'W-Au', text: 'I didn\'t realise. What time do they close?' },
-      { role: 'M-Br', text: 'That counter\'s already shut, I\'m afraid — you\'ve missed it by twenty minutes.' },
-      { role: 'W-Au', text: 'Can I use the lockers?' },
-      { role: 'M-Br', text: 'Not for anything with duty outstanding. But you can pay the duty online tonight, and then it moves to the ordinary parcel counter tomorrow, which is open much later.' },
-      { role: 'W-Au', text: 'That\'s easier. Thank you.' },
-    ],
+  /* ── 68–70（図表）──────────────────────────────────── */
+  /* 表は凍結案どおり（Lane / Style / Section）。Style・Section のセルの語
+     （cosmic・classic・front・back）は本文で一切使わず、「普通の照明／光る
+     照明と音楽」「入り口に近い／奥の方」に言い換えて2文に分けて伝えている。
+     レーン番号は音声で言わない（女性はレーン番号を覚えていない設定）。
+     Classic の2レーン（Lane 5・Lane 7）のうち Front なのは Lane 7 だけなので、
+     表だけでは1/2までしか絞れず、音声の2属性で初めて1件に決まる。
+     Q70 の男性の次の行動は夜間シフトへの確認1点のみにし、遺失物ボックスの
+     確認・防犯カメラの確認・電話番号を控える、は話題にしていない
+     （電話番号については女性の方から今夜かけ直すと申し出ている）。
+     2026-09-29 第1巡監査反映：S7 を書き換え、Q69 の逐語（jacket）と、
+     正解を補強するだけの文（kind of small for an adult so you'd notice it）
+     を解消した。S8「evening shift」→「whoever closed up」（Q70 の
+     night-shift staff と語義がずれていた点を解消）。S9 の「instead」
+     （受け先の無い代替表現）を削除。
+     2026-09-29 第2巡監査反映：Q70 の exp が全角の「（B）」で選択肢を
+     記号参照しており、balance2.mjs の除外判定（半角 `(A)`〜`(D)` のみ）を
+     すり抜けて並べ替え後にずれる恐れがあったため、選択肢の中身（英文＋
+     日本語の言い換え）で書き直した。任意案として、男性役を M-Au → M-Br
+     に変更（役の国の散らしを整えるため。台詞の文言は1字も変えていない）。 */
+  set({
+    n: [68, 69, 70], lv: 4, t: ['graphic'],
     graphic: {
-      t: 'kv', title: 'Sorting Office — Collection Times (Weekday)',
-      pairs: [
-        ['Counter A', 'Parcels — until 17:30'],
-        ['Counter B', 'Registered post — until 15:00'],
-        ['Counter C', 'Customs items — until 16:00'],
-        ['Locker bank', 'Self-service — 24 hours'],
+      t: 'table', title: 'Pinsent Lanes — Friday Evening Bookings',
+      head: ['Lane', 'Style', 'Section'],
+      rows: [
+        ['Lane 12', 'Cosmic', 'Front'],
+        ['Lane 5', 'Classic', 'Back'],
+        ['Lane 18', 'Cosmic', 'Back'],
+        ['Lane 7', 'Classic', 'Front'],
       ],
     },
-    ja: '不在票を持って郵便局を訪れた女性。担当者が確認すると海外からの品で関税の支払いが必要なため、通常の小包窓口ではないと説明。その窓口はすでに閉まっており、20 分前に締め切られていた。ロッカー利用を尋ねると、関税未納の品は不可。ただし当夜オンラインで関税を支払えば、翌日は通常の小包窓口の扱いになり、そちらはずっと遅くまで開いていると案内された。',
-    vocab: [['duty', '関税'], ['outstanding', '未払いの'], ['locker bank', '自動受取ロッカー']],
-    questions: [
-      { id: 'v3q68b', no: 68, tag: '図表', stem: 'Look at the graphic. Which counter does the woman need today?',
-        choices: ['Counter A', 'Counter B', 'Counter C', 'The locker bank'],
-        answer: 2,
-        exp: '海外からの品で関税（duty）の支払いが必要と述べられており、これに対応するのは Customs items ＝ Counter C。表の締切時刻は手がかりにならない——音声はどの窓口が何時に閉まるかに一切触れていないので、duty と Customs items を結び付ける以外に窓口を特定する道はない。',
-        why: ['通常の小包窓口であり、関税がかかる品の窓口ではない。', '書留郵便の窓口であり、関税とは無関係。', '正解。', '関税未納の品はロッカーに預けられないと明言されている。'],
-        topics: ['graphic'] },
-      { id: 'v3q69r', no: 69, tag: '詳細', stem: 'By how many minutes did the woman miss the counter\'s closing time?',
-        choices: ['Five minutes', 'Ten minutes', 'Fifteen minutes', 'Twenty minutes'],
-        answer: 3,
-        exp: '男性の 「you\'ve missed it by twenty minutes」 が唯一の根拠。表に載っているのは各窓口の締切時刻だけで現在時刻が無いため、経過時間を表から計算することはできない。選択肢は昇順に並べてある。',
-        why: ['男性が口にした差は twenty minutes。five という数はこの会話に出てこない。', '男性が口にした差は twenty minutes。ten という数はこの会話に出てこない。', '男性が口にした差は twenty minutes。fifteen という数はこの会話に出てこない。', '正解。男性が twenty minutes と明言している。'],
-        topics: ['p3detail'] },
-      { id: 'v3q70', no: 70, tag: '次の行動', stem: 'What will the woman most likely do tonight?',
-        choices: ['Pay a charge online', 'Collect the item from a locker',
-                   'Telephone the sorting office', 'Return the item to the sender'],
-        answer: 0,
-        exp: '「今夜オンラインで関税を払えば、翌日は通常の小包窓口になる」と案内され、女性は「その方が楽」と応じている。',
-        why: ['正解。', '関税未納のためロッカーは使えない。', '電話の話は出ていない。', '返送は述べていない。'],
-        topics: ['p3detail'] },
+    s: [
+      { role: 'W-Cn', text: 'Hi, I was in last night with my kids, and I think we left something behind on our lane.' },
+      { role: 'M-Br', text: 'No problem — do you remember the lane number?' },
+      { role: 'W-Cn', text: 'Not really, sorry. It was one of the lanes with the ordinary lighting, not one of the ones with all the glow lights and music.' },
+      { role: 'M-Br', text: 'Okay, that\'s two of them. Were you near the entrance, or down at the far end?' },
+      { role: 'W-Cn', text: 'Near the entrance — we could see the shoe counter the whole time.' },
+      { role: 'M-Br', text: 'Got it. And what did you leave?' },
+      { role: 'W-Cn', text: 'My son\'s windbreaker — a blue one with his name on the label.' },
+      { role: 'M-Br', text: 'I wasn\'t on last night, so let me check with whoever closed up. They might already have it somewhere safe.' },
+      { role: 'W-Cn', text: 'Okay, I\'ll give you a call this evening, then.' },
+      { role: 'M-Br', text: 'Sounds good, speak then.' },
     ],
-  },
+    ja: 'Pinsent Lanes に女性が電話をかけ、前の晩に子どもたちと利用した際、レーンに忘れ物をしたようだと伝える。レーン番号は覚えていないが、光る照明や音楽が流れる方ではなく普通の照明のレーンで、入り口に近い方だったと説明する。女性は、忘れたのは息子のウインドブレーカーで、ラベルに名前が入っていると伝える。男性は前の晩は出勤していなかったため、閉店作業をした担当者に確認すると答える。女性は、今夜あらためて電話をかけ直すと申し出て、男性はそのときに、と応じる。',
+    v: [['ordinary lighting', '普通の照明'], ['glow lights and music', '光る照明と音楽'], ['shoe counter', 'シューズカウンター'], ['closed up', '閉店作業をした'], ['windbreaker', '（薄手の）ウインドブレーカー'], ['somewhere safe', '安全などこか']],
+    q: [
+      { tag: '図表', qid: 'v3q68p', s: 'Look at the graphic. Which lane did the woman use?',
+        c: ['Lane 12', 'Lane 5', 'Lane 18', 'Lane 7'],
+        a: 3,
+        e: '女性は、光る照明と音楽の方ではなく普通の照明のレーン（Classic）で、かつ入り口に近い方（Front）だったと伝えている。Classic の2レーン（Lane 5・Lane 7）のうち Front なのは Lane 7 だけなので、これが該当する。',
+        w: ['Lane 12 は Front だが、光る照明と音楽が流れる方（Cosmic）であり、女性が言う普通の照明とは異なる。', 'Lane 5 は普通の照明（Classic）だが、入り口に近い方ではなく奥の方（Back）であり、条件に合わない。', 'Lane 18 は奥の方（Back）で、しかも光る照明と音楽の方（Cosmic）でもあり、条件に合わない。', '正解。'] },
+      { tag: '詳細', qid: 'v3q69p', t: ['p3detail'], s: 'What did the woman leave behind?',
+        c: ['A pair of glasses', 'A child\'s jacket', 'A set of car keys', 'A phone charger'],
+        a: 1,
+        e: '女性は「忘れたのは息子のウインドブレーカーで、ラベルに名前が入っている」と述べている。',
+        w: ['眼鏡についての言及はない。', '正解。', '車の鍵についての言及はない。', '携帯電話の充電器についての言及はない。'] },
+      { tag: '次の行動', qid: 'v3q70p', t: ['p3detail'], s: 'What will the man most likely do next?',
+        c: ['He will check the lost-property box.', 'He will ask the night-shift staff.',
+            'He will look at the security footage.', 'He will take down her phone number.'],
+        a: 1,
+        e: '男性は「I wasn\'t on last night, so let me check with whoever closed up.」と述べている。前夜に閉店作業をした担当者、つまり前夜の遅い時間帯に勤務していたスタッフに確認するということで、選択肢の「夜間シフトのスタッフに尋ねる」の言い換えになっている。',
+        w: ['遺失物ボックスを自分で確認するという発言はない。', '正解。', '防犯カメラの映像を確認するという発言はない。', '男性が次にすると述べているのは、閉店作業をした担当者に確認することだけで、電話番号を尋ねる発言はない。女性の方が「今夜あらためて電話する」と申し出て会話が終わっている。'] },
+    ],
+  }),
+
 ];
