@@ -56,7 +56,7 @@ export const R3 = [
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
-        { who: 'Esme Rudling', time: '10:02', text: 'Corentin, I\'ve just seen the layout with the harbour shot on the cover, and I still think the café terrace photo works better for the next issue.' },
+        { who: 'Esme Rudling', time: '10:02', text: 'Corentin, I\'ve just seen the layout with the harbour shot on the cover, and I still think the café terrace photo works better for the next issue of Skelmoor Traveller.' },
         { who: 'Corentin Rilston', time: '10:05', text: 'I actually prefer the harbour shot myself. Nearly every copy goes out by post to readers who\'ve paid for the year in advance, so the cover can afford a quieter image like that one.' },
         { who: 'Esme Rudling', time: '10:07', text: 'Could you get the designer to swap in the café terrace shot today, just so I can compare the two side by side before the proof goes to the printer tomorrow morning?' },
         { who: 'Corentin Rilston', time: '10:09', text: 'The designer works Mondays and Tuesdays.' },
@@ -71,7 +71,7 @@ export const R3 = [
         c: ['Choosing an image for the next cover', 'Shortening an article to fit its space',
             'Checking facts in a restaurant guide', 'Preparing a list of reader prize winners'],
         a: 0,
-        e: '冒頭でエズミが "I still think the café terrace photo works better for the next issue." と述べ、以降のやり取りも同じ表紙用の写真をめぐる話し合いとして進み、最終的にハーバーの写真を採用することで一致している。したがって、このチャットの主題は次号の表紙に使う画像を選ぶことである。',
+        e: '冒頭でエズミが "I still think the café terrace photo works better for the next issue of Skelmoor Traveller." と述べ、以降のやり取りも同じ表紙用の写真をめぐる話し合いとして進み、最終的にハーバーの写真を採用することで一致している。したがって、このチャットの主題は次号の表紙に使う画像を選ぶことである。',
         w: ['正解。',
             '記事を短縮するという話題はチャットのどこにも無い（言及なし）。',
             'レストランガイドの事実確認についての言及はチャットのどこにも無い（言及なし）。',
