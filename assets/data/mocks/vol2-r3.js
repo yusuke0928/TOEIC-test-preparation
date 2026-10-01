@@ -154,13 +154,13 @@ export const R3 = [
             '正解。',
             '患者の会や意見聴取についての言及は報告書のどこにも無い（言及なし）。'] },
       { tag: '詳細', qid: 'v2q173p', s: 'What is indicated about the move?',
-        c: ['It will take place over two weekends.', 'It will involve a specialist removal company.',
-            'It will start later than first planned.', 'It will require some clinics to close briefly.'],
-        a: 2,
+        c: ['It will start later than first planned.', 'It will involve a specialist removal company.',
+            'It will take place over two weekends.', 'It will require some clinics to close briefly.'],
+        a: 0,
         e: '"The move itself was originally due to begin in early October, but the final fire-safety inspection of the new wing has been rescheduled, so equipment will not start moving across until the last week of the month." が根拠。',
-        w: ['週末に分けて実施するという言及は報告書のどこにも無い（言及なし）。',
+        w: ['正解。',
             '専門の引っ越し業者についての言及は報告書のどこにも無い（言及なし）。',
-            '正解。',
+            '週末に分けて実施するという言及は報告書のどこにも無い（言及なし）。',
             '診療の一時休止についての言及は報告書のどこにも無い（言及なし）。'] },
       /* 制作コメント（No.174。監査で指摘・メインへ申し送り）：
          [1][2][4] は前方の取っ手（直前の文に24への足し算＝10＋14が無いこと）だけで閉じている。
