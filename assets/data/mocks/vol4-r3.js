@@ -29,7 +29,7 @@ export const R3 = [
      会場の忘れ物を first-aid kit の1つだけにし、他の3択（programmes・charger・jacket）には
      一切触れていない。Q168 は Ella だけが Tuesday を提案し、他の曜日は本文のどこにも出さない。 */
   sp({
-    n: [165, 166, 167, 168], lv: 4, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 3, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
@@ -95,7 +95,7 @@ export const R3 = [
      差出人住所を "Vancouver, BC, Canada" にし、本文でも "even from all the way over here in
      Canada" と重ねて示した。専攻・卒業後の勤め先・自営については本文のどこにも触れていない。 */
   sp({
-    n: [169, 170, 171], lv: 4, t: ['p7inf'],
+    n: [169, 170, 171], lv: 3, t: ['p7inf'],
     docs: [{
       label: 'Letter',
       head: 'Joanna Toomey\n14 Birch Lane, Vancouver, BC, Canada\n\n3 May',
@@ -159,7 +159,7 @@ export const R3 = [
      よって変わる書き方はしていない。Q175 は「本館以外に図書館内のカフェも運営している」という
      1本の根拠だけを置き、衛生評価・在学中の学生雇用・県内農家からの仕入れにはどれも触れていない。 */
   sp({
-    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Report',
       head: 'Campus Dining Services\nSummer 2026 Review — extract for staff',

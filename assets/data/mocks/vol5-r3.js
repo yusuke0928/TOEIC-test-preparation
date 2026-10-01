@@ -27,7 +27,7 @@ export const R3 = [
      10:21 で、10:13〜10:15 のやり取りとは別の時間帯に置いた。Q168 は、ガーデンセンターへの礼状（バス代はそこが出した）
      の1点だけで推せる形にした。 */
   sp({
-    n: [165, 166, 167, 168], lv: 4, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 3, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
@@ -152,7 +152,7 @@ export const R3 = [
      各位置の落ち方：[1]=1つ目が未出・次の段落の "One issue" と順序が逆、[2]=直後の "One issue concerns" と順序が逆、
      [3]=正解、[4]="Both problems" が先に出ている。見出しは色コードにも1つ目の問題の中身にも触れない。 */
   sp({
-    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 3, t: ['p7ins'],
     docs: [{
       label: 'Memo',
       head: 'To: All customer service staff\nFrom: Hamish Harcourt, Head of Customer Service\nDate: 6 October\nRe: Calls about this season\'s catalogue',

@@ -224,7 +224,7 @@ export const L2A = [
      3つの曜日・時間帯は空きとして挙げていない。Q49 は「通院に1時間近くかかる」
      という1つの手がかりだけで推測させ、職場の騒音・合唱団・退職には触れていない。 */
   set({
-    n: [47, 48, 49], lv: 4,
+    n: [47, 48, 49], lv: 3,
     s: [
       { role: 'W-Au', text: 'About the woman who rang this morning — she wanted to know whether we could give her husband the same hearing test she had. Apparently he\'s been struggling to follow conversations at family get-togethers.' },
       { role: 'M-Am', text: 'We can definitely fit him in. Did she say when would work for them?' },

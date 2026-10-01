@@ -35,7 +35,7 @@ export const R4 = [
      （ウェブページ）。 */
   mp({
     n: [176, 177, 178, 179, 180],
-    lv: 5,
+    lv: 3,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -146,7 +146,7 @@ export const R4 = [
      6月16〜30日のみ受付（他の3方法はすでに締め切っている）」。 */
   mp({
     n: [181, 182, 183, 184, 185],
-    lv: 4,
+    lv: 3,
     docs: [
       {
         label: 'Article', meta: 'Document 1',
@@ -235,7 +235,7 @@ export const R4 = [
      暦日の期間・日付での不在・市場の居住条件に差し替えた）。 */
   mp({
     n: [186, 187, 188, 189, 190],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -348,7 +348,7 @@ export const R4 = [
      クラブハウスの催しの承認者 Ms. Lisle（案内）。 */
   mp({
     n: [191, 192, 193, 194, 195],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
@@ -450,7 +450,7 @@ export const R4 = [
      着く場所＝フェリー乗り場に近い Fenby Avenue（広告）。 */
   mp({
     n: [196, 197, 198, 199, 200],
-    lv: 5,
+    lv: 3,
     docs: [
       {
         label: 'Advertisement', meta: 'Document 1',

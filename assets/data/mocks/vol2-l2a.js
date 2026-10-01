@@ -183,7 +183,7 @@ export const L2A = [
      閉じる形にした。Q41・Q43 の逐語一致（return / tune）も言い換えた。申し送り（男性の別の
      頼みはドアを押さえること。Q42直前は値札の話だけ）は維持。 */
   set({
-    n: [41, 42, 43], lv: 4,
+    n: [41, 42, 43], lv: 3,
     s: [
       { role: 'M-Cn', text: 'Hi, I bought this guitar here last week, but it just doesn\'t suit the way I play, so I\'d like to bring it back and get my money back. I\'ve got the receipt here.' },
       { role: 'W-Am', text: 'Sure, I can do that. Let me put it through for you... okay, the money should be back on your card within a couple of days.' },

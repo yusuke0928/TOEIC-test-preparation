@@ -33,7 +33,7 @@ export const L2B = [
      父親であり男性ではない）「食料品専門誌」（本文に無い）「小さな作業場」
      （small が掛かるのは firm であり unit ではない）を書き直した。 */
   set({
-    n: [53, 54, 55], lv: 4,
+    n: [53, 54, 55], lv: 3,
     s: [
       { role: 'W-Am', text: 'Hi, is this an okay time? I\'m writing a piece on why shoppers are paying more at the checkout for their tea, and your name came up.' },
       { role: 'M-Br', text: 'That\'s fine, go ahead. We\'re a small firm — my father set it up thirty years ago, working out of a unit near the docks.' },
@@ -146,7 +146,7 @@ export const L2B = [
      出ていた「reflected in my pay」を外し、why(B) が「文脈で切る」書き方
      になっていたのを言及なしの理由に書き直した。 */
   set({
-    n: [59, 60, 61], lv: 4, k: 'conversation with three speakers',
+    n: [59, 60, 61], lv: 3, k: 'conversation with three speakers',
     s: [
       { role: 'W-Br', text: 'Morning, both. Quick thing before you head out — we lost the phones for the best part of an hour first thing, so if a customer tried to ring in, it won\'t have come through.' },
       { role: 'M-Am', text: 'That explains it. One of my suppliers said he tried my desk line and gave up, so he called my cell instead.' },

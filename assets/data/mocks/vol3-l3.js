@@ -17,7 +17,7 @@ export const L3 = [
 
   /* ── 71–73 留守番電話 ─────────────────────────────── */
   talk({
-    n: [71, 72, 73], lv: 4, k: 'telephone message',
+    n: [71, 72, 73], lv: 3, k: 'telephone message',
     s: [
       { role: 'W-Cn', text: 'Hi, this is Winona Wickstead from the Waverley Café — you handle our pest control.' },
       { role: 'W-Cn', text: 'The reason I\'m calling is actually about the shop next door. Vernon Varcombe, who runs Varcombe Hardware, mentioned to me last week that he\'s been finding ants coming in under his back door, and I said I\'d get his number to you, since you\'ve always sorted ours out so well.' },
@@ -61,7 +61,7 @@ export const L3 = [
 
   /* ── 74–76 館内放送 ───────────────────────────────── */
   talk({
-    n: [74, 75, 76], lv: 4, k: 'announcement',
+    n: [74, 75, 76], lv: 3, k: 'announcement',
     s: [
       { role: 'M-Au', text: 'Good morning, everyone — a couple of quick things before we open the doors.' },
       { role: 'M-Au', text: 'A small team from head office is coming round today to walk the floor and see how the new layout\'s working now that the food court has moved to the east end.' },
@@ -148,7 +148,7 @@ export const L3 = [
 
   /* ── 80–82 キャンピングカーのラジオ広告 ───────────── */
   talk({
-    n: [80, 81, 82], lv: 4, k: 'advertisement',
+    n: [80, 81, 82], lv: 3, k: 'advertisement',
     s: [
       { role: 'M-Cn', text: 'Ready to hit the road without booking a hotel every night? Varlow Campervans has you covered.' },
       { role: 'M-Cn', text: 'Every van in our fleet has a tent built into the roof that pops open in under a minute, giving you a second sleeping space up top, no extra poles or pegs to wrestle with.' },
@@ -191,7 +191,7 @@ export const L3 = [
 
   /* ── 83–85 食品包装工場の月例ミーティング ─────────── */
   talk({
-    n: [83, 84, 85], lv: 4, k: 'excerpt from a meeting',
+    n: [83, 84, 85], lv: 3, k: 'excerpt from a meeting',
     s: [
       { role: 'W-Am', text: 'Morning, everyone. Before we get started on the line, I want to run through the results of this year\'s suggestion program.' },
       { role: 'W-Am', text: 'We had over forty ideas submitted, and the review panel picked one to go ahead with right away: moving the lockers from the back corridor to right by the entrance, so nobody\'s walking halfway across the building before their shift even starts.' },
@@ -278,7 +278,7 @@ export const L3 = [
 
   /* ── 89–91 地元ラジオの直売市コーナー ─────────────── */
   talk({
-    n: [89, 90, 91], lv: 4, k: 'broadcast',
+    n: [89, 90, 91], lv: 3, k: 'broadcast',
     s: [
       { role: 'M-Br', text: 'If it\'s Saturday morning, you know what that means — time for our weekly visit to the Wrenbridge Farmers\' Market, out on the green by the old mill.' },
       { role: 'M-Br', text: 'I was down there myself last week and came home with a whole block of goat\'s cheese from the stall near the entrance — sharp, a bit crumbly, and absolutely worth the trip on its own.' },
@@ -375,7 +375,7 @@ export const L3 = [
 
   /* ── 95–97 野鳥の会の月例集会 ─────────────────────── */
   talk({
-    n: [95, 96, 97], lv: 4, k: 'talk',
+    n: [95, 96, 97], lv: 3, k: 'talk',
     s: [
       { role: 'W-Au', text: 'Evening, everyone. Before we get into tonight\'s slides, I want to update you on the barn owl survey some of you asked about after last month\'s meeting.' },
       { role: 'W-Au', text: 'Now, I know a few of you have wondered whether it\'s still worth keeping the survey going, given how few records we used to get.' },

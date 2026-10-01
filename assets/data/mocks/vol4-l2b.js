@@ -32,7 +32,7 @@ export const L2B = [
      引き継ぎの理由（同僚が別の修理対応で手が離せない）ともお互いとも無関係な独立の
      話題にしてある。 */
   set({
-    n: [53, 54, 55], lv: 4, t: ['graphic'],
+    n: [53, 54, 55], lv: 3, t: ['graphic'],
     graphic: {
       t: 'table', title: 'Kitchen Jobs – This Week',
       head: ['Job', 'Worktop', 'Hob'],
@@ -83,7 +83,7 @@ export const L2B = [
      できない理由として「別の学校の事務を代行する」を一度だけほのめかす。
      否定は「同行できない」の1本のみ（ユニット内1本）。 */
   set({
-    n: [56, 57, 58], lv: 4, t: ['p3int'],
+    n: [56, 57, 58], lv: 3, t: ['p3int'],
     s: [
       { role: 'W-Br', text: 'Before you send the letter out, has the museum confirmed the final headcount — all thirty-two children plus the four staff?' },
       { role: 'M-Au', text: 'Yes, thirty-six altogether, and they\'ve confirmed the group rate covers that number.' },
@@ -126,7 +126,7 @@ export const L2B = [
      （Q60）は女性が書類のために尋ね、男性が「48時間」と1回だけ答え、曜日は出さない（曜日から
      期間を推させない）。 */
   set({
-    n: [59, 60, 61], lv: 4, t: ['graphic'],
+    n: [59, 60, 61], lv: 3, t: ['graphic'],
     graphic: {
       t: 'table', title: 'Machines Available Today',
       head: ['Machine', 'Power', 'Attachment'],
@@ -177,7 +177,7 @@ export const L2B = [
      引用のあとに女性が次の案として言うだけ。提案者（M-Br）には Q63 の他の3本に当たる話をさせない。Q64 は3人
      そろっての直後の行動（今朝の写真の見直し）1つだけにする。 */
   set({
-    n: [62, 63, 64], lv: 5, t: ['p3int'], k: 'conversation with three speakers',
+    n: [62, 63, 64], lv: 4, t: ['p3int'], k: 'conversation with three speakers',
     s: [
       { role: 'W-Au', text: 'I\'ve finished checking the underpass. There\'s a grating over the drain near the south end that\'s worked its way out of its frame — that\'s the only issue I found.' },
       { role: 'M-Br', text: 'Good, otherwise it\'s structurally sound. We still need to get that grating refitted, though. What if we closed the road above for a few hours tomorrow and did it properly in daylight?' },

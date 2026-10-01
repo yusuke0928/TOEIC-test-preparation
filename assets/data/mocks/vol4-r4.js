@@ -166,7 +166,7 @@ export const R4 = [
   /* ══ 186–190 トリプルパッセージ ══════════════════════ */
   mp({
     n: [186, 187, 188, 189, 190],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -328,7 +328,7 @@ export const R4 = [
   /* ══ 196–200 トリプルパッセージ ══════════════════════ */
   mp({
     n: [196, 197, 198, 199, 200],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Advertisement', meta: 'Document 1',

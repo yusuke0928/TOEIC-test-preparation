@@ -78,7 +78,7 @@ export const R2 = [
     ],
   }),
   sp({
-    n: [151, 152], lv: 4,
+    n: [151, 152], lv: 3,
     docs: [{
       label: 'Advertisement',
       title: 'Sollerby Boat Hire',
@@ -110,7 +110,7 @@ export const R2 = [
     ],
   }),
   sp({
-    n: [153, 154, 155], lv: 4,
+    n: [153, 154, 155], lv: 3,
     docs: [{
       label: 'Letter',
       title: 'Rosemere Arts Foundation',
@@ -152,7 +152,7 @@ export const R2 = [
     ],
   }),
   sp({
-    n: [156, 157, 158], lv: 4,
+    n: [156, 157, 158], lv: 3,
     docs: [{
       label: 'Article',
       title: 'Sarnhaven Light Reopens After Two-Year Restoration',
@@ -192,7 +192,7 @@ export const R2 = [
     ],
   }),
   sp({
-    n: [159, 160], lv: 4,
+    n: [159, 160], lv: 3,
     docs: [{
       label: 'Feedback Form',
       title: 'Radleigh Training Group — Seminar Feedback',
@@ -235,7 +235,7 @@ export const R2 = [
   // 後方＝Rhona Sherbrook のフルネームと役職は挿入文でのみ導入し、[4] 直後の一文でのみ "Ms. Sherbrook" と姓で受ける。
   //   正解が最後のマーカー [4] なので、後方の取っ手がこの位置を裏付けるために落とす位置は無い（[1]〜[3] はすべて前方の取っ手だけで落ちる）。
   sp({
-    n: [161, 162, 163, 164], lv: 5, t: ['p7ins'],
+    n: [161, 162, 163, 164], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Article',
       title: 'A Look Inside Ridgecote Paper Mill',

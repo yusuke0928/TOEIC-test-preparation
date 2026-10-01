@@ -241,7 +241,7 @@ export const L3 = [
      Route26/12 の2択（1/2）、到着地の手がかりだけなら Route23/12 の2択（1/2）。両方そろって Route12 に確定。
      昼食は農場カフェの1つだけ、戻る時刻は5時半の1つだけを述べる。 */
   talk({
-    n: [89, 90, 91], lv: 4, k: 'talk', t: ['graphic', 'p4type'],
+    n: [89, 90, 91], lv: 3, k: 'talk', t: ['graphic', 'p4type'],
     graphic: {
       t: 'table', title: 'Walking Routes on Offer',
       head: ['Route', 'Starts at', 'Finishes at'],
@@ -321,7 +321,7 @@ export const L3 = [
      Q97 は「2年前の嵐以来ずっと木がなく寂しかった」という描写で示唆にとどめ、
      「嵐で失った」と明言はしない（示唆から推測させる）。舗装工事・商店・バス専用レーンには触れない。 */
   talk({
-    n: [95, 96, 97], lv: 4, k: 'broadcast',
+    n: [95, 96, 97], lv: 3, k: 'broadcast',
     s: [
       { role: 'W-Au', text: 'Now to local news: work begins next week on replanting street trees along Hambrook Road, here in Loveridge.' },
       { role: 'W-Au', text: 'Sixty-five semi-mature trees will go in along the length of the road, which has looked bare and exposed ever since a severe storm battered the area two winters ago.' },

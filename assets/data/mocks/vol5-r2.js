@@ -77,7 +77,7 @@ export const R2 = [
 
   /* ── 151–152 広告 ── */
   sp({
-    n: [151,152], lv: 4,
+    n: [151,152], lv: 3,
     docs: [{
       label: "Advertisement",
       title: "Hollycroft Wood-Fired Catering",
@@ -145,7 +145,7 @@ export const R2 = [
 
   /* ── 156–158 記事 ── */
   sp({
-    n: [156,157,158], lv: 4,
+    n: [156,157,158], lv: 3,
     docs: [{
       label: "Article",
       title: "Producer Profile: Hebden Cider",
@@ -210,7 +210,7 @@ export const R2 = [
 
   /* ── 161–164 記事（文挿入） ── */
   sp({
-    n: [161,162,163,164], lv: 4,
+    n: [161,162,163,164], lv: 3,
     docs: [{
       label: "Article",
       title: "Greymoor Car Club: Sharing the Road",

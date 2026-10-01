@@ -92,9 +92,9 @@ export const R4 = [
         c: ['Fifteen minutes per player', 'Twenty-five minutes per player', 'Forty-five minutes per player', 'Sixty minutes per player'],
         a: 3,
         e: 'ウェブページに「In every game, each player has an hour on the clock.」とあり、持ち時間は1人60分である。',
-        w: ['15分という持ち時間には触れていない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
-            '25分という持ち時間には触れていない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
-            '45分という持ち時間には触れていない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
+        w: ['持ち時間は15分ではない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
+            '持ち時間は25分ではない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
+            '持ち時間は45分ではない。ウェブページは「In every game, each player has an hour on the clock.」と、1人1時間（60分）としている。',
             '正解。'] },
       { tag: 'クロス', qid: 'v5q179p', s: 'On what date will the match most likely be played?',
         c: ['October 7', 'October 21', 'November 4', 'November 18'],
@@ -125,7 +125,7 @@ export const R4 = [
      Q181・Q182 は記事の詳細、Q185 は投書の推測（書き手が加わる団体は展示の主催者とは別）。 */
   mp({
     n: [181, 182, 183, 184, 185],
-    lv: 4,
+    lv: 3,
     docs: [
       {
         label: 'Article', meta: 'Document 1',

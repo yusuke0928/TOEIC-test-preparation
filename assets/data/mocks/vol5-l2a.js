@@ -88,7 +88,7 @@ export const L2A = [
   /* ── 38–40 ── 先読み対策（設問先行・正解はくじ）で本文を書いた。stem・4択は凍結案のまま、正解はくじのまま。
      Q38=最後のスポンジが冷めるのを待つ。Q39 は直前が進み具合の質問のみ。ミキサーがバンにあることは引用で初めて出す。Q40=3人で注文主に電話。 */
   set({
-    n: [38,39,40], lv: 4, k: "conversation with three speakers",
+    n: [38,39,40], lv: 3, k: "conversation with three speakers",
     s: [
       { role: "W-Br", text: "That's the last of the layers baked. I can't start stacking until the final lot of sponges has cooled right down, though." },
       { role: "W-Au", text: "Has anyone started on the cream for the filling? The order's due at four." },

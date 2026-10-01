@@ -56,7 +56,7 @@ export const R2 = [
 
   /* ── 149–150 社内メモ ─────────────────────────────── */
   sp({
-    n: [149, 150], lv: 3,
+    n: [149, 150], lv: 4,
     docs: [{
       label: 'Memo',
       head: 'TO: Parks Department Field Staff\nFROM: Grounds Operations Manager\nDATE: 12 May\nSUBJECT: New apprentices starting next month',
@@ -209,7 +209,7 @@ export const R2 = [
 
   /* ── 158–160 記事 ─────────────────────────────────── */
   sp({
-    n: [158, 159, 160], lv: 4,
+    n: [158, 159, 160], lv: 3,
     docs: [{
       label: 'Article',
       title: 'Behind the Counter',
@@ -255,7 +255,7 @@ export const R2 = [
 
   /* ── 161–164 記事（文挿入あり）───────────────────── */
   sp({
-    n: [161, 162, 163, 164], lv: 5, t: ['p7ins'],
+    n: [161, 162, 163, 164], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Article',
       title: 'A Sweet Makes Its Return',

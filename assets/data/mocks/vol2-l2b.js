@@ -46,7 +46,7 @@ export const L2B = [
      側の取引先ではない。Q55 は開場時刻の話に限定し、入口・舞台などの
      場所や Lawn/Plaza の言い換えには一切触れていない（申し送りどおり）。 */
   set({
-    n: [53, 54, 55], lv: 4, t: ['graphic'],
+    n: [53, 54, 55], lv: 3, t: ['graphic'],
     graphic: {
       t: 'table', title: 'Weekend Street Food Festival — Stall Layout',
       head: ['Stall', 'Area', 'Setup'],

@@ -128,7 +128,7 @@ export const R3 = [
      直した（60周年という事実は変えず、年の固定と逐語性だけを外した）。Q169・Q171 の exp の
      引用をこれに合わせて差し替えた。 */
   sp({
-    n: [169, 170, 171], lv: 4,
+    n: [169, 170, 171], lv: 3,
     docs: [{
       label: 'Letter',
       head: 'Stavenhall Local History Society\n14 March',
@@ -217,7 +217,7 @@ export const R3 = [
      は変更前の日付であり不一致は無いためそのままとした。選択肢に曜日・日付は無く、
      Q174 の4か所の判定にも影響しない（[1] の直前に要望が無いことは変わらない）。 */
   sp({
-    n: [172, 173, 174, 175], lv: 5, t: ['p7ins'],
+    n: [172, 173, 174, 175], lv: 4, t: ['p7ins'],
     docs: [{
       label: 'Notice',
       title: 'Hall Updates for This Term',

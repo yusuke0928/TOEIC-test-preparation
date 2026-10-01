@@ -51,7 +51,7 @@ export const R4 = [
      Q177 の why を、stem の「最も遅い日」に正面から答える書き方に直した。 */
   mp({
     n: [176, 177, 178, 179, 180],
-    lv: 4,
+    lv: 3,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -160,7 +160,7 @@ export const R4 = [
      否定を削って2文に分けた。 */
   mp({
     n: [181, 182, 183, 184, 185],
-    lv: 4,
+    lv: 3,
     docs: [
       {
         label: 'Article', meta: 'Document 1',
@@ -268,7 +268,7 @@ export const R4 = [
      いたため補った。 */
   mp({
     n: [186, 187, 188, 189, 190],
-    lv: 4,
+    lv: 3,
     docs: [
       {
         label: 'Web page', meta: 'Document 1',
@@ -391,7 +391,7 @@ export const R4 = [
      ないという違和感を解消した。 */
   mp({
     n: [191, 192, 193, 194, 195],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Notice', meta: 'Document 1',
@@ -509,7 +509,7 @@ export const R4 = [
      どこにも書いていない」という書き方に直した。 */
   mp({
     n: [196, 197, 198, 199, 200],
-    lv: 5,
+    lv: 4,
     docs: [
       {
         label: 'Advertisement', meta: 'Document 1',

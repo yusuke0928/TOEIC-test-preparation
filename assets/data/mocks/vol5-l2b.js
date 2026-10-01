@@ -20,7 +20,7 @@ export const L2B = [
   /* ── 53–55 ── 先読み対策（設問先行・正解はくじ）で本文を書いた。stem・4択は凍結案のまま、正解はくじのまま。
      図表。男性の希望は「角で折れ曲がる作業台」と「高い位置から出る音」。男性が編集室を取るのは自分の作業のため。 */
   set({
-    n: [53,54,55], lv: 4, t: ["graphic"],
+    n: [53,54,55], lv: 3, t: ["graphic"],
     graphic: {"t":"table","title":"Editing Suites","head":["Suite","Desk Shape","Speakers"],"rows":[["Suite 10","L-shaped","Ceiling"],["Suite 7","Straight","Floor"],["Suite 3","L-shaped","Floor"],["Suite 11","Straight","Ceiling"]]},
     s: [
       { role: "M-Au", text: "Morning. I'm going to book an editing room for the afternoon, because I've got a ten-minute corporate video to colour-grade. I find it easier with a table that bends round the corner." },

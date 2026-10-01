@@ -22,7 +22,7 @@ const talk = (o) => ({
 export const L3 = [
 
   talk({
-    n: [71, 72, 73], lv: 3, k: 'telephone message',
+    n: [71, 72, 73], lv: 4, k: 'telephone message',
     s: [
       { role: 'W-Br', text: 'Hello, it\'s Caddick Chimney Care here. I\'m calling to say a proper thank-you, because three of the landlords on your books have rung me this month, and every one of them told me your office had given them my name.' },
       { role: 'W-Br', text: 'It\'s no exaggeration to say that your office has filled most of my diary, and I wanted you to know how much I appreciate it.' },
@@ -52,7 +52,7 @@ export const L3 = [
   }),
 
   talk({
-    n: [74, 75, 76], lv: 4, k: 'announcement',
+    n: [74, 75, 76], lv: 3, k: 'announcement',
     s: [
       { role: 'M-Au', text: 'Good morning, ladies and gentlemen, and welcome to another day at sea. A few notes for today and tomorrow.' },
       { role: 'M-Au', text: 'Breakfast will be served in the Garden Restaurant until ten o\'clock, and the library on deck six is open all day.' },
@@ -122,7 +122,7 @@ export const L3 = [
       { role: 'M-Br', text: 'Book your survey this month and we will fit, at no extra charge, a heating control that you can run from your phone.' },
       { role: 'M-Br', text: 'Call us on 0808 157 0142. That\'s 0808 157 0142. Fothergill Insulation: warm walls, lower bills.' },
     ],
-    ja: '住宅の断熱工事会社フォーザギル・インシュレーションのラジオ広告。築100年を超え、壁が花崗岩や石灰岩を積んだ中空層のない壁の家の持ち主に、いくら暖房を強くしても十分に暖まらないのではと呼びかけ、そのような壁は長持ちするように造られたもので熱を逃がさないようには造られていないと述べる。同社はその年代の家を、美しさを損なわずに快適にすることを専門とし、石積みを守る通気性のある壁の内張りで暖房費を減らす。創業者は、新築の住宅や事務所を20年間設計し、良い建物が壁から熱を逃がすのを見てきた人物である。作業員は地元の人で、保険にも入っており、作業のあとは片づけていく。今月、調査を申し込めば、スマートフォンから操作できる暖房の制御装置を追加料金なしで取り付けるという。最後に電話番号を2回繰り返す。',
+    ja: '住宅の断熱工事会社フォーザギル・インシュレーションのラジオ広告。築100年を超え、花崗岩や石灰岩を積んだ、中空層のない壁の家の持ち主に、いくら暖房を強くしても十分に暖まらないのではと呼びかけ、そのような壁は長持ちするように造られたもので熱を逃がさないようには造られていないと述べる。同社はその年代の家を、美しさを損なわずに快適にすることを専門とし、石積みを守る通気性のある壁の内張りで暖房費を減らす。創業者は、新築の住宅や事務所を20年間設計し、良い建物が壁から熱を逃がすのを見てきた人物である。作業員は地元の人で、保険にも入っており、作業のあとは片づけていく。今月、調査を申し込めば、スマートフォンから操作できる暖房の制御装置を追加料金なしで取り付けるという。最後に電話番号を2回繰り返す。',
     v: [['cottage', '（小さな）家'], ['granite', '花崗岩'], ['limestone', '石灰岩'], ['masonry', '石積み'], ['specialise', '専門にする'], ['breathable', '通気性のある'], ['fitter', '取付工']],
     q: [
       { tag: '概要', qid: 'v5q80p', s: 'Who is the advertisement mainly intended for?',
@@ -277,7 +277,7 @@ export const L3 = [
   }),
 
   talk({
-    n: [95, 96, 97], lv: 4, k: 'broadcast',
+    n: [95, 96, 97], lv: 3, k: 'broadcast',
     s: [
       { role: 'M-Br', text: 'Now some news for anyone who swims off Flintshore Beach, one of the busiest stretches of sand on our coast. Lifeguards are on duty there until six every evening.' },
       { role: 'M-Br', text: 'Water samples were taken there on Tuesday, after workers mended a broken drain that runs just behind the dunes. It was thought wise to check that nothing had reached the sea.' },

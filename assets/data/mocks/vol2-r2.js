@@ -91,7 +91,7 @@ export const R2 = [
 
   /* ── 151–152 広告 ─────────────────────────────────── */
   sp({
-    n: [151, 152], lv: 4, t: ['p7syn'],
+    n: [151, 152], lv: 3, t: ['p7syn'],
     docs: [{
       label: 'Advertisement',
       title: 'Hedgerow Cycling Tours',
@@ -174,7 +174,7 @@ export const R2 = [
 
   /* ── 156–158 記事 ─────────────────────────────────── */
   sp({
-    n: [156, 157, 158], lv: 4, t: ['p7inf'],
+    n: [156, 157, 158], lv: 3, t: ['p7inf'],
     docs: [{
       label: 'Article',
       title: 'Beekeepers’ Cooperative Agrees Supply Deal with Bakery Chain',

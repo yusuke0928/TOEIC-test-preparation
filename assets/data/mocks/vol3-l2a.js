@@ -17,7 +17,7 @@ export const L2A = [
 
   /* ── 32–34 ─────────────────────────────────────────── */
   set({
-    n: [32, 33, 34], lv: 4,
+    n: [32, 33, 34], lv: 3,
     s: [
       { role: 'M-Au', text: 'Morning. Where did the sole press by the window come from? I don\'t remember ordering anything new.' },
       { role: 'W-Br', text: 'It\'s not new, exactly. The heel bar at the station closed last month, so I picked up a couple of their machines cheap when the unit was cleared out.' },
@@ -198,7 +198,7 @@ export const L2A = [
 
   /* ── 44–46 ─────────────────────────────────────────── */
   set({
-    n: [44, 45, 46], lv: 4,
+    n: [44, 45, 46], lv: 3,
     s: [
       { role: 'W-Br', text: 'Hi, I need to get my front door lock upgraded. My insurance company sent over their new policy requirements, and apparently what I\'ve got now isn\'t good enough for what they\'re asking.' },
       { role: 'M-Am', text: 'Ah, that\'s a common one lately — a lot of companies have tightened their requirements. Do you have the spec sheet with you?' },
@@ -287,7 +287,7 @@ export const L2A = [
 
   /* ── 50–52 ─────────────────────────────────────────── */
   set({
-    n: [50, 51, 52], lv: 4,
+    n: [50, 51, 52], lv: 3,
     s: [
       { role: 'W-Cn', text: 'You\'re not our usual, are you? I don\'t think we\'ve met before.' },
       { role: 'M-Au', text: 'No, I\'m normally over at Kelsford this time of week. Kester\'s out with a cold, so I picked up the rest of his rounds today, including your yard.' },

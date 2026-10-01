@@ -52,7 +52,7 @@ export const R3 = [
      「Ola の最後の発言は発注を数日早める話で時刻の話ではなく、引用より後にある」と一言足し、
      (6) の直しと矛盾して見えないようにした。 */
   sp({
-    n: [165, 166, 167, 168], lv: 4, t: ['p7intent'],
+    n: [165, 166, 167, 168], lv: 3, t: ['p7intent'],
     docs: [{
       label: 'Online chat discussion',
       body: [{ t: 'chat', lines: [
@@ -126,7 +126,7 @@ export const R3 = [
      （"Ms. Rylance"）で署名の慣例に合わなかったため、名を足して "Morag Rylance" にした
      （grep と names-used.txt で未使用を確認）。いずれも stem・選択肢・正解は変えていない。 */
   sp({
-    n: [169, 170, 171], lv: 4,
+    n: [169, 170, 171], lv: 3,
     docs: [{
       label: 'Letter',
       head: 'Sallowfield Bank\n3 September',
