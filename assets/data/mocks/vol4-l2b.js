@@ -76,43 +76,40 @@ export const L2B = [
   }),
 
   /* ── 56–58（意図）────────────────────────────────── */
-  /* 正解はくじ（56=D, 57=B, 58=C）。引用「That coach seats forty-nine」の
-     直前で、参加人数（36人）を先に確定させたうえで女性がバスの定員を心配する
-     発言だけを置き（同じ話者の答えは引用の前に置かない）、(A)(C)(D) に当たる話題（保護者の追加同行・別クラスの合流・
-     2台目の車両）はどこにも出さない。Q58 の「その日」の予定は、男性が同行
-     できない理由として「別の学校の事務を代行する」を一度だけほのめかす。
-     否定は「同行できない」の1本のみ（ユニット内1本）。 */
+  /* 正解はくじ（56=D, 57=B, 58=C）。id の経緯：qid は v4q56p〜58p。stem・4択は凍結のまま。
+     2026-10-01 難度の試作（規則A〜C）で本文を全面的に書き直し、第1巡の監査で直した。stem・選択肢・くじの正解・id は変えていない。
+     Q56：誤答の足場は 送迎時刻（2発言目。バス会社が collect us を確認済み、頼んだのは女性ではない。確認したのは空きの有無で予約前と矛盾しない。言い換え）と 持ち物リスト（2発言目。月曜に配付済み＝時のずれ）。正解は本文の語 lunches を持つ。規則Bの決め手は申告しない（stem の confirm と男性の confirmed が重なる引っかけだけが効く）。
+     Q57：誤答の足場は 保護者の追加（5発言目。女性が引用のあとに自分で出し、男性は受け入れる）と 別の車両（5発言目。去年の2台目のミニバス＝時のずれ）。引用の直前の発言は人数の心配1つだけ。規則Bの決め手は申告しない（人数は女性が自分で言っており、直後に答えを言い直している）。
+     Q58：誤答の足場は 休暇（6発言目。ハーフタームは目前の休み、遠足の木曜は学期中）と 研修（6発言目。先週で終了＝時のずれ）と 同行（3発言目。引率は教員3人・保護者4人）。決め手は規則B(a)（1発言目の Thursday the twelfth と、6発言目の every Thursday this term の2か所）。試験：6発言目だけだと遠足が木曜か分からず、同行する（B）と別の学校で勤務（C）が残る。1発言目だけだと4本とも残る。年表：half-term（目前。予約は今日の午後）→ Thursday the twelfth（half-term のあと。授業のある日の遠足）→ this term（12日を含む）で矛盾しない。
+     明示的な否定・訂正は0本。 */
   set({
-    n: [56, 57, 58], lv: 3, t: ['p3int'],
+    n: [56, 57, 58], lv: 3, k: 'conversation', t: ['p3int'],
     s: [
-      { role: 'W-Br', text: 'Before you send the letter out, has the museum confirmed the final headcount — all thirty-two children plus the four staff?' },
-      { role: 'M-Au', text: 'Yes, thirty-six altogether, and they\'ve confirmed the group rate covers that number.' },
-      { role: 'W-Br', text: 'Good. I keep wondering whether thirty-six will be a tight squeeze on the coach, though.' },
-      { role: 'M-Au', text: 'That coach seats forty-nine.' },
-      { role: 'W-Br', text: 'Oh, that\'s far more room than I expected. Now, the school kitchen is preparing lunches for all of them — could you find out what the catering office is charging per child?' },
-      { role: 'M-Au', text: 'I\'ll call them this afternoon and let you know.' },
-      { role: 'W-Br', text: 'Please do — I need that figure before the letter goes home this week.' },
-      { role: 'M-Au', text: 'Will do. Oh, one more thing: I won\'t be able to join you on the day itself. One of the other schools in the group is short-staffed that morning, so I\'ll be filling in for their office manager.' },
-      { role: 'W-Br', text: 'That\'s fine, we\'ll manage without you.' },
+      { role: 'W-Br', text: 'Before you book the coach for Thursday the twelfth, could you check what the farm park will charge for the children\'s lunches? Parents will want a figure in the next newsletter.' },
+      { role: 'M-Br', text: 'Of course. The coach company has already confirmed they can collect us at quarter to nine from the gate, and the letter with the list of things to bring went home on Monday.' },
+      { role: 'W-Br', text: 'Good. Thirty-six children, three teachers and four parent helpers makes forty-three, and I do worry about a squeeze.' },
+      { role: 'M-Br', text: 'That coach seats forty-nine.' },
+      { role: 'W-Br', text: 'Oh, that\'s a relief. Last year we had to hire a second minibus. Then I might ask a couple more parents to come.' },
+      { role: 'M-Br', text: 'Plenty of room. I\'ll book this afternoon, before I go off for half-term. Remember, I\'m at Jubilee Road Primary every Thursday this term, covering their office. Odette, our new part-timer, finished her training last week, so she\'ll look after things here.' },
     ],
-    ja: '校長（女性）が事務職員（男性）と、校外学習の準備について話している。女性は博物館が確認した人数（児童32人と職員4人の計36人）を確認し、その人数でバスが窮屈にならないか心配するが、男性は、そのバスが49人乗りだと伝える。続けて女性は、学校の調理室が全員分の昼食を用意することについて、給食担当部署が1人あたりいくら請求するか調べてほしいと頼み、男性は午後に電話で問い合わせると答える。最後に男性は、遠足当日は人手不足の別の学校で事務を代行するため同行できないと伝える。',
-    v: [['headcount', '人数'], ['tight squeeze', '窮屈な状態'], ['catering office', '給食を扱う部署'], ['filling in for', '代理を務める']],
+    ja: '校長（女性）が事務職員（男性）に、12日（木）の貸切バスを予約する前に、牧場公園が子どもたちの昼食にいくら請求するか確かめてほしい、保護者向けの次の通信に金額を載せたいと頼む。男性は、バス会社が午前8時45分に校門で迎えに来られると確認済みであること、持ち物の一覧を載せた手紙は月曜に配付済みであることを伝える。女性は、子ども36人、教員3人、保護者の手伝い4人で計43人になり窮屈にならないか心配だと述べる。男性が「あのバスは49席ある」と答えると、女性は安心し、昨年は2台目のミニバスを借りる必要があったと話し、保護者をあと数人誘おうかと言う。男性は余裕があると答え、ハーフタームで休みに入る前に今日の午後予約すると言う。そして、今学期は毎週木曜にジュビリー・ロード小学校で事務室を受け持っていることを念押しし、新しいパートのオデットが先週研修を終えたので、こちらの事務室は彼女が見ると話す。',
+    v: [['collect', '（人を）迎えに来る'], ['parent helpers', '手伝いの保護者'], ['a squeeze', '窮屈な状態'], ['seats', '〜人分の座席がある'], ['half-term', '学期途中の短い休み（英）'], ['part-timer', 'パートの職員']],
     q: [
       { tag: '詳細', qid: 'v4q56p', t: ['p3detail'], s: 'What does the woman ask the man to confirm?',
         c: ['The timing of the school pickup', 'The list of items for the trip', 'The date of the parent meeting', 'The cost of the school lunch'],
         a: 3,
-        e: '女性が "could you find out what the catering office is charging per child?" と、学校の調理室が用意する昼食の1人あたりの料金を調べるよう男性に頼んでいる。',
-        w: ['送迎時刻の確認についての記述は会話のどこにも出てこない。', '持ち物一覧の確認についての記述は会話のどこにも出てこない。', '保護者会の日程についての記述は会話のどこにも出てこない。', '正解。'] },
+        e: '女性が冒頭で「could you check what the farm park will charge for the children\'s lunches?」と頼んでいる。確認を頼まれた事柄は、牧場公園が子どもたちの昼食に請求する額、つまり昼食の費用である。',
+        w: ['「The coach company has already confirmed they can collect us at quarter to nine from the gate」とあり、集合時刻についてバス会社が確認済みと男性が伝えているだけで、女性が確認を頼んだことではない（人物と関係のずれ）。', '「the letter with the list of things to bring went home on Monday」とあり、持ち物の一覧は月曜に配付済みで、女性が確認を求めたことではない（時のずれ）。', '保護者の会合の日取りは会話のどこにも出てこない（言及なし）。', '正解。「could you check what the farm park will charge for the children\'s lunches?」で、昼食代の確認を頼んでいる。'] },
       { tag: '意図', qid: 'v4q57p', s: 'What does the man mean when he says, "That coach seats forty-nine"?',
         c: ['He is objecting to inviting more parents.', 'He is reassuring her about the numbers.', 'He is suggesting that another class join them.', 'He is explaining the need for another vehicle.'],
         a: 1,
-        e: '直前で女性が「36人ではバスが窮屈にならないか（whether thirty-six will be a tight squeeze on the coach）」と心配しており、男性は "That coach seats forty-nine." と、そのバスの定員が49人であることを伝えて安心させている。',
-        w: ['保護者をさらに同行させる案についての記述は会話のどこにも出てこない。', '正解。', '別のクラスを合流させる案についての記述は会話のどこにも出てこない。', '2台目の車両についての記述は会話のどこにも出てこない。'] },
+        e: '直前に女性が「Thirty-six children, three teachers and four parent helpers makes forty-three, and I do worry about a squeeze.」と合計43人で窮屈にならないかを心配している。男性の「That coach seats forty-nine.」は、43人に対し49席あるので心配はいらないと伝える発言で、女性も「Oh, that\'s a relief.」と受けている。',
+        w: ['「Then I might ask a couple more parents to come.」は女性が安心したあとに自分で出した案で、男性は「Plenty of room.」と受け入れている。保護者を増やすことに男性は反対していない（人物と関係のずれ）。', '正解。43人に49席という余裕を示して、人数への女性の心配を和らげている。', '別のクラスが加わる話は会話のどこにも出てこない（言及なし）。', '「Last year we had to hire a second minibus.」は去年の話で、今回は49席の1台に43人が乗れるため、別の車両の必要を説明する発言ではない（時のずれ）。'] },
       { tag: '推測', qid: 'v4q58p', t: ['p3detail'], s: 'What is suggested about the man?',
         c: ['He will be on holiday that day.', 'He will go on the trip with the class.', 'He will be working at another school that day.', 'He will be training a new colleague that day.'],
         a: 2,
-        e: '男性が「当日は同じグループの別の学校が人手不足で、そちらの事務を代わりに務める（I\'ll be filling in for their office manager）」と述べている。',
-        w: ['休暇を取るという記述は会話のどこにも出てこない。', '男性は「当日は同行できない（I won\'t be able to join you on the day itself）」と明言しており、遠足に同行するとは述べていない。', '正解。', '新人研修についての記述は会話のどこにも出てこない。'] },
+        e: '冒頭の「Thursday the twelfth」が遠足の日で、男性は終わりに「Remember, I\'m at Jubilee Road Primary every Thursday this term, covering their office.」と述べている。2か所を合わせると、遠足の日は別の小学校の事務を代行していると分かる。',
+        w: ['「before I go off for half-term」の休みはこれから先の短い休みで、遠足の木曜は授業のある学期中の日である。男性は「every Thursday this term」別の学校で勤務していて、休暇ではない（別の時）。', '遠足に行く人は「Thirty-six children, three teachers and four parent helpers」とあり、事務職員は含まれない。男性は「every Thursday this term」別の小学校にいるので同行しない（別の人物）。', '正解。「I\'m at Jubilee Road Primary every Thursday this term, covering their office」と、冒頭の「Thursday the twelfth」から、遠足の木曜は別の学校の事務を代行している。', '「Odette, our new part-timer, finished her training last week」とあり、新人の研修は先週終わっている。当日に研修をするのではない（時のずれ）。'] },
     ],
   }),
 

@@ -107,39 +107,49 @@ export const R2 = [
   }),
 
   /* ── 153–155 メール ── */
+  /* 凍結・くじ：stem・選択肢・正解は設問先行方式の凍結のまま（qid は新規採番済み）。
+     2026-10-01 難度の試作（規則A〜C）で本文を全面的に書き直した。第1巡の監査のあと、第1段落の口コミ・第4〜5段落の部品の案・vanity unit・leak を直した。
+     stem・選択肢・くじの正解・id は変えていない。
+     誤答の足場　153：ボイラー（別の時＝昨年10月の点検。第1段落）・シャワー（別の時・別の人物＝夫が3月に設置。第5段落）。足場は1文に1本ずつ分けた／
+     154：床のシーツ（別の人物＝客本人。くじの正解）・作業員がしたこと3項目は、早着が第2段落、原因の説明と部品の持ち帰りが第3段落の隣り合う2文（原因の説明は explained が逐語）／
+     155：銀行振込（別の時＝支払い済み）・口コミ投稿（別の人物＝隣人。作業員を名指しした理由として働かせた）・
+     家具の移動（別の時＝訪問前に済み。作業員が戻って取り付ける案は見送った案で、見送ったことは we have chosen the second option で一意）。
+     規則Bの決め手　155：(a) 第4段落が2つの案を示し、第5段落で客がどちらを選んだかが分かる。
+     試験：第4段落だけ読むと、4本とも残る（支払い済みも口コミの人物も第4段落には無い。作業員が戻る案で家具の移動、客が注文する案で部品の注文）。
+     第5段落だけ読むと、2つ目の案が何か分からず、口コミ・家具・部品の3本が残る（支払いだけ yesterday で落ちる）。両方で部品の注文に決まる。
+     153：規則Bは申告しない（(c) は正解の語が本文の別の場所にも出て成立しない）。 */
   sp({
     n: [153,154,155], lv: 3,
     docs: [{
       label: "E-mail",
-      head: "To: customerservice@gowland-plumbing.co.uk\nFrom: p.hartigan@fastmail.com\nDate: 15 June\nSubject: Visit on 9 June",
+      head: "To: customerservice@gowland-plumbing.co.uk\nFrom: p.hartigan@fastmail.com\nDate: 9 October\nSubject: Visit on 7 October",
       body: [
         "Dear Sir or Madam,",
-        "I am writing about the visit your engineer, Mr. Gault, made to our house on Tuesday 9 June. The problem was the basin tap in the bathroom we keep for visitors, which had dripped day and night since the spring.",
-        "Mr. Gault arrived a quarter of an hour ahead of the appointment, and he had the tap stripped down before I had finished my coffee. Once it was open he showed me the worn rubber washer inside and explained that limescale had eaten into it until it could no longer seal. He fitted a new washer and carried the old one and the corroded fittings away in his bag.",
-        "The dripping has stopped, but he warned me that the tap is of an old type that wears out quickly, and he advised fitting a ceramic cartridge in place of the inner mechanism. He had none of the right size with him, so one will have to be sent for, and I intend to see to that myself this week.",
-        "Please pass on my thanks to Mr. Gault.",
-        "Yours faithfully,\nPaula Hartigan",
+        "We have relied on your firm for our heating for years, most recently for the boiler service last October. That is why I called you again when the cold tap in the spare bathroom began leaking a drop every few seconds. I asked for Mr. Hedley by name, as my neighbour, Mr. Ibbotson, had posted a glowing review of his work on the Inglewood Community Forum.",
+        "Mr. Hedley was at my door at 9.40 for the 10.00 appointment. Before he came, I had pulled the vanity unit out from the wall and spread some old sheets over the tiles, which he said made the job quicker.",
+        "He explained that the rubber washer inside the tap had perished, which was why it kept leaking. He fitted a new one and left with the old fittings in a carrier bag.",
+        "The leak has stopped for now, but he warned that the spindle is worn and should be replaced. The part has to come from the manufacturer, so he offered two options: he could order one and come back to fit it, or he could leave us the part number so that we could order it ourselves.",
+        "My husband, who fitted the new shower in our main bathroom himself in March, watched him closely and is confident of managing the job, so we have chosen the second option, which I shall see to this evening. Please pass on our thanks to Mr. Hedley. Thank you also for the invoice, which I settled by bank transfer yesterday.",
+        "Yours faithfully,",
+        "Paula Hartigan",
       ],
     }],
     q: [
-      { tag: "詳細", qid: "v5q153p",
-        s: "According to the e-mail, what problem does Ms. Hartigan describe?",
+      { tag: "詳細", qid: "v5q153p", t: ["p7detail"], s: "According to the e-mail, what problem does Ms. Hartigan describe?",
         c: ["A dripping tap in the guest bathroom","A rattling noise from the boiler","A patch of damp on the kitchen ceiling","A drop in water pressure in the shower"],
         a: 0,
-        e: "第1段落に、問題は「the basin tap in the bathroom we keep for visitors」で、春から昼夜となく水が滴っていた、とある。来客用の浴室の蛇口の水漏れである。",
-        w: ["正解。「the basin tap in the bathroom we keep for visitors, which had dripped day and night」とある。","ボイラーの音については言及なし。","台所の天井の染みについては言及なし。","シャワーの水圧については言及なし。"] },
-      { tag: "NOT", t: ["p7not"], qid: "v5q154p",
-        s: "What is NOT mentioned in the e-mail as something the plumber did during the visit?",
+        e: "第1段落の when the cold tap in the spare bathroom began leaking a drop every few seconds が、客用浴室（spare bathroom）の蛇口の水漏れにあたる。ボイラーは第1段落の昨年10月の点検、シャワーは第5段落の夫が3月に付けた話で、どちらも以前のことである。",
+        w: ["正解。the cold tap in the spare bathroom began leaking a drop every few seconds が、客用浴室の蛇口の水漏れにあたる。","誤り。most recently for the boiler service last October はボイラーの点検を昨年10月に頼んだという過去の話で、異音の記述ではない（別の時のこと）。","言及なし。台所の天井や湿った染みに触れた文は全体のどこにも無い。","誤り。My husband, who fitted the new shower in our main bathroom himself in March は3月に夫がシャワーを付けたという話で、水圧の低下は書かれていない（別の時のこと・別の人物のこと）。"] },
+      { tag: "NOT", qid: "v5q154p", t: ["p7not"], s: "What is NOT mentioned in the e-mail as something the plumber did during the visit?",
         c: ["Arrived before the agreed time","Covered the floor with sheets","Explained what had caused the fault","Took the old parts away with him"],
         a: 1,
-        e: "作業員の行動として、約束の時刻より早く着いたこと（「arrived a quarter of an hour ahead of the appointment」）、原因を説明したこと（「explained that limescale had eaten into it」）、古い部品を持ち帰ったこと（「carried the old one and the corroded fittings away in his bag」）の3つは第2段落に書かれている。床を覆ったことはメールのどこにも書かれていない。",
-        w: ["述べられている。第2段落に「arrived a quarter of an hour ahead of the appointment」とあり、約束より早く着いた。","正解。床に覆いを敷いたという記述はなく、言及なし。","述べられている。第2段落に「explained that limescale had eaten into it until it could no longer seal」とあり、水漏れの原因を説明している。","述べられている。第2段落に「carried the old one and the corroded fittings away in his bag」とあり、古い部品を持ち帰った。"] },
-      { tag: "推測", t: ["p7inf"], qid: "v5q155p",
-        s: "What will Ms. Hartigan most likely do next?",
+        e: "作業員がしたこととして書かれているのは、第2段落の Mr. Hedley was at my door at 9.40 for the 10.00 appointment（予定より早い到着）、第3段落の He explained that the rubber washer inside the tap had perished（原因の説明）と left with the old fittings in a carrier bag（古い部品の持ち帰り）。床にシーツを敷いたのは I had pulled the vanity unit out from the wall and spread some old sheets over the tiles とあるとおり本人である。",
+        w: ["作業員のこととして書かれている。Mr. Hedley was at my door at 9.40 for the 10.00 appointment が、約束の10時より前の到着にあたる。","正解。spread some old sheets over the tiles をしたのは I（Ms. Hartigan）で、作業員が床をシーツで覆ったとは書かれていない（別の人物のこと）。","作業員のこととして書かれている。He explained that the rubber washer inside the tap had perished, which was why it kept leaking が、故障の原因の説明にあたる。","作業員のこととして書かれている。He fitted a new one and left with the old fittings in a carrier bag が、古い部品を持ち帰ったことにあたる。"] },
+      { tag: "推測", qid: "v5q155p", t: ["p7inf"], s: "What will Ms. Hartigan most likely do next?",
         c: ["Pay the bill by bank transfer","Post a review on a local website","Move some furniture before the next visit","Order a part the plumber recommended"],
         a: 3,
-        e: "第3段落に、作業員は蛇口の内部機構の代わりにセラミックカートリッジを取り付けるよう勧めたが、合うサイズを持っておらず、「one will have to be sent for, and I intend to see to that myself this week」とある。次に Hartigan さんが取る行動は、勧められた部品の注文である。",
-        w: ["支払いの方法や銀行振込については言及なし。","レビューの投稿については言及なし。","家具の移動や次回の訪問については言及なし。","正解。作業員が勧めた部品について「one will have to be sent for, and I intend to see to that myself this week」とある。"] },
+        e: "第4段落の he warned that the spindle is worn and should be replaced と、he could leave us the part number so that we could order it ourselves（作業員が示した2つ目の案）に対し、第5段落で we have chosen the second option, which I shall see to this evening と述べている。2か所を合わせると、客が作業員の勧めた部品を自分で注文することが分かる。",
+        w: ["誤り。which I settled by bank transfer yesterday とあり、支払いは昨日済んでいる（別の時のこと）。","誤り。a glowing review of his work on the Inglewood Community Forum を投稿したのは隣人の Mr. Ibbotson で、本人ではない（別の人物のこと）。","誤り。I had pulled the vanity unit out from the wall は作業員が来る前に済ませたことである。作業員が戻って取り付ける案（he could order one and come back to fit it）は we have chosen the second option により見送られており、次の訪問は予定されていない（別の時のこと・見送った案）。","正解。he could leave us the part number so that we could order it ourselves（第4段落）と we have chosen the second option, which I shall see to this evening（第5段落）を合わせると、客が作業員の勧めた部品を注文することになる。"] },
     ],
   }),
 

@@ -18,53 +18,42 @@ const set = (o) => ({
 export const L2B = [
 
   /* ── 53–55（3名）────────────────────────────────── */
-  /* 先読み対策（設問先行・正解はくじ）方式。stem・4択は plans/vol1-final-P3.txt の
-     凍結案のまま1字も変えていない。正解はメインのくじ（53=B, 54=D, 55=C）。
-     3人の会話：一方の男性（M-Am）が最初に不具合を報告し、他方の男性（M-Au）が
-     Q54 の正解となる発言をする、という順序と別ロールで両者を区別する。
-     閉じ方：Q53 は「建築許可の遅れ」を冒頭で立て、設計変更・建物名・来週の現地
-     訪問はいずれも会話に一度も出さない。Q54 は在宅勤務の発言を M-Au だけにさせ、
-     M-Am には他の3本（増員・新しい責任者・旧社屋の売却）に当たる発言を一切させ
-     ない。Q55 は「昼食に行こう」という女性の提案で立て、模型・現地写真・別会議室
-     への移動はいずれも会話に出さない。
-     2026-09-29 監査r1反映：①Q53 の根拠が選択肢の語 "approve the permit" と
-     一致していたので "grant planning permission"（英式の言い方。vocab も差し替え）
-     に直した。②Q54 の根拠 "letting staff work from home" が選択肢とほぼ同語
-     だったので "switched to remote working" に言い換えた。③Q55 の根拠
-     "break for lunch" が選択肢 "Have lunch together" と重なっていたので
-     "pop out for something to eat" に言い換えた。stem・選択肢・answer は変更なし。
-     level は監査の見立てどおり lv3 に直した（言い換えを入れても語の対応が
-     直接的なため）。 */
+  /* 先読み対策（設問先行・正解はくじ）方式。stem・4択は凍結案のまま。正解はくじ（53=C 許可の遅れ, 54=A 在宅勤務, 55=C 昼食）。id の経緯：qid は v1q53p〜55p。
+     2026-10-01 難度の試作（規則A〜C）で本文を全面的に書き直し、第1巡の監査で直した。stem・選択肢・くじの正解・id は変えていない。
+     Q53：誤答の足場は 設計変更（1発言目。春に redrew 済みで、洪水の確認だけが残る＝時のずれ）と 現地訪問（3発言目。来週の予定が延期＝変更前の予定）。正解は本文の語 delay を持つ（2発言目 Another delay?）。規則Bの決め手は申告しない。
+     Q54：誤答の足場は 新しい社長（2発言目。入居日を急ぐ理由として20年務める人と述べる＝新任ではない）と 旧社屋の売却（4発言目。up for sale にしたが買い手なし＝不成立。premises と up for sale は言い換え）。正解と誤答の増員は staff を共有する。決め手は規則B(c)（週2日出社・残りは台所の机＝在宅勤務を認める。work・home は本文に無い。内容語の共有は staff のみ）。
+     Q55：誤答の足場は 現地写真（5発言目。依頼主がすでに見た＝時のずれ）と 模型（6発言目。木曜まで届かず見送り＝変更前の案）。規則Bの決め手は申告しない（変更が隣の発言で、最後の3発言が昼食で一致するため）。
+     明示的な否定・訂正は nobody made an offer の1本。 */
   set({
-    n: [53, 54, 55], lv: 3, k: 'conversation with three speakers',
+    n: [53, 54, 55], lv: 3, k: 'conversation with three speakers', t: ['p3detail'],
     s: [
-      { role: 'W-Br', text: 'Morning, both. Before we open the drawings, I have an update — the planning office called this morning. They need two more weeks to review the drainage plan before they\'ll grant planning permission.' },
-      { role: 'M-Am', text: 'Two more weeks? That pushes our whole move-in date back again.' },
-      { role: 'W-Br', text: 'I\'m afraid so. There\'s nothing we can do until they finish that review.' },
-      { role: 'M-Au', text: 'It isn\'t as bad for us as it sounds. We\'ve switched to remote working three days a week, so the move-in date isn\'t as tight as it used to be.' },
-      { role: 'M-Am', text: 'True, that does take some of the pressure off.' },
-      { role: 'W-Br', text: 'Good to hear. It\'s nearly midday — shall we pop out for something to eat before we go through anything else? There\'s a café just down the street.' },
-      { role: 'M-Am', text: 'Good idea, I could eat.' },
+      { role: 'W-Br', text: 'The planning office is content with the entrance we redrew in the spring, but it won\'t give us the go-ahead until a flood survey is done, so the consent slips by at least two weeks.' },
+      { role: 'M-Am', text: 'Another delay? Mr. Ostler wants a firm move-in date. He\'s been our managing director for twenty years, and he hates missed deadlines.' },
+      { role: 'W-Br', text: 'The officer was due to visit the site next Tuesday, but he\'s put that off until the survey is in.' },
+      { role: 'M-Au', text: 'It isn\'t as bad for us. We put the old premises up for sale last autumn and nobody made an offer, so we\'re in no hurry. Most of our staff are only in two days a week now; the rest of the time they\'re at their kitchen tables.' },
+      { role: 'M-Am', text: 'True, that does take the pressure off. We\'ve already seen the site photos, so could we see the scale model?' },
+      { role: 'W-Br', text: 'The workshop is only sending it on Thursday. It\'s nearly twelve, though. Shall we get lunch instead?' },
+      { role: 'M-Am', text: 'Good idea.' },
       { role: 'M-Au', text: 'Let\'s do that.' },
     ],
-    ja: '建築士の女性が、依頼主企業の男性2人と打ち合わせの冒頭で、計画申請を扱う役所が排水計画の審査にあと2週間かかり、その間は建築許可が下りないと伝える。1人の男性は入居予定日がまた延びることに懸念を示すが、もう1人の男性は自社が週3日リモートワークに切り替えたため入居時期への圧迫は見た目ほど大きくないと説明する。女性は昼が近いので、他の作業に入る前に何か食べに出ないかと提案し、近くのカフェを挙げる。2人とも同意する。',
-    v: [['planning office', '（建築）計画申請を扱う役所'], ['grant planning permission', '建築許可を交付する'], ['move-in date', '入居予定日'], ['take the pressure off', '負担・圧迫を軽くする']],
+    ja: '建築士の女性が、依頼主企業の男性2人に、春に描き直した玄関部分は計画担当部署も問題にしていないが、洪水調査が終わるまで許可は出ず、許可が少なくとも2週間遅れると伝える。1人目の男性は、また遅れかと言い、オストラー氏が確かな入居日を求めていると話し、社長を20年務める同氏は期限の遅れを嫌うと付け加える。女性は、担当官が来週予定していた現地視察は調査が出るまで延期になったと説明する。2人目の男性は、旧社屋を昨秋に売りに出したが買い手がつかず、急ぐ必要はないこと、社員の大半は週2日しか出社せず残りは自宅の台所の机で働いていることを挙げて、遅れは見た目ほど深刻でないと述べる。1人目の男性は、現地の写真はもう見たので縮尺模型を見たいと言うが、女性は模型が木曜にしか工房から届かないと答え、正午近いので代わりに昼食に行こうと提案する。男性2人は賛成する。',
+    v: [['go-ahead', '許可・ゴーサイン'], ['flood survey', '洪水リスクの調査'], ['put ~ off', '〜を延期する'], ['up for sale', '売りに出されて'], ['premises', '（敷地を含む）建物・社屋'], ['take the pressure off', '負担を軽くする'], ['scale model', '縮尺模型']],
     q: [
       { tag: '概要', qid: 'v1q53p', s: 'What are the speakers mainly discussing?',
         c: ['A revision to a building design', 'A name for the new building', 'A delay in a permit approval', 'A site visit scheduled for next week'],
         a: 2,
-        e: '建築士の女性が、計画申請を扱う役所が排水計画の審査にあと2週間かかり、その間は建築許可が下りないと説明している。',
-        w: ['設計の変更については会話のどこにも出てこない。', '新社屋の名称については会話のどこにも出てこない。', '正解。', '来週の現地訪問については会話のどこにも出てこない。'] },
+        e: '女性が冒頭で「it won\'t give us the go-ahead until a flood survey is done, so the consent slips by at least two weeks」と述べ、男性は「Another delay?」と受けている。続く発言は、その遅れの影響（入居日・現地視察・自社への影響）をめぐって進む。選択肢の「a permit approval」は本文の go-ahead / consent の言い換えで、「a delay」は本文の「Another delay?」と同じ語で、内容は「slips by at least two weeks」と同じである。',
+        w: ['「The planning office is content with the entrance we redrew in the spring」とあり、設計の描き直しは春に済んでいて役所も問題にしていない（時のずれ）。いま許可を止めているのは「until a flood survey is done」とある洪水調査で、設計変更は話の中心ではない。', '建物の名称は会話のどこにも出てこない（言及なし）。', '正解。「it won\'t give us the go-ahead until a flood survey is done, so the consent slips by at least two weeks」で許可の遅れが提示され、「Another delay?」が受けて、以降の発言もその影響を受けて進む。', '「The officer was due to visit the site next Tuesday, but he\'s put that off until the survey is in.」とあり、来週に予定されていた現地訪問は延期された（変更前の予定）。来週に予定されているものではない。'] },
       { tag: '詳細', qid: 'v1q54p', s: 'What does one of the men say about their company?',
         c: ['It lets staff work from home', 'It has a new managing director', 'It sold its old building', 'It is hiring more staff this year'],
         a: 0,
-        e: '男性の1人が「週3日、リモートワークに切り替えた」と述べ、入居時期への圧迫は見た目ほど大きくないと説明している。',
-        w: ['正解。', '新しい最高責任者についての記述は会話のどこにも出てこない。', '旧社屋を売却したという記述は会話のどこにも出てこない。', '今年増員しているという記述は会話のどこにも出てこない。'] },
+        e: '2人目の男性が「Most of our staff are only in two days a week now; the rest of the time they\'re at their kitchen tables.」と述べている。週の大半は自宅で働く、つまり会社が在宅勤務を認めているということを具体的に言ったもので、選択肢はそれを一段上の言葉でまとめている。',
+        w: ['正解。「Most of our staff are only in two days a week now; the rest of the time they\'re at their kitchen tables.」で、社員が週2日しか出社せず残りは自宅で働いていると述べている。', '「He\'s been our managing director for twenty years」とあり、社長は20年務めている人物で、新任ではない（時のずれ）。', '「We put the old premises up for sale last autumn and nobody made an offer」とあり、旧社屋は売りに出されたが買い手がつかず、売却は成立していない（不成立）。', '「Most of our staff are only in two days a week now」は社員の出社日数の話で、増員の話ではない。人を増やすことは会話のどこにも出てこない（言及なし）。'] },
       { tag: '次の行動', qid: 'v1q55p', s: 'What will the speakers most likely do next?',
         c: ['Examine a scale model', 'Look at photos of a site', 'Have lunch together', 'Move to another meeting room'],
         a: 2,
-        e: '建築士の女性が「昼が近いので、他の作業に入る前に何か食べに出ないか」と提案し、近くのカフェを挙げている。男性たちも同意している。',
-        w: ['模型を検討するという記述は会話のどこにも出てこない。', '現地の写真を見るという記述は会話のどこにも出てこない。', '正解。', '別の会議室に移るという記述は会話のどこにも出てこない。'] },
+        e: '女性が模型は木曜にしか届かないと伝えたうえで、「It\'s nearly twelve, though. Shall we get lunch instead?」と昼食を提案し、男性が「Good idea.」、もう1人が「Let\'s do that.」と同意して会話が終わる。',
+        w: ['男性が「could we see the scale model?」と尋ねたが、女性が「The workshop is only sending it on Thursday.」と答えており、模型を見る案は見送られた（変更前の案）。', '男性が「We\'ve already seen the site photos」と言っており、写真はすでに見たもの（時のずれ）。この後にするのは、全員が同意した昼食である。', '正解。「Shall we get lunch instead?」に「Good idea.」「Let\'s do that.」と全員が応じている。', '別の部屋へ移ることは会話のどこにも出てこない（言及なし）。'] },
     ],
   }),
 

@@ -277,45 +277,40 @@ export const L3 = [
   }),
 
   /* ── 89–91 地元ラジオの直売市コーナー ─────────────── */
+  /* 凍結・くじ：stem・選択肢・正解は設問先行方式の凍結のまま（qid は新規採番済み）。
+     2026-10-01 難度の試作（規則A〜C）で本文を全面的に書き直した。第1巡の監査のあと pack up・Ivydene・足場の働きを直した。
+     stem・選択肢・くじの正解・id は変えていない。
+     誤答の足場　89：蜂蜜（別の人物）・サワードウ（別の時）／90：子ども向け催し（時刻の違い）・駐車（別の時・変更前）／
+     91：出店者減（別の時）・宿の予約（別の対象＝テーブル。雨宿りの案内として話の筋に働かせた）。
+     規則Bの決め手：本ユニットには入れていない。90 の駐車の更新は排除の情報が同じ文の中にあり、正解を決めるのに追う必要が無いので申告しない。
+     91 は直前だけでも直後だけでも読みが決まるので、統合とは申告しない。 */
   talk({
     n: [89, 90, 91], lv: 3, k: 'broadcast',
     s: [
-      { role: 'M-Br', text: 'If it\'s Saturday morning, you know what that means — time for our weekly visit to the Wrenbridge Farmers\' Market, out on the green by the old mill.' },
-      { role: 'M-Br', text: 'I was down there myself last week and came home with a whole block of goat\'s cheese from the stall near the entrance — sharp, a bit crumbly, and absolutely worth the trip on its own.' },
-      { role: 'M-Br', text: 'Now, a word of advice if you\'re planning to go this weekend: get there before lunchtime if you can. The forecast has rain moving in by early afternoon, and once that starts, stallholders tend to pack up fast.' },
-      { role: 'M-Br', text: 'If you\'re looking to make a full day of it, here\'s a tip. It\'s the same week as the county show, so once you\'ve done the market you could head over to the showground after lunch — most of it\'s under cover in the big marquees anyway.' },
-      { role: 'M-Br', text: 'That\'s all from me for this week — see you down at the market.' },
+      { role: 'M-Br', text: "The Eastmoor Farmers' Market returns to the old mill field tomorrow with all forty stalls, after a thin August when harvest kept the growers at home." },
+      { role: 'M-Br', text: "I went along last week and came home with a slab of cheese from the goat dairy. Isla was with me, and she's still talking about the jar of local honey she picked up. I'll be back tomorrow for a sourdough loaf." },
+      { role: 'M-Br', text: "Get there before lunch if you can. The forecasters expect showers to roll in at about one o'clock, and the stallholders pack up the moment the first drops fall." },
+      { role: 'M-Br', text: "Parking was a squeeze last week, with the field full by ten, but the council has opened a second field for tomorrow. The children's puppet workshop starts at eleven. The Ivydene Tearoom is taking table bookings for lunch, which will suit anyone sheltering from the showers." },
+      { role: 'M-Br', text: "Now, quite a few of you have asked what else is on while you're out and about. It's the same week as the county show. Sunday's the big day, with sheepdog trials and vintage tractors." },
     ],
-    ja: '地元ラジオ局の番組で、司会者が毎週末のレンブリッジ・ファーマーズ・マーケット（旧製粉所そばの広場で開催）を紹介する。自身も先週訪れ、入口近くの屋台でヤギのチーズを丸ごと買ったと話す。今週末行くなら、午後早くに雨が降り出す予報なので、昼前に着くよう勧める（雨が降り出すと出店者が早めに店じまいするため）。今週は郡の品評会と同じ週でもあり、会場の大部分はテントの下なので、午前は市場、午後は品評会場へ、と1日で両方楽しむことを提案して締めくくる。',
-    v: [['stallholder', '露店の出店者'], ['showground', '（品評会などの）会場'], ['marquee', '（催事用の）大型テント'], ['crumbly', 'ぼろぼろと崩れる（食感の）']],
+    ja: "地元ラジオ局の週末案内で、男性の司会者が語る。「イーストムーア・ファーマーズ・マーケットが明日、旧製粉所の広場に戻ってきます。8月は収穫で生産者が出られず寂しい状況でしたが、今回は40の屋台がすべて揃います。」「私も先週行って、ヤギ牧場から厚いチーズの塊を買って帰りました。アイラも一緒で、買った地元の蜂蜜の瓶のことを今も話しています。私は明日また行って、サワードウのパンを買うつもりです。」「できれば昼前に着いてください。予報では1時ごろににわか雨が降り出す見込みで、屋台の人たちは最初の雨粒が落ちるとすぐに店じまいします。」「駐車場は先週は窮屈で、10時には広場が満杯でしたが、市議会が明日は第2の広場を開けてくれました。子ども向けの人形劇ワークショップは11時開始です。アイビーデン・ティールームは昼食のテーブル予約を受け付けており、にわか雨を避けたい人に向いています。」「さて、出かけたついでに他に何があるのか、と多くの方から尋ねられました。郡の品評会と同じ週です。日曜が本番で、牧羊犬競技やヴィンテージのトラクターがあります。」",
+    v: [["roll in","（雨雲などが）流れ込む"],["pack up","店じまいする"],["a squeeze","窮屈な状態（ここでは駐車場が混むこと）"],["slab","（チーズなどの）厚い塊"],["sheepdog trials","牧羊犬競技会"],["vintage","年代物の、古き良き"]],
     q: [
-      { tag: '詳細', qid: 'v3q89p', s: 'What does the speaker say he bought at the market last week?',
-        c: ['A jar of local honey', 'A loaf of sourdough bread',
-            'A basket of wild mushrooms', 'A block of goat\'s cheese'],
+      { tag: "詳細", qid: "v3q89p", s: "What does the speaker say he bought at the market last week?",
+        c: ["A jar of local honey","A loaf of sourdough bread","A basket of wild mushrooms","A block of goat's cheese"],
         a: 3,
-        e: '先週、市場でヤギのチーズを丸ごと買ったと話している。',
-        w: ['言及なし。蜂蜜の話は出てこない。',
-            '言及なし。サワードウパンの話は出てこない。',
-            '言及なし。野生キノコの話は出てこない。',
-            '正解。'] },
-      { tag: '詳細', qid: 'v3q90p', s: 'According to the speaker, why should listeners arrive early?',
-        c: ['Some stalls run out of stock quickly.', 'A children\'s activity starts at nine.',
-            'Parking becomes difficult by mid-morning.', 'The afternoon forecast is for rain.'],
+        e: "先週の買い物は、第2のまとまりの I went along last week and came home with a slab of cheese from the goat dairy で、ヤギ牧場のチーズの塊である。同じまとまりに蜂蜜とパンも出るが、どちらも話し手が先週買ったものではない。",
+        w: ["誤り。she's still talking about the jar of local honey she picked up とあるが、蜂蜜の瓶を買ったのは Isla（Isla was with me）で、話し手ではない（別の人物のこと）。","誤り。I'll be back tomorrow for a sourdough loaf とあるが、これは明日買う予定で、先週買った品ではない（別の時のこと）。","言及なし。キノコを買った話は全体のどこにも出てこない。","正解。I went along last week and came home with a slab of cheese from the goat dairy が、先週買って帰った品（ヤギのチーズの塊）にあたる。"] },
+      { tag: "詳細", qid: "v3q90p", s: "According to the speaker, why should listeners arrive early?",
+        c: ["Some stalls run out of stock quickly.","A children's activity starts at nine.","Parking becomes difficult by mid-morning.","The afternoon forecast is for rain."],
         a: 3,
-        e: '午後早くに雨が降り始める予報なので、昼前に着くよう勧めている。',
-        w: ['言及なし。品切れの話は出てこない。',
-            '言及なし。子供向け催しの話は出てこない。',
-            '言及なし。駐車の混雑の話は出てこない。',
-            '正解。'] },
-      { tag: '意図', qid: 'v3q91p', t: ['p3int'], s: 'Why does the speaker say, "It\'s the same week as the county show"?',
-        c: ['To explain why fewer farmers are taking part', 'To suggest that listeners combine two outings',
-            'To account for some extra bus services', 'To advise visitors to book rooms in advance'],
+        e: "早く来るよう勧める理由は Get there before lunch if you can. に続く The forecasters expect showers to roll in at about one o'clock で、午後の雨の予報である。",
+        w: ["言及なし。屋台の品が早く尽きるという話は出てこない。the stallholders pack up the moment the first drops fall は雨で店じまいを始める話で、品切れではない。","誤り。The children's puppet workshop starts at eleven とあり、開始は9時ではなく11時である（時刻の違い）。","誤り。Parking was a squeeze last week, with the field full by ten は先週のことで、but the council has opened a second field for tomorrow により今回は解消している（別の時のこと・変更前の状況）。","正解。The forecasters expect showers to roll in at about one o'clock が、午後の雨の予報にあたる。"] },
+      { tag: "意図", qid: "v3q91p", t: ["p3int"], s: "Why does the speaker say, \"It's the same week as the county show\"?",
+        c: ["To explain why fewer farmers are taking part","To suggest that listeners combine two outings","To account for some extra bus services","To advise visitors to book rooms in advance"],
         a: 1,
-        e: '郡の品評会と同じ週であることを挙げ、会場の大部分はテントの下なので雨でも問題ないと触れつつ、午前は市場、午後は品評会へ、と1日で両方回ることを勧めている。',
-        w: ['言及なし。出店数が減るという話は出てこない。',
-            '正解。',
-            '言及なし。臨時バスの話は出てこない。',
-            '言及なし。宿の予約を勧める話は出てこない。'] },
+        e: "直前の quite a few of you have asked what else is on while you're out and about に答える形で It's the same week as the county show と述べ、さらに Sunday's the big day, with sheepdog trials and vintage tractors と続けている。市場に出かけるついでに行ける別の催しを挙げ、2つの外出を組み合わせることを勧める発言である。",
+        w: ["誤り。a thin August when harvest kept the growers at home は8月のことで（別の時のこと）、今回は all forty stalls が揃う。出店者が減る話ではない。","正解。市場のほかに何があるかを問う発言に続けて品評会を挙げており、市場と品評会の2つの外出を組み合わせる提案になっている。","言及なし。バスの増便に触れた文は全体のどこにも無い（バスの話そのものが出てこない）。","誤り。The Ivydene Tearoom is taking table bookings for lunch は昼食のテーブルの予約で、宿泊の部屋ではない（別の対象のこと）。"] },
     ],
   }),
 
