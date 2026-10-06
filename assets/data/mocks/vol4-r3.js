@@ -85,57 +85,70 @@ export const R3 = [
   }),
 
   /* ── 169–171 手紙 ─────────────────────────────────── */
-  /* 設問案（v4-p7-169）を凍結、くじで Q169=D・Q170=C・Q171=A に確定。本文はくじ確定後に
-     新規に書き下ろした。固有名は設問案の Joanna Toomey・Nansfield University のみを使用し、
-     新規の固有名は追加していない（雑誌名・旧友の名は本文中で名付けず一般名詞で済ませた）。
-     設問 id は全問新規採番（v4q169p〜v4q171p）。
-     申し送り対応：用件は雑誌記事の誤りの指摘1つだけにし、写真の提供・同窓会の提案・証明書の
-     再発行のいずれにも触れていない。卒業年は本文に "I graduated from Nansfield in 2007" の
-     一度だけ書き、記事の誤りが指す年（1999／1997）とは別の数値にして混同を避けた。Q171 は
-     差出人住所を "Vancouver, BC, Canada" にし、本文でも "even from all the way over here in
-     Canada" と重ねて示した。専攻・卒業後の勤め先・自営については本文のどこにも触れていない。 */
+  /* 2026-10-07 難度5の再設計・第2試作（ブランチ lv5-design-b）で設問を新しくした。
+     凍結案 lv5b-frozen.txt（sha256 2ea6372f…）、くじ dice-lv5b.json。
+     id は新規採番（v4q169e〜v4q171e）、no は不変。
+     Q169：概要（価格表の改定）。段落1が根拠。
+     Q170：型R。くじ：正解 Tuesday、おとり Thursday、錨 Monday。
+       決め手：段落2（運転手はいつも Thursday）、段落4（市は来週の Monday）、段落6（来週に限り、市の翌日）。
+       段落2だけ→Thursday。段落6だけ（全文）→4本残る。段落4だけ→Monday（市の日）。
+       曜日名は段落2と段落4の2回だけ。手紙の日付は曜日を書かない。2026年を想定（14 October は水曜、
+       来週の月曜は19日、翌日は20日）。
+     Q171：型C。くじ：正解 private households、おとり food shops。
+       事実A＝段落3（注文はほとんど、酪農場で切って真空パックにした200グラムの小分けで、
+       that stay sealed until they reach whoever eats them。6個入りの箱で1〜2箱）。家庭と食料品店に当てはまり、食料品店のほうが典型的。
+       事実B＝段落5（取引割引の廃止。理由：nobody who buys from us resells the cheese in its packet）。食料品店だけを外す。
+       Bだけ→食料品店が消え、飲食店・ホテル・家庭が残る（3本）。Aだけ→食料品店・家庭が残り食料品店がそれらしい。A＋B で家庭。
+       A＋B で各種が外れる語：飲食店・ホテルは A の stay sealed until they reach whoever eats them（厨房・給仕が開けて出すので封のまま食べる人に届かない）、
+       食料品店は B の resells the cheese in its packet。
+       第2巡（rev-F）：J1〜J3。J3＝段落6の the empty boxes を the empties に（crates／cases／boxes の揺れを消した）。
+       第1巡の修正（H1）：旧Aの so the buyer has no cutting to do では飲食店・ホテルが定義の上で外れなかったため、封のまま届く文に変えた。
+       旧Bの sells the cheese on を resells ... in its packet に狭く定めた（料理として出すのを含まない）。
+       4本の顧客種の語とその同義語、main customers は本文に使っていない。 */
   sp({
-    n: [169, 170, 171], lv: 3, t: ['p7inf'],
+    n: [169, 170, 171], lv: 4, t: ['p7inf'],
     docs: [{
       label: 'Letter',
-      head: 'Joanna Toomey\n14 Birch Lane, Vancouver, BC, Canada\n\n3 May',
+      head: "Oakhurst Cheesemakers — 14 October 2026",
       body: [
-        'Alumni Relations Office\nNansfield University',
-        'Dear Alumni Relations Office,',
-        "I'm writing about a date that seems to have been given wrongly in the 'Fifty Years of the Union' feature in the Spring issue of the alumni magazine. It says the ground-floor café in the Union building opened in 1999, but the leaflet the Union still keeps by the till gives the date as 1997 — the writer may have mixed it up with a later refit. A friend of mine from my Nansfield days, who still lives near the campus and drops into the Union from time to time, is the one who noticed it and mentioned it to me.",
-        "I graduated from Nansfield in 2007, and I still read every issue of the magazine from cover to cover, even from all the way over here in Canada. It seems a shame to leave a small detail like that uncorrected, so I wondered whether you could pass this on to whoever edits the magazine, in case a short correction can run in the next issue.",
-        'Thank you for your time.',
-        'Yours faithfully,',
+        "Dear customer,",
+        "I am writing to let you know that we are revising our price list. The new list takes effect on 1 November, and a copy is enclosed with this letter.",
+        "The way we handle your orders stays as it is. Our driver collects the empty crates every Thursday, as he always has.",
+        "The increase is small. Most of what we send out is cut and vacuum-packed at the dairy in portions of 200 grams that stay sealed until they reach whoever eats them, and nearly every order is for one or two cases of six. Those portions rise by six percent.",
+        "We hope to meet many of you at the cheese fair in town, where we have a stall on Monday of next week. The fair lasts for one day, and copies of the new list will be on the table.",
+        "One part of the list changes in kind rather than in price: we are ending the trade discount, since nobody who buys from us resells the cheese in its packet.",
+        "For next week only, the pick-up of the empties will be on the day after the fair, as the driver will be on a training course on his usual day. Please have them ready by the door, and thank you for your continued custom.",
       ],
-      sig: 'Joanna Toomey',
+      sig: "Jethro\nOakhurst Cheesemakers",
     }],
     q: [
-      { tag: '概要', qid: 'v4q169p', s: 'Why did Ms. Toomey write the letter?',
-        c: ['To offer some photographs for an exhibition.', 'To propose a reunion for her year group.',
-            'To ask for a replacement degree certificate.', 'To point out an error in a magazine article.'],
-        a: 3,
-        e: '冒頭で「同窓会誌の春号に載った特集『学生会（Union）の50年』の中の、誤って書かれたらしい日付について書いている」と述べ、その誤りを編集者に伝えて訂正してほしいと依頼している。',
-        w: ['展示会への写真提供についての言及は手紙のどこにも無い（言及なし）。',
-            '学年での同窓会の提案についての言及は手紙のどこにも無い（言及なし）。',
-            '卒業証明書の再発行についての言及は手紙のどこにも無い（言及なし）。',
-            '正解。'] },
-      { tag: '詳細', qid: 'v4q170p', s: 'According to the letter, in what year did Ms. Toomey graduate?',
-        c: ['In 1996.', 'In 2001.', 'In 2007.', 'In 2012.'],
-        a: 2,
-        e: '"I graduated from Nansfield in 2007" と本文に明記されている。',
-        w: ['本文にこの年は無い（言及なし）。',
-            '本文にこの年は無い（言及なし）。',
-            '正解。',
-            '本文にこの年は無い（言及なし）。'] },
-      { tag: '推測', t: ['p7inf'], qid: 'v4q171p', s: 'What is suggested about Ms. Toomey?',
-        c: ['She now lives in another country.', 'She took a degree in history.',
-            'She worked at the university after graduating.', 'She runs a small business of her own.'],
-        a: 0,
-        e: '差出人の住所が "14 Birch Lane, Vancouver, BC, Canada" となっており、本文でも "even from all the way over here in Canada" と重ねて述べている。',
-        w: ['正解。',
-            '専攻についての言及は手紙のどこにも無い（言及なし）。',
-            '卒業後に大学に勤めたという言及は手紙のどこにも無い（言及なし）。',
-            '自営業についての言及は手紙のどこにも無い（言及なし）。'] },
+      { tag: '概要', qid: 'v4q169e',
+        s: "What is the purpose of the letter?",
+        c: ["To announce a change to the price list", "To respond to a complaint about quality", "To introduce a new head cheesemaker", "To request a testimonial for an award entry"], a: 0,
+        e: "最初の段落で I am writing to let you know that we are revising our price list. と書いており、目的は価格表の改定の知らせ。空き箱の回収や市への出店は付随の連絡。",
+        w: ["正解。I am writing to let you know that we are revising our price list. と手紙の目的を述べている。",
+            "不正解。品質への苦情への返答は書かれていない。",
+            "不正解。新しい工房長の紹介は書かれていない。",
+            "不正解。受賞への応募のための推薦文の依頼は書かれていない。"],
+        t: ['p7detail'] },
+      { tag: '詳細', qid: 'v4q170e',
+        s: "On which day will the driver collect the empty crates next week?",
+        c: ["Monday", "Tuesday", "Wednesday", "Thursday"], a: 1,
+        e: "決め手は3か所。第2段落に Our driver collects the empty crates every Thursday, as he always has. とあり、いつもの回収は Thursday。第4段落に a stall on Monday of next week とあり、市は来週の Monday。最終段落は For next week only, the pick-up of the empties will be on the day after the fair と述べ、来週に限り回収は市の翌日。市の Monday の翌日は Tuesday。第2段落だけだと Thursday に着くが、来週は変わる。最終段落だけでは、市がいつか分からない。",
+        w: ["不正解。Monday は市の日（a stall on Monday of next week）で、回収は the day after the fair、つまりその翌日。",
+            "正解。市は Monday of next week で、来週の回収は the day after the fair。市の翌日は Tuesday。",
+            "不正解。回収は the day after the fair で、市の Monday の翌日は Tuesday。Wednesday は2日後になる。",
+            "不正解。Our driver collects the empty crates every Thursday, as he always has. はいつもの曜日で、来週は For next week only ... on the day after the fair に変わる。いつもの曜日だけを読むとここに着く。"],
+        t: ['p7detail'] },
+      { tag: '推測', qid: 'v4q171e',
+        s: "What is suggested about the cheesemaker's main customers?",
+        c: ["Its main customers are restaurants.", "Its main customers are food shops.", "Its main customers are hotels.", "Its main customers are private households."], a: 3,
+        e: "決め手は2か所。第3段落は Most of what we send out is cut and vacuum-packed at the dairy in portions of 200 grams that stay sealed until they reach whoever eats them, and nearly every order is for one or two cases of six. と述べ、小分けは封をしたまま食べる人の手に届く。これに合うのは、買った人が自分で食べる家庭と、封のまま客に渡す食料品店で、食料品店のほうが典型的に見える。第5段落は we are ending the trade discount, since nobody who buys from us resells the cheese in its packet と述べ、買い手は誰も小分けのまま転売しない。食料品店は転売するので外れ、家庭が残る。第3段落だけを読むと食料品店に着き、第5段落だけでは飲食店・ホテル・家庭が残る。",
+        w: ["不正解。第3段落は portions of 200 grams that stay sealed until they reach whoever eats them と述べ、小分けは封をしたまま食べる人に届く。飲食店は厨房で開けて客に出すので、封のまま食べる人の手に届くことはなく、この記述と両立しない。",
+            "不正解。小分けの箱（portions of 200 grams that stay sealed ... one or two cases of six）は食料品店に合うが、第5段落の nobody who buys from us resells the cheese in its packet で、小分けのまま売る側は外れる。第3段落だけを読むとここに着く。",
+            "不正解。第3段落は portions of 200 grams that stay sealed until they reach whoever eats them と述べ、小分けは封をしたまま食べる人に届く。ホテルは厨房や給仕が開けて宿泊客に出すので、封のまま食べる人の手に届くことはなく、この記述と両立しない。",
+            "正解。小分けは封のまま食べる人に届き（that stay sealed until they reach whoever eats them）、第5段落の nobody who buys from us resells the cheese in its packet が食料品店を外すので、買った人が自分で食べる家庭が残る。"],
+        t: ['p7inf'] },
     ],
   }),
 

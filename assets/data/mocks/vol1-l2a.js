@@ -151,42 +151,63 @@ export const L2A = [
   }),
 
   /* ── 41–43 ─────────────────────────────────────────── */
-  /* 申し送り：Q43（駐車場の舗装補修）は Q41（隣室の騒音）とは別の話として
-     出し、原因や結果として結びつけていない。
-     2026-09-29 監査反映：正解の根拠（noise・next door）が本文に逐語で
-     出ていたため、「壁を隔てたテナント」「考え事もできないほど」という
-     言い方に言い換えた。Q43 の vocab（`booked (in)`）が本文の言い回しと
-     一致していなかったため直し、ja の「日程が決まりしだい」も本文の
-     言い回しに合わせて直した。 */
+  /* 2026-10-07 難度5の再設計・第2試作（ブランチ lv5-design-b）で設問を新しくした。
+     凍結案 lv5b-frozen.txt（sha256 2ea6372f…）、くじ dice-lv5b.json。
+     id は新規採番（v1q41e〜v1q43e）、no は不変。
+     Q41：概要（誕生会）。発言2の1文目が根拠。
+     Q42：型R。くじ：正解 Friday、おとり Thursday、錨 Tuesday。
+       決め手：発言4（予定は Thursday）、発言5（Tuesday はランプ交換で終日閉館）、
+       発言7（日は埋まった。ランプ交換の3日後で予約）。曜日名は発言4と発言5の2回だけ。
+       発言4だけ→Thursday。発言7だけ（発言全文で数える）→4本残る（何の3日後か分からない）。
+       発言5だけ→Tuesday（閉館日なので正解でない）。
+     Q43：型X。くじ：正解 Iron Comets、おとり Lantern Sky、正解を先に紹介。
+       決め手：発言2（長く座れない）・発言3（Iron Comets 40分14時／Lantern Sky 25分10時半）・発言6（午前のほうは不可）。
+       発言2・3まで→Lantern Sky がむしろそれらしい。発言6だけ（全文）→番組名が無く4本残る。
+     時の語の年表：発言4の Thursday（予定・変更可）→発言5の Tuesday（閉館）→発言7（Thursday は埋まっており、Tuesday の3日後）。
+     第1巡の修正（H2）：発言5に Let me check（予約表を確かめる一言。結果は言わない）を足し、発言7を「埋まっている」の言い方にして、通話中に埋まったと読めないようにした。
+     第2巡（rev-F）：J1〜J3。J1＝発言7を I've checked, and the day you mentioned is taken に（Let me check の結果として言う）。
+     解き直し：本文なし→4本同程度／発言4＋5→Thursday／発言7だけ→4本／常識だけ→決まらない。 */
   set({
-    n: [41, 42, 43], lv: 3,
+    n: [41, 42, 43], lv: 4,
     s: [
-      { role: 'W-Au', text: 'Hi, I\'m calling about the tenants on the other side of my wall — I run a business preparing food for private events out of my unit, and some afternoons I can barely hear myself think.' },
-      { role: 'M-Br', text: 'I\'m sorry to hear that — what sort of sound is it, and when does it happen?' },
-      { role: 'W-Au', text: 'Machinery of some kind, most afternoons, right through the wall while I\'m trying to prep orders.' },
-      { role: 'M-Br', text: 'Understood, I\'ll note it down and reach out to them about it.' },
-      { role: 'W-Au', text: 'Thanks. Also, while I\'ve got you — any idea when the car park out front will finally get sorted? A few of my delivery drivers have been complaining about the potholes.' },
-      { role: 'M-Br', text: 'Actually, yes — we\'ve got someone booked to redo the surface out there next month. I\'ll send round a note with the exact dates.' },
-      { role: 'W-Au', text: 'Great, thanks for that.' },
+      { role: 'W-Au', text: "Hello, Zelmont Planetarium, Veronica speaking. How can I help you?" },
+      { role: 'M-Br', text: "Hello. I'd like to arrange a dome show for my daughter's seventh birthday party. The children are all quite small, so I doubt they'd sit through anything long." },
+      { role: 'W-Au', text: "Of course. We have two children's shows. Iron Comets follows a crew chasing a comet across space. It runs for forty minutes and starts at two in the afternoon. Lantern Sky follows a firefly through a forest at night. It runs for twenty-five minutes and starts at half past ten in the morning." },
+      { role: 'M-Br', text: "Thanks. We're planning the party for Thursday, but the date isn't fixed yet, so I can be flexible." },
+      { role: 'W-Au', text: "Good to know. Let me check. The dome will be shut all day Tuesday while we replace the projector lamp." },
+      { role: 'M-Br', text: "The morning one won't work. Several of the children have a swimming lesson until noon. So it'll be the other one, please." },
+      { role: 'W-Au', text: "Certainly. I've checked, and the day you mentioned is taken, so I've put you down for three days after the lamp replacement instead." },
     ],
-    ja: '商業ビルの1区画を借りて、個人向けの出張料理の仕事をしている女性が、管理会社に電話をかけ、壁を隔てた隣のテナントの物音に悩まされ、午後は考え事もできないほどだと伝える。担当の男性スタッフは内容を控え、隣の入居者に連絡すると約束する。女性はついでに、建物前の駐車場の補修工事がいつ行われるか尋ね、配達業者からくぼみについての苦情が出ていると伝える。男性は来月に補修の予定が入っていることを伝え、詳しい日程は追って案内すると答える。',
-    v: [['prep orders', '注文の準備をする'], ['potholes', '（路面の）くぼみ'], ['redo the surface', '（路面を）補修し直す']],
+    ja: "女性：こんにちは、ゼルモント・プラネタリウムのヴェロニカです。ご用件をどうぞ。男性：こんにちは。娘の7歳の誕生会のために、ドーム上映を手配したいのです。子どもたちはみんなとても小さいので、長いものは座っていられないと思います。女性：承知しました。子ども向けは2本あります。「アイアン・コメッツ」は、彗星を追う乗組員が宇宙を旅する話で、上映は40分、午後2時開始です。「ランタン・スカイ」は、ホタルが夜の森を進む話で、上映は25分、午前10時半開始です。男性：ありがとう。誕生会は木曜に考えていますが、日はまだ決まっていないので融通はききます。女性：分かりました。確認しますね。プロジェクターのランプを交換するため、火曜はドームが終日閉まります。男性：午前のほうは無理です。子どもの何人かが正午まで水泳教室なので。もう1本のほうでお願いします。女性：かしこまりました。確認しましたが、おっしゃった日は埋まっておりますので、代わりにランプ交換の3日後で入れておきます。",
+    v: [['dome', 'ドーム（プラネタリウムの投影室）'], ['comet', '彗星'], ['firefly', 'ホタル'], ['flexible', '融通のきく'], ['replace', '交換する']],
     q: [
-      { tag: '概要', qid: 'v1q41p', s: 'What are the speakers mainly discussing?',
-        c: ['Noise from the unit next door', 'A new due date for the rent', 'Permission to put up a sign', 'Water leaking through a ceiling'],
-        a: 0,
-        e: '女性は冒頭で、壁を隔てた隣のテナントの物音のせいで午後は考え事もできないほどだと相談しており、会話の中心はこの騒音の件である。',
-        w: ['正解。', '言及なし。家賃の支払期日についての話は出てこない。', '言及なし。看板の設置許可についての話は出てこない。', '言及なし。天井からの水漏れについての話は出てこない。'] },
-      { tag: '詳細', qid: 'v1q42p', s: 'What type of business does the woman run?',
-        c: ['A graphic design studio', 'A catering company', 'A shoe shop', 'A locksmith service'],
-        a: 1,
-        e: '女性は "I run a business preparing food for private events out of my unit" と述べており、出張料理の仕事をしていることが分かる。',
-        w: ['言及なし。デザイン事務所についての話は出てこない。', '正解。', '言及なし。靴店についての話は出てこない。', '言及なし。鍵屋についての話は出てこない。'] },
-      { tag: '詳細', qid: 'v1q43p', s: 'What does the man mention about the building?',
-        c: ['Its owner wants to sell it', 'Its parking area needs resurfacing', 'Its alarm system has new codes', 'Its front doors open earlier now'],
-        a: 1,
-        e: '男性は "we\'ve got someone booked to redo the surface out there next month" と述べており、建物前の駐車場の補修工事が来月に入っている。',
-        w: ['言及なし。オーナーが建物を売却したいという話は出てこない。', '正解。', '言及なし。警報システムの暗証番号についての話は出てこない。', '言及なし。開館時間が早まったという話は出てこない。'] },
+      { tag: '概要', qid: 'v1q41e',
+        s: "What is the man calling about?",
+        c: ["A school group's visit", "A company team outing", "A seniors' club outing", "A child's birthday party"], a: 3,
+        e: "男性は最初の用件を I'd like to arrange a dome show for my daughter's seventh birthday party. と述べている。娘の誕生会のためのドーム上映の予約で、これが電話の用件。",
+        w: ["不正解。学校の団体という話は出ない。男性は my daughter's seventh birthday party と、娘の誕生会と言っている。",
+            "不正解。会社のチームの話は出ない。来るのは The children（子どもたち）である。",
+            "不正解。高齢者の会の話は出ない。参加者は The children are all quite small（子どもたちはみんなとても小さい）と述べられている。",
+            "正解。I'd like to arrange a dome show for my daughter's seventh birthday party. と述べている。"],
+        t: ['p3detail'] },
+      { tag: '詳細', qid: 'v1q42e',
+        s: "On which day will the event take place?",
+        c: ["Tuesday", "Wednesday", "Thursday", "Friday"], a: 3,
+        e: "決め手は3か所。男性は We're planning the party for Thursday, but the date isn't fixed yet と最初の予定を述べる。女性は The dome will be shut all day Tuesday while we replace the projector lamp. と、ランプ交換の日（Tuesday）にドームが閉まると言う。最後に I've checked, and the day you mentioned is taken（男性の言った日は埋まっている）と述べ、I've put you down for three days after the lamp replacement と言う。ランプ交換の Tuesday の3日後は Friday。最初の予定（Thursday）だけを聞くと誤り、最後の発言だけでは何の3日後か分からない。",
+        w: ["不正解。Tuesday はランプ交換でドームが終日閉まる日（The dome will be shut all day Tuesday while we replace the projector lamp.）で、上映の日ではない。",
+            "不正解。予約の日は I've put you down for three days after the lamp replacement で、ランプ交換の Tuesday の3日後。Wednesday は翌日であり、3日後ではない。",
+            "不正解。男性が最初に考えていた日（We're planning the party for Thursday）だが、女性が I've checked, and the day you mentioned is taken と言い、この日は取れない。最初の予定だけを聞くとここに着く。",
+            "正解。ランプ交換は Tuesday で、女性は I've put you down for three days after the lamp replacement と言っている。Tuesday の3日後は Friday。"],
+        t: ['p3detail'] },
+      { tag: '詳細', qid: 'v1q43e',
+        s: "Which show does the man decide to book?",
+        c: ["Lantern Sky", "Wandering Moons", "Distant Suns", "Iron Comets"], a: 3,
+        e: "男性は The children are all quite small, so I doubt they'd sit through anything long. と、長い上映は無理と言う。女性が紹介した2本は、Iron Comets が It runs for forty minutes and starts at two in the afternoon.、Lantern Sky が It runs for twenty-five minutes and starts at half past ten in the morning.。短いのは Lantern Sky で、ここまでを聞くとそちらが合う。しかし男性は the morning one won't work. Several of the children have a swimming lesson until noon. と午前の上映を断り、So it'll be the other one と言う。午前でないほうは午後2時開始の Iron Comets。",
+        w: ["不正解。25分と短く最初の希望に合う（It runs for twenty-five minutes）が、上映は午前10時半（starts at half past ten in the morning）で、男性は the morning one won't work と断っている。紹介された2本だけを聞くとここに着く。",
+            "不正解。この番組は本文のどこにも出てこない。",
+            "不正解。この番組は本文のどこにも出てこない。",
+            "正解。午前のほうを断ったあと So it'll be the other one と言っている。午前でないほうは starts at two in the afternoon の Iron Comets。"],
+        t: ['p3detail'] },
     ],
   }),
 

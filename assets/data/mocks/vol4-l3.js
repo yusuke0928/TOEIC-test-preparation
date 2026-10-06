@@ -315,38 +315,64 @@ export const L3 = [
     ],
   }),
 
-  /* ── 95–97 地域ラジオ放送（Loveridge、Hambrook Road の街路樹） ─────────
-     植える本数は65本の1つの数値だけを述べる。
-     住民への依頼は「傷んだ木を自治体に報告する」の1つだけ（ボランティア・水やり・寄付には触れない）。
-     Q97 は「2年前の嵐以来ずっと木がなく寂しかった」という描写で示唆にとどめ、
-     「嵐で失った」と明言はしない（示唆から推測させる）。舗装工事・商店・バス専用レーンには触れない。 */
+  /* ── 95–97 地域ラジオ放送（Quillon Balloon Flights） ─────────────────────
+     2026-10-07 難度5の再設計・第2試作（ブランチ lv5-design-b）で設問を新しくした。
+     凍結案 lv5b-frozen.txt（sha256 2ea6372f…）、くじ dice-lv5b.json。
+     id は新規採番（v4q95e〜v4q97e）、no は不変。
+     Q95：詳細。段落1の1文だけ（juice）。他の3本の物は本文に無い。
+     Q96：型X。くじ：正解 Bramble、おとり Teasel、段落2で Bramble を先に紹介。
+       決め手：段落2（Bramble＝2時間・定員12／Teasel＝40分・定員4。父は初めてのフライトを短くしたい（好み）。10月に飛びたい）と
+       段落4（40分の便は9月末でその季節の運航を終える。残るほうの案内）。
+       段落2まで→Teasel がむしろそれらしい（短い）。段落4だけ（全文）→パッケージ名が無く4本残る。
+     第2巡（rev-F）：J1〜J3。J2＝段落4の結びを and you can reserve it online に（段落3の reserve online と合わせた）。
+     第1巡の修正（H3・H4）：父の事情を制約（立っていられない）から好み（初めてのフライトを短くしたい）に、
+     冬季休止を「その季節の運航を終える」に。ja は最終の本文と1文ずつ突き合わせて全文作り直した。
+     解き直し：本文なし・常識だけ→決まらない／段落2まで→Teasel／段落4だけ→4本／段落2＋4→Bramble。
+     Q97：型C。くじ：正解 country park、おとり showground。
+       事実A＝段落1（祭りは毎年 showground。各社の気球はそこから上がる）、
+       事実A'＝段落3（会社の気球がふだん上がるのは country park）、
+       事実B＝段落5（今年は共同の発進をやめ、各社がふだんの場所から。理由1文）。
+       A（＋A'）だけ→showground がむしろそれらしい。段落5だけ（全文）→場所が分からず4本残る。A'＋B で country park。
+     固有名：Quillon・Ulrich のみ。 */
   talk({
-    n: [95, 96, 97], lv: 3, k: 'broadcast',
+    n: [95, 96, 97], lv: 4, k: 'broadcast',
     s: [
-      { role: 'W-Au', text: 'Now to local news: work begins next week on replanting street trees along Hambrook Road, here in Loveridge.' },
-      { role: 'W-Au', text: 'Sixty-five semi-mature trees will go in along the length of the road, which has looked bare and exposed ever since a severe storm battered the area two winters ago.' },
-      { role: 'W-Au', text: "The council is asking residents living nearby to keep an eye on the new trees over the coming months, and to let the council's parks team know straight away about any that look broken or unwell, rather than try pruning them themselves." },
-      { role: 'W-Au', text: 'A council spokesperson said the new avenue should reach a decent height within about ten years, restoring some of the shade the road has been missing.' },
-      { role: 'W-Au', text: "That's all for local news — sport is next." },
+      { role: 'W-Au', text: "This week we're looking at Quillon Balloon Flights, which has carried passengers for fifteen years. Once the basket lands, every passenger is handed a bottle of juice pressed at a nearby orchard. The company also flies at the town's balloon festival, held every year on the showground, where all the companies' balloons go up together." },
+      { role: 'W-Au', text: "Our e-mail is from Ulrich, who is torn between two packages. The Bramble package is a two-hour flight for up to twelve passengers, and the Teasel package is a forty-minute flight for up to four. He is bringing his father, who would like to keep his first flight short, and they hope to fly in October." },
+      { role: 'W-Au', text: "Booking is simple: reserve online. Passengers gather at the country park, where the company's balloons usually go up." },
+      { role: 'W-Au', text: "Ulrich, here is the catch. The forty-minute flights finish for the season at the end of September, so they won't be available then. That leaves the remaining package of your two, and you can reserve it online." },
+      { role: 'W-Au', text: "Finally, the festival. This year the main ground has been given to a livestock fair, so the joint launch is dropped, and each company will fly from the site it normally uses." },
     ],
-    ja: '地域ラジオのローカルニュースコーナー。来週から、ラヴリッジのハムブルック・ロード沿いで街路樹の植樹作業が始まると伝える。65本の成木手前の木がこの道路沿いに植えられる予定で、この道路は2年前の冬に激しい嵐が地域を襲って以来、木がなく寂しい様子が続いていたと述べる。地域住民に対しては、今後数か月新しい木の様子に気を配り、折れていたり元気がないように見える木を見つけたら自分で剪定などをせず、すぐに自治体の公園管理チームに知らせるよう呼びかける。自治体の広報担当者は、新しい並木がおよそ10年ほどで見栄えのする高さに育ち、この道路に足りなかった木陰を取り戻せるだろうと述べたという。',
-    v: [['semi-mature', '若木より育った、成木手前の'], ['battered', '打撃を受けた、痛めつけられた'], ['parks team', '公園管理チーム']],
+    ja: "今週は、15年にわたって乗客を乗せているクイロン・バルーン・フライツを取り上げます。バスケットが着陸すると、乗客全員が近くの果樹園で搾ったジュースを1本受け取ります。同社は、毎年品評会場で開かれる町の気球祭りにも出ており、そこでは各社の気球がいっせいに上がります。メールはウルリッヒさんからで、2つのパッケージで迷っています。ブランブルは定員12名までの2時間のフライト、テーゼルは定員4名までの40分のフライトです。お父さまを連れて、10月に飛びたいそうで、お父さまは初めてのフライトを短くしたいとのことです。予約はオンラインで簡単にできます。乗客は、同社の気球がふだん上がるカントリー・パークに集合します。ウルリッヒさん、問題はこうです。40分のフライトは9月末でその季節の運航を終えるので、その時期は利用できません。となると、挙げてくださった2つのうち残るほうになり、オンラインで予約できます。最後に祭りについて。今年は主会場が家畜品評会に使われるため、共同の発進は取りやめになり、各社がふだん使う場所から飛びます。",
+    v: [['basket', '（気球の）バスケット'], ['orchard', '果樹園'], ['showground', '品評会場・催事会場'], ['torn between', '〜で迷っている'], ['livestock', '家畜']],
     q: [
-      { tag: '詳細', qid: 'v4q95p', s: 'How many trees will be planted on Hambrook Road?',
-        c: ['40', '65', '120', '180'],
-        a: 1,
-        e: '"Sixty-five semi-mature trees will go in along the length of the road" と述べている。',
-        w: ['40という数値は出ていない。', '正解。65本植えると述べている。', '120という数値は出ていない。', '180という数値は出ていない。'] },
-      { tag: '詳細', qid: 'v4q96p', s: 'What does the speaker say residents can do to help?',
-        c: ['Report damaged trees to the council', 'Water young trees during dry spells', 'Volunteer to help with planting', 'Sponsor a tree for a fee'],
-        a: 0,
-        e: '"to let the council\'s parks team know straight away about any that look broken or unwell" と述べており、傷んだ木を見つけたらすぐ自治体の公園管理チームに知らせるよう住民に求めている。',
-        w: ['正解。傷んだ木を自治体の公園管理チームに知らせるよう述べている。', '水やりについての言及はない。', '植樹のボランティアについての言及はない。', '寄付についての言及はない。'] },
-      { tag: '推測', qid: 'v4q97p', s: 'What is suggested about Hambrook Road?',
-        c: ['It lost its old trees in a storm', 'It is due for resurfacing soon', 'It runs past a row of shops', 'It gained a new bus lane recently'],
-        a: 0,
-        e: '"which has looked bare and exposed ever since a severe storm battered the area two winters ago" と述べており、この描写から、同じ道路がかつて並木を持っていて、それを嵐で失ったことがうかがえる。',
-        w: ['正解。2年前の冬の嵐以来ずっと木がなく寂しい様子だったという描写から、嵐で並木を失ったことがうかがえる。', '舗装工事の予定についての言及はない。', '沿道の商店についての言及はない。', '新しいバス専用レーンについての言及はない。'] },
+      { tag: '詳細', qid: 'v4q95e',
+        s: "What do passengers receive after landing?",
+        c: ["A commemorative badge", "A framed photograph", "A bottle of local juice", "A set of postcards"], a: 2,
+        e: "司会者は Once the basket lands, every passenger is handed a bottle of juice pressed at a nearby orchard. と述べている。着陸後に全員が受け取るのは近くの果樹園で搾ったジュース1本（地元産のジュース）。",
+        w: ["不正解。記念バッジは本文に出てこない。",
+            "不正解。額入りの写真は本文に出てこない。",
+            "正解。every passenger is handed a bottle of juice pressed at a nearby orchard と述べている。",
+            "不正解。ポストカードは本文に出てこない。"],
+        t: ['p4type'] },
+      { tag: '詳細', qid: 'v4q96e',
+        s: "Which package does the speaker recommend to the listener who e-mailed the show?",
+        c: ["The Bramble package", "The Gorse package", "The Plover package", "The Teasel package"], a: 0,
+        e: "決め手は2か所。司会者はウルリッヒのメールを紹介し、The Bramble package is a two-hour flight ... and the Teasel package is a forty-minute flight ...、He is bringing his father, who would like to keep his first flight short と述べる。ここまでだと短い40分のほうが合う。ところが後半で The forty-minute flights finish for the season at the end of September, so they won't be available then. と言い、10月に飛びたい本人にとって40分のほうは使えない。そこで That leaves the remaining package of your two と、残る2時間のほうを案内している。",
+        w: ["正解。40分のほうは9月末でその季節の運航を終え使えないので、司会者は That leaves the remaining package of your two と述べ、2時間の Bramble を案内している。",
+            "不正解。この名前のパッケージは本文のどこにも出てこない。",
+            "不正解。この名前のパッケージは本文のどこにも出てこない。",
+            "不正解。40分の短いフライト（the Teasel package is a forty-minute flight）で、初めてのフライトを短くしたい父の好みには合うが、The forty-minute flights finish for the season at the end of September と、10月には使えない。メールの紹介だけを聞くとここに着く。"],
+        t: ['p4type'] },
+      { tag: '推測', qid: 'v4q97e',
+        s: "Where will the company's balloons most likely take off from during this year's festival?",
+        c: ["From the showground", "From the racecourse", "From the airfield", "From the country park"], a: 3,
+        e: "決め手は3か所。祭りについて The company also flies at the town's balloon festival, held every year on the showground, where all the companies' balloons go up together と述べ、通例の会場は showground。会社の気球は Passengers gather at the country park, where the company's balloons usually go up と、ふだん country park から上がる。そして最後に This year ... the joint launch is dropped, and each company will fly from the site it normally uses. と、今年は各社がふだんの場所から飛ぶ。よって今年のこの会社は country park。通例の会場だけに注目すると showground に着くが、今年は共同の発進がない。",
+        w: ["不正解。毎年の祭りで各社の気球がいっせいに上がる場所（held every year on the showground）だが、今年は the joint launch is dropped で、各社はふだんの場所から飛ぶ。通例のことだけを聞くとここに着く。",
+            "不正解。この場所は本文のどこにも出てこない。",
+            "不正解。この場所は本文のどこにも出てこない。",
+            "正解。会社の気球はふだん the country park から上がり（where the company's balloons usually go up）、今年は each company will fly from the site it normally uses なので、今年もここになる。"],
+        t: ['p4type'] },
     ],
   }),
 
