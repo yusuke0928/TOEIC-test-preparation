@@ -291,7 +291,7 @@ export const L2A = [
        M6（部屋の変更）と M8 の禁止の2本。
      Q47 と Q49 の決め手は別の発言（M4／W5・M8）、Q48 は W3・M6。同じ発言に2問ぶんを置いていない。 */
   set({
-    n: [47, 48, 49], lv: 3,
+    n: [47, 48, 49], lv: 4,
     s: [
       { role: 'W-Cn', text: "Hi Anders, it's Josephine from Upcott and Co. I'd like to book a room for a workshop with some of my clients next week." },
       { role: 'M-Au', text: 'Of course. How many people, and for how long?' },
