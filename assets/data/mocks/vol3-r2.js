@@ -126,7 +126,7 @@ export const R2 = [
      決め手の段落は Q154＝1・3、Q155＝2・4、Q153＝5。重ねていない。
      否定語（not/no/never/n't/cannot）を含む文：1（第3段落の cannot be lent）。明示的な訂正・否定は 0。 */
   sp({
-    n: [153, 154, 155], lv: 3,
+    n: [153, 154, 155], lv: 4,
     docs: [{
       label: 'Letter',
       head: "Yewdale Herbarium\nMill Road, Yewdale\n12 October\n\nMr. Ingleby\nSecretary, Isfield Naturalists' Society",

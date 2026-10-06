@@ -192,7 +192,7 @@ export const L3 = [
      否定語（not/no/never/n't）を含む文：0。明示的な訂正・否定は第4段落の日の変更の1本。
      決め手の段落は Q87＝1・4、Q86＝2、Q88＝3・5。重ねていない。 */
   talk({
-    n: [86, 87, 88], lv: 3, k: 'recorded message',
+    n: [86, 87, 88], lv: 4, k: 'recorded message',
     s: [
       { role: 'W-Br', text: 'Hello, Ms. Quennell, this is Oonagh at Ollerenshaw Glass Studio, calling about the reading-room window. As arranged, our fitters will be with you on Thursday the eleventh of next month.' },
       { role: 'W-Br', text: "The fitting itself will take four hours, and they'll tidy up afterwards." },
