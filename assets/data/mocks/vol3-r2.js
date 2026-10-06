@@ -109,46 +109,60 @@ export const R2 = [
             '正解。'] },
     ],
   }),
+  /* 2026-10-06 難度5の試作（設問案から設計。ブランチ lv5-design）で設問を新しくした。
+     凍結案 lv5-frozen.txt（sha256 86f51fe9…）、くじ dice-lv5.json。id は新規採番（v3q153d〜v3q155d）、
+     no は不変。stem・4択・並び・正解はくじのとおり（153=D, 154=C, 155=D）。
+     Q153（通常）：決め手は第5段落（cabinets の写真）の1か所。第2・4段落の運び方の話に図面・ケース・
+       解説文・案内役は持ち込んでいない。
+     Q154（型I）：決め手は第1段落（石や樹皮を覆う低いクッション状の植物＝コケ。時代は言わない）と
+       第3段落（採集は1870年代の旅行と1930年代の調査の2つの時期。1930年代の調査の分は大学で
+       撮影中のため展覧会が閉じるまで貸せない。種類は言わない）。どちらも「貸すのは〜だ」と言い切らない。
+       第1段落だけ→種類はコケと決まり、時代の2本（19世紀／20世紀）が残る。
+       第3段落だけ→時代は19世紀と決まり、種類の2本（シダ／コケ）が残る。
+     Q155（型S）：決め手は第2段落（借りる車を1台。van を先、car を後に示す。2案は持ち主が同じ＝借りる車）と
+       第4段落（会場の裏口に通じる小道が狭く、the smaller of the two しか入れない。候補は並べ直さない）。
+       おとりは hired van。第2段落だけ→2本（hired car／hired van）。
+       第4段落だけ→小さいほう（car）と決まり、持ち主の2本（herbarium's car／hired car）が残る。第1巡の修正 F1：旧2文目の the firm が持ち主を漏らしていたので、持ち主を示さない文に替えた。
+     決め手の段落は Q154＝1・3、Q155＝2・4、Q153＝5。重ねていない。
+     否定語（not/no/never/n't/cannot）を含む文：1（第3段落の cannot be lent）。明示的な訂正・否定は 0。 */
   sp({
     n: [153, 154, 155], lv: 3,
     docs: [{
       label: 'Letter',
-      title: 'Rosemere Arts Foundation',
-      head: '9 Redgate Street, Rosemere',
+      head: "Yewdale Herbarium\nMill Road, Yewdale\n12 October\n\nMr. Ingleby\nSecretary, Isfield Naturalists' Society",
       body: [
-        'Dear Ms. Rushforth,',
-        'Now that your sculpture is finished, there is just one step left before we can release the final part of your grant. One of our officers will call at your studio in the next fortnight to see the finished piece for themselves; a visit like this closes out every grant we award, whatever the project.',
-        'We would also like to ask a small favour. Could you send us two or three sentences, in your own words, about what the grant made possible for you? We print a short line from every completed project in our quarterly newsletter, and our readers always enjoy hearing directly from the artist. A note by the end of the month would be very welcome.',
-        'We were delighted to hear that the piece will next travel to a gallery in Ravensdown, quite a distance from here, so a good many people from well beyond Rosemere will get to see it.',
-        'Once the visit has taken place, we can process the payment within a fortnight. Thank you again for everything you have put into this project.',
+        'Dear Mr. Ingleby,',
+        "Thank you for your letter about the exhibition your society is planning for its members and the public. I am pleased to say that the herbarium would be glad to help. As I understand it, you would like to borrow our specimens of the low, cushion-like plants that spread over stones and tree bark, which your members have been studying along the river this year.",
+        "For the journey to your exhibition, we will hire a vehicle from a firm in Yewdale. The firm can supply either a van or a car, and one vehicle will carry everything.",
+        "Our specimens of these plants were gathered in two periods only: on field trips in the 1870s, and during a survey in the 1930s. The sheets from the survey are at present with a university team, who are photographing them, and they cannot be lent until after your exhibition has closed.",
+        "As you mention in your letter, the lane to the back door of your hall is very narrow, so only the smaller of the two will get through. I will arrange things accordingly, and the sheets will come back the same way at the end of the loan.",
+        "Before the loan begins, please send us a photograph of the cabinets in which the sheets will be shown, so that our conservator can check that they will protect the sheets properly.",
+        "I hope these arrangements are acceptable, and I would be glad to answer any further questions. With best wishes for a successful exhibition.",
       ],
-      sig: 'Yours sincerely,\nSilas Sconewood\nGrants Officer, Rosemere Arts Foundation',
+      sig: 'Yours sincerely,\nUrsula Yarborne\nCurator, Yewdale Herbarium',
     }],
     q: [
-      { tag: '詳細', qid: 'v3q153p', s: 'What is the recipient of the letter asked to provide?',
-        c: ['Receipts for materials bought with the grant', "A short quote for the foundation's newsletter", 'Photographs of the finished artwork', 'Names of the people who assisted'],
-        a: 1,
-        e: '第2段落に "Could you send us two or three sentences, in your own words, about what the grant made possible for you? We print a short line from every completed project in our quarterly newsletter" とあり、広報誌に載せる短い言葉の提供を求めていると分かる。',
-        w: ['言及なし。資材の領収書については本文のどこにも触れていない。',
-            '正解。',
-            '言及なし。完成作品の写真については本文のどこにも触れていない。',
-            '言及なし。制作を手伝った人々の名前については本文のどこにも触れていない。'] },
-      { tag: '推測', t: ['p7inf'], qid: 'v3q154p', s: "What can be inferred about the recipient's project?",
-        c: ['It received funding from more than one source', 'It has attracted local media attention', 'It was completed ahead of the original schedule', 'It will be exhibited outside the region'],
-        a: 3,
-        e: '第3段落に "We were delighted to hear that the piece will next travel to a gallery in Ravensdown, quite a distance from here" とあり、この地域の外の会場で展示されると分かる。',
-        w: ['言及なし。複数の資金源については本文のどこにも触れていない。',
-            '言及なし。地元メディアの報道については本文のどこにも触れていない。',
-            '言及なし。予定より早く完成したという記述はない。',
-            '正解。'] },
-      { tag: '詳細', qid: 'v3q155p', s: 'According to the letter, what will the foundation do before releasing the final payment?',
-        c: ['Arrange a visit to see the finished work', 'Present the project to its board of trustees', "Confirm the recipient's bank details by phone", 'Send the recipient a short feedback survey'],
-        a: 0,
-        e: '第1段落に "One of our officers will call at your studio in the next fortnight to see the finished piece for themselves" とあり、最終支払いの前に財団側が訪問して完成作を見ると分かる。',
-        w: ['正解。',
-            '言及なし。理事会への提出については本文のどこにも触れていない。',
-            '言及なし。電話での口座確認については本文のどこにも触れていない。',
-            '第2段落の依頼（"Could you send us two or three sentences, in your own words …"）は広報誌に載せる言葉の依頼で、この手紙で直接頼んでいる。アンケートを送るという記述は無く、支払いの前に財団がすることは第4段落 "Once the visit has taken place" のとおり訪問だけである。'] },
+      { tag: '詳細', qid: 'v3q153d', s: 'What does the curator ask the society to send before the loan begins?',
+        c: ['A draft of the exhibition labels', 'A plan of the exhibition space', 'A list of the volunteer guides', 'A photograph of the display cases'], a: 3, t: ['p7detail'],
+        e: '第5段落で "please send us a photograph of the cabinets in which the sheets will be shown" と求めている。cabinets は標本を見せる展示ケースにあたる。',
+        w: ['A draft of the exhibition labels: 第5段落で送るよう求められているのは "a photograph of the cabinets" で、解説文の下書きではない。labels は手紙に出てこない。',
+            'A plan of the exhibition space: 第5段落で求められているのは "a photograph of the cabinets" で、会場の図面ではない。図面は手紙に出てこない。',
+            'A list of the volunteer guides: 第5段落で求められているのは "a photograph of the cabinets" で、案内役の名簿ではない。案内役は手紙に出てこない。',
+            '正解。第5段落の "a photograph of the cabinets in which the sheets will be shown" が、展示ケースの写真にあたる。'] },
+      { tag: '推測', qid: 'v3q154d', s: 'What can be inferred about the specimens the herbarium will lend?',
+        c: ['The loan will consist of ferns gathered in the nineteenth century', 'The loan will consist of ferns gathered in the twentieth century', 'The loan will consist of mosses gathered in the nineteenth century', 'The loan will consist of mosses gathered in the twentieth century'], a: 2, t: ['p7inf'],
+        e: '第1段落で借りたいとされるのは "the low, cushion-like plants that spread over stones and tree bark"（コケの特徴）。第3段落によると、この植物の標本は "on field trips in the 1870s, and during a survey in the 1930s" の2つの時期のもので、後者は "cannot be lent until after your exhibition has closed"。貸し出せるのは1870年代、つまり19世紀の採集分に限られる。',
+        w: ['ferns gathered in the nineteenth century: 時代は合うが、第1段落が述べる "low, cushion-like plants that spread over stones and tree bark" はコケの特徴で、羽のような葉を持つシダではない。ferns は手紙に出てこない。',
+            'ferns gathered in the twentieth century: 種類も時代も合わない。借りたいのは "low, cushion-like plants" で、1930年代の調査の分は "cannot be lent until after your exhibition has closed"。',
+            '正解。"cushion-like plants that spread over stones and tree bark" がコケにあたり、貸し出せるのは "field trips in the 1870s" の分、つまり19世紀の採集分。',
+            'mosses gathered in the twentieth century: 種類は合うが、1930年代の調査の分は "cannot be lent until after your exhibition has closed" で、貸し出せない。'] },
+      { tag: '詳細', qid: 'v3q155d', s: 'How will the specimens be taken to the society\'s exhibition?',
+        c: ['In the herbarium\'s van', 'In a hired van', 'In the herbarium\'s car', 'In a hired car'], a: 3, t: ['p7detail'],
+        e: '第2段落で "we will hire a vehicle from a firm in Yewdale. The firm can supply either a van or a car" と、借りた車で運ぶことと2案が示される。第4段落の "the lane to the back door of your hall is very narrow, so only the smaller of the two will get through" が基準で、小さいほうの車、つまり乗用車が選ばれる。',
+        w: ['In the herbarium\'s van: 第2段落の "we will hire a vehicle from a firm in Yewdale" により、標本館の車ではなく借りる車で運ぶ。',
+            'In a hired van: 第2段落の "either a van or a car" の一方で、第2段落だけでは残る2案の一方。しかし第4段落の "only the smaller of the two will get through" で、大きいほうの van は小道を通れない。',
+            'In the herbarium\'s car: 第2段落の "we will hire a vehicle from a firm in Yewdale" により、標本館の車ではなく借りる車で運ぶ。',
+            '正解。第2段落の "we will hire a vehicle" が借りる車、第4段落の "only the smaller of the two will get through" が小さいほう、つまり car を決める。'] },
     ],
   }),
   sp({

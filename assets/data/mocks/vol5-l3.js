@@ -174,34 +174,57 @@ export const L3 = [
     ],
   }),
 
+  /* 2026-10-06 難度5の試作（設問案から設計。ブランチ lv5-design）で設問を新しくした。
+     凍結案 lv5-frozen.txt（sha256 86f51fe9…）、くじ dice-lv5.json。id は新規採番（v5q86d〜v5q88d）、
+     no は不変。stem・4択・並び・正解はくじのとおり（86=C, 87=B, 88=A）。
+     Q86（通常）：決め手は第2段落（four hours）の1か所。他の時間は出していない。曜日・図柄とは結びつけていない。
+     Q87（型U）：決め手は第1段落（As arranged, our fitters will be with you on Thursday the eleventh of next month。おとり）と
+       第4段落（our fitters will now be with you on Wednesday the tenth。確定として言う。先の日付にして、図柄選びの時点と年表がぶつからない）。
+       第4段落は前の日を the day we'd arranged で受け、第2・3・5・6段落は曜日を言わない。理由は
+       別の客の取り消しで取り付け工が空いたこと（ガラスの色・図柄は出していない）。
+       第4段落を消した本文→Thursday（おとり）に着く。第1段落を消した本文→Wednesday の1本（型Uの構造上）。
+     Q88（型S）：決め手は第3段落（正解の amber 側を先に言う。2案は同じ swan の図柄で、蜂蜜色と青みがかった灰色。
+       どちらを選ぶかは言わない）と第5段落（板張りが暗く日当たりが乏しいので the warmer glass。
+       候補は並べ直さない）。おとりは slate swan。
+       第3段落だけ→2本（amber swan／slate swan）。第5段落だけ→色調が暖色と決まり、図柄の2本（amber swan／amber ivy）。
+     2026-10-06 第1巡の修正：Q87 を先の日付つきにし stem と第4段落の動詞句の逐語一致を解消（F2）、鳥を swan と呼ぶ・第5段落の冒頭と時制を整えた（F4）、ja から本文に無い推論を除いた（F6）。
+     2026-10-06 第2巡（rev-C）：改名 Olwen→Oonagh・Odile→Josephine、No.48 の ja。
+     否定語（not/no/never/n't）を含む文：0。明示的な訂正・否定は第4段落の日の変更の1本。
+     決め手の段落は Q87＝1・4、Q86＝2、Q88＝3・5。重ねていない。 */
   talk({
     n: [86, 87, 88], lv: 3, k: 'recorded message',
     s: [
-      { role: 'W-Br', text: 'Hello, this is an automated message from Fulshaw Car Hire, confirming your reservation.' },
-      { role: 'W-Br', text: 'You have booked a two-seater sports car with a roof that folds away, for four days from this Friday.' },
-      { role: 'W-Br', text: 'You will collect the car at our desk in the main airport building, just past the arrivals hall. Please have your driving licence and the card you booked with ready.' },
-      { role: 'W-Br', text: 'Please note that if you would like to leave the car at a branch other than the one you collect it from, a supplement of twenty-five pounds will be added to your bill.' },
-      { role: 'W-Br', text: 'Your confirmation was sent by e-mail, and if you have any questions, please call the number shown on it.' },
-      { role: 'W-Br', text: 'Thank you for choosing Fulshaw Car Hire. We look forward to seeing you.' },
+      { role: 'W-Br', text: 'Hello, Ms. Quennell, this is Oonagh at Ollerenshaw Glass Studio, calling about the reading-room window. As arranged, our fitters will be with you on Thursday the eleventh of next month.' },
+      { role: 'W-Br', text: "The fitting itself will take four hours, and they'll tidy up afterwards." },
+      { role: 'W-Br', text: "Now, the design. Since you left that to us, I've drawn up two ideas. Both show a swan gliding over a pond; one is in honey-coloured glass, the other in bluish-grey. I'll tell you which we've picked in a moment." },
+      { role: 'W-Br', text: "Sorry, a colleague has just brought some news. Another client has cancelled a job, so the day we'd arranged is changing: our fitters will now be with you on Wednesday the tenth." },
+      { role: 'W-Br', text: "Back to the design. The reading room is panelled in dark wood and gets very little daylight, so we've picked the warmer glass." },
+      { role: 'W-Br', text: "If you'd like to talk anything over, call 01632 960 457 and ask for me. Thank you." },
     ],
-    ja: 'レンタカー会社フルショー・カー・ハイアの自動音声メッセージ。予約した客に予約内容を確認する。予約したのは屋根を折りたためる2人乗りのスポーツカーで、今週の金曜日から4日間。受け取りは空港のメイン棟の窓口（到着ホールを過ぎたところ）で、運転免許証と予約に使ったカードを用意しておく。借りた支店とは別の支店に返す場合は、25ポンドの追加料金が請求書に加わる。確認書はメールで送ってあり、質問があればそこに書かれた番号に電話する。最後に、利用への礼を述べて締めくくる。',
-    v: [['reservation', '予約'], ['two-seater', '2人乗りの'], ['arrivals hall', '到着ホール'], ['driving licence', '運転免許証'], ['supplement', '追加料金']],
+    ja: 'ステンドグラス工房の女性スタッフが、閲覧室の窓を注文した客のクエネルさんに残した留守番電話。まず、予定どおり来月11日の木曜に取り付け工がうかがうと述べる。次に、取り付け自体は4時間かかり、終わったら片づけていくと伝える。続いて、図柄は工房に任されたので2案を描いたと言い、どちらも白鳥が池をすべる絵で、一方は蜂蜜色、もう一方は青みがかった灰色のガラスだと説明し、どちらにしたかはあとで伝えると述べる。ここで同僚から知らせが入ったと断り、別の客が仕事を取り消したので、決めていた日が変わり、10日の水曜にうかがうと告げる。図柄の話に戻り、閲覧室は濃い色の板張りで日光がほとんど入らないので、暖かい色のほうのガラスに決めたと述べる。最後に、相談があれば電話番号あてにかけ、自分を呼び出すよう伝える。',
+    v: [['fitters', '（窓などの）取り付け工'], ['fitting', '取り付け（作業）'], ['tidy up', '片づける'], ['gliding', 'すべるように進む'], ['honey-coloured', '蜂蜜色の'], ['panelled', '板張りの'], ['talk over', '話し合う、相談する']],
     q: [
-      { tag: '詳細', qid: 'v5q86p', s: 'What type of vehicle has the listener reserved?',
-        c: ['A seven-seat people carrier', 'An electric hatchback', 'A four-wheel-drive estate car', 'A convertible sports car'],
-        a: 3,
-        e: '予約した車は「屋根を折りたためる2人乗りのスポーツカー」と言っている（"a two-seater sports car with a roof that folds away"）。屋根が開くスポーツカーである。',
-        w: ['7人乗りではない。本文は "two-seater" と述べており、2人乗りの車である。', '電気自動車には触れていない（言及なし）。', '四輪駆動のステーションワゴンには触れていない（言及なし）。', '正解。"a two-seater sports car with a roof that folds away" と述べ、屋根が折りたためるスポーツカーである。'] },
-      { tag: '詳細', qid: 'v5q87p', s: 'Where will the listener collect the vehicle?',
-        c: ['At a desk in an airport terminal', 'At a car park beside a railway station', 'At an office on the high street', 'At the front desk of a hotel'],
-        a: 0,
-        e: '受け取りは「空港のメイン棟にある窓口で、到着ホールを過ぎたところ」と言っている（"at our desk in the main airport building"）。',
-        w: ['正解。"at our desk in the main airport building, just past the arrivals hall" と述べている。', '駅の隣の駐車場には触れていない（言及なし）。', '大通りの営業所には触れていない（言及なし）。', 'ホテルのフロントには触れていない（言及なし）。'] },
-      { tag: '詳細', qid: 'v5q88p', s: 'What does the speaker say will cost extra?',
-        c: ['Returning the car after hours', 'Adding a second driver', 'Going over a daily mileage limit', 'Dropping the car at another branch'],
-        a: 3,
-        e: '追加料金がかかるのは、借りた支店とは別の支店に返す場合だと言っている（"a supplement of twenty-five pounds will be added to your bill"）。',
-        w: ['営業時間外に返すことには触れていない（言及なし）。', '2人目の運転者を加えることには触れていない（言及なし）。', '1日の走行距離の上限を超えることには触れていない（言及なし）。', '正解。"if you would like to leave the car at a branch other than the one you collect it from, a supplement of twenty-five pounds will be added to your bill" と述べている。'] },
+      { tag: '詳細', qid: 'v5q86d', s: 'How long does the speaker say the fitting will take?',
+        c: ['Two hours', 'Three hours', 'Four hours', 'Six hours'], a: 2, t: ['p4type'],
+        e: '第2段落で "The fitting itself will take four hours, and they\'ll tidy up afterwards." と述べている。',
+        w: ['Two hours: 第2段落の "The fitting itself will take four hours" は4時間で、2時間ではない。',
+            'Three hours: 第2段落の "The fitting itself will take four hours" は4時間で、3時間ではない。',
+            '正解。第2段落の "The fitting itself will take four hours" のとおり。',
+            'Six hours: 第2段落の "The fitting itself will take four hours" は4時間で、6時間ではない。'] },
+      { tag: '詳細', qid: 'v5q87d', s: "On which day will the studio's fitters come to the listener's building?",
+        c: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'], a: 1, t: ['p4type'],
+        e: '第1段落の "As arranged, our fitters will be with you on Thursday the eleventh of next month." が当初の予定だが、第4段落で "Another client has cancelled a job, so the day we\'d arranged is changing: our fitters will now be with you on Wednesday the tenth." と変更を告げている。後から確定として告げられた日が実際に来る日になる。',
+        w: ['Tuesday: この曜日は録音のどこにも出てこない。取り付け工が来るのは第4段落の Wednesday。',
+            '正解。第4段落の "our fitters will now be with you on Wednesday the tenth" が確定した日。',
+            'Thursday: 第1段落の "As arranged, our fitters will be with you on Thursday the eleventh of next month." だけを聞くと着く日だが、これは変更前の予定。第4段落の "the day we\'d arranged is changing" で取り消され、"will now be with you on Wednesday the tenth" に替わる。',
+            'Friday: この曜日は録音のどこにも出てこない。取り付け工が来るのは第4段落の Wednesday。'] },
+      { tag: '詳細', qid: 'v5q88d', s: 'Which design will the studio make for the reading-room window?',
+        c: ['The amber swan design', 'The slate swan design', 'The amber ivy design', 'The slate ivy design'], a: 0, t: ['p4type'],
+        e: '第3段落で2案が示される。"Both show a swan gliding over a pond; one is in honey-coloured glass, the other in bluish-grey." で、図柄は同じで色調だけが違う。第5段落の "The reading room is panelled in dark wood and gets very little daylight, so we\'ve picked the warmer glass." が選ぶ基準で、暖色の蜂蜜色のほうが選ばれる。',
+        w: ['正解。2案とも白鳥の図柄で、"the warmer glass" は "honey-coloured glass" のほう。',
+            'The slate swan design: 第3段落の "the other in bluish-grey" は示された2案のもう一方で、第3段落だけでは残る2案の一方。しかし第5段落の "we\'ve picked the warmer glass" で、青みがかった灰色のほうは選ばれない。',
+            'The amber ivy design: 色調は "the warmer glass" に合うが、図柄が違う。第3段落の2案はどちらも "a swan" の図柄で、蔓の葉の図柄は録音に出てこない。',
+            'The slate ivy design: 図柄も色調も合わない。蔓の葉の図柄は録音に出てこず、"bluish-grey" のガラスは "the warmer glass" で選ばれない。'] },
     ],
   }),
 
