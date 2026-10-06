@@ -273,51 +273,60 @@ export const L2A = [
   }),
 
   /* ── 47–49 ────────────────────────────────────────────── */
-  /* 2026-09-29 第1巡監査反映：男性の薬剤師が自分自身を三人称で呼んでいた点を直し（"ask the
-     pharmacist" → "ask me"）、Q47・Q49 の逐語一致（drowsiness / card at home）を言い換えた。
-     2026-09-29 第2巡監査反映：女性客の発言に米加式の語（refill／保険証を出す仕組み）が
-     入っていたため、話者ロールを W-Br から W-Cn に変更し（50–52 の W-Cn とは入れ替え）、
-     1行目を collect→pick up・rang→called に直して英式の語を外した。 */
+  /* 2026-10-06 難度5の試作（設問案から設計。ブランチ lv5-design）で設問を新しくした。
+     凍結案 lv5-frozen.txt（sha256 86f51fe9…）、くじ dice-lv5.json。id は新規採番（v2q47d〜v2q49d）、
+     no は不変。stem・4択・並び・正解はくじのとおり（47=B, 48=A, 49=A）。
+     Q47（通常）：決め手は M4 の1か所（forty-eight hours' notice＝2日）。他の日数・規則は出していない。
+     Q48（型U）：決め手は W3（We'll be in the Sycamore Room as usual。変わる前の値＝おとり）と
+       M6（I'm putting you in the Hawthorn Room。変わった後の値）。W3 と M6 のあいだに M4・W5 がある。
+       M6 は I've just checked the calendar, though. と今気づいた筋で入り、前の部屋を that room で受け、W7 以降は部屋名を繰り返さない。
+       M6 を消した本文→おとり（Sycamore）に着く。W3 を消した本文→Hawthorn の1本（型Uの構造上）。
+     Q49（型I）：決め手は W5（切ったオレンジ・ブドウ・メロンの大皿＝果物。置き場所は言わない）と
+       M8（予約できる部屋は飲食禁止、受付そばの座席スペースに出す＝ラウンジ。種類は言わない）。
+       W5 だけ→種類は果物と決まり、場所の2本（lounge／meeting room）が残る。
+       M8 だけ→場所は lounge と決まり、種類の2本（fruit／sandwich）が残る。
+     2026-10-06 第1巡の修正：M6 の冒頭に予定表を確かめた筋を足した（F3）、why の誤答の書き出しを選択肢の文言にそろえた（F5）、ja から本文に無い設計段階の情報を除いた（F6）。
+     2026-10-06 第2巡（rev-C）：改名 Olwen→Oonagh・Odile→Josephine、No.48 の ja。
+     否定語を含む文：M8 の We don't allow food in any bookable room の1文。明示的な訂正・否定は
+       M6（部屋の変更）と M8 の禁止の2本。
+     Q47 と Q49 の決め手は別の発言（M4／W5・M8）、Q48 は W3・M6。同じ発言に2問ぶんを置いていない。 */
   set({
     n: [47, 48, 49], lv: 3,
     s: [
-      { role: 'W-Cn', text: 'Hi, I\'m here to pick up a prescription. I called ahead this morning, so it should be ready.' },
-      { role: 'M-Au', text: 'Let me check... yes, here it is. Before I hand it over, is there anything you\'d like to ask me about it?' },
-      { role: 'W-Cn', text: 'Actually, yes — will this make me sleepy? I\'m driving straight after this.' },
-      { role: 'M-Au', text: 'This one shouldn\'t affect how alert you are, but check the label if you\'re taking anything else as well.' },
-      { role: 'W-Cn', text: 'Good, that\'s a relief. Also, are you open on Sundays? I might need a refill next week.' },
-      { role: 'M-Au', text: 'We are, but only until one in the afternoon on Sundays. The rest of the week we\'re open until six.' },
-      { role: 'W-Cn', text: 'Noted, thanks. Now, what do I owe you? I\'m insured, but I think my card\'s still sitting on the kitchen table.' },
-      { role: 'M-Au', text: 'No trouble, I can look you up by name and date of birth instead.' },
-      { role: 'W-Cn', text: 'Great, thank you.' },
+      { role: 'W-Cn', text: "Hi Anders, it's Josephine from Upcott and Co. I'd like to book a room for a workshop with some of my clients next week." },
+      { role: 'M-Au', text: 'Of course. How many people, and for how long?' },
+      { role: 'W-Cn', text: "Ten of us, for a morning. We'll be in the Sycamore Room as usual; it's the one my team always uses." },
+      { role: 'M-Au', text: "Fine. One thing from our house rules: members need to give us forty-eight hours' notice to cancel a booking." },
+      { role: 'W-Cn', text: "Noted. I'd also like something for my clients to eat when they arrive: a big dish of sliced oranges, grapes and melon would be ideal." },
+      { role: 'M-Au', text: "Sure. I've just checked the calendar, though. The painters start on that room that week, so I'm putting you in the Hawthorn Room." },
+      { role: 'W-Cn', text: "That's fine with me. Where could the refreshments be put out for my clients?" },
+      { role: 'M-Au', text: "We don't allow food in any bookable room, so I'll have the team set it out in the seating area by reception." },
+      { role: 'W-Cn', text: "That works well. Thanks, Anders. I'll email you the numbers tomorrow." },
     ],
-    ja: '女性客が薬局に処方薬を受け取りに来る。薬剤師は薬を渡す前に質問がないか尋ね、女性は運転前に眠くならないか確認する。薬剤師はこの薬は注意力に影響しないはずだが、他に服用している薬があれば表示を確認するよう伝える。女性は来週再調剤が必要かもしれないと考え、日曜日の営業を尋ねると、薬剤師は日曜は午後1時までで、ほかの曜日は午後6時までだと答える。最後に女性は、保険には入っているが保険証はまだ自宅の台所のテーブルに置いてきたようだと伝え、薬剤師は氏名と生年月日で照会できると応じる。',
-    v: [['sleepy', '眠い'], ['refill', '（処方薬の）再調剤'], ['insured', '保険に加入している']],
+    ja: 'シェアオフィスの会員の女性ジョゼフィンが、来週、顧客数人との作業会に使う部屋を予約したいと、男性アンダースに頼む。男性が人数と時間を尋ねると、女性は10人で午前中、いつもチームが使っているシカモアの部屋にすると答える。男性は内規として、取り消しには48時間前の通知が要ると伝える。女性は了解し、客が着いたときに食べられるよう、切ったオレンジとブドウとメロンの大皿を頼む。男性は、予定表を確かめたところ、その部屋はその週に塗装業者が入るので、ホーソンの部屋に割り当てると告げる。女性は了承し、軽食をどこに出せるか尋ねる。男性は、予約できる部屋はどこも飲食禁止なので、受付そばの座席スペースに出させると答える。女性は礼を言い、明日人数を連絡すると言う。',
+    v: [['house rules', '内規、利用規則'], ['notice', '（事前の）通知'], ['painters', '塗装業者'], ['refreshments', '軽食・飲み物'], ['bookable', '予約できる'], ['put out', '出す、並べる']],
     q: [
-      { tag: '詳細', qid: 'v2q47p', s: 'What does the woman ask the man?',
-        c: ['Whether a medication causes drowsiness', 'Whether a prescription allows early refills', 'Whether an item requires a prescription', 'Whether a discount applies to seniors'],
-        a: 0,
-        e: '女性は "will this make me sleepy? I\'m driving straight after this" と尋ねており、薬が眠気を引き起こすかどうかを確認している。',
-        w: ['正解。女性は "will this make me sleepy?" と尋ねている。',
-              '早めの再調剤が可能かという質問は会話のどこにも出てこない。女性が後で尋ねているのは日曜の営業時間である。',
-              '処方箋が要るかという質問は無い。女性は、処方された薬を受け取りに来ている（"I\'m here to pick up a prescription"）。',
-              '高齢者向け割引についての質問は会話のどこにも出てこない。'] },
-      { tag: '詳細', qid: 'v2q48p', s: 'What does the man say about the pharmacy?',
-        c: ['The pharmacy closes early on Sundays.', 'The pharmacy just added a new service.', 'The pharmacy gets busy after five.', 'The pharmacy shares a building with a clinic.'],
-        a: 0,
-        e: '男性は "We are, but only until one in the afternoon on Sundays. The rest of the week we\'re open until six." と述べており、日曜日はほかの曜日（"The rest of the week"）より早く閉まることを伝えている。',
-        w: ['正解。男性は "only until one in the afternoon on Sundays" と述べ、ほかの曜日（"The rest of the week"）の午後6時までという営業時間より早く閉まることを伝えている。',
-              '新しいサービスを始めたという言及は会話のどこにも出てこない。',
-              '5時以降に混み合うという言及は会話のどこにも出てこない。',
-              'クリニックと同じ建物にあるという言及は会話のどこにも出てこない。'] },
-      { tag: '詳細', qid: 'v2q49p', s: 'What does the woman mention about her insurance?',
-        c: ['Her insurance is through her employer.', 'Her insurance requires prior approval.', 'Her insurance excludes a certain brand.', 'Her insurance card is at home.'],
-        a: 3,
-        e: '女性は "I\'m insured, but I think my card\'s still sitting on the kitchen table" と述べており、保険証を自宅に置いてきたことを伝えている。',
-        w: ['勤務先を通じた保険だという言及は会話のどこにも出てこない。',
-              '事前承認が必要だという言及は会話のどこにも出てこない。',
-              '特定の銘柄が対象外だという言及は会話のどこにも出てこない。',
-              '正解。女性は "my card\'s still sitting on the kitchen table" と述べている（自宅に置いてきたことの言い換え）。'] },
+      { tag: '詳細', qid: 'v2q47d', s: 'How many days of notice does the man say a member must give to cancel a room booking?',
+        c: ['One day', 'Two days', 'Three days', 'Five days'], a: 1, t: ['p3detail'],
+        e: '男性は "members need to give us forty-eight hours\' notice to cancel a booking" と述べている。48時間は2日にあたる。',
+        w: ['One day: 男性が述べる通知の期間は "forty-eight hours\' notice" で、24時間ではなく48時間。1日では足りない。',
+            '正解。"forty-eight hours\' notice" は48時間、つまり2日前の通知。',
+            'Three days: 72時間にあたるが、男性が述べる期間は "forty-eight hours\' notice" で、それより短い。',
+            'Five days: 5日（120時間）という数は会話に出てこない。男性が述べるのは "forty-eight hours\' notice"。'] },
+      { tag: '詳細', qid: 'v2q48d', s: "Which room will the woman's team use for the workshop?",
+        c: ['The Hawthorn Room', 'The Juniper Room', 'The Poplar Room', 'The Sycamore Room'], a: 0, t: ['p3detail'],
+        e: '女性は最初に "We\'ll be in the Sycamore Room as usual" と予定を言うが、男性は後で "The painters start on that room that week, so I\'m putting you in the Hawthorn Room." と部屋を割り当て直す。最初の部屋に塗装が入るため、チームが使うのは後から告げられた部屋になる。女性も "That\'s fine with me." と受け入れている。',
+        w: ['正解。"I\'m putting you in the Hawthorn Room." が最終の割り当てで、女性も "That\'s fine with me." と受け入れている。',
+            'Juniper Room: この部屋の名は会話のどこにも出てこない。男性が割り当てたのは Hawthorn Room。',
+            'Poplar Room: この部屋の名は会話のどこにも出てこない。男性が割り当てたのは Hawthorn Room。',
+            'Sycamore Room: 最初の "We\'ll be in the Sycamore Room as usual" だけを聞くと着く案だが、これは変更前の予定。"The painters start on that room that week" で使えなくなり、"I\'m putting you in the Hawthorn Room." に替わる。'] },
+      { tag: '詳細', qid: 'v2q49d', s: "What will be set up for the woman's clients?",
+        c: ['A fruit platter in the lounge', 'A fruit platter in the meeting room', 'A sandwich platter in the lounge', 'A sandwich platter in the meeting room'], a: 0, t: ['p3detail'],
+        e: '女性は "a big dish of sliced oranges, grapes and melon would be ideal" と果物の大皿を頼み（置き場所は言わない）、男性は "We don\'t allow food in any bookable room, so I\'ll have the team set it out in the seating area by reception." と答える（食べ物の種類は言わない）。2つを合わせると、果物の盛り合わせが受付そばの座席スペース、つまりラウンジに出される。',
+        w: ['正解。"sliced oranges, grapes and melon" が果物の盛り合わせにあたり、"the seating area by reception" がラウンジにあたる。',
+            'A fruit platter in the meeting room: 果物は "sliced oranges, grapes and melon" に合うが、"We don\'t allow food in any bookable room" とあるので、作業会に予約した部屋には出されない。',
+            'A sandwich platter in the lounge: 場所は "the seating area by reception" に合うが、女性が頼んだのは "sliced oranges, grapes and melon" で、サンドイッチは会話に出てこない。',
+            'A sandwich platter in the meeting room: 種類も場所も合わない。頼んだのは "sliced oranges, grapes and melon" で、場所は "We don\'t allow food in any bookable room" により予約した部屋ではない。'] },
     ],
   }),
 
