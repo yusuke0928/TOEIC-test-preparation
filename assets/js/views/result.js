@@ -121,17 +121,17 @@ export async function detail(el, id) {
     ${sectionHead('01', 'パート別の内訳', '')}
     <div class="card card--flush">
       <div class="tbl-wrap"><table class="tbl">
-        <thead><tr><th>パート</th><th>形式</th><th class="num">正答</th><th class="num">正答率</th>
-          <th class="num">未解答</th><th class="num">平均時間</th><th>900 判定</th></tr></thead>
+        <thead><tr><th>パート</th><th class="lo">形式</th><th class="num">正答</th><th class="num">正答率</th>
+          <th class="num">未解答</th><th class="num lo">平均時間</th><th>900 判定</th></tr></thead>
         <tbody>${gaps.map(g => {
           const d = r.per[g.part];
           return `<tr>
             <td><b>Part ${g.part}</b></td>
-            <td class="note">${esc(partLabel(g.part).split('・')[1])}</td>
+            <td class="note lo">${esc(partLabel(g.part).split('・')[1])}</td>
             <td class="num mono">${d.ok} / ${d.n}</td>
             <td class="num mono" style="color:${g.diff >= 0 ? 'var(--midori)' : 'var(--shu)'}">${pct(d.acc)}</td>
             <td class="num mono ${d.blank ? '' : 'note'}" style="${d.blank ? 'color:var(--shu)' : ''}">${d.blank || '—'}</td>
-            <td class="num mono note">${(d.avgMs / 1000).toFixed(1)} 秒</td>
+            <td class="num mono note lo">${(d.avgMs / 1000).toFixed(1)} 秒</td>
             <td>${g.diff >= 0 ? '<span class="chip chip--ok">到達</span>'
                 : `<span class="chip chip--shu">−${Math.round(-g.diff * 100)} pt</span>`}</td>
           </tr>`;
@@ -152,7 +152,7 @@ export async function detail(el, id) {
               // 1〜2 問しか出ていない論点は判断材料が薄いので控えめに出す
               const faint = v.n < 3 ? 'opacity:.5;' : '';
               return `<a href="#/drills/${esc(t)}" class="chip" title="${esc(topicName(t))}：${v.n} 問中 ${v.n - Math.round(miss)} 問正解"
-                style="${faint}color:${c};border-color:${c};font-family:var(--f-ui);font-size:.74rem;letter-spacing:0">
+                style="${faint}color:${c};border-color:${c};font-family:var(--f-ui);font-size:.875rem;letter-spacing:0">
                 ${esc(topicName(t))}　<b class="mono">${v.ok}/${v.n}</b></a>`;
             }).join('')}
         </div>
@@ -178,7 +178,7 @@ export async function detail(el, id) {
       ${wrong.length ? `<button class="btn btn--shu" id="review-wrong-2">誤答 ${wrong.length} 問だけもう一度</button>` : ''}
       ${blank ? `<button class="btn btn--ghost" id="review-blank-2">未解答 ${blank} 問を解く</button>` : ''}
       <a class="btn btn--ghost" href="#/analytics">分析を見る</a>
-      <a class="btn btn--ghost" href="#/">扉に戻る</a>
+      <a class="btn btn--ghost" href="#/">ダッシュボードに戻る</a>
     </div>
     ${expandNote ? `<p class="note mt" style="text-align:center">${expandNote}</p>` : ''}
   `;
@@ -324,7 +324,7 @@ function wrongRow(it, hit, seq) {
   if (q.stem) {
     parts.push(u.kind === 'single'
       ? `<p class="q__stem">${blanks(q.stem)}</p>`
-      : `<p class="q__stem" style="font-size:1rem;margin-bottom:.8rem">${blanks(q.stem)}</p>`);
+      : `<p class="q__stem" style="font-size:1.125rem;margin-bottom:.8rem">${blanks(q.stem)}</p>`);
   }
 
   parts.push(renderChoices(q, ans, { keys: u.kind === 'p2' ? 3 : 4 }));

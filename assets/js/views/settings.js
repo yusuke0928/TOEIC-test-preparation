@@ -61,7 +61,7 @@ export default async function settings(el) {
                 const cur = audio.pickVoice(role);
                 return `<div class="inline" style="gap:.5rem">
                   <span class="chip" style="min-width:4.6rem;justify-content:center">${esc(role)}</span>
-                  <select data-voice="${esc(role)}" style="flex:1;background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:.3rem .5rem;font-size:.78rem">
+                  <select data-voice="${esc(role)}" style="flex:1;background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:.3rem .5rem;font-size:.9375rem">
                     <option value="">自動（${esc(cur?.name || '—')}）</option>
                     ${voices.map(v => `<option value="${esc(v.voiceURI)}" ${s.voiceMap?.[role] === v.voiceURI ? 'selected' : ''}>
                       ${esc(v.name)}（${esc(v.lang)}）</option>`).join('')}
@@ -169,7 +169,7 @@ export default async function settings(el) {
       </p>
       <div class="mt2" style="border-top:1px dashed var(--rule);padding-top:.9rem">
         <div class="stat__k">版</div>
-        <p class="mono" style="font-size:.86rem;margin-top:.4rem;line-height:1.7">
+        <p class="mono" style="font-size:1rem;margin-top:.4rem;line-height:1.7">
           ${VERSION.label
             ? `${esc(VERSION.label)}　<span class="note">公開 ${esc(VERSION.date)}・commit ${esc(VERSION.commit)}</span>`
             : `開発版（手元のファイル）`}

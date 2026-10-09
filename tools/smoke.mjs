@@ -211,7 +211,7 @@ async function waitTitleNot(page, word, timeout = 8000) {
 
 async function test02({ page }) {
   await gotoHash(page, BASE, '/');
-  await waitTitleIncludes(page, '扉');
+  await waitTitleIncludes(page, 'ダッシュボード');
 
   const checks = [
     ['/drills', '個別論点'],
@@ -609,7 +609,7 @@ async function test20({ page }) {
 
   await page.goto(`${url}/#/`, { waitUntil: 'load' });
   await page.waitForSelector('.phead__title', { timeout: 15000 });
-  assert((await page.locator('.phead__title').innerText()).includes('扉'), 'サブパス配信でホームが描画されません');
+  assert((await page.locator('.phead__title').innerText()).includes('ダッシュボード'), 'サブパス配信でホームが描画されません');
 
   await page.click('#nav a[data-route="/drills"]');
   await page.waitForSelector('a.card[href^="#/drills/"]', { timeout: 15000 });
@@ -717,7 +717,7 @@ async function test23({ page }) {
 async function test24({ page }) {
   await gotoHash(page, BASE, '/no-such-route-xyz');
   await page.waitForSelector('.phead__title', { timeout: 10000 });
-  assert((await page.locator('.phead__title').innerText()).includes('扉'), '未知のルートでホームにフォールバックしません');
+  assert((await page.locator('.phead__title').innerText()).includes('ダッシュボード'), '未知のルートでホームにフォールバックしません');
   const current = await page.getAttribute('#nav a[data-route="/"]', 'aria-current');
   assert(current === 'page', 'ホームのナビ項目が現在地としてマークされていません');
 }
@@ -1046,9 +1046,9 @@ async function test32({ page }) {
     `キャンセルしたのに中断中のセッションの解答数が変化しました（${before.answered} → ${after.answered}）`);
 }
 
-/* 33 中断セッションの折りたたみ: 4件以上あるとき、扉には3件（1件目は大きい
+/* 33 中断セッションの折りたたみ: 4件以上あるとき、ダッシュボードには3件（1件目は大きい
    カード、2・3件目は行）までを表示し、残りは「他 N 件を表示」の下にたたむ。
-   開くと全件見える（携帯幅では6件で1画面を超え、扉の上部を占有していた）。 */
+   開くと全件見える（携帯幅では6件で1画面を超え、ダッシュボードの上部を占有していた）。 */
 async function pauseCurrentExam(page) {
   await page.click('.choices .choice[data-pick="0"]');
   await page.waitForSelector('.kaisetsu', { timeout: 8000 });
@@ -1146,7 +1146,7 @@ async function test34({ page }) {
 /* 35 是正2: 時間制限つきセッションのカードに残り時間が表示される。
    残り5分未満（quiz.js の試験画面の警告しきい値と同じ）は chip--shu で
    赤く強調され、残りが0以下なら「時間切れ」と表示される（再開すると即座に
-   自動採点される状態であることが、演習を開く前の扉の時点で分かるようにする）。 */
+   自動採点される状態であることが、演習を開く前のダッシュボードの時点で分かるようにする）。 */
 async function test35({ page }) {
   await gotoHash(page, BASE, '/');
   await page.waitForSelector('.phead__title', { timeout: 15000 });
@@ -1272,10 +1272,10 @@ async function test38({ page }) {
   const spineText = (await page.locator('#spine-version').innerText()).trim();
   assert(spineText === expectSpine, `背表紙の版表示が version.js と一致しません（実際: 「${spineText}」／期待: 「${expectSpine}」）`);
 
-  // (c) 扉（880px以下でのみ .home-version が見えるが、DOM自体には常に出ている）にも一致する表示がある
+  // (c) ダッシュボード（880px以下でのみ .home-version が見えるが、DOM自体には常に出ている）にも一致する表示がある
   const homeText = await page.locator('.home-version').innerText();
   const expectHome = ver.label ? `版 ${ver.label}` : expectHomeDev;
-  assert(homeText.trim() === expectHome, `扉の版表示が version.js と一致しません（実際: 「${homeText.trim()}」／期待: 「${expectHome}」）`);
+  assert(homeText.trim() === expectHome, `ダッシュボードの版表示が version.js と一致しません（実際: 「${homeText.trim()}」／期待: 「${expectHome}」）`);
 
   // (d) 設定画面に版・公開日時・コミットが表示される
   await gotoHash(page, BASE, '/settings');
@@ -1353,7 +1353,7 @@ const TESTS = [
   ['35_是正2：時間制限つきセッションのカードに残り時間が表示され、残りわずか／時間切れは強調される', test35],
   ['36_是正3：模試のパート別中断が模試一覧・模試詳細の両方に表示され、専用ボタンで再開できる', test36],
   ['37_是正4：「たった今に中断」という助詞の壊れた表示が出ない', test37],
-  ['38_版（バージョン）：設定画面・背表紙・扉の表示がversion.jsと一致し、pages.ymlの手順順序とstamp-version.mjsの出力形式も正しい', test38],
+  ['38_版（バージョン）：設定画面・背表紙・ダッシュボードの表示がversion.jsと一致し、pages.ymlの手順順序とstamp-version.mjsの出力形式も正しい', test38],
 ];
 
 function slug(name) { return name.replace(/[^\w一-龠ぁ-んァ-ヶー]+/g, '-').slice(0, 80); }

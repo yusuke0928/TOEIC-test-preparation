@@ -46,16 +46,16 @@ function block(b, opts) {
     case 'chat':
       return `<div style="display:flex;flex-direction:column;gap:.55rem;margin:.5rem 0 .9rem">
         ${b.lines.map(l => `<div style="border-left:2px solid var(--rule);padding-left:.75rem">
-          <div class="mono" style="font-size:.68rem;color:var(--ink-3)">${esc(l.who)}${l.time ? `　<span style="letter-spacing:.05em">${esc(l.time)}</span>` : ''}</div>
+          <div class="mono passage__who">${esc(l.who)}${l.time ? `　<span style="letter-spacing:.05em">${esc(l.time)}</span>` : ''}</div>
           <div>${inlineMarkup(l.text, opts)}</div></div>`).join('')}
       </div>`;
     case 'kv':
-      return `<dl style="display:grid;grid-template-columns:auto 1fr;gap:.2rem .9rem;margin:.4rem 0 .9rem;font-size:.92rem">
-        ${b.pairs.map(([k, v]) => `<dt class="mono" style="color:var(--ink-3);font-size:.78rem">${esc(k)}</dt><dd>${inlineMarkup(String(v), opts)}</dd>`).join('')}</dl>`;
+      return `<dl style="display:grid;grid-template-columns:auto 1fr;gap:.2rem .9rem;margin:.4rem 0 .9rem;font-size:1.125rem">
+        ${b.pairs.map(([k, v]) => `<dt class="mono" style="color:var(--ink-3);font-size:1rem">${esc(k)}</dt><dd>${inlineMarkup(String(v), opts)}</dd>`).join('')}</dl>`;
     case 'hr':
       return `<hr style="border:0;border-top:1px dashed var(--rule);margin:1rem 0">`;
     case 'pre':
-      return `<div class="mono" style="white-space:pre-wrap;font-size:.82rem;line-height:1.7;background:var(--rule-soft);padding:.7rem .9rem;border-radius:3px;margin:.4rem 0 .9rem">${inlineMarkup(b.text, opts)}</div>`;
+      return `<div class="mono" style="white-space:pre-wrap;font-size:1.125rem;line-height:1.7;background:var(--rule-soft);padding:.7rem .9rem;border-radius:3px;margin:.4rem 0 .9rem">${inlineMarkup(b.text, opts)}</div>`;
     default:
       return `<p>${inlineMarkup(b.text || '', opts)}</p>`;
   }

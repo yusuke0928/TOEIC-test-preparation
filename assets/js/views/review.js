@@ -118,11 +118,11 @@ function renderList(idx, ids, limit = 40) {
     return `<div class="row">
       <span class="row__no">${u ? `P${u.part}` : '—'}</span>
       <span>
-        <span class="row__t en" style="font-size:.84rem">${esc(itemLabel(hit).slice(0, 84))}</span>
+        <span class="row__t en" style="font-size:1rem">${esc(itemLabel(hit).slice(0, 84))}</span>
         <span class="row__s">${topics.map(t => esc(topicName(t))).join('・') || (u ? esc(partLabel(u.part)) : '')}</span>
       </span>
       <span class="row__r">${st.n ? `<span style="color:var(--shu)">${st.ok}/${st.n}</span>` : '<span class="note">未</span>'}
-        <br><span class="note" style="font-size:.62rem">${st.n ? relTime(st.due) : ''}</span></span>
+        <br><span class="note" style="font-size:.875rem">${st.n ? relTime(st.due) : ''}</span></span>
     </div>`;
   }).join('');
   const more = ids.length > limit
@@ -133,7 +133,7 @@ function renderList(idx, ids, limit = 40) {
 function card(title, body, action) {
   return `<div class="card">
     <div class="stat__k">${esc(title)}</div>
-    <p style="font-size:.86rem;line-height:1.8;margin:.5rem 0 .9rem;min-height:4.2rem">${body}</p>
+    <p style="font-size:1rem;line-height:1.8;margin:.5rem 0 .9rem;min-height:4.2rem">${body}</p>
     ${action}
   </div>`;
 }

@@ -121,8 +121,8 @@ function draw(el) {
       })))}
       <div class="tbl-wrap mt2"><table class="tbl">
         <thead><tr>
-          <th>パート</th><th>セクション</th><th class="num">演習</th><th class="num">正答率</th>
-          <th class="num">必要</th><th class="num">想定失点</th><th class="num">許容</th><th>判定</th>
+          <th>パート</th><th class="lo">セクション</th><th class="num lo">演習</th><th class="num">正答率</th>
+          <th class="num lo">必要</th><th class="num">想定失点</th><th class="num">許容</th><th>判定</th>
         </tr></thead>
         <tbody>${gaps.map(g => {
           const d = bp[g.part];
@@ -133,10 +133,10 @@ function draw(el) {
             : '<span class="chip chip--shu">要対策</span>';
           return `<tr>
             <td><b>Part ${g.part}</b><br><span class="note">${esc(partLabel(g.part).split('・')[1])}</span></td>
-            <td class="note">${esc(sectionOf(g.part))}</td>
-            <td class="num mono">${d.n}</td>
+            <td class="note lo">${esc(sectionOf(g.part))}</td>
+            <td class="num mono lo">${d.n}</td>
             <td class="num mono">${d.n ? pct(g.acc) : '—'}</td>
-            <td class="num mono note">${pct(g.needAcc)}</td>
+            <td class="num mono note lo">${pct(g.needAcc)}</td>
             <td class="num mono" style="color:${g.projectedMiss > g.allow ? 'var(--shu)' : 'var(--midori)'}">
               ${enough ? `${g.projectedMiss}` : '—'}</td>
             <td class="num mono note">${g.allow}</td>
@@ -193,7 +193,7 @@ function draw(el) {
           const bg = a == null ? 'var(--rule-soft)'
             : a >= .9 ? 'var(--midori-wash)' : a >= .75 ? 'rgba(161,124,34,.14)' : 'var(--shu-wash)';
           const fg = a == null ? 'var(--ink-3)' : a >= .9 ? 'var(--midori)' : a >= .75 ? 'var(--kin)' : 'var(--shu)';
-          return `<a href="#/drills/${esc(t.id)}" class="chip" style="background:${bg};color:${fg};border-color:${a == null ? 'var(--rule)' : 'transparent'};font-family:var(--f-ui);font-size:.72rem;letter-spacing:0">
+          return `<a href="#/drills/${esc(t.id)}" class="chip" style="background:${bg};color:${fg};border-color:${a == null ? 'var(--rule)' : 'transparent'};font-family:var(--f-ui);font-size:.875rem;letter-spacing:0">
             ${esc(t.name)}${a != null ? `　<b class="mono">${Math.round(a * 100)}</b>` : ''}</a>`;
         }).join('')}
       </div>
@@ -206,12 +206,12 @@ function draw(el) {
       <div class="card">
         <div class="stat__k">1 問あたりの平均解答時間</div>
         <div class="tbl-wrap mt"><table class="tbl">
-          <thead><tr><th>パート</th><th class="num">平均</th><th class="num">本番の目安</th><th style="width:30%"></th><th>判定</th></tr></thead>
+          <thead><tr><th>パート</th><th class="num">平均</th><th class="num lo">本番の目安</th><th class="lo" style="width:30%"></th><th>判定</th></tr></thead>
           <tbody>${pace.length ? pace.map(p => `<tr>
             <td class="mono">Part ${p.part}</td>
             <td class="num mono" style="color:${p.over ? 'var(--shu)' : 'var(--midori)'}">${p.avg.toFixed(1)} 秒</td>
-            <td class="num mono note">${p.target} 秒</td>
-            <td>${meter(Math.min(1, p.target / Math.max(p.avg, 1)), p.over ? 'meter__fill--shu' : 'meter__fill--ok')}</td>
+            <td class="num mono note lo">${p.target} 秒</td>
+            <td class="lo">${meter(Math.min(1, p.target / Math.max(p.avg, 1)), p.over ? 'meter__fill--shu' : 'meter__fill--ok')}</td>
             <td>${p.over ? `<span class="chip chip--shu">${Math.round(p.avg - p.target)} 秒超過</span>` : '<span class="chip chip--ok">間に合う</span>'}</td>
           </tr>`).join('') : '<tr><td colspan="5" class="note">リーディングの演習記録がまだありません。</td></tr>'}</tbody>
         </table></div>
@@ -270,20 +270,20 @@ function draw(el) {
     <div class="card card--flush">
       <div class="tbl-wrap"><table class="tbl">
         <thead><tr>
-          <th>日時</th><th>種別</th><th>内容</th><th class="num">問題数</th>
-          <th class="num">正答率</th><th class="num">所要</th><th class="num">換算</th><th></th>
+          <th class="lo">日時</th><th class="lo">種別</th><th>内容</th><th class="num lo">問題数</th>
+          <th class="num">正答率</th><th class="num lo">所要</th><th class="num lo">換算</th><th></th>
         </tr></thead>
         <tbody>${attempts.slice(0, 60).map(a => {
           const ok = a.items.filter(i => i.correct).length;
           return `<tr>
-            <td class="mono note">${jaDateTime(a.ts)}</td>
-            <td><span class="chip ${a.mode === 'mock' ? 'chip--shu' : a.mode === 'review' ? 'chip--ai' : ''}">${
+            <td class="mono note lo">${jaDateTime(a.ts)}</td>
+            <td class="lo"><span class="chip ${a.mode === 'mock' ? 'chip--shu' : a.mode === 'review' ? 'chip--ai' : ''}">${
               a.mode === 'mock' ? '模試' : a.mode === 'review' ? '復習' : '論点'}</span></td>
-            <td>${esc(a.label)}</td>
-            <td class="num mono">${a.items.length}</td>
+            <td>${esc(a.label)}<span class="only-sm note">${jaDateTime(a.ts)}　${a.items.length} 問${a.full ? `　換算 ${a.scaled.total}` : ''}</span></td>
+            <td class="num mono lo">${a.items.length}</td>
             <td class="num mono" style="color:${ok / a.items.length >= .85 ? 'var(--midori)' : ok / a.items.length >= .7 ? 'var(--kin)' : 'var(--shu)'}">${pct(ok / a.items.length)}</td>
-            <td class="num mono note">${hhmmss(a.durationMs)}</td>
-            <td class="num mono">${a.full ? `<b>${a.scaled.total}</b>` : '—'}</td>
+            <td class="num mono note lo">${hhmmss(a.durationMs)}</td>
+            <td class="num mono lo">${a.full ? `<b>${a.scaled.total}</b>` : '—'}</td>
             <td class="num"><a class="btn btn--ghost btn--sm" href="#/result/${esc(a.id)}">詳細</a></td>
           </tr>`;
         }).join('')}</tbody>

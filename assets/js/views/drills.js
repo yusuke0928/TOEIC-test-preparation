@@ -146,12 +146,12 @@ export async function topic(el, topicId) {
         <div class="row">
           <span class="row__no">${String(i + 1).padStart(2, '0')}</span>
           <span>
-            <span class="row__t en" style="font-size:.86rem">${esc(r.title)}</span>
+            <span class="row__t en" style="font-size:1rem">${esc(r.title)}</span>
             <span class="row__s">${esc(partLabel(r.u.part))}${r.u.level ? `　難度 ${r.u.level}` : ''}${r.flagged ? '　★' : ''}</span>
           </span>
           <span class="row__r">${r.done
             ? `<span style="color:${r.ok === r.done ? 'var(--midori)' : 'var(--shu)'}">${r.ok}/${r.done}</span>
-               <br><span class="note" style="font-size:.62rem">${Number.isFinite(r.nextDue) && r.nextDue > Date.now() ? relTime(r.nextDue) : '復習期'}</span>`
+               <br><span class="note" style="font-size:.875rem">${Number.isFinite(r.nextDue) && r.nextDue > Date.now() ? relTime(r.nextDue) : '復習期'}</span>`
             : '<span class="note">未</span>'}</span>
         </div>`).join('')}</div>`
         : empty('準', 'この論点の設問は現在準備中です。', '<a class="btn btn--ghost" href="#/drills">他の論点へ</a>')}

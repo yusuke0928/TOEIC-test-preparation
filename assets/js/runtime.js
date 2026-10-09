@@ -134,7 +134,7 @@ export async function launchOrResume(cfg) {
       `中断していた「${saved.label || '演習'}」が ${saved.answered || 0} / ${total} 問まで残っています。続きから再開しますか？\n（キャンセル：何もしません）`
     );
     if (!ok) {
-      toast('中断中の演習はそのままにしました。最初からやり直すときは、扉の「中断中の演習」から破棄してください。');
+      toast('中断中の演習はそのままにしました。最初からやり直すときは、ダッシュボードの「中断中の演習」から破棄してください。');
       return false;
     }
     const resumed = await resumeFromSession(key, saved, { backTo: cfg.backTo });

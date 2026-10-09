@@ -62,7 +62,7 @@ async function render() {
     app.innerHTML = `<div class="empty"><div class="empty__k">誤</div>
       <p>画面の読み込みに失敗しました。</p>
       <p class="note mt">${String(e.message || e)}</p>
-      <div class="mt"><a class="btn" href="#/">扉に戻る</a></div></div>`;
+      <div class="mt"><a class="btn" href="#/">ダッシュボードに戻る</a></div></div>`;
   }
   updateBadge();
 }
@@ -99,7 +99,7 @@ $('#theme-toggle')?.addEventListener('click', () => {
 
 /* ── 版（背表紙。881px 以上でのみ表示。881px 未満は spine__version を
    assets/css/app.css の @media(max-width:880px) で display:none にして
-   上端バーへ詰め込まないようにし、代わりに扉（home.js）の末尾に出す） ── */
+   上端バーへ詰め込まないようにし、代わりにダッシュボード（home.js）の末尾に出す） ── */
 function applyVersion() {
   const el = $('#spine-version');
   if (!el) return;

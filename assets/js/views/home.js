@@ -1,5 +1,5 @@
 /* =============================================================
-   home.js — 扉（ダッシュボード）
+   home.js — ダッシュボード
    ============================================================= */
 
 import { state, dueCount, allSessions, clearSession, attemptsDesc } from '../store.js';
@@ -36,7 +36,7 @@ export default async function home(el) {
     el.innerHTML = `
       ${pageHead({
         kicker: `${greet}　—　${new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}`,
-        title: '扉（ダッシュボード）',
+        title: 'ダッシュボード',
         sub: '800 点台から 900 台へ。取りこぼしを潰し込む場所です。',
       })}
       <div class="card" style="border-left:3px solid var(--shu)">
@@ -72,7 +72,7 @@ export default async function home(el) {
   el.innerHTML = `
     ${pageHead({
       kicker: `${greet}　—　${new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}`,
-      title: '扉（ダッシュボード）',
+      title: 'ダッシュボード',
       sub: '800 点台から 900 台へ。取りこぼしを潰し込む場所です。',
       aside: `<span class="chip chip--shu">連続 ${streak} 日</span>
               <span class="chip">通算 ${cov.total.toLocaleString()} 問</span>`,
@@ -107,7 +107,7 @@ export default async function home(el) {
           ${ring(Math.min(1, today / goal), { label: `${today}`, sub: `/ ${goal} 問`, color: today >= goal ? 'var(--midori)' : 'var(--shu)' })}
           <div style="flex:1">
             <div class="stat__k">本日の学習</div>
-            <div style="font-size:.88rem;margin-top:.3rem;line-height:1.7">
+            <div style="font-size:1rem;margin-top:.3rem;line-height:1.7">
               ${today >= goal
                 ? '目標達成。今日はここまでで十分です。'
                 : `目標まであと <b>${goal - today}</b> 問。<br>10 分あれば Part 5 を 20 問こなせます。`}
@@ -129,7 +129,7 @@ export default async function home(el) {
         due ? `<a class="btn btn--shu btn--block" href="#/review">復習を始める</a>` : `<a class="btn btn--ghost btn--block" href="#/drills">論点を選ぶ</a>`)}
 
       ${todoCard('弱点の論点', weak.length
-        ? weak.map(w => `<div class="inline" style="justify-content:space-between;font-size:.84rem;margin-bottom:.3rem">
+        ? weak.map(w => `<div class="inline" style="justify-content:space-between;font-size:1rem;margin-bottom:.3rem">
              <a href="#/drills/${esc(w.id)}">${esc(topicName(w.id))}</a>
              <span class="mono" style="color:var(--shu)">${pct(w.acc)}</span></div>`).join('')
         : '<span class="note">まだ判定に足るデータがありません。各論点を 5 問以上こなすと表示されます。</span>',
@@ -142,18 +142,18 @@ export default async function home(el) {
     ${sectionHead('02', 'パート別の現在地', '目標は 900 到達ライン')}
     <div class="card">
       <div class="tbl-wrap"><table class="tbl">
-        <thead><tr><th>パート</th><th>演習数</th><th>正答率</th><th style="width:34%">900 ライン</th><th class="num">想定失点</th></tr></thead>
+        <thead><tr><th>パート</th><th class="lo">演習数</th><th>正答率</th><th style="width:34%">900 ライン</th><th class="num">想定失点</th></tr></thead>
         <tbody>
         ${[1, 2, 3, 4, 5, 6, 7].map(p => {
           const d = bp[p], t = TARGET_900[p];
           const need = (t.size - t.allow) / t.size;
           const ok = d.n >= 5 && d.acc >= need;
           return `<tr>
-            <td><a href="#/analytics">${esc(partLabel(p))}</a></td>
-            <td class="num mono">${d.n}</td>
+            <td><a href="#/analytics">${(() => { const [a, b] = partLabel(p).split('・'); return `<span class="pn">${esc(a)}</span><span class="pdot">・</span><span class="pf note">${esc(b || '')}</span>`; })()}</a></td>
+            <td class="num mono lo">${d.n}</td>
             <td class="num mono" style="color:${d.n < 5 ? 'var(--ink-3)' : ok ? 'var(--midori)' : 'var(--shu)'}">${d.n ? pct(d.acc) : '—'}</td>
             <td>${meter(d.n ? d.acc / 1 : 0, accMod(d.acc))}
-                <span class="note mono" style="font-size:.65rem">必要 ${pct(need)}</span></td>
+                <span class="note mono" style="font-size:.875rem">必要 ${pct(need)}</span></td>
             <td class="num mono">${d.n >= 5 ? `${Math.round((1 - d.acc) * t.size * 10) / 10} 問` : '—'}</td>
           </tr>`;
         }).join('')}
@@ -280,7 +280,7 @@ function pausedLabel(ts) {
  * 2 件目・3 件目は同じカード内に 1 行ずつ積む（rev-wrong-… / rev-blank-… のように
  * 複数のセッションキーが同時に残る場合、古い方をここに出さないと二度と
  * 到達できなくなるため）。4 件目以降は「他 N 件を表示」の下にたたむ
- * （携帯幅では6件で1画面を超え、扉の上部を占有してしまうため）。
+ * （携帯幅では6件で1画面を超え、ダッシュボードの上部を占有してしまうため）。
  * 並び順は orderSessions() が決める（時間制限つきが先頭。是正1）ため、
  * 「1 件目」は単純な最新ではなく、その並びの先頭という意味になる。
  * 開閉の状態は保存しない。新しい CSS クラスは足さず、quiz.js の
@@ -330,10 +330,10 @@ function shortfallNote(est) {
 }
 
 /**
- * 扉の末尾に出す小さな版表示。881px 以上では背表紙
+ * ダッシュボードの末尾に出す小さな版表示。881px 以上では背表紙
  * （spine__foot の #spine-version、app.js の applyVersion() が描画）に出ているが、
  * 880px 以下ではタブバーに設定への導線が無く設定画面（版の詳細）に到達できないため、
- * この扉にも出す。表示の可否自体は assets/css/app.css の .home-version が
+ * このダッシュボードにも出す。表示の可否自体は assets/css/app.css の .home-version が
  * 幅で切り替える（881px 以上では display:none）。
  */
 function homeVersionLine() {
@@ -344,7 +344,7 @@ function homeVersionLine() {
 function todoCard(title, bodyHtml, action) {
   return `<div class="card">
     <div class="stat__k">${esc(title)}</div>
-    <div style="font-size:.86rem;line-height:1.8;margin:.5rem 0 .9rem;min-height:4.6rem">${bodyHtml}</div>
+    <div style="font-size:1rem;line-height:1.8;margin:.5rem 0 .9rem;min-height:4.6rem">${bodyHtml}</div>
     ${action}
   </div>`;
 }

@@ -73,7 +73,7 @@ export default async function mocks(el) {
               ${!m.available ? '<div class="note mono">— 準備中 —</div>'
                 : best ? `<div class="stat__v" style="font-size:2rem;color:var(--shu)">${best.scaled.total}</div>
                         <div class="note mono">L${best.scaled.L} / R${best.scaled.R}</div>
-                        <div class="note mono" style="font-size:.62rem">${jaDateTime(best.ts)}</div>`
+                        <div class="note mono" style="font-size:.875rem">${jaDateTime(best.ts)}</div>`
                      : '<div class="note mono">— 未受験 —</div>'}
             </div>
           </div>`;
@@ -188,7 +188,7 @@ export async function detail(el, id) {
           return `<a class="row" href="#/result/${esc(a.id)}">
             <span class="row__no">${a.full ? 'FULL' : '部分'}</span>
             <span><span class="row__t">${esc(a.label)}</span>
-              <span class="row__s">${jaDateTime(a.ts)}　${hhmmss(a.durationMs)}　${a.items.length} 問中 ${ok} 問正解</span></span>
+              <span class="row__s">${jaDateTime(a.ts)}　${hhmmss(a.durationMs)}　<span style="white-space:nowrap">${a.items.length} 問中 ${ok} 問正解</span></span></span>
             <span class="row__r">${a.full ? `<span style="color:var(--shu);font-size:1.05rem">${a.scaled.total}</span><br>` : ''}
               <span class="note">${pct(ok / a.items.length)}</span></span>
           </a>`;

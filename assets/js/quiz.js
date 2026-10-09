@@ -312,10 +312,10 @@ export class Run {
     const range = nos.length > 1 ? `No. ${nos[0]}–${nos.at(-1)}` : `No. ${nos[0]}`;
     return `<div class="q__meta">
       <span class="q__no">${range}</span>
-      <span class="chip chip--ai">${esc(partLabel(u.part))}</span>
-      ${u.level ? `<span class="chip">難度 ${'●'.repeat(u.level)}${'○'.repeat(5 - u.level)}</span>` : ''}
+      <span class="chip chip--ai">${(() => { const [a, b] = partLabel(u.part).split('・'); return esc(a) + (b ? `<span class="pl-x">・${esc(b)}</span>` : ''); })()}</span>
+      ${u.level ? `<span class="chip chip--lv" title="難度 ${u.level}"><span class="lv-lab">難度 </span>${'●'.repeat(u.level)}${'○'.repeat(5 - u.level)}</span>` : ''}
       ${extra}
-      <button class="btn btn--ghost btn--sm push" data-act="flag">${isFlagged(u.questions[0].id) ? '★ フラグ中' : '☆ フラグ'}</button>
+      <button class="btn btn--ghost btn--sm push" data-act="flag" aria-label="フラグ" title="フラグ">${isFlagged(u.questions[0].id) ? '★<span class="fl-t"> フラグ中</span>' : '☆<span class="fl-t"> フラグ</span>'}</button>
     </div>`;
   }
 
@@ -504,7 +504,7 @@ export class Run {
         <span class="q__no">${this.noOf(q)}</span>
         ${q.tag ? `<span class="chip">${esc(q.tag)}</span>` : ''}
       </div>
-      ${q.stem ? `<p class="q__stem" style="font-size:1rem;margin-bottom:.8rem">${blanks(q.stem)}</p>` : ''}
+      ${q.stem ? `<p class="q__stem" style="font-size:1.125rem;margin-bottom:.8rem">${blanks(q.stem)}</p>` : ''}
       ${this.choiceList(q)}
       ${a?.revealed ? this.kaisetsu(u, q, true) : ''}
     </div>`;
@@ -526,7 +526,7 @@ export class Run {
         <button class="btn" data-act="next">${this.page === total - 1 ? '採点へ →' : '次へ →'}</button>
       </div>
       <details class="mt2">
-        <summary class="note" style="cursor:pointer;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em">解答一覧を開く</summary>
+        <summary class="note" style="cursor:pointer;font-family:var(--f-mono);font-size:.875rem;letter-spacing:.06em">解答一覧を開く</summary>
         <div class="palette mt">
           ${this.qIndex.map((x, i) => {
             const a = this.answers[x.q.id];
@@ -591,7 +591,7 @@ export class Run {
     el.querySelector('[data-act="finish"]')?.addEventListener('click', () => this.confirmFinish());
     el.querySelector('[data-act="pause"]')?.addEventListener('click', () => {
       this.persist();
-      toast('中断しました。ホームから再開できます。');
+      toast('中断しました。ダッシュボードから再開できます。');
       this.destroy();
       this.onExit();
     });
